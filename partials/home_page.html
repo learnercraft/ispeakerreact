@@ -1,0 +1,32 @@
+<div class="hme_btn_wrp">
+    <div class="btn home_help common_page">
+        <a href="javascript:;" ng-click="help_btn()">{{help_btn_txt}}</a>
+    </div>
+</div>
+<div class="responsive_row clear_both">
+    <div class="row">
+        <h1 class="home_h1"><span>Oxford <span class="home_ispeaker_txt">iSpeaker</span></span></h1>
+
+    </div>
+    <div class="row _row">
+        <div class="box" id="sound_page" ng-click="load_section($event, 'sound_page')">
+            <h2>Sounds</h2>
+            <div class="icon_wrp"><img style="margin-top: -3px;" src="images/ispeaker/sound_.png"/></div>
+        </div>
+        <div class="box-padding" style="display: block;"></div>
+        <div class="box" id="ex_page" ng-click="load_section($event, 'ex_page')">
+            <h2>Exercises</h2>
+            <div class="icon_wrp"><img src="images/ispeaker/execises_.png"/></div>
+        </div>
+        <div class="box-padding" style="display: block;"></div>
+        <div class="box" id="con_page" ng-click="load_section($event, 'con_page')">
+            <h2>Conversations</h2>
+            <div class="icon_wrp"><img src="images/ispeaker/conversation_.png"/></div>
+        </div>
+        <div class="box-padding" style="display: block;"></div>
+        <div class="box" id="exam_page" ng-click="load_section($event, 'exam_page')">
+            <h2>Exam Speaking</h2>
+            <div class="icon_wrp"><img src="images/ispeaker/exam-speaking_.png"/></div>
+        </div>
+    </div>
+</div>

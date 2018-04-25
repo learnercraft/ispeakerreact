@@ -1,0 +1,68 @@
+{
+    "data": [
+        {
+            "value": "red",
+            "text": "Red"
+        },
+        {
+            "value": "green",
+            "text": "Green"
+        },
+        {
+            "value": "green",
+            "text": "Green"
+        },
+        {
+            "value": "green",
+            "text": "Green"
+        },
+        {
+            "value": "white",
+            "text": "White"
+        },
+        {
+            "value": "blue",
+            "text": "Blue"
+        },
+        {
+            "value": "red",
+            "text": "Red"
+        },
+        {
+            "value": "white",
+            "text": "White"
+        },
+        {
+            "value": "blue",
+            "text": "Blue"
+        },
+        {
+            "value": "red",
+            "text": "Red"
+        },
+                {
+                    "value": "blue",
+                    "text": "Blue"
+                },
+        {
+            "value": "green",
+            "text": "Green"
+        },
+        {
+            "value": "white",
+            "text": "White"
+        },
+        {
+            "value": "blue",
+            "text": "Blue"
+        },
+        {
+            "value": "red",
+            "text": "Red"
+        },
+        {
+            "value": "white",
+            "text": "White"
+        }
+    ]
+}
