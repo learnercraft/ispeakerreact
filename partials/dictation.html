@@ -1,0 +1,38 @@
+<div class="actContainer reordering dectation clearfx" ng-controller="dectation" >
+    <div class="actQuestion">question: {{cnt + 1}}</div>
+    <div class="spearkerContainer">
+        <div class="speaker" ng-click="playAudio($event)">
+            <audio controls class="dectationAudio">
+                <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
+                <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mp3">
+            </audio>
+        </div>
+    </div>
+    <div class="dectationContainerO">
+        <div class="dectationContainer ng-cloak">
+            <ul class="dragContainer">
+                <li class="dragHolder" ng-repeat="word in words">
+                    <div class="wordDiv sel" ng-if="word.value && words.length != 1">
+                        {{ word.value}}
+                    </div>
+                    <div class="textBoxDiv textBoxDiv1" ng-if="word.textbox && words.length != 1">
+                        <input type="text"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                    </div>
+                    <div class="textBoxDiv" ng-if="words.length == 1">
+                        <input type="text"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="correctAns"><strong>Correct answer:</strong> <span>{{show_ans}}</span></div>
+        <div class="btn_container">
+
+            <div class="tpl_btn submit" ng-click="submit()">Submit</div>
+
+            <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">
+                Next
+            </div>
+            <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+        </div>
+    </div>
+</div>

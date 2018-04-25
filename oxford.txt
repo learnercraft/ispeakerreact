@@ -1,0 +1,176 @@
+<div class="container" style="display:none;">
+                                    <div class="titleContainer"><h1>Choose a sound to practise</h1>
+                                        <div class="models_page_right_panel">
+                                            <span class="models_page_menu_text">Sound</span>
+                                            <div class="models_page_down_arrow">
+                                                <div class="down_arrow_wrapper" style="display: none;">
+                                                    <ul>
+                                                        <li class="current_tool">Models</li>
+                                                        <li class="save_pro">Save</li>
+                                                        <li>Help</li>
+                                                        <li class="drp_home_clk">Home</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div style="display: none;" class="models_page_home"></div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="left_part w_30">
+                                            <h4>British English</h4>
+                                            <h5>Instructions:</h5>
+                                            <p>
+                                                Turn over two cards at a time to find pairs of words with the same pronunciation, for example "here" and "hear".<br><br>
+                                                Can you complete the game?
+                                            </p>
+                                        </div>
+                                        <div class="right_part w_70">
+                                            <div class="flip-container">
+                                                <div class="flipper">
+                                                    <div class="front">
+                                                        <!-- front content -->
+                                                    </div>
+                                                    <div class="back">
+                                                        <!-- back content -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container" style="display:none;">
+                                    <div class="titleContainer"><h1>Choose a sound to practise</h1>
+                                        <div class="models_page_right_panel">
+                                            <span class="models_page_menu_text">Sound</span>
+                                            <div class="models_page_down_arrow">
+                                                <div class="down_arrow_wrapper" style="display: none;">
+                                                    <ul>
+                                                        <li class="current_tool">Models</li>
+                                                        <li class="save_pro">Save</li>
+                                                        <li>Help</li>
+                                                        <li class="drp_home_clk">Home</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div style="display: none;" class="models_page_home"></div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="column_50">
+                                            <div class="soundPDiv">
+                                                <div class="column_title">Consononts</div>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <th>Phoneme</th>
+                                                        <th>Example</th>
+                                                        <th>British</th>
+                                                        <th>American</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on."></div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on1."></div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on2."></div></td>
+                                                    </tr>
+                                                </table>
+                                                <div class="notesText">This type of essay requires you to present a reasoned argument on a particular issue. This framework presents on one side first, followed by the argument on other side.</div>
+                                            </div>
+                                        </div>
+                                        <div class="column_50">
+                                            <div class="soundPDiv">
+                                                <div class="column_title">Vowels and Diphthongs</div>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <th>Phoneme</th>
+                                                        <th>Example</th>
+                                                        <th>British</th>
+                                                        <th>American</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on3."></div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on.4"></div></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>p</td>
+                                                        <td>pen</td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><img src="images/go.jpg"/></td>
+                                                        <td><div class="infoB" data-val="This type of essay requires you to present a reasoned argument on.5"></div></td>
+                                                    </tr>
+                                                </table>
+                                                <div class="notesText">This type of essay requires you to present a reasoned argument on a particular issue. This framework presents on one side first, followed by the argument on other side.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+<div class="content">
+                                        <div class="left_part w_30">
+                                            <h4>p (American)</h4>
+                                            <h5>Information</h5>
+                                            <p>
+                                                Brief text giving information about the sound and how to say it.
+                                            </p>
+                                        </div>
+                                        <div class="right_part w_70">
+                                            <div class="accordion_c">
+                                                <ul>
+                                                    <li>
+                                                        <div class="accordion_title"><p>Watch</p><span class="ico"></span></div>
+                                                        <div class="accordion_content">
+                                                            <div video-player video-src="video1"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="accordion_title"><p>Practice</p><span class="ico"></span></div>
+                                                        <div class="accordion_content">
+                                                            <div class="practice_div">
+                                                                <div class="practise_title">Record your own pronunciation</div>
+                                                                <div class="lists"><img src="images/video1.png"/> <div class="pract_words"><span>Word 1</span> <span>/</span> <span>ipa</span></div><div class="record"></div><div class="play"></div></div>
+                                                                <div class="lists"><img src="images/video1.png"/> <div class="pract_words"><span>Word 1</span> <span>/</span> <span>ipa</span></div><div class="record"></div><div class="play"></div></div>
+                                                                <div class="lists"><img src="images/video1.png"/> <div class="pract_words"><span>Word 1</span> <span>/</span> <span>ipa</span></div><div class="record"></div><div class="play"></div></div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="accordion_title"><p>Review</p><span class="ico"></span></div>
+                                                        <div class="accordion_content review">
+                                                            <h4>I can pronounce the sound /p/</h4>
+                                                            <div class="rating_div clearfix">
+                                                                <div class="rate_1"></div><div class="rate_2"></div><div class="rate_3"></div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>

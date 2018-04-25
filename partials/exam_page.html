@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="titleContainer" ng-include="'partials/header.html'">
+
+    </div>
+    <div class="content">
+
+        <div class="left_part w_30 open left_part_ep" style="background-color: #e0f2fd; box-shadow: none;">
+            <div class="arrow_wrp" ng-hide="hoverEdit">
+                <div class="arrow_box"></div>
+            </div>
+            <ul class="task_list_ul">
+                <li ng-repeat="task in exam_data['task']" >
+                    <div class="li_inner">
+                        <span class="sp_left" data-key="0" ng-click="go_btn_clk($event, $index, 'task')">{{task.task}}</span>
+                        <span class="info_ic" data-show="hide" ng-click="info_btn_clk($event)" ng-mouseover="hoverIn($event, task.info)" ng-mouseleave="hoverOut($event)"></span>
+                    </div>
+                    <div class="info_text">
+                        {{task.info}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="right_part w_70">
+
+        </div>
+    </div>
+</div>
