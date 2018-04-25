@@ -1,0 +1,46 @@
+<div class="actContainer reordering clearfx" ng-controller="reorderingCtrl as reorder">
+    <div class="actQuestion">question: {{cnt + 1}}</div>
+    <div class="spearkerContainer">
+        <div class="speaker" ng-click="playAudio($event)">
+            <audio controls id="reorderAudio">
+                <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
+                <source ng-src="{{'media/exercise/ogg/' + audio.src + '.mp3'}}" type="audio/mp3">
+            </audio>
+        </div>
+        <!--<div class="timer">{{time|timer}}</div>-->
+        <div class="timer"></div>
+
+    </div>
+    <div class="sortableContainerO">
+        <div class="sortableContainer ng-cloak">
+            <ul class="dragContainer">
+                <li class="dragHolder" ng-repeat="word in words">
+                    <div class="drag" ng-mousedown="startTimer()">
+                        {{word.value}}
+                    </div>
+                </li>
+
+            </ul>
+            <span class="sentanceC"><span class="sentance">{{sentanceAns}}</span></span>
+        </div>
+        <div class="correctAns"><strong>Correct answer:</strong> {{sentanceAns}}</div>
+        <div class="btn_container">
+
+            <div class="tpl_btn submit" ng-click="submit()">Submit</div>
+
+            <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
+            <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+        </div>
+    </div>
+    <div class="blackPatch">
+        <div class="popupC">
+            <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
+            <div class="popup">
+                <span class="alertMsg selNone">Out of time!</span>
+                <div class="btn_container">
+                    <div class="tpl_btn" ng-click="quit()">Ok</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

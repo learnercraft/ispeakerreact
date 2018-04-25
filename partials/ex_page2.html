@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="titleContainer" ng-include="'partials/header.html'">
+
+    </div>
+    <div class="content">
+        <div class="left_part w_30 open left_part_m">
+            <p><strong ng-bind-html="exercise | to_trusted"></strong></p>
+            <p>{{ex_data[key][index][lang][0]['h4']}}</p>
+            <p><strong>Instructions</strong></p>
+            <p class="intructions_p" style="display: none;"></p>
+        </div>
+        <div class="right_part w_70 right_part_m scroll_bar">
+            <div class="accordion_c">
+                <ul>
+                    <li>
+                        <div class="accordion_title selected _practise_accor" ng-click="accordion_title($event)"><p>Practise</p><span class="ico"></span></div>
+                        <div class="accordion_content" style="display: block;position: relative;">
+                            <div class="disabler"></div>
+                            <div ng-include="exercise_tpl.url"></div>
+                        </div>
+                    </li>
+
+                    <li ng-hide="review_display">
+                        <div class="accordion_title reviewC" ng-click="accordion_title($event)"><p>Review</p><span class="ico"></span></div>
+                        <div class="accordion_content review">
+                            <h4 ng-show="mainAns" class="score_ele"></h4>
+                            <h4 ng-bind-html="percentage_score | to_trusted"></h4>
+                            <h4>Try this exercise again for further practice and different questions.                                                           </h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

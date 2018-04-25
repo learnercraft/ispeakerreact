@@ -1,0 +1,22 @@
+{
+  "name": "ispeaker",
+  "version": "0.1.0",
+  "description": "iSpeaker Desktop App",
+  "main": "recorderWorker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "http-server": "^0.11.1",
+    "nmp": "^1.0.3",
+    "nodejs-websocket": "^1.7.1",
+    "process": "^0.11.10",
+    "require": "^2.4.20",
+    "websocketserver": "^1.0.0",
+    "ws": "^5.1.1"
+  }
+}

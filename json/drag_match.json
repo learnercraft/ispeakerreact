@@ -1,0 +1,48 @@
+{
+    "audio": [
+        {
+            "src": "media/crow"
+        },
+        {
+            "src": "media/slight"
+        },
+        {
+            "src": "media/general"
+        },
+        {
+            "src": "media/assume"
+        },
+        {
+            "src": "media/danger"
+        },
+        {
+            "src": "media/format"
+        }
+    ],
+    "words": [
+        {
+            "text": "crow",
+            "drag": true
+        },
+        {
+            "text": "slight",
+            "drag": true
+        },
+        {
+            "text": "general",
+            "drag": true
+        },
+        {
+            "text": "assume",
+            "drag": true
+        },
+        {
+            "text": "danger",
+            "drag": true
+        },
+        {
+            "text": "format",
+            "drag": true
+        }
+    ]
+}

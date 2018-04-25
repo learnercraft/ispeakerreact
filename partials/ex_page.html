@@ -1,0 +1,212 @@
+<div class="container">
+    <div class="titleContainer" ng-include="'partials/header.html'">
+
+    </div>
+    <div class="content">
+        <div class="div1">
+            <div class="column_50 column_50_" style="margin-top: 15px;">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div style="display: none;" class="column_title">Dictation</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Dictation</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="dictation in ex_data['dictation']">
+                                <td>{{dictation.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'dictation', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'dictation', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, dictation.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Match-up</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Match-up</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="matchup in ex_data['matchup']">
+                                <td>{{matchup.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'matchup', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'matchup', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, matchup.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_" style="">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Reordering</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Reordering</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="reordering in ex_data['reordering']">
+                                <td>{{reordering.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'reordering', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'reordering', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, reordering.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Sounds and Spelling</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Sounds and Spelling</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="sounds_n_spelling in ex_data['sounds_n_spelling']">
+                                <td ng-bind-html="sounds_n_spelling.exercise | to_trusted"></td>
+                                <td><div ng-if="sounds_n_spelling.b_s == 'yes'" class="go_btn" ng-click="go_btn_clk($event, $index, 'sounds_n_spelling', 'b')">Go</div></td>
+                                <td><div ng-if="sounds_n_spelling.a_s == 'yes'" class="go_btn" ng-click="go_btn_clk($event, $index, 'sounds_n_spelling', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, sounds_n_spelling.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+        </div>
+        <div class="div2">
+            <div class="column_50 column_50_" style="">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Sorting</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Sorting</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="sorting in ex_data['sorting']">
+                                <td>{{sorting.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'sorting', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'sorting', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, sorting.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Odd One Out</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Odd One Out</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="odd_one_out in ex_data['odd_one_out']">
+                                <td>{{odd_one_out.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'odd_one_out', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'odd_one_out', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, odd_one_out.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_" style="">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Snap!</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Snap!</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="snap in ex_data['snap']">
+                                <td>{{snap.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'snap', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'snap', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, snap.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+            <div class="column_50 column_50_">
+                <div class="soundPDiv soundPDiv_">
+                    <!--<div class="column_title">Memory Match</div>-->
+                    <div class="accordion_title" ng-click="accordion_title($event)"><p>Memory Match</p><span class="ico"></span></div>
+                    <div class="accordion_content _accordion_content" style="display: none;">
+                        <table width="97%">
+                            <tr>
+                                <th width="30%">Exercise</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+
+                            <tr ng-repeat="memory_match in ex_data['memory_match']">
+                                <td>{{memory_match.exercise}}</td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'memory_match', 'b')">Go</div></td>
+                                <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'memory_match', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, memory_match.info, 4)"></div></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="notesText"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
