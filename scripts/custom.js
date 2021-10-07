@@ -1,29 +1,102 @@
 var event_type = 'click';
+var audio_record = false;
 var _device = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     event_type = 'touchend';
     _device = true;
 }
+var deviceIdentity;
+//alert(window.parent.deviceflag);
+//alert(window.localStorage.getItem('deviceflag'));
+//alert(window.localStorage.deviceflag);
 
-var isWin = /^win/.test(process.platform);
-var recording_path = '';
-if (isWin) {
-    recording_path = process.env.HOMEDRIVE + process.env.HOMEPATH + '/ispeaker/';
-    var fs = require('fs');
+if (getMobileOperatingSystem() == "iOS") {
+    if (localStorage.getItem("isDevice") == "true") {
+        $.getScript("scripts/cordova.js", function (data, textStatus, jqxhr) {
+            //alert('cordova.js loaded');
+        });
+        $.getScript("scripts/howler.min.js", function (data, textStatus, jqxhr) {
+            //alert('cordova.js android loaded');
+        });
+    }
+} else if (getMobileOperatingSystem() == "Android") {
+    //alert(window.parent.vari);
+    
+    if (localStorage.getItem("isDevice") == "true") {
+        $.getScript("scripts/cordova_android.js", function (data, textStatus, jqxhr) {
+            //alert('cordova.js android loaded');
+        });
+        //$.getScript("scripts/AudioPlayer.js", function (data, textStatus, jqxhr) {
+        //    //alert('cordova.js android loaded');
+        //});
+        
+    }
+    
+}
 
-    fs.exists(recording_path, function(exists) {
-        if (exists) {
-            // Do something
-        } else {
-            fs.mkdir(recording_path, 0777, function(_err) {
-                // path was created unless there was error
-            });
-        }
-    });
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+        return 'iOS';
+
+    }
+    else if (userAgent.match(/Android/i)) {
+
+        return 'Android';
+    }
+    else {
+        return 'unknown';
+    }
+}
+
+function scroll_top() {
+    var scroll_pos = $('.main_wrapper').position();
+    $(window).scrollTop(scroll_pos.top);
 }
 
 
+  $(document).ready(function () {
 
+
+
+    $('.responsive_entry_center_wrap,#main_column,.main-container').css('margin', '0');
+    $('.responsive_entry_center_wrap,#main_column,.main-container').css('padding', '0');
+    $('.middle_wrap').parent().css('margin', '0');
+    $('.middle_wrap').parent().css('padding', '0');
+
+
+    $('.main_wrapper').parent().css('padding', '0');// to remove padding
+    set_max_height();
+    $(window).resize(function () {
+      set_max_height();
+
+      if ($(window).width() <= 768) {
+        $("._row").css('display', 'none');
+        setTimeout(function () {
+          $("._row").css('display', 'table');
+        }, 200);
+      }
+    });
+    $('.models_page_down_arrow').click(function () {
+      var dropd = $('.down_arrow_wrapper');
+      if (dropd.is(':visible')) {
+        $('.down_arrow_wrapper').hide();
+      } else {
+        $('.down_arrow_wrapper').show();
+      }
+    })
+  });
+  function set_max_height() {
+    var window_height = parseInt(($(window).height()));
+    if (window_height <= (678)) {
+      window_height = (678);
+    } else {
+
+    }
+    $('.scroll_bar, .left_part, .right_part').css('min-height', (window_height - 50) + 'px').css('max-height', (window_height - 50) + 'px');
+    $('.main_wrapper').css('min-height', window_height + 'px');
+  }
 $(document).ready(function() {
     //database
     if (!html5sql.database) {
@@ -37,6 +110,12 @@ $(document).ready(function() {
     set_max_height();
     $(window).resize(function() {
         set_max_height();
+		 if ($(window).width() <= 768) {
+            $("._row").css('display', 'none');
+            setTimeout(function() {
+                $("._row").css('display', 'table');
+            }, 200);
+        }
     });
     $('.models_page_down_arrow').click(function() {
         var dropd = $('.down_arrow_wrapper');
@@ -54,9 +133,11 @@ function set_max_height() {
     } else {
 
     }
-    $('.scroll_bar, .left_part, .right_part').css('min-height', (window_height - 50) + 'px').css('max-height', (window_height - 50) + 'px');
+    $('.scroll_bar, .left_part, .right_part').css('min-height', (window_height - 70) + 'px').css('max-height', (window_height - 70) + 'px');
     $('.main_wrapper').css('min-height', window_height + 'px');
 }
+
+var recording_path = '/';
 
 function __log(e, data) {
     //log.innerHTML += "\n" + e + " " + (data || '');
@@ -65,6 +146,7 @@ function __log(e, data) {
 
 var audio_context;
 var recorder;
+var localStream; // line added by MITR
 
 function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
@@ -115,7 +197,7 @@ function createDownloadLink() {
     });
 }
 
-window.onload = function init() {
+/*window.onload = function init() {
     try {
         // webkit shim
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -132,4 +214,4 @@ window.onload = function init() {
     navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
         __log('No live audio input: ' + e);
     });
-};
+};*/

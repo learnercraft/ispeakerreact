@@ -1,3 +1,4 @@
+
 <div class="actContainer reordering dragMatch clearfx" ng-controller="dragMatchCtrl">
     <div class="actQuestion">question: {{cnt + 1}}</div>
     <!--    <audio controls id="reorderAudio">
@@ -12,8 +13,8 @@
                     <div class="wordSpeaker" data-content="{{ogWords[$index].text}}">
                         <div class="wSpeaker" ng-click="playAudio($event)" data-ans="{{ogWords[$index].text}}">
                             <audio controls class="reorderAudio">
+                                <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mpeg">
                                 <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
-                                <source ng-src="{{'media/exercise/ogg/' + audio.src + '.mp3'}}" type="audio/mp3">
                             </audio>
                         </div>
                     </div>

@@ -9,12 +9,16 @@
                 <p><strong>Useful Language:</strong></p>
                 <ul>
                     <li ng-repeat="var1 in con_data[key][index][lang][0]['left_text']">
-                        <div class="accordion_title" ng-click="accordion_title($event)"><p ng-bind-html="var1 | to_trusted"></p><span class="ico"></span></div>
+                        <div class="accordion_title accordion_title_exam" ng-click="accordion_title($event)">
+                            <span class="ico"></span>
+                            <p ng-bind-html="var1 | to_trusted"></p>
+                        </div>
                         <div class="accordion_content" style="padding: 10px;">
                             <ul class="left_list_ul">
                                 <li ng-repeat="var2 in con_data[key][index][lang][0]['left_list'][$index]" class="italic_txt" ng-click="play_audio($event)">
                                     <span ng-bind-html="var2 | to_trusted" ></span>
                                     <audio controls class="spearkerContainer_audio">
+                                        <source ng-src="{{'media/conversation/mp3/' + con_data[key][index][lang][0]['audio'][$parent.$index][$index] + '.mp3'}}" type="audio/mpeg">
                                         <source ng-src="{{'media/conversation/ogg/' + con_data[key][index][lang][0]['audio'][$parent.$index][$index] + '.ogg'}}" type="audio/ogg">
                                     </audio>
                                 </li>
@@ -30,9 +34,7 @@
                     <li>
                         <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Watch</p><span class="ico"></span></div>
                         <div class="accordion_content" style="display: block; padding-top: 19px;">
-                            <video  controls class="v_res">
-                                <source ng-src="{{'media/conversation/webm/' + lang + '/' + con_data[key][index]['video'] + '.webm'}}" type="video/webm">
-                            </video>
+                            <iframe class="video_container" style="width: 100%;" ng-src="{{con_data[key][index][lang][0]['video1'] | trustAsResourceUrl}}" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div>
                     </li>
                     <li>
@@ -56,7 +58,7 @@
                     <li>
                         <div class="accordion_title" ng-click="accordion_title($event)"><p>Practise</p><span class="ico"></span></div>
                         <div class="accordion_content">
-                            <div class="popupC" style="display: none;">
+                            <div class="popupC" style="display: none; width: 300px; position: fixed;z-index: 9;">
                                 <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
                                 <div class="popup">
                                     <span class="alertMsg selNone">Please record your voice, then press Play.</span>
@@ -77,14 +79,18 @@
                                     </div>
 
                                     <div class="col3" ng-if="var2.btns == 'play'">
-                                        <div class="play" data-audio="{{'media/conversation/ogg/right/' + con_data[key][index][lang][0]['audios'][$index]}}" ng-click="play_audio_common('media/conversation/ogg/right/' + con_data[key][index][lang][0]['audios'][$index], $event)"></div>
+                                        <div class="play file_play" data-path="{{'media/conversation/mp3/right/' + con_data[key][index][lang][0]['audios'][$index] + '.mp3'}}" ng-click="play_audio_common(con_data[key][index][lang][0]['audios'][$index], $event)"></div>
+                                        <audio controls class="hide_audio">
+                                            <source ng-src="{{'media/conversation/mp3/right/' + con_data[key][index][lang][0]['audios'][$index] + '.mp3'}}" type="audio/mpeg">
+                                            <source ng-src="{{'media/conversation/ogg/right/' + con_data[key][index][lang][0]['audios'][$index] + '.ogg'}}" type="audio/ogg">
+                                        </audio>
                                     </div>
 
                                     <div class="col3" ng-if="var2.btns == 'both'">
                                         <div class="stop" data-audio_status="start" ng-click="start_record(con_data[key][index][lang][0]['audios'][$index], $event)">
 
                                         </div>
-                                        <div class="play"  data-audio="{{'media/recording/' + con_data[key][index][lang][0]['audios'][$index] + '.wav'}}" ng-click="play_wav(con_data[key][index][lang][0]['audios'][$index] + '.wav', $event)">
+                                        <div class="play" data-audio="" data-record="{{con_data[key][index][lang][0]['audios'][$index]}}" ng-click="play_wav_ol(con_data[key][index][lang][0]['audios'][$index], $event)">
 
                                         </div>
                                     </div>
@@ -106,7 +112,7 @@
                             </div>
                             <div class="exam_btns">
                                 <div class="stop" data-audio_status="start" ng-click="start_record('con_' + key + '_' + index + '_' + lang, $event)"></div>
-                                <div class="play" ng-click="play_wav('con_' + key + '_' + index + '_' + lang + '.wav', $event)"></div>
+                                <div class="play" data-audio="" ng-click="play_wav_ol('con_' + key + '_' + index + '_' + lang, $event)"></div>
                             </div>
                         </div>
 

@@ -1,52 +1,105 @@
+
 <div class="actContainer snap clearfx" ng-controller="Snap_Ctrl">
+
     <div class="actQuestion">question: {{cnt + 1}}</div>
+
     <!--<div class="timer">{{time|timer}}</div>-->
+
     <div class="timer"></div>
+
     <div class="">
+
         <div class="">
+
             <div class="disabler_div_snap"></div>
+
             <ul class="ul_cls_spelling">
+
                 <li class="li_cls_snap"  ng-repeat="word in words" data-ans="{{word.answer}}">
+
                     <div class="odd_Button" style="cursor: default;" data-index="{{word.index}}" ng-bind-html="word.value | to_trusted"></div>
+
                     <div data-ans="{{word.answer}}" class="{{word.answer}}"></div>
+
                 </li>
+
             </ul>
+
             <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
+
         </div>
+
         <div class="snap_wrapper">
+
             <!--            <canvas id="my_canvas" height='134' width='116'></canvas>-->
+
             <canvas id="canvas" width="116" height="116"></canvas>
+
             <!--            <div class="feed_Button" ng-click="yesClicked($event)" style=" top: 0px; background-position:0px 0px;width: 116px;position: absolute;"></div>-->
+
             <!--<div data-ans="{{feedbacks[0].answer}}" class="feed_Button" ng-click="yesClicked($event)" data-index="{{feedback.index}}" >
+
                     <p class='text_cls_snap'>{{feedbacks[0].value}}</p>
+
                 </div>
 
+
+
                 <div data-ans="{{feedbacks[1].answer}}" class="feed_Button" ng-click="noClicked($event)" style="background-position-x: -248px;" data-index="{{feedback.index}}" >
+
                     <p class='text_cls_snap'  >{{feedbacks[1].value}}</p>
+
                 </div>
+
             -->
+
             <div data-ans="{{feedbacks[0].answer}}" class="img_feedback_snap"></div>
 
 
+
+
+
         </div>
 
+
+
         <div class="btn_container">
+
             <!--            <div class="tpl_btn quit submit" ng-click="submit($event)">Submit</div>-->
 
 
+
+
+
             <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
+
             <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+
         </div>
+
     </div>
+
     <div class="blackPatch">
+
         <div class="popupC">
+
             <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
+
             <div class="popup">
+
                 <span class="alertMsg selNone">Out of time!</span>
+
                 <div class="btn_container">
-                    <div class="tpl_btn" ng-click="quit()">Ok</div>
+
+                    <div class="tpl_btn" ng-click="quit()">OK</div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
