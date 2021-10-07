@@ -41,7 +41,7 @@
     user-select: none;
 }
 .main_wrapper h1{
-    font-family: sans-serif !important;
+    font-family: Inter, sans-serif !important;
     font-size: 35px;
 }
 .titleContainer{
@@ -605,7 +605,7 @@ tr.last_tr:last-child{
 .home_page .box h2{
     padding: 0;
     text-align: center;
-    font-family: sans-serif;
+    font-family: Inter, sans-serif;
 }
 .clear_both{
     clear: both;
@@ -615,7 +615,7 @@ tr.last_tr:last-child{
     width: 90%;
 }
 .home_h1{
-    font-family: sans-serif !important;
+    font-family: Inter, sans-serif !important;
     margin-bottom: 75px;
     margin-top: 75px;
     text-align: center;
@@ -672,13 +672,13 @@ tr.last_tr:last-child{
     height: 26px;
     width: 26px;
     float: right;
-    background: url("../images/ispeaker/info_btn.svg") repeat scroll 0 -2px rgba(0, 0, 0, 0);
-    margin-top: 5px;
+    background: url("../images/ispeaker/info_btn.svg");
+    margin-top: 9px;
     margin-right: 8px;
     cursor: pointer;
 }
 .info_ic.selected{
-    background: url("../images/ispeaker/info_btn_active.svg") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    background: url("../images/ispeaker/info_btn_active.svg");
 }
 .info_text {
     padding: 8px;
