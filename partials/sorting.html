@@ -1,35 +1,73 @@
+
 <div class="actContainer simSound clearfx" ng-controller="stressCtrl">
 
+
+
     <div class="actQuestion">question: {{cnt + 1}}</div>
+
     <div class="simSoundContainerO">
+
         <div class="simSoundContainer">
+
             <div class="Actdisabler"></div>
 
+
+
             <div class="dropConainer" ng-repeat="title in titles">
+
                 <div class="dtop_title">
+
                     <div class="wSpeaker" ng-click="playAudio_($event)" style="padding-left: 0; background: none; cursor: default;">
+
                         <audio controls class="simAudio">
+
+                            <source ng-src="{{title.src + '.mp3'}}" type="audio/mpeg">
+
                             <source ng-src="{{title.src + '.ogg'}}" type="audio/ogg">
-                            <source ng-src="{{title.src + '.mp3'}}" type="audio/mp3">
+
+
+
                         </audio>
+
                         <span ng-bind-html="title.text | to_trusted"></span>
+
                     </div>
 
+
+
                 </div>
+
                 <div class="droppable" data-drop="true" jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback'}">
+
                     <div class="draggable" ng-repeat="word in words[$index]" data-drag="true"  data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},animate:true, onStart:'startCallback(word.text, $index)'}" data-box='{{word.box}}'><span>{{word.value}}</span></div>
+
                 </div>
+
+
 
             </div>
 
+
+
             <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
+
         </div>
+
         <div class="btn_container">
+
+
 
             <div class="tpl_btn submit" ng-click="submit()">Submit</div>
 
+
+
             <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
+
             <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+
         </div>
+
     </div>
+
 </div>
+

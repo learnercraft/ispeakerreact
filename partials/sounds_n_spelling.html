@@ -1,44 +1,42 @@
+
 <div class="actContainer spelling reordering clearfx" ng-controller="Sound_Spelling_Ctrl">
     <div class="actQuestion">question: {{cnt + 1}}</div>
-
     <div class="">
         <div class="main_app">
             <div class="disabler_div_spelling"></div>
             <div class="spearkerContainer">
                 <div class="speaker" ng-click="playAudio($event)">
                     <audio controls="" class="reorderAudio">
+                        <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mpeg">
                         <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
-                        <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mp3">
                     </audio>
                 </div>
             </div>
             <div class="border_div_spelling">
-                <!--            <div class="parentDivID"></div>-->
 
+                <!--            <div class="parentDivID"></div>-->
                 <div class="parentDivID">
                     <div class="spelling_border1">
                         <span class="img_feedback_spell"></span>
                     </div>
                 </div>
-
-
-
                 <ul class="ul_cls" style="width: 100%;">
                     <li>
                         <div class="question_spelling" data-question="{{question.text}}"></div>
                     </li>
+
                     <li class="li_cls_spelling" ng-click="check_odd_one_out($event)" ng-repeat="word in words" data-ans="{{word.answer}}">
                         <div class="spelling_Button" data-index="{{word.index}}" style="width: {{word.value.length * 15 + 'px'}}">{{word.value}}</div>
                         <div data-ans="{{word.answer}}" class="{{word.answer}}_spelling"></div>
                     </li>
                 </ul>
                 <div class="correctAns ng-binding snap" style="display: none;"><strong>Correct answer:</strong>  {{question.correctAns}}</div>
-                <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
+                <span class="sentanceC">
+                    <span class="sentance">{{sentance}}</span>
 
+                </span>
                 <div class="btn_container">
                     <!--            <div class="tpl_btn quit submit" ng-click="submit($event)">Submit</div>-->
-
-
                     <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
                     <div class="tpl_btn quit" ng-click="quit()">Quit</div>
                 </div>
