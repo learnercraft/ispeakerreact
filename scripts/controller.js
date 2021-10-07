@@ -20,7 +20,7 @@ function random_gen_arr(_size) {
     return arr;
 }
 
-
+var sound = null; //new AudioPlayerClass();
 angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function($scope, $http, $rootScope, $interval) {
     //init
     //pages
@@ -160,62 +160,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
     //check database
-    var fs = require('fs');
-    fs.exists(recording_path + 'database.json', function(exists) {
-        if (exists) {
-            fs.readFile(recording_path + 'database.json', "utf8", function(error, data) {
-                $rootScope.database_status = jQuery.parseJSON(data);
-            });
-        } else {
-            fs.writeFile(recording_path + 'database.json', '{"status": false}', function(err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("The file was saved!");
-                    $rootScope.database_status = {"status":false};
-                }
-            });
-        }
-    });
 
-    fs.exists(recording_path + 'conversation_database.json', function(exists) {
-        if (exists) {
-            fs.readFile(recording_path + 'conversation_database.json', "utf8", function(error, data) {
-                $rootScope.conversation_database = jQuery.parseJSON(data);
-            });
-        } else {
-            fs.writeFile(recording_path + 'conversation_database.json', '{"status": false}', function(err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("The file was saved!");
-                    $rootScope.conversation_database = {"status":false};
-                }
-            });
-        }
-    });
-    fs.exists(recording_path + 'ep_database.json', function(exists) {
-        if (exists) {
-            fs.readFile(recording_path + 'ep_database.json', "utf8", function(error, data) {
-                $rootScope.ep_database = jQuery.parseJSON(data);
-            });
-        } else {
-            fs.writeFile(recording_path + 'ep_database.json', '{"status": false}', function(err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("The file was saved!");
-                    $rootScope.ep_database = {"status":false};
-                }
-            });
-        }
-    });
-
-
-
-
-
-    /*$http.get('json/database.json').success(function(data) {
+    $http.get('json/database.json').success(function(data) {
         $rootScope.database_status = data;
     });
     $http.get('json/conversation_database.json').success(function(data) {
@@ -223,7 +169,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     });
     $http.get('json/ep_database.json').success(function(data) {
         $rootScope.ep_database = data;
-    });*/
+    });
 
 
     //sounds data
@@ -467,7 +413,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 var name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                var audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b + '.ogg';
+                var audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
                 $scope.con_data['function1'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
@@ -481,7 +427,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a + '.ogg';
+                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
                 $scope.con_data['function1'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
@@ -502,7 +448,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b + '.ogg';
+                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
                 $scope.con_data['function2'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
@@ -516,13 +462,13 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a + '.ogg';
+                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
                 $scope.con_data['function2'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
 
         }
-
+        console.log($scope.con_data);
         //end audio for right side
 
         //end add audio files
@@ -543,10 +489,15 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.exam_data['task'][i]['audio'] = new Array();
             for (var k in $scope.exam_data['task'][i]['left_list']) {
                 $scope.exam_data['task'][i]['audio'][k] = new Array();
-                for (var j in $scope.exam_data['task'][i]['left_list'][k]) {
-                    $scope.exam_data['task'][i]['audio'][k][j] = '_ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
-                    audio_cnt++;
-                }
+          for (var j in $scope.exam_data['task'][i]['left_list'][k]) {
+            if ($scope.exam_data['task'][i]['left_list'][k][i] == '') {
+              audio_cnt++;
+            } else {
+              $scope.exam_data['task'][i]['audio'][k][j] = '_ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
+              audio_cnt++;
+            }
+
+          }
             }
         }
     });
@@ -1108,15 +1059,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     };
     $scope.insert_sounds_database = function() {
 
-        var fs = require('fs');
-
-        fs.writeFile(recording_path + 'database.json', '{"status": true}', function(err) {
+        /*var fs = require('fs');
+        fs.writeFile("./www/json/database.json", JSON.stringify({"status": true}), function(err) {
             if (err) {
-                console.log(err);
-            } else {
-                console.log("The file was saved!");
+                alert("Please try again");
             }
-        });
+        });*/
 
         html5sql.process(
                 [
@@ -1250,15 +1198,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 ]);
     };
     $scope.insert_conversation_database = function() {
-        var fs = require('fs');
-
-        fs.writeFile(recording_path + 'conversation_database.json', '{"status": true}', function(err) {
+        /*var fs = require('fs');
+        fs.writeFile("./www/json/conversation_database.json", JSON.stringify({"status": true}), function(err) {
             if (err) {
-                console.log(err);
-            } else {
-                console.log("The file was saved!");
+                alert("Please try again");
             }
-        });
+        });*/
         html5sql.process(
                 [
                     {
@@ -1331,15 +1276,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 ]);
     }
     $scope.insert_ep_database = function() {
-        var fs = require('fs');
-
-        fs.writeFile(recording_path + 'ep_database.json', '{"status": true}', function(err) {
+        /*var fs = require('fs');
+        fs.writeFile("./www/json/ep_database.json", JSON.stringify({"status": true}), function(err) {
             if (err) {
-                console.log(err);
-            } else {
-                console.log("The file was saved!");
+                alert("Please try again");
             }
-        });
+        });*/
         html5sql.process(
                 [
                     {
@@ -1449,23 +1391,29 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         $rootScope.audio_obj.pause();
     };
 
-    $scope.play_audio_common = function(file_path, $event) {
-        //var audio_obj = new Audio();
+    $scope.play_audio_common = function (file_name, $event) {
 
-        if ($($event.target).css('background-position-x') != '-58px') {
-            $scope.while_playing();
-        } else {
-            $rootScope.audio_obj.src = file_path;
-            setTimeout(function() {
-                $rootScope.audio_obj.play();
-                $('.play').css('background-position-x', '-58px');
-                $($event.target).css('background-position-x', '-270px');
-                $rootScope.audio_obj.onended = function() {
-                    $('.play').css('background-position-x', '-58px');
-                };
-            }, 300);
-        }
+      if ($($event.target).css('background-position').split(" ")[0] != '-58px') {
+        $scope.while_playing();
+      } else {
+        $rootScope.audio_obj = null;
+        $rootScope.audio_obj = new Audio();
+        //alert(baseWebsiteUrl + $($event.target).attr('data-path'));
+        //$rootScope.audio_obj = $($event.target).next('audio')[0];
+        $rootScope.audio_obj.src = $($event.target).attr('data-path');
+        $rootScope.audio_obj.play();
+        $('.play').css('background-position', '-58px 1px');
+        $($event.target).css('background-position', '-270px 1px');
+        /*$rootScope.audio_obj.onended = function () {
+         alert('eneded');
+         $('.play').css('background-position', '-58px 1px');
+         };*/
+        $rootScope.audio_obj.addEventListener('ended', function () {
+          //alert('eneded');
+          $('.play').css('background-position', '-58px 1px');
+        });
 
+      }
     };
 
     $scope.play_wav = function(file_path, $event) {
@@ -1473,10 +1421,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.while_playing();
         } else {
             var _file_path = file_path;
-            //file_path = 'media/recording/' + file_path;
-            file_path = recording_path + file_path;
-            var fs = require('fs');
-            fs.exists(file_path, function(exists) {
+            file_path = 'media/recording/' + file_path;
+           // var fs = require('fs');
+           /* fs.exists('./www/' + file_path, function(exists) {
                 if (exists) {
                     // serve file
                     //var audio_obj = new Audio();
@@ -1491,10 +1438,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                         };
                     }, 300);
 
-                } else {
+                }  else {
                     $('.popupC').show();
-                }
-            });
+                } 
+            });  */
 
 
         }
@@ -1538,16 +1485,15 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                     reader.onload = function() {
                         var dataUrl = reader.result;
                         var base64 = dataUrl.split(',')[1];
-                        var fs = require('fs');
+                      //  var fs = require('fs');
                         var buf = new Buffer(base64, 'base64'); // decode
-                        //fs.writeFile('www/media/recording/' + file_name + '.wav', buf, function(err) {
-                        fs.writeFile(recording_path + file_name + '.wav', buf, function(err) {
+                       /* fs.writeFile('www/media/recording/' + file_name + '.wav', buf, function(err) {
                             if (err) {
                                 console.log(err);
                             } else {
                                 console.log("The file was saved!");
                             }
-                        });
+                        }); */
                     };
                     reader.readAsDataURL(blob);
 
@@ -1571,7 +1517,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $($event.target).parents('.conv_grp').find('.play').each(function() {
                 if (typeof $(this).attr('data-audio') != 'undefined') {
 
-                    //var file = './www/' + $(this).attr('data-audio');
+                    var file = './www/' + $(this).attr('data-audio');
                     var file_name = $(this).attr('data-audio');
                     _arr.push(file_name);
                 }
@@ -1585,31 +1531,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         var cnt = 0;
         play_each_file();
         function play_each_file() {
-            var _recording_path = './www/';
-            var play_path = '';
             if (cnt <= (_arr.length - 1)) {
-                var fs = require('fs');
-
-                var change_path = false;
-                var extension = _arr[cnt].split('.');
-                if (extension.length > 0) {
-                    if (extension[extension.length - 1] == 'wav') {
-                        var _name = _arr[cnt].split('/');
-                        _recording_path = recording_path + _name[_name.length - 1];
-                        play_path = _recording_path;
-                    } else {
-                        play_path = _arr[cnt];
-                        _recording_path = _recording_path + _arr[cnt];
-                    }
-                }
-                //fs.exists('./www/' + _arr[cnt], function(exists) {
-
-                fs.exists(_recording_path, function(exists) {
+             //   var fs = require('fs');
+               /* fs.exists('./www/' + _arr[cnt], function(exists) {
                     if (exists) {
                         // serve file
-                        //$rootScope.audio_obj.src = _arr[cnt];
-                        console.log(_arr[cnt]);
-                        $rootScope.audio_obj.src = play_path;
+                        $rootScope.audio_obj.src = _arr[cnt];
                         setTimeout(function() {
                             $rootScope.audio_obj.play();
                         }, 300);
@@ -1617,7 +1544,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                         cnt++;
                         play_each_file();
                     }
-                });
+                }); */
             } else {
                 $('.play').css('background-position-x', '-58px');
                 return false;
@@ -1653,7 +1580,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     //sound page
     $scope.go_btn_clk = function($event, index, key, lang) {
-        //alert(recording_path);
         //british
         hidel_elem();
         $rootScope.reordering_timer = 5.00;
@@ -1727,6 +1653,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 autoSize: true,
                 autoResize: true,
                 autoCenter: true,
+				width: 800,
+				height: 450,
+				aspectRatio: true,
+				autoDimensions: false,
                 openEffect: 'elastic',
                 closeEffect: 'elastic',
                 iframe: {
@@ -1743,6 +1673,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             setTimeout(function() {
                 $scope.sound_page2_html = 'partials/sound_page2.html';
                 $('.main_wrapper').trigger('click');
+				video_resize();
             }, 200);
             $scope.scroll_bar();
             $('html').css('overflow-y', 'hidden !important');
@@ -1837,7 +1768,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_page2_html = 'partials/con_page2.html';
                 $('.main_wrapper').trigger('click');
             }, 200);
-            $('html').css('overflow-y', 'hidden');
+             $('html').css('overflow', 'auto');
 
             $scope.conversation_review_arr = new Array();
             for (var i in $scope.con_data[key][index][lang][0]['reviews']) {
@@ -1888,6 +1819,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.index = index;
             $scope.lang = lang;
             $scope.head_h1 = $scope.exam_data[key][index]['task'];
+			$scope.s_head_h1 = $scope.exam_data[key][index]['short_name'];
+			$scope.video_url = $scope.exam_data[key][index]['video1'];
 
             $('.image_box_wrap > div').fancybox(
                     {
@@ -1909,8 +1842,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             setTimeout(function() {
                 $scope.exam_page2_html = 'partials/exam_page2.html';
                 $('.main_wrapper').trigger('click');
+				video_resize();
             }, 200);
-            $('html').css('overflow-y', 'hidden');
+            //$('html').css('overflow-y', 'hidden');
 
             $scope.ep_review_arr = new Array();
 
@@ -2071,7 +2005,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         }
         setTimeout(function() {
             set_max_height();
-            $('html').css('overflow-y', 'hidden');
+           // $('html').css('overflow-y', 'hidden');
         }, 300);
 
     };

@@ -1,10 +1,11 @@
+
 <div class="actContainer reordering dectation clearfx" ng-controller="dectation" >
     <div class="actQuestion">question: {{cnt + 1}}</div>
     <div class="spearkerContainer">
         <div class="speaker" ng-click="playAudio($event)">
             <audio controls class="dectationAudio">
+                <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mpeg">
                 <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
-                <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mp3">
             </audio>
         </div>
     </div>

@@ -17,16 +17,14 @@
                     <li>
                         <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Watch</p><span class="ico"></span></div>
                         <div class="accordion_content" style="display: block; padding-top: 19px;">
-                            <video controls class="v_res">
-                                <source ng-src="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video1'] + '.webm'}}" type="video/webm">
-                            </video>
+                            <iframe class="video_container" style="width: 100%;" ng-src="{{sounds_data[key][index][lang][0]['video1']| trustAsResourceUrl}}" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                         </div>
                     </li>
                     <li>
                         <div class="accordion_title" ng-click="accordion_title($event)"><p>Practise</p><span class="ico"></span></div>
                         <div class="accordion_content">
                             <div class="practice_div">
-                                <div class="popupC" style="display: none;">
+                                <div class="popupC" style="display: none; width: 300px; position: fixed; z-index: 9;">
                                     <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
                                     <div class="popup">
                                         <span class="alertMsg selNone">Please record your voice, then press Play.</span>
@@ -37,49 +35,48 @@
                                 </div>
                                 <div class="practise_title">Watch the video clips and record your own pronunciation.</div>
 
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video2'] != ''">
-                                    <div class="video_clk fancybox.iframe" href="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video2'] + '.webm'}}">
-                                        <video style="width: 100%; height: 100%;">
-                                            <source ng-src="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video2'] + '.webm'}}" type="video/webm">
-                                        </video>
+                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video2'] != ''" >
+                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video2'] | trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
                                         <div class="v_thumb">
 
                                         </div>
                                     </div>
                                     <div class="pract_words" ng-bind-html="sounds_data[key][index]['phoneme'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video2', $event)"></div><div class="play" ng-click="play_wav('sounds_' + key + '_' + index + '_' + lang + '_video2.wav', $event)"></div>
+                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video2', $event)"></div>
+                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video2', $event)"></div>
 
                                 </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video3'] != ''"><div class="video_clk fancybox.iframe" href="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video3'] + '.webm'}}">
-                                        <video style="width: 100%; height: 100%;">
-                                            <source ng-src="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video3'] + '.webm'}}" type="video/webm">
-                                        </video>
+                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video3'] != ''">
+                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video3']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
+
                                         <div class="v_thumb">
 
                                         </div>
                                     </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['initial'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video3', $event)"></div><div class="play" ng-click="play_wav('sounds_' + key + '_' + index + '_' + lang + '_video3.wav', $event)"></div>
+                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video3', $event)">
+
+                                    </div><div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video3', $event)"></div>
                                 </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video4'] != ''"><div class="video_clk fancybox.iframe" href="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video4'] + '.webm'}}">
-                                        <video style="width: 100%; height: 100%;">
-                                            <source ng-src="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video4'] + '.webm'}}" type="video/webm">
-                                        </video>
+                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video4'] != ''">
+                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video4']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
+
                                         <div class="v_thumb">
 
                                         </div>
                                     </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['medial'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video4', $event)"></div><div class="play" ng-click="play_wav('sounds_' + key + '_' + index + '_' + lang + '_video4.wav', $event)"></div>
+                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video4', $event)"></div>
+                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video4', $event)"></div>
 
                                 </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video5'] != ''"><div class="video_clk fancybox.iframe" href="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video5'] + '.webm'}}">
-                                        <video style="width: 100%; height: 100%;">
-                                            <source ng-src="{{'media/sound/' + key + '/' + lang + '/' + sounds_data[key][index][lang][0]['video5'] + '.webm'}}" type="video/webm">
-                                        </video>
+                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video5'] != ''">
+                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video5']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
+
                                         <div class="v_thumb">
 
                                         </div>
                                     </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['final'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video5', $event)"></div><div class="play" ng-click="play_wav('sounds_' + key + '_' + index + '_' + lang + '_video5.wav', $event)"></div>
+                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video5', $event)"></div>
+                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video5', $event)"></div>
 
                                 </div>
                             </div>

@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+
+div#rightcolumn  {display: none;}
+div#ox-header  {display: none;}
+div#relatedentries  {display: none;}
+div#ox-adverts   {display: none;}
+div#ox-wrapper {width: 100%; margin: 0; float: none;}
+div#ox-content {width: 100%; margin:0; float:none;}
+div#entryContent {width: 100%; margin:0; float:none;}
+img.sound {display: none;}
+.y > img  {display: none;}
+.i > img  {display: none;}
+div#fivebox {border-top-width: 2px;}

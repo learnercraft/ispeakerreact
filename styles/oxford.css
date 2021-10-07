@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700');
 /* line 3, ../sass/oxford.scss */
 .old8px, .etym, .etym .it, .etym .b, .e_d, .e_ehm, .e_hm, .e_esu, .e_htr, .e_lang, .e_pos, .e_sc, .e_sense, .e_tr, .e_xg, .e_xs, .e_xr, .e_xh, .e_q, .e_pv, .e_n, .e_ff, .e_i, .e_id {
     font-size: 8px; }
 
 /* line 6, ../sass/oxford.scss */
 .oldVerdana, .activetitle, .helppanel, .unpanel, .wfpanel, .idpanel, .pvpanel, .entry, .etym, .cf, .cc, .xh, .xr, .z_xr, .etym .it, .etym .b, .e_d, .e_h, .e_hm-g, .e_ehm, .e_hm, .e_esu, .e_htr, .e_lang, .e_pos, .e_sc, .e_sense, .e_tr, .e_xg, .e_xs, .e_z, .e_xr, .e_xh, .e_xhm, .e_q, .e_pv, .e_n, .e_ff, .e_i, .e_id {
-    font-family: arial; }
+    font-family: 'Roboto', sans-serif; }
 
 /*
  *********************************************
@@ -111,7 +113,7 @@ img.icon {
 /* line 115, ../sass/oxford.scss */
 div.icon {
     display: inline;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     font-size: 7pt;
     text-transform: uppercase;
@@ -862,7 +864,7 @@ h3.sd {
 /* Font-level formatting: */
 /* line 884, ../sass/oxford.scss */
 .unicode {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", "Doulos SIL"; }
+    font-family: 'Roboto', sans-serif; }
 
 /* line 887, ../sass/oxford.scss */
 .core {
@@ -979,7 +981,7 @@ a + .h, a + .h2, a + .he {
     font-size: 14px;
     font-style: normal;
     font-weight: normal;
-    font-family: "Lucida Sans Unicode", "Lucida Grande"; }
+    font-family: 'Roboto', sans-serif; }
 
 /* grammar */
 /* line 987, ../sass/oxford.scss */
@@ -1012,7 +1014,7 @@ a + .h, a + .h2, a + .he {
     /* was:  font-weight: lighter;  JB to confirm if this is preferable  TT 2011-07-11  */
     color: #8F0610;
     margin: 0 !important;
-    font-family: Myriad, Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-variant: small-caps;
     /* 110624 ST removed bottom border
      border-bottom-color: #78A7DB;
@@ -1375,21 +1377,21 @@ button.key {
 /* line 1373, ../sass/oxford.scss */
 .z_phon-gb, .z_phon-us {
     /* deleted trailing comma, causing CSS parse error  TT 2011-09-08  */
-    font-family: "Lucida Sans Unicode","Lucida Grande", "Times New Roman", Times, serif;
+    font-family: 'Roboto', sans-serif;
     /* added Lucida fonts  TT 2011-08-26  */
     color: #860610;
     margin-right: 5px; }
 
 /* line 1380, ../sass/oxford.scss */
 .phon-gb, .phon-us, .ipachar {
-    font-family: "Lucida Sans Unicode","Lucida Grande", "Times New Roman", Times, serif;
+    font-family: 'Roboto', sans-serif;
     /* added Lucida fonts  TT 2011-08-26  */
     font-size: 14px;
     /* increase IPA font size - requested by JB.R  TT 2011-09-08  */ }
 
 /* line 1386, ../sass/oxford.scss */
 .phon-us > .flapped_t, ipachar > .flapped_t {
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Roboto', sans-serif;
     /*   TT 2011-08-26  */
     font-size: 120%;
     /*   TT 2011-08-26  */ }
@@ -1460,7 +1462,7 @@ button.key {
 .unbox .title {
     display: block;
     padding-bottom: 4px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     /*  TT 2011-08-26  */
     font-size: 150%;
     font-weight: normal;
@@ -1480,7 +1482,7 @@ button.key {
 /* line 1465, ../sass/oxford.scss */
 .unbox .collsubhead, .unbox .langbanksubhead, .unbox .subhead, .z_pathd {
     /*  added z_pathd ("patterns" heading) TT 2011-09-09  */
-    font-family: Myriad, Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 145%;
     /* made subheads bigger (was 105% TT 2011-09-09  */
     padding-top: 12px;
@@ -1499,7 +1501,7 @@ button.key {
 
 /* line 1483, ../sass/oxford.scss */
 .unbox .althead {
-    font-family: Myriad, Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 105%;
     padding-top: 12px;
     display: block;
@@ -1543,7 +1545,7 @@ a + .usage_note_header {
 .z_xr .icon.icon-idsym strong {
     font-size: 8pt;
     background-color: #35338a;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: #FFF;
     padding-right: 5px;

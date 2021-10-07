@@ -22,10 +22,10 @@
                             <td ng-bind-html="consonants.phoneme | to_trusted"></td>
                             <td ng-bind-html="consonants.example_word | to_trusted"></td>
                             <td>
-                                <div ng-if="consonants.b_s == 'yes'" class="go_btn" style="background-color: {{review_color[consonants.b[0].review]}}" ng-click="go_btn_clk($event, $index, 'consonants', 'b')">Go</div>
+                                <div ng-if="consonants.b_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[consonants.b[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'b')">Go</div>
                             </td>
                             <td>
-                                <div ng-if="consonants.a_s == 'yes'" class="go_btn" style="background-color: {{review_color[consonants.a[0].review]}}" ng-click="go_btn_clk($event, $index, 'consonants', 'a')">Go</div>
+                                <div ng-if="consonants.a_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[consonants.a[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'a')">Go</div>
                             </td>
                             <td><div class="infoB" ng-click="s_info($event, consonants.info, 5)"></div></td>
                         </tr>
@@ -43,7 +43,7 @@
                 <div class="accordion_content _accordion_content">
                     <table width="97%">
                         <tr>
-                            <th width="15%">Phoneme</th>
+                            <th width="15%">Phoneme1</th>
                             <th>Example</th>
                             <th>British</th>
                             <th>American</th>
@@ -53,10 +53,10 @@
                             <td ng-bind-html="vowels.phoneme | to_trusted"></td>
                             <td ng-bind-html="vowels.example_word | to_trusted"></td>
                             <td>
-                                <div ng-if="vowels.b_s == 'yes'" class="go_btn" style="background-color: {{review_color[vowels.b[0].review]}}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'b')">Go</div>
+                                <div ng-if="vowels.b_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[vowels.b[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'b')">Go</div>
                             </td>
                             <td>
-                                <div ng-if="vowels.a_s == 'yes'" class="go_btn" style="background-color: {{review_color[vowels.a[0].review]}}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'a')">Go</div>
+                                <div ng-if="vowels.a_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[vowels.a[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'a')">Go</div>
                             </td>
                             <td><div class="infoB" ng-click="s_info($event, vowels.info, 5)"></div></td>
                         </tr>
