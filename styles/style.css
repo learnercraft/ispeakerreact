@@ -1732,6 +1732,7 @@ and (orientation : portrait) {
     font-size: 18px;
     text-align: center;
     max-width: 570px;
+    font-family: inherit;
 }
 .flipActContainer{
 }
@@ -1749,7 +1750,7 @@ and (orientation : portrait) {
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .textBoxDiv img {
-        top: 10px;
+        /*top: 10px;*/
     }
 }
 @media screen and (min-width:0\0) {

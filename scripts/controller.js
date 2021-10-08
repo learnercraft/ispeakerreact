@@ -350,7 +350,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_data.function1[i].b[0]['audio'][k] = new Array();
                 for (var j in $scope.con_data.function1[i].b[0]['left_list'][k]) {
 
-                    $scope.con_data.function1[i].b[0]['audio'][k][j] = '_ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_gb';
+                    $scope.con_data.function1[i].b[0]['audio'][k][j] = 'ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_gb';
                     audio_cnt++;
                 }
             }
@@ -361,7 +361,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_data.function1[i].a[0]['audio'][k] = new Array();
                 for (var j in $scope.con_data.function1[i].a[0]['left_list'][k]) {
 
-                    $scope.con_data.function1[i].a[0]['audio'][k][j] = '_ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_us';
+                    $scope.con_data.function1[i].a[0]['audio'][k][j] = 'ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_us';
                     audio_cnt++;
                 }
             }
@@ -383,7 +383,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_data.function2[i].b[0]['audio'][k] = new Array();
                 for (var j in $scope.con_data.function2[i].b[0]['left_list'][k]) {
 
-                    $scope.con_data.function2[i].b[0]['audio'][k][j] = '_ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_gb';
+                    $scope.con_data.function2[i].b[0]['audio'][k][j] = 'ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_gb';
                     audio_cnt++;
                 }
             }
@@ -394,7 +394,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_data.function2[i].a[0]['audio'][k] = new Array();
                 for (var j in $scope.con_data.function2[i].a[0]['left_list'][k]) {
 
-                    $scope.con_data.function2[i].a[0]['audio'][k][j] = '_ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_us';
+                    $scope.con_data.function2[i].a[0]['audio'][k][j] = 'ispeaker_everyday_' + shortname + '_' + (audio_cnt + 1) + '_us';
                     audio_cnt++;
                 }
             }
@@ -413,7 +413,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 var name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                var audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
+                var audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
                 $scope.con_data['function1'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
@@ -427,7 +427,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
                 $scope.con_data['function1'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
@@ -448,7 +448,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
                 $scope.con_data['function2'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
@@ -462,7 +462,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = '_ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
                 $scope.con_data['function2'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
@@ -493,7 +493,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             if ($scope.exam_data['task'][i]['left_list'][k][i] == '') {
               audio_cnt++;
             } else {
-              $scope.exam_data['task'][i]['audio'][k][j] = '_ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
+              $scope.exam_data['task'][i]['audio'][k][j] = 'ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
               audio_cnt++;
             }
 
