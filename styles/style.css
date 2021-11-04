@@ -307,7 +307,7 @@ tr.last_tr:last-child{
     position: relative;
 }
 
-.container {
+.container_video {
   position: relative;
   overflow: hidden;
   width: 100%;
