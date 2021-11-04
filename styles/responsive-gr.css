@@ -810,7 +810,7 @@ img {
         display: block !important;
     }
     .responsive_container {
-        width: 750px;
+        /* width: 750px; */
     }
     .responsive_cell_left {
         width: 482px;
@@ -921,7 +921,7 @@ img {
     #ad_btmslot_b,
     #ad_leftslot_a,
     #ad_houseslot1_a {
-	    margin-bottom: 28px;
+	    /* margin-bottom: 28px; */
     }
     #ad_topslot_a {
       display: none;
@@ -970,7 +970,7 @@ img {
         display: none;
     }
     .responsive_container {
-        width: 1172px;
+        /* width: 1172px; */
     }
     .responsive_cell_left {
         width: 904px;
