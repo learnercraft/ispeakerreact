@@ -200,7 +200,7 @@ em {
 }
 
 strong {
-    font-weight: bold;
+    font-variant-settings: 'wght' 700;
 }
 
 table {
