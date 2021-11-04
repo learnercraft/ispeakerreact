@@ -29,7 +29,7 @@ img {
 
 .responsive_row {
     clear: both;
-    margin-bottom: 18px;
+    /* margin-bottom: 18px; */
 }
 
 .responsive_row.no-space {
@@ -164,7 +164,7 @@ img {
 }
 
 .responsive_container {
-    width: 892px;
+    /* width: 892px; */
 }
 
 .responsive_cell_left {
