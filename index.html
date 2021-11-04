@@ -2,10 +2,10 @@
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Oxford iSpeaker</title>
-		<meta name="description" content="The iSpeaker helps you improve your pronunciation and speaking skills." />
-		<meta name="keywords" content="iSpeaker, improve, pronunciation, speaking skills, speaking, skills. Oxford, learner&apos;s, dictionaries, learner, learners, dictionary" />
+        <meta name="description" content="The iSpeaker helps you improve your pronunciation and speaking skills." />
+        <meta name="keywords" content="iSpeaker, improve, pronunciation, speaking skills, speaking, skills. Oxford, learner&apos;s, dictionaries, learner, learners, dictionary" />
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
         <link type="text/css" rel="stylesheet" href="styles/oxford.css" />
         <link rel="stylesheet" type="text/css" href="styles/style.css" />
         <link type="text/css" rel="stylesheet" href="styles/interface.css" />
@@ -14,152 +14,133 @@
         <link type="text/css" rel="stylesheet" href="styles/jquery.fancybox.css?v=2.1.5" />
         <link type="text/css" rel="stylesheet" href="styles/perfect-scrollbar.min.css" />
         <script src="scripts/websql.js" type="text/javascript" language="JavaScript"></script>
-		<script src="scripts/sql.js" type="text/javascript" language="JavaScript"></script>
-		<link rel="icon" href="favicon.ico"/>
-		<script src='scripts/nprogress.js'></script>
-		<link href='styles/nprogress.css' rel='stylesheet' />
-		<script src="scripts/jquery-3.2.1.min.js" type="text/javascript" language="JavaScript"></script>
-		<style>
-		.preloader-wrap {
-			width: 100%;
-			height: 100%;
-			position: fixed;
-			top: 0; 
-			bottom: 0;
-			background: rgba(255,255,255,255);
-			z-index : 2; 
-		}
-		.loader,
-		.percentage{
-			height: 25px;
-			max-width: 500px; 
-			border: 2px solid #2e8def;
-			border-radius: 20px;
-			position: absolute; 
-			top: 0; 
-			bottom: 0; 
-			left: 0; 
-			right: 0;
-			margin : auto; 
-		}
-		.loader:after,
-		.percentage:after {
-			content: "";
-			display: block;
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-		.trackbar {
-			width: 100%;
-			height: 100%;
-			border-radius: 10px;
-			color: #fff;
-			text-align: center;
-			line-height: 25px;
-			overflow: hidden;
-			position: relative;
-			opacity: 0.99;
-		}
-		.loadbar {
-			width: 0%;
-			height: 100%;
-			background: repeating-linear-gradient(
-			45deg, 
-			#2e8def, 
-			#2e8def 10px, 
-			#2e8def 10px
-			);
-			/* Stripes Background Gradient */
-			position: absolute;
-			top: 0;
-			left: 0;
-			animation: flicker 5s infinite;
-			overflow: hidden;
-		}
-		@keyframes animation {
-			10% {
-				opacity: 0.9;
-			}
-			30% {
-				opacity: 0.86;
-			}
-			60% {
-				opacity: 0.8;
-			}
-			80% {
-				opacity: 0.75;
-			}
-		}
-		</style>
-		<style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+        <script src="scripts/sql.js" type="text/javascript" language="JavaScript"></script>
+        <link rel="icon" href="favicon.ico"/>
+        <script src='scripts/nprogress.js'></script>
+        <link href='styles/nprogress.css' rel='stylesheet' />
+        <script src="scripts/jquery-3.2.1.min.js" type="text/javascript" language="JavaScript"></script>
+        <style>
+            .preloader-wrap {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0; 
+            bottom: 0;
+            background: rgba(255,255,255,255);
+            z-index : 2; 
+            }
+            .loader,
+            .percentage{
+            height: 25px;
+            max-width: 500px; 
+            border: 2px solid #2e8def;
+            border-radius: 20px;
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0;
+            margin : auto; 
+            }
+            .loader:after,
+            .percentage:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            }
+            .trackbar {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            line-height: 25px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0.99;
+            }
+            .loadbar {
+            width: 0%;
+            height: 100%;
+            background: repeating-linear-gradient(
+            45deg, 
+            #2e8def, 
+            #2e8def 10px, 
+            #2e8def 10px
+            );
+            /* Stripes Background Gradient */
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: flicker 5s infinite;
+            overflow: hidden;
+            }
+            @keyframes animation {
+            10% {
+            opacity: 0.9;
+            }
+            30% {
+            opacity: 0.86;
+            }
+            60% {
+            opacity: 0.8;
+            }
+            80% {
+            opacity: 0.75;
+            }
+            }
+        </style>
+        <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
         <!--[if gte IE 7 ]>
-            <link href="http://oldo.demo.idm.fr/external/styles/oxford-ie.css?version=dev" rel="stylesheet" type="text/css" />
-          <![endif]-->
+        <link href="http://oldo.demo.idm.fr/external/styles/oxford-ie.css?version=dev" rel="stylesheet" type="text/css" />
+        <![endif]-->
     </head>
     <body>
-		<div class="preloader-wrap">
-			<div class="percentage" id="precent"></div>
-			<div class="loader">
-				<div class="trackbar">
-				<div class="loadbar"></div>
-				</div>
-		<div class="glow"></div>
-			</div>
-		</div>
-		<div class="responsive_row" style="margin-top:10px;margin-bottom:10px">
-            <div class="responsive_container">
-                <div class="responsive_entry_center_wrap">
-
-                                         <div id="main_column" class="responsive_row" style="margin-top:-14px;margin-bottom:-14px;margin-left:-14px;margin-right:-14px">
-
-
-                    
-                        
-<div class="responsive_row">
-            <div class="middle_wrap">
-                <div class="main_wrapper" data-ng-app="myApp" ng-init="" ng-controller="myCtrl" ng-click="check_dropdown($event)">
-                    <div class ="home_page" ng-include="'partials/home_page.html'" ng-hide="home_var">
-
-                    </div>
-                    <div class="sound_page" ng-include="'partials/sound_page.html'" ng-hide="sound_var">
-
-                    </div>
-                    <div class="sound_page2" ng-include="sound_page2_html" ng-hide="sound2_var">
-
-                    </div>
-                    <div class="ex_page" ng-include="'partials/ex_page.html'" ng-hide="ex_var">
-
-                    </div>
-                    <div class="ex_page2" ng-include="'partials/ex_page2.html'" ng-hide="ex2_var">
-
-                    </div>
-                    <div class="con_page" ng-include="'partials/con_page.html'" ng-hide="con_var">
-
-                    </div>
-                    <div class="con_page2" ng-include="con_page2_html" ng-hide="con2_var">
-
-                    </div>
-                    <div class="exam_page" ng-include="'partials/exam_page.html'" ng-hide="exam_var">
-
-                    </div>
-                    <div class="exam_page3" ng-include="exam_page2_html" ng-hide="exam2_var">
-
-                    </div>
+        <div class="preloader-wrap">
+            <div class="percentage" id="precent"></div>
+            <div class="loader">
+                <div class="trackbar">
+                    <div class="loadbar"></div>
                 </div>
-
+                <div class="glow"></div>
             </div>
         </div>
-		                     
-                    
+        <div class="responsive_row">
+            <div class="responsive_container">
+                <div class="responsive_entry_center_wrap">
+                    <div id="main_column" class="responsive_row" style="margin-top:-14px;margin-bottom:-14px;margin-left:-14px;margin-right:-14px">
+                        <div class="responsive_row">
+                            <div class="middle_wrap">
+                                <div class="main_wrapper" data-ng-app="myApp" ng-init="" ng-controller="myCtrl" ng-click="check_dropdown($event)">
+                                    <div class ="home_page" ng-include="'partials/home_page.html'" ng-hide="home_var">
+                                    </div>
+                                    <div class="sound_page" ng-include="'partials/sound_page.html'" ng-hide="sound_var">
+                                    </div>
+                                    <div class="sound_page2" ng-include="sound_page2_html" ng-hide="sound2_var">
+                                    </div>
+                                    <div class="ex_page" ng-include="'partials/ex_page.html'" ng-hide="ex_var">
+                                    </div>
+                                    <div class="ex_page2" ng-include="'partials/ex_page2.html'" ng-hide="ex2_var">
+                                    </div>
+                                    <div class="con_page" ng-include="'partials/con_page.html'" ng-hide="con_var">
+                                    </div>
+                                    <div class="con_page2" ng-include="con_page2_html" ng-hide="con2_var">
+                                    </div>
+                                    <div class="exam_page" ng-include="'partials/exam_page.html'" ng-hide="exam_var">
+                                    </div>
+                                    <div class="exam_page3" ng-include="exam_page2_html" ng-hide="exam2_var">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-				</div>
-</div>
-</div>
-
-        
+            </div>
+        </div>
         <script src="scripts/jquery-ui-1.12.1.custom.min.js" type="text/javascript" language="JavaScript"></script>
         <script src="scripts/jquery.ui.touch-punch.min.js" type="text/javascript" language="JavaScript"></script>
         <script src="scripts/angular.min.js" type="text/javascript"></script>
@@ -178,52 +159,52 @@
         <script src="scripts/movieclip-0.7.1.min.js"></script>
         <script src="scripts/anim_yes_no.js"></script>
         <script type="text/javascript">
-                        var answer, lastClicked;
-
+            var answer, lastClicked;
+            
         </script>
-<script>
-var width = 100,
-    perfData = window.performance.timing, // The PerformanceTiming interface represents timing-related performance information for the given page.
-    EstimatedTime = -(perfData.loadEventEnd - perfData.navigationStart),
-    time = parseInt((EstimatedTime/1000)%60)*100;
-
-// Loadbar Animation
-$(".loadbar").animate({
-  width: width + "%"
-}, time);
-
-
-
-// Percentage Increment Animation
-var PercentageID = $("#precent"),
-		start = 0,
-		end = 100,
-		durataion = time;
-		animateValue(PercentageID, start, end, durataion);
-		
-function animateValue(id, start, end, duration) {
-  
-	var range = end - start,
-      current = start,
-      increment = end > start? 1 : -1,
-      stepTime = Math.abs(Math.floor(duration / range)),
-      obj = $(id);
-    
-	var timer = setInterval(function() {
-		current += increment;
-		$(obj).text(current + "%");
-      //obj.innerHTML = current;
-		if (current == end) {
-			clearInterval(timer);
-		}
-	}, stepTime);
-}
-
-// Fading Out Loadbar on Finised
-setTimeout(function(){
-  $('.preloader-wrap').fadeOut(300);
-}, time);
-
-</script>
+        <script>
+            var width = 100,
+                perfData = window.performance.timing, // The PerformanceTiming interface represents timing-related performance information for the given page.
+                EstimatedTime = -(perfData.loadEventEnd - perfData.navigationStart),
+                time = parseInt((EstimatedTime/1000)%60)*100;
+            
+            // Loadbar Animation
+            $(".loadbar").animate({
+              width: width + "%"
+            }, time);
+            
+            
+            
+            // Percentage Increment Animation
+            var PercentageID = $("#precent"),
+            		start = 0,
+            		end = 100,
+            		durataion = time;
+            		animateValue(PercentageID, start, end, durataion);
+            		
+            function animateValue(id, start, end, duration) {
+              
+            	var range = end - start,
+                  current = start,
+                  increment = end > start? 1 : -1,
+                  stepTime = Math.abs(Math.floor(duration / range)),
+                  obj = $(id);
+                
+            	var timer = setInterval(function() {
+            		current += increment;
+            		$(obj).text(current + "%");
+                  //obj.innerHTML = current;
+            		if (current == end) {
+            			clearInterval(timer);
+            		}
+            	}, stepTime);
+            }
+            
+            // Fading Out Loadbar on Finised
+            setTimeout(function(){
+              $('.preloader-wrap').fadeOut(300);
+            }, time);
+            
+        </script>
     </body>
 </html>
