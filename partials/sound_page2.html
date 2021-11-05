@@ -18,7 +18,7 @@
                         <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Watch</p><span class="ico"></span></div>
                         <div class="accordion_content" style="display: block; padding-top: 19px;">
                             <div class="container_video">
-                            <iframe class="video_container" style="width: 100%;" ng-src="{{sounds_data[key][index][lang][0]['video1']| trustAsResourceUrl}}" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <iframe class="video_container" ng-src="{{sounds_data[key][index][lang][0]['video1']| trustAsResourceUrl}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                             </div>
                         </div>
                     </li>
