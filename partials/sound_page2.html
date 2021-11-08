@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="practise_title">Watch the video clips and record your own pronunciation.</div>
+                                <div class="practise_title">Watch the video clip and practice.</div>
 
                                 <div class="lists" ng-if="sounds_data[key][index][lang][0]['video2'] != ''" >
                                     <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video2'] | trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
@@ -44,43 +44,9 @@
                                         </div>
                                     </div>
                                     <div class="pract_words" ng-bind-html="sounds_data[key][index]['phoneme'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video2', $event)"></div>
-                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video2', $event)"></div>
 
                                 </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video3'] != ''">
-                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video3']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
 
-                                        <div class="v_thumb">
-
-                                        </div>
-                                    </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['initial'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video3', $event)">
-
-                                    </div><div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video3', $event)"></div>
-                                </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video4'] != ''">
-                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video4']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
-
-                                        <div class="v_thumb">
-
-                                        </div>
-                                    </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['medial'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video4', $event)"></div>
-                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video4', $event)"></div>
-
-                                </div>
-                                <div class="lists" ng-if="sounds_data[key][index][lang][0]['video5'] != ''">
-                                    <div class="video_clk am_thumb fancybox.iframe" href="{{sounds_data[key][index][lang][0]['video5']| trustAsResourceUrl}}" ng-class="{british_thumb: lang == 'b'}">
-
-                                        <div class="v_thumb">
-
-                                        </div>
-                                    </div> <div class="pract_words" ng-bind-html="sounds_data[key][index][lang][0]['final'] | to_trusted"></div>
-                                    <div class="record" data-audio_status="start" ng-click="start_record('sounds_' + key + '_' + index + '_' + lang + '_video5', $event)"></div>
-                                    <div class="play" data-audio="" ng-click="play_wav_ol('sounds_' + key + '_' + index + '_' + lang + '_video5', $event)"></div>
-
-                                </div>
                             </div>
                         </div>
                     </li>
