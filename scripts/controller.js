@@ -1649,7 +1649,13 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                         }
                     ]);
 
-            $('.video_clk').fancybox({
+            
+            $scope.sound_page2_html = 'partials/blank.html';
+            setTimeout(function() {
+                $scope.sound_page2_html = 'partials/sound_page2.html';
+                $('.main_wrapper').trigger('click');
+				// video_resize();
+                $('.video_clk').fancybox({
                 autoSize: true,
                 autoResize: true,
                 autoCenter: true,
@@ -1669,11 +1675,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                     }
                 }
             });
-            $scope.sound_page2_html = 'partials/blank.html';
-            setTimeout(function() {
-                $scope.sound_page2_html = 'partials/sound_page2.html';
-                $('.main_wrapper').trigger('click');
-				video_resize();
             }, 200);
             $scope.scroll_bar();
             $('html').css('overflow-y', 'hidden !important');
@@ -3184,7 +3185,7 @@ var shuffleArray = function(array) {
 
     // While there remain elements to shuffle
     while (m) {
-        // Pick a remaining element…
+        // Pick a remaining elementâ€¦
         i = Math.floor(Math.random() * m--);
 
         // And swap it with the current element.
