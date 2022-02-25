@@ -1033,12 +1033,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.current_section = 'Sounds';
             $scope.head_h1 = 'Choose a sound to practise';
 
-            if (!html5sql.database) {
-                html5sql.openDatabase("MITR", "iSpeaker", 5 * 1024 * 1024);
-            }
-            html5sql.logInfo = true;
-            html5sql.logErrors = true;
-            
             if (!$rootScope.database_status['status']) {
                 $rootScope.database_status['status'] = true;
                 $scope.insert_sounds_database();
