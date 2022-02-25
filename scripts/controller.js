@@ -1,3 +1,63 @@
+var connection = new JsStore.Connection(new Worker('scripts/jsstore.worker.js'));
+
+if (!window.indexedDB) {
+    window.alert("Your browser doesn't support a stable version of IndexedDB.")
+}
+
+initDb();
+
+async function initDb() {
+    var isDbCreated = await connection.initDb(getiSpeakerDB());
+        if (isDbCreated) {
+            console.log('Database created');
+        }
+        else {
+            console.log('Database opened');
+        }
+}
+    
+function getiSpeakerDB() {
+//IndexedDB
+    var dbName ='iSpeaker';
+    var sounds_review1 = {
+        name: 'sounds_review',
+        columns: {
+            id: { primaryKey: true, autoIncrement: true },
+            index_key: { notNull: true, dataType: "number" },
+            type: { notNull: true, dataType: "string" },
+            language: { notNull: true, dataType: "string" },
+            review: { notNull: true, dataType: "number" }
+        }
+    };
+    var conversation_review1 = {
+        name: 'conversation_review',
+        columns: {
+            id: { primaryKey: true, autoIncrement: true },
+            index_key: { notNull: true, dataType: "number" },
+            type: { notNull: true, dataType: "string" },
+            language: { notNull: true, dataType: "string" },
+            review: { notNull: false, dataType: "string" },
+            notes: { notNull: false, dataType: "string" }
+        }
+    };
+    var ep_review1 = {
+        name: 'ep_review',
+        columns: {
+            id: { primaryKey: true, autoIncrement: true },
+            index_key: { notNull: true, dataType: "number" },
+            type: { notNull: true, dataType: "string" },
+            language: { notNull: true, dataType: "string" },
+            review: { notNull: false, dataType: "string" },
+            notes: { notNull: false, dataType: "string" }
+        }
+    };
+    var database = {
+        name: dbName,
+        tables: [sounds_review1, conversation_review1, ep_review1]
+    };
+    return database;
+}
+
 angular.module('myApp', [
     'myApp.filters',
     'myApp.controllers',
@@ -12,6 +72,7 @@ angular.module('myApp', [
     'ngAnimate',
     'ngDragDrop'
 ]);
+
 function random_gen_arr(_size) {
     var arr = new Array();
     for (var i = 0; i < _size; i++) {
@@ -21,6 +82,7 @@ function random_gen_arr(_size) {
 }
 
 var sound = null; //new AudioPlayerClass();
+
 angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function($scope, $http, $rootScope, $interval) {
     //init
     //pages
@@ -56,8 +118,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         if ($rootScope.flip_card_timer) {
             clearInterval($rootScope.flip_card_timer);
         }
-        if (stop) {
-            clearInterval(stop);
+        if (typeof(stop) != "undefined") {
+            if (stop) {
+                clearInterval(stop);
+            }
         }
 
         setTimeout(function() {
@@ -121,7 +185,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     $scope.exerceise_counter = 0;
     $scope.exercise_tpl = {};
-    $scope.exercise_tpl_arr = ['partials/stress.html', 'partials/re_ordering.html', 'partials/dectation.html', 'partials/odd_one_out.html', 'partials/drag_match.html', 'partials/sound_spelling.html', 'partials/snap.html', 'partials/memory.html'];//drag_match
+    $scope.exercise_tpl_arr = ['partials/stress.html', 'partials/re_ordering.html', 'partials/dectation.html', 'partials/odd_one_out.html', 'partials/drag_match.html', 'partials/sound_spelling.html', 'partials/snap.html', 'partials/memory.html']; //drag_match
     //$scope.exercise_tpl.url = $scope.exercise_tpl_arr[$scope.exerceise_counter];
     $scope.change_ex_tpl = function() {
         //$scope.exerceise_counter++;
@@ -156,6 +220,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     $(window).resize(function() {
         con_table();
+        setTimeout(function() {
+            $('.ul_cls_oddOut').css('width', ($('.li_cls').width() * 2 + 15) + 'px');
+            $('.ul_cls_oddOut').css('opacity', '1');
+        }, 500);
     });
 
 
@@ -185,27 +253,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.sounds_data['consonants'][i]['b'][0]['video4'] = '';
                 $scope.sounds_data['consonants'][i]['b'][0]['video5'] = '';
 
-                if (typeof ($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['consonants'][i]['b'][0]['video1'] = $scope.sounds_data['consonants_b'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['consonants'][i]['b'][0]['video2'] = $scope.sounds_data['consonants_b'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['b'][0]['initial'] != '') {
                         $scope.sounds_data['consonants'][i]['b'][0]['video3'] = $scope.sounds_data['consonants_b'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['b'][0]['medial'] != '') {
                         $scope.sounds_data['consonants'][i]['b'][0]['video4'] = $scope.sounds_data['consonants_b'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['b'][0]['final'] != '') {
                         $scope.sounds_data['consonants'][i]['b'][0]['video5'] = $scope.sounds_data['consonants_b'][sound_cnt].value;
                         sound_cnt++;
@@ -221,27 +289,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.sounds_data['consonants'][i]['a'][0]['video4'] = '';
                 $scope.sounds_data['consonants'][i]['a'][0]['video5'] = '';
 
-                if (typeof ($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['consonants'][i]['a'][0]['video1'] = $scope.sounds_data['consonants_a'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['consonants'][i]['a'][0]['video2'] = $scope.sounds_data['consonants_a'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['a'][0]['initial'] != '') {
                         $scope.sounds_data['consonants'][i]['a'][0]['video3'] = $scope.sounds_data['consonants_a'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['a'][0]['medial'] != '') {
                         $scope.sounds_data['consonants'][i]['a'][0]['video4'] = $scope.sounds_data['consonants_a'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['consonants_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['consonants'][i]['a'][0]['final'] != '') {
                         $scope.sounds_data['consonants'][i]['a'][0]['video5'] = $scope.sounds_data['consonants_a'][sound_cnt].value;
                         sound_cnt++;
@@ -259,27 +327,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video4'] = '';
                 $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video5'] = '';
 
-                if (typeof ($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video1'] = $scope.sounds_data['vowels_b'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video2'] = $scope.sounds_data['vowels_b'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['initial'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video3'] = $scope.sounds_data['vowels_b'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['medial'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video4'] = $scope.sounds_data['vowels_b'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_b'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['final'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['b'][0]['video5'] = $scope.sounds_data['vowels_b'][sound_cnt].value;
                         sound_cnt++;
@@ -296,27 +364,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video4'] = '';
                 $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video5'] = '';
 
-                if (typeof ($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video1'] = $scope.sounds_data['vowels_a'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
                     $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video2'] = $scope.sounds_data['vowels_a'][sound_cnt].value;
                     sound_cnt++;
                 }
-                if (typeof ($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['initial'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video3'] = $scope.sounds_data['vowels_a'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['medial'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video4'] = $scope.sounds_data['vowels_a'][sound_cnt].value;
                         sound_cnt++;
                     }
                 }
-                if (typeof ($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
+                if (typeof($scope.sounds_data['vowels_a'][sound_cnt]) !== 'undefined') {
                     if ($scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['final'] != '') {
                         $scope.sounds_data['vowels_n_diphthongs'][i]['a'][0]['video5'] = $scope.sounds_data['vowels_a'][sound_cnt].value;
                         sound_cnt++;
@@ -413,13 +481,13 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 var name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                var audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
+                var audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b;
                 $scope.con_data['function1'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
             var study_custom = false;
             var study_key = 'study';
-            if (typeof ($scope.con_data['function1'][i]['a'][0]['study_custom']) != 'undefined') {
+            if (typeof($scope.con_data['function1'][i]['a'][0]['study_custom']) != 'undefined') {
                 study_key = 'study_custom';
             }
 
@@ -427,7 +495,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function1'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a;
                 $scope.con_data['function1'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
@@ -441,20 +509,20 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             temp_i = temp_i + Number($scope.con_data['function1'].length);
             study_custom = false;
             study_key = 'study';
-            if (typeof ($scope.con_data['function2'][i]['b'][0]['study_custom']) != 'undefined') {
+            if (typeof($scope.con_data['function2'][i]['b'][0]['study_custom']) != 'undefined') {
                 study_key = 'study_custom';
             }
             for (var k in $scope.con_data['function2'][i]['b'][0][study_key]) {
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
                 //for british
-                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_gb_' + cnt_b;
                 $scope.con_data['function2'][i]['b'][0]['audios'].push(audio_file_name);
                 cnt_b++;
             }
             study_custom = false;
             study_key = 'study';
-            if (typeof ($scope.con_data['function2'][i]['a'][0]['study_custom']) != 'undefined') {
+            if (typeof($scope.con_data['function2'][i]['a'][0]['study_custom']) != 'undefined') {
                 study_key = 'study_custom';
             }
             for (var k in $scope.con_data['function2'][i]['a'][0][study_key]) {
@@ -462,7 +530,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 name = $scope.con_data['function2'][i]['function'].toLowerCase();
                 name = name.replace(/ /g, "_");
 
-                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a ;
+                audio_file_name = 'ispeaker_video_' + zeroPad(temp_i, 2) + '_' + name + '_us_' + cnt_a;
                 $scope.con_data['function2'][i]['a'][0]['audios'].push(audio_file_name);
                 cnt_a++;
             }
@@ -489,15 +557,15 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.exam_data['task'][i]['audio'] = new Array();
             for (var k in $scope.exam_data['task'][i]['left_list']) {
                 $scope.exam_data['task'][i]['audio'][k] = new Array();
-          for (var j in $scope.exam_data['task'][i]['left_list'][k]) {
-            if ($scope.exam_data['task'][i]['left_list'][k][i] == '') {
-              audio_cnt++;
-            } else {
-              $scope.exam_data['task'][i]['audio'][k][j] = 'ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
-              audio_cnt++;
-            }
+                for (var j in $scope.exam_data['task'][i]['left_list'][k]) {
+                    if ($scope.exam_data['task'][i]['left_list'][k][i] == '') {
+                        audio_cnt++;
+                    } else {
+                        $scope.exam_data['task'][i]['audio'][k][j] = 'ispeaker_exam_' + shortname + '_' + (audio_cnt + 1) + '_gb';
+                        audio_cnt++;
+                    }
 
-          }
+                }
             }
         }
     });
@@ -570,12 +638,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
 
 
-        for (var i = 0; i < 50; i++) {//Words
+        for (var i = 0; i < 50; i++) { //Words
             dict_data_b[cnt_] = $rootScope.ex_data['snap'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['snap'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 50; i++) {//Sentences
+        for (var i = 0; i < 50; i++) { //Sentences
             dict_data_b[cnt_] = $rootScope.ex_data['snap'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['snap'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
@@ -609,17 +677,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
         sec3_arr = shuffleArray(sec3_arr.slice(0));
 
-        for (var i = 0; i < 5; i++) {//for words
+        for (var i = 0; i < 5; i++) { //for words
             dict_data_b[cnt_] = $rootScope.ex_data['sorting'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['sorting'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 5; i++) {//for Missing words
+        for (var i = 0; i < 5; i++) { //for Missing words
             dict_data_b[cnt_] = $rootScope.ex_data['sorting'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['sorting'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 5; i++) {//for Sentences
+        for (var i = 0; i < 5; i++) { //for Sentences
             dict_data_b[cnt_] = $rootScope.ex_data['sorting'][2]["b"][0]['act'][sec3_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['sorting'][2]["a"][0]['act'][sec3_arr[i]];
             cnt_++;
@@ -652,17 +720,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
         sec3_arr = shuffleArray(sec3_arr.slice(0));
 
-        for (var i = 0; i < 50; i++) {//for words
+        for (var i = 0; i < 50; i++) { //for words
             dict_data_b[cnt_] = $rootScope.ex_data['dictation'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['dictation'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 35; i++) {//for Missing words
+        for (var i = 0; i < 35; i++) { //for Missing words
             dict_data_b[cnt_] = $rootScope.ex_data['dictation'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['dictation'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 35; i++) {//for Sentences
+        for (var i = 0; i < 35; i++) { //for Sentences
             dict_data_b[cnt_] = $rootScope.ex_data['dictation'][2]["b"][0]['act'][sec3_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['dictation'][2]["a"][0]['act'][sec3_arr[i]];
             cnt_++;
@@ -697,17 +765,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
         sec3_arr = shuffleArray(sec3_arr.slice(0));
 
-        for (var i = 0; i < 15; i++) {//Similar sounds
+        for (var i = 0; i < 15; i++) { //Similar sounds
             dict_data_b[cnt_] = $rootScope.ex_data['matchup'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['matchup'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 15; i++) {//Reading phonetics
+        for (var i = 0; i < 15; i++) { //Reading phonetics
             dict_data_b[cnt_] = $rootScope.ex_data['matchup'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['matchup'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 10; i++) {//Comprehension
+        for (var i = 0; i < 10; i++) { //Comprehension
             dict_data_b[cnt_] = $rootScope.ex_data['matchup'][2]["b"][0]['act'][sec3_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['matchup'][2]["a"][0]['act'][sec3_arr[i]];
             cnt_++;
@@ -742,12 +810,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
 
 
-        for (var i = 0; i < 75; i++) {//Words
+        for (var i = 0; i < 75; i++) { //Words
             dict_data_b[cnt_] = $rootScope.ex_data['reordering'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['reordering'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 50; i++) {//Sentences
+        for (var i = 0; i < 50; i++) { //Sentences
             dict_data_b[cnt_] = $rootScope.ex_data['reordering'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['reordering'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
@@ -780,12 +848,12 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
 
 
-        for (var i = 0; i < 5; i++) {//Words
+        for (var i = 0; i < 5; i++) { //Words
             dict_data_b[cnt_] = $rootScope.ex_data['memory_match'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['memory_match'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 5; i++) {//Sentences
+        for (var i = 0; i < 5; i++) { //Sentences
             dict_data_b[cnt_] = $rootScope.ex_data['memory_match'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['memory_match'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
@@ -825,17 +893,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         sec2_arr = shuffleArray(sec2_arr.slice(0));
         sec3_arr = shuffleArray(sec3_arr.slice(0));
 
-        for (var i = 0; i < 15; i++) {//Similar sounds
+        for (var i = 0; i < 15; i++) { //Similar sounds
             dict_data_b[cnt_] = $rootScope.ex_data['odd_one_out'][0]["b"][0]['act'][sec1_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['odd_one_out'][0]["a"][0]['act'][sec1_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 15; i++) {//Reading phonetics
+        for (var i = 0; i < 15; i++) { //Reading phonetics
             dict_data_b[cnt_] = $rootScope.ex_data['odd_one_out'][1]["b"][0]['act'][sec2_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['odd_one_out'][1]["a"][0]['act'][sec2_arr[i]];
             cnt_++;
         }
-        for (var i = 0; i < 20; i++) {//Comprehension
+        for (var i = 0; i < 20; i++) { //Comprehension
             dict_data_b[cnt_] = $rootScope.ex_data['odd_one_out'][2]["b"][0]['act'][sec3_arr[i]];
             dict_data_a[cnt_] = $rootScope.ex_data['odd_one_out'][2]["a"][0]['act'][sec3_arr[i]];
             cnt_++;
@@ -894,8 +962,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             if ($scope.value == value) {
                 $scope.match = true;
             }
-        }
-        else {
+        } else {
             $scope.clicked = index;
             $scope.value = value;
         }
@@ -949,8 +1016,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         if ($rootScope.flip_card_timer) {
             clearInterval($rootScope.flip_card_timer);
         }
-        if (stop) {
-            clearInterval(stop);
+        if (typeof(stop) != "undefined") {
+            if (stop) {
+                clearInterval(stop);
+            }
         }
         $scope.left_menu = true;
         if (page_id == 'home_page') {
@@ -969,28 +1038,24 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             }
             html5sql.logInfo = true;
             html5sql.logErrors = true;
-
-
+            
             if (!$rootScope.database_status['status']) {
                 $rootScope.database_status['status'] = true;
                 $scope.insert_sounds_database();
             }
-
-
-            //create table if not exist
-            html5sql.process(
-                    [
-                        {
-                            sql: "SELECT * FROM sounds_review;", //fetch all sounds records
-                            success: function(transaction, results, rowArray) {
-                                if (rowArray.length != 0) {
-                                    for (var i in rowArray) {
-                                        $scope.sounds_data[rowArray[i]['type']][rowArray[i]['index_key']][rowArray[i]['language']][0]['review'] = rowArray[i]['review'];
-                                    }
-                                }
-                            }
-                        }
-                    ]);
+                
+            //IndexedDB
+            async function fetchSounds() {
+                var results = await connection.select({
+                    from: 'sounds_review'
+                })
+                if (results.length !== 0) {
+                    for (var i in results) {
+                        $scope.sounds_data[results[i]['type']][results[i]['index_key']][results[i]['language']][0]['review'] = results[i]['review'];
+                    }
+                }
+            }
+            fetchSounds();
 
             setTimeout(function() {
                 $('.main_wrapper').trigger('click');
@@ -1038,22 +1103,30 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             recorder.clear();
         }
 
-        $('html').css('overflow', 'auto');
+        //$('html').css('overflow', 'auto');
+        $scope.s_head_h1 = $scope.head_h1;
+        scroll_top();
 
     };
     $scope.set_review = function(index_key, type, language, review) {
-        html5sql.process(
-                [
-                    {
-                        sql: "UPDATE sounds_review SET review = " + review + " WHERE index_key = " + index_key + " AND type = '" + type + "' AND language = '" + language + "';",
-                        success: function(transaction, results, rowArray) {
-                            if (results.rowsAffected == 1) {
-                                $('.rating_div div').removeClass('selected');
-                                $('.rate_' + review).addClass('selected');
-                            }
-                        }
-                    }
-                ]);
+
+        //IndexedDB
+        async function updateSoundsreview() {
+            var update = await connection.update({
+                in: 'sounds_review',
+                where: {
+                    index_key: Number(index_key),
+                    type: type,
+                    language: language
+                },
+                set: {
+                    review: Number(review)
+                }
+            })
+        }
+        updateSoundsreview();
+        $('.rating_div div').removeClass('selected');
+        $('.rate_' + review).addClass('selected');
 
 
     };
@@ -1065,47 +1138,28 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 alert("Please try again");
             }
         });*/
-
-        html5sql.process(
-                [
-                    {
-                        sql: "DROP TABLE IF EXISTS sounds_review;",
-                        success: function(transaction, results) {
-
-                        }
-                    },
-                    {
-                        sql: "CREATE TABLE IF NOT EXISTS sounds_review (id INTEGER PRIMARY KEY AUTOINCREMENT, index_key INTEGER, type varchar(50), language varchar(1), review INTEGER);",
-                        success: function(transaction, results) {
-                            //insert default data to database
-                            /*
-                             var query = '';
-                             for (var i in $scope.sounds_data['consonants']) {
-                             query += "INSERT INTO sounds_review (index_key, type, language, review) VALUES (" + i + ", 'consonants', 'b', 0);\n";
-                             query += "INSERT INTO sounds_review (index_key, type, language, review) VALUES (" + i + ", 'consonants', 'a', 0);\n";
-                             }
-                             for (var i in $scope.sounds_data['vowels_n_diphthongs']) {
-                             query += "INSERT INTO sounds_review (index_key, type, language, review) VALUES (" + i + ", 'vowels_n_diphthongs', 'b', 0);\n";
-                             query += "INSERT INTO sounds_review (index_key, type, language, review) VALUES (" + i + ", 'vowels_n_diphthongs', 'a', 0);\n";
-                             }
-                             */
-                            $.get('sounds.sql', function(sql) {
-                                html5sql.process(
-                                        sql,
-                                        function() { //Success
-                                            console.log('success');
-                                        },
-                                        function(error, failingQuery) { //Failure
-                                            console.log(error);
-                                            console.log(failingQuery);
-                                        }
-                                );
-                            });
-                            //end insert default data to database
-                        }
+        
+        //IndexedDB
+        async function checkifdataexists() {
+            var results = await connection.select({
+                    from: 'sounds_review',
+                    where: {
+                        index_key: 0
                     }
-                ]
-                );
+                })
+                if (results.length == 0) {
+                    console.log('No sounds_review data exists, creating default data');
+                    async function insertconsonants_data() {
+                        var insertsoundreview = await connection.insert({
+                            into: "sounds_review",
+                            values: [consonants_data,consonants_data1,consonants_data2,consonants_data3,consonants_data4,consonants_data5,consonants_data6,consonants_data7,consonants_data8,consonants_data9,consonants_data10,consonants_data11,consonants_data12,consonants_data13,consonants_data14,consonants_data15,consonants_data16,consonants_data17,consonants_data18,consonants_data19,consonants_data20,consonants_data21,consonants_data22,consonants_data23,consonants_data24,consonants_data25,consonants_data26,consonants_data27,consonants_data28,consonants_data29,consonants_data30,consonants_data31,consonants_data32,consonants_data33,consonants_data34,consonants_data35,consonants_data36,consonants_data37,consonants_data38,consonants_data39,consonants_data40,consonants_data41,consonants_data42,consonants_data43,consonants_data44,consonants_data45,consonants_data46,consonants_data47,consonants_data48,consonants_data49,consonants_data50,consonants_data51,consonants_data52,consonants_data53,consonants_data54,consonants_data55,consonants_data56,consonants_data57,consonants_data58,consonants_data59,consonants_data60,consonants_data61,consonants_data62,consonants_data63,consonants_data64,consonants_data65,consonants_data66,consonants_data67,consonants_data68,consonants_data69,consonants_data70,consonants_data71,consonants_data72,consonants_data73,consonants_data74,consonants_data75,consonants_data76,consonants_data77,consonants_data78,consonants_data79,consonants_data80,consonants_data81,consonants_data82,consonants_data83,consonants_data84,consonants_data85,consonants_data86,consonants_data87,consonants_data88,consonants_data89,consonants_data90,consonants_data91,consonants_data92,consonants_data93,consonants_data94,consonants_data95,consonants_data96,consonants_data97,consonants_data98,consonants_data99,consonants_data100,consonants_data101,consonants_data102,consonants_data103,consonants_data104,consonants_data105,consonants_data106,consonants_data107]
+                        })
+                    }
+                    insertconsonants_data();
+                }
+        }
+        checkifdataexists();
+        
 
     };
 
@@ -1121,18 +1175,22 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             notes = notes.replace(/'/g, '#|#');
             notes = notes.replace(/"/g, '#||#');
         }
-
-        html5sql.process(
-                [
-                    {
-                        sql: "UPDATE conversation_review SET notes = '" + notes + "' WHERE index_key = " + index_key + " AND type = '" + type + "' AND language = '" + language + "';",
-                        success: function(transaction, results, rowArray) {
-                            if (results.rowsAffected == 1) {
-                                console.log('checked');
-                            }
-                        }
-                    }
-                ]);
+            
+        //IndexedDB
+        async function updateConversationNotes() {
+            var update = await connection.update({
+                in: 'conversation_review',
+                where: {
+                    index_key: Number(index_key),
+                    type: type,
+                    language: language
+                },
+                set: {
+                    notes: notes
+                }
+            })
+        }
+        updateConversationNotes();
 
     };
     $scope.ep_notes = function() {
@@ -1156,17 +1214,21 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             notes = notes.replace(/"/g, '#||#');
         }
 
-        html5sql.process(
-                [
-                    {
-                        sql: "UPDATE ep_review SET notes = '" + notes + "' WHERE index_key = " + index_key + " AND type = '" + type + "' AND language = 'b';",
-                        success: function(transaction, results, rowArray) {
-                            if (results.rowsAffected == 1) {
-                                console.log('checked');
-                            }
-                        }
-                    }
-                ]);
+        //IndexedDB
+        async function updateNotes_ep() {
+            var update = await connection.update({
+                in: 'ep_review',
+                where: {
+                    index_key: Number(index_key),
+                    type: type,
+                    language: 'b'
+                },
+                set: {
+                    notes: notes
+                }
+            })
+        }
+        updateNotes_ep();
     };
 
     $scope.conversation_review = function() {
@@ -1185,17 +1247,22 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             }
         }
 
-        html5sql.process(
-                [
-                    {
-                        sql: "UPDATE conversation_review SET review = '" + review + "' WHERE index_key = " + index_key + " AND type = '" + type + "' AND language = '" + language + "';",
-                        success: function(transaction, results, rowArray) {
-                            if (results.rowsAffected == 1) {
-                                console.log('checked');
-                            }
-                        }
-                    }
-                ]);
+        //IndexedDB
+        async function updateConversationreview() {
+            var update = await connection.update({
+                in: 'conversation_review',
+                where: {
+                    index_key: Number(index_key),
+                    type: type,
+                    language: language
+                },
+                set: {
+                    review: review
+                }
+            })
+        }
+        updateConversationreview();
+        
     };
     $scope.insert_conversation_database = function() {
         /*var fs = require('fs');
@@ -1204,48 +1271,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 alert("Please try again");
             }
         });*/
-        html5sql.process(
-                [
-                    {
-                        sql: "DROP TABLE IF EXISTS conversation_review;",
-                        success: function(transaction, results) {
-
-                        }
-                    },
-                    {
-                        sql: "CREATE TABLE IF NOT EXISTS conversation_review (id INTEGER PRIMARY KEY AUTOINCREMENT, index_key INTEGER, type varchar(50), language varchar(1), review varchar(10), notes TEXT);",
-                        success: function(transaction, results) {
-                            //insert default data to database
-
-                            /* var query = '';
-                             for (var i in $scope.con_data['function1']) {
-                             query += "INSERT INTO conversation_review (index_key, type, language, review, notes) VALUES (" + i + ", 'function1', 'b', 0,'');\n";
-                             query += "INSERT INTO conversation_review (index_key, type, language, review, notes) VALUES (" + i + ", 'function1', 'a', 0,'');\n";
-                             }
-                             for (var i in $scope.con_data['function2']) {
-                             query += "INSERT INTO conversation_review (index_key, type, language, review, notes) VALUES (" + i + ", 'function2', 'b', 0,'');\n";
-                             query += "INSERT INTO conversation_review (index_key, type, language, review, notes) VALUES (" + i + ", 'function2', 'a', 0,'');\n";
-                             }
-
-                             console.log(query);*/
-
-                            $.get('conversations.sql', function(sql) {
-                                html5sql.process(
-                                        sql,
-                                        function() { //Success
-                                            console.log('success');
-                                        },
-                                        function(error, failingQuery) { //Failure
-                                            console.log(error);
-                                            console.log(failingQuery);
-                                        }
-                                );
-                            });
-                            //end insert default data to database
-                        }
+        
+        //IndexedDB
+        async function checkifconversationexists() {
+            var results = await connection.select({
+                    from: 'conversation_review',
+                    where: {
+                        index_key: 0
                     }
-                ]
-                );
+                })
+                if (results.length == 0) {
+                    console.log('No conversation data exists, creating default data');
+                    async function insertconversation_data() {
+                        var insertsoundreview = await connection.insert({
+                            into: "conversation_review",
+                            values: [insertconversation1,insertconversation2,insertconversation3,insertconversation4,insertconversation5,insertconversation6,insertconversation7,insertconversation8,insertconversation9,insertconversation10,insertconversation11,insertconversation12,insertconversation13,insertconversation14,insertconversation15,insertconversation16,insertconversation17,insertconversation18,insertconversation19,insertconversation20,insertconversation21,insertconversation22,insertconversation23,insertconversation24,insertconversation25,insertconversation26,insertconversation27,insertconversation28,insertconversation29,insertconversation30,insertconversation31,insertconversation32,insertconversation33,insertconversation34,insertconversation35,insertconversation36,insertconversation37,insertconversation38,insertconversation39,insertconversation40,insertconversation41,insertconversation42,insertconversation43,insertconversation44,insertconversation45,insertconversation46,insertconversation47,insertconversation48,insertconversation49,insertconversation50,insertconversation51,insertconversation52,insertconversation53,insertconversation54,insertconversation55,insertconversation56,insertconversation57,insertconversation58,insertconversation59,insertconversation60,insertconversation61,insertconversation62,insertconversation63,insertconversation64,insertconversation65,insertconversation66,insertconversation67,insertconversation68,insertconversation69,insertconversation70,insertconversation71,insertconversation72,insertconversation73,insertconversation74,insertconversation75,insertconversation76,insertconversation77,insertconversation78]
+                        })
+                    }
+                    insertconversation_data();
+                }
+        }
+        checkifconversationexists();
 
     };
 
@@ -1263,17 +1309,22 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 review += '1';
             }
         }
-        html5sql.process(
-                [
-                    {
-                        sql: "UPDATE ep_review SET review = '" + review + "' WHERE index_key = " + index_key + " AND type = '" + type + "' AND language = 'b';",
-                        success: function(transaction, results, rowArray) {
-                            if (results.rowsAffected == 1) {
-                                console.log('checked');
-                            }
-                        }
-                    }
-                ]);
+
+        //IndexedDB
+        async function updateTick_ep() {
+            var update = await connection.update({
+                in: 'ep_review',
+                where: {
+                    index_key: Number(index_key),
+                    type: type,
+                    language: 'b'
+                },
+                set: {
+                    review: review
+                }
+            })
+        }
+        updateTick_ep();
     }
     $scope.insert_ep_database = function() {
         /*var fs = require('fs');
@@ -1282,42 +1333,27 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 alert("Please try again");
             }
         });*/
-        html5sql.process(
-                [
-                    {
-                        sql: "DROP TABLE IF EXISTS ep_review;",
-                        success: function(transaction, results) {
 
-                        }
-                    },
-                    {
-                        sql: "CREATE TABLE IF NOT EXISTS ep_review (id INTEGER PRIMARY KEY AUTOINCREMENT, index_key INTEGER, type varchar(50), language varchar(1), review varchar(10), notes TEXT);",
-                        success: function(transaction, results) {
-                            //insert default data to database
-
-                            /*var query = '';
-                             for (var i in $scope.exam_data['task']) {
-                             query += "INSERT INTO ep_review (index_key, type, language, review, notes) VALUES (" + i + ", 'task', 'b', '','');\n";
-                             }
-                             console.log(query);*/
-
-                            $.get('ep.sql', function(sql) {
-                                html5sql.process(
-                                        sql,
-                                        function() { //Success
-                                            console.log('success');
-                                        },
-                                        function(error, failingQuery) { //Failure
-                                            console.log(error);
-                                            console.log(failingQuery);
-                                        }
-                                );
-                            });
-                            //end insert default data to database
-                        }
+        //IndexedDB
+        async function checkifEPexists() {
+            var results = await connection.select({
+                    from: 'ep_review',
+                    where: {
+                        index_key: 0
                     }
-                ]
-                );
+                })
+                if (results.length == 0) {
+                    console.log('No ep_review data exists, creating default data');
+                    async function insertEP_data() {
+                        var insertEP = await connection.insert({
+                            into: "ep_review",
+                            values: [insertep1,insertep2,insertep3,insertep4,insertep5,insertep6,insertep7]
+                        })
+                    }
+                    insertEP_data();
+                }
+        }
+        checkifEPexists();
 
     };
 
@@ -1326,13 +1362,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     $scope.left_menu_clk = function($event) {
         if ($($event.currentTarget).parents('.container').find('.left_part').hasClass('open')) {
             $($event.currentTarget).parents('.container').find('.left_part').addClass('close').removeClass('open');
-            $($event.currentTarget).parents('.container').find('.left_part').animate({left: '-100%'}, 500, "linear");
+            $($event.currentTarget).parents('.container').find('.left_part').animate({
+                left: '-100%'
+            }, 500, "linear");
             $($event.currentTarget).parents('.container').find('.left_menu').css('background-position', '-2px 11px');
             $('.left_part').removeClass('left_part_m');
             $('.right_part').removeClass('right_part_m');
         } else {
             $($event.currentTarget).parents('.container').find('.left_part').addClass('open').removeClass('close');
-            $($event.currentTarget).parents('.container').find('.left_part').animate({left: '0%'}, 500, "linear");
+            $($event.currentTarget).parents('.container').find('.left_part').animate({
+                left: '0%'
+            }, 500, "linear");
             $($event.currentTarget).parents('.container').find('.left_menu').css('background-position', '-8px 11px');
             $('.left_part').addClass('left_part_m');
             $('.right_part').addClass('right_part_m');
@@ -1389,31 +1429,34 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     $scope.while_playing = function() {
         $('.play').css('background-position-x', '-58px');
         $rootScope.audio_obj.pause();
+        if (typeof(sound) != 'undefined' && sound != null) {
+            sound.pause();
+        }
     };
 
-    $scope.play_audio_common = function (file_name, $event) {
+    $scope.play_audio_common = function(file_name, $event) {
 
-      if ($($event.target).css('background-position').split(" ")[0] != '-58px') {
-        $scope.while_playing();
-      } else {
-        $rootScope.audio_obj = null;
-        $rootScope.audio_obj = new Audio();
-        //alert(baseWebsiteUrl + $($event.target).attr('data-path'));
-        //$rootScope.audio_obj = $($event.target).next('audio')[0];
-        $rootScope.audio_obj.src = $($event.target).attr('data-path');
-        $rootScope.audio_obj.play();
-        $('.play').css('background-position', '-58px 1px');
-        $($event.target).css('background-position', '-270px 1px');
-        /*$rootScope.audio_obj.onended = function () {
-         alert('eneded');
-         $('.play').css('background-position', '-58px 1px');
-         };*/
-        $rootScope.audio_obj.addEventListener('ended', function () {
-          //alert('eneded');
-          $('.play').css('background-position', '-58px 1px');
-        });
+        if ($($event.target).css('background-position').split(" ")[0] != '-58px') {
+            $scope.while_playing();
+        } else {
+            $rootScope.audio_obj = null;
+            $rootScope.audio_obj = new Audio();
+            //alert(baseWebsiteUrl + $($event.target).attr('data-path'));
+            //$rootScope.audio_obj = $($event.target).next('audio')[0];
+            $rootScope.audio_obj.src = $($event.target).attr('data-path');
+            $rootScope.audio_obj.play();
+            $('.play').css('background-position', '-58px 1px');
+            $($event.target).css('background-position', '-270px 1px');
+            /*$rootScope.audio_obj.onended = function () {
+             alert('eneded');
+             $('.play').css('background-position', '-58px 1px');
+             };*/
+            $rootScope.audio_obj.addEventListener('ended', function() {
+                //alert('eneded');
+                $('.play').css('background-position', '-58px 1px');
+            });
 
-      }
+        }
     };
 
     $scope.play_wav = function(file_path, $event) {
@@ -1422,26 +1465,26 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         } else {
             var _file_path = file_path;
             file_path = 'media/recording/' + file_path;
-           // var fs = require('fs');
-           /* fs.exists('./www/' + file_path, function(exists) {
-                if (exists) {
-                    // serve file
-                    //var audio_obj = new Audio();
-                    $rootScope.audio_obj.src = file_path;
-                    setTimeout(function() {
-                        $rootScope.audio_obj.play();
-                        $('.play').css('background-position-x', '-58px');
-                        $($event.target).css('background-position-x', '-270px');
+            // var fs = require('fs');
+            /* fs.exists('./www/' + file_path, function(exists) {
+                 if (exists) {
+                     // serve file
+                     //var audio_obj = new Audio();
+                     $rootScope.audio_obj.src = file_path;
+                     setTimeout(function() {
+                         $rootScope.audio_obj.play();
+                         $('.play').css('background-position-x', '-58px');
+                         $($event.target).css('background-position-x', '-270px');
 
-                        $rootScope.audio_obj.onended = function() {
-                            $('.play').css('background-position-x', '-58px');
-                        };
-                    }, 300);
+                         $rootScope.audio_obj.onended = function() {
+                             $('.play').css('background-position-x', '-58px');
+                         };
+                     }, 300);
 
-                }  else {
-                    $('.popupC').show();
-                } 
-            });  */
+                 }  else {
+                     $('.popupC').show();
+                 } 
+             });  */
 
 
         }
@@ -1485,15 +1528,15 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                     reader.onload = function() {
                         var dataUrl = reader.result;
                         var base64 = dataUrl.split(',')[1];
-                      //  var fs = require('fs');
+                        //  var fs = require('fs');
                         var buf = new Buffer(base64, 'base64'); // decode
-                       /* fs.writeFile('www/media/recording/' + file_name + '.wav', buf, function(err) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log("The file was saved!");
-                            }
-                        }); */
+                        /* fs.writeFile('www/media/recording/' + file_name + '.wav', buf, function(err) {
+                             if (err) {
+                                 console.log(err);
+                             } else {
+                                 console.log("The file was saved!");
+                             }
+                         }); */
                     };
                     reader.readAsDataURL(blob);
 
@@ -1517,7 +1560,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $($event.target).parents('.conv_grp').find('.play').each(function() {
                 if (typeof $(this).attr('data-audio') != 'undefined') {
 
-                    var file = './www/' + $(this).attr('data-audio');
+                    //var file = './www/' + $(this).attr('data-audio');
                     var file_name = $(this).attr('data-audio');
                     _arr.push(file_name);
                 }
@@ -1530,21 +1573,22 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //var audio_obj = new Audio();
         var cnt = 0;
         play_each_file();
+
         function play_each_file() {
             if (cnt <= (_arr.length - 1)) {
-             //   var fs = require('fs');
-               /* fs.exists('./www/' + _arr[cnt], function(exists) {
-                    if (exists) {
-                        // serve file
-                        $rootScope.audio_obj.src = _arr[cnt];
-                        setTimeout(function() {
-                            $rootScope.audio_obj.play();
-                        }, 300);
-                    } else {
-                        cnt++;
-                        play_each_file();
-                    }
-                }); */
+                //   var fs = require('fs');
+                /* fs.exists('./www/' + _arr[cnt], function(exists) {
+                     if (exists) {
+                         // serve file
+                         $rootScope.audio_obj.src = _arr[cnt];
+                         setTimeout(function() {
+                             $rootScope.audio_obj.play();
+                         }, 300);
+                     } else {
+                         cnt++;
+                         play_each_file();
+                     }
+                 }); */
             } else {
                 $('.play').css('background-position-x', '-58px');
                 return false;
@@ -1605,8 +1649,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         if ($rootScope.flip_card_timer) {
             clearInterval($rootScope.flip_card_timer);
         }
-        if (stop) {
-            clearInterval(stop);
+        if (typeof(stop) != "undefined") {
+            if (stop) {
+                clearInterval(stop);
+            }
         }
         if ($scope.current_section == 'Sounds') {
             $scope.sound2_var = false;
@@ -1624,63 +1670,66 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.review_val[3] = 'notselected';
 
             //console.log('--index::' + index + '--key::' + key + '--lang::' + lang);
+                
+            //IndexedDB
+            async function selectReview() {
+                var results = await connection.select({
+                    from: 'sounds_review',
+                    where: {
+                        index_key: index,
+                        type: key,
+                        language: lang
+                    }
+                })
+                if (results.length == 1) {
+                    if (results[0]['review'] == 0) {
+                        $scope.review_val[0] = '';
+                    }
+                    if (results[0]['review'] == 1) {
+                        $scope.review_val[1] = 'selected';
+                    }
+                    if (results[0]['review'] == 2) {
+                        $scope.review_val[2] = 'selected';
+                    }
+                    if (results[0]['review'] == 3) {
+                        $scope.review_val[3] = 'selected';
+                    }
+                }
+            }
+            selectReview();
 
-            html5sql.process(
-                    [
-                        {
-                            sql: "SELECT * FROM sounds_review WHERE index_key = " + index + " AND type = '" + key + "' AND language = '" + lang + "';",
-                            success: function(transaction, results, rowArray) {
-                                if (rowArray.length == 1) {
 
-                                    if (rowArray[0]['review'] == 0) {
-                                        $scope.review_val[0] = '';
-                                    }
-                                    if (rowArray[0]['review'] == 1) {
-                                        $scope.review_val[1] = 'selected';
-                                    }
-                                    if (rowArray[0]['review'] == 2) {
-                                        $scope.review_val[2] = 'selected';
-                                    }
-                                    if (rowArray[0]['review'] == 3) {
-                                        $scope.review_val[3] = 'selected';
-                                    }
-                                }
-                            }
-                        }
-                    ]);
-
-            
             $scope.sound_page2_html = 'partials/blank.html';
             setTimeout(function() {
                 $scope.sound_page2_html = 'partials/sound_page2.html';
                 $('.main_wrapper').trigger('click');
-				// video_resize();
+                // video_resize();
                 $('.video_clk').fancybox({
-                autoSize: true,
-                autoResize: true,
-                autoCenter: true,
-				width: 800,
-				height: 450,
-				aspectRatio: true,
-				autoDimensions: false,
-                openEffect: 'elastic',
-                closeEffect: 'elastic',
-                iframe: {
-                    preload: false
-                },
-                scrolling: 'hidden',
-                helpers: {
-                    overlay: {
-                        locked: true
+                    autoSize: true,
+                    autoResize: true,
+                    autoCenter: true,
+                    width: 800,
+                    height: 450,
+                    aspectRatio: true,
+                    autoDimensions: false,
+                    openEffect: 'elastic',
+                    closeEffect: 'elastic',
+                    iframe: {
+                        preload: false
+                    },
+                    scrolling: 'hidden',
+                    helpers: {
+                        overlay: {
+                            locked: true
+                        }
                     }
-                }
-            });
+                });
             }, 200);
             $scope.scroll_bar();
-            $('html').css('overflow-y', 'hidden !important');
+            //$('html').css('overflow-y', 'hidden !important');
         }
         if ($scope.current_section == 'Exercises') {
-            $scope.random_ex();//to make all exercise random
+            $scope.random_ex(); //to make all exercise random
             $scope.ex2_var = false;
             $scope.left_menu = false;
             $scope.head_h1 = 'Choose an exercise';
@@ -1712,6 +1761,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             } else {
                 $scope.review_display = false;
             }
+            $scope.s_head_h1 = $scope.head_h1
 
 
 
@@ -1753,6 +1803,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.con2_var = false;
             $scope.left_menu = false;
             $scope.head_h1 = $scope.con_data[key][index]['function'];
+            $scope.s_head_h1 = $scope.con_data[key][index]['short_name'];
             $scope.key = key;
             $scope.index = index;
             $scope.lang = lang;
@@ -1769,44 +1820,48 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.con_page2_html = 'partials/con_page2.html';
                 $('.main_wrapper').trigger('click');
             }, 200);
-             $('html').css('overflow', 'auto');
+            //$('html').css('overflow', 'auto');
 
             $scope.conversation_review_arr = new Array();
             for (var i in $scope.con_data[key][index][lang][0]['reviews']) {
                 $scope.conversation_review_arr[i] = false;
             }
 
-            html5sql.process(
-                    [
-                        {
-                            sql: "SELECT * FROM conversation_review WHERE index_key = " + index + " AND type = '" + key + "' AND language = '" + lang + "';",
-                            success: function(transaction, results, rowArray) {
-                                if (rowArray.length == 1) {
-                                    setTimeout(function() {
-                                        var temp_txt = rowArray[0]['notes'];
-                                        if (temp_txt.trim() != '') {
-                                            temp_txt = temp_txt.replace(/\#\|\#/g, "'");
-                                            temp_txt = temp_txt.replace(/\#\|\|\#/g, '"');
-                                        }
+            //IndexedDB
+            async function converNotes() {
+                var results = await connection.select({
+                    from: 'conversation_review',
+                    where: {
+                        index_key: Number(index),
+                        type: key,
+                        language: lang
+                    }
+                });
+                if (results.length == 1) {
+                    setTimeout(function() {
+                        var temp_txt = results[0]['notes'];
+                        if (temp_txt.trim() != '') {
+                            temp_txt = temp_txt.replace(/\#\|\#/g, "'");
+                            temp_txt = temp_txt.replace(/\#\|\|\#/g, '"');
+                        }
 
-                                        $('.your_notes_txt').val(temp_txt);
-                                    }, 500);
+                        $('.your_notes_txt').val(temp_txt);
+                    }, 500);
 
-                                    if (rowArray[0]['review'] != '') {
-                                        var temp_arr = new Array();
-                                        temp_arr = rowArray[0]['review'].split('');
-                                        for (var i in temp_arr) {
-                                            if (temp_arr[i] == '0') {
-                                                $scope.conversation_review_arr[i] = true;
-                                            } else {
-                                                $scope.conversation_review_arr[i] = false;
-                                            }
-                                        }
-                                    }
-                                }
+                    if (results[0]['review'] != '') {
+                        var temp_arr = new Array();
+                        temp_arr = results[0]['review'].split('');
+                        for (var i in temp_arr) {
+                            if (temp_arr[i] == '0') {
+                                $scope.conversation_review_arr[i] = true;
+                            } else {
+                                $scope.conversation_review_arr[i] = false;
                             }
                         }
-                    ]);
+                    }
+                }
+            }
+            converNotes();
 
             //recording
             console.log($scope.con_data);
@@ -1820,18 +1875,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.index = index;
             $scope.lang = lang;
             $scope.head_h1 = $scope.exam_data[key][index]['task'];
-			$scope.s_head_h1 = $scope.exam_data[key][index]['short_name'];
-			$scope.video_url = $scope.exam_data[key][index]['video1'];
+            $scope.s_head_h1 = $scope.exam_data[key][index]['short_name'];
+            $scope.video_url = $scope.exam_data[key][index]['video1'];
 
-            $('.image_box_wrap > div').fancybox(
-                    {
-                        scrolling: 'hidden',
-                        helpers: {
-                            overlay: {
-                                locked: true
-                            }
-                        }
-                    });
+            $('.image_box_wrap > div').fancybox({
+                scrolling: 'hidden',
+                helpers: {
+                    overlay: {
+                        locked: true
+                    }
+                }
+            });
 
             $scope.study_checkbox = new Array();
 
@@ -1843,7 +1897,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             setTimeout(function() {
                 $scope.exam_page2_html = 'partials/exam_page2.html';
                 $('.main_wrapper').trigger('click');
-				video_resize();
+                //video_resize();
             }, 200);
             //$('html').css('overflow-y', 'hidden');
 
@@ -1853,46 +1907,50 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.ep_review_arr[i] = false;
             }
             console.log($scope.ep_review_arr);
-            html5sql.process(
-                    [
-                        {
-                            sql: "SELECT * FROM ep_review WHERE index_key = " + index + " AND type = '" + key + "';",
-                            success: function(transaction, results, rowArray) {
 
-                                if (rowArray.length == 1) {
-                                    setTimeout(function() {
-                                        var temp_txt = rowArray[0]['notes'];
-                                        if (temp_txt.trim() != '') {
-                                            temp_txt = temp_txt.replace(/\#\|\#/g, "'");
-                                            temp_txt = temp_txt.replace(/\#\|\|\#/g, '"');
+            //IndexedDB
+            async function EP_notes() {
+                var results = await connection.select({
+                    from: 'ep_review',
+                    where: {
+                        index_key: Number(index),
+                        type: key
+                    }
+                })
+                if (results.length == 1) {
+                    setTimeout(function() {
+                        var temp_txt = results[0]['notes'];
+                        if (temp_txt.trim() != '') {
+                            temp_txt = temp_txt.replace(/\#\|\#/g, "'");
+                            temp_txt = temp_txt.replace(/\#\|\|\#/g, '"');
 
-                                            var temp_txt_arr = temp_txt.split('|==|');
-                                            if (temp_txt_arr.length > 0) {
-                                                var cnt = 0;
-                                                $('.your_notes_txt').each(function() {
-                                                    $(this).val(temp_txt_arr[cnt]);
-                                                    cnt++;
-                                                });
-                                            }
+                            var temp_txt_arr = temp_txt.split('|==|');
+                            if (temp_txt_arr.length > 0) {
+                                var cnt = 0;
+                                $('.your_notes_txt').each(function() {
+                                    $(this).val(temp_txt_arr[cnt]);
+                                    cnt++;
+                                });
+                            }
 
-                                        }
-                                    }, 500);
+                        }
+                    }, 500);
 
-                                    if (rowArray[0]['review'] != '') {
-                                        var temp_arr = new Array();
-                                        temp_arr = rowArray[0]['review'].split('');
-                                        for (var i in temp_arr) {
-                                            if (temp_arr[i] == '0') {
-                                                $scope.ep_review_arr[i] = true;
-                                            } else {
-                                                $scope.ep_review_arr[i] = false;
-                                            }
-                                        }
-                                    }
-                                }
+                    if (results[0]['review'] != '') {
+                        var temp_arr = new Array();
+                        temp_arr = results[0]['review'].split('');
+                        for (var i in temp_arr) {
+                            if (temp_arr[i] == '0') {
+                                $scope.ep_review_arr[i] = true;
+                            } else {
+                                $scope.ep_review_arr[i] = false;
                             }
                         }
-                    ]);
+                    }
+                }
+            }
+            EP_notes();
+            
         }
     };
 
@@ -1903,7 +1961,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     $scope.random_ex = function() {
 
         //sounds n spelling
-        for (var i = 0; i < 13; i++) {
+        for (var i = 0; i < 14; i++) {
             $rootScope.ex_data['sounds_n_spelling'][i]["b"][0]['act'] = shuffleArray($rootScope.ex_data['sounds_n_spelling'][i]["b"][0]['act'].slice(0));
             $rootScope.ex_data['sounds_n_spelling'][i]["a"][0]['act'] = shuffleArray($rootScope.ex_data['sounds_n_spelling'][i]["a"][0]['act'].slice(0));
         }
@@ -1915,6 +1973,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['snap'][1]["b"][0]['act'] = shuffleArray($rootScope.ex_data['snap'][1]["b"][0]['act'].slice(0));
         $rootScope.ex_data['snap'][1]["a"][0]['act'] = shuffleArray($rootScope.ex_data['snap'][1]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['snap'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['snap'][2]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['snap'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['snap'][2]["a"][0]['act'].slice(0));
         //snap
 
         //sorting
@@ -1926,6 +1987,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['sorting'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['sorting'][2]["b"][0]['act'].slice(0));
         $rootScope.ex_data['sorting'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['sorting'][2]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['sorting'][3]["b"][0]['act'] = shuffleArray($rootScope.ex_data['sorting'][3]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['sorting'][3]["a"][0]['act'] = shuffleArray($rootScope.ex_data['sorting'][3]["a"][0]['act'].slice(0));
         //sorting
 
         //dictation
@@ -1937,6 +2001,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['dictation'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['dictation'][2]["b"][0]['act'].slice(0));
         $rootScope.ex_data['dictation'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['dictation'][2]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['dictation'][3]["b"][0]['act'] = shuffleArray($rootScope.ex_data['dictation'][3]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['dictation'][3]["a"][0]['act'] = shuffleArray($rootScope.ex_data['dictation'][3]["a"][0]['act'].slice(0));
         //dictation
 
         //matchup
@@ -1948,6 +2015,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['matchup'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['matchup'][2]["b"][0]['act'].slice(0));
         $rootScope.ex_data['matchup'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['matchup'][2]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['matchup'][3]["b"][0]['act'] = shuffleArray($rootScope.ex_data['matchup'][3]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['matchup'][3]["a"][0]['act'] = shuffleArray($rootScope.ex_data['matchup'][3]["a"][0]['act'].slice(0));
         //matchup
 
         //reordering
@@ -1956,6 +2026,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['reordering'][1]["b"][0]['act'] = shuffleArray($rootScope.ex_data['reordering'][1]["b"][0]['act'].slice(0));
         $rootScope.ex_data['reordering'][1]["a"][0]['act'] = shuffleArray($rootScope.ex_data['reordering'][1]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['reordering'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['reordering'][2]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['reordering'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['reordering'][2]["a"][0]['act'].slice(0));
         //reordering
 
         //memory_match
@@ -1964,6 +2037,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['memory_match'][1]["b"][0]['act'] = shuffleArray($rootScope.ex_data['memory_match'][1]["b"][0]['act'].slice(0));
         $rootScope.ex_data['memory_match'][1]["a"][0]['act'] = shuffleArray($rootScope.ex_data['memory_match'][1]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['memory_match'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['memory_match'][2]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['memory_match'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['memory_match'][2]["a"][0]['act'].slice(0));
         //memory_match
 
         //odd_one_out
@@ -1975,6 +2051,9 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         $rootScope.ex_data['odd_one_out'][2]["b"][0]['act'] = shuffleArray($rootScope.ex_data['odd_one_out'][2]["b"][0]['act'].slice(0));
         $rootScope.ex_data['odd_one_out'][2]["a"][0]['act'] = shuffleArray($rootScope.ex_data['odd_one_out'][2]["a"][0]['act'].slice(0));
+        
+        $rootScope.ex_data['odd_one_out'][3]["b"][0]['act'] = shuffleArray($rootScope.ex_data['odd_one_out'][3]["b"][0]['act'].slice(0));
+        $rootScope.ex_data['odd_one_out'][3]["a"][0]['act'] = shuffleArray($rootScope.ex_data['odd_one_out'][3]["a"][0]['act'].slice(0));
         //odd_one_out
 
 
@@ -1983,6 +2062,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     $scope.play_audio = function($event) {
         var playB = new Audio();
+        var vidType = 'audio/ogg';
+        var codType = 'vorbis';
         if ($($event.target)[0].nodeName.toLowerCase() == 'strong' || $($event.target)[0].nodeName.toLowerCase() == 'span') {
             playB.src = $($event.target).parents('.italic_txt').find('audio').find('source').attr('src');
         } else {
@@ -2006,7 +2087,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         }
         setTimeout(function() {
             set_max_height();
-           // $('html').css('overflow-y', 'hidden');
+            // $('html').css('overflow-y', 'hidden');
         }, 300);
 
     };
@@ -2064,10 +2145,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //$($event.target).fancybox();
     };
 
-//end sound page
+    //end sound page
 
 
-//end sound page
+    //end sound page
 
 
     $scope._refresh = function() {
@@ -2108,7 +2189,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                     $rootScope.percentage_score = 'Good';
                 } else {
                     if (temp_perc >= 25 && temp_perc <= 49) {
-                        $rootScope.percentage_score = 'Ok';
+                        $rootScope.percentage_score = 'OK';
                     } else {
                         if (temp_perc >= 10 && temp_perc <= 24) {
                             $rootScope.percentage_score = 'Good try.';
@@ -2119,10 +2200,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 }
             }
         }
-    }
-    ;
-}
-);
+    };
+});
 angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl', function($scope, $rootScope, $http, $interval) {
     var key = $rootScope.key;
     var lang = $rootScope.lang;
@@ -2136,16 +2215,17 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
     $scope.question = data.question[0];
     //$rootScope.totalScore = $rootScope.ex_data['sounds_n_spelling'][index][lang][0]['act'].length;
 
-//        $('.spelling_border').css('border', 'none');
+    //        $('.spelling_border').css('border', 'none');
     $scope.playAudio = function($event) {
-        var playB = $($event.target).find('.reorderAudio')[0];
+        //var playB = $($event.target).find('.reorderAudio')[0];
+        var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
-            // tar.removeClass('selected');
-            playB.pause();
+            tar.removeClass('selected');
+            playB.get(0).pause();
         } else {
             //tar.addClass('selected');
-            playB.play();
+            playB.get(0).play();
         }
     };
 
@@ -2211,8 +2291,7 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
         //$('.selected').parent().find("div[data-ans='"+value+"']").show();
         $('.disabler_div_spelling').css('display', 'block');
         //$($event.target).addClass('disable');
-        $scope.submit = function() {
-        }
+        $scope.submit = function() {}
         $('.img_feedback_spell').css('display', 'block');
 
         if (value == 'false') {
@@ -2307,7 +2386,7 @@ angular.module('myApp.Snap_Ctrl', []).controller('Snap_Ctrl', function($scope, $
                 }
                 $scope.time = (Number(time[0]) * 60) + (parseInt(time[1]));
 
-//
+                //
                 if ($scope.time.toFixed(2) <= 0.01) {
                     //$interval.cancel(stop);
 
@@ -2390,7 +2469,10 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
     //});
     $scope.dragged = null;
     $scope.dropCallback = function(ui) {
-        $(ui.target).append($scope.dragged.css({'top': '', 'left': ''}));
+        $(ui.target).append($scope.dragged.css({
+            'top': '',
+            'left': ''
+        }));
     };
     $scope.startCallback = function(event, ui, title) {
         $(ui.helper).addClass('selected');
@@ -2427,8 +2509,7 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
 
         $scope.ansC = 0;
         $('.simSound .Actdisabler').show();
-        $scope.submit = function() {
-        }
+        $scope.submit = function() {}
         $('.submit').addClass('disable');
         $scope.cal_percentage();
         $scope.get_score();
@@ -2447,6 +2528,11 @@ angular.module('myApp.Odd1Out_Ctrl', []).controller('Odd1Out_Ctrl', function($sc
     $scope.question = data.question[0];
     $('.submit').addClass('disable');
     $('.submit').css('cursor', 'default');
+    $('.ul_cls_oddOut').css('opacity', '0');
+    setTimeout(function() {
+        $('.ul_cls_oddOut').css('width', ($('.li_cls').width() * 2 + 15) + 'px');
+        $('.ul_cls_oddOut').css('opacity', '1');
+    }, 500);
     //});
     $scope.check_odd_one_out = function($event) {
         //$($event.target).parents('.ul_cls').find('.odd_Button').removeClass('selected');
@@ -2531,6 +2617,14 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
             var w = $scope.textBox[i].length;
             $('.textBoxDiv input').eq(i).width(w * 12);
         }
+        
+        var total_width = $('.dragContainer').width();
+        var input_width = $('.textBoxDiv input').width();
+
+        var max_width = (total_width * 80) / 100;
+        //console.log($('.textBoxDiv').find('input').length);
+        $('.textBoxDiv').find('input').css('max-width', max_width + 'px');
+        
         $('.dectationAudio').bind("ended", function() {
             $(this).closest('.speaker').removeClass('selected');
         });
@@ -2541,14 +2635,17 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
     $scope.time = 2.00;
 
     $scope.playAudio = function($event) {
-        var playB = $($event.target).find('.dectationAudio')[0];
+        //var playB = $($event.target).find('.dectationAudio')[0];
+        var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
             tar.removeClass('selected');
-            playB.pause();
+            //playB.pause();
+            playB.get(0).pause();
         } else {
             //tar.addClass('selected');
-            playB.play();
+            //playB.play();
+            playB.get(0).play();
         }
     };
     $rootScope.totalScore++;
@@ -2560,8 +2657,7 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
             var left_txt = $scope.textBox[i].trim().replace(/[^a-zA-Z ]/g, "");
             var right_txt = $('.textBoxDiv').eq(i).find('input').val().trim().replace(/[^a-zA-Z ]/g, "");
 
-            if (left_txt.toLowerCase() == right_txt.toLowerCase())
-            {
+            if (left_txt.toLowerCase() == right_txt.toLowerCase()) {
                 $('.textBoxDiv').eq(i).addClass('right').find('.dect_right').show();
             } else {
                 $('.textBoxDiv').eq(i).addClass('wrong').find('.dect_wrong').show();
@@ -2577,8 +2673,7 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
         $('.textBoxDiv input').attr('readonly', true);
         $('.submit').addClass('disable');
 
-        $scope.submit = function() {
-        }
+        $scope.submit = function() {}
         $('.submit').addClass('disable');
         $scope.cal_percentage();
         $scope.get_score();
@@ -2629,14 +2724,15 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
     $scope.dragging = false;
 
     $scope.playAudio = function($event) {
-        var playB = $($event.target).find('.reorderAudio')[0];
+        //var playB = $($event.target).find('.reorderAudio')[0];
+        var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
             tar.removeClass('selected');
-            playB.pause();
+            playB.get(0).pause();
         } else {
             //tar.addClass('selected');
-            playB.play();
+            playB.get(0).play();
         }
     };
 
@@ -2668,8 +2764,7 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
         $('.droppable ').css('margin-left', '-27px').addClass('joined');
         setTimeout(function() {
 
-            $scope.join_drag = function($event) {
-            };
+            $scope.join_drag = function($event) {};
             for (var i in $scope.ogWords) {
                 $scope.ogWords[i].drag = false;
             }
@@ -2700,8 +2795,7 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
             }
             $rootScope.actFeedback = 'You answered ' + $scope.ansC + ' out of ' + $scope.quesNum + ' questions correctly.';
             $('.submit').addClass('disable');
-            $scope.submit = function() {
-            }
+            $scope.submit = function() {}
             $scope.cal_percentage();
             $scope.get_score();
         }, 700);
@@ -2729,7 +2823,10 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
     $scope.dropCallback = function(event, ui) {
         //console.log('hey, you dumped me :-(', $scope.draggedTitle);
         var a = $(event.target).text();
-        $scope.draggable.css({'left': '', 'top': ''});
+        $scope.draggable.css({
+            'left': '',
+            'top': ''
+        });
 
         var old_attr = $(event.target).find('div').attr('data-content');
 
@@ -2769,7 +2866,9 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
     }
     var s_temp = $scope.words.slice(0);
     for (var i = 0; i < s_temp.length; i++) {
-        $scope.words[i] = {"value": s_temp[i]}
+        $scope.words[i] = {
+            "value": s_temp[i]
+        }
     }
     $scope.words = shuffleArray($scope.words.slice(0));
     $scope.audio = {};
@@ -2798,13 +2897,25 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
 
 
     $scope.playAudio = function($event) {
-        var playB = $($event.target);
-        if (playB.hasClass('selected')) {
-            playB.removeClass('selected');
-            document.getElementById('reorderAudio').pause();
+        /*var playB = $($event.target);
+         if (playB.hasClass('selected')) {
+         playB.removeClass('selected');
+         document.getElementById('reorderAudio').pause();
+         } else {
+         //playB.addClass('selected');
+         document.getElementById('reorderAudio').play();
+         }*/
+
+        var playB = $($event.target).find('audio');
+        var tar = $($event.target);
+        if (tar.hasClass('selected')) {
+            tar.removeClass('selected');
+            //playB.pause();
+            playB.get(0).pause();
         } else {
-            //playB.addClass('selected');
-            document.getElementById('reorderAudio').play();
+            //tar.addClass('selected');
+            //playB.play();
+            playB.get(0).play();
         }
 
     };
@@ -2837,7 +2948,7 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
                     time[1] = 0;
                 }
                 $scope.time = (Number(time[0]) * 60) + (parseInt(time[1]));
-//
+                //
                 if ($scope.time.toFixed(2) <= 0.01) {
                     //$interval.cancel(stop);
                     clearInterval($rootScope.reorder_timer);
@@ -2968,7 +3079,7 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
                     time[1] = 0;
                 }
                 $scope.time = (Number(time[0]) * 60) + (parseInt(time[1]));
-//
+                //
                 if ($scope.time.toFixed(2) <= 0.01) {
                     //$interval.cancel(stop);
                     clearInterval($rootScope.memery_match_timer);
@@ -3047,8 +3158,7 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
                 }, 800);
 
             }
-        }
-        else {
+        } else {
             $scope.clicked = index;
             setTimeout(function() {
                 $scope.animating = false;
@@ -3067,121 +3177,104 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
 
 function shuffle(o) { //v1.0
     for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x)
-        ;
+    ;
     return o;
 }
 var _incParam = 10;
-function rotateDiv(elem, speed, degree)
-{
+
+function rotateDiv(elem, speed, degree) {
     elem = $(elem).parent();
     var d = 0;
     var firstRotation = false;
 
-    var r = setInterval(function()
-    {
+    var r = setInterval(function() {
 
-        if (firstRotation == false)
-        {
-            elem.find('.front').css(
-                    {
-                        "-webkit-transform": "rotateY(" + d + "deg)",
-                        "-moz-transform": "rotateY(" + d + "deg)",
-                        "-ms-transform": "rotateY(" + d + "deg)",
-                        "-o-transform": "rotateY(" + d + "deg)",
-                        "transform": "rotateY(" + d + "deg)",
-                    });
+        if (firstRotation == false) {
+            elem.find('.front').css({
+                "-webkit-transform": "rotateY(" + d + "deg)",
+                "-moz-transform": "rotateY(" + d + "deg)",
+                "-ms-transform": "rotateY(" + d + "deg)",
+                "-o-transform": "rotateY(" + d + "deg)",
+                "transform": "rotateY(" + d + "deg)",
+            });
             d = d + _incParam;
 
-        }
-        else
-        {
-            elem.find('.back').css(
-                    {
-                        "-webkit-transform": "rotateY(" + d + "deg)",
-                        "-moz-transform": "rotateY(" + d + "deg)",
-                        "-ms-transform": "rotateY(" + d + "deg)",
-                        "-o-transform": "rotateY(" + d + "deg)",
-                        "transform": "rotateY(" + d + "deg)",
-                    });
+        } else {
+            elem.find('.back').css({
+                "-webkit-transform": "rotateY(" + d + "deg)",
+                "-moz-transform": "rotateY(" + d + "deg)",
+                "-ms-transform": "rotateY(" + d + "deg)",
+                "-o-transform": "rotateY(" + d + "deg)",
+                "transform": "rotateY(" + d + "deg)",
+            });
 
             d = d - _incParam;
         }
 
-        if (d > degree)
-        {
+        if (d > degree) {
             firstRotation = true;
         }
 
-        if (firstRotation == true && d == 0)
-        {
+        if (firstRotation == true && d == 0) {
             clearInterval(r);
-            $(elem).find('.back').css(
-                    {
-                        "-webkit-transform": "rotateY(0deg)",
-                        "-moz-transform": "rotateY(0deg)",
-                        "-ms-transform": "rotateY(0deg)",
-                        "-o-transform": "rotateY(0deg)",
-                        "transform": "rotateY(0deg)",
-                    });
+            $(elem).find('.back').css({
+                "-webkit-transform": "rotateY(0deg)",
+                "-moz-transform": "rotateY(0deg)",
+                "-ms-transform": "rotateY(0deg)",
+                "-o-transform": "rotateY(0deg)",
+                "transform": "rotateY(0deg)",
+            });
         }
     }, speed);
 }
-function revertRotateDiv(elem, speed, degree)
-{
+
+function revertRotateDiv(elem, speed, degree) {
     var d = 0;
     var firstRotation = false;
-    var r = setInterval(function()
-    {
-        if (firstRotation == false)
-        {
-            $(elem).find('.back').css(
-                    {
-                        "-webkit-transform": "rotateY(" + d + "deg)",
-                        "-moz-transform": "rotateY(" + d + "deg)",
-                        "-ms-transform": "rotateY(" + d + "deg)",
-                        "-o-transform": "rotateY(" + d + "deg)",
-                        "transform": "rotateY(" + d + "deg)",
-                    });
+    var r = setInterval(function() {
+        if (firstRotation == false) {
+            $(elem).find('.back').css({
+                "-webkit-transform": "rotateY(" + d + "deg)",
+                "-moz-transform": "rotateY(" + d + "deg)",
+                "-ms-transform": "rotateY(" + d + "deg)",
+                "-o-transform": "rotateY(" + d + "deg)",
+                "transform": "rotateY(" + d + "deg)",
+            });
             d = d + _incParam;
 
-        }
-        else
-        {
-            $(elem).find('.front').css(
-                    {
-                        "-webkit-transform": "rotateY(" + d + "deg)",
-                        "-moz-transform": "rotateY(" + d + "deg)",
-                        "-ms-transform": "rotateY(" + d + "deg)",
-                        "-o-transform": "rotateY(" + d + "deg)",
-                        "transform": "rotateY(" + d + "deg)",
-                    });
+        } else {
+            $(elem).find('.front').css({
+                "-webkit-transform": "rotateY(" + d + "deg)",
+                "-moz-transform": "rotateY(" + d + "deg)",
+                "-ms-transform": "rotateY(" + d + "deg)",
+                "-o-transform": "rotateY(" + d + "deg)",
+                "transform": "rotateY(" + d + "deg)",
+            });
 
             d = d - _incParam;
         }
 
-        if (d > degree)
-        {
+        if (d > degree) {
             firstRotation = true;
         }
 
-        if (firstRotation == true && d == 0)
-        {
+        if (firstRotation == true && d == 0) {
             clearInterval(r);
-            $(elem).find('.front').css(
-                    {
-                        "-webkit-transform": "rotateY(0deg)",
-                        "-moz-transform": "rotateY(0deg)",
-                        "-ms-transform": "rotateY(0deg)",
-                        "-o-transform": "rotateY(0deg)",
-                        "transform": "rotateY(0deg)",
-                    });
+            $(elem).find('.front').css({
+                "-webkit-transform": "rotateY(0deg)",
+                "-moz-transform": "rotateY(0deg)",
+                "-ms-transform": "rotateY(0deg)",
+                "-o-transform": "rotateY(0deg)",
+                "transform": "rotateY(0deg)",
+            });
         }
 
 
     }, speed);
 }
 var shuffleArray = function(array) {
-    var m = array.length, t, i;
+    var m = array.length,
+        t, i;
 
     // While there remain elements to shuffle
     while (m) {
@@ -3199,16 +3292,17 @@ var shuffleArray = function(array) {
 $(document).ready(function() {
     function hasGetUserMedia() {
         return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia || navigator.msGetUserMedia);
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
     }
 
     if (hasGetUserMedia()) {
         //alert('supported in your browser');
     } else {
-        alert('getUserMedia() is not supported in your browser');
+        console.log('getUserMedia() is not supported in your browser');
     }
 
 });
+
 function zeroPad(num, places) {
     var zero = places - num.toString().length + 1;
     return Array(+(zero > 0 && zero)).join("0") + num;

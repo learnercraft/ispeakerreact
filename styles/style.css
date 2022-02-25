@@ -13,7 +13,7 @@
 .main_wrapper {
     width: 100%;
     background-color: #e0f2fd;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     overflow: hidden;
     position: relative;
 
@@ -157,11 +157,11 @@
 
 .infoB{
     width:26px; height: 26px;
-    background: url("../images/ispeaker/info_btn.svg");
+    background: url("../images/ispeaker/info_btn.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
     cursor: pointer;
 }
 .infoB.selected{
-    background: url("../images/ispeaker/info_btn_active.svg");
+    background: url("../images/ispeaker/info_btn_active.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
 
 }
 .column_50 td,.column_50 th{
@@ -306,7 +306,6 @@ tr.last_tr:last-child{
 .flip-container {
     position: relative;
 }
-
 .container_video {
   position: relative;
   overflow: hidden;
@@ -323,7 +322,6 @@ tr.last_tr:last-child{
   width: 100%;
   height: 100%;
 }
-
 .accordion_content {
     padding: 13px 19px;
     background: #ffffff;
@@ -431,7 +429,6 @@ tr.last_tr:last-child{
     margin-left: 5%;
     margin-top: 8px;
     cursor: pointer;
-	opacity: 0.3;
 }
 .practise_title {
     /*color: #0270a1;*/
@@ -487,7 +484,7 @@ tr.last_tr:last-child{
 .left_menu {
     width: 30px;
     height: 45px;
-    background-image: url(../images/ispeaker/model_menu.svg);
+    background-image: url(../images/ispeaker/model_menu.png);
     background-repeat: no-repeat;
     background-position: -8px 11px;
     float: left;
@@ -614,7 +611,7 @@ tr.last_tr:last-child{
 }
 .home_page ._row{
     margin: 0 auto;
-    width: 90%;
+    width: 70%;
 }
 .home_h1{
     font-family: Inter, sans-serif !important;
@@ -674,13 +671,13 @@ tr.last_tr:last-child{
     height: 26px;
     width: 26px;
     float: right;
-    background: url("../images/ispeaker/info_btn.svg");
-    margin-top: 9px;
+    background: url("../images/ispeaker/info_btn.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    margin-top: 5px;
     margin-right: 8px;
     cursor: pointer;
 }
 .info_ic.selected{
-    background: url("../images/ispeaker/info_btn_active.svg");
+    background: url("../images/ispeaker/info_btn_active.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
 }
 .info_text {
     padding: 8px;
@@ -801,7 +798,6 @@ tr.last_tr:last-child{
     float: left;
     margin-top: 3px;
     margin-right: 5px;
-	opacity: 0.3;
 }
 .con_play_wrap .play{
     background: url("../images/sprite.png") no-repeat scroll -58px 1px rgba(0, 0, 0, 0);
@@ -809,7 +805,6 @@ tr.last_tr:last-child{
     height: 25px;
     width: 22px;
     float: left;
-	
 }
 .left_col {
     display: table-cell;
@@ -956,7 +951,6 @@ span.fonto{
     position: absolute;
     top: 0;
     left: 0;
-    /*background-color: #000000;*/
 }
 .british_thumb.british_thumb{
     background-image: url(../images/ispeaker/sounds_british.jpg);
@@ -989,12 +983,7 @@ div[data-audio_status="start"] {
         linear-gradient(
         red, #f06d06
         );
-    background-image: -webkit-linear-gradient(red, #f06d06); /* For Safari 5.1 to 6.0 */
-  background-image: -o-linear-gradient(red, #f06d06); /* For Opera 11.1 to 12.0 */
-  background-image: -moz-linear-gradient(red, #f06d06);
-   background-color: red;
     border-radius: 50%;
-	opacity: 0.3;
 }
 div[data-audio_status="end"] {
     border-radius: 0;
@@ -1002,10 +991,6 @@ div[data-audio_status="end"] {
         linear-gradient(
         red, #f06d06
         );
-     background-image: -webkit-linear-gradient(red, #f06d06); /* For Safari 5.1 to 6.0 */
-  background-image: -o-linear-gradient(red, #f06d06); /* For Opera 11.1 to 12.0 */
-  background-image: -moz-linear-gradient(red, #f06d06);
-   background-color: red;
 }
 iframe.fancybox-iframe {
     overflow:hidden;
@@ -1117,16 +1102,14 @@ iframe.fancybox-iframe {
     .row._row{
         display: table;
         width: 90%;
-        idth: 537px;
     }
     .row._row .box{
         float: left;
         margin: 5px 0 0 0 !important;
         width: 100% !important;
     }
-
-
 }
+
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
@@ -1734,7 +1717,6 @@ and (orientation : portrait) {
     font-size: 18px;
     text-align: center;
     max-width: 570px;
-    font-family: inherit;
 }
 .flipActContainer{
 }
@@ -1751,8 +1733,9 @@ and (orientation : portrait) {
     top: 9px;
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
+
     .textBoxDiv img {
-        /*top: 10px;*/
+        top: 10px;
     }
 }
 @media screen and (min-width:0\0) {
@@ -2001,7 +1984,7 @@ span{
 }
 
 .ul_cls_oddOut {
-    /*width: 84%;*/
+    /*width: 62%;*/
     margin: 0 auto;
     text-align: center;
 }
