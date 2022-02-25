@@ -17,10 +17,10 @@
                         {{ word.value}}
                     </div>
                     <div class="textBoxDiv textBoxDiv1" ng-if="word.textbox && words.length != 1">
-                        <input type="text"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                        <input type="text" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
                     </div>
                     <div class="textBoxDiv" ng-if="words.length == 1">
-                        <input type="text"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                        <input type="text" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
                     </div>
                 </li>
             </ul>

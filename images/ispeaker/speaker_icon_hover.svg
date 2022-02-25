@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="28px" viewBox="0 0 31 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48 (47235) - http://www.bohemiancoding.com/sketch -->
+    <title>audio_red_off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="audio_red_off">
+            <g id="OLDNAmEaudio">
+                <path d="M29.8928571,28 L1.10714286,28 C0.498214286,28 0,27.496 0,26.88 L0,1.12 C0,0.504 0.498214286,0 1.10714286,0 L29.8928571,0 C30.5017857,0 31,0.504 31,1.12 L31,26.88 C31,27.496 30.5017857,28 29.8928571,28 Z" id="Shape"></path>
+                <g id="Group" transform="translate(4.428571, 2.800000)">
+                    <rect id="Rectangle-path" fill="#C91352" fill-rule="nonzero" x="0" y="7.224" width="5.14821429" height="8.484"></rect>
+                    <polygon id="Shape" fill="#C91352" fill-rule="nonzero" points="3.21071429 7.252 3.21071429 15.708 11.2098214 22.484 11.2098214 22.484 11.2098214 0.112"></polygon>
+                    <g transform="translate(13.839286, 3.360000)" id="Shape" stroke="#C91352" stroke-linecap="round" stroke-width="1.68">
+                        <path d="M0.166071429,4.76 C0.166071429,4.76 1.85446429,5.908 1.85446429,8.232 C1.85446429,10.556 0.166071429,11.452 0.166071429,11.452"></path>
+                        <path d="M2.325,2.632 C2.325,2.632 4.73303571,4.312 4.73303571,8.064 C4.73303571,11.452 1.68839286,14.224 1.68839286,14.224"></path>
+                        <path d="M4.06875,0.224 C4.06875,0.224 7.58392857,2.968 7.58392857,8.092 C7.58392857,12.908 3.57053571,16.492 3.57053571,16.492"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

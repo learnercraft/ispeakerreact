@@ -157,11 +157,11 @@
 
 .infoB{
     width:26px; height: 26px;
-    background: url("../images/ispeaker/info_btn.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    background: url("../images/ispeaker/info_btn.svg");
     cursor: pointer;
 }
 .infoB.selected{
-    background: url("../images/ispeaker/info_btn_active.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    background: url("../images/ispeaker/info_btn_active.svg");
 
 }
 .column_50 td,.column_50 th{
@@ -595,8 +595,8 @@ tr.last_tr:last-child{
     background: none;
     background-color: #8bb53c;
     cursor: pointer;
-    box-shadow: 3px 4px 6px 0px rgba(128, 128, 128, 0.78),inset -5px -5px 5px rgba(128, 128, 128, 0.22), inset 5px 5px 5px rgba(255, 255, 255, 0.43);
     min-width: 209px;
+    box-shadow: rgb(0 0 0 / 13%) 0px 1.6px 3.6px, rgb(0 0 0 / 11%) 0px 0px 2.9px;
 }
 .home_page .box:hover{
     background-color: #e0f2fd !important;
@@ -671,13 +671,13 @@ tr.last_tr:last-child{
     height: 26px;
     width: 26px;
     float: right;
-    background: url("../images/ispeaker/info_btn.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    background: url("../images/ispeaker/info_btn.svg");
     margin-top: 5px;
     margin-right: 8px;
     cursor: pointer;
 }
 .info_ic.selected{
-    background: url("../images/ispeaker/info_btn_active.png") repeat scroll 0 -2px rgba(0, 0, 0, 0);
+    background: url("../images/ispeaker/info_btn_active.svg");
 }
 .info_text {
     padding: 8px;
@@ -1462,15 +1462,15 @@ and (orientation : portrait) {
     text-align: center;
 }
 .reordering .speaker {
-    width: 46px;
-    height: 36px;
-    background: url(../images/sprite.png) no-repeat -173px -4px;
+    width: 31px;
+    height: 28px;
+    background: url(../images/ispeaker/speaker_icon.svg) no-repeat;
     margin: 3px 0 0 0;
     display: inline-block;
     cursor: pointer;
 }
 .reordering .speaker.selected{
-    background-position: -260px 7px;
+    background: url(../images/ispeaker/speaker_icon_hover.svg) no-repeat;
 }
 .spearkerContainer audio {
     position: absolute;
@@ -1636,16 +1636,16 @@ and (orientation : portrait) {
     width: 78px;height: 53px; background: url(../images/speaker_Arrow.png) no-repeat 0 0; float: left;font-size: 0;cursor: pointer;
 }
 .wSpeaker{
-    width: 45px;height: 45px; background: url(../images/sprite.png) no-repeat -327px 0; float: left;margin: 14px 0 0 16px; cursor: pointer;
+    width: 45px;height: 45px; background: url(../images/ispeaker/speaker_icon.svg) no-repeat; float: left;margin: 14px 0 0 16px; cursor: pointer;
 }
 .wSpeaker.selected{
     background-position: -265px 0;
 }
 .wSpeaker:hover{
-    background-position: -327px -52px;
+    background: url(../images/ispeaker/speaker_icon_hover.svg) no-repeat;
 }
 .speaker:hover{
-    background-position: -319px -45px;
+    background: url(../images/ispeaker/speaker_icon_hover.svg) no-repeat;
 }
 .swapableContainer .droppable {
     width: 168px;
@@ -1675,20 +1675,26 @@ and (orientation : portrait) {
     border: 2px solid red;
 }
 .dectation input{
-    box-shadow: 3px 3px 5px rgba(162,162,162,0.9) inset;
-    border-radius: 7px;
+    font-family: inherit;
+    border-radius: 4px;
     resize: none;
     outline: none;
-    border: none;
-    border-right: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
+    border: 1px solid #e5e5e5;
+    border-bottom: 1px solid #868686;
     font-size: 15px;
     height: 30px;
     line-height: 20px;
     outline: medium none;
     padding: 1px 7px;
     overflow: hidden;
-    color: #03030d;
+    background-color: #fbfbfb;
+}
+.dectation input:hover{
+    background-color: #f6f6f6;
+}
+.dectation input:focus{
+    border-bottom: 2px solid #266c88;
+    background-color: white;
 }
 .dectationContainer {
     float: left;
@@ -1735,7 +1741,7 @@ and (orientation : portrait) {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 
     .textBoxDiv img {
-        top: 10px;
+        top: 9px;
     }
 }
 @media screen and (min-width:0\0) {
