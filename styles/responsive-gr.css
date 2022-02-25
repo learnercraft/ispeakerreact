@@ -83,11 +83,11 @@ img {
 }
 
 .responsive_entry_center_wrap {
-    background-color: white;
-    border-radius: 10px;
+    /*background-color: white;
+    border-radius: 10px;*/
     overflow: hidden;
-    box-shadow: 0 1px 5px grey;
-    padding: 0 0 0 21px;
+    /*box-shadow: 0 1px 5px grey;
+    padding: 0 0 0 21px;*/
 }
 
 .responsive_footer_top {
@@ -347,7 +347,7 @@ img {
         text-align: center;
     }
     .responsive_container {
-        width: 93%;
+        width: 100%;
     }
     [class*="responsive_cell"] {
         clear: both;
