@@ -912,14 +912,15 @@ div.social-twitter a:before{
 
 /* buttons */
 .btn, input[type='submit'], input[type='button']#skipDef, input[type='button']#submitQuit {
-    display: inline-block;
+    display: inline-flex;
     width: auto;
-    height: 30px;
-    line-height: 26px;
-    margin: 0 6px 6px 0;
-    background: #ffffff;
-    border: 2px solid #4577bf;
-    border-radius: 15px;
+    height: 32px;
+    line-height: 1;
+    align-items: center;
+    padding: 0 9px;
+    background: #FFF;
+    border: 1px solid #4577bf;
+    border-radius: 4px;
     -webkit-appearance: none;
     text-align: center;
     position: relative;
@@ -930,7 +931,7 @@ div.social-twitter a:before{
     display: table-cell;
     padding: 0 12px;
     color: #4577bf;
-    height: 26px;
+    /*height: 26px;*/
     white-space: nowrap;
     font-weight: normal;
 }
@@ -1271,11 +1272,10 @@ p.links {
 .box {
     display: table-cell;
     padding: 1.2em;
-    box-shadow: 0 1px 5px grey;
     margin-right: 1.2em;
     width: 296px;
     background: url(../images/home/old-ball.png) no-repeat 15px 15px white;
-    border-radius: 10px;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
 }
