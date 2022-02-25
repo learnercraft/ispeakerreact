@@ -98,13 +98,6 @@ function scroll_top() {
     $('.main_wrapper').css('min-height', window_height + 'px');
   }
 $(document).ready(function() {
-    //database
-    if (!html5sql.database) {
-        html5sql.openDatabase("MITR", "iSpeaker", 5 * 1024 * 1024);
-    }
-    html5sql.logInfo = true;
-    html5sql.logErrors = true;
-
 
     $('.main_wrapper').parent().css('padding', '0');// to remove padding
     set_max_height();
