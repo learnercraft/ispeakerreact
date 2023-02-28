@@ -1,156 +1,172 @@
-<div class="container">
-    <div class="titleContainer" ng-include="'partials/header.html'">
-
-    </div>
-    <div class="content">
-        <div class="left_part w_30 open left_part_m scroll_bar">
+<div class="">
+    <nav class="models_page_top navbar navbar-expand-lg bg-primary-subtle mb-2" ng-include="'partials/header.html'">
+    
+    </nav>
+    <div class="container-lg">
+        <div class="">
+            <p>{{exam_data[key][index]['info']}}</p>
             <p>{{exam_data[key][index]['infoin']}}</p>
-            <p style="margin:0; display: block;">
-                <label style="cursor: pointer;"><span>British pronunciation</span>
-                    <input type="radio"  name="lang_select"  checked value="1" ng-click="change_lang_ep(1)">
-                </label>
-            </p>
-            <p style="display: block;">
-                <label style="cursor: pointer;">
-                    <span>American pronunciation</span>
-                    <input type="radio"  name="lang_select"  value="2" ng-click="change_lang_ep(2)">
-                </label>
-            </p>
-            <p><strong>Useful Language:</strong></p>
-            <div class="accordion_c">
-                <ul>
-                    <li ng-repeat="var1 in exam_data[key][index]['left_text']">
-                        <div class="accordion_title accordion_title_exam" ng-click="accordion_title($event)">
-                            <span class="ico"></span>
-                            <p ng-bind-html="var1 | to_trusted"></p>
+            <div class="card">
+                <div class="card-header">
+                    <nav>
+                        <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active fw-semibold" id="nav-usefulLang-tab" data-bs-toggle="tab" data-bs-target="#nav-usefulLang" type="button" role="tab" aria-controls="nav-usefulLang" aria-selected="true">Useful language</button>
+                            <button class="nav-link fw-semibold" id="nav-video-tab" data-bs-toggle="tab" data-bs-target="#nav-video" type="button" role="tab" aria-controls="nav-video" aria-selected="false">Watch & Study</button>
+                            <button class="nav-link fw-semibold" id="nav-practice-tab" data-bs-toggle="tab" data-bs-target="#nav-practice" type="button" role="tab" aria-controls="nav-practice" aria-selected="false">Practice</button>
+                            <button class="nav-link fw-semibold" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Review</button>
                         </div>
-                        <div class="accordion_content" style="padding: 10px;">
-                            <ul class="left_list_ul">
-                                <li ng-repeat="var2 in exam_data[key][index]['left_list'][$index]" class="italic_txt" ng-click="play_audio($event)">
-                                    <span ng-bind-html="var2 | to_trusted">{{var2}}</span>
-                                    <audio controls class="spearkerContainer_audio">
-                                        <source ng-src="{{'media/exam/mp3/' + exam_data[key][index]['audio'][$parent.$index][$index] + '.mp3'}}" type="audio/mpeg">
-                                        <source ng-src="{{'media/exam/ogg/' + exam_data[key][index]['audio'][$parent.$index][$index] + '.ogg'}}" type="audio/ogg">
-                                    </audio>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <p style="margin-top: 10px;"><strong>Tips:</strong></p>
-            <div class="accordion_c">
-                <ul>
-                    <li>
-                        <div class="accordion_title" ng-click="accordion_title($event)"><p>Do...</p><span class="ico"></span></div>
-                        <div class="accordion_content" style="padding: 10px;">
-                            <ul class="left_list_ul">
-                                <li ng-repeat="var3 in exam_data[key][index].do" class="do">
-                                    <span ng-bind-html="var3 | to_trusted"></span>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="accordion_title" ng-click="accordion_title($event)"><p>Don't...</p><span class="ico"></span></div>
-                        <div class="accordion_content" style="padding: 10px;">
-                            <ul class="left_list_ul">
-                                <li ng-repeat="var4 in exam_data[key][index].dont" class="do">
-                                    <span ng-bind-html="var4 | to_trusted"></span>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        <div class="right_part w_70 right_part_m scroll_bar">
-            <div class="accordion_c">
-                <ul>
-                    <li>
-                        <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Task</p><span class="ico"></span></div>
-                        <div class="accordion_content" style="display: block;">
-
-                            <div ng-repeat="var1 in exam_data[key][index].taskdata" style="margin-bottom: 7px;">
-
-                                <div ng-if="var1.type == 'img'">
-                                    <div class="image_box_wrap">
-                                        <div ng-repeat="var2 in var1.list" rel="group" href="{{var2}}"><img ng-src="{{var2}}"/></div>
-                                    </div>
-                                </div>
-                                <div ng-if="var1.type == 'ul'">
-                                    <p>{{var1.head}}</p>
-                                    <ul class="ul_disc">
-                                        <li ng-repeat="var2 in var1.list">
-                                            {{var2}}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div ng-if="var1.type == 'head'">
-                                    <p ng-repeat="var2 in var1.list">
-                                        <strong>{{var2}}</strong>
-                                    </p>
-                                </div>
-                                <div ng-if="var1.type == 'p'">
-                                    <p ng-repeat="var2 in var1.list">
-                                        {{var2}}
-                                    </p>
-                                </div>
-                                <div ng-if="var1.type == 'notes'">
-                                    <div class="textarea_wrap">
-                                        <p>Your notes:</p>
-                                        <textarea style="border:1px solid #999999;
-                                                  width:100%;
-                                                  margin:5px 0;
-                                                  padding:3px; height: 120px;"></textarea>
-                                    </div>
-                                    <div class="exam_btns">
-                                        <div class="stop"></div><div class="play"></div>
-                                    </div>
-                                </div>
+                    </nav>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-usefulLang" role="tabpanel" aria-labelledby="nav-usefulLang-tab" tabindex="0">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="lang_select" checked value="1" id="langEN_GB" ng-click="change_lang_ep(1)">
+                                <label class="form-check-label" for="langEN_GB">
+                                    British pronunciation
+                                </label>
                             </div>
-
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="accordion_title selected" ng-click="accordion_title($event)" ><p>Watch</p><span class="ico"></span></div>
-                        <div class="accordion_content" style="display: block;">
-
-                            <!--<video controls class="v_res">
-                                <source ng-src="{{'/external/ispeaker/audio/exam/webm/' + exam_data[key][index]['video1'] + '.webm'}}" type="video/webm">
-                            </video>-->
-
-                            <div class="container_video">
-                            <iframe class="video_container" style="width: 100%;" ng-src="{{video_url | trustAsResourceUrl}}" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="lang_select" value="2" id="langEN_US" ng-click="change_lang_ep(2)">
+                                <label class="form-check-label" for="langEN_US">
+                                    American pronunciation
+                                </label>
                             </div>
-
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="accordion_title " ng-click="accordion_title($event)"><p>Study</p><span class="ico"></span></div>
-                        <div class="accordion_content" style="padding: 0;">
-                            <div class="study_wrap" style="padding: 13px 19px;">
-                                <p ng-repeat="var1 in exam_data[key][index]['study']">
-                                    <span ng-bind-html="var1 | to_trusted"></span>
-                                </p>
-                            </div>
-                            <div class="study_tick">
-                                <div ng-repeat="var1 in exam_data[key][index]['left_text_in']">
-                                    <div>
-                                        <span data-index="{{$index}}" ng-bind-html="var1 | to_trusted"></span>
-                                        <input type="checkbox" class="study_tick_check" id="checkbox_klaus{{$index}}" ng-model="study_checkbox[$index]" ng-change="study_check()">
+                            <p class="mt-3"><strong>Useful Language</strong></p>
+                            <div class="row">
+                                <div class="accordion accordion-flush col-md-6" id="UsefulLanguage{{$index}}" ng-repeat="var1 in exam_data[key][index]['left_text']">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="usefullang-heading{{$index}}">
+                                            <button class="accordion-button collapsed fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#usefullang-collapse{{$index}}" aria-expanded="false" aria-controls="usefullang-collapse{{$index}}">
+                                                <span ng-bind-html="var1 | to_trusted"></span>
+                                            </button>
+                                        </h2>
+                                        <div id="usefullang-collapse{{$index}}"  class="accordion-collapse collapse" aria-labelledby="usefullang-heading{{$index}}" data-bs-parent="#UsefulLanguage{{$index}}">
+                                            <div class="accordion-body">
+                                                <div class="list-group list-group-flush">
+                                                    <button type="button" ng-repeat="var2 in exam_data[key][index]['left_list'][$index]" class="sentenceListAudio list-group-item list-group-item-action" ng-click="play_audio($event)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-volume-up-fill pe-none" viewBox="0 0 16 16"><path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/><path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"/><path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/></svg> <span ng-bind-html="var2 | to_trusted">{{var2}}</span>
+                                                        <audio controls class="spearkerContainer_audio">
+                                                            <source ng-src="{{'media/exam/mp3/' + exam_data[key][index]['audio'][$parent.$index][$index] + '.mp3'}}" type="audio/mpeg">
+                                                            <source ng-src="{{'media/exam/ogg/' + exam_data[key][index]['audio'][$parent.$index][$index] + '.ogg'}}" type="audio/ogg">
+                                                        </audio>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="accordion_title" ng-click="accordion_title($event)"><p>Practise</p><span class="ico"></span></div>
-                        <div class="accordion_content">
+                        <div class="tab-pane fade" id="nav-video" role="tabpanel" aria-labelledby="nav-video-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header fw-semibold">
+                                    Task
+                                </div>
+                                <div class="card-body">
+                                    <div ng-repeat="var1 in exam_data[key][index].taskdata">
+                                        <div ng-if="var1.type == 'img'">
+                                            <figure class="figure">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div role="button" ng-repeat="var2 in var1.list" rel="group" href="{{var2}}" class="col-lg-5 col-sm-6 imgpop" data-bs-toggle="modal" data-bs-target="#imagemodal{{$index}}"><img class="img-fluid mb-2" ng-src="{{var2}}"/></div>
+                                                </div>
+                                                <figcaption class="figure-caption text-center">Click / tap to view the full size.</figcaption>
+                                            </figure>
+                                            <div ng-repeat="var2 in var1.list" class="modal fade" id="imagemodal{{$index}}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-0">
+                                                            <h4 class="modal-title">Image full size view</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img class="img-fluid mx-auto d-block" id="imagepreview" ng-src="{{var2}}" />
+                                                        </div>
+                                                        <div class="modal-footer border-0">
+                                                            <button type="button" class="btn btn-secondary d-block w-50" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="var1.type == 'ul'">
+                                            <p>{{var1.head}}</p>
+                                            <ul class="ul_disc card-text">
+                                                <li ng-repeat="var2 in var1.list">
+                                                    {{var2}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div  ng-if="var1.type == 'head'">
+                                            <p class="mt-4" ng-repeat="var2 in var1.list">
+                                                <strong>{{var2}}</strong>
+                                            </p>
+                                        </div>
+                                        <div ng-if="var1.type == 'p'">
+                                            <p class="card-text" ng-repeat="var2 in var1.list">
+                                                {{var2}}
+                                            </p>
+                                        </div>
+                                        <div ng-if="var1.type == 'notes'">
+                                            <div class="textarea_wrap">
+                                                <p>Your notes:</p>
+                                                <textarea style="border:1px solid #999999;
+                                                          width:100%;
+                                                          margin:5px 0;
+                                                          padding:3px; height: 120px;"></textarea>
+                                            </div>
+                                            <div class="exam_btns">
+                                                <div class="stop"></div><div class="play"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md mb-4">
+                                    <div class="card">
+                                        <div class="card-header fw-semibold">
+                                            Watch the video
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="placeholder-glow ratio ratio-16x9">
+                                                <span class="placeholder"></span>
+                                                <iframe ng-src="{{video_url | trustAsResourceUrl}}" loading="lazy" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="accordion accordion-flush" id="studyContainer">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="studyContainer-heading">
+                                                <button class="accordion-button collapsed fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#studyContainer-collapse" aria-expanded="false" aria-controls="videoContainer-collapse">
+                                                    Study
+                                                </button>
+                                            </h2>
+                                            <div id="studyContainer-collapse"  class="accordion-collapse collapse" aria-labelledby="studyContainer-heading" data-bs-parent="#studyContainer">
+                                                <div class="accordion-body" id="studyContainer-body">
+                                                    <p ng-repeat="var1 in exam_data[key][index]['study']">
+                                                        <span ng-bind-html="var1 | to_trusted"></span>
+                                                    </p>
+                                                    <div class="study_tick bg-body-tertiary p-3">
+                                                        <div ng-repeat="var1 in exam_data[key][index]['left_text_in']">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label" for="checkbox_klaus{{$index}}">
+                                                                    <span data-index="{{$index}}" ng-bind-html="var1 | to_trusted"></span>
+                                                                </label>
+                                                                <input type="checkbox" class="form-check-input" id="checkbox_klaus{{$index}}" ng-model="study_checkbox[$index]" ng-change="study_check()">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-practice" role="tabpanel" aria-labelledby="nav-practice-tab" tabindex="0">
                             <div class="popupC" style="display: none; width: 300px;position: fixed;z-index: 9;">
                                 <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
                                 <div class="popup">
@@ -160,62 +176,113 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-repeat="var1 in exam_data[key][index].practise" style="margin-bottom: 7px;">
-
-                                <div ng-if="var1.type == 'img'">
-                                    <div class="image_box_wrap">
-                                        <div ng-repeat="var2 in var1.list" rel="group" href="{{var2}}"><img ng-src="{{var2}}"/></div>
+                            <div class="row">
+                                <div class="col-md-8 mb-4">
+                                    <div ng-repeat="var1 in exam_data[key][index].practise">
+                                        <div ng-if="var1.type == 'img'">
+                                            <figure class="figure">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div role="button" ng-repeat="var2 in var1.list" rel="group" href="{{var2}}" class="col-5 imgpop" data-bs-toggle="modal" data-bs-target="#imagemodal-practice{{$index}}"><img class="img-fluid mb-2" ng-src="{{var2}}"/></div>
+                                                </div>
+                                                <figcaption class="figure-caption text-center">Click / tap to view the full size.</figcaption>
+                                            </figure>
+                                            <div ng-repeat="var2 in var1.list" class="modal fade" id="imagemodal-practice{{$index}}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-0">
+                                                            <h4 class="modal-title">Image full size view</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <div class="placeholder-glow">
+                                                            <span class="placeholder"></span>
+                                                            <img class="img-fluid mx-auto d-block" id="imagepreview" ng-src="{{var2}}" />
+                                                        </div>
+                                                        </div>
+                                                        <div class="modal-footer border-0">
+                                                            <button type="button" class="btn btn-secondary d-block w-50" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="var1.type == 'ul'">
+                                            <p>{{var1.head}}</p>
+                                            <ul class="ul_disc">
+                                                <li ng-repeat="var2 in var1.list">
+                                                    {{var2}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div ng-if="var1.type == 'head'">
+                                            <p ng-repeat="var2 in var1.list">
+                                                <strong>{{var2}}</strong>
+                                            </p>
+                                        </div>
+                                        <div ng-if="var1.type == 'p'">
+                                            <p ng-repeat="var2 in var1.list">
+                                                {{var2}}
+                                            </p>
+                                        </div>
+                                        <div ng-if="var1.type == 'notes'">
+                                            <div class="textarea_wrap">
+                                                <label for="note-textarea{{$index}}" class="form-label">Your notes</label>
+                                                <textarea class="form-control your_notes_txt" id="note-textarea{{$index}}" rows="3" ng-blur="ep_notes()"></textarea>
+                                            </div>
+                                            <!--<div class="exam_btns">-->
+                                                <!--<div class="stop" data-audio_status="start" ng-click="start_record('exam_' + key + '_' + index + '_' + $index, $event)"></div>-->
+                                                <!--<div class="play" data-audio="" ng-click="play_wav_ol('exam_' + key + '_' + index + '_' + $index, $event)"></div>-->
+                                            <!--</div>-->
+                                        </div>
                                     </div>
                                 </div>
-                                <div ng-if="var1.type == 'ul'">
-                                    <p>{{var1.head}}</p>
-                                    <ul class="ul_disc">
-                                        <li ng-repeat="var2 in var1.list">
-                                            {{var2}}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div ng-if="var1.type == 'head'">
-                                    <p ng-repeat="var2 in var1.list">
-                                        <strong>{{var2}}</strong>
-                                    </p>
-                                </div>
-                                <div ng-if="var1.type == 'p'">
-                                    <p ng-repeat="var2 in var1.list">
-                                        {{var2}}
-                                    </p>
-                                </div>
-                                <div ng-if="var1.type == 'notes'">
-                                    <div class="textarea_wrap">
-                                        <p>Your notes:</p>
-                                        <textarea class="your_notes_txt" style="border:1px solid #999999;
-                                                  width:100%;
-                                                  margin:5px 0;
-                                                  padding:3px; height: 120px;" ng-blur="ep_notes()"></textarea>
-                                    </div>
-                                    <div class="exam_btns">
-                                        <div class="stop" data-audio_status="start" ng-click="start_record('exam_' + key + '_' + index + '_' + $index, $event)"></div>
-                                        <div class="play" data-audio="" ng-click="play_wav_ol('exam_' + key + '_' + index + '_' + $index, $event)"></div>
+                                <div class="col-md">
+                                    <h5 class="">Tips</h5>
+                                    <div class="accordion accordion-flush" id="tipContainer">
+                                      <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingDO">
+                                          <button class="accordion-button collapsed fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDO" aria-expanded="false" aria-controls="collapseDO">
+                                            Do...
+                                          </button>
+                                        </h2>
+                                        <div id="collapseDO" class="accordion-collapse collapse" aria-labelledby="headingDO" data-bs-parent="#tipContainer">
+                                          <div class="accordion-body">
+                                            <ul class="left_list_ul">
+                                                <li ng-repeat="var3 in exam_data[key][index].do" class="do mb-2">
+                                                    <span ng-bind-html="var3 | to_trusted"></span>
+                                                </li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingDONOT">
+                                          <button class="accordion-button collapsed fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDONOT" aria-expanded="false" aria-controls="collapseDONOT">
+                                            Don't...
+                                          </button>
+                                        </h2>
+                                        <div id="collapseDONOT" class="accordion-collapse collapse" aria-labelledby="headingDONOT" data-bs-parent="#tipContainer">
+                                          <div class="accordion-body">
+                                            <ul class="left_list_ul">
+                                                <li ng-repeat="var4 in exam_data[key][index].dont" class="do mb-2">
+                                                    <span ng-bind-html="var4 | to_trusted"></span>
+                                                </li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-                    </li>
-
-                    <li>
-                        <div class="accordion_title" ng-click="accordion_title($event)"><p>Review</p><span class="ico"></span></div>
-                        <div class="accordion_content review">
-                            <h4 ng-repeat="var1 in exam_data[key][index]['reviews']" style="font-weight: normal;">
-
-                                <span ng-bind-html="var1 | to_trusted"></span>
-                                <input type="checkbox" class="study_tick_check" id="checkbox_klausr{{$index}}" ng-model="ep_review_arr[$index]" ng-change="ep_review()">
-
-                            </h4>
+                        <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
+                            <div class="form-check" ng-repeat="var1 in exam_data[key][index]['reviews']">
+                                <label for="checkbox_klausr{{$index}}" class="form-check-label"><span ng-bind-html="var1 | to_trusted"></span></label>
+                                <input type="checkbox" class="form-check-input" id="checkbox_klausr{{$index}}" ng-model="ep_review_arr[$index]" ng-change="ep_review()">
+                            </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

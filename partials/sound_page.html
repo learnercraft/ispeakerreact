@@ -1,70 +1,93 @@
-<div class="container">
-    <div class="titleContainer" ng-include="'partials/header.html'">
+<div class="">
 
-    </div>
-    <div class="content">
-        <div class="column_50">
-            <div class="soundPDiv">
-                <!--<div style="display: none;" class="column_title" ng-click="accordion_heading($event)">Consononts</div>-->
+    <nav class="models_page_top navbar navbar-expand-lg bg-primary-subtle mb-2" ng-include="'partials/header.html'">
 
-                <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Consonants</p><span class="ico"></span></div>
-                <div class="accordion_content _accordion_content">
-                    <table width="97%">
-                        <tr>
-                            <th width="15%">Phoneme</th>
-                            <th>Example</th>
-                            <th>British</th>
-                            <th>American</th>
-                            <th></th>
-                        </tr>
+    </nav>
+    <div class="container-lg">
+    <div class="row">
+        <div class="col mb-4">
+            <div class="accordion accordion-flush" id="soundAccordion1">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Consonants
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#soundAccordion1">
+                        <div class="accordion-body table-responsive">
+                            <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Phoneme</th>
+                                    <th>Example</th>
+                                    <th>British</th>
+                                    <th>American</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="consonants in sounds_data['consonants']">
+                                    <td ng-bind-html="consonants.phoneme | to_trusted"></td>
+                                    <td ng-bind-html="consonants.example_word | to_trusted"></td>
+                                    <td>
+                                        <div role="button" ng-if="consonants.b_s == 'yes'" class="rounded-2 text-center fw-bold text-light" style="background-color: var(--bs-primary); width: 35px;" ng-style="{'background-color':review_color[consonants.b[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'b')">Go</div>
+                                    </td>
+                                    <td>
+                                        <div role="button" ng-if="consonants.a_s == 'yes'" class="rounded-2 text-center fw-bold text-light" style="background-color: var(--bs-primary); width: 35px;" ng-style="{'background-color':review_color[consonants.a[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'a')">Go</div>
+                                    </td>
+                                    <td>
+                                        <div class="infoB" ng-click="s_info($event, consonants.info, 5)"></div>
+                                    </td>
+                                </tr>
+                                </tbody>
 
-                        <tr ng-repeat="consonants in sounds_data['consonants']">
-                            <td ng-bind-html="consonants.phoneme | to_trusted"></td>
-                            <td ng-bind-html="consonants.example_word | to_trusted"></td>
-                            <td>
-                                <div ng-if="consonants.b_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[consonants.b[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'b')">Go</div>
-                            </td>
-                            <td>
-                                <div ng-if="consonants.a_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[consonants.a[0].review]}" ng-click="go_btn_clk($event, $index, 'consonants', 'a')">Go</div>
-                            </td>
-                            <td><div class="infoB" ng-click="s_info($event, consonants.info, 5)"></div></td>
-                        </tr>
-
-                    </table>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="notesText"></div>
             </div>
         </div>
-        <div class="column_50">
-            <div class="soundPDiv">
-                <!--<div style="display: none;"class="column_title" ng-click="accordion_heading($event)">Vowels and Diphthongs</div>-->
-                <div class="accordion_title selected" ng-click="accordion_title($event)"><p>Vowels and Diphthongs</p><span class="ico"></span></div>
-                <div class="accordion_content _accordion_content">
-                    <table width="97%">
-                        <tr>
-                            <th width="15%">Phoneme1</th>
-                            <th>Example</th>
-                            <th>British</th>
-                            <th>American</th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="vowels in sounds_data['vowels_n_diphthongs']">
+        <div class="col">
+            <div class="accordion accordion-flush" id="soundAccordion2">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button fw-semibold bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Vowels and Diphthongs
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo" data-bs-parent="#soundAccordion2">
+                        <div class="accordion-body table-responsive">
+                            <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Phoneme</th>
+                                    <th>Example</th>
+                                    <th>British</th>
+                                    <th>American</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="vowels in sounds_data['vowels_n_diphthongs']">
                             <td ng-bind-html="vowels.phoneme | to_trusted"></td>
                             <td ng-bind-html="vowels.example_word | to_trusted"></td>
                             <td>
-                                <div ng-if="vowels.b_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[vowels.b[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'b')">Go</div>
+                                <div role="button" ng-if="vowels.b_s == 'yes'" class="rounded-2 text-center fw-bold text-light" style="background-color: var(--bs-primary); width: 35px;" ng-style="{'background-color':review_color[vowels.b[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'b')">Go</div>
                             </td>
                             <td>
-                                <div ng-if="vowels.a_s == 'yes'" class="go_btn" ng-style="{'background-color':review_color[vowels.a[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'a')">Go</div>
+                                <div role="button" ng-if="vowels.a_s == 'yes'" class="rounded-2 text-center fw-bold text-light" style="background-color: var(--bs-primary); width: 35px;" ng-style="{'background-color':review_color[vowels.a[0].review]}" ng-click="go_btn_clk($event, $index, 'vowels_n_diphthongs', 'a')">Go</div>
                             </td>
-                            <td><div class="infoB" ng-click="s_info($event, vowels.info, 5)"></div></td>
+                            <td>
+                                <div class="infoB" ng-click="s_info($event, vowels.info, 5)"></div>
+                            </td>
                         </tr>
-
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="notesText"></div>
             </div>
         </div>
+    </div>
     </div>
 </div>

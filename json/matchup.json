@@ -5490,17 +5490,17 @@
                     "act": [
                         {
                             "audio": [{
-                                    "src": "_affair_brs_4"
+                                    "src": "affair_brs_4"
                                 }, {
-                                    "src": "_again_gbs_1"
+                                    "src": "again_gbs_1"
                                 }, {
-                                    "src": "_afraid_gbs_6"
+                                    "src": "afraid_gbs_6"
                                 }, {
-                                    "src": "_hair_gbs_2"
+                                    "src": "hair_gbs_2"
                                 }, {
-                                    "src": "_say_gbs_9"
+                                    "src": "say_gbs_9"
                                 }, {
-                                    "src": "_claim_gbs_1"
+                                    "src": "claim_gbs_1"
                                 }],
                             "words": [{
                                     "text": "affair",
@@ -5524,17 +5524,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_edge_gbs_1"
+                                    "src": "edge_gbs_1"
                                 }, {
-                                    "src": "_badges_gbs_1"
+                                    "src": "badges_gbs_1"
                                 }, {
-                                    "src": "_budget_gbs_1"
+                                    "src": "budget_gbs_1"
                                 }, {
-                                    "src": "_fridge_gbs_1"
+                                    "src": "fridge_gbs_1"
                                 }, {
-                                    "src": "_judge_brs_8"
+                                    "src": "judge_brs_8"
                                 }, {
-                                    "src": "_lodge_gbs_1"
+                                    "src": "lodge_gbs_1"
                                 }],
                             "words": [{
                                     "text": "edge",
@@ -5558,17 +5558,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_draught_gbs_1"
+                                    "src": "draught_gbs_1"
                                 }, {
-                                    "src": "_daughter_gbs_1"
+                                    "src": "daughter_gbs_1"
                                 }, {
-                                    "src": "_laugh_gbs_6"
+                                    "src": "laugh_gbs_6"
                                 }, {
-                                    "src": "_catch_gbs_13"
+                                    "src": "catch_gbs_13"
                                 }, {
-                                    "src": "_teach_brs_4"
+                                    "src": "teach_brs_4"
                                 }, {
-                                    "src": "_fraught_gbs_1"
+                                    "src": "fraught_gbs_1"
                                 }],
                             "words": [{
                                     "text": "draught",
@@ -5592,17 +5592,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_crucial_gbs_1"
+                                    "src": "crucial_gbs_1"
                                 }, {
-                                    "src": "_social_gbs_2"
+                                    "src": "social_gbs_2"
                                 }, {
-                                    "src": "_special_gbs_3"
+                                    "src": "special_gbs_3"
                                 }, {
-                                    "src": "_officially_brs_4"
+                                    "src": "officially_brs_4"
                                 }, {
-                                    "src": "_financial_brs_2"
+                                    "src": "financial_brs_2"
                                 }, {
-                                    "src": "_artificial_gbs_1"
+                                    "src": "artificial_gbs_1"
                                 }],
                             "words": [{
                                     "text": "crucial",
@@ -5626,17 +5626,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_bright_gbs_1"
+                                    "src": "bright_gbs_1"
                                 }, {
-                                    "src": "_fight_gbs_2"
+                                    "src": "fight_gbs_2"
                                 }, {
-                                    "src": "_light_gbs_20"
+                                    "src": "light_gbs_20"
                                 }, {
-                                    "src": "_sight_gbs_1"
+                                    "src": "sight_gbs_1"
                                 }, {
-                                    "src": "_delight_gbs_3"
+                                    "src": "delight_gbs_3"
                                 }, {
-                                    "src": "_right_gbs_1"
+                                    "src": "right_gbs_1"
                                 }],
                             "words": [{
                                     "text": "bright",
@@ -5660,17 +5660,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_knit_brs_2"
+                                    "src": "knit_brs_2"
                                 }, {
-                                    "src": "_knack_gbs_2"
+                                    "src": "knack_gbs_2"
                                 }, {
-                                    "src": "_thickness_gbs_1"
+                                    "src": "thickness_gbs_1"
                                 }, {
-                                    "src": "_weakness_gbs_1"
+                                    "src": "weakness_gbs_1"
                                 }, {
-                                    "src": "_knee_gbs_1"
+                                    "src": "knee_gbs_1"
                                 }, {
-                                    "src": "_unknown_brs_4"
+                                    "src": "unknown_brs_4"
                                 }],
                             "words": [{
                                     "text": "knitting",
@@ -5694,17 +5694,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_calm_gbs_4"
+                                    "src": "calm_gbs_4"
                                 }, {
-                                    "src": "_overwhelm_gbs_1"
+                                    "src": "overwhelm_gbs_1"
                                 }, {
-                                    "src": "_film_brs_5"
+                                    "src": "film_brs_5"
                                 }, {
-                                    "src": "_palm_gbs_1"
+                                    "src": "palm_gbs_1"
                                 }, {
-                                    "src": "_realm_gbs_2"
+                                    "src": "realm_gbs_2"
                                 }, {
-                                    "src": "_almost_brs_2"
+                                    "src": "almost_brs_2"
                                 }],
                             "words": [{
                                     "text": "calm",
@@ -5728,17 +5728,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_applaud_gbs_1"
+                                    "src": "applaud_gbs_1"
                                 }, {
-                                    "src": "_faulty_gbs_1"
+                                    "src": "faulty_gbs_1"
                                 }, {
-                                    "src": "_audience_gbs_1"
+                                    "src": "audience_gbs_1"
                                 }, {
-                                    "src": "_exhausted_gbs_2"
+                                    "src": "exhausted_gbs_2"
                                 }, {
-                                    "src": "_daunt_gbs_3"
+                                    "src": "daunt_gbs_3"
                                 }, {
-                                    "src": "_cautious_gbs_2"
+                                    "src": "cautious_gbs_2"
                                 }],
                             "words": [{
                                     "text": "applaud",
@@ -5762,17 +5762,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_ankle_gbs_1"
+                                    "src": "ankle_gbs_1"
                                 }, {
-                                    "src": "_blank_gbs_1"
+                                    "src": "blank_gbs_1"
                                 }, {
-                                    "src": "_drink_brs_5"
+                                    "src": "drink_brs_5"
                                 }, {
-                                    "src": "_junk_gbs_1"
+                                    "src": "junk_gbs_1"
                                 }, {
-                                    "src": "_blink_gbs_1"
+                                    "src": "blink_gbs_1"
                                 }, {
-                                    "src": "_wrinkle_gbs_1"
+                                    "src": "wrinkle_gbs_1"
                                 }],
                             "words": [{
                                     "text": "ankles",
@@ -5796,17 +5796,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_cough_gbs_1"
+                                    "src": "cough_gbs_1"
                                 }, {
-                                    "src": "_rough_gbs_1"
+                                    "src": "rough_gbs_1"
                                 }, {
-                                    "src": "_enough_brs_6"
+                                    "src": "enough_brs_6"
                                 }, {
-                                    "src": "_seek_gbs_3"
+                                    "src": "seek_gbs_3"
                                 }, {
-                                    "src": "_dough_gbs_1"
+                                    "src": "dough_gbs_1"
                                 }, {
-                                    "src": "_trough_gbs_1"
+                                    "src": "trough_gbs_1"
                                 }],
                             "words": [{
                                     "text": "coughing",
@@ -5830,17 +5830,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_graph_gbs_1"
+                                    "src": "graph_gbs_1"
                                 }, {
-                                    "src": "_microphone_gbs_1"
+                                    "src": "microphone_gbs_1"
                                 }, {
-                                    "src": "_geography_gbs_2"
+                                    "src": "geography_gbs_2"
                                 }, {
-                                    "src": "_phase_brs_3"
+                                    "src": "phase_brs_3"
                                 }, {
-                                    "src": "_decipher_gbs_1"
+                                    "src": "decipher_gbs_1"
                                 }, {
-                                    "src": "_emphasis_gbs_1"
+                                    "src": "emphasis_gbs_1"
                                 }],
                             "words": [{
                                     "text": "graph",
@@ -5864,17 +5864,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_anchor_gbs_1"
+                                    "src": "anchor_gbs_1"
                                 }, {
-                                    "src": "_child_gbs_1"
+                                    "src": "child_gbs_1"
                                 }, {
-                                    "src": "_church_gbs_1"
+                                    "src": "church_gbs_1"
                                 }, {
-                                    "src": "_chic_gbs_1"
+                                    "src": "chic_gbs_1"
                                 }, {
-                                    "src": "_launch_gbs_1"
+                                    "src": "launch_gbs_1"
                                 }, {
-                                    "src": "_lunch_brs_3"
+                                    "src": "lunch_brs_3"
                                 }],
                             "words": [{
                                     "text": "anchor",
@@ -5898,17 +5898,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_spirit_gbs_1"
+                                    "src": "spirit_gbs_1"
                                 }, {
-                                    "src": "_sprain_gbs_1"
+                                    "src": "sprain_gbs_1"
                                 }, {
-                                    "src": "_spring_brs_6"
+                                    "src": "spring_brs_6"
                                 }, {
-                                    "src": "_disprove_gbs_1"
+                                    "src": "disprove_gbs_1"
                                 }, {
-                                    "src": "_sprinkle_gbs_2"
+                                    "src": "sprinkle_gbs_2"
                                 }, {
-                                    "src": "_widespread_gbs_1"
+                                    "src": "widespread_gbs_1"
                                 }],
                             "words": [{
                                     "text": "spirits",
@@ -5932,17 +5932,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_unwrap_gbs_1"
+                                    "src": "unwrap_gbs_1"
                                 }, {
-                                    "src": "_handwriting_gbs_1"
+                                    "src": "handwriting_gbs_1"
                                 }, {
-                                    "src": "_wrist_brs_2"
+                                    "src": "wrist_brs_2"
                                 }, {
-                                    "src": "_wrong_brs_12"
+                                    "src": "wrong_brs_12"
                                 }, {
-                                    "src": "_write_gbs_11"
+                                    "src": "write_gbs_11"
                                 }, {
-                                    "src": "_writhe_gbs_2"
+                                    "src": "writhe_gbs_2"
                                 }],
                             "words": [{
                                     "text": "unwrap",
@@ -5966,17 +5966,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_answer_brs_5"
+                                    "src": "answer_brs_5"
                                 }, {
-                                    "src": "_sweet_gbs_1"
+                                    "src": "sweet_gbs_1"
                                 }, {
-                                    "src": "_swallow_brs_3"
+                                    "src": "swallow_brs_3"
                                 }, {
-                                    "src": "_swap_gbs_2"
+                                    "src": "swap_gbs_2"
                                 }, {
-                                    "src": "_sweep_brs_5"
+                                    "src": "sweep_brs_5"
                                 }, {
-                                    "src": "_password_gbs_1"
+                                    "src": "password_gbs_1"
                                 }],
                             "words": [{
                                     "text": "answer",
@@ -6000,17 +6000,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_corrupt_gbs_1"
+                                    "src": "corrupt_gbs_1"
                                 }, {
-                                    "src": "_captain_brs_3"
+                                    "src": "captain_brs_3"
                                 }, {
-                                    "src": "_concept_gbs_1"
+                                    "src": "concept_gbs_1"
                                 }, {
-                                    "src": "_disrupt_gbs_4"
+                                    "src": "disrupt_gbs_4"
                                 }, {
-                                    "src": "_apt_gbs_1"
+                                    "src": "apt_gbs_1"
                                 }, {
-                                    "src": "_option_gbs_1"
+                                    "src": "option_gbs_1"
                                 }],
                             "words": [{
                                     "text": "corrupt",
@@ -6034,17 +6034,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_dispatch_gbs_2"
+                                    "src": "dispatch_gbs_2"
                                 }, {
-                                    "src": "_hitchhike_gbs_1"
+                                    "src": "hitchhike_gbs_1"
                                 }, {
-                                    "src": "_match_gbs_4"
+                                    "src": "match_gbs_4"
                                 }, {
-                                    "src": "_pitch_brs_3"
+                                    "src": "pitch_brs_3"
                                 }, {
-                                    "src": "_scratch_gbs_1"
+                                    "src": "scratch_gbs_1"
                                 }, {
-                                    "src": "_switch_brs_3"
+                                    "src": "switch_brs_3"
                                 }],
                             "words": [{
                                     "text": "dispatched",
@@ -6068,17 +6068,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_upset_gbs_1"
+                                    "src": "upset_gbs_1"
                                 }, {
-                                    "src": "_collapse_gbs_1"
+                                    "src": "collapse_gbs_1"
                                 }, {
-                                    "src": "_glimpse_gbs_1"
+                                    "src": "glimpse_gbs_1"
                                 }, {
-                                    "src": "_lapse_gbs_2"
+                                    "src": "lapse_gbs_2"
                                 }, {
-                                    "src": "_relapse_gbs_1"
+                                    "src": "relapse_gbs_1"
                                 }, {
-                                    "src": "_eclipse_gbs_3"
+                                    "src": "eclipse_gbs_3"
                                 }],
                             "words": [{
                                     "text": "upset",
@@ -6102,17 +6102,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_picture_brs_7"
+                                    "src": "picture_brs_7"
                                 }, {
-                                    "src": "_culture_gbs_1"
+                                    "src": "culture_gbs_1"
                                 }, {
-                                    "src": "_gesture_gbs_5"
+                                    "src": "gesture_gbs_5"
                                 }, {
-                                    "src": "_puncture_gbs_1"
+                                    "src": "puncture_gbs_1"
                                 }, {
-                                    "src": "_departure_brs_3"
+                                    "src": "departure_brs_3"
                                 }, {
-                                    "src": "_mature_gbs_1"
+                                    "src": "mature_gbs_1"
                                 }],
                             "words": [{
                                     "text": "picture",
@@ -6136,17 +6136,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_discover_brs_5"
+                                    "src": "discover_brs_5"
                                 }, {
-                                    "src": "_leftover_gbs_2"
+                                    "src": "leftover_gbs_2"
                                 }, {
-                                    "src": "_govern_gbs_2"
+                                    "src": "govern_gbs_2"
                                 }, {
-                                    "src": "_hover_gbs_1"
+                                    "src": "hover_gbs_1"
                                 }, {
-                                    "src": "_overall_gbs_3"
+                                    "src": "overall_gbs_3"
                                 }, {
-                                    "src": "_overlook_gbs_1"
+                                    "src": "overlook_gbs_1"
                                 }],
                             "words": [{
                                     "text": "discovered",
@@ -6170,17 +6170,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_help_brs_9"
+                                    "src": "help_brs_9"
                                 }, {
-                                    "src": "_pulp_gbs_1"
+                                    "src": "pulp_gbs_1"
                                 }, {
-                                    "src": "_ballpark_gbs_3"
+                                    "src": "ballpark_gbs_3"
                                 }, {
-                                    "src": "_sculpt_gbs_1"
+                                    "src": "sculpt_gbs_1"
                                 }, {
-                                    "src": "_culprit_gbs_1"
+                                    "src": "culprit_gbs_1"
                                 }, {
-                                    "src": "_alphabet_gbs_1"
+                                    "src": "alphabet_gbs_1"
                                 }],
                             "words": [{
                                     "text": "helps",
@@ -6204,17 +6204,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_bounce_gbs_1"
+                                    "src": "bounce_gbs_1"
                                 }, {
-                                    "src": "_concerned_gbs_3"
+                                    "src": "concerned_gbs_3"
                                 }, {
-                                    "src": "_cancel_gbs_2"
+                                    "src": "cancel_gbs_2"
                                 }, {
-                                    "src": "_fence_brs_2"
+                                    "src": "fence_brs_2"
                                 }, {
-                                    "src": "_balance_gbs_2"
+                                    "src": "balance_gbs_2"
                                 }, {
-                                    "src": "_sequence_gbs_2"
+                                    "src": "sequence_gbs_2"
                                 }],
                             "words": [{
                                     "text": "bounced",
@@ -6238,17 +6238,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_comfort_gbs_5"
+                                    "src": "comfort_gbs_5"
                                 }, {
-                                    "src": "_effort_brs_3"
+                                    "src": "effort_brs_3"
                                 }, {
-                                    "src": "_fortune_brs_4"
+                                    "src": "fortune_brs_4"
                                 }, {
-                                    "src": "_unfortunate_brs_4"
+                                    "src": "unfortunate_brs_4"
                                 }, {
-                                    "src": "_forthcoming_gbs_2"
+                                    "src": "forthcoming_gbs_2"
                                 }, {
-                                    "src": "_fortify_gbs_2"
+                                    "src": "fortify_gbs_2"
                                 }],
                             "words": [{
                                     "text": "comfort",
@@ -6272,17 +6272,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_torment_gbs_3"
+                                    "src": "torment_gbs_3"
                                 }, {
-                                    "src": "_document_gbs_2"
+                                    "src": "document_gbs_2"
                                 }, {
-                                    "src": "_detrimental_gbs_1"
+                                    "src": "detrimental_gbs_1"
                                 }, {
-                                    "src": "_commentate_gbs_1"
+                                    "src": "commentate_gbs_1"
                                 }, {
-                                    "src": "_development_gbs_1"
+                                    "src": "development_gbs_1"
                                 }, {
-                                    "src": "_mention_gbs_1"
+                                    "src": "mention_gbs_1"
                                 }],
                             "words": [{
                                     "text": "tormented",
@@ -6306,17 +6306,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_backwards_gbs_1"
+                                    "src": "backwards_gbs_1"
                                 }, {
-                                    "src": "_awkward_brs_8"
+                                    "src": "awkward_brs_8"
                                 }, {
-                                    "src": "_coward_gbs_2"
+                                    "src": "coward_gbs_2"
                                 }, {
-                                    "src": "_wary_gbs_3"
+                                    "src": "wary_gbs_3"
                                 }, {
-                                    "src": "_aware_gbs_1"
+                                    "src": "aware_gbs_1"
                                 }, {
-                                    "src": "_ward_gbs_1"
+                                    "src": "ward_gbs_1"
                                 }],
                             "words": [{
                                     "text": "backwards",
@@ -6340,17 +6340,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_ambition_gbs_3"
+                                    "src": "ambition_gbs_3"
                                 }, {
-                                    "src": "_dumb_gbs_2"
+                                    "src": "dumb_gbs_2"
                                 }, {
-                                    "src": "_bombard_gbs_1"
+                                    "src": "bombard_gbs_1"
                                 }, {
-                                    "src": "_combine_gbs_6"
+                                    "src": "combine_gbs_6"
                                 }, {
-                                    "src": "_crumb_gbs_1"
+                                    "src": "crumb_gbs_1"
                                 }, {
-                                    "src": "_combination_brs_3"
+                                    "src": "combination_brs_3"
                                 }],
                             "words": [{
                                     "text": "ambition",
@@ -6374,17 +6374,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_foreign_gbs_1"
+                                    "src": "foreign_gbs_1"
                                 }, {
-                                    "src": "_design_gbs_1"
+                                    "src": "design_gbs_1"
                                 }, {
-                                    "src": "_ignore_brs_3"
+                                    "src": "ignore_brs_3"
                                 }, {
-                                    "src": "_assign_gbs_4"
+                                    "src": "assign_gbs_4"
                                 }, {
-                                    "src": "_signal_gbs_1"
+                                    "src": "signal_gbs_1"
                                 }, {
-                                    "src": "_dignified_gbs_1"
+                                    "src": "dignified_gbs_1"
                                 }],
                             "words": [{
                                     "text": "foreign",
@@ -6408,17 +6408,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_column_gbs_2"
+                                    "src": "column_gbs_2"
                                 }, {
-                                    "src": "_chimney_gbs_1"
+                                    "src": "chimney_gbs_1"
                                 }, {
-                                    "src": "_solemn_gbs_3"
+                                    "src": "solemn_gbs_3"
                                 }, {
-                                    "src": "_condemn_gbs_2"
+                                    "src": "condemn_gbs_2"
                                 }, {
-                                    "src": "_amnesty_gbs_1"
+                                    "src": "amnesty_gbs_1"
                                 }, {
-                                    "src": "_remnant_gbs_1"
+                                    "src": "remnant_gbs_1"
                                 }],
                             "words": [{
                                     "text": "column",
@@ -6442,17 +6442,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_island_gbs_1"
+                                    "src": "island_gbs_1"
                                 }, {
-                                    "src": "_aisle_gbs_1"
+                                    "src": "aisle_gbs_1"
                                 }, {
-                                    "src": "_mislay_gbs_1"
+                                    "src": "mislay_gbs_1"
                                 }, {
-                                    "src": "_dislike_gbs_4"
+                                    "src": "dislike_gbs_4"
                                 }, {
-                                    "src": "_dislodge_gbs_1"
+                                    "src": "dislodge_gbs_1"
                                 }, {
-                                    "src": "_disloyal_gbs_1"
+                                    "src": "disloyal_gbs_1"
                                 }],
                             "words": [{
                                     "text": "island",
@@ -6476,17 +6476,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_guess_brs_5"
+                                    "src": "guess_brs_5"
                                 }, {
-                                    "src": "_guitar_gbs_2"
+                                    "src": "guitar_gbs_2"
                                 }, {
-                                    "src": "_fatigue_gbs_2"
+                                    "src": "fatigue_gbs_2"
                                 }, {
-                                    "src": "_colleague_gbs_1"
+                                    "src": "colleague_gbs_1"
                                 }, {
-                                    "src": "_guard_brs_6"
+                                    "src": "guard_brs_6"
                                 }, {
-                                    "src": "_guidance_gbs_1"
+                                    "src": "guidance_gbs_1"
                                 }],
                             "words": [{
                                     "text": "guess",
@@ -6525,17 +6525,17 @@
                     "act": [
                         {
                             "audio": [{
-                                    "src": "_affair_uss_4"
+                                    "src": "affair_uss_4"
                                 }, {
-                                    "src": "_again_uss_1"
+                                    "src": "again_uss_1"
                                 }, {
-                                    "src": "_afraid_ams_6"
+                                    "src": "afraid_ams_6"
                                 }, {
-                                    "src": "_hair_ams_2"
+                                    "src": "hair_ams_2"
                                 }, {
-                                    "src": "_say_ams_9"
+                                    "src": "say_ams_9"
                                 }, {
-                                    "src": "_claim_uss_1"
+                                    "src": "claim_uss_1"
                                 }],
                             "words": [{
                                     "text": "affair",
@@ -6559,17 +6559,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_edge_uss_1"
+                                    "src": "edge_uss_1"
                                 }, {
-                                    "src": "_badges_uss_1"
+                                    "src": "badges_uss_1"
                                 }, {
-                                    "src": "_budget_uss_1"
+                                    "src": "budget_uss_1"
                                 }, {
-                                    "src": "_fridge_uss_1"
+                                    "src": "fridge_uss_1"
                                 }, {
-                                    "src": "_judge_uss_8"
+                                    "src": "judge_uss_8"
                                 }, {
-                                    "src": "_lodge_uss_1"
+                                    "src": "lodge_uss_1"
                                 }],
                             "words": [{
                                     "text": "edge",
@@ -6593,17 +6593,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_draught_uss_1"
+                                    "src": "draught_uss_1"
                                 }, {
-                                    "src": "_daughter_uss_1"
+                                    "src": "daughter_uss_1"
                                 }, {
-                                    "src": "_laugh_ams_6"
+                                    "src": "laugh_ams_6"
                                 }, {
-                                    "src": "_catch_ams_13"
+                                    "src": "catch_ams_13"
                                 }, {
-                                    "src": "_teach_uss_4"
+                                    "src": "teach_uss_4"
                                 }, {
-                                    "src": "_fraught_uss_1"
+                                    "src": "fraught_uss_1"
                                 }],
                             "words": [{
                                     "text": "draught",
@@ -6627,17 +6627,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_crucial_uss_1"
+                                    "src": "crucial_uss_1"
                                 }, {
-                                    "src": "_social_uss_2"
+                                    "src": "social_uss_2"
                                 }, {
-                                    "src": "_special_uss_3"
+                                    "src": "special_uss_3"
                                 }, {
-                                    "src": "_officially_uss_4"
+                                    "src": "officially_uss_4"
                                 }, {
-                                    "src": "_financial_uss_2"
+                                    "src": "financial_uss_2"
                                 }, {
-                                    "src": "_artificial_uss_1"
+                                    "src": "artificial_uss_1"
                                 }],
                             "words": [{
                                     "text": "crucial",
@@ -6661,17 +6661,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_bright_uss_1"
+                                    "src": "bright_uss_1"
                                 }, {
-                                    "src": "_fight_uss_2"
+                                    "src": "fight_uss_2"
                                 }, {
-                                    "src": "_light_ams_20"
+                                    "src": "light_ams_20"
                                 }, {
-                                    "src": "_sight_uss_1"
+                                    "src": "sight_uss_1"
                                 }, {
-                                    "src": "_delight_ams_3"
+                                    "src": "delight_ams_3"
                                 }, {
-                                    "src": "_right_uss_1"
+                                    "src": "right_uss_1"
                                 }],
                             "words": [{
                                     "text": "bright",
@@ -6695,17 +6695,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_knit_uss_2"
+                                    "src": "knit_uss_2"
                                 }, {
-                                    "src": "_knack_uss_2"
+                                    "src": "knack_uss_2"
                                 }, {
-                                    "src": "_thickness_uss_1"
+                                    "src": "thickness_uss_1"
                                 }, {
-                                    "src": "_weakness_uss_1"
+                                    "src": "weakness_uss_1"
                                 }, {
-                                    "src": "_knee_uss_1"
+                                    "src": "knee_uss_1"
                                 }, {
-                                    "src": "_unknown_uss_4"
+                                    "src": "unknown_uss_4"
                                 }],
                             "words": [{
                                     "text": "knitting",
@@ -6729,17 +6729,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_calm_ams_4"
+                                    "src": "calm_ams_4"
                                 }, {
-                                    "src": "_overwhelm_uss_1"
+                                    "src": "overwhelm_uss_1"
                                 }, {
-                                    "src": "_film_uss_5"
+                                    "src": "film_uss_5"
                                 }, {
-                                    "src": "_palm_uss_1"
+                                    "src": "palm_uss_1"
                                 }, {
-                                    "src": "_realm_uss_2"
+                                    "src": "realm_uss_2"
                                 }, {
-                                    "src": "_almost_uss_2"
+                                    "src": "almost_uss_2"
                                 }],
                             "words": [{
                                     "text": "calm",
@@ -6763,17 +6763,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_applaud_uss_1"
+                                    "src": "applaud_uss_1"
                                 }, {
-                                    "src": "_faulty_uss_1"
+                                    "src": "faulty_uss_1"
                                 }, {
-                                    "src": "_audience_uss_1"
+                                    "src": "audience_uss_1"
                                 }, {
-                                    "src": "_exhausted_uss_2"
+                                    "src": "exhausted_uss_2"
                                 }, {
-                                    "src": "_daunt_uss_3"
+                                    "src": "daunt_uss_3"
                                 }, {
-                                    "src": "_cautious_uss_2"
+                                    "src": "cautious_uss_2"
                                 }],
                             "words": [{
                                     "text": "applaud",
@@ -6797,17 +6797,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_ankle_uss_1"
+                                    "src": "ankle_uss_1"
                                 }, {
-                                    "src": "_blank_uss_1"
+                                    "src": "blank_uss_1"
                                 }, {
-                                    "src": "_drink_uss_5"
+                                    "src": "drink_uss_5"
                                 }, {
-                                    "src": "_junk_uss_1"
+                                    "src": "junk_uss_1"
                                 }, {
-                                    "src": "_blink_uss_1"
+                                    "src": "blink_uss_1"
                                 }, {
-                                    "src": "_wrinkle_uss_1"
+                                    "src": "wrinkle_uss_1"
                                 }],
                             "words": [{
                                     "text": "ankles",
@@ -6831,17 +6831,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_cough_uss_1"
+                                    "src": "cough_uss_1"
                                 }, {
-                                    "src": "_rough_uss_1"
+                                    "src": "rough_uss_1"
                                 }, {
-                                    "src": "_enough_uss_6"
+                                    "src": "enough_uss_6"
                                 }, {
-                                    "src": "_seek_uss_3"
+                                    "src": "seek_uss_3"
                                 }, {
-                                    "src": "_dough_uss_1"
+                                    "src": "dough_uss_1"
                                 }, {
-                                    "src": "_trough_uss_1"
+                                    "src": "trough_uss_1"
                                 }],
                             "words": [{
                                     "text": "coughing",
@@ -6865,17 +6865,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_graph_uss_1"
+                                    "src": "graph_uss_1"
                                 }, {
-                                    "src": "_microphone_uss_1"
+                                    "src": "microphone_uss_1"
                                 }, {
-                                    "src": "_geography_ams_2"
+                                    "src": "geography_ams_2"
                                 }, {
-                                    "src": "_phase_uss_3"
+                                    "src": "phase_uss_3"
                                 }, {
-                                    "src": "_decipher_uss_1"
+                                    "src": "decipher_uss_1"
                                 }, {
-                                    "src": "_emphasis_uss_1"
+                                    "src": "emphasis_uss_1"
                                 }],
                             "words": [{
                                     "text": "graph",
@@ -6899,17 +6899,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_anchor_uss_1"
+                                    "src": "anchor_uss_1"
                                 }, {
-                                    "src": "_child_uss_1"
+                                    "src": "child_uss_1"
                                 }, {
-                                    "src": "_church_uss_1"
+                                    "src": "church_uss_1"
                                 }, {
-                                    "src": "_chic_uss_1"
+                                    "src": "chic_uss_1"
                                 }, {
-                                    "src": "_launch_uss_1"
+                                    "src": "launch_uss_1"
                                 }, {
-                                    "src": "_lunch_uss_3"
+                                    "src": "lunch_uss_3"
                                 }],
                             "words": [{
                                     "text": "anchor",
@@ -6933,17 +6933,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_spirit_uss_1"
+                                    "src": "spirit_uss_1"
                                 }, {
-                                    "src": "_sprain_uss_1"
+                                    "src": "sprain_uss_1"
                                 }, {
-                                    "src": "_spring_uss_6"
+                                    "src": "spring_uss_6"
                                 }, {
-                                    "src": "_disprove_uss_1"
+                                    "src": "disprove_uss_1"
                                 }, {
-                                    "src": "_sprinkle_uss_2"
+                                    "src": "sprinkle_uss_2"
                                 }, {
-                                    "src": "_widespread_uss_1"
+                                    "src": "widespread_uss_1"
                                 }],
                             "words": [{
                                     "text": "spirits",
@@ -6967,17 +6967,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_unwrap_uss_1"
+                                    "src": "unwrap_uss_1"
                                 }, {
-                                    "src": "_handwriting_uss_1"
+                                    "src": "handwriting_uss_1"
                                 }, {
-                                    "src": "_wrist_uss_2"
+                                    "src": "wrist_uss_2"
                                 }, {
-                                    "src": "_wrong_uss_12"
+                                    "src": "wrong_uss_12"
                                 }, {
-                                    "src": "_write_ams_11"
+                                    "src": "write_ams_11"
                                 }, {
-                                    "src": "_writhe_uss_2"
+                                    "src": "writhe_uss_2"
                                 }],
                             "words": [{
                                     "text": "unwrap",
@@ -7001,17 +7001,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_answer_uss_5"
+                                    "src": "answer_uss_5"
                                 }, {
-                                    "src": "_sweet_uss_1"
+                                    "src": "sweet_uss_1"
                                 }, {
-                                    "src": "_swallow_uss_3"
+                                    "src": "swallow_uss_3"
                                 }, {
-                                    "src": "_swap_uss_2"
+                                    "src": "swap_uss_2"
                                 }, {
-                                    "src": "_sweep_uss_5"
+                                    "src": "sweep_uss_5"
                                 }, {
-                                    "src": "_password_uss_1"
+                                    "src": "password_uss_1"
                                 }],
                             "words": [{
                                     "text": "answer",
@@ -7035,17 +7035,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_corrupt_uss_1"
+                                    "src": "corrupt_uss_1"
                                 }, {
-                                    "src": "_captain_uss_3"
+                                    "src": "captain_uss_3"
                                 }, {
-                                    "src": "_concept_uss_1"
+                                    "src": "concept_uss_1"
                                 }, {
-                                    "src": "_disrupt_uss_4"
+                                    "src": "disrupt_uss_4"
                                 }, {
-                                    "src": "_apt_uss_1"
+                                    "src": "apt_uss_1"
                                 }, {
-                                    "src": "_option_uss_1"
+                                    "src": "option_uss_1"
                                 }],
                             "words": [{
                                     "text": "corrupt",
@@ -7069,17 +7069,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_dispatch_uss_2"
+                                    "src": "dispatch_uss_2"
                                 }, {
-                                    "src": "_hitchhike_uss_1"
+                                    "src": "hitchhike_uss_1"
                                 }, {
-                                    "src": "_match_uss_4"
+                                    "src": "match_uss_4"
                                 }, {
-                                    "src": "_pitch_uss_3"
+                                    "src": "pitch_uss_3"
                                 }, {
-                                    "src": "_scratch_uss_1"
+                                    "src": "scratch_uss_1"
                                 }, {
-                                    "src": "_switch_uss_3"
+                                    "src": "switch_uss_3"
                                 }],
                             "words": [{
                                     "text": "dispatched",
@@ -7103,17 +7103,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_upset_uss_1"
+                                    "src": "upset_uss_1"
                                 }, {
-                                    "src": "_collapse_uss_1"
+                                    "src": "collapse_uss_1"
                                 }, {
-                                    "src": "_glimpse_uss_1"
+                                    "src": "glimpse_uss_1"
                                 }, {
-                                    "src": "_lapse_uss_2"
+                                    "src": "lapse_uss_2"
                                 }, {
-                                    "src": "_relapse_uss_1"
+                                    "src": "relapse_uss_1"
                                 }, {
-                                    "src": "_eclipse_uss_3"
+                                    "src": "eclipse_uss_3"
                                 }],
                             "words": [{
                                     "text": "upset",
@@ -7137,17 +7137,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_picture_uss_7"
+                                    "src": "picture_uss_7"
                                 }, {
-                                    "src": "_culture_uss_1"
+                                    "src": "culture_uss_1"
                                 }, {
-                                    "src": "_gesture_uss_5"
+                                    "src": "gesture_uss_5"
                                 }, {
-                                    "src": "_puncture_uss_1"
+                                    "src": "puncture_uss_1"
                                 }, {
-                                    "src": "_departure_uss_3"
+                                    "src": "departure_uss_3"
                                 }, {
-                                    "src": "_mature_uss_1"
+                                    "src": "mature_uss_1"
                                 }],
                             "words": [{
                                     "text": "picture",
@@ -7171,17 +7171,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_discover_uss_5"
+                                    "src": "discover_uss_5"
                                 }, {
-                                    "src": "_leftover_uss_2"
+                                    "src": "leftover_uss_2"
                                 }, {
-                                    "src": "_govern_uss_2"
+                                    "src": "govern_uss_2"
                                 }, {
-                                    "src": "_hover_uss_1"
+                                    "src": "hover_uss_1"
                                 }, {
-                                    "src": "_overall_uss_3"
+                                    "src": "overall_uss_3"
                                 }, {
-                                    "src": "_overlook_uss_1"
+                                    "src": "overlook_uss_1"
                                 }],
                             "words": [{
                                     "text": "discovered",
@@ -7205,17 +7205,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_help_uss_9"
+                                    "src": "help_uss_9"
                                 }, {
-                                    "src": "_pulp_uss_1"
+                                    "src": "pulp_uss_1"
                                 }, {
-                                    "src": "_ballpark_uss_3"
+                                    "src": "ballpark_uss_3"
                                 }, {
-                                    "src": "_sculpt_uss_1"
+                                    "src": "sculpt_uss_1"
                                 }, {
-                                    "src": "_culprit_uss_1"
+                                    "src": "culprit_uss_1"
                                 }, {
-                                    "src": "_alphabet_uss_1"
+                                    "src": "alphabet_uss_1"
                                 }],
                             "words": [{
                                     "text": "helps",
@@ -7239,17 +7239,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_bounce_uss_1"
+                                    "src": "bounce_uss_1"
                                 }, {
-                                    "src": "_concerned_ams_3"
+                                    "src": "concerned_ams_3"
                                 }, {
-                                    "src": "_cancel_uss_2"
+                                    "src": "cancel_uss_2"
                                 }, {
-                                    "src": "_fence_uss_2"
+                                    "src": "fence_uss_2"
                                 }, {
-                                    "src": "_balance_uss_2"
+                                    "src": "balance_uss_2"
                                 }, {
-                                    "src": "_sequence_uss_2"
+                                    "src": "sequence_uss_2"
                                 }],
                             "words": [{
                                     "text": "bounced",
@@ -7273,17 +7273,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_comfort_ams_5"
+                                    "src": "comfort_ams_5"
                                 }, {
-                                    "src": "_effort_uss_3"
+                                    "src": "effort_uss_3"
                                 }, {
-                                    "src": "_fortune_uss_4"
+                                    "src": "fortune_uss_4"
                                 }, {
-                                    "src": "_unfortunate_uss_4"
+                                    "src": "unfortunate_uss_4"
                                 }, {
-                                    "src": "_forthcoming_uss_2"
+                                    "src": "forthcoming_uss_2"
                                 }, {
-                                    "src": "_fortify_uss_2"
+                                    "src": "fortify_uss_2"
                                 }],
                             "words": [{
                                     "text": "comfort",
@@ -7307,17 +7307,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_torment_uss_3"
+                                    "src": "torment_uss_3"
                                 }, {
-                                    "src": "_document_ams_2"
+                                    "src": "document_ams_2"
                                 }, {
-                                    "src": "_detrimental_uss_1"
+                                    "src": "detrimental_uss_1"
                                 }, {
-                                    "src": "_commentate_uss_1"
+                                    "src": "commentate_uss_1"
                                 }, {
-                                    "src": "_development_uss_1"
+                                    "src": "development_uss_1"
                                 }, {
-                                    "src": "_mention_uss_1"
+                                    "src": "mention_uss_1"
                                 }],
                             "words": [{
                                     "text": "tormented",
@@ -7341,17 +7341,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_backwards_uss_1"
+                                    "src": "backwards_uss_1"
                                 }, {
-                                    "src": "_awkward_uss_8"
+                                    "src": "awkward_uss_8"
                                 }, {
-                                    "src": "_coward_uss_2"
+                                    "src": "coward_uss_2"
                                 }, {
-                                    "src": "_wary_uss_3"
+                                    "src": "wary_uss_3"
                                 }, {
-                                    "src": "_aware_uss_1"
+                                    "src": "aware_uss_1"
                                 }, {
-                                    "src": "_ward_uss_1"
+                                    "src": "ward_uss_1"
                                 }],
                             "words": [{
                                     "text": "backwards",
@@ -7375,17 +7375,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_ambition_ams_3"
+                                    "src": "ambition_ams_3"
                                 }, {
-                                    "src": "_dumb_uss_2"
+                                    "src": "dumb_uss_2"
                                 }, {
-                                    "src": "_bombard_uss_1"
+                                    "src": "bombard_uss_1"
                                 }, {
-                                    "src": "_combine_ams_6"
+                                    "src": "combine_ams_6"
                                 }, {
-                                    "src": "_crumb_uss_1"
+                                    "src": "crumb_uss_1"
                                 }, {
-                                    "src": "_combination_uss_3"
+                                    "src": "combination_uss_3"
                                 }],
                             "words": [{
                                     "text": "ambition",
@@ -7409,17 +7409,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_foreign_uss_1"
+                                    "src": "foreign_uss_1"
                                 }, {
-                                    "src": "_design_uss_1"
+                                    "src": "design_uss_1"
                                 }, {
-                                    "src": "_ignore_uss_3"
+                                    "src": "ignore_uss_3"
                                 }, {
-                                    "src": "_assign_uss_4"
+                                    "src": "assign_uss_4"
                                 }, {
-                                    "src": "_signal_uss_1"
+                                    "src": "signal_uss_1"
                                 }, {
-                                    "src": "_dignified_uss_1"
+                                    "src": "dignified_uss_1"
                                 }],
                             "words": [{
                                     "text": "foreign",
@@ -7443,17 +7443,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_column_uss_2"
+                                    "src": "column_uss_2"
                                 }, {
-                                    "src": "_chimney_uss_1"
+                                    "src": "chimney_uss_1"
                                 }, {
-                                    "src": "_solemn_uss_3"
+                                    "src": "solemn_uss_3"
                                 }, {
-                                    "src": "_condemn_uss_2"
+                                    "src": "condemn_uss_2"
                                 }, {
-                                    "src": "_amnesty_uss_1"
+                                    "src": "amnesty_uss_1"
                                 }, {
-                                    "src": "_remnant_uss_1"
+                                    "src": "remnant_uss_1"
                                 }],
                             "words": [{
                                     "text": "column",
@@ -7477,17 +7477,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_island_uss_1"
+                                    "src": "island_uss_1"
                                 }, {
-                                    "src": "_aisle_uss_1"
+                                    "src": "aisle_uss_1"
                                 }, {
-                                    "src": "_mislay_uss_1"
+                                    "src": "mislay_uss_1"
                                 }, {
-                                    "src": "_dislike_ams_4"
+                                    "src": "dislike_ams_4"
                                 }, {
-                                    "src": "_dislodge_uss_1"
+                                    "src": "dislodge_uss_1"
                                 }, {
-                                    "src": "_disloyal_uss_1"
+                                    "src": "disloyal_uss_1"
                                 }],
                             "words": [{
                                     "text": "island",
@@ -7511,17 +7511,17 @@
                         },
                         {
                             "audio": [{
-                                    "src": "_guess_uss_5"
+                                    "src": "guess_uss_5"
                                 }, {
-                                    "src": "_guitar_uss_2"
+                                    "src": "guitar_uss_2"
                                 }, {
-                                    "src": "_fatigue_uss_2"
+                                    "src": "fatigue_uss_2"
                                 }, {
-                                    "src": "_colleague_uss_1"
+                                    "src": "colleague_uss_1"
                                 }, {
-                                    "src": "_guard_uss_6"
+                                    "src": "guard_uss_6"
                                 }, {
-                                    "src": "_guidance_uss_1"
+                                    "src": "guidance_uss_1"
                                 }],
                             "words": [{
                                     "text": "guess",

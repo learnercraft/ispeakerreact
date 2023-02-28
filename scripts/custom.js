@@ -60,23 +60,16 @@ function scroll_top() {
 
 
 
-    $('.responsive_entry_center_wrap,#main_column,.main-container').css('margin', '0');
+    /*$('.responsive_entry_center_wrap,#main_column,.main-container').css('margin', '0');
     $('.responsive_entry_center_wrap,#main_column,.main-container').css('padding', '0');
     $('.middle_wrap').parent().css('margin', '0');
-    $('.middle_wrap').parent().css('padding', '0');
+    $('.middle_wrap').parent().css('padding', '0');*/
 
 
-    $('.main_wrapper').parent().css('padding', '0');// to remove padding
-    set_max_height();
+    //$('.main_wrapper').parent().css('padding', '0');// to remove padding
+    //set_max_height();
     $(window).resize(function () {
-      set_max_height();
-
-      if ($(window).width() <= 768) {
-        $("._row").css('display', 'none');
-        setTimeout(function () {
-          $("._row").css('display', 'table');
-        }, 200);
-      }
+      //set_max_height();
     });
     $('.models_page_down_arrow').click(function () {
       var dropd = $('.down_arrow_wrapper');
@@ -95,21 +88,13 @@ function scroll_top() {
 
     }
     $('.scroll_bar, .left_part, .right_part').css('min-height', (window_height - 50) + 'px').css('max-height', (window_height - 50) + 'px');
-    $('.main_wrapper').css('min-height', window_height + 'px');
+    //$('.main_wrapper').css('min-height', window_height + 'px');
   }
 $(document).ready(function() {
 
-    $('.main_wrapper').parent().css('padding', '0');// to remove padding
-    set_max_height();
-    $(window).resize(function() {
-        set_max_height();
-		 if ($(window).width() <= 768) {
-            $("._row").css('display', 'none');
-            setTimeout(function() {
-                $("._row").css('display', 'table');
-            }, 200);
-        }
-    });
+    //$('.main_wrapper').parent().css('padding', '0');// to remove padding
+    //set_max_height();
+
     $('.models_page_down_arrow').click(function() {
         var dropd = $('.down_arrow_wrapper');
         if (dropd.is(':visible')) {
@@ -127,7 +112,7 @@ function set_max_height() {
 
     }
     $('.scroll_bar, .left_part, .right_part').css('min-height', (window_height - 70) + 'px').css('max-height', (window_height - 70) + 'px');
-    $('.main_wrapper').css('min-height', window_height + 'px');
+    //$('.main_wrapper').css('min-height', window_height + 'px');
 }
 
 var recording_path = '/';

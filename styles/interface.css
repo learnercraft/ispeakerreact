@@ -1,33 +1,8 @@
-@font-face {
-      font-family: Inter;
-      src: url('../fonts/Inter.var.woff2') format('woff2-variations');
-      font-weight: 300 900;
-      font-stretch: 35% 100%;
-      font-style: normal;
-    }
-@font-face {
-      font-family: Inter;
-      src: url('../fonts/Inter.var.woff2') format('woff2-variations');
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: italic;
-}
 
 /*------------------------------------*\
     GLOBAL STYLES
 \*------------------------------------*/
 
-/*fonts*/
-@font-face {
-    font-family: 'oup-icons';
-    src: url("../fonts/oup-icons.eot");
-    src: url("../fonts/oup-icons.eot?#iefix") format('embedded-opentype'),
-        url("../fonts/oup-icons.ttf") format('truetype'),
-        url("../fonts/oup-icons.woff") format('woff'),
-        url("../fonts/oup-icons.svg#oup-icons") format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
 .icon-tick:before {
     content: "\e616";
@@ -41,23 +16,6 @@
     content: "\e615";
 }
 
-/* high level styles */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
-    margin: 0;
-    /*padding: 0;*/
-    border: 0;
-    font: inherit;
-    font-size: 100%;
-    vertical-align: baseline;
-}
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
 .clear_fix, #search-form, /*.wl-table tr,*/ .bar-slider {
     *zoom: 1;
@@ -70,89 +28,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 .clear_fix:after, #search-form:after, /*.wl-table tr:after,*/ .bar-slider:after {
     clear: both;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    min-height: 100%;
-    font-size: 92%;
-    line-height: 1.6em;
-    font-family: Inter, sans-serif;
-    color: #333333;
-    background-color: #f2f2f2;
-    min-width: 320px;
-    -webkit-text-size-adjust: none; /* stops font scaling on iPhone rotation */
-}
-
-h1 {
-    font-size: 26px;
-    line-height: 1em;
-    margin: 0 0 14px;
-    color: #0d3880;
-}
-
-/*#main_column > h1 {
-    margin-top: 7px;
-}*/
-
-h1.h, h1.my-wordlist-titles, #search-results h1,
-.nearest-results {
-    color: #0d3880;
-    display: block;
-    font-family: Roboto;
-    margin-right: 10px;
-    margin-top: 12px;
-    line-height: 1.2em;
-}
-
-h1 + h2 {
-    margin-top: 12px;
-}
-
-h2 {
-    font-size: 31px;
-    line-height: 42px;
-    margin: 0;
-    color: #0d3880;
-}
-
-h3 {
-    font-size: 21px;
-    font-weight: normal;
-    line-height: 25px;
-    padding: 7px 0;
-    margin: 14px 0 7px;
-    color: #282828;
-}
-
-h4 {
-    font-size: 17px;
-    line-height: 19px;
-    font-weight: bold;
-    margin: 0 0 7px;
-    color: #282828;
-}
-
-h5 {
-    font-size: 18px;
-    line-height: 28px;
-    font-weight: bold;
-    margin: 7px 0 0;
-    color: rgba(0, 0, 0, 0.7);
-}
-
-h6 {
-    font-size: 15px;
-    font-weight: bold;
-    margin: 4px 0 3px;
-    color: rgba(0, 0, 0, 0.7);
-}
-
-h1,h2,h3,h4,h5,h6 {
-    text-rendering: optimizeLegibility;
 }
 
 .clear-both {
@@ -168,25 +43,6 @@ ol li {
 }
 
 ol li:last-child {
-    margin-bottom: 0;
-}
-
-a {
-    text-decoration: none;
-    color: #004aac;
-    cursor: pointer;
-}
-
-a:hover{
-    text-decoration:underline;
-    cursor: pointer;
-}
-
-p {
-    margin-bottom: 7px;
-}
-
-p.zero {
     margin-bottom: 0;
 }
 
@@ -910,126 +766,7 @@ div.social-twitter a:before{
 }
 /* -end- footer */
 
-/* buttons */
-.btn, input[type='submit'], input[type='button']#skipDef, input[type='button']#submitQuit {
-    display: inline-flex;
-    width: auto;
-    height: 32px;
-    line-height: 1;
-    align-items: center;
-    padding: 0 9px;
-    background: #FFF;
-    border: 1px solid #4577bf;
-    border-radius: 4px;
-    -webkit-appearance: none;
-    text-align: center;
-    position: relative;
-    vertical-align: middle;
-}
 
-.btn > a, .btn > input {
-    display: table-cell;
-    padding: 0 12px;
-    color: #4577bf;
-    /*height: 26px;*/
-    white-space: nowrap;
-    font-weight: normal;
-}
-
-input[type='submit'], input[type='button']#skipDef, input[type='button']#submitQuit {
-    font-size: 15px;
-    padding: 0 12px;
-    color: #4577bf;
-    white-space: nowrap;
-}
-
-.btn:not(.inactive):hover {
-    background: #4577bf;
-    border: 2px solid #4577bf;
-}
-
-input[type='submit']:hover, input[type='button']#skipDef:hover, input[type='button']#submitQuit:hover {
-    color: white;
-    background-color:#4577bf;
-}
-
-.btn:not(.inactive):hover a {
-    color: white;
-}
-
-.btn:not(.inactive):hover a:before {
-      background-position: -1px bottom;
-}
-
-.btn:active {
-    background-color: #07255e;
-    border-color: #07255e;
-}
-
-.btn > a:hover {
-   text-decoration: none;
-}
-
-.btn.icon-only {
-    width: 30px;
-}
-
-.btn.icon-left a,
-input.icon-left[type='submit'] a,
-.btn.icon-left-colapse a,
-input.icon-left-colapse[type='submit'] a {
-    padding-left: 30px;
-    position: relative;
-}
-
-.btn.icon-left a:before,
-input.icon-left[type='submit'] a:before,
-.btn.icon-left-colapse a:before,
-input.icon-left-colapse[type='submit'] a:before {
-    content: "";
-    position: absolute;
-    width: 28px;
-    height: 26px;
-    margin-left:-28px;
-}
-
-.btn.inactive, input.inactive[type='submit'] {
-    background: grey;
-    pointer-events: none;
-}
-
-.btn.inactive a, input.inactive[type='submit'] a {
-    color: #333333;
-}
-
-.btn.record, .btn.play {
-    margin-top: -8px;
-}
-
-.btn.record a:before, input.record[type='submit'] a:before {
-    background-image: url("../images/pron_prac/btn-record.png");
-    background-size:100%;
-}
-
-.btn.play a:before, input.play[type='submit'] a:before {
-    background-image: url("../images/pron_prac/btn-play.png");
-    background-size:100%;
-}
-
-.btn.btn-premium {
-    background-color: #8f0610;
-    border-color: #8f0610;
-    margin-top: 10px;
-}
-.btn.btn-premium a {
-    color: #ffffff;
-}
-.btn.btn-premium:not(.inactive):hover {
-    background: #c00815;
-    border-color: #c00815;
-}
-
-/* end buttons */
 
 /* audio buttons */
 .wordlist-oxford3000 .sound,
@@ -1316,12 +1053,6 @@ p.links {
 .box-padding {
     display: table-cell;
     width: 1.2em;
-}
-
-.row {
-    display: table;
-    width: 100%;
-    margin-bottom: 18px;
 }
 
 .dynamicPanelWarning {

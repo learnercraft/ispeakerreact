@@ -1,56 +1,61 @@
-<div class="container">
-    <div class="titleContainer" ng-include="'partials/header.html'">
+<div class="">
+    <nav class="models_page_top navbar navbar-expand-lg bg-primary-subtle" ng-include="'partials/header.html'">
+    
+    </nav>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col mb-4">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="con_data in con_data['function1']" class="last_tr">
+                                <td>{{con_data.function}}</td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function1', 'b')">Go</div></td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function1', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
+                            </tr>
 
-    </div>
-    <div class="content">
-        <div class="column_50">
-            <div class="soundPDiv">
-                <div class="column_title" style="display: none;">Consononts</div>
-                <table width="97%">
-                    <tr>
-                        <th width="40%">Function</th>
-                        <th>British</th>
-                        <th>American</th>
-                        <th></th>
-                    </tr>
-
-                    <tr ng-repeat="con_data in con_data['function1']" class="last_tr">
-                        <td>{{con_data.function}}</td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function1', 'b')">Go</div></td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function1', 'a')">Go</div></td>
-                        <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
-                    </tr>
-
-                    <tr ng-repeat="con_data in con_data['function2']" ng-hide="com_table1">
-                        <td>{{con_data.function}}</td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function2', 'b')">Go</div></td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function2', 'a')">Go</div></td>
-                        <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
-                    </tr>
-
-                </table>
-                <div class="notesText"></div>
+                            <tr ng-repeat="con_data in con_data['function2']" ng-hide="com_table1">
+                                <td>{{con_data.function}}</td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function2', 'b')">Go</div></td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function2', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="notesText"></div>
+                </div>
             </div>
-        </div>
-        <div class="column_50" ng-hide="com_table2">
-            <div class="soundPDiv">
-                <div class="column_title" style="display: none;">Vowels and Diphthongs</div>
-                <table width="97%">
-                    <tr>
-                        <th width="40%">Function</th>
-                        <th>British</th>
-                        <th>American</th>
-                        <th></th>
-                    </tr>
-                    <tr ng-repeat="con_data in con_data['function2']">
-                        <td>{{con_data.function}}</td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function2', 'b')">Go</div></td>
-                        <td><div class="go_btn" ng-click="go_btn_clk($event, $index, 'function2', 'a')">Go</div></td>
-                        <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
-                    </tr>
-
-                </table>
-                <div class="notesText"></div>
+            <div class="col mb-4" ng-hide="com_table2">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>British</th>
+                                <th>American</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="con_data in con_data['function2']">
+                                <td>{{con_data.function}}</td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function2', 'b')">Go</div></td>
+                                <td><div role="button" class="p-0 rounded-2 text-center fw-bold text-light btn btn-primary" style="width: 35px;" ng-click="go_btn_clk($event, $index, 'function2', 'a')">Go</div></td>
+                                <td><div class="infoB" ng-click="s_info($event, con_data.info, 4)"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="notesText"></div>
+                </div>
             </div>
         </div>
     </div>
