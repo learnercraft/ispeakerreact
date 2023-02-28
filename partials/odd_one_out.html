@@ -1,47 +1,27 @@
-
 <div class="actContainer oddoneOut clearfx" ng-controller="Odd1Out_Ctrl">
-
-    <div class="actQuestion">question: {{cnt + 1}}</div>
-
-    <div class="">
-
-        <div class="">
-
+    <div class="actQuestion mb-2 text-primary-emphasis d-flex justify-content-end fw-semibold">question #{{cnt + 1}}</div>
+    <div class="card">
+        <div class="card-body">
             <div class="disabler_div"></div>
-
             <ul class="ul_cls_oddOut">
-
                 <li class="li_cls" ng-click="check_odd_one_out($event)" ng-repeat="word in words" data-ans="{{word.answer}}">
-
                     <div class="odd_Button" data-index="{{word.index}}" >{{word.value}}</div>
-
                     <div data-ans="{{word.answer}}" class="{{word.answer}}_odd"></div>
-
                 </li>
-
             </ul>
-
-            <div class="correctAns ng-binding odd1out" style="display: none;"><strong>Correct answer:</strong>  {{question.correctAns}}</div>
-
-            <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
-
+            <div class="row g-2 mt-4">
+                <div class="col-md d-flex align-items-center justify-content-sm-center justify-content-md-start">
+                    <div class="correctAns ng-binding odd1out" style="display: none;"><strong>Correct answer:</strong>  {{question.correctAns}}</div>
+                    <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
+                </div>
+                <div class="col-md">
+                    <div class="btn_container btn-group d-md-flex justify-content-md-end" role="group">
+                        <button submitControl class="tpl_btn btn btn-outline-primary quit submit" ng-disabled="isSubmitDisabled" ng-model="isSubmitDisabled" ng-click="submit($event)">Submit</button>
+                        <button type="button" class="tpl_btn btn btn-outline-primary" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</button>
+                        <button type="button" class="tpl_btn btn btn-outline-primary quit" ng-click="quit()">Quit</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div  class="btn_container">
-
-
-
-            <div submitControl class="tpl_btn quit submit" ng-disabled="isSubmitDisabled" ng-model="isSubmitDisabled" ng-click="submit($event)">Submit</div>
-
-
-
-            <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
-
-            <div class="tpl_btn quit" ng-click="quit()">Quit</div>
-
-        </div>
-
     </div>
-
 </div>
-

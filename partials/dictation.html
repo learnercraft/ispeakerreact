@@ -1,39 +1,46 @@
 
-<div class="actContainer reordering dectation clearfx" ng-controller="dectation" >
-    <div class="actQuestion">question: {{cnt + 1}}</div>
-    <div class="spearkerContainer">
-        <div class="speaker" ng-click="playAudio($event)">
-            <audio controls class="dectationAudio">
-                <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mpeg">
-                <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
-            </audio>
-        </div>
-    </div>
-    <div class="dectationContainerO">
-        <div class="dectationContainer ng-cloak">
-            <ul class="dragContainer">
-                <li class="dragHolder" ng-repeat="word in words">
-                    <div class="wordDiv sel" ng-if="word.value && words.length != 1">
-                        {{ word.value}}
-                    </div>
-                    <div class="textBoxDiv textBoxDiv1" ng-if="word.textbox && words.length != 1">
-                        <input type="text" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
-                    </div>
-                    <div class="textBoxDiv" ng-if="words.length == 1">
-                        <input type="text" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="correctAns"><strong>Correct answer:</strong> <span>{{show_ans}}</span></div>
-        <div class="btn_container">
-
-            <div class="tpl_btn submit" ng-click="submit()">Submit</div>
-
-            <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">
-                Next
+<div class="actContainer reordering dectation" ng-controller="dectation">
+    <div class="actQuestion mb-2 text-primary-emphasis d-flex justify-content-end fw-semibold">question #{{cnt + 1}}</div>
+    <div class="card">
+        <div class="card-header">
+            <div class="spearkerContainer d-flex justify-content-center">
+                <div class="speaker" ng-click="playAudio($event)">
+                    <audio controls class="dectationAudio">
+                        <source ng-src="{{'media/exercise/mp3/' + audio.src + '.mp3'}}" type="audio/mpeg">
+                        <source ng-src="{{'media/exercise/ogg/' + audio.src + '.ogg'}}" type="audio/ogg">
+                    </audio>
+                </div>
             </div>
-            <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+        </div>
+        <div class="card-body">
+            <div class="row dectationContainer mb-4 mt-4 ng-cloak">
+                <ul class="dragContainer d-flex justify-content-center">
+                    <li class="dragHolder" ng-repeat="word in words">
+                        <div class="wordDiv sel" ng-if="word.value && words.length != 1">
+                            {{ word.value}}
+                        </div>
+                        <div class="textBoxDiv textBoxDiv1 needs-validation" ng-if="word.textbox && words.length != 1">
+                            <input type="text" class="form-control" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                        </div>
+                        <div class="textBoxDiv needs-validation" ng-if="words.length == 1">
+                            <input type="text" class="form-control" spellcheck="false"><div class="dect_rw_response"><img class="dect_right" src="images/dectation_right_t.png"><img class="dect_wrong" src="images/dectation_wrong_t.png"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="row g-2">
+                <div class="col-md d-flex align-items-center justify-content-sm-center justify-content-md-start">
+                    <div class="correctAns"><strong>Correct answer:</strong> <span>{{show_ans}}</span></div>
+                </div>
+                <div class="col-md">
+                    <div class="btn_container btn-group d-flex justify-content-lg-end justify-content-sm-center" role="group">
+                        <button type="button" class="tpl_btn btn btn-outline-primary submit" ng-click="submit()">Submit</button>
+                        <button type="button" class="tpl_btn btn btn-outline-primary" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</button>
+                        <button type="button" class="tpl_btn btn btn-outline-primary quit" ng-click="quit()">Quit</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

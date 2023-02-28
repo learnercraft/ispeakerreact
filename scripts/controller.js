@@ -1,10 +1,23 @@
-var connection = new JsStore.Connection(new Worker('scripts/jsstore.worker.js'));
+var connection = new JsStore.Connection(new Worker('scripts/jsstore.worker.min.js'));
 
 if (!window.indexedDB) {
     window.alert("Your browser doesn't support a stable version of IndexedDB.")
 }
 
 initDb();
+
+var urls = ['json/con_data.json', 'json/conversation_database.json', 'json/data.json', 'json/database.json', 'json/dictation.json', 'json/drag_match.json', 'json/ep_database.json', 'json/ex_data.json', 'json/exam_data.json', 'json/matchup.json', 'json/memory_match.json', 'json/odd_one_out.json', 'json/reordering.json', 'json/snap.json', 'json/sorting.json', 'json/sound_spelling.json', 'json/sounds_data.json', 'json/sounds_n_spelling.json', 'json/stress.json'];
+
+$.each(urls, function(i,u){ 
+     $.ajax(u, 
+       { type: 'GET',
+       async: false,
+         success: function (data) {
+             $('#iLoader').remove();
+         } 
+       }
+     );
+});
 
 async function initDb() {
     var isDbCreated = await connection.initDb(getiSpeakerDB());
@@ -96,6 +109,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         }, 400);
     };
     $rootScope.mainAns = true;
+    $rootScope.left_menu = true;
     $rootScope.score = 0;
     $rootScope.totalScore = 0;
     $rootScope.start_recorder = true;
@@ -130,9 +144,10 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             }
         }, 200);
 
-        $('.disabler').show();
+        //$('.disabler').show();
+        $('.actContainer').addClass('pe-none');
         $('.popupC').fadeOut();
-        $('.tpl_btn').addClass('disable');
+        $('.tpl_btn').attr('disabled', true);
         //$interval.cancel(stop);
         $scope.cal_percentage();
         $scope.get_score();
@@ -168,7 +183,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     //$scope.index = 0;
     //$scope.lang = '';
     $scope.colors = ["#E8BCC1", "#C5DBF4", "#FFF7B4", "#B6CD72", "#F2D4A6", "#DBDED8"];
-    $scope.review_color = ["#4577bf", "#009100", "#ffc200", "#fe1919"];
+    $scope.bootstrapcolors = ["bg-primary text-bg-primary", "bg-success text-bg-success", "bg-danger text-bg-danger", "bg-warning text-bg-warning", "bg-info text-bg-info", "bg-secondary text-bg-secondary"];
+    $scope.review_color = ["var(--bs-primary)", "var(--bs-success)", "var(--bs-warning)", "var(--bs-danger)"];
     $scope.study_checkbox = new Array();
     $scope.conversation_review_arr = new Array();
     $scope.ep_review_arr = new Array();
@@ -229,19 +245,23 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     //check database
 
-    $http.get('json/database.json').success(function(data) {
+    $http.get('json/database.json').then(function(response) {
+        var data = response.data;
         $rootScope.database_status = data;
     });
-    $http.get('json/conversation_database.json').success(function(data) {
+    $http.get('json/conversation_database.json').then(function(response) {
+        var data = response.data;
         $rootScope.conversation_database = data;
     });
-    $http.get('json/ep_database.json').success(function(data) {
+    $http.get('json/ep_database.json').then(function(response) {
+        var data = response.data;
         $rootScope.ep_database = data;
     });
 
 
     //sounds data
-    $http.get('json/sounds_data.json').success(function(data) {
+    $http.get('json/sounds_data.json').then(function(response) {
+        var data = response.data;
         $scope.sounds_data = data;
 
 
@@ -397,7 +417,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     //end sounds data
 
     //conversations data
-    $http.get('json/con_data.json').success(function(data) {
+    $http.get('json/con_data.json').then(function(response) {
+        var data = response.data;
         $scope.con_data = data;
 
         //add audio files
@@ -544,7 +565,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     //end conversations data
 
     //exam data
-    $http.get('json/exam_data.json').success(function(data) {
+    $http.get('json/exam_data.json').then(function(response) {var data = response.data;
         $scope.exam_data = data;
 
         for (var i in $scope.exam_data['task']) {
@@ -578,7 +599,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
 
-    $http.get('json/sounds_n_spelling.json').success(function(data) {
+    $http.get('json/sounds_n_spelling.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['sounds_n_spelling'] = data.sounds_n_spelling;
 
         var sec_arr = new Array();
@@ -619,7 +640,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     });
 
-    $http.get('json/snap.json').success(function(data) {
+    $http.get('json/snap.json').then(function(response) {var data = response.data;
 
         $rootScope.ex_data['snap'] = data.snap;
 
@@ -659,7 +680,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     });
 
-    $http.get('json/sorting.json').success(function(data) {
+    $http.get('json/sorting.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['sorting'] = data.sorting;
 
         //for dictation random temp
@@ -702,7 +723,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     });
 
-    $http.get('json/dictation.json').success(function(data) {
+    $http.get('json/dictation.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['dictation'] = data.dictation;
 
         //for dictation random temp
@@ -747,7 +768,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     });
 
-    $http.get('json/matchup.json').success(function(data) {
+    $http.get('json/matchup.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['matchup'] = data.matchup;
 
         //for match random temp
@@ -792,7 +813,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //end for for match random temp
     });
 
-    $http.get('json/reordering.json').success(function(data) {
+    $http.get('json/reordering.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['reordering'] = data.reordering;
 
         //for reordering random temp
@@ -830,7 +851,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //end for reordering random temp
     });
 
-    $http.get('json/memory_match.json').success(function(data) {
+    $http.get('json/memory_match.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['memory_match'] = data.memory_match;
 
         //for memory match random temp
@@ -869,7 +890,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //end for memory match random temp
     });
 
-    $http.get('json/odd_one_out.json').success(function(data) {
+    $http.get('json/odd_one_out.json').then(function(response) {var data = response.data;
         $rootScope.ex_data['odd_one_out'] = data.odd_one_out;
 
         //for odd 1 out random temp
@@ -919,7 +940,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     });
 
-    $http.get('json/ex_data.json').success(function(data) {
+    $http.get('json/ex_data.json').then(function(response) {var data = response.data;
         //$rootScope.ex_data = data;
         //$scope.ex_data = data;
     });
@@ -937,7 +958,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         }
 
         if ($(window).width() <= 480) {
-            $scope.help_btn_txt = '?';
+            //$scope.help_btn_txt = '?';
         } else {
             $scope.help_btn_txt = 'Help';
         }
@@ -945,12 +966,13 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
     $scope.study_check = function() {
-        $('.accordion_content').find('span[data-index]').each(function() {
+        $('#studyContainer-body').find('span[data-index]').each(function() {
             var id = $(this).attr('data-index');
             if ($scope.study_checkbox[id]) {
-                $(this).css('background-color', $scope.colors[id]).css('color', '#000000');
+                //$(this).css('background-color', $scope.colors[id]).css('color', '#000000');
+                $(this).addClass($scope.bootstrapcolors[id]);
             } else {
-                $(this).removeAttr('style');
+                $(this).removeClass();
             }
         });
     };
@@ -1354,20 +1376,20 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     //home page
     //subpages
     $scope.left_menu_clk = function($event) {
-        if ($($event.currentTarget).parents('.container').find('.left_part').hasClass('open')) {
-            $($event.currentTarget).parents('.container').find('.left_part').addClass('close').removeClass('open');
-            $($event.currentTarget).parents('.container').find('.left_part').animate({
+        if ($($event.currentTarget).parents('.page_2_partial').find('.left_part').hasClass('open')) {
+            $($event.currentTarget).parents('.page_2_partial').find('.left_part').addClass('close').removeClass('open');
+            $($event.currentTarget).parents('.page_2_partial').find('.left_part').animate({
                 left: '-100%'
             }, 500, "linear");
-            $($event.currentTarget).parents('.container').find('.left_menu').css('background-position', '-2px 11px');
+            $($event.currentTarget).parents('.page_2_partial').find('.left_menu').css('background-position', '-2px 11px');
             $('.left_part').removeClass('left_part_m');
             $('.right_part').removeClass('right_part_m');
         } else {
-            $($event.currentTarget).parents('.container').find('.left_part').addClass('open').removeClass('close');
-            $($event.currentTarget).parents('.container').find('.left_part').animate({
+            $($event.currentTarget).parents('.page_2_partial').find('.left_part').addClass('open').removeClass('close');
+            $($event.currentTarget).parents('.page_2_partial').find('.left_part').animate({
                 left: '0%'
             }, 500, "linear");
-            $($event.currentTarget).parents('.container').find('.left_menu').css('background-position', '-8px 11px');
+            $($event.currentTarget).parents('.page_2_partial').find('.left_menu').css('background-position', '-8px 11px');
             $('.left_part').addClass('left_part_m');
             $('.right_part').addClass('right_part_m');
         }
@@ -1421,7 +1443,8 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     };
 
     $scope.while_playing = function() {
-        $('.play').css('background-position-x', '-58px');
+        //$('.play').css('background-position-x', '-58px');
+        $('.file_play').addClass('play').removeClass('stop');
         $rootScope.audio_obj.pause();
         if (typeof(sound) != 'undefined' && sound != null) {
             sound.pause();
@@ -1430,7 +1453,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     $scope.play_audio_common = function(file_name, $event) {
 
-        if ($($event.target).css('background-position').split(" ")[0] != '-58px') {
+        if (!$($event.target).hasClass('play')) {
             $scope.while_playing();
         } else {
             $rootScope.audio_obj = null;
@@ -1439,17 +1462,23 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             //$rootScope.audio_obj = $($event.target).next('audio')[0];
             $rootScope.audio_obj.src = $($event.target).attr('data-path');
             $rootScope.audio_obj.play();
-            $('.play').css('background-position', '-58px 1px');
-            $($event.target).css('background-position', '-270px 1px');
+            //$('.play').css('background-position', '-58px 1px');
+            $('.file_play').addClass('play');
+            //$($event.target).css('background-position', '-270px 1px');
+            $($event.target).addClass('stop').removeClass('play');
             /*$rootScope.audio_obj.onended = function () {
              alert('eneded');
              $('.play').css('background-position', '-58px 1px');
              };*/
             $rootScope.audio_obj.addEventListener('ended', function() {
                 //alert('eneded');
-                $('.play').css('background-position', '-58px 1px');
+                //$('.play').css('background-position', '-58px 1px');
+                $('.file_play').addClass('play').removeClass('stop');
             });
-
+            $rootScope.audio_obj.addEventListener('play', function() {
+                $($event.target).removeClass('play').addClass('stop');
+                $('.file_play').removeClass('play');
+            });
         }
     };
 
@@ -1698,26 +1727,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 $scope.sound_page2_html = 'partials/sound_page2.html';
                 $('.main_wrapper').trigger('click');
                 // video_resize();
-                $('.video_clk').fancybox({
-                    autoSize: true,
-                    autoResize: true,
-                    autoCenter: true,
-                    width: 800,
-                    height: 450,
-                    aspectRatio: true,
-                    autoDimensions: false,
-                    openEffect: 'elastic',
-                    closeEffect: 'elastic',
-                    iframe: {
-                        preload: false
-                    },
-                    scrolling: 'hidden',
-                    helpers: {
-                        overlay: {
-                            locked: true
-                        }
-                    }
-                });
             }, 200);
             $scope.scroll_bar();
             //$('html').css('overflow-y', 'hidden !important');
@@ -1872,14 +1881,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             $scope.s_head_h1 = $scope.exam_data[key][index]['short_name'];
             $scope.video_url = $scope.exam_data[key][index]['video1'];
 
-            $('.image_box_wrap > div').fancybox({
+            /*$('.image_box_wrap > div').fancybox({
                 scrolling: 'hidden',
                 helpers: {
                     overlay: {
                         locked: true
                     }
                 }
-            });
+            });*/
 
             $scope.study_checkbox = new Array();
 
@@ -2059,18 +2068,28 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         var vidType = 'audio/ogg';
         var codType = 'vorbis';
         if ($($event.target)[0].nodeName.toLowerCase() == 'strong' || $($event.target)[0].nodeName.toLowerCase() == 'span') {
-            playB.src = $($event.target).parents('.italic_txt').find('audio').find('source').attr('src');
+            playB.src = $($event.target).parents('.sentenceListAudio').find('audio').find('source').attr('src');
         } else {
             playB.src = $($event.target).find('audio').find('source').attr('src');
         }
         //console.log(playB);
         var tar = $($event.target);
-        if (tar.hasClass('selected')) {
+        if (tar.hasClass('active') || tar.parents('.sentenceListAudio').hasClass('active')) {
             // tar.removeClass('selected');
             playB.pause();
+            tar.parents('.sentenceListAudio').addClass('pe-none');
+            tar.addClass('pe-none')
         } else {
             //tar.addClass('selected');
             playB.play();
+            playB.addEventListener("play", function() {
+                tar.parents('.sentenceListAudio').addClass('active pe-none');
+                tar.addClass('active pe-none')
+            });
+            playB.addEventListener("ended", function() {
+                tar.parents('.sentenceListAudio').removeClass('active pe-none');
+                tar.removeClass('active pe-none')
+            });
         }
     }
     $scope.scroll_bar = function() {
@@ -2174,19 +2193,19 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         var temp_perc = ($rootScope.score / $rootScope.totalScore) * 100;
 
         if (temp_perc > 99) {
-            $rootScope.percentage_score = 'Perfect!' + '<span style="font-size:26px">&#9786;</span>';
+            $rootScope.percentage_score = 'Perfect!' + ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16">  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z"/></svg>';
         } else {
             if (temp_perc >= 75 && temp_perc <= 99) {
-                $rootScope.percentage_score = 'Well done!' + '<span style="font-size:26px">&#9786;</span>';
+                $rootScope.percentage_score = 'Well done!' + ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-laughing" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M12.331 9.5a1 1 0 0 1 0 1A4.998 4.998 0 0 1 8 13a4.998 4.998 0 0 1-4.33-2.5A1 1 0 0 1 4.535 9h6.93a1 1 0 0 1 .866.5zM7 6.5c0 .828-.448 0-1 0s-1 .828-1 0S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 0-1 0s-1 .828-1 0S9.448 5 10 5s1 .672 1 1.5z"/></svg>';
             } else {
                 if (temp_perc >= 50 && temp_perc <= 74) {
-                    $rootScope.percentage_score = 'Good';
+                    $rootScope.percentage_score = 'Good' + ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-wink" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm1.757-.437a.5.5 0 0 1 .68.194.934.934 0 0 0 .813.493c.339 0 .645-.19.813-.493a.5.5 0 1 1 .874.486A1.934 1.934 0 0 1 10.25 7.75c-.73 0-1.356-.412-1.687-1.007a.5.5 0 0 1 .194-.68z"/></svg>';
                 } else {
                     if (temp_perc >= 25 && temp_perc <= 49) {
-                        $rootScope.percentage_score = 'OK';
+                        $rootScope.percentage_score = 'OK' + ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16"><path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/></svg>';
                     } else {
                         if (temp_perc >= 10 && temp_perc <= 24) {
-                            $rootScope.percentage_score = 'Good try.';
+                            $rootScope.percentage_score = 'Good try' + ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16"><path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/></svg>';
                         } else {
                             console.log('No comment');
                         }
@@ -2200,6 +2219,7 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['sounds_n_spelling'][index][lang][0]['act'][$rootScope.cnt];
     //$http.get('json/sound_spelling.json').success(function(data) {
@@ -2215,14 +2235,16 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
         var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
-            tar.removeClass('selected');
-            playB.get(0).pause();
+            //tar.removeClass('selected');
+            //playB.get(0).pause();
         } else {
             //tar.addClass('selected');
             playB.get(0).play();
         }
     };
-
+    $('.reorderAudio').bind("play", function() {
+        $(this).closest('.speaker').addClass('selected');
+    });
     $('.reorderAudio').bind("ended", function() {
         $(this).closest('.speaker').removeClass('selected');
     });
@@ -2263,14 +2285,12 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
 
     $scope.check_odd_one_out = function($event) {
         if ($($event.target).hasClass('spelling_Button')) {
-            $('.btn_sel').css('background-color', '#4577BF');
-            $('.btn_sel').css('color', '#FFFFFF');
+            $('.btn_sel').addClass('btn-outline-primary').removeClass('btn-primary');
             $('.spelling_Button.selected').removeClass('selected btn_sel');
             var btnText = $($event.target).text();
             $('.ans').html(btnText);
             $($event.target).addClass('selected btn_sel');
-            $($event.target).css('background-color', '#ffffff');
-            $($event.target).css('color', '#4577BF');
+            $($event.target).addClass('btn-outline-primary').removeClass('btn-primary');
             $('.ans').css('border', 'none');
             $('.ans').css('padding', '0 0');
             $('.spelling_border1').addClass('spelling_border');
@@ -2279,7 +2299,7 @@ angular.module('myApp.Sound_Spelling_Ctrl', []).controller('Sound_Spelling_Ctrl'
     };
     $rootScope.totalScore++;
     $scope.submit = function($event) {
-        console.log('in');
+        //console.log('in');
         //$rootScope.totalScore++;
         var value = $('.spelling_Button.selected').parents().attr('data-ans');
         //$('.selected').parent().find("div[data-ans='"+value+"']").show();
@@ -2309,6 +2329,7 @@ angular.module('myApp.Snap_Ctrl', []).controller('Snap_Ctrl', function($scope, $
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['snap'][index][lang][0]['act'][$rootScope.cnt];
     //$http.get('json/snap.json').success(function(data) {
@@ -2438,6 +2459,7 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['sorting'][index][lang][0]['act'][$rootScope.cnt];
     //$http.get('json/stress.json').success(function(data) {
@@ -2455,11 +2477,14 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
 
     $scope.audio = data.audio;
     $scope.sentance = '';
-    setTimeout(function() {
+    //setTimeout(function() {
+        $('.simAudio').bind("play", function() {
+            $(this).closest('.wSpeaker').addClass('selected');
+        });
         $('.simAudio').bind("ended", function() {
             $(this).closest('.wSpeaker').removeClass('selected');
         });
-    }, 300);
+    //}, 300);
     //});
     $scope.dragged = null;
     $scope.dropCallback = function(ui) {
@@ -2490,7 +2515,7 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
     $rootScope.totalScore += $scope.ogWords.length;
     $scope.submit = function() {
         //$rootScope.totalScore += $scope.ogWords.length;
-        $('.simSound .dropConainer').each(function(i) {
+        $('.dropConainer').each(function(i) {
             $(this).find('.draggable').each(function() {
                 if ($(this).attr('data-box') == (i + 1)) {
                     $(this).addClass('right');
@@ -2504,7 +2529,7 @@ angular.module('myApp.stressCtrl', ['ngAnimate', 'ngDragDrop']).controller('stre
         $scope.ansC = 0;
         $('.simSound .Actdisabler').show();
         $scope.submit = function() {}
-        $('.submit').addClass('disable');
+        $('.submit').attr('disabled', true);
         $scope.cal_percentage();
         $scope.get_score();
     };
@@ -2515,13 +2540,14 @@ angular.module('myApp.Odd1Out_Ctrl', []).controller('Odd1Out_Ctrl', function($sc
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['odd_one_out'][index][lang][0]['act'][$rootScope.cnt];
     //$http.get('json/odd_one_out.json').success(function(data) {
     $scope.words = shuffleArray(data.data.slice(0));
     $scope.question = data.question[0];
-    $('.submit').addClass('disable');
-    $('.submit').css('cursor', 'default');
+    $('.submit').attr('disabled', true);
+    //$('.submit').css('cursor', 'default');
     $('.ul_cls_oddOut').css('opacity', '0');
     setTimeout(function() {
         $('.ul_cls_oddOut').css('width', ($('.li_cls').width() * 2 + 15) + 'px');
@@ -2531,14 +2557,12 @@ angular.module('myApp.Odd1Out_Ctrl', []).controller('Odd1Out_Ctrl', function($sc
     $scope.check_odd_one_out = function($event) {
         //$($event.target).parents('.ul_cls').find('.odd_Button').removeClass('selected');
         if ($($event.target).hasClass('odd_Button')) {
-            $('.btn_sel').css('background-color', '#4577BF');
-            $('.btn_sel').css('color', '#FFFFFF');
+            $('.btn_sel').css({'background-color': 'var(--bs-primary)', 'color': '#FFFFFF'});
             $('.odd_Button.selected').removeClass('selected btn_sel');
             $($event.target).addClass('selected btn_sel');
-            $($event.target).css('background-color', '#ffffff');
-            $($event.target).css('color', '#4577BF');
-            $('.submit').removeClass('disable');
-            $('.submit').css('cursor', 'pointer');
+            $($event.target).css({'background-color': 'var(--bs-body-bg)', 'color': 'var(--bs-primary-text)'});
+            $('.submit').attr('disabled', false);
+            //$('.submit').css('cursor', 'pointer');
 
         }
     };
@@ -2546,7 +2570,7 @@ angular.module('myApp.Odd1Out_Ctrl', []).controller('Odd1Out_Ctrl', function($sc
     $rootScope.totalScore++;
     $scope.submit = function($event) {
         //$rootScope.totalScore++;
-        if (!$('.submit').hasClass('disable')) {
+        if (!$('.submit').attr('disabled')) {
             var value = $('.odd_Button.selected').parents().attr('data-ans');
             $('.odd_Button.selected').parent().find("div[data-ans='" + value + "']").addClass(value).show();
             $('.disabler_div').css('display', 'block');
@@ -2609,7 +2633,7 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
     setTimeout(function() {
         for (var i in $scope.textBox) {
             var w = $scope.textBox[i].length;
-            $('.textBoxDiv input').eq(i).width(w * 12);
+            $('.textBoxDiv input').eq(i).width(w * 15);
         }
         
         var total_width = $('.dragContainer').width();
@@ -2618,11 +2642,13 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
         var max_width = (total_width * 80) / 100;
         //console.log($('.textBoxDiv').find('input').length);
         $('.textBoxDiv').find('input').css('max-width', max_width + 'px');
-        
+        $('.dectationAudio').bind("play", function() {
+            $(this).closest('.speaker').addClass('selected');
+        });
         $('.dectationAudio').bind("ended", function() {
             $(this).closest('.speaker').removeClass('selected');
         });
-    }, 300);
+    }, 0);
     //});
 
     $rootScope.actFeedback = 'You answered 0 out of ' + $rootScope.ex_data['dictation'][index][lang][0]['act'].length + ' questions correctly.';
@@ -2633,9 +2659,9 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
         var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
-            tar.removeClass('selected');
+            //tar.removeClass('selected');
             //playB.pause();
-            playB.get(0).pause();
+            //playB.get(0).pause();
         } else {
             //tar.addClass('selected');
             //playB.play();
@@ -2645,19 +2671,21 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
     $rootScope.totalScore++;
     $scope.submit = function() {
         //$rootScope.totalScore++;
-        $('.dect_rw_response').addClass('show');
+        //$('.dect_rw_response').addClass('show');
         $scope.ansC = 0;
         for (var i in $scope.textBox) {
             var left_txt = $scope.textBox[i].trim().replace(/[^a-zA-Z ]/g, "");
             var right_txt = $('.textBoxDiv').eq(i).find('input').val().trim().replace(/[^a-zA-Z ]/g, "");
 
             if (left_txt.toLowerCase() == right_txt.toLowerCase()) {
-                $('.textBoxDiv').eq(i).addClass('right').find('.dect_right').show();
+                $('.textBoxDiv').eq(i).addClass('right');
+                $('.textBoxDiv input').addClass('is-valid');
             } else {
-                $('.textBoxDiv').eq(i).addClass('wrong').find('.dect_wrong').show();
+                $('.textBoxDiv').eq(i).addClass('wrong');
+                $('.textBoxDiv input').addClass('is-invalid');
             }
         }
-        $('.dragContainer').css('margin-top', '-5px');
+        //$('.dragContainer').css('margin-top', '-5px');
         if ($('.textBoxDiv.wrong').length > 0) {
             $('.correctAns').show();
         } else {
@@ -2665,10 +2693,10 @@ angular.module('myApp.dectation', ['ngAnimate']).controller('dectation', functio
         }
         $rootScope.score += $('.textBoxDiv.right').length;
         $('.textBoxDiv input').attr('readonly', true);
-        $('.submit').addClass('disable');
+        $('.submit').attr('disabled', true);
 
         $scope.submit = function() {}
-        $('.submit').addClass('disable');
+        $('.submit').attr('disabled', true);
         $scope.cal_percentage();
         $scope.get_score();
     };
@@ -2681,6 +2709,7 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['matchup'][index][lang][0]['act'][$rootScope.cnt];
 
@@ -2704,11 +2733,14 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
 
 
     $scope.audios = data.audio;
-    setTimeout(function() {
+    //setTimeout(function() {
+        $('.reorderAudio').bind("play", function() {
+            $(this).closest('.wSpeaker').addClass('selected');
+        });
         $('.reorderAudio').bind("ended", function() {
             $(this).closest('.wSpeaker').removeClass('selected');
         });
-    }, 300);
+    //}, 300);
     //});
 
     $scope.countC = 0;
@@ -2788,7 +2820,7 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
                 }
             }
             $rootScope.actFeedback = 'You answered ' + $scope.ansC + ' out of ' + $scope.quesNum + ' questions correctly.';
-            $('.submit').addClass('disable');
+            $('.submit').attr('disabled', true);
             $scope.submit = function() {}
             $scope.cal_percentage();
             $scope.get_score();
@@ -2844,6 +2876,7 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
     var key = $rootScope.key;
     var lang = $rootScope.lang;
     var index = $rootScope.index;
+    $rootScope.mainAns = true;
 
     data = $rootScope.ex_data['reordering'][index][lang][0]['act'][$rootScope.cnt];
     //$http.get('json/reordering.json').success(function(data) {
@@ -2884,7 +2917,7 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
         $('.blackPatch').fadeOut(300);
         $('.accordion_content.review').prev().trigger('click');
         $('.disabler').show();
-        $('.tpl_btn').addClass('disable');
+        $('.tpl_btn').attr('disabled', true);
         //$interval.cancel(stop);
         clearInterval($rootScope.reorder_timer);
     };
@@ -2903,9 +2936,9 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
         var playB = $($event.target).find('audio');
         var tar = $($event.target);
         if (tar.hasClass('selected')) {
-            tar.removeClass('selected');
+            //tar.removeClass('selected');
             //playB.pause();
-            playB.get(0).pause();
+            //playB.get(0).pause();
         } else {
             //tar.addClass('selected');
             //playB.play();
@@ -2913,7 +2946,9 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
         }
 
     };
-
+    $('#reorderAudio').bind("play", function() {
+        $(this).closest('.speaker').addClass('selected');
+    });
     $('#reorderAudio').bind("ended", function() {
         $(this).closest('.speaker').removeClass('selected');
     });
@@ -3019,7 +3054,7 @@ angular.module('myApp.reorderingCtrl', ["ngDragDrop"]).controller('reorderingCtr
             $scope.cal_percentage();
             $scope.get_score();
         }, 300);
-        $('.submit').addClass('disable');
+        $('.submit').attr('disabled', true);
 
     };
 });
@@ -3043,7 +3078,7 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
     $scope.closePopup = function($event) {
         $('.blackPatch').fadeOut(300);
         $('.accordion_content.review').prev().trigger('click');
-        $('.tpl_btn').addClass('disable');
+        $('.tpl_btn').attr('disabled', true);
         $('.disabler').show();
         //$interval.cancel(stop);
         clearInterval($rootScope.memery_match_timer);
@@ -3054,7 +3089,7 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
     $scope.matchedNum = 0;
     $rootScope.actFeedback = 'You correctly matched 0 out of 4 pairs.';
     $scope.countC = 0;
-    $scope.time = 5;
+    $scope.time = 4; //original value: 5, nefted because of faster anim
 
     var _time = ($scope.time).toFixed(2).toString().split('.');
     if (typeof _time[1] == 'undefined') {
@@ -3138,8 +3173,8 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
                                 setTimeout(function() {
                                     $('.red').removeClass('red');
                                     $scope.animating = false;
-                                }, 300);
-                                revertRotateDiv(this, 40, 90);
+                                }, 400);
+                                revertRotateDiv(this, 25, 90); //make anim faster
                                 $(this).removeClass('selected');
                             });
                         }, 1500);
@@ -3149,18 +3184,18 @@ angular.module('myApp.memoryCtrl', ['ngRoute']).controller('memoryCtrl', functio
                             $scope.animating = false;
                         }, 400);
                     }
-                }, 800);
+                }, 80);
 
             }
         } else {
             $scope.clicked = index;
             setTimeout(function() {
                 $scope.animating = false;
-            }, 800);
+            }, 80);
         }
 
         $scope.value = value;
-        rotateDiv($event.target, 40, 90);
+        rotateDiv($event.target, 25, 90); //make anim faster, original value: 40, 90
 
     };
 
@@ -3301,3 +3336,7 @@ function zeroPad(num, places) {
     var zero = places - num.toString().length + 1;
     return Array(+(zero > 0 && zero)).join("0") + num;
 }
+
+$('.imgpop').on('click', function() {
+    $('#imagemodal').modal('show');
+});

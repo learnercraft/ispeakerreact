@@ -1,27 +1,14 @@
-<div class="container">
-    <div class="titleContainer" ng-include="'partials/header.html'">
-
-    </div>
-    <div class="content">
-
-        <div class="left_part left_part_exam w_30 open left_part_ep" style="box-shadow: none;">
-            <div class="arrow_wrp" ng-hide="hoverEdit">
-                <div class="arrow_box"></div>
-            </div>
-            <ul class="task_list_ul">
-                <li ng-repeat="task in exam_data['task']" >
-                    <div class="li_inner">
-                        <span class="sp_left" data-key="0" ng-click="go_btn_clk($event, $index, 'task')">{{task.task}}</span>
-                        <span class="info_ic" data-show="hide" ng-click="info_btn_clk($event)" ng-mouseover="hoverIn($event, task.info)" ng-mouseleave="hoverOut($event)"></span>
-                    </div>
-                    <div class="info_text">
-                        {{task.info}}
-                    </div>
+<div class="">
+    <nav class="models_page_top navbar navbar-expand-lg bg-primary-subtle" ng-include="'partials/header.html'">
+    
+    </nav>
+    <div class="container-lg">
+        <div class="mt-4">
+            <ul class="list-group list-group-flush">
+                <li ng-repeat="task in exam_data['task']" class="list-group-item list-group-item-action">
+                    <span class="sp_left" data-key="0" ng-click="go_btn_clk($event, $index, 'task')">{{task.task}}</span>
                 </li>
             </ul>
-        </div>
-        <div class="right_part w_70">
-
         </div>
     </div>
 </div>
