@@ -1,1 +1,39 @@
-<div class="left_menu" ng-hide="left_menu" ng-click="left_menu_clk($event)"></div><h1 class="l_title" ng-bind-html="head_h1 | to_trusted"></h1><h1 class="s_title" ng-bind-html="s_head_h1 | to_trusted"></h1><div class="up_arrow" ng-hide="left_menu" ng-click="up_clk($event)"></div><div class ="models_page_right_panel">    <span class="models_page_menu_text">{{current_section}}</span>    <div class="models_page_down_arrow"  ng-click="drop_clk($event)">        <div class="down_arrow_wrapper" ng-hide="dropdown">            <ul>                <li ng-click="load_section($event, 'sound_page')">Sounds</li>                <li ng-click="load_section($event, 'ex_page')">Exercises</li>                <li ng-click="load_section($event, 'con_page')">Conversations</li>                <li ng-click="load_section($event, 'exam_page')">Exams</li>                <li ng-click="help_btn()">Help</li>                <li ng-click="load_section($event, 'home_page')">Home</li>            </ul>        </div>    </div></div>
+   <div class="container-fluid">
+       <div class="navbar-brand text-truncate fw-semibold">
+           <span class="l_title text-truncate" ng-bind-html="head_h1 | to_trusted"></span>
+           <span class="s_title text-truncate" ng-bind-html="s_head_h1 | to_trusted"></span>
+           <span class="up_arrow" ng-hide="left_menu" ng-click="up_clk($event)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Go back"></span>
+       </div>
+       <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#innerNavbar" aria-controls="innerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="navbar-collapse collapse" id="innerNavbar">
+           <ul class="navbar-nav float-start">
+               <li class="nav-item dropdown">
+                   <div class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       Menu: <span class="models_page_menu_text">{{current_section}}</span>
+                   </div>
+                   <ul class="dropdown-menu dropdown-menu-start">
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="load_section($event, 'sound_page')">Sounds</div>
+                       </li>
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="load_section($event, 'ex_page')">Exercises</div>
+                       </li>
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="load_section($event, 'con_page')">Conversations</div>
+                       </li>
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="load_section($event, 'exam_page')">Exams</div>
+                       </li>
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="help_btn()">Help</div>
+                       </li>
+                       <li>
+                           <div class="dropdown-item" role="button" ng-click="load_section($event, 'home_page')">Home</div>
+                       </li>
+                   </ul>
+               </li>
+           </ul>
+       </div>
+   </div>

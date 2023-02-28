@@ -1,31 +1,35 @@
 
 <div class="activity" ng-controller="memoryCtrl as memoryC">
     <div class="actContainer">
-        <div class="flipActContainer clearfx" style="position: relative; height: 100%;width: 100%;z-index: 0;">
-            <!--<div class="timer">{{time|timer}}</div>-->
-            <div class="timer"></div>
-            <ul class="rotateLi">
-                <li ng-repeat="card in cards" class="clear_{{$index % 4 == 0}}">
-                    <div ng-click="rotate($event, card.value, $index)">
-                        <div class='front'></div>
-                        <div class='back selNone'>{{card.text}}<div class="response_ico"></div></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="btn_container">
-                <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+        <div class="card">
+            <div class="card-header d-flex">
+                <!--<div class="timer">{{time|timer}}</div>-->
+                <div class="timer p-2 ms-auto"></div>
+            </div>
+            <div class="card-body">
+                <div class="flipActContainer clearfx" style="position: relative; height: 100%;width: 100%;z-index: 0;">
+                    <ul class="rotateLi">
+                        <li ng-repeat="card in cards" class="clear_{{$index % 4 == 0}}">
+                            <div ng-click="rotate($event, card.value, $index)">
+                                <div class='front'></div>
+                                <div class='back selNone text-break'>{{card.text}}<div class="response_ico"></div></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn_container d-flex justify-content-end">
+                    <button type="button" class="tpl_btn btn btn-outline-primary quit" ng-click="quit()">Quit</button>
+                </div>
             </div>
         </div>
         <div class="blackPatch">
-            <div class="popupC">
-                <!--                <div class="closeb" ng-click="closePopup($event)">x</div>-->
-                <div class="popup">
-                    <span class="alertMsg selNone">Out of time!</span>
-                    <div class="btn_container btn_container_match">
-                        <div class="tpl_btn try_again" ng-click="_refresh()">Try again</div>
-                        <div class="tpl_btn quit" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Try another game</div>
-                        <div class="tpl_btn" ng-click="closePopup($event)">Quit</div>
-                    </div>
+            <div class="h-100 d-flex justify-content-center align-items-center">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading"><span class="alertMsg selNone">Out of time!</span></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" ng-click="quit()" aria-label="Close"></button>
+                    <button type="button" class="tpl_btn btn btn-outline-primary try_again" ng-click="_refresh()">Try again</button>
+                    <button type="button" class="tpl_btn btn btn-outline-primary quit" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Try another game</button>
+                    <button type="button" class="tpl_btn btn btn-outline-primary" data-bs-dismiss="alert" ng-click="quit()">Quit</button>
                 </div>
             </div>
         </div>

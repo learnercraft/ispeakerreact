@@ -1,32 +1,58 @@
 <div class="hme_btn_wrp">
-    <div class="btn home_help common_page">
-        <a href="javascript:;" ng-click="help_btn()">{{help_btn_txt}}</a>
+    <div class="btn btn-primary home_help common_page" ng-click="help_btn()" role="button">
+        {{help_btn_txt}}
     </div>
 </div>
-<div class="responsive_row clear_both">
-    <div class="row">
-        <h1 class="home_h1"><span>Oxford <span class="home_ispeaker_txt">iSpeaker</span></span></h1>
 
+<section class="mt-4 mb-4">
+    <div class="container-lg">
+        <h1 class="mb-4 fw-semibold text-primary-emphasis mb-4 d-flex justify-content-center">
+            <span>Oxford <span class="p-2 bg-success rounded-5 text-light">iSpeaker</span></span>
+        </h1>
     </div>
-    <div class="row _row">
-        <div class="box" id="sound_page" ng-click="load_section($event, 'sound_page')">
-            <h2>Sounds</h2>
-            <div class="icon_wrp"><img style="margin-top: -3px;" src="images/ispeaker/sound_page.svg"/></div>
+</section>
+
+<div class="container-lg mt-4">
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Sounds</h5>
+                    <p class="card-text">Watch videos and practice pronouncing sounds in British and American English.</p>
+                    <div class="card-text mt-auto mb-3 d-flex justify-content-center"><img class="w-25" src="images/ispeaker/sound_page.svg" /></div>
+                    <div class="mt-auto d-flex justify-content-center" id="sound_page" ng-click="load_section($event, 'sound_page')"><a href="#" class="btn btn-primary fn_left w-50">Open</a></div>
+                </div>
+            </div>
         </div>
-        <div class="box-padding" style="display: block; width:0.8em;"></div>
-        <div class="box" id="ex_page" ng-click="load_section($event, 'ex_page')">
-            <h2>Exercises</h2>
-            <div class="icon_wrp"><img src="images/ispeaker/execises_page.svg"/></div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Exercises</h5>
+                    <p class="card-text">Practice listening to sounds and sentences.</p>
+                    <div class="card-text mt-auto mb-3 d-flex justify-content-center"><img class="w-25" src="images/ispeaker/execises_page.svg" /></div>
+                    <div class="mt-auto d-flex justify-content-center" id="ex_page" ng-click="load_section($event, 'ex_page')"><a href="#" class="btn btn-primary fn_rigth w-50">Open</a></div>
+                </div>
+            </div>
         </div>
-        <div class="box-padding" style="display: block; width:0.8em;"></div>
-        <div class="box" id="con_page" ng-click="load_section($event, 'con_page')">
-            <h2>Conversations</h2>
-            <div class="icon_wrp"><img src="images/ispeaker/conversation_page.svg"/></div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Conversations</h5>
+                    <p class="card-text">Choose one of many conversation samples that may happen in real life.</p>
+                    <div class="card-text mt-auto mb-3 d-flex justify-content-center"><img class="w-25" src="images/ispeaker/conversation_page.svg" /></div>
+                    <div class="mt-auto d-flex justify-content-center" id="con_page" ng-click="load_section($event, 'con_page')"><a href="#" class="btn btn-primary fn_rigth w-50">Open</a></div>
+                </div>
+            </div>
         </div>
-        <div class="box-padding" style="display: block; width:0.8em;"></div>
-        <div class="box" id="exam_page" ng-click="load_section($event, 'exam_page')">
-            <h2>Exam Speaking</h2>
-            <div class="icon_wrp"><img src="images/ispeaker/exam-speaking_page.svg"/></div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Exam Speaking</h5>
+                    <p class="card-text">Practice speaking to different types of speaking tasks.</p>
+                    <div class="card-text mt-auto mb-3 d-flex justify-content-center"><img class="w-25" src="images/ispeaker/exam-speaking_page.svg" /></div>
+                    <div class="mt-auto d-flex justify-content-center" id="exam_page" ng-click="load_section($event, 'exam_page')"><a href="#" class="btn btn-primary fn_rigth w-50">Open</a></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

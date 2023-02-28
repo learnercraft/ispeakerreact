@@ -1,14 +1,15 @@
 
 <div class="actContainer reordering dragMatch clearfx" ng-controller="dragMatchCtrl">
-    <div class="actQuestion">question: {{cnt + 1}}</div>
+    <div class="actQuestion mb-2 text-primary-emphasis d-flex justify-content-end fw-semibold">question #{{cnt + 1}}</div>
     <!--    <audio controls id="reorderAudio">
             <source ng-src="{{audio.src + '.ogg'}}" type="audio/ogg">
         <source ng-src="{{audio.src + '.mp3'}}" type="audio/mp3">
         </audio>-->
-    <div class="swapableContainerO">
-        <div class="swapableContainer">
+    <div class="card">
+        <div class="card-body">
+            <div class="swapableContainer d-flex justify-content-center">
 
-            <ul class="dragContainer">
+            <ul class="dragContainer p-2 d-inline-block">
                 <li class="dragHolder" ng-mousedown="startTimer()" ng-repeat="audio in audios">
                     <div class="wordSpeaker" data-content="{{ogWords[$index].text}}">
                         <div class="wSpeaker" ng-click="playAudio($event)" data-ans="{{ogWords[$index].text}}">
@@ -25,12 +26,18 @@
             </ul>
             <span class="sentanceC"><span class="sentance">{{sentance}}</span></span>
         </div>
-        <div class="btn_container">
-
-            <div class="tpl_btn submit" ng-click="submit()">Submit</div>
-
-            <div class="tpl_btn" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</div>
-            <div class="tpl_btn quit" ng-click="quit()">Quit</div>
+        <div class="row g-2">
+            <div class="col-md d-flex align-items-center">
+                <div class="correctAns"><strong>Correct answer:</strong> <span>{{show_ans}}</span></div>
+            </div>
+            <div class="col-md">
+                <div class="btn_container btn-group d-md-flex justify-content-md-end" role="group">
+                    <button type="button" class="tpl_btn btn btn-outline-primary submit" ng-click="submit()">Submit</button>
+                        <button type="button" class="tpl_btn btn btn-outline-primary" ng-click="change_ex_tpl()" ng-if="cnt < (size - 1)">Next</button>
+                    <button type="button" class="tpl_btn btn btn-outline-primary quit" ng-click="quit()">Quit</button>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
