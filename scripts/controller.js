@@ -1432,7 +1432,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
             $($event.currentTarget).parents('tbody').find('tr[data-notesText]').fadeOut(300).remove();
             $($event.currentTarget).parents('tbody').find('.notesText').fadeOut(300);
-            var txt = '<tr data-notesText><td style="padding:0;" colspan="' + cols + '"><div class="notesText" style="display:block;">' + info + '</td></div></tr>';
+            var txt = '<tr data-notesText><td class="p-0" colspan="' + cols + '"><div class="notesText p-2 d-block">' + info + '</td></div></tr>';
             $($event.currentTarget).parents('tr').after(txt);
         } else {
             $($event.currentTarget).removeClass('selected');
