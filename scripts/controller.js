@@ -1425,19 +1425,18 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     $scope.s_info = function($event, info, cols) {
 
         if (!$($event.currentTarget).hasClass('selected')) {
-            $($event.currentTarget).parents('.soundPDiv').find('tr').removeAttr('style');
-            $($event.currentTarget).parents('tr').css('border', 'none');
+            $($event.currentTarget).parents('.tbody').find('tr').removeAttr('style');
 
-            $($event.currentTarget).parents('.soundPDiv').find('.infoB').removeClass('selected');
+            $($event.currentTarget).parents('tbody').find('.infoB').removeClass('selected');
             $($event.currentTarget).addClass('selected');
 
-            $($event.currentTarget).parents('table').find('tr[data-notesText]').fadeOut(300).remove();
-            $($event.currentTarget).parents('.soundPDiv').find('.notesText').fadeOut(300);
+            $($event.currentTarget).parents('tbody').find('tr[data-notesText]').fadeOut(300).remove();
+            $($event.currentTarget).parents('tbody').find('.notesText').fadeOut(300);
             var txt = '<tr data-notesText><td style="padding:0;" colspan="' + cols + '"><div class="notesText" style="display:block;">' + info + '</td></div></tr>';
             $($event.currentTarget).parents('tr').after(txt);
         } else {
             $($event.currentTarget).removeClass('selected');
-            $($event.currentTarget).parents('table').find('tr[data-notesText]').fadeOut(300).remove();
+            $($event.currentTarget).parents('tbody').find('tr[data-notesText]').fadeOut(300).remove();
             $($event.currentTarget).parents('tr').removeAttr('style');
         }
     };
