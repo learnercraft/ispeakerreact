@@ -182,11 +182,11 @@
                                         <div ng-if="var1.type == 'img'">
                                             <figure class="figure">
                                                 <div class="row d-flex justify-content-center">
-                                                    <div role="button" ng-repeat="var2 in var1.list" rel="group" href="{{var2}}" class="col-5 imgpop" data-bs-toggle="modal" data-bs-target="#imagemodal-practice{{$index}}"><img class="img-fluid mb-2" ng-src="{{var2}}"/></div>
+                                                    <div role="button" ng-repeat="var2 in var1.list" rel="group" href="{{var2}}" class="col-5 imgpop" data-bs-toggle="modal" data-bs-target="#imagemodal-practice{{$index}}-{{$parent.$index}}"><img class="img-fluid mb-2" ng-src="{{var2}}"/></div>
                                                 </div>
                                                 <figcaption class="figure-caption text-center">Click / tap to view the full size.</figcaption>
                                             </figure>
-                                            <div ng-repeat="var2 in var1.list" class="modal fade" id="imagemodal-practice{{$index}}" tabindex="-1" aria-hidden="true">
+                                            <div ng-repeat="var2 in var1.list" class="modal fade" id="imagemodal-practice{{$index}}-{{$parent.$index}}" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-0">
