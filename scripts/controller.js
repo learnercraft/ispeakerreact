@@ -1166,9 +1166,32 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 if (results.length == 0) {
                     console.log('No sounds_review data exists, creating default data');
                     async function insertconsonants_data() {
-                        var insertsoundreview = await connection.insert({
+                        var consonants_data = [];
+                        var types = ['consonants', 'vowels_n_diphthongs'];
+                        var languages = ['b', 'a'];
+                        var count = 28;
+
+                        for (var i = 0; i < count; i++) {
+                            for (var j = 0; j < types.length; j++) {
+                                for (var k = 0; k < languages.length; k++) {
+                                    var index_key = i;
+                                    var type = types[j];
+                                    var language = languages[k];
+                                    var review = 0;
+
+                                    consonants_data.push({
+                                        index_key: index_key,
+                                        type: type,
+                                        language: language,
+                                        review: review
+                                    });
+                                }
+                            }
+                        }
+
+                        await connection.insert({
                             into: "sounds_review",
-                            values: [consonants_data,consonants_data1,consonants_data2,consonants_data3,consonants_data4,consonants_data5,consonants_data6,consonants_data7,consonants_data8,consonants_data9,consonants_data10,consonants_data11,consonants_data12,consonants_data13,consonants_data14,consonants_data15,consonants_data16,consonants_data17,consonants_data18,consonants_data19,consonants_data20,consonants_data21,consonants_data22,consonants_data23,consonants_data24,consonants_data25,consonants_data26,consonants_data27,consonants_data28,consonants_data29,consonants_data30,consonants_data31,consonants_data32,consonants_data33,consonants_data34,consonants_data35,consonants_data36,consonants_data37,consonants_data38,consonants_data39,consonants_data40,consonants_data41,consonants_data42,consonants_data43,consonants_data44,consonants_data45,consonants_data46,consonants_data47,consonants_data48,consonants_data49,consonants_data50,consonants_data51,consonants_data52,consonants_data53,consonants_data54,consonants_data55,consonants_data56,consonants_data57,consonants_data58,consonants_data59,consonants_data60,consonants_data61,consonants_data62,consonants_data63,consonants_data64,consonants_data65,consonants_data66,consonants_data67,consonants_data68,consonants_data69,consonants_data70,consonants_data71,consonants_data72,consonants_data73,consonants_data74,consonants_data75,consonants_data76,consonants_data77,consonants_data78,consonants_data79,consonants_data80,consonants_data81,consonants_data82,consonants_data83,consonants_data84,consonants_data85,consonants_data86,consonants_data87,consonants_data88,consonants_data89,consonants_data90,consonants_data91,consonants_data92,consonants_data93,consonants_data94,consonants_data95,consonants_data96,consonants_data97,consonants_data98,consonants_data99,consonants_data100,consonants_data101,consonants_data102,consonants_data103,consonants_data104,consonants_data105,consonants_data106,consonants_data107]
+                            values: consonants_data
                         })
                     }
                     insertconsonants_data();
@@ -1296,16 +1319,42 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                         index_key: 0
                     }
                 })
-                if (results.length == 0) {
+                if (results.length === 0) {
                     console.log('No conversation data exists, creating default data');
+                  
                     async function insertconversation_data() {
-                        var insertsoundreview = await connection.insert({
-                            into: "conversation_review",
-                            values: [insertconversation1,insertconversation2,insertconversation3,insertconversation4,insertconversation5,insertconversation6,insertconversation7,insertconversation8,insertconversation9,insertconversation10,insertconversation11,insertconversation12,insertconversation13,insertconversation14,insertconversation15,insertconversation16,insertconversation17,insertconversation18,insertconversation19,insertconversation20,insertconversation21,insertconversation22,insertconversation23,insertconversation24,insertconversation25,insertconversation26,insertconversation27,insertconversation28,insertconversation29,insertconversation30,insertconversation31,insertconversation32,insertconversation33,insertconversation34,insertconversation35,insertconversation36,insertconversation37,insertconversation38,insertconversation39,insertconversation40,insertconversation41,insertconversation42,insertconversation43,insertconversation44,insertconversation45,insertconversation46,insertconversation47,insertconversation48,insertconversation49,insertconversation50,insertconversation51,insertconversation52,insertconversation53,insertconversation54,insertconversation55,insertconversation56,insertconversation57,insertconversation58,insertconversation59,insertconversation60,insertconversation61,insertconversation62,insertconversation63,insertconversation64,insertconversation65,insertconversation66,insertconversation67,insertconversation68,insertconversation69,insertconversation70,insertconversation71,insertconversation72,insertconversation73,insertconversation74,insertconversation75,insertconversation76,insertconversation77,insertconversation78]
-                        })
+                      var insertconversations = [];
+                      var types = ['function1', 'function2']; // Add other types here if needed
+                      var languages = ['b', 'a']; // Add other languages here if needed
+                      var count = 20; // Change this number if you need more or fewer objects
+                  
+                      for (var i = 0; i < count; i++) {
+                        for (var j = 0; j < types.length; j++) {
+                          for (var k = 0; k < languages.length; k++) {
+                            var index_key = i;
+                            var type = types[j];
+                            var language = languages[k];
+                            var review = '';
+                            var notes = '';
+                  
+                            insertconversations.push({
+                              index_key: index_key,
+                              type: type,
+                              language: language,
+                              review: review,
+                              notes: notes
+                            });
+                          }
+                        }
+                      }
+                  
+                      await connection.insert({
+                        into: "conversation_review",
+                        values: insertconversations
+                      });
                     }
                     insertconversation_data();
-                }
+                  }                  
         }
         checkifconversationexists();
 
@@ -1361,9 +1410,28 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 if (results.length == 0) {
                     console.log('No ep_review data exists, creating default data');
                     async function insertEP_data() {
-                        var insertEP = await connection.insert({
+                        var insertep = [];
+                        var count = 7;
+
+                        for (var i = 0; i < count; i++) {
+                        var index_key = i;
+                        var type = 'task';
+                        var language = 'b';
+                        var review = '';
+                        var notes = '';
+
+                        insertep.push({
+                            index_key: index_key,
+                            type: type,
+                            language: language,
+                            review: review,
+                            notes: notes
+                        });
+                        }
+
+                        await connection.insert({
                             into: "ep_review",
-                            values: [insertep1,insertep2,insertep3,insertep4,insertep5,insertep6,insertep7]
+                            values: insertep
                         })
                     }
                     insertEP_data();
