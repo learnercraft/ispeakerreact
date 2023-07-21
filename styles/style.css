@@ -1242,10 +1242,6 @@ and (orientation : portrait) {
     .left_menu{
         display: block;
     }
-    .up_arrow{
-        display: block;
-        margin: 10px 10px 0;
-    }
     .titleContainer h1{
         padding:12px 12px 12px 5px;
         font-size: 16px;
