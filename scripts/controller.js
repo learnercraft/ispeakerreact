@@ -6,18 +6,59 @@ if (!window.indexedDB) {
 
 initDb();
 
-var urls = ['json/con_data.json', 'json/conversation_database.json', 'json/data.json', 'json/database.json', 'json/dictation.json', 'json/drag_match.json', 'json/ep_database.json', 'json/ex_data.json', 'json/exam_data.json', 'json/matchup.json', 'json/memory_match.json', 'json/odd_one_out.json', 'json/reordering.json', 'json/snap.json', 'json/sorting.json', 'json/sound_spelling.json', 'json/sounds_data.json', 'json/sounds_n_spelling.json', 'json/stress.json'];
+let dataArray;
+const urlCache = {};
 
-$.each(urls, function(i,u){ 
-     $.ajax(u, 
-       { type: 'GET',
-       async: false,
-         success: function (data) {
-             $('#iLoader').remove();
-         } 
-       }
-     );
-});
+function fetchAndCache(url) {
+    if (url in urlCache) {
+        // If the URL is already in the cache, return the cached Promise
+        return urlCache[url];
+    } else {
+        // If the URL is not in the cache, fetch it and store the Promise in the cache
+        const promise = fetch(url).then((response) => response.json());
+        urlCache[url] = promise;
+        return promise;
+    }
+}
+
+function fetchAllUrls() {
+    var urls = [
+        "json/con_data.json",
+        "json/conversation_database.json",
+        "json/data.json",
+        "json/database.json",
+        "json/dictation.json",
+        "json/drag_match.json",
+        "json/ep_database.json",
+        "json/ex_data.json",
+        "json/exam_data.json",
+        "json/matchup.json",
+        "json/memory_match.json",
+        "json/odd_one_out.json",
+        "json/reordering.json",
+        "json/snap.json",
+        "json/sorting.json",
+        "json/sound_spelling.json",
+        "json/sounds_data.json",
+        "json/sounds_n_spelling.json",
+        "json/stress.json",
+    ];
+
+    const promises = urls.map((url) => fetchAndCache(url));
+
+    return Promise.all(promises);
+}
+
+async function loadData() {
+    try {
+        dataArray = await fetchAllUrls();
+        $("#iLoader").remove();
+    } catch (error) {
+        console.error("An error occurred while fetching data: ", error);
+    }
+}
+
+loadData();
 
 async function initDb() {
     var isDbCreated = await connection.initDb(getiSpeakerDB());
@@ -242,28 +283,23 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         }, 500);
     });
 
-
     //check database
 
-    $http.get('json/database.json').then(function(response) {
-        var data = response.data;
-        $rootScope.database_status = data;
-    });
-    $http.get('json/conversation_database.json').then(function(response) {
-        var data = response.data;
-        $rootScope.conversation_database = data;
-    });
-    $http.get('json/ep_database.json').then(function(response) {
-        var data = response.data;
-        $rootScope.ep_database = data;
-    });
-
+    async function checkDatabase() {
+        await loadData();
+        $rootScope.database_status = dataArray[3];
+        $rootScope.conversation_database  = dataArray[1];
+        $rootScope.ep_database = dataArray[2];
+    }
+      
+    checkDatabase();
 
     //sounds data
-    $http.get('json/sounds_data.json').then(function(response) {
-        var data = response.data;
-        $scope.sounds_data = data;
-
+    async function getSoundData() {
+        //var data = response.data;
+        //$scope.sounds_data = data;
+        await loadData();
+        $scope.sounds_data = dataArray[16];
 
         var sound_cnt = 0;
         for (var i in $scope.sounds_data['consonants']) {
@@ -413,13 +449,16 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             }
         }
 
-    });
+    };
+    getSoundData();
     //end sounds data
 
     //conversations data
-    $http.get('json/con_data.json').then(function(response) {
-        var data = response.data;
-        $scope.con_data = data;
+    async function getConversationData() {
+        //var data = response.data;
+        //$scope.con_data = data;
+        await loadData();
+        $scope.con_data = dataArray[0];
 
         //add audio files
         var con_p_cnt = 0;
@@ -557,16 +596,19 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             }
 
         }
-        console.log($scope.con_data);
         //end audio for right side
 
         //end add audio files
-    });
+    };
+    getConversationData();
     //end conversations data
 
     //exam data
-    $http.get('json/exam_data.json').then(function(response) {var data = response.data;
-        $scope.exam_data = data;
+    async function getExamData() {
+        //var data = response.data;
+        //$scope.exam_data = data;
+        await loadData();
+        $scope.exam_data = dataArray[8];
 
         for (var i in $scope.exam_data['task']) {
             var shortname = $scope.exam_data['task'][i]['short_name'];
@@ -589,18 +631,17 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                 }
             }
         }
-    });
+    };
+    getExamData();
     //end exam data
-
 
     //exercise data
     $rootScope.ex_data = {};
 
-
-
-
-    $http.get('json/sounds_n_spelling.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['sounds_n_spelling'] = data.sounds_n_spelling;
+    async function getExerciseData() {
+        //var data = response.data;
+        await loadData();
+        $rootScope.ex_data['sounds_n_spelling'] = dataArray[17].sounds_n_spelling;
 
         var sec_arr = new Array();
         var data_b = new Array();
@@ -638,11 +679,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
 
-    });
+    };
+    getExerciseData();
 
-    $http.get('json/snap.json').then(function(response) {var data = response.data;
-
-        $rootScope.ex_data['snap'] = data.snap;
+    async function getSnapData() {
+        //var data = response.data;
+        //$rootScope.ex_data['snap'] = data.snap;
+        await loadData();
+        $rootScope.ex_data['snap'] = dataArray[13].snap;
 
         //for snap random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['snap'][0]["b"][0]['act'].length);
@@ -678,10 +722,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         //end for snap random temp
 
-    });
+    };
+    getSnapData();
 
-    $http.get('json/sorting.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['sorting'] = data.sorting;
+    async function getSortingData() {
+        //var data = response.data;
+        //$rootScope.ex_data['sorting'] = data.sorting;
+        await loadData();
+        $rootScope.ex_data['sorting'] = dataArray[14].sorting;
 
         //for dictation random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['sorting'][0]["b"][0]['act'].length);
@@ -721,10 +769,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         $rootScope.ex_data['sorting'][3]["a"][0]['act'] = final_arr_a.slice(0);
         //end for for dictation random temp
 
-    });
+    };
+    getSortingData();
 
-    $http.get('json/dictation.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['dictation'] = data.dictation;
+    async function getDictationData() {
+        //var data = response.data;
+        //$rootScope.ex_data['dictation'] = data.dictation;
+        await loadData();
+        $rootScope.ex_data['dictation'] = dataArray[4].dictation;
 
         //for dictation random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['dictation'][0]["b"][0]['act'].length);
@@ -766,10 +818,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
 
-    });
+    };
+    getDictationData();
 
-    $http.get('json/matchup.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['matchup'] = data.matchup;
+    async function getMatchupData() {
+        //var data = response.data;
+        //$rootScope.ex_data['matchup'] = data.matchup;
+        await loadData();
+        $rootScope.ex_data['matchup'] = dataArray[9].matchup;
 
         //for match random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['matchup'][0]["b"][0]['act'].length);
@@ -811,10 +867,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         //random original
 
         //end for for match random temp
-    });
+    };
+    getMatchupData();
 
-    $http.get('json/reordering.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['reordering'] = data.reordering;
+    async function getReorderingData() {
+        //var data = response.data;
+        //$rootScope.ex_data['reordering'] = data.reordering;
+        await loadData();
+        $rootScope.ex_data['reordering'] = dataArray[12].reordering;
 
         //for reordering random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['reordering'][0]["b"][0]['act'].length);
@@ -849,10 +909,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         $rootScope.ex_data['reordering'][2]["a"][0]['act'] = final_arr_a.slice(0);
 
         //end for reordering random temp
-    });
+    };
+    getReorderingData();
 
-    $http.get('json/memory_match.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['memory_match'] = data.memory_match;
+    async function getMemoryMatchData() {
+        //var data = response.data;
+        //$rootScope.ex_data['memory_match'] = data.memory_match;
+        await loadData();
+        $rootScope.ex_data['memory_match'] = dataArray[10].memory_match;
 
         //for memory match random temp
         var sec1_arr = random_gen_arr($rootScope.ex_data['memory_match'][0]["b"][0]['act'].length);
@@ -888,10 +952,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
 
         //end for memory match random temp
-    });
+    };
+    getMemoryMatchData();
 
-    $http.get('json/odd_one_out.json').then(function(response) {var data = response.data;
-        $rootScope.ex_data['odd_one_out'] = data.odd_one_out;
+    async function getOddOneOutData() {
+        //var data = response.data;
+        //$rootScope.ex_data['odd_one_out'] = data.odd_one_out;
+        await loadData();
+        $rootScope.ex_data['odd_one_out'] = dataArray[11].odd_one_out;
 
         //for odd 1 out random temp
         $rootScope.ex_data['odd_one_out'][0]["a"][0]['act'] = $rootScope.ex_data['odd_one_out'][0]["b"][0]['act'].slice(0);
@@ -938,12 +1006,14 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
         //end odd 1 out random temp
 
-    });
+    };
+    getOddOneOutData();
 
-    $http.get('json/ex_data.json').then(function(response) {var data = response.data;
+    //$http.get('json/ex_data.json').then(function(response) {
+        //var data = response.data;
         //$rootScope.ex_data = data;
         //$scope.ex_data = data;
-    });
+    //});
     //end exercise data
 
     function con_table() {
