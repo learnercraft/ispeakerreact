@@ -3407,3 +3407,10 @@ function zeroPad(num, places) {
 $('.imgpop').on('click', function() {
     $('#imagemodal').modal('show');
 });
+
+$(function () {
+    $('body').popover({
+        selector: '[data-bs-toggle="popover"]',
+        trigger: 'hover focus'
+    })
+})

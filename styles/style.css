@@ -628,15 +628,6 @@ tr.last_tr:last-child{
     width: 100%;
 }
 .up_arrow{
-    margin: 9px 10px 0;
-    float: right;
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
-    font-size: 0px; line-height: 0%; width: 0px;
-    border-bottom: 12px solid var(--bs-dark-text);
-    border-left: 12px solid rgb(255 255 255 / 0%);
-    border-right: 12px solid rgb(255 255 255 / 0%);
     cursor: pointer;
     /*display: none;*/
 }
