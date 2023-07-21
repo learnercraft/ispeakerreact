@@ -59,9 +59,6 @@ ol, ul {
     -ms-user-select: none;
     user-select: none;
 }
-.main_wrapper {
-
-}
 
 .titleContainer{
     height: 50px; background: #4577bf; width: 100%; color: #ffffff;
@@ -123,6 +120,7 @@ ol, ul {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    user-select: none;
 }
 .titleContainer h1 {
     float: left;
@@ -191,13 +189,10 @@ ol, ul {
     cursor: pointer;
 }
 .infoB.selected{
-    background: var(--bs-primary-text) no-repeat;
-
+    background: var(--bs-primary-text-emphasis) no-repeat;
 }
 
 .notesText{
-    background: var(--bs-primary-text);
-    color: #ffffff;
     display: none;
 }
 .soundPDiv {
@@ -216,9 +211,7 @@ ol, ul {
 tr.last_tr:last-child{
     border: none !important;
 }
-.container{
-    /*    min-width: 1024px;*/
-}
+
 .column_50 {
     width: 46%;
     text-align: center;
@@ -521,7 +514,7 @@ tr.last_tr:last-child{
     text-align: center;
     vertical-align: middle;
     position: relative;
-    color: var(--bs-primary-text);
+    color: var(--bs-primary-text-emphasis);
     font-weight: bold;
     border: 2px solid var(--bs-primary);
     border-radius: var(--bs-border-radius);
@@ -1427,7 +1420,7 @@ and (orientation : portrait) {
 
 .reordering .speaker.selected{
     /*background: url(../images/ispeaker/speaker_icon_hover.svg) no-repeat;*/
-    background: var(--bs-primary-text) no-repeat;
+    background: var(--bs-primary-text-emphasis) no-repeat;
 }
 
 .speaker:hover{
@@ -1708,7 +1701,7 @@ and (orientation : portrait) {
     border: 1px solid transparent;
 }
 .simSound .draggable span {
-    background-color: var(--bs-primary-text);
+    background-color: var(--bs-primary-text-emphasis);
     /*border: 1px solid #d3e3f0;*/
     border-radius: 5px;
     color: #ffffff;
