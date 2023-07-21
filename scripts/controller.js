@@ -946,8 +946,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     });
     //end exercise data
 
-
-
     function con_table() {
         if ($(window).width() <= 927) {
             $scope.com_table1 = false;
@@ -1148,13 +1146,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
     };
     $scope.insert_sounds_database = function() {
 
-        /*var fs = require('fs');
-        fs.writeFile("./www/json/database.json", JSON.stringify({"status": true}), function(err) {
-            if (err) {
-                alert("Please try again");
-            }
-        });*/
-        
         //IndexedDB
         async function checkifdataexists() {
             var results = await connection.select({
@@ -1304,13 +1295,7 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         
     };
     $scope.insert_conversation_database = function() {
-        /*var fs = require('fs');
-        fs.writeFile("./www/json/conversation_database.json", JSON.stringify({"status": true}), function(err) {
-            if (err) {
-                alert("Please try again");
-            }
-        });*/
-        
+
         //IndexedDB
         async function checkifconversationexists() {
             var results = await connection.select({
@@ -1392,12 +1377,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         updateTick_ep();
     }
     $scope.insert_ep_database = function() {
-        /*var fs = require('fs');
-        fs.writeFile("./www/json/ep_database.json", JSON.stringify({"status": true}), function(err) {
-            if (err) {
-                alert("Please try again");
-            }
-        });*/
 
         //IndexedDB
         async function checkifEPexists() {
@@ -1934,7 +1913,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
             converNotes();
 
             //recording
-            console.log($scope.con_data);
         }
         if ($scope.current_section == 'Exam speaking') {
             $scope.exam2_var = false;
@@ -2132,30 +2110,40 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
 
     $scope.play_audio = function($event) {
         var playB = new Audio();
-        var vidType = 'audio/ogg';
-        var codType = 'vorbis';
+        //var vidType = 'audio/ogg';
+        //var codType = 'vorbis';
         if ($($event.target)[0].nodeName.toLowerCase() == 'strong' || $($event.target)[0].nodeName.toLowerCase() == 'span') {
             playB.src = $($event.target).parents('.sentenceListAudio').find('audio').find('source').attr('src');
         } else {
             playB.src = $($event.target).find('audio').find('source').attr('src');
         }
+        
         //console.log(playB);
         var tar = $($event.target);
+        const sentencesAudio = document.querySelectorAll(".sentenceListAudio");
         if (tar.hasClass('active') || tar.parents('.sentenceListAudio').hasClass('active')) {
-            // tar.removeClass('selected');
-            playB.pause();
+            //tar.removeClass('selected');
+            //playB.pause();
             tar.parents('.sentenceListAudio').addClass('pe-none');
-            tar.addClass('pe-none')
+            tar.addClass('pe-none');
         } else {
             //tar.addClass('selected');
             playB.play();
-            playB.addEventListener("play", function() {
-                tar.parents('.sentenceListAudio').addClass('active pe-none');
-                tar.addClass('active pe-none')
+            playB.addEventListener("playing", function() {
+                tar.parents('.sentenceListAudio').addClass('active');
+                tar.addClass('active');
+                sentencesAudio.forEach((element) => {
+                    if (!element.classList.contains("active")) {
+                        element.classList.add("pe-none", "opacity-50");
+                    }
+                });
             });
             playB.addEventListener("ended", function() {
-                tar.parents('.sentenceListAudio').removeClass('active pe-none');
-                tar.removeClass('active pe-none')
+                tar.parents('.sentenceListAudio').removeClass('active');
+                tar.removeClass('active');
+                sentencesAudio.forEach((element) => {
+                    element.classList.remove("pe-none", "opacity-50");
+                });
             });
         }
     }
@@ -2165,10 +2153,6 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
         } else {
             $('.scroll_bar').css('max-height', $(window).height());
         }
-        setTimeout(function() {
-            set_max_height();
-            // $('html').css('overflow-y', 'hidden');
-        }, 300);
 
     };
 
