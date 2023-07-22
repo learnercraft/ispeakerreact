@@ -2931,11 +2931,11 @@ angular.module('myApp.dragMatchCtrl', ['ngAnimate', 'ngDragDrop']).controller('d
                         $scope.ansC++;
                         $rootScope.score++;
                         $('.draggable').eq(i).css('background', 'none');
-                        $('.draggable').eq(i).parent().css('width', '203px');
+                        $('.draggable').eq(i).parent().css('width', '190px');
                         $('.draggable').eq(i).parent().css('background', 'url(images/drag_match_bg.png) no-repeat 0 0px');
                     } else {
                         $('.draggable').eq(i).css('background', 'none');
-                        $('.draggable').eq(i).parent().css('width', '203px');
+                        $('.draggable').eq(i).parent().css('width', '190px');
                         $('.draggable').eq(i).parent().css('background', 'url(images/drag_match_bg.png) no-repeat 0 -66px');
                     }
                 }
