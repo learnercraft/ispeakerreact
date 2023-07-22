@@ -1668,15 +1668,7 @@ and (orientation : portrait) {
     z-index: 99;
 }
 /*simSound*/
-.simSound .droppable {
-    /* min-height: 167px;
-    width: 171px;
-    background-color: #e0f2fe;
-    border: 1px solid #e0f2fe;
-    padding-top: 9px;
-    border-top: none;
-    border-radius: 0 0 6px 6px; */
-}
+
 .simSound .dtop_title {
     width: 171px;
     padding: 5px 6px;
@@ -1691,29 +1683,28 @@ and (orientation : portrait) {
     border: 1px solid transparent;
     border-radius: var(--bs-border-radius);
     margin: 0 auto 5px auto;
-    padding: 0 0px 0 0px;
     text-align: center;
-    line-height: 20px;
     min-width: 71px;
     cursor: pointer;
-    display: inline-block;
 }
 .simSound .draggable.right {
     min-width: 93px;
     border: 1px solid transparent;
     background: url(../images/sorting_rw.png) no-repeat right -31px #19d500;
+    display: inline-flex;
 }
 .simSound .draggable.wrong {
     min-width: 93px;
     border: 1px solid transparent;
     background: url(../images/sorting_rw.png) no-repeat right -1px #d50000;
+    display: inline-flex;
 }
 .simSound .draggable.right span,.simSound .draggable.wrong span{
     margin-right: 22px;
     border: 1px solid transparent;
 }
 .simSound .draggable span {
-    background-color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary);
     /*border: 1px solid #d3e3f0;*/
     border-radius: 5px;
     color: #ffffff;
