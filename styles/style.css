@@ -1691,13 +1691,13 @@ and (orientation : portrait) {
     min-width: 93px;
     border: 1px solid transparent;
     background: url(../images/sorting_rw.png) no-repeat right -31px #19d500;
-    display: inline-flex;
+    display: table;
 }
 .simSound .draggable.wrong {
     min-width: 93px;
     border: 1px solid transparent;
     background: url(../images/sorting_rw.png) no-repeat right -1px #d50000;
-    display: inline-flex;
+    display: table;
 }
 .simSound .draggable.right span,.simSound .draggable.wrong span{
     margin-right: 22px;
