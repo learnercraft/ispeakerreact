@@ -1136,8 +1136,8 @@ and (orientation : portrait) {
         top: 31px;
     }
     .rotateLi {
-        max-width: 292px;
-        margin-left: -146px;
+        max-width: 310px;
+        margin-left: -162px;
     }
 
     .rotateLi li.clear_true {
