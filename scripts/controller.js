@@ -1230,16 +1230,35 @@ angular.module('myApp.controllers', ['ngAnimate']).controller('myCtrl', function
                         var consonants_data = [];
                         var types = ['consonants', 'vowels_n_diphthongs'];
                         var languages = ['b', 'a'];
-                        var count = 28;
+                        var consonantsCount = 26;
+                        var vowelsCount = 28;
 
-                        for (var i = 0; i < count; i++) {
+                        for (var i = 0; i < consonantsCount; i++) {
                             for (var j = 0; j < types.length; j++) {
                                 for (var k = 0; k < languages.length; k++) {
                                     var index_key = i;
                                     var type = types[j];
                                     var language = languages[k];
                                     var review = 0;
-
+            
+                                    consonants_data.push({
+                                        index_key: index_key,
+                                        type: type,
+                                        language: language,
+                                        review: review
+                                    });
+                                }
+                            }
+                        }
+            
+                        for (var i = consonantsCount; i < vowelsCount; i++) {
+                            for (var j = 1; j < types.length; j++) {
+                                for (var k = 0; k < languages.length; k++) {
+                                    var index_key = i;
+                                    var type = types[j];
+                                    var language = languages[k];
+                                    var review = 0;
+            
                                     consonants_data.push({
                                         index_key: index_key,
                                         type: type,
