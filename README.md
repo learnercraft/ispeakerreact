@@ -1,7 +1,16 @@
 # Oxford iSpeaker
 An interactive tool designed for learners of English who want to speak more accurately and fluently in a variety of situations.
 
-**==Also check out [iWriter](http://github.com/yell0wsuit/iwriter) that helps learners write effectively in English.==**
+## Now available as an app on Microsoft Store!
+<a href="https://apps.microsoft.com/store/detail/9PNK809K6635?launch=true&mode=mini">
+	<img width="300px" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
+</a>
+
+The Microsoft Store version works 100% offline, no Internet connection required! It also has built-in recording functionality.
+
+**==Also check out other English-learning interactive tools==**
+- [iWriter](http://github.com/yell0wsuit/iwriter): help learners write effectively in English.
+- [Practical English Usage: Diagnostic Test](oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
 
 Visit the webiste to use the tool online: https://yell0wsuit.github.io/ispeaker/
 
