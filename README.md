@@ -10,7 +10,7 @@ The Microsoft Store version works 100% offline, no Internet connection required!
 
 **==Also check out other English-learning interactive tools==**
 - [iWriter](http://github.com/yell0wsuit/iwriter): help learners write effectively in English.
-- [Practical English Usage: Diagnostic Test](oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
+- [Practical English Usage: Diagnostic Test](http://github.com/yell0wsuit/oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
 
 Visit the webiste to use the tool online: https://yell0wsuit.github.io/ispeaker/
 
