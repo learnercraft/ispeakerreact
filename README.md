@@ -1,6 +1,8 @@
 # Oxford iSpeaker
 An interactive tool designed for learners of English who want to speak more accurately and fluently in a variety of situations.
 
+**Rewritten in React - a popular framework by Meta (formerly Facebook)! Currently in beta.**
+
 ## Now available as an app on Microsoft Store!
 <a href="https://apps.microsoft.com/store/detail/9PNK809K6635?launch=true&mode=mini">
 	<img width="300px" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
