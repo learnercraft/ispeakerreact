@@ -183,6 +183,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 .getUserMedia({ audio: true })
                 .then((stream) => {
                     const mediaRecorder = new MediaRecorder(stream, { audioBitsPerSecond: 32000 });
+                    mediaRecorder.addEventListener("dataavailable", onRecordingReady);
                     let audioChunks = [];
 
                     mediaRecorder.ondataavailable = function (event) {
