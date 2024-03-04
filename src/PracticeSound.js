@@ -186,16 +186,22 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     mediaRecorder.addEventListener("dataavailable", onRecordingReady);
                     let audioChunks = [];
 
-                    mediaRecorder.ondataavailable = function (event) {
+                    mediaRecorder.addEventListener("dataavailable", event => {
                         audioChunks.push(event.data);
-                    };
+                        if(mediaRecorder.state === "inactive") {
+                            const audioBlob = new Blob(audioChunks);
+                            // Save the audioBlob to IndexedDB, then you can call playRecording with the key where it's saved
+                            saveRecording(audioBlob, recordingDataIndex); // Ensure saveRecording function is defined to handle saving to IndexedDB
+                            setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
+                        }
+                    });
 
-                    mediaRecorder.onstop = function () {
+                    /*mediaRecorder.onstop = function () {
                         const audioBlob = new Blob(audioChunks);
                         saveRecording(audioBlob, recordingDataIndex);
                         audioChunks = [];
                         setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
-                    };
+                    };*/
 
                     mediaRecorder.start();
                     setIsRecording(true);
