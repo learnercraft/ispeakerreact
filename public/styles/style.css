@@ -19,7 +19,7 @@
     fill: currentColor;
 }
 
-* {
+*, html {
     font-family: Inter, system-ui;
-    font-optical-sizing: 15;
+    font-variation-settings: "opsz" 15;
 }
