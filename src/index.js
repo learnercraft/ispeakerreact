@@ -11,7 +11,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <Container className="mt-5 mb-5">
+    <Container className="p-4">
         <React.StrictMode>
             <Router>
                 <Routes>
