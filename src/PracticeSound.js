@@ -256,7 +256,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     console.error("Playback failed for recording with key:", key);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
                     URL.revokeObjectURL(audioUrl);
-                    alert("play error");
+                    alert("play error", key);
                 };
                 setCurrentAudio(audio);
             };
