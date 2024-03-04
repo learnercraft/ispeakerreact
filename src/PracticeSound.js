@@ -190,7 +190,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     };
 
                     mediaRecorder.onstop = function () {
-                        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+                        const audioBlob = new Blob(audioChunks, { type: "audio/mp3" });
                         saveRecording(audioBlob, recordingDataIndex);
                         audioChunks = [];
                         setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
