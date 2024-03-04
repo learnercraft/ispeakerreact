@@ -344,6 +344,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             // Stop the current playback
             if (currentAudio) {
                 currentAudio.pause();
+                currentAudio.currentTime = 0;
                 setCurrentAudio(null);
                 setActivePlaybackCard(null); // Reset active playback
                 setIsRecordingPlaying(false);
