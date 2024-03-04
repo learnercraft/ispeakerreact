@@ -190,7 +190,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     };
 
                     mediaRecorder.onstop = function () {
-                        const audioBlob = new Blob(audioChunks, { type: "audio/mp4; codecs='mp4a.40.2'" });
+                        const audioBlob = new Blob(audioChunks);
                         saveRecording(audioBlob, recordingDataIndex);
                         audioChunks = [];
                         setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
