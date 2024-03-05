@@ -163,8 +163,17 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             request.onsuccess = function () {
                 const recording = request.result.recording;
                 const url = URL.createObjectURL(recording);
-                const audio = new Audio(url);
-                audio.play();
+                //const audio = new Audio(url);
+                //audio.play();
+                const audioElementId = `playbackRecord${key.substring(key.length - 1)}`; // This extracts the number from the key
+                const audioElement = document.getElementById(audioElementId);
+                if (audioElement) {
+                    audioElement.src = audioUrl;
+                    audioElement.play();
+                } else {
+                    console.error(`Audio element with ID ${audioElementId} not found.`);
+                }
+
             };
         } catch (error) {
             console.error("Error opening database: ", error);
@@ -439,6 +448,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                                                 onClick={() => (isRecordingAvailable(1) ? handlePlayRecording(1) : null)}
                                                 disabled={isRecordingPlaying && activePlaybackCard !== 1}>
                                                 <use href="#play-button"></use>
+                                                    <audio id="playbackRecord1"></audio>
                                             </svg>
                                         </Col>
                                     </Row>
