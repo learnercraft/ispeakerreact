@@ -164,7 +164,11 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             navigator.mediaDevices
                 .getUserMedia({ audio: true })
                 .then((stream) => {
-                    const mediaRecorder = new MediaRecorder(stream, { audioBitsPerSecond: 32000 });
+                    const recordOptions = {
+                        audioBitsPerSecond: 128000,
+                        mimeType: "audio/mp4;codecs=mp4a", //temp. for ios
+                    };
+                    const mediaRecorder = new MediaRecorder(stream, recordOptions);
                     let audioChunks = [];
 
                     mediaRecorder.addEventListener("dataavailable", (event) => {
@@ -192,6 +196,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 })
                 .catch((err) => {
                     console.error("Error accessing the microphone", err);
+                    alert(err);
                 });
         } else {
             // Stop recording if this cardIndex was already recording
@@ -218,40 +223,10 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             request.onsuccess = function () {
                 const recordingBlob = request.result.recording;
                 const audioUrl = URL.createObjectURL(recordingBlob);
-                //const audio = new Audio(audioUrl);
-                //audio.play();
+                const audio = new Audio(audioUrl);
+                audio.play();
 
-                // Test on iOS
-                const audioElementId = `playbackRecord${key.substring(key.length - 1)}`; // This extracts the number from the key
-                const audioElement = document.getElementById(audioElementId);
-                if (audioElement) {
-                    audioElement.src = audioUrl;
-                    audioElement.play();
-                    setCurrentAudio(audioElement);
-                } else {
-                    console.error(`Audio element with ID ${audioElementId} not found.`);
-                }
-                audioElement.onplay = () => {
-                    setIsRecordingPlaying(true);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                };
-
-                audioElement.onended = () => {
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    URL.revokeObjectURL(audioUrl);
-                };
-
-                audioElement.onerror = () => {
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    console.error("Playback failed for recording with key:", key);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    URL.revokeObjectURL(audioUrl);
-                };
-
-                /*audio.onplay = () => {
+                audio.onplay = () => {
                     setIsRecordingPlaying(true);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
                 };
@@ -267,9 +242,8 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     console.error("Playback failed for recording with key:", key);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
                     URL.revokeObjectURL(audioUrl);
-                };*/
-
-                //setCurrentAudio(audio);
+                };
+                setCurrentAudio(audio);
             };
         } catch (error) {
             console.error("Error opening database: ", error);
@@ -452,7 +426,6 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                                                 disabled={isRecordingPlaying && activePlaybackCard !== 1}>
                                                 <use href="#play-button"></use>
                                             </svg>
-                                            <audio id="playbackRecord1"></audio>
                                         </Col>
                                     </Row>
                                 </Card.Body>
