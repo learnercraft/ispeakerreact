@@ -153,7 +153,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         }
     }
 
-    async function playRecording(key) {
+    /*async function playRecording(key) {
         try {
             const db = await openDatabase();
             const transaction = db.transaction(["recording_data"]);
@@ -178,7 +178,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         } catch (error) {
             console.error("Error opening database: ", error);
         }
-    }
+    }*/
 
     const handleRecording = (cardIndex) => {
         const { index, type } = findPhonemeDetails(sound.phoneme);
