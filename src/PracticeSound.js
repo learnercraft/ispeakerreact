@@ -153,33 +153,6 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         }
     }
 
-    /*async function playRecording(key) {
-        try {
-            const db = await openDatabase();
-            const transaction = db.transaction(["recording_data"]);
-            const store = transaction.objectStore("recording_data");
-            const request = store.get(key);
-
-            request.onsuccess = function () {
-                const recording = request.result.recording;
-                const url = URL.createObjectURL(recording);
-                //const audio = new Audio(url);
-                //audio.play();
-                const audioElementId = `playbackRecord${key.substring(key.length - 1)}`; // This extracts the number from the key
-                const audioElement = document.getElementById(audioElementId);
-                if (audioElement) {
-                    audioElement.src = audioUrl;
-                    audioElement.play();
-                } else {
-                    console.error(`Audio element with ID ${audioElementId} not found.`);
-                }
-
-            };
-        } catch (error) {
-            console.error("Error opening database: ", error);
-        }
-    }*/
-
     const handleRecording = (cardIndex) => {
         const { index, type } = findPhonemeDetails(sound.phoneme);
         const recordingDataIndex = `${type}${index + 1}_${cardIndex}`;
@@ -245,11 +218,40 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             request.onsuccess = function () {
                 const recordingBlob = request.result.recording;
                 const audioUrl = URL.createObjectURL(recordingBlob);
-                const audio = new Audio(audioUrl);
-                audio.play();
-                alert(audioUrl);
+                //const audio = new Audio(audioUrl);
+                //audio.play();
 
-                audio.onplay = () => {
+                // Test on iOS
+                const audioElementId = `playbackRecord${key.substring(key.length - 1)}`; // This extracts the number from the key
+                const audioElement = document.getElementById(audioElementId);
+                if (audioElement) {
+                    audioElement.src = audioUrl;
+                    audioElement.play();
+                    setCurrentAudio(audioElement);
+                } else {
+                    console.error(`Audio element with ID ${audioElementId} not found.`);
+                }
+                audioElement.onplay = () => {
+                    setIsRecordingPlaying(true);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
+                };
+
+                audioElement.onended = () => {
+                    setIsRecordingPlaying(false);
+                    setActivePlaybackCard(null);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                    URL.revokeObjectURL(audioUrl);
+                };
+
+                audioElement.onerror = () => {
+                    setIsRecordingPlaying(false);
+                    setActivePlaybackCard(null);
+                    console.error("Playback failed for recording with key:", key);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                    URL.revokeObjectURL(audioUrl);
+                };
+
+                /*audio.onplay = () => {
                     setIsRecordingPlaying(true);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
                 };
@@ -265,8 +267,9 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                     console.error("Playback failed for recording with key:", key);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
                     URL.revokeObjectURL(audioUrl);
-                };
-                setCurrentAudio(audio);
+                };*/
+
+                //setCurrentAudio(audio);
             };
         } catch (error) {
             console.error("Error opening database: ", error);
@@ -448,8 +451,8 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                                                 onClick={() => (isRecordingAvailable(1) ? handlePlayRecording(1) : null)}
                                                 disabled={isRecordingPlaying && activePlaybackCard !== 1}>
                                                 <use href="#play-button"></use>
-                                                    <audio id="playbackRecord1"></audio>
                                             </svg>
+                                            <audio id="playbackRecord1"></audio>
                                         </Col>
                                     </Row>
                                 </Card.Body>
