@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Ratio, Button, Modal } from "react-bootstrap";
 import he from "he";
 
-const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
+const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const accentKey = accent === "american" ? "a" : "b";
     const accentData = sound[accentKey][0];
 
@@ -47,7 +47,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
     const [review, setReview] = useState(null);
 
     const handleReviewClick = (newReview) => {
-        const { index, type } = findPhonemeDetails(sound.phoneme);
+        const { type } = findPhonemeDetails(sound.phoneme);
         const reviewKey = `${type}${index + 1}`; // Adding 1 to make it 1-indexed, matching "consonant1", "vowel1", etc.
 
         // Fetch current ispeaker data or initialize
@@ -66,7 +66,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         window.scrollTo(0, 0);
         // Fetch reviews from localStorage
         const reviews = JSON.parse(localStorage.getItem("ispeaker") || "{}").soundReview || {};
-        const { index, type } = findPhonemeDetails(sound.phoneme);
+        const { type } = findPhonemeDetails(sound.phoneme);
         const reviewKey = `${type}${index + 1}`;
 
         // Try to load the review for the current accent and phoneme
@@ -74,7 +74,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         if (soundReview) {
             setReview(soundReview);
         }
-    }, [sound.phoneme, accent]); // Also depend on accent to reload when it changes
+    }, [sound.phoneme, accent, index]); // Also depend on accent to reload when it changes
 
     const emojiStyle = (reviewType) => {
         if (review === reviewType) {
@@ -305,27 +305,6 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             setRecordingAvailability(newAvailability);
         });
     }, []);
-
-    /*const handlePlayRecording = (cardIndex) => {
-        const recordingKey = getRecordingKey(cardIndex);
-        if (isRecordingAvailable(cardIndex)) {
-            if (isRecordingPlayingActive(cardIndex)) {
-                // Stop playback
-                setPlayingRecordings((prev) => ({ ...prev, [recordingKey]: false }));
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                setCurrentAudio(null);
-                isRecordingPlayingActive(false);
-                setActivePlaybackCard(null);
-            } else {
-                // Start playback
-                const { index, type } = findPhonemeDetails(sound.phoneme);
-                const recordingDataIndex = `${type}${index + 1}_${cardIndex}`;
-                playRecording(recordingDataIndex);
-                setPlayingRecordings((prev) => ({ ...prev, [recordingKey]: true }));
-            }
-        }
-    };*/
 
     const handlePlayRecording = (cardIndex) => {
         const recordingKey = getRecordingKey(cardIndex);

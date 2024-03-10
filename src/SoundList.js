@@ -27,8 +27,8 @@ const SoundList = () => {
         { name: "British English", value: "british" },
     ];
 
-    const handlePracticeClick = (sound, accent) => {
-        setSelectedSound({ sound, accent });
+    const handlePracticeClick = (sound, accent, index) => {
+        setSelectedSound({ sound, accent, index });
     };
 
     useEffect(() => {
@@ -64,21 +64,14 @@ const SoundList = () => {
         return `${type}${formattedIndex}`;
     };
 
-    const getBadgeColor = (sound) => {
-        let index, type;
-        // Check if the sound is a consonant
-        index = soundsData.consonants.findIndex((p) => p.phoneme === sound.phoneme);
-        if (index !== -1) {
-            type = "consonant";
-        } else {
-            // If not a consonant, it must be a vowel
-            index = soundsData.vowels_n_diphthongs.findIndex((p) => p.phoneme === sound.phoneme);
-            type = "vowel";
-        }
+    const getBadgeColor = (sound, index) => {
+        // Retrieve the entire data structure from localStorage
+        const ispeakerData = JSON.parse(localStorage.getItem("ispeaker") || "{}");
+        const accentReviews = ispeakerData.soundReview ? ispeakerData.soundReview[selectedAccent] || {} : {};
 
-        // Generate the review key using the adjusted index for vowels
+        // Generate the correct review key for this sound based on its index
         const reviewKey = getReviewKey(sound, index);
-        const review = reviews[reviewKey]; // Assuming reviews are stored by accent
+        const review = accentReviews[reviewKey]; // Access the specific review by its key
 
         switch (review) {
             case "good":
@@ -88,7 +81,7 @@ const SoundList = () => {
             case "bad":
                 return "danger";
             default:
-                return "secondary"; // No review found
+                return "secondary"; // No review found or the key does not exist
         }
     };
 
@@ -110,7 +103,13 @@ const SoundList = () => {
         <>
             <TopNavBar />
             {selectedSound ? (
-                <PracticeSound sound={selectedSound.sound} accent={selectedSound.accent} soundsData={soundsData} onBack={() => handleGoBack()} />
+                <PracticeSound
+                    sound={selectedSound.sound}
+                    accent={selectedSound.accent}
+                    soundsData={soundsData}
+                    index={selectedSound.index}
+                    onBack={() => handleGoBack()}
+                />
             ) : (
                 <>
                     <Dropdown className="mb-3">
@@ -139,13 +138,13 @@ const SoundList = () => {
                                         <Card className="h-100 shadow-sm">
                                             <Card.Body className="text-center">
                                                 <Badge
-                                                    bg={getBadgeColor(sound)}
+                                                    bg={getBadgeColor(sound, index)}
                                                     className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
                                                     {reviews[`${getReviewKey(sound, index)}`] || ""}
                                                 </Badge>
                                                 <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
                                                 <Card.Text>{sound.example_word}</Card.Text>
-                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent)}>
+                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent, index)}>
                                                     Practice
                                                 </Button>
                                             </Card.Body>
@@ -166,13 +165,13 @@ const SoundList = () => {
                                         <Card className="h-100 shadow-sm">
                                             <Card.Body className="text-center">
                                                 <Badge
-                                                    bg={getBadgeColor(sound)}
+                                                    bg={getBadgeColor(sound, index)}
                                                     className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
                                                     {reviews[`${getReviewKey(sound, index)}`] || ""}
                                                 </Badge>
                                                 <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
                                                 <Card.Text>{sound.example_word}</Card.Text>
-                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent)}>
+                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent, index)}>
                                                     Practice
                                                 </Button>
                                             </Card.Body>
