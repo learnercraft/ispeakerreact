@@ -139,18 +139,29 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 const db = event.target.result;
                 db.createObjectStore("recording_data", { keyPath: "id" });
             };
-
         });
     }
 
     async function saveRecording(blob, key) {
         try {
+            // First, convert Blob to ArrayBuffer outside of the transaction
+            const arrayBuffer = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+                reader.readAsArrayBuffer(blob);
+            });
+
             const db = await openDatabase();
             const transaction = db.transaction(["recording_data"], "readwrite");
             const store = transaction.objectStore("recording_data");
-            store.put({ id: key, recording: blob });
+
+            // Now that we have the ArrayBuffer, store it
+            const request = store.put({ id: key, recording: arrayBuffer });
+            request.onsuccess = () => console.log("Recording saved successfully");
+            request.onerror = (error) => console.error("Error saving recording:", error);
         } catch (error) {
-            console.error("Error opening database: ", error);
+            console.error("Error saving recording: ", error);
         }
     }
 
@@ -211,9 +222,11 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
             const request = store.get(key);
 
             request.onsuccess = function () {
-                const recordingBlob = request.result.recording;
-                console.log(recordingBlob);
-                const audioUrl = URL.createObjectURL(recordingBlob);
+                const arrayBuffer = request.result.recording;
+
+                // Convert ArrayBuffer back to Blob
+                const blob = new Blob([arrayBuffer]);
+                const audioUrl = URL.createObjectURL(blob);
                 const audio = new Audio(audioUrl);
                 audio.play();
 
@@ -237,7 +250,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 setCurrentAudio(audio);
             };
         } catch (error) {
-            console.error("Error opening database: ", error);
+            console.error("Error playing recording: ", error);
         }
     }
 
