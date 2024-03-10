@@ -123,7 +123,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 resolve(db); // If db is already defined, resolve immediately
                 return;
             }
-            const request = indexedDB.open("iSpeaker_data", 1);
+            const request = window.indexedDB.open("iSpeaker_data", 1);
 
             request.onerror = function (event) {
                 console.error("Database error: ", event.target.error);
@@ -139,6 +139,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 const db = event.target.result;
                 db.createObjectStore("recording_data", { keyPath: "id" });
             };
+
         });
     }
 
@@ -158,7 +159,6 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
         const recordingDataIndex = `${type}${index + 1}_${cardIndex}`;
         // Determine if a recording is starting or stopping
         if (activeRecordingCard !== cardIndex) {
-            // Start recording for this cardIndex
             setActiveRecordingCard(cardIndex);
             // Start the recording process
             navigator.mediaDevices
@@ -166,10 +166,14 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                 .then((stream) => {
                     const recordOptions = {
                         audioBitsPerSecond: 128000,
-                        mimeType: "audio/mp4;codecs=mp4a", //temp. for ios
                     };
                     const mediaRecorder = new MediaRecorder(stream, recordOptions);
                     let audioChunks = [];
+
+                    mediaRecorder.start();
+                    setIsRecording(true);
+                    setMediaRecorder(mediaRecorder);
+                    setActiveRecordingCard(cardIndex);
 
                     mediaRecorder.addEventListener("dataavailable", (event) => {
                         audioChunks.push(event.data);
@@ -181,29 +185,15 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
                             audioChunks = [];
                         }
                     });
-
-                    /*mediaRecorder.onstop = function () {
-                        const audioBlob = new Blob(audioChunks);
-                        saveRecording(audioBlob, recordingDataIndex);
-                        audioChunks = [];
-                        setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
-                    };*/
-
-                    mediaRecorder.start();
-                    setIsRecording(true);
-                    setMediaRecorder(mediaRecorder);
-                    setActiveRecordingCard(cardIndex);
                 })
                 .catch((err) => {
                     console.error("Error accessing the microphone", err);
-                    alert(err);
                 });
         } else {
             // Stop recording if this cardIndex was already recording
             setActiveRecordingCard(null);
             // Stop the recording process
             if (isRecording) {
-                // Stop recording
                 if (mediaRecorder) {
                     mediaRecorder.stop();
                     setIsRecording(false);
@@ -222,6 +212,7 @@ const PracticeSound = ({ sound, accent, onBack, soundsData }) => {
 
             request.onsuccess = function () {
                 const recordingBlob = request.result.recording;
+                console.log(recordingBlob);
                 const audioUrl = URL.createObjectURL(recordingBlob);
                 const audio = new Audio(audioUrl);
                 audio.play();
