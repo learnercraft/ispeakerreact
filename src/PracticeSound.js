@@ -225,7 +225,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 const arrayBuffer = request.result.recording;
 
                 // Convert ArrayBuffer back to Blob
-                const blob = new Blob([arrayBuffer]);
+                const blob = new Blob([arrayBuffer], { type: "audio/mp4" });
                 const audioUrl = URL.createObjectURL(blob);
                 const audio = new Audio(audioUrl);
                 audio.play();
