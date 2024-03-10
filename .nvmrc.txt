@@ -1,1 +1,0 @@
-$ echo "lts/*" > .nvmrc # to default to the latest LTS version
