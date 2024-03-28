@@ -223,31 +223,37 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
 
             request.onsuccess = function () {
                 const arrayBuffer = request.result.recording;
+                const audioContext = new AudioContext();
+                audioContext.decodeAudioData(
+                    arrayBuffer,
+                    (buffer) => {
+                        const source = audioContext.createBufferSource();
+                        source.buffer = buffer;
+                        source.connect(audioContext.destination);
+                        source.onended = () => {
+                            setIsRecordingPlaying(false);
+                            setActivePlaybackCard(null);
+                            setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                        };
+                        source.start();
+                        setIsRecordingPlaying(true);
+                        setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
+                        //setActivePlaybackCard(getCardIndexFromKey(key));
+                    },
+                    (error) => {
+                        console.error("Error decoding audio data: ", error);
+                        setIsRecordingPlaying(false);
+                        setActivePlaybackCard(null);
+                        setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                    }
+                );
+            };
 
-                // Convert ArrayBuffer back to Blob
-                const blob = new Blob([arrayBuffer], { type: "audio/mp4" });
-                const audioUrl = URL.createObjectURL(blob);
-                const audio = new Audio(audioUrl);
-                audio.play();
-
-                audio.onplay = () => {
-                    setIsRecordingPlaying(true);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                };
-                audio.onended = () => {
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    URL.revokeObjectURL(audioUrl);
-                };
-                audio.onerror = () => {
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    console.error("Playback failed for recording with key:", key);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    URL.revokeObjectURL(audioUrl);
-                };
-                setCurrentAudio(audio);
+            request.onerror = () => {
+                console.error("Error getting recording from IndexedDB: ", request.error);
+                setIsRecordingPlaying(false);
+                setActivePlaybackCard(null);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
             };
         } catch (error) {
             console.error("Error playing recording: ", error);
