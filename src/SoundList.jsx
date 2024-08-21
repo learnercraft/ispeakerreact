@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Table, Button, Dropdown, Card, Badge } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Row, Col, Button, Dropdown, Card, Badge } from "react-bootstrap";
 import TopNavBar from "./TopNavBar";
 import PracticeSound from "./PracticeSound";
 import he from "he";

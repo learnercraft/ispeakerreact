@@ -8,9 +8,9 @@ const HelpPage = () => {
     return (
         <div>
             <TopNavBar />
-            <div class="p-4 p-md-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 mb-5">
+            <div className="p-4 p-md-5">
+                <div className="row justify-content-center">
+                    <div className="col-lg-8 mb-5">
                         <h1 className="mb-4 text-center fw-bold">Oxford iSpeaker help</h1>
                         <h3 className="fw-semibold mb-4">
                             <a name="_Contents"></a>Contents
