@@ -112,7 +112,7 @@ const SoundList = () => {
                 />
             ) : (
                 <>
-                    <Dropdown className="mb-3">
+                    <Dropdown className="my-4">
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                             <span className="fw-semibold">Accent:</span> {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
                         </Dropdown.Toggle>
@@ -125,7 +125,7 @@ const SoundList = () => {
                         </Dropdown.Menu>
                     </Dropdown>
                     <div>
-                        <h3>Consonants</h3>
+                        <h3 className="mb-4">Consonants</h3>
                         <Row className="d-flex justify-content-center">
                             {soundsData.consonants
                                 .filter(
@@ -152,7 +152,8 @@ const SoundList = () => {
                                     </Col>
                                 ))}
                         </Row>
-                        <h3>Vowels and Diphthongs</h3>
+                        <hr />
+                        <h3 className="my-4">Vowels and Diphthongs</h3>
                         <Row className="d-flex justify-content-center">
                             {soundsData.vowels_n_diphthongs
                                 .filter(
