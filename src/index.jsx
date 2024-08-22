@@ -3,11 +3,11 @@ import { Container } from "react-bootstrap";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Homepage from "./Homepage";
-import HelpPage from "./HelpPage";
-import SoundList from "./SoundList";
-import { ThemeProvider } from "./ThemeContext";
-import ThemeSwitcher from "./ThemeSwitcher";
+import Homepage from "./components/Homepage";
+import HelpPage from "./components/HelpPage";
+import SoundList from "./components/sound_page/SoundList";
+import { ThemeProvider } from "./utils/ThemeContext";
+import ThemeSwitcher from "./utils/ThemeSwitcher";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

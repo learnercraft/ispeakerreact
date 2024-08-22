@@ -1,7 +1,6 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button } from "react-bootstrap";
-import TopNavBar from "./TopNavBar";
+import TopNavBar from "./general/TopNavBar";
 
 function Homepage() {
     const navigate = useNavigate();

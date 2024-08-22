@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import TopNavBar from "./TopNavBar";
+import { useEffect } from "react";
+import TopNavBar from "./general/TopNavBar";
 
 const HelpPage = () => {
     useEffect(() => {
