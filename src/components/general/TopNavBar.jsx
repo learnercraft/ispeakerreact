@@ -6,7 +6,7 @@ const TopNavBar = () => {
         <div className="mb-4">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand as={NavLink} to="/">
                         <img alt="" src="/images/icons/ios/32.png" className="d-inline-block align-top" /> Oxford iSpeaker
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="top-NavBar" />
