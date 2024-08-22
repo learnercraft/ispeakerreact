@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Button, Dropdown, Card, Badge } from "react-bootstrap";
-import TopNavBar from "./TopNavBar";
+import TopNavBar from "../general/TopNavBar";
 import PracticeSound from "./PracticeSound";
 import he from "he";
 import NProgress from "nprogress";
