@@ -23,12 +23,20 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const { index: phonemeIndex, type } = findPhonemeDetails(sound.phoneme);
 
     const videoArrayKey =
-        type === "consonant" ? (accent === "british" ? "consonants_b" : "consonants_a") : accent === "british" ? "vowels_b" : "vowels_a";
+        type === "consonant"
+            ? accent === "british"
+                ? "consonants_b"
+                : "consonants_a"
+            : accent === "british"
+            ? "vowels_b"
+            : "vowels_a";
     const videoArray = soundsData[videoArrayKey];
     const videoBlockStartIndex = phonemeIndex * 5;
 
     // Find the first non-empty video URL in this phoneme's video block
-    const videoUrl = videoArray.slice(videoBlockStartIndex, videoBlockStartIndex + 5).find((video) => video.value)?.value;
+    const videoUrl = videoArray
+        .slice(videoBlockStartIndex, videoBlockStartIndex + 5)
+        .find((video) => video.value)?.value;
 
     // Video url for practice part
     const videoUrls = videoArray
@@ -411,7 +419,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                         ? "pe-none opacity-25"
                                                         : ""
                                                 }`}
-                                                onClick={() => (isRecordingAvailable(1) ? handlePlayRecording(1) : null)}
+                                                onClick={() =>
+                                                    isRecordingAvailable(1) ? handlePlayRecording(1) : null
+                                                }
                                                 disabled={isRecordingPlaying && activePlaybackCard !== 1}>
                                                 <use href="#play-button"></use>
                                             </svg>
@@ -429,7 +439,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                 </a>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <span dangerouslySetInnerHTML={{ __html: he.decode(accentData.initial) }}></span>
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: he.decode(accentData.initial),
+                                                    }}></span>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <svg
@@ -461,7 +474,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                             ? "pe-none opacity-25"
                                                             : ""
                                                     }`}
-                                                    onClick={() => (isRecordingAvailable(2) ? handlePlayRecording(2) : null)}
+                                                    onClick={() =>
+                                                        isRecordingAvailable(2) ? handlePlayRecording(2) : null
+                                                    }
                                                     disabled={isRecordingPlaying && activePlaybackCard !== 2}>
                                                     <use href="#play-button"></use>
                                                 </svg>
@@ -480,7 +495,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                 </a>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <span dangerouslySetInnerHTML={{ __html: he.decode(accentData.medial) }}></span>
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: he.decode(accentData.medial),
+                                                    }}></span>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <svg
@@ -512,7 +530,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                             ? "pe-none opacity-25"
                                                             : ""
                                                     }`}
-                                                    onClick={() => (isRecordingAvailable(3) ? handlePlayRecording(3) : null)}>
+                                                    onClick={() =>
+                                                        isRecordingAvailable(3) ? handlePlayRecording(3) : null
+                                                    }>
                                                     <use href="#play-button"></use>
                                                 </svg>
                                             </Col>
@@ -530,7 +550,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                 </a>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <span dangerouslySetInnerHTML={{ __html: he.decode(accentData.final) }}></span>
+                                                <span
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: he.decode(accentData.final),
+                                                    }}></span>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <svg
@@ -562,7 +585,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                                             ? "pe-none opacity-25"
                                                             : ""
                                                     }`}
-                                                    onClick={() => (isRecordingAvailable(4) ? handlePlayRecording(4) : null)}>
+                                                    onClick={() =>
+                                                        isRecordingAvailable(4) ? handlePlayRecording(4) : null
+                                                    }>
                                                     <use href="#play-button"></use>
                                                 </svg>
                                             </Col>
