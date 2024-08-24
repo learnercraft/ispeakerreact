@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Ratio, Button, Modal } from "react-bootstrap";
 import he from "he";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
+import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations";
+import ToastNotification from "../general/ToastNotification";
 
 const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const accentKey = accent === "american" ? "a" : "b";
     const accentData = sound[accentKey][0];
 
-    const findPhonemeDetails = (phoneme) => {
-        let index = soundsData.consonants.findIndex((p) => p.phoneme === phoneme);
-        if (index !== -1) {
-            return { index, type: "consonant" };
-        }
+    const findPhonemeDetails = useCallback(
+        (phoneme) => {
+            let index = soundsData.consonants.findIndex((p) => p.phoneme === phoneme);
+            if (index !== -1) {
+                return { index, type: "consonant" };
+            }
 
-        index = soundsData.vowels_n_diphthongs.findIndex((p) => p.phoneme === phoneme);
-        if (index !== -1) {
-            return { index, type: "vowel" };
-        }
+            index = soundsData.vowels_n_diphthongs.findIndex((p) => p.phoneme === phoneme);
+            if (index !== -1) {
+                return { index, type: "vowel" };
+            }
 
-        return { index: -1, type: null }; // Not found
-    };
+            return { index: -1, type: null }; // Not found
+        },
+        [soundsData.consonants, soundsData.vowels_n_diphthongs]
+    );
 
     const { index: phonemeIndex, type } = findPhonemeDetails(sound.phoneme);
 
@@ -82,7 +87,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         if (soundReview) {
             setReview(soundReview);
         }
-    }, [sound.phoneme, accent, index]); // Also depend on accent to reload when it changes
+    }, [sound.phoneme, findPhonemeDetails, accent, index]);
 
     const emojiStyle = (reviewType) => {
         if (review === reviewType) {
@@ -120,62 +125,19 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const [activeRecordingCard, setActiveRecordingCard] = useState(null);
     const [recordingAvailability, setRecordingAvailability] = useState({});
     const [playingRecordings, setPlayingRecordings] = useState({});
-    const [currentAudio, setCurrentAudio] = useState(null);
     const [activePlaybackCard, setActivePlaybackCard] = useState(null);
 
-    let db;
+    const [currentAudioSource, setCurrentAudioSource] = useState(null); // For AudioContext source node
+    const [currentAudioElement, setCurrentAudioElement] = useState(null); // For Audio element (fallback)
 
-    function openDatabase() {
-        return new Promise((resolve, reject) => {
-            if (db) {
-                resolve(db); // If db is already defined, resolve immediately
-                return;
-            }
-            const request = window.indexedDB.open("iSpeaker_data", 1);
+    // Notification state
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
-            request.onerror = function (event) {
-                console.error("Database error: ", event.target.error);
-                reject(event.target.error);
-            };
-
-            request.onsuccess = function (event) {
-                db = event.target.result; // Set db to the successfully opened database
-                resolve(db);
-            };
-
-            request.onupgradeneeded = function (event) {
-                const db = event.target.result;
-                db.createObjectStore("recording_data", { keyPath: "id" });
-            };
-        });
-    }
-
-    async function saveRecording(blob, key) {
-        try {
-            // First, convert Blob to ArrayBuffer outside of the transaction
-            const arrayBuffer = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = (error) => reject(error);
-                reader.readAsArrayBuffer(blob);
-            });
-
-            const db = await openDatabase();
-            const transaction = db.transaction(["recording_data"], "readwrite");
-            const store = transaction.objectStore("recording_data");
-
-            // Now that we have the ArrayBuffer, store it
-            const request = store.put({ id: key, recording: arrayBuffer });
-            request.onsuccess = () => console.log("Recording saved successfully");
-            request.onerror = (error) => console.error("Error saving recording:", error);
-        } catch (error) {
-            console.error("Error saving recording: ", error);
-        }
-    }
+    const MAX_RECORDING_DURATION_MS = 10 * 1000; // 10 seconds in milliseconds
 
     const handleRecording = (cardIndex) => {
-        const { index, type } = findPhonemeDetails(sound.phoneme);
-        const recordingDataIndex = `${type}${index + 1}_${cardIndex}`;
+        const recordingDataIndex = getRecordingKey(cardIndex);
         // Determine if a recording is starting or stopping
         if (activeRecordingCard !== cardIndex) {
             setActiveRecordingCard(cardIndex);
@@ -188,6 +150,8 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     };
                     const mediaRecorder = new MediaRecorder(stream, recordOptions);
                     let audioChunks = [];
+                    let mimeType = "";
+                    let recordingStartTime = Date.now();
 
                     mediaRecorder.start();
                     setIsRecording(true);
@@ -196,14 +160,40 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
 
                     mediaRecorder.addEventListener("dataavailable", (event) => {
                         audioChunks.push(event.data);
+
+                        if (!mimeType && event.data && event.data.type) {
+                            mimeType = event.data.type;
+                            console.log("Captured MIME type:", mimeType);
+                        }
+
+                        // Check if the recording duration exceeds the time limit
+                        const recordingDuration = Date.now() - recordingStartTime;
+                        if (recordingDuration > MAX_RECORDING_DURATION_MS) {
+                            mediaRecorder.stop();
+                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 seconds.");
+                            setShowToast(true);
+                            setIsRecording(false);
+                            setActiveRecordingCard(null);
+                        }
+
                         if (mediaRecorder.state === "inactive") {
-                            const audioBlob = new Blob(audioChunks);
-                            // Save the audioBlob to IndexedDB, then you can call playRecording with the key where it's saved
-                            saveRecording(audioBlob, recordingDataIndex); // Ensure saveRecording function is defined to handle saving to IndexedDB
+                            const audioBlob = new Blob(audioChunks, { type: mimeType });
+                            saveRecording(audioBlob, recordingDataIndex, mimeType);
                             setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
                             audioChunks = [];
                         }
                     });
+
+                    // Automatically stop recording after 10 minutes if not already stopped
+                    setTimeout(() => {
+                        if (mediaRecorder.state !== "inactive") {
+                            mediaRecorder.stop();
+                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 seconds.");
+                            setShowToast(true);
+                            setIsRecording(false);
+                            setActiveRecordingCard(null);
+                        }
+                    }, MAX_RECORDING_DURATION_MS);
                 })
                 .catch((err) => {
                     console.error("Error accessing the microphone", err);
@@ -222,76 +212,13 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         }
     };
 
-    async function playRecording(key) {
-        try {
-            const db = await openDatabase();
-            const transaction = db.transaction(["recording_data"]);
-            const store = transaction.objectStore("recording_data");
-            const request = store.get(key);
-
-            request.onsuccess = function () {
-                const arrayBuffer = request.result.recording;
-                const audioContext = new AudioContext();
-                audioContext.decodeAudioData(
-                    arrayBuffer,
-                    (buffer) => {
-                        const source = audioContext.createBufferSource();
-                        source.buffer = buffer;
-                        source.connect(audioContext.destination);
-                        source.onended = () => {
-                            setIsRecordingPlaying(false);
-                            setActivePlaybackCard(null);
-                            setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                        };
-                        source.start();
-                        setIsRecordingPlaying(true);
-                        setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                        //setActivePlaybackCard(getCardIndexFromKey(key));
-                    },
-                    (error) => {
-                        console.error("Error decoding audio data: ", error);
-                        setIsRecordingPlaying(false);
-                        setActivePlaybackCard(null);
-                        setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    }
-                );
-            };
-
-            request.onerror = () => {
-                console.error("Error getting recording from IndexedDB: ", request.error);
-                setIsRecordingPlaying(false);
-                setActivePlaybackCard(null);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-            };
-        } catch (error) {
-            console.error("Error playing recording: ", error);
-        }
-    }
-
-    async function checkRecordingExists(key) {
-        try {
-            const db = await openDatabase(); // Ensure the db is opened before using it
-            const transaction = db.transaction(["recording_data"]);
-            const store = transaction.objectStore("recording_data");
-            const request = store.get(key);
-
-            return new Promise((resolve, reject) => {
-                request.onsuccess = () => {
-                    if (request.result) resolve(true);
-                    else resolve(false);
-                };
-
-                request.onerror = () => reject(request.error);
-            });
-        } catch (error) {
-            console.error("Error opening database: ", error);
-        }
-    }
-
-    const getRecordingKey = (cardIndex) => {
-        const { index, type } = findPhonemeDetails(sound.phoneme);
-        return `${type}${index + 1}_${cardIndex}`;
-    };
+    const getRecordingKey = useCallback(
+        (cardIndex) => {
+            const { index, type } = findPhonemeDetails(sound.phoneme);
+            return `${accent}-${type}${index + 1}_${cardIndex}`;
+        },
+        [findPhonemeDetails, sound.phoneme, accent] // Dependencies array
+    );
 
     const isRecordingAvailable = (cardIndex) => {
         const recordingKey = getRecordingKey(cardIndex);
@@ -307,7 +234,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         // Assume checkRecordingExists is a function that checks if a recording exists and returns a promise that resolves to a boolean
         const checks = [];
         for (let i = 1; i <= 4; i++) {
-            const key = `${findPhonemeDetails(sound.phoneme).type}${findPhonemeDetails(sound.phoneme).index + 1}_${i}`;
+            const key = getRecordingKey(i);
             checks.push(checkRecordingExists(key).then((exists) => ({ key, exists })));
         }
 
@@ -318,28 +245,61 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             }, {});
             setRecordingAvailability(newAvailability);
         });
-    }, []);
+    }, [getRecordingKey]);
 
     const handlePlayRecording = (cardIndex) => {
-        const recordingKey = getRecordingKey(cardIndex);
-        if (activePlaybackCard === cardIndex) {
-            // Stop the current playback
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                setCurrentAudio(null);
-                setActivePlaybackCard(null); // Reset active playback
-                setIsRecordingPlaying(false);
+        const key = getRecordingKey(cardIndex); // Generate the key based on your logic
+
+        if (isRecordingPlaying && activePlaybackCard === cardIndex) {
+            // Stop current playback
+
+            // Stop the AudioContext playback
+            if (currentAudioSource) {
+                currentAudioSource.stop(); // Stop the audio buffer source
+                setCurrentAudioSource(null); // Clear the current audio source
             }
+
+            // Stop the Audio element playback (fallback)
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0; // Reset playback position
+                setCurrentAudioElement(null); // Clear the current audio element
+            }
+
+            // Reset state
+            setIsRecordingPlaying(false);
+            setActivePlaybackCard(null);
+            setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
         } else {
-            // Start new playback
-            const { index, type } = findPhonemeDetails(sound.phoneme);
-            const recordingDataIndex = `${type}${index + 1}_${cardIndex}`;
-            playRecording(recordingDataIndex);
-            setPlayingRecordings((prev) => ({ ...prev, [recordingKey]: true }));
-            setActivePlaybackCard(cardIndex);
-            //startPlayback(cardIndex);
-            setIsRecordingPlaying(true);
+            playRecording(
+                key,
+                (audio, audioSource) => {
+                    // onSuccess callback - Playback started
+                    setIsRecordingPlaying(true);
+                    setActivePlaybackCard(cardIndex);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
+                    if (audioSource) {
+                        setCurrentAudioSource(audioSource); // Set AudioContext source
+                    } else {
+                        setCurrentAudioElement(audio); // Set Audio element
+                    }
+                },
+                (error) => {
+                    // onError callback
+                    console.error("Error during playback:", error);
+                    setIsRecordingPlaying(false);
+                    setActivePlaybackCard(null);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                },
+                () => {
+                    // onEnded callback - Playback finished
+                    setIsRecordingPlaying(false);
+                    setActivePlaybackCard(null);
+                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                    setCurrentAudioSource(null);
+                    setCurrentAudioElement(null);
+                }
+            );
         }
     };
 
@@ -669,6 +629,13 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
                 </symbol>
             </svg>
+
+            <ToastNotification
+                show={showToast}
+                onClose={() => setShowToast(false)}
+                message={toastMessage}
+                variant="warning"
+            />
         </>
     );
 };
