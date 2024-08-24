@@ -196,7 +196,13 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     }, MAX_RECORDING_DURATION_MS);
                 })
                 .catch((err) => {
-                    console.error("Error accessing the microphone", err);
+                    console.error("Error accessing the microphone.", err);
+                    setToastMessage(
+                        "Recording failed. Please check if your device has a microphone device, or if you have allowed microphone access."
+                    );
+                    setShowToast(true);
+                    setIsRecording(false);
+                    setActiveRecordingCard(null);
                 });
         } else {
             // Stop recording if this cardIndex was already recording
@@ -303,6 +309,34 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         }
     };
 
+    useEffect(() => {
+        // Cleanup function to stop recording and playback
+        return () => {
+            // Stop the recording if it's active
+            if (isRecording && mediaRecorder) {
+                mediaRecorder.stop();
+                setIsRecording(false);
+            }
+
+            // Stop AudioContext playback
+            if (currentAudioSource) {
+                try {
+                    currentAudioSource.stop();
+                } catch (error) {
+                    console.error("Error stopping AudioContext source during cleanup:", error);
+                }
+                setCurrentAudioSource(null);
+            }
+
+            // Stop Audio element playback
+            if (currentAudioElement) {
+                currentAudioElement.pause();
+                currentAudioElement.currentTime = 0;
+                setCurrentAudioElement(null);
+            }
+        };
+    }, [isRecording, mediaRecorder, currentAudioSource, currentAudioElement]);
+
     return (
         <>
             <Row>
@@ -342,9 +376,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                 <Card.Body>
                                     <Row>
                                         <Col xs={"auto"} className="d-flex align-items-center">
-                                            <a href="#" onClick={() => handleShow(1)}>
+                                            <button type="button" className="btn" onClick={() => handleShow(1)}>
                                                 <img src={imgPhonemeThumbSrc} />
-                                            </a>
+                                            </button>
                                         </Col>
                                         <Col xs={"auto"} className="d-flex align-items-center">
                                             <span>{he.decode(sound.phoneme)}</span>
@@ -394,9 +428,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <a href="#" onClick={() => handleShow(2)}>
+                                                <button type="button" className="btn" onClick={() => handleShow(2)}>
                                                     <img src={imgPhonemeThumbSrc} />
-                                                </a>
+                                                </button>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <span
@@ -450,9 +484,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <a href="#" onClick={() => handleShow(3)}>
+                                                <button type="button" className="btn" onClick={() => handleShow(3)}>
                                                     <img src={imgPhonemeThumbSrc} />
-                                                </a>
+                                                </button>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <span
@@ -505,9 +539,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <a href="#" onClick={() => handleShow(4)}>
+                                                <button type="button" className="btn" onClick={() => handleShow(4)}>
                                                     <img src={imgPhonemeThumbSrc} />
-                                                </a>
+                                                </button>
                                             </Col>
                                             <Col xs={"auto"} className="d-flex align-items-center">
                                                 <span
