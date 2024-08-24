@@ -3,7 +3,7 @@ import CloseButton from "react-bootstrap/CloseButton";
 
 const ToastNotification = ({ show, onClose, message, variant, autohide = true, delay = 10000 }) => {
     return (
-        <ToastContainer position="bottom-center" className="p-3 sticky-bottom">
+        <ToastContainer className="p-3 sticky-bottom bottom-0 start-50">
             <Toast
                 show={show}
                 onClose={onClose}
