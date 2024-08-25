@@ -275,7 +275,8 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
         } else {
             // Ensure AudioContext is resumed before playback
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const audioContext = new AudioContext();
+            audioContext.resume();
 
             if (audioContext.state === "suspended") {
                 try {
