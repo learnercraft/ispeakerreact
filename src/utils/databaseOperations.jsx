@@ -76,46 +76,27 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
         const request = store.get(key);
 
         request.onsuccess = function () {
-            const { recording, mimeType } = request.result; // Retrieve the recording and MIME type
+            const result = request.result;
+            if (!result) {
+                console.error("No recording found for key:", key);
+                if (onError) onError(new Error("Recording not found"));
+                return;
+            }
 
-            // Try using AudioContext for playback
+            const { recording, mimeType } = result;
+            console.log("Successfully retrieved recording from IndexedDB:", recording);
+
             const audioContext = new AudioContext();
-            audioContext.decodeAudioData(
-                recording,
-                (buffer) => {
-                    const source = audioContext.createBufferSource();
-                    source.buffer = buffer;
-                    source.connect(audioContext.destination);
 
-                    source.onended = () => {
-                        if (onEnded) onEnded(); // Call onEnded callback when playback finishes
-                    };
-
-                    source.start();
-                    if (onSuccess) onSuccess(null, source); // Pass AudioContext source
-                },
-                (error) => {
-                    console.error("Error decoding audio data: ", error);
-
-                    // Fallback to using Blob URL if AudioContext fails (especially for iOS)
-                    const audioBlob = new Blob([recording], { type: mimeType });
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    const audio = new Audio(audioUrl);
-
-                    audio.onended = onEnded;
-                    audio.onerror = onError;
-
-                    audio
-                        .play()
-                        .then(() => {
-                            if (onSuccess) onSuccess(audio, null); // Pass Audio element
-                        })
-                        .catch((err) => {
-                            console.error("Error playing audio via Blob URL: ", err);
-                            if (onError) onError(err); // Call onError callback if playback fails
-                        });
-                }
-            );
+            // Resume AudioContext on iOS if it's suspended
+            if (audioContext.state === "suspended") {
+                audioContext.resume().then(() => {
+                    console.log("AudioContext resumed");
+                    playBuffer(audioContext, recording, onSuccess, onError, onEnded);
+                });
+            } else {
+                playBuffer(audioContext, recording, onSuccess, onError, onEnded);
+            }
         };
 
         request.onerror = () => {
@@ -127,4 +108,26 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
         if (onError) onError(error); // Handle general errors
         throw error;
     }
+}
+
+function playBuffer(audioContext, recording, onSuccess, onError, onEnded) {
+    audioContext.decodeAudioData(
+        recording,
+        (buffer) => {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+
+            source.onended = () => {
+                if (onEnded) onEnded();
+            };
+
+            source.start();
+            if (onSuccess) onSuccess(null, source);
+        },
+        (error) => {
+            console.error("Error decoding audio data:", error);
+            if (onError) onError(error);
+        }
+    );
 }
