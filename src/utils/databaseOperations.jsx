@@ -78,53 +78,66 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
         request.onsuccess = function () {
             const { recording, mimeType } = request.result; // Retrieve the recording and MIME type
 
-            // Try using AudioContext for playback
+            // Create AudioContext
             const audioContext = new AudioContext();
-            audioContext.decodeAudioData(
-                recording,
-                (buffer) => {
-                    const source = audioContext.createBufferSource();
-                    source.buffer = buffer;
-                    source.connect(audioContext.destination);
 
-                    source.onended = () => {
-                        if (onEnded) onEnded(); // Call onEnded callback when playback finishes
-                    };
-
-                    source.start();
-                    if (onSuccess) onSuccess(null, source); // Pass AudioContext source
-                },
-                (error) => {
-                    console.error("Error decoding audio data: ", error);
-
-                    // Fallback to using Blob URL if AudioContext fails (especially for iOS)
-                    const audioBlob = new Blob([recording], { type: mimeType });
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    const audio = new Audio(audioUrl);
-
-                    audio.onended = onEnded;
-                    audio.onerror = onError;
-
-                    audio
-                        .play()
-                        .then(() => {
-                            if (onSuccess) onSuccess(audio, null); // Pass Audio element
-                        })
-                        .catch((err) => {
-                            console.error("Error playing audio via Blob URL: ", err);
-                            if (onError) onError(err); // Call onError callback if playback fails
-                        });
-                }
-            );
+            // Check if the AudioContext is suspended and resume it
+            if (audioContext.state === "suspended") {
+                audioContext.resume().then(() => {
+                    console.log("AudioContext resumed");
+                    playBuffer(audioContext, recording, mimeType, onSuccess, onError, onEnded);
+                });
+            } else {
+                playBuffer(audioContext, recording, mimeType, onSuccess, onError, onEnded);
+            }
         };
 
         request.onerror = () => {
-            console.error("Error getting recording from IndexedDB: ", request.error);
+            console.error("Error getting recording from IndexedDB:", request.error);
             if (onError) onError(request.error); // Handle error when fetching from IndexedDB fails
         };
     } catch (error) {
-        console.error("Error playing recording: ", error);
+        console.error("Error playing recording:", error);
         if (onError) onError(error); // Handle general errors
         throw error;
     }
+}
+
+function playBuffer(audioContext, recording, mimeType, onSuccess, onError, onEnded) {
+    audioContext.decodeAudioData(
+        recording,
+        (buffer) => {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+
+            source.onended = () => {
+                if (onEnded) onEnded(); // Call onEnded callback when playback finishes
+            };
+
+            source.start();
+            if (onSuccess) onSuccess(null, source); // Pass AudioContext source
+        },
+        (error) => {
+            console.error("Error decoding audio data:", error);
+
+            // Fallback to using Blob URL if AudioContext fails (especially for iOS)
+            const audioBlob = new Blob([recording], { type: mimeType });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+
+            audio.onended = onEnded;
+            audio.onerror = onError;
+
+            audio
+                .play()
+                .then(() => {
+                    if (onSuccess) onSuccess(audio, null); // Pass Audio element
+                })
+                .catch((err) => {
+                    console.error("Error playing audio via Blob URL: ", err);
+                    if (onError) onError(err); // Handle error
+                });
+        }
+    );
 }
