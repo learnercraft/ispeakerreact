@@ -197,9 +197,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 })
                 .catch((err) => {
                     console.error("Error accessing the microphone.", err);
-                    setToastMessage(
-                        "Recording failed. Please check if your device has a microphone device, or if you have allowed microphone access."
-                    );
+                    setToastMessage("Recording failed. Reason(s): " + err.message);
                     setShowToast(true);
                     setIsRecording(false);
                     setActiveRecordingCard(null);
@@ -254,7 +252,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     }, [getRecordingKey]);
 
     const handlePlayRecording = (cardIndex) => {
-        const key = getRecordingKey(cardIndex); // Generate the key based on your logic
+        const key = getRecordingKey(cardIndex);
 
         if (isRecordingPlaying && activePlaybackCard === cardIndex) {
             // Stop current playback
@@ -277,38 +275,62 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             setActivePlaybackCard(null);
             setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
         } else {
-            playRecording(
-                key,
-                (audio, audioSource) => {
-                    // onSuccess callback - Playback started
-                    setIsRecordingPlaying(true);
-                    setActivePlaybackCard(cardIndex);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                    if (audioSource) {
-                        setCurrentAudioSource(audioSource); // Set AudioContext source
-                    } else {
-                        setCurrentAudioElement(audio); // Set Audio element
-                    }
-                },
-                (error) => {
-                    // onError callback
-                    console.error("Error during playback:", error);
-                    setToastMessage("Error playback. Error message:", error);
-                    setShowToast(true);
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                },
-                () => {
-                    // onEnded callback - Playback finished
-                    setIsRecordingPlaying(false);
-                    setActivePlaybackCard(null);
-                    setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                    setCurrentAudioSource(null);
-                    setCurrentAudioElement(null);
-                }
-            );
+            // Ensure AudioContext is resumed if it's in a suspended state
+            const audioContext = new AudioContext();
+            if (audioContext.state === "suspended") {
+                audioContext
+                    .resume()
+                    .then(() => {
+                        console.log("AudioContext resumed before playback.");
+                        // Proceed with playback after resuming AudioContext
+                        initiatePlayback(key, cardIndex);
+                    })
+                    .catch((error) => {
+                        console.error("Failed to resume AudioContext:", error);
+                        // Fallback to showing an error toast
+                        setToastMessage("Error resuming audio playback: " + error.message);
+                        setShowToast(true);
+                    });
+            } else {
+                // Proceed with playback if AudioContext is not suspended
+                initiatePlayback(key, cardIndex);
+            }
         }
+    };
+
+    // Helper function to initiate playback
+    const initiatePlayback = (key, cardIndex) => {
+        playRecording(
+            key,
+            (audio, audioSource) => {
+                // onSuccess callback - Playback started
+                setIsRecordingPlaying(true);
+                setActivePlaybackCard(cardIndex);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
+                if (audioSource) {
+                    setCurrentAudioSource(audioSource); // Set AudioContext source
+                } else {
+                    setCurrentAudioElement(audio); // Set Audio element
+                }
+            },
+            (error) => {
+                // onError callback
+                console.error("Error during playback:", error);
+                setToastMessage("Error during playback: " + error.message);
+                setShowToast(true);
+                setIsRecordingPlaying(false);
+                setActivePlaybackCard(null);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+            },
+            () => {
+                // onEnded callback - Playback finished
+                setIsRecordingPlaying(false);
+                setActivePlaybackCard(null);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                setCurrentAudioSource(null);
+                setCurrentAudioElement(null);
+            }
+        );
     };
 
     useEffect(() => {
