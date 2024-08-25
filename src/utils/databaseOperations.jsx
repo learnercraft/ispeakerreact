@@ -83,8 +83,10 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
 
             // Check if the AudioContext is suspended and resume it
             if (audioContext.state === "suspended") {
+                alert("audioContext.state is" + audioContext.state);
                 audioContext.resume().then(() => {
                     console.log("AudioContext resumed");
+                    alert("audioContext.state is" + audioContext.state + "resumed");
                     playBuffer(audioContext, recording, mimeType, onSuccess, onError, onEnded);
                 });
             } else {
