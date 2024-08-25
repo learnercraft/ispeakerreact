@@ -254,47 +254,82 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const handlePlayRecording = async (cardIndex) => {
         const key = getRecordingKey(cardIndex);
 
-        // Check if currently playing, and stop playback
         if (isRecordingPlaying && activePlaybackCard === cardIndex) {
-            // Stop AudioContext playback
+            // Stop current playback
             if (currentAudioSource) {
                 currentAudioSource.stop();
                 setCurrentAudioSource(null);
             }
 
-            // Stop Audio element playback (fallback)
             if (currentAudioElement) {
                 currentAudioElement.pause();
                 currentAudioElement.currentTime = 0;
                 setCurrentAudioElement(null);
             }
 
-            // Reset state
             setIsRecordingPlaying(false);
             setActivePlaybackCard(null);
             setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
         } else {
-            // Ensure AudioContext is resumed before playback
-            const audioContext = new AudioContext();
-            audioContext.resume();
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            console.log("Initial audioContext state: " + audioContext.state);
 
             if (audioContext.state === "suspended") {
                 try {
                     await audioContext.resume(); // Resume within the event handler
+                    console.log("AudioContext state after resume attempt: " + audioContext.state);
 
-                    // Proceed with playback after resuming AudioContext
-                    initiatePlayback(key, cardIndex, audioContext); // Pass audioContext to initiatePlayback
+                    if (audioContext.state === "running") {
+                        // Proceed with playback after resuming AudioContext
+                        initiatePlayback(key, cardIndex, audioContext);
+                    } else {
+                        console.log("AudioContext did not resume. Fallback to Audio element.");
+                        fallbackToAudioElement(key, cardIndex); // Handle iOS fallback
+                    }
                 } catch (error) {
                     console.error("Failed to resume AudioContext:", error);
                     setToastMessage("Error resuming audio playback: " + error.message);
                     setShowToast(true);
                 }
             } else {
-                // Proceed with playback if AudioContext is not suspended
-                console.log("not suspended");
+                // AudioContext is already running
+                console.log("AudioContext is running, proceeding with playback.");
                 initiatePlayback(key, cardIndex, audioContext);
             }
         }
+    };
+
+    // Fallback to Audio element on iOS
+    const fallbackToAudioElement = (key, cardIndex) => {
+        playRecording(
+            key,
+            (audio, audioSource) => {
+                setIsRecordingPlaying(true);
+                setActivePlaybackCard(cardIndex);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
+                if (audioSource) {
+                    setCurrentAudioSource(audioSource);
+                } else {
+                    setCurrentAudioElement(audio); // Handle Audio element playback
+                }
+            },
+            (error) => {
+                console.error("Error during playback:", error);
+                setToastMessage("Error during playback: " + error.message);
+                setShowToast(true);
+                setIsRecordingPlaying(false);
+                setActivePlaybackCard(null);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+            },
+            () => {
+                setIsRecordingPlaying(false);
+                setActivePlaybackCard(null);
+                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
+                setCurrentAudioSource(null);
+                setCurrentAudioElement(null);
+            },
+            null // Do not pass audioContext, fallback to Blob URL
+        );
     };
 
     const initiatePlayback = (key, cardIndex, audioContext) => {
