@@ -96,7 +96,6 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
                 },
                 (error) => {
                     console.error("Error decoding audio data: ", error);
-                    alert("Error decoding audio data: ", error)
 
                     // Fallback to using Blob URL if AudioContext fails (especially for iOS)
                     const audioBlob = new Blob([recording], { type: mimeType });
@@ -113,7 +112,6 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
                         })
                         .catch((err) => {
                             console.error("Error playing audio via Blob URL: ", err);
-                            alert("Error playing audio via Blob URL: ", err)
                             if (onError) onError(err); // Call onError callback if playback fails
                         });
                 }
