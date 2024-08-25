@@ -198,7 +198,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 .catch((err) => {
                     console.error("Error accessing the microphone.", err);
                     setToastMessage(
-                        "Recording failed. Please check if your device has a microphone device, or if you have allowed microphone access."
+                        "Recording failed. Reason(s): " + err.message
                     );
                     setShowToast(true);
                     setIsRecording(false);
