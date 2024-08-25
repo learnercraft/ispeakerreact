@@ -11,7 +11,7 @@ const ToastNotification = ({ show, onClose, message, variant, autohide = true, d
                 autohide={autohide}
                 delay={delay}>
                 <Toast.Body>{message}</Toast.Body>
-                <CloseButton className="me-2 m-auto" />
+                <CloseButton className="me-2 m-auto" aria-label="Hide" onClick={onClose} />
             </Toast>
         </ToastContainer>
     );
