@@ -197,9 +197,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 })
                 .catch((err) => {
                     console.error("Error accessing the microphone.", err);
-                    setToastMessage(
-                        "Recording failed. Reason(s): " + err.message
-                    );
+                    setToastMessage("Recording failed. Reason(s): " + err.message);
                     setShowToast(true);
                     setIsRecording(false);
                     setActiveRecordingCard(null);
@@ -252,6 +250,33 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             setRecordingAvailability(newAvailability);
         });
     }, [getRecordingKey]);
+
+    useEffect(() => {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        const handleUserInteraction = () => {
+            if (audioContext.state === "suspended") {
+                audioContext
+                    .resume()
+                    .then(() => {
+                        console.log("AudioContext resumed on user interaction");
+                    })
+                    .catch((error) => {
+                        console.error("Failed to resume AudioContext:", error);
+                    });
+            }
+            document.removeEventListener("click", handleUserInteraction);
+            document.removeEventListener("touchstart", handleUserInteraction);
+        };
+
+        document.addEventListener("click", handleUserInteraction);
+        document.addEventListener("touchstart", handleUserInteraction);
+
+        return () => {
+            document.removeEventListener("click", handleUserInteraction);
+            document.removeEventListener("touchstart", handleUserInteraction);
+        };
+    }, []);
 
     const handlePlayRecording = (cardIndex) => {
         const key = getRecordingKey(cardIndex); // Generate the key based on your logic
