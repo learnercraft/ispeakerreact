@@ -293,6 +293,8 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 (error) => {
                     // onError callback
                     console.error("Error during playback:", error);
+                    setToastMessage("Error playback. Error message:", error);
+                    setShowToast(true);
                     setIsRecordingPlaying(false);
                     setActivePlaybackCard(null);
                     setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
