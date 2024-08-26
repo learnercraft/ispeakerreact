@@ -5,9 +5,11 @@ import PracticeSound from "./PracticeSound";
 import he from "he";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import LoadingOverlay from "../general/LoadingOverlay";
 
 const SoundList = () => {
     const [selectedSound, setSelectedSound] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const [soundsData, setSoundsData] = useState({
         consonants: [],
@@ -91,6 +93,7 @@ const SoundList = () => {
             .then((response) => response.json())
             .then((data) => {
                 setSoundsData(data);
+                setLoading(false);
                 NProgress.done();
             })
             .catch((error) => {
@@ -114,72 +117,90 @@ const SoundList = () => {
                 <>
                     <Dropdown className="my-4">
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <span className="fw-semibold">Accent:</span> {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
+                            <span className="fw-semibold">Accent:</span>{" "}
+                            {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {selectedAccentOptions.map((item) => (
-                                <Dropdown.Item key={item.value} onClick={() => setSelectedAccent(item.value)} active={selectedAccent === item.value}>
+                                <Dropdown.Item
+                                    key={item.value}
+                                    onClick={() => setSelectedAccent(item.value)}
+                                    active={selectedAccent === item.value}>
                                     {item.name}
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
                     <div>
-                        <h3 className="mb-4">Consonants</h3>
-                        <Row className="d-flex justify-content-center">
-                            {soundsData.consonants
-                                .filter(
-                                    (sound) =>
-                                        (selectedAccent === "british" && sound.b_s === "yes") ||
-                                        (selectedAccent === "american" && sound.a_s === "yes")
-                                )
-                                .map((sound, index) => (
-                                    <Col xs={"auto"} md={2} key={index} className="mb-4">
-                                        <Card className="h-100 shadow-sm">
-                                            <Card.Body className="text-center">
-                                                <Badge
-                                                    bg={getBadgeColor(sound, index)}
-                                                    className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
-                                                    {reviews[`${getReviewKey(sound, index)}`] || ""}
-                                                </Badge>
-                                                <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
-                                                <Card.Text>{sound.example_word}</Card.Text>
-                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent, index)}>
-                                                    Practice
-                                                </Button>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
-                                ))}
-                        </Row>
-                        <hr />
-                        <h3 className="my-4">Vowels and Diphthongs</h3>
-                        <Row className="d-flex justify-content-center">
-                            {soundsData.vowels_n_diphthongs
-                                .filter(
-                                    (sound) =>
-                                        (selectedAccent === "british" && sound.b_s === "yes") ||
-                                        (selectedAccent === "american" && sound.a_s === "yes")
-                                )
-                                .map((sound, index) => (
-                                    <Col xs={"auto"} md={2} key={index} className="mb-4">
-                                        <Card className="h-100 shadow-sm">
-                                            <Card.Body className="text-center">
-                                                <Badge
-                                                    bg={getBadgeColor(sound, index)}
-                                                    className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
-                                                    {reviews[`${getReviewKey(sound, index)}`] || ""}
-                                                </Badge>
-                                                <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
-                                                <Card.Text>{sound.example_word}</Card.Text>
-                                                <Button size="sm" onClick={() => handlePracticeClick(sound, selectedAccent, index)}>
-                                                    Practice
-                                                </Button>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
-                                ))}
-                        </Row>
+                        {loading ? (
+                            <LoadingOverlay />
+                        ) : (
+                            <>
+                                <h3 className="mb-4">Consonants</h3>
+                                <Row className="d-flex justify-content-center">
+                                    {soundsData.consonants
+                                        .filter(
+                                            (sound) =>
+                                                (selectedAccent === "british" && sound.b_s === "yes") ||
+                                                (selectedAccent === "american" && sound.a_s === "yes")
+                                        )
+                                        .map((sound, index) => (
+                                            <Col xs={"auto"} md={2} key={index} className="mb-4">
+                                                <Card className="h-100 shadow-sm">
+                                                    <Card.Body className="text-center">
+                                                        <Badge
+                                                            bg={getBadgeColor(sound, index)}
+                                                            className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
+                                                            {reviews[`${getReviewKey(sound, index)}`] || ""}
+                                                        </Badge>
+                                                        <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
+                                                        <Card.Text>{sound.example_word}</Card.Text>
+                                                        <Button
+                                                            size="sm"
+                                                            onClick={() =>
+                                                                handlePracticeClick(sound, selectedAccent, index)
+                                                            }>
+                                                            Practice
+                                                        </Button>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Col>
+                                        ))}
+                                </Row>
+                                <hr />
+                                <h3 className="my-4">Vowels and Diphthongs</h3>
+                                <Row className="d-flex justify-content-center">
+                                    {soundsData.vowels_n_diphthongs
+                                        .filter(
+                                            (sound) =>
+                                                (selectedAccent === "british" && sound.b_s === "yes") ||
+                                                (selectedAccent === "american" && sound.a_s === "yes")
+                                        )
+                                        .map((sound, index) => (
+                                            <Col xs={"auto"} md={2} key={index} className="mb-4">
+                                                <Card className="h-100 shadow-sm">
+                                                    <Card.Body className="text-center">
+                                                        <Badge
+                                                            bg={getBadgeColor(sound, index)}
+                                                            className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
+                                                            {reviews[`${getReviewKey(sound, index)}`] || ""}
+                                                        </Badge>
+                                                        <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
+                                                        <Card.Text>{sound.example_word}</Card.Text>
+                                                        <Button
+                                                            size="sm"
+                                                            onClick={() =>
+                                                                handlePracticeClick(sound, selectedAccent, index)
+                                                            }>
+                                                            Practice
+                                                        </Button>
+                                                    </Card.Body>
+                                                </Card>
+                                            </Col>
+                                        ))}
+                                </Row>
+                            </>
+                        )}
                     </div>
                 </>
             )}
