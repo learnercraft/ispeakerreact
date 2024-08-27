@@ -105,6 +105,7 @@ const SoundList = () => {
     return (
         <>
             <TopNavBar />
+            <h1 className="fw-semibold">Sounds</h1>
             {selectedSound ? (
                 <PracticeSound
                     sound={selectedSound.sound}
