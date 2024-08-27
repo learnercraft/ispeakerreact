@@ -14,34 +14,33 @@ function Homepage() {
             title: "Sounds",
             description: "Watch videos and practice pronouncing sounds in British and American English.",
             icon: "/images/ispeaker/sound_page.svg",
-            path: "sounds"
+            path: "sounds",
         },
         {
             title: "Exercises (coming soon)",
             description: "Practice listening to sounds and sentences in various exercise types.",
             icon: "/images/ispeaker/exercises_page.svg",
             path: "exercises",
-            disabled: true
+            disabled: true,
         },
         {
             title: "Conversations (coming soon)",
             description: "Improve your conversation skills. Adapt your skills in different situations.",
             icon: "/images/ispeaker/conversation_page.svg",
             path: "conversations",
-            disabled: true
         },
         {
             title: "Exams (coming soon)",
             description: "Prepare yourself for different types of speaking exams.",
             icon: "/images/ispeaker/exam-speaking_page.svg",
             path: "exams",
-            disabled: true
+            disabled: true,
         },
         {
             title: "Help",
             description: "How to use the iSpeaker app.",
             icon: "/images/ispeaker/help_page.svg",
-            path: "help"
+            path: "help",
         },
     ];
 
@@ -64,7 +63,11 @@ function Homepage() {
                                     <img className="w-25" src={card.icon} />
                                 </Card.Text>
                                 <div className="mt-auto d-flex justify-content-center">
-                                    <Button variant="primary" className="w-50" onClick={() => handleNavigate(card.path)} disabled={card.disabled}>
+                                    <Button
+                                        variant="primary"
+                                        className="w-50"
+                                        onClick={() => handleNavigate(card.path)}
+                                        disabled={card.disabled}>
                                         Open
                                     </Button>
                                 </div>

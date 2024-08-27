@@ -1,0 +1,229 @@
+{
+    "conversationList": [
+        {
+            "heading": "Discussion and opinion",
+            "titles": [
+                {
+                    "title": "Agreeing",
+                    "info": "You can say that you support what somebody has said in a number of ways.",
+                    "id": "agreeing"
+                },
+                {
+                    "title": "Asking for opinions",
+                    "info": "When you need to find out what somebody thinks or you want to involve others in a conversation, you can ask for opinions.",
+                    "id": "opinions"
+                },
+                {
+                    "title": "Conceding a point",
+                    "info": "When you want to show that somebody has convinced you with their argument, at least partially, you can concede.",
+                    "id": "conceding"
+                },
+                {
+                    "title": "Dealing with questions",
+                    "info": "If you are talking to a group of people, you need to be able to deal with the questions that people ask.",
+                    "id": "deal-questions"
+                },
+                {
+                    "title": "Disagreeing",
+                    "info": "There are various polite ways of saying that you think something somebody has said is wrong.",
+                    "id": "disagreeing"
+                },
+                {
+                    "title": "Expressing preferences",
+                    "info": "When you are asked to make a choice, you can express preferences in various ways.",
+                    "id": "preferences"
+                },
+                {
+                    "title": "Giving reasons",
+                    "info": "You can explain and justify your choices and decisions in a number of ways.",
+                    "id": "reasons"
+                },
+                {
+                    "title": "Interrupting somebody",
+                    "info": "If you need to say something when somebody else is speaking or to stop somebody in a group talking too much, there are a various ways of interrupting politely.",
+                    "id": "interrupting"
+                }
+            ]
+        },
+        {
+            "heading": "Doubt, guessing and certainty",
+            "titles": [
+                {
+                    "title": "Asking for clarification",
+                    "info": "When you are given some information or asked to do something, you can check that you have understood correctly in various ways.",
+                    "id": "clarification"
+                },
+                {
+                    "title": "Correcting yourself",
+                    "info": "When you say something that was not quite what you intended, you can correct yourself in various ways.",
+                    "id": "correcting-yourself"
+                },
+                {
+                    "title": "Expressing certainty",
+                    "info": "When you are stating what has happened or is going to happen, there are various ways of saying how certain or uncertain you are.",
+                    "id": "certainty"
+                },
+                {
+                    "title": "Expressing ignorance",
+                    "info": "There are different ways of telling people that you haven't got the information they're asking for.",
+                    "id": "ignorance"
+                },
+                {
+                    "title": "Expressing likelihood",
+                    "info": "When you are talking about possible situations, you can express how likely you think they are.",
+                    "id": "likelihood"
+                },
+                {
+                    "title": "Speculating",
+                    "info": "There are various ways of giving your opinion when you don't know all the details or facts about something.",
+                    "id": "speculating"
+                }
+            ]
+        },
+        {
+            "heading": "Feelings and emotions",
+            "titles": [
+                {
+                    "title": "Apologizing",
+                    "info": "When you have caused a problem for somebody, you can make polite apologies in various ways.",
+                    "id": "apologizing"
+                },
+                {
+                    "title": "Congratulating somebody",
+                    "info": "When somebody tells you some good news about their family, or what they have done, you can congratulate them.",
+                    "id": "congratulating"
+                },
+                {
+                    "title": "Expressing sympathy",
+                    "info": "If someone is ill, or something bad has happened to them, you can express that you are sorry.",
+                    "id": "sympathy"
+                },
+                {
+                    "title": "Making complaints",
+                    "info": "When something you buy is of poor quality or the standard of service you receive is not good enough, you can express your dissatisfaction in various ways.",
+                    "id": "complaints"
+                },
+                {
+                    "title": "Thanking somebody",
+                    "info": "When someone gives you something, or does something for you, there are different ways of saying more than just a brief 'thank you'.",
+                    "id": "thanking"
+                },
+                {
+                    "title": "Wishing somebody luck",
+                    "info": "If someone is going to do something difficult, you can wish them luck.",
+                    "id": "wishing-luck"
+                }
+            ]
+        },
+        {
+            "heading": "Openings and endings",
+            "titles": [
+                {
+                    "title": "Ending conversations",
+                    "info": "When you stop talking to somebody, you can end the conversation in a number of ways.",
+                    "id": "ending"
+                },
+                {
+                    "title": "Introducing somebody",
+                    "info": "There are different ways of introducing people to one another, depending on how formal the situation is.",
+                    "id": "introducing"
+                },
+                {
+                    "title": "Inviting somebody to something",
+                    "info": "You can make and respond to invitations in a number of ways.",
+                    "id": "inviting"
+                },
+                {
+                    "title": "Leaving phone messages",
+                    "info": "If you phone somebody who is not able to take your call, you may need to leave a message.",
+                    "id": "phonemsg"
+                },
+                {
+                    "title": "Opening conversations",
+                    "info": "When speaking to someone for the first time, you will need to know some possible ways of starting a conversation. When talking in front of a group of people, you may also want to know how to get their attention.",
+                    "id": "opening"
+                },
+                {
+                    "title": "Wrapping up discussions",
+                    "info": "In a formal meeting or conference, you may have to bring the session to a close. There are some polite ways to get people to stop speaking.",
+                    "id": "wrapping-up"
+                }
+            ]
+        },
+        {
+            "heading": "Permission and obligation",
+            "titles": [
+                {
+                    "title": "Asking about obligation",
+                    "info": "When you are unsure about what is expected of you in a situation, you can ask about obligations.",
+                    "id": "obligation"
+                },
+                {
+                    "title": "Asking for permission",
+                    "info": "If you need to ask for permission or a favour, you are more likely to get what you want if you can ask for it politely.",
+                    "id": "permission"
+                },
+                {
+                    "title": "Forbidding something",
+                    "info": "There are different polite ways of asking somebody not to do something.",
+                    "id": "forbidding"
+                },
+                {
+                    "title": "Giving orders",
+                    "info": "There are various ways of telling somebody to do something politely.",
+                    "id": "orders"
+                },
+                {
+                    "title": "Making requests",
+                    "info": "Whether you are in shops or restaurants or in somebody's home, you can use polite questions to get what you want.",
+                    "id": "requests"
+                }
+            ]
+        },
+        {
+            "heading": "Suggestions and advice",
+            "titles": [
+                {
+                    "title": "Asking for help",
+                    "info": "If you need help, people are more likely to react favourably if you ask politely.",
+                    "id": "asking-help"
+                },
+                {
+                    "title": "Asking for information",
+                    "info": "When you want to find something out, it sounds more polite if you can phrase your questions in an indirect way.",
+                    "id": "information"
+                },
+                {
+                    "title": "Giving somebody advice",
+                    "info": "There are a various tactful ways of telling somebody what you think they should do.",
+                    "id": "advice"
+                },
+                {
+                    "title": "Making recommendations",
+                    "info": "When you need help making a choice, you can ask somebody to give you their view.",
+                    "id": "recommendations"
+                },
+                {
+                    "title": "Making suggestions",
+                    "info": "When you are asked to make suggestions, there are various ways of putting forward your ideas.",
+                    "id": "suggestions"
+                },
+                {
+                    "title": "Offering help",
+                    "info": "There are a various ways of offering and accepting help.",
+                    "id": "offer-help"
+                },
+                {
+                    "title": "Offering somebody something",
+                    "info": "Particularly when you are the host, you may want to make polite offers to your guests.",
+                    "id": "offer-somthing"
+                },
+                {
+                    "title": "Warning somebody of danger",
+                    "info": "You may need to tell someone that they are in danger or advise them not to do something dangerous.",
+                    "id": "warning"
+                }
+            ]
+        }
+    ]
+}
