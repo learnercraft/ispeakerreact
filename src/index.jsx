@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Homepage from "./components/Homepage";
 import HelpPage from "./components/HelpPage";
 import SoundList from "./components/sound_page/SoundList";
+import ConversationMenu from "./components/conversation_page/ConversationMenu";
 import { ThemeProvider } from "./utils/ThemeContext";
 import ThemeSwitcher from "./utils/ThemeSwitcher";
 
@@ -18,6 +19,7 @@ root.render(
                     <Route path="/" element={<Homepage />} />
                     <Route path="/help" element={<HelpPage />} />
                     <Route path="/sounds" element={<SoundList />} />
+                    <Route path="/conversations" element={<ConversationMenu />} />
                 </Routes>
             </Router>
             <ThemeProvider>
