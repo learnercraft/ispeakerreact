@@ -20,7 +20,16 @@ export function openDatabase() {
 
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
-            db.createObjectStore("recording_data", { keyPath: "id" });
+
+            // Create the recording_data store if it doesn't already exist
+            if (!db.objectStoreNames.contains("recording_data")) {
+                db.createObjectStore("recording_data", { keyPath: "id" });
+            }
+
+            // Create the conversation_data store if it doesn't already exist
+            if (!db.objectStoreNames.contains("conversation_data")) {
+                db.createObjectStore("conversation_data", { keyPath: "id" });
+            }
         };
     });
 }

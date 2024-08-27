@@ -15,7 +15,7 @@ const TopNavBar = () => {
                             <NavLink to="/" className="nav-link">Home</NavLink>
                             <NavLink to="/sounds" className="nav-link">Sounds</NavLink>
                             <Nav.Link href="#" disabled>Exercises</Nav.Link>
-                            <Nav.Link href="#" disabled>Conversations</Nav.Link>
+                            <NavLink to="/conversations" className="nav-link">Conversations</NavLink>
                             <Nav.Link href="#" disabled>Exams</Nav.Link>
                             <NavLink to="/help" className="nav-link">Help</NavLink>
                         </Nav>
