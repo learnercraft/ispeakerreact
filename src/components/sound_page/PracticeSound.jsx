@@ -427,57 +427,59 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                 </svg>{" "}
                                 button to record.
                             </Card.Text>
-                            <Card className="mb-2">
-                                <Card.Body>
-                                    <Row>
-                                        <Col xs={"auto"} className="d-flex align-items-center">
-                                            <button type="button" className="btn" onClick={() => handleShow(1)}>
-                                                <img src={imgPhonemeThumbSrc} />
-                                            </button>
-                                        </Col>
-                                        <Col xs={"auto"} className="d-flex align-items-center">
-                                            <span>{he.decode(sound.phoneme)}</span>
-                                        </Col>
-                                        <Col xs={"auto"} className="d-flex align-items-center">
-                                            <svg
-                                                width="24"
-                                                height="24"
-                                                fill="currentColor"
-                                                role="button"
-                                                className={`bi me-2 ${
-                                                    activeRecordingCard === 1
-                                                        ? "text-danger"
-                                                        : activeRecordingCard !== null || isRecordingPlaying
-                                                        ? "pe-none opacity-25"
-                                                        : ""
-                                                }`}
-                                                onClick={() => handleRecording(1)}>
-                                                <use href="#record-button"></use>
-                                            </svg>
-                                            <svg
-                                                width="24"
-                                                height="24"
-                                                fill="currentColor"
-                                                role="button"
-                                                className={`bi me-2 ${
-                                                    isRecordingPlaying && activePlaybackCard !== 1
-                                                        ? "pe-none opacity-25"
-                                                        : isRecordingPlayingActive(1)
-                                                        ? "text-success"
-                                                        : !isRecordingAvailable(1) || activeRecordingCard !== null
-                                                        ? "pe-none opacity-25"
-                                                        : ""
-                                                }`}
-                                                onClick={() =>
-                                                    isRecordingAvailable(1) ? handlePlayRecording(1) : null
-                                                }
-                                                disabled={isRecordingPlaying && activePlaybackCard !== 1}>
-                                                <use href="#play-button"></use>
-                                            </svg>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
-                            </Card>
+                            {sound.shouldShow && (
+                                <Card className="mb-2">
+                                    <Card.Body>
+                                        <Row>
+                                            <Col xs={"auto"} className="d-flex align-items-center">
+                                                <button type="button" className="btn" onClick={() => handleShow(1)}>
+                                                    <img src={imgPhonemeThumbSrc} />
+                                                </button>
+                                            </Col>
+                                            <Col xs={"auto"} className="d-flex align-items-center">
+                                                <span>{he.decode(sound.phoneme)}</span>
+                                            </Col>
+                                            <Col xs={"auto"} className="d-flex align-items-center">
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    fill="currentColor"
+                                                    role="button"
+                                                    className={`bi me-2 ${
+                                                        activeRecordingCard === 1
+                                                            ? "text-danger"
+                                                            : activeRecordingCard !== null || isRecordingPlaying
+                                                            ? "pe-none opacity-25"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() => handleRecording(1)}>
+                                                    <use href="#record-button"></use>
+                                                </svg>
+                                                <svg
+                                                    width="24"
+                                                    height="24"
+                                                    fill="currentColor"
+                                                    role="button"
+                                                    className={`bi me-2 ${
+                                                        isRecordingPlaying && activePlaybackCard !== 1
+                                                            ? "pe-none opacity-25"
+                                                            : isRecordingPlayingActive(1)
+                                                            ? "text-success"
+                                                            : !isRecordingAvailable(1) || activeRecordingCard !== null
+                                                            ? "pe-none opacity-25"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() =>
+                                                        isRecordingAvailable(1) ? handlePlayRecording(1) : null
+                                                    }
+                                                    disabled={isRecordingPlaying && activePlaybackCard !== 1}>
+                                                    <use href="#play-button"></use>
+                                                </svg>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            )}
                             {accentData.initial && (
                                 <Card className="mb-2">
                                     <Card.Body>
