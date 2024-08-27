@@ -657,9 +657,9 @@
                 {
                     "h4": "British English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>si<strong>ng</strong>er</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;&#331&#601;</span> <span>/</span>",
-                    "final": "<span>ha<strong>ng</strong></span>  &nbsp;&nbsp;<span>/</span> <span>h&#230;&#331;</span> <span>/</span>",
+                    "initial": "<span>si<strong>ng</strong>er</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;&#331&#601;</span> <span>/</span>",
+                    "medial": "<span>ha<strong>ng</strong></span>  &nbsp;&nbsp;<span>/</span> <span>h&#230;&#331;</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -670,9 +670,9 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>si<strong>ng</strong>er</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;&#331&#601;r</span> <span>/</span>",
-                    "final": "<span>ha<strong>ng</strong></span>  &nbsp;&nbsp;<span>/</span> <span>h&#230;&#331;</span> <span>/</span>",
+                    "initial": "<span>si<strong>ng</strong>er</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;&#331&#601;r</span> <span>/</span>",
+                    "medial": "<span>ha<strong>ng</strong></span>  &nbsp;&nbsp;<span>/</span> <span>h&#230;&#331;</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -852,6 +852,7 @@
         },
         {
             "phoneme": "/ t̬ /",
+            "shouldShow": false,
             "example_word": "city",
             "info": "ci<strong>t</strong>y",
             "short_name": "/ t̬ /",
@@ -874,8 +875,8 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>ci<strong>t̬</strong>y</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;t̬i </span> <span>/</span>",
+                    "initial": "<span>ci<strong>t̬</strong>y</span>  &nbsp;&nbsp;<span>/</span> <span>'s&#618;t̬i </span> <span>/</span>",
+                    "medial": "",
                     "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
@@ -931,9 +932,9 @@
                 {
                     "h4": "British English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>med<strong>i</strong>um</span>  &nbsp;&nbsp;<span>/</span> <span>'mi:di&#601;m</span> <span>/</span>",
-                    "final": "<span>happ<strong>y</strong></span>  &nbsp;&nbsp;<span>/</span> <span>'h&#230;pi</span> <span>/</span>",
+                    "initial": "<span>med<strong>i</strong>um</span>  &nbsp;&nbsp;<span>/</span> <span>'mi:di&#601;m</span> <span>/</span>",
+                    "medial": "<span>happ<strong>y</strong></span>  &nbsp;&nbsp;<span>/</span> <span>'h&#230;pi</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -944,9 +945,9 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>med<strong>i</strong>um</span>  &nbsp;&nbsp;<span>/</span> <span>'mi:di&#601;m</span> <span>/</span>",
-                    "final": "<span>happ<strong>y</strong></span>  &nbsp;&nbsp;<span>/</span> <span>'h&#230;pi</span> <span>/</span>",
+                    "initial": "<span>med<strong>i</strong>um</span>  &nbsp;&nbsp;<span>/</span> <span>'mi:di&#601;m</span> <span>/</span>",
+                    "medial": "<span>happ<strong>y</strong></span>  &nbsp;&nbsp;<span>/</span> <span>'h&#230;pi</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -1169,8 +1170,8 @@
                 {
                     "h4": "British English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>b<strong>oo</strong>k</span>  &nbsp;&nbsp;<span>/</span> <span>b&#650;k</span> <span>/</span>",
+                    "initial": "<span>b<strong>oo</strong>k</span>  &nbsp;&nbsp;<span>/</span> <span>b&#650;k</span> <span>/</span>",
+                    "medial": "",
                     "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
@@ -1182,8 +1183,8 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>b<strong>oo</strong>k</span>  &nbsp;&nbsp;<span>/</span> <span>b&#650;k</span> <span>/</span>",
+                    "initial": "<span>b<strong>oo</strong>k</span>  &nbsp;&nbsp;<span>/</span> <span>b&#650;k</span> <span>/</span>",
+                    "medial": "",
                     "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
@@ -1203,8 +1204,8 @@
                 {
                     "h4": "British English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>act<strong>u</strong>al</span>  &nbsp;&nbsp;<span>/</span> <span>'&#230;kt&#643;u&#601;l </span> <span>/</span>",
+                    "initial": "<span>act<strong>u</strong>al</span>  &nbsp;&nbsp;<span>/</span> <span>'&#230;kt&#643;u&#601;l </span> <span>/</span>",
+                    "medial": "",
                     "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
@@ -1216,8 +1217,8 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>act<strong>u</strong>al</span>  &nbsp;&nbsp;<span>/</span> <span>'&#230;kt&#643;u&#601;l </span> <span>/</span>",
+                    "initial": "<span>act<strong>u</strong>al</span>  &nbsp;&nbsp;<span>/</span> <span>'&#230;kt&#643;u&#601;l </span> <span>/</span>",
+                    "medial": "",
                     "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
@@ -1747,9 +1748,9 @@
                 {
                     "h4": "British English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>j<strong>u</strong>ry</span>  &nbsp;&nbsp;<span>/</span> <span>'d&#658;&#650;&#601;ri</span> <span>/</span>",
-                    "final": "<span>t<strong>our</strong></span>  &nbsp;&nbsp;<span>/</span> <span>t&#650;&#601;</span> <span>/</span>",
+                    "initial": "<span>j<strong>u</strong>ry</span>  &nbsp;&nbsp;<span>/</span> <span>'d&#658;&#650;&#601;ri</span> <span>/</span>",
+                    "medial": "<span>t<strong>our</strong></span>  &nbsp;&nbsp;<span>/</span> <span>t&#650;&#601;</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -1794,9 +1795,9 @@
                 {
                     "h4": "American English",
                     "text": "Words that include this sound:",
-                    "initial": "",
-                    "medial": "<span>j<strong>ur</strong>y</span>  &nbsp;&nbsp;<span>/</span> <span>'d&#658;&#650;ri</span> <span>/</span>",
-                    "final": "<span>t<strong>our</strong></span>  &nbsp;&nbsp;<span>/</span> <span>t&#650;r</span> <span>/</span>",
+                    "initial": "<span>j<strong>ur</strong>y</span>  &nbsp;&nbsp;<span>/</span> <span>'d&#658;&#650;ri</span> <span>/</span>",
+                    "medial": "<span>t<strong>our</strong></span>  &nbsp;&nbsp;<span>/</span> <span>t&#650;r</span> <span>/</span>",
+                    "final": "",
                     "video1": "images/video1",
                     "video2": "images/video1",
                     "video3": "images/video1",
@@ -2341,269 +2342,336 @@
             "file_name": "OALD_US_Pron_p_1_H264_big"
         },
         {
-            "value": "https://player.vimeo.com/video/918832983?byline=0&portrait=0&title=0"
+            "value": "https://player.vimeo.com/video/918832983?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_p_2_big"
         },
         {
-            "value": "https://player.vimeo.com/video/918833002?byline=0&portrait=0&title=0"
+            "value": "https://player.vimeo.com/video/918833002?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_p_3_big"
         },
         {
-            "value": "https://player.vimeo.com/video/918833017?byline=0&portrait=0&title=0"
+            "value": "https://player.vimeo.com/video/918833017?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_p_4_big"
         },
         {
-            "value": "https://player.vimeo.com/video/918833030?byline=0&portrait=0&title=0"
+            "value": "https://player.vimeo.com/video/918833030?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_p_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693904315?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_b_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918832909?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_b_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918832923?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_b_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918832938?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_b_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918832963?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_b_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693904367?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_t_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834627?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834643?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834653?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834664?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905378?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_d_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835031?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_d_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835042?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_d_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835057?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_d_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835068?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_d_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905414?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_k_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835253?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_k_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835266?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_k_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835278?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_k_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835290?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_k_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905456?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_g_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835135?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_g_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835148?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_g_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835159?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_g_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835173?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_g_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905882?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_ch_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834963?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ch_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834973?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ch_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834985?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ch_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834991?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ch_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905923?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_j_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835206?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_j_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835216?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_j_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835230?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_j_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835242?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_j_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905606?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_f_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835076?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_f_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835091?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_f_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835101?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_f_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835115?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_f_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905642?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_v_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834755?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_v_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834764?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_v_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834777?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_v_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834788?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_v_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905677?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_TH_unvoiced_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834673?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834685?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834692?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834702?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905706?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_TH_voiced_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834713?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834725?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834738?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834743?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_TH_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905735?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_s_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834530?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_s_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834542?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_s_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834554?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_s_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834568?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_s_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905784?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_z_zone_1_alt_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834911?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_z_alt_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834925?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_z_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834939?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_z_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834951?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_z_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905821?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_sh_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834580?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_sh_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834596?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_sh_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834603?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_sh_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834618?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_sh_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905852?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_Z_gilet_1_alt_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834856?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_Z_alt_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834871?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_Z_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834882?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_Z_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834896?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_Z_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693906033?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_h_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835180?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_h_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835188?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_h_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835197?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_h_4_big"
         },
         {
             "value": ""
@@ -2613,45 +2681,56 @@
             "file_name": "OALD_US_Pron_m_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835346?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_m_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835359?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_m_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835370?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_m_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835378?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_m_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905525?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_n_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835386?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_n_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835399?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_n_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835412?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_n_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835429?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_n_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905570?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_ng_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835438?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ng_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834326?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ng_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834350?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_ng_4_big"
         },
         {
             "value": ""
@@ -2661,45 +2740,56 @@
             "file_name": "OALD_US_Pron_L_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835300?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_L_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835310?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_L_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835327?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_L_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835338?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_L_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693905994?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_r_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834466?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_r_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834489?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_r_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834505?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_r_4_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834514?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_r_5_big"
         },
         {
             "value": "https://player.vimeo.com/video/693906105?byline=0&portrait=0&title=0",
             "file_name": "OALD_US_Pron_y_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834830?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_y_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834837?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_y_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834845?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_y_4_big"
         },
         {
             "value": ""
@@ -2709,13 +2799,16 @@
             "file_name": "OALD_US_Pron_w_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834801?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_w_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834811?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_w_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918834821?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_w_4_big"
         },
         {
             "value": ""
@@ -2725,13 +2818,16 @@
             "file_name": "OALD_US_Pron_chanukah_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835001?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_chanukah_2_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835011?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_chanukah_3_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/918835019?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_chanukah_4_big"
         },
         {
             "value": ""
@@ -2741,7 +2837,12 @@
             "file_name": "OALD_US_Pron_t_flapped_1_H264_big"
         },
         {
-            "value": ""
+            "value": "https://player.vimeo.com/video/708223419?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_flapped_1_H264_big"
+        },
+        {
+            "value": "https://player.vimeo.com/video/708223419?byline=0&portrait=0&title=0",
+            "file_name": "OALD_US_Pron_t_flapped_1_H264_big"
         },
         {
             "value": ""
