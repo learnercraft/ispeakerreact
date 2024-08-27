@@ -24,7 +24,7 @@ function Homepage() {
             disabled: true,
         },
         {
-            title: "Conversations (coming soon)",
+            title: "Conversations",
             description: "Improve your conversation skills. Adapt your skills in different situations.",
             icon: "/images/ispeaker/conversation_page.svg",
             path: "conversations",
