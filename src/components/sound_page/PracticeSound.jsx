@@ -432,7 +432,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <button type="button" className="btn" onClick={() => handleShow(1)}>
+                                                <button
+                                                    type="button"
+                                                    className="btn focus-ring p-1"
+                                                    onClick={() => handleShow(1)}>
                                                     <img src={imgPhonemeThumbSrc} />
                                                 </button>
                                             </Col>
@@ -485,7 +488,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <button type="button" className="btn" onClick={() => handleShow(2)}>
+                                                <button
+                                                    type="button"
+                                                    className="btn focus-ring p-1"
+                                                    onClick={() => handleShow(2)}>
                                                     <img src={imgPhonemeThumbSrc} />
                                                 </button>
                                             </Col>
@@ -541,7 +547,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <button type="button" className="btn" onClick={() => handleShow(3)}>
+                                                <button
+                                                    type="button"
+                                                    className="btn focus-ring p-1"
+                                                    onClick={() => handleShow(3)}>
                                                     <img src={imgPhonemeThumbSrc} />
                                                 </button>
                                             </Col>
@@ -596,7 +605,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                     <Card.Body>
                                         <Row>
                                             <Col xs={"auto"} className="d-flex align-items-center">
-                                                <button type="button" className="btn" onClick={() => handleShow(4)}>
+                                                <button
+                                                    type="button"
+                                                    className="btn focus-ring p-1"
+                                                    onClick={() => handleShow(4)}>
                                                     <img src={imgPhonemeThumbSrc} />
                                                 </button>
                                             </Col>
