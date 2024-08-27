@@ -427,7 +427,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                                 </svg>{" "}
                                 button to record.
                             </Card.Text>
-                            {sound.shouldShow && (
+                            {sound.shouldShow !== false && (
                                 <Card className="mb-2">
                                     <Card.Body>
                                         <Row>
