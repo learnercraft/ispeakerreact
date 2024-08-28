@@ -30,6 +30,11 @@ export function openDatabase() {
             if (!db.objectStoreNames.contains("conversation_data")) {
                 db.createObjectStore("conversation_data", { keyPath: "id" });
             }
+
+            // Create the exam_data store if it doesn't already exist
+            if (!db.objectStoreNames.contains("exam_data")) {
+                db.createObjectStore("exam_data", { keyPath: "id" });
+            }
         };
     });
 }
