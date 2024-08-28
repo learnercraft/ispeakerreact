@@ -2,7 +2,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
 import { Button, Card, Nav } from "react-bootstrap";
-import { CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
+import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
 import ListeningTab from "./ListeningTab";
@@ -52,7 +52,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             <h3 className="mt-4">Topic: {title}</h3>
             <p>Accent: {accentDisplay}</p>
             <Button variant="primary" className="my-3" onClick={onBack}>
-                Back to conversation list
+                <ArrowLeftCircle className="me-1"/> Back to conversation list
             </Button>
             <Card className="mt-2">
                 <Card.Header>

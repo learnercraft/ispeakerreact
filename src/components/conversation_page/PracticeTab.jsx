@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Floppy, PlayCircle, RecordCircle, StopCircle, Trash } from "react-bootstrap-icons";
 import { openDatabase, saveRecording, playRecording, checkRecordingExists } from "../../utils/databaseOperations";
 
 const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) => {
@@ -13,7 +14,7 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
     const textAreaRef = useRef(null);
 
     const textKey = `${accent}-${conversationId}-text`;
-    const recordingKey = `${accent}-${conversationId}-recording`;
+    const recordingKey = `${accent}-conversation-${conversationId}`;
 
     // Load saved text from IndexedDB
     useEffect(() => {
@@ -96,6 +97,8 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
+            setToastMessage("Error clearing text: " + error.message);
+            setShowToast(true);
         }
     };
 
@@ -120,6 +123,8 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                         if (mediaRecorder.state === "inactive") {
                             const audioBlob = new Blob(audioChunks, { type: event.data.type });
                             saveRecording(audioBlob, recordingKey, event.data.type);
+                            setToastMessage("Recording saved.");
+                            setShowToast(true);
                             setRecordingExists(true);
                             audioChunks = [];
                         }
@@ -202,20 +207,36 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                     />
                 </Form.Group>
                 <Button variant="primary" onClick={handleSaveText} disabled={!textValue}>
-                    Save
+                    <Floppy /> Save
                 </Button>
                 <Button variant="danger" onClick={handleClearText} className="ms-2">
-                    Clear
+                    <Trash /> Clear
                 </Button>
             </Form>
 
             <div className="mt-4">
                 <p>Use the script you have written above to record yourself. Then listen to how you sound.</p>
                 <Button variant="primary" onClick={handleRecording}>
-                    {isRecording ? "Stop Recording" : "Record"}
+                    {isRecording ? (
+                        <>
+                            <StopCircle /> Stop recording
+                        </>
+                    ) : (
+                        <>
+                            <RecordCircle /> Record
+                        </>
+                    )}
                 </Button>
                 <Button variant="success" onClick={handlePlayRecording} disabled={!recordingExists} className="ms-2">
-                    {isRecordingPlaying ? "Stop Playback" : "Play Recording"}
+                    {isRecordingPlaying ? (
+                        <>
+                            <StopCircle /> Stop playback
+                        </>
+                    ) : (
+                        <>
+                            <PlayCircle /> Play recording
+                        </>
+                    )}
                 </Button>
             </div>
         </>
