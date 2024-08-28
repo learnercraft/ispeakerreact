@@ -31,11 +31,8 @@ const TopNavBar = () => {
                             <NavLink to="/conversations" className="nav-link">
                                 Conversations
                             </NavLink>
-                            <Nav.Link href="#" disabled>
+                            <NavLink to="/exams" className="nav-link">
                                 Exams
-                            </Nav.Link>
-                            <NavLink to="/help" className="nav-link">
-                                Help
                             </NavLink>
                         </Nav>
                     </Navbar.Collapse>

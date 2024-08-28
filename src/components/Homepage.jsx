@@ -25,23 +25,16 @@ function Homepage() {
         },
         {
             title: "Conversations",
-            description: "Improve your conversation skills. Adapt your skills in different situations.",
+            description: "Improve your conversation skills for different situations.",
             icon: "/images/ispeaker/conversation_page.svg",
             path: "conversations",
         },
         {
-            title: "Exams (coming soon)",
+            title: "Exams",
             description: "Prepare yourself for different types of speaking exams.",
             icon: "/images/ispeaker/exam-speaking_page.svg",
             path: "exams",
-            disabled: true,
-        },
-        {
-            title: "Help",
-            description: "How to use the iSpeaker app.",
-            icon: "/images/ispeaker/help_page.svg",
-            path: "help",
-        },
+        }
     ];
 
     return (
@@ -52,7 +45,7 @@ function Homepage() {
                     <h1 className="fw-bold">Oxford iSpeaker</h1>
                 </Col>
             </Row>
-            <Row xs={1} md={3} className="g-4 mt-1 d-flex justify-content-center">
+            <Row xs={1} md={2} className="g-4 mt-1 d-flex justify-content-center">
                 {cardsInfo.map((card, idx) => (
                     <Col key={idx}>
                         <Card className="h-100 shadow-sm">
