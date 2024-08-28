@@ -35,6 +35,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
+                alert("Error while loading the data for this section. Please check your Internet connection.");
                 NProgress.done();
             });
     }, [id]);
