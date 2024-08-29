@@ -1,0 +1,235 @@
+{
+    "exerciseList": [
+        {
+            "heading": "Dictation",
+            "file": "exercise_dictation.json",
+            "titles": [
+                {
+                    "title": "Words",
+                    "info": "Test your listening and spelling with word dictations",
+                    "id": "words"
+                },
+                {
+                    "title": "Missing words",
+                    "info": "Listen to full sentences and write the missing words",
+                    "id": "missing-words"
+                },
+                {
+                    "title": "Sentences",
+                    "info": "Test your listening and spelling with sentence dictations",
+                    "id": "sentences"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of word and sentence dictations",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Match-up",
+            "file": "exercise_matchup.json",
+            "titles": [
+                {
+                    "title": "Similar sounds",
+                    "info": "Match the written words with the words you hear",
+                    "id": "similar-sounds"
+                },
+                {
+                    "title": "Reading phonetics",
+                    "info": "Test your knowledge of phonetics by matching the phonetic transcriptions to the words",
+                    "id": "reading-phonetics"
+                },
+                {
+                    "title": "Comprehension",
+                    "info": "Match the words to the sentences they appear in",
+                    "id": "comprehension"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of matching exercises",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Reordering",
+            "file": "exercise_reordering.json",
+            "titles": [
+                {
+                    "title": "Words",
+                    "info": "Reorder the letters to make the words you hear",
+                    "id": "words"
+                },
+                {
+                    "title": "Sentences",
+                    "info": "Reorder the words to make the sentences you hear",
+                    "id": "sentences"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of word and sentence reordering",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Sounds and spelling",
+            "file": "exercise_sound_n_spelling.json",
+            "info": "Listen and choose the correct spelling",
+            "titles": [
+                {
+                    "title": "/ iː /",
+                    "id": "i-long"
+                },
+                {
+                    "title": "/ əʊ /",
+                    "id": "ou-gb"
+                },
+                {
+                    "title": "/ oʊ /",
+                    "id": "ou-us"
+                },
+                {
+                    "title": "/ ə /",
+                    "id": "er"
+                },
+                {
+                    "title": "/ ɔː /",
+                    "id": "o-gb"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "/ ɔː(r) /",
+                    "id": "or-us"
+                },
+                {
+                    "title": "Random",
+                    "id": "random",
+                    "info-random": "A mixture of sounds and spelling questions"
+                }
+            ]
+        },
+        {
+            "heading": "Sorting",
+            "file": "exercise_sorting.json",
+            "titles": [
+                {
+                    "title": "Similar sounds",
+                    "info": "Group together words with the same sound",
+                    "id": "similar-sounds"
+                },
+                {
+                    "title": "Word stress",
+                    "info": "Group together words with the same stress pattern",
+                    "id": "word-stress"
+                },
+                {
+                    "title": "Syllables",
+                    "info": "Group together words that have the same number of syllables",
+                    "id": "syllables"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of grouping questions",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Odd one out",
+            "file": "exercise_odd_one_out.json",
+            "titles": [
+                {
+                    "title": "Word stress",
+                    "info": "Find the word that has a different stress pattern from the other",
+                    "id": "word-stress"
+                },
+                {
+                    "title": "Rhyming words",
+                    "info": "Find the word that ends in a different sounds from the others",
+                    "id": "rhyming"
+                },
+                {
+                    "title": "Syllables",
+                    "info": "Find the word that has a different number of syllables from the others",
+                    "id": "syllables"
+                },
+                {
+                    "title": "Random",
+                    "info": "Find the word that has a different stress pattern from the others",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Snap!",
+            "file": "exercise_snap.json",
+            "titles": [
+                {
+                    "title": "Reading phonetics",
+                    "info": "Does the phonetic transcription match the word?",
+                    "id": "reading-phonetics"
+                },
+                {
+                    "title": "Homophones",
+                    "info": "Do the two words sound the same or different?",
+                    "id": "homophones"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of homophones and phonetics matching questions",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "Memory match",
+            "file": "exercise_memory_match.json",
+            "titles": [
+                {
+                    "title": "Rhyming words",
+                    "info": "Find words that end in the same sound",
+                    "id": "rhyming"
+                },
+                {
+                    "title": "Homophones",
+                    "info": "Find words that sound the same but have different spellings",
+                    "id": "homophones"
+                },
+                {
+                    "title": "Random",
+                    "info": "A mixture of homophone and rhyming matches",
+                    "id": "random"
+                }
+            ]
+        }
+    ]
+}
