@@ -1,4 +1,12 @@
-import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import {
+    closestCenter,
+    DndContext,
+    KeyboardSensor,
+    PointerSensor,
+    TouchSensor,
+    useSensor,
+    useSensors,
+} from "@dnd-kit/core";
 import {
     arrayMove,
     SortableContext,
@@ -40,6 +48,10 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
     const sensors = useSensors(
         useSensor(PointerSensor),
+        useSensor(TouchSensor, {
+            // Prevent scrolling while dragging on touch devices
+            preventScrolling: true,
+        }),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         })
