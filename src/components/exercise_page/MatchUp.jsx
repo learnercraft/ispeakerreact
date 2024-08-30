@@ -90,8 +90,10 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         const updatedCorrectArray = [...isCorrectArray];
 
         shuffledWords.forEach((word, index) => {
-            const audioSrc = audioItems[index].src.split("_")[0];
-            const isCorrect = word.text.toLowerCase() === audioSrc.toLowerCase();
+            const audioSrc = audioItems[index].src.split("_")[0].toLowerCase();
+            const wordText = word.text.toLowerCase();
+
+            const isCorrect = wordText === audioSrc;
             updatedCorrectArray[index] = isCorrect;
 
             if (isCorrect) {
@@ -101,6 +103,8 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
         setIsCorrectArray(updatedCorrectArray);
         setButtonsDisabled(true);
+
+        // Notify parent component with the results
         onAnswer(correctCount, "multiple", shuffledWords.length);
     };
 
@@ -163,7 +167,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                     </Row>
                 </DndContext>
                 <div className="d-flex justify-content-end mt-3">
-                    <Button variant="success" onClick={handleSubmit}>
+                    <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
                         Submit
                     </Button>
                     {currentQuizIndex < shuffledQuiz.length - 1 && (
