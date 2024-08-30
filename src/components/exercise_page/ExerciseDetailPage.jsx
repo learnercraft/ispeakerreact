@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, Col, Row, Button } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRepeat } from "react-bootstrap-icons";
 import DictationQuiz from "./DictationQuiz";
+import MatchUp from "./MatchUp";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 
@@ -33,7 +34,7 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
                         // Handle the "random" exercise
                         let combinedQuizzes = [];
 
-                        data.dictation.forEach((exercise) => {
+                        data[exerciseKey].forEach((exercise) => {
                             if (exercise.id !== "random") {
                                 const selectedAccentData =
                                     accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
@@ -78,10 +79,17 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
         fetchExerciseData();
     }, [fetchExerciseData]);
 
-    const handleAnswer = (isCorrect) => {
-        setTotalAnswered((prev) => prev + 1);
-        if (isCorrect) {
-            setScore((prev) => prev + 1);
+    const handleAnswer = (correctCountOrBoolean, quizType = "single", quizAnswerNum = 1) => {
+        if (quizType === "single") {
+            // For single answer quizzes like DictationQuiz
+            setTotalAnswered((prev) => prev + 1);
+            if (correctCountOrBoolean) {
+                setScore((prev) => prev + 1);
+            }
+        } else if (quizType === "multiple") {
+            // For multiple answer quizzes like MatchUp
+            setTotalAnswered((prev) => prev + quizAnswerNum);
+            setScore((prev) => prev + correctCountOrBoolean);
         }
     };
 
@@ -129,6 +137,10 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
                         onAnswer={handleAnswer}
                         onQuit={handleQuizQuit}
                     />
+                );
+            case "matchup":
+                return (
+                    <MatchUp quiz={quiz} instructions={instructions} onAnswer={handleAnswer} onQuit={handleQuizQuit} />
                 );
             // Add more cases for other exercise types
             default:
@@ -185,6 +197,7 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
                             ""
                         ) : (
                             <Card className="mt-4 shadow-sm">
+                                <Card.Header className="fw-semibold">Review</Card.Header>
                                 <Card.Body>
                                     <p>
                                         You have answered {score} out of {totalAnswered} correctly.

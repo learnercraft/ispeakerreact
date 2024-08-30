@@ -51,7 +51,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         const correctAnswer = textboxWord.textbox.toLowerCase();
         const isCorrect = answer.trim().toLowerCase() === correctAnswer;
 
-        onAnswer(isCorrect); // Notify parent of the answer
+        onAnswer(isCorrect, "single"); // Notify parent of the answer
         setIsTextboxDisabled(true); // Disable the textbox
         setIsSubmitButtonEnabled(true);
         setHasAnswered(true);
@@ -69,7 +69,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     const nextQuestion = () => {
         if ((!hasAnswered && answer.trim() === "") || !hasAnswered) {
-            onAnswer(false);
+            onAnswer(false, "single");
         }
 
         if (currentQuestionIndex < shuffledQuiz.length - 1) {
@@ -168,7 +168,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question {currentQuestionIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">Question #{currentQuestionIndex + 1}</Card.Header>
             <Card.Body>
                 <Button variant="primary" size="lg" onClick={handleAudioPlay} className="mb-3" disabled={isLoading}>
                     {isLoading ? <Spinner animation="border" size="sm" /> : isPlaying ? <VolumeUpFill /> : <VolumeUp />}
