@@ -22,7 +22,7 @@ const SortableWord = ({ word, isCorrect, disabled }) => {
             {...attributes}
             {...listeners}
             variant={isCorrect === null ? "light" : isCorrect ? "success" : "danger"}
-            className="mb-3 w-100"
+            className="mb-3 w-100 fw-bold"
             disabled={disabled}>
             {he.decode(word.text)}
         </Button>
