@@ -122,6 +122,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
+            autoScroll={{ layoutShiftCompensation: false, enable: false }}
             onDragEnd={({ active, over }) => {
                 if (active.id !== over.id) {
                     setShuffledWords((items) => {

@@ -7,9 +7,10 @@ const SortableWord = ({ word, isCorrect, disabled }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: word.text });
 
     const style = {
-        transform: CSS.Transform.toString(transform),
+        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         transition,
         cursor: disabled ? "not-allowed" : "move",
+        touchAction: "manipulation", // Prevent scrolling during touch interactions
     };
 
     return (
