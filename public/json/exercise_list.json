@@ -84,11 +84,13 @@
                 },
                 {
                     "title": "/ əʊ /",
-                    "id": "ou-gb"
+                    "id": "ou-gb",
+                    "american": false
                 },
                 {
                     "title": "/ oʊ /",
-                    "id": "ou-us"
+                    "id": "ou-us",
+                    "british": false
                 },
                 {
                     "title": "/ ə /",
@@ -96,39 +98,45 @@
                 },
                 {
                     "title": "/ ɔː /",
-                    "id": "o-gb"
+                    "id": "o-gb",
+                    "american": false
                 },
                 {
                     "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "id": "or-us",
+                    "british": false
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ ɜː /",
+                    "id": "er-gb",
+                    "american": false
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ ɜːr /",
+                    "id": "er-us",
+                    "british": false
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ ɪə(r) /",
+                    "id": "ear-gb",
+                    "american": false
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ ɪr /",
+                    "id": "ear-us",
+                    "british": false
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ uː /",
+                    "id": "u-long"
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ eɪ /",
+                    "id": "ay"
                 },
                 {
-                    "title": "/ ɔː(r) /",
-                    "id": "or-us"
+                    "title": "/ aɪ /",
+                    "id": "eye"
                 },
                 {
                     "title": "Random",

@@ -17,11 +17,10 @@ function Homepage() {
             path: "sounds",
         },
         {
-            title: "Exercises (coming soon)",
+            title: "Exercises (beta)",
             description: "Practice listening to sounds and sentences in various exercise types.",
             icon: "/images/ispeaker/exercises_page.svg",
             path: "exercises",
-            disabled: true,
         },
         {
             title: "Conversations",

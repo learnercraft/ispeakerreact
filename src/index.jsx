@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Homepage from "./components/Homepage";
+import ExcercisePage from "./components/exercise_page/ExercisePage";
 import SoundList from "./components/sound_page/SoundList";
 import ConversationMenu from "./components/conversation_page/ConversationMenu";
 import ExamPage from "./components/exam_page/ExamPage";
@@ -20,6 +21,7 @@ root.render(
                     <Route path="/sounds" element={<SoundList />} />
                     <Route path="/conversations" element={<ConversationMenu />} />
                     <Route path="/exams" element={<ExamPage />} />
+                    <Route path="/exercises" element={<ExcercisePage />} />
                 </Routes>
             </Router>
             <ThemeProvider>
