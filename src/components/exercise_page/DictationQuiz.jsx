@@ -68,11 +68,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
     };
 
     const nextQuestion = () => {
-        if (!hasAnswered && answer.trim() === "") {
-            // Skipped the question, no count
-            // Do nothing in terms of counting
-        } else if (!hasAnswered) {
-            // Skipped the question but had an answer, count as incorrect
+        if ((!hasAnswered && answer.trim() === "") || !hasAnswered) {
             onAnswer(false);
         }
 
