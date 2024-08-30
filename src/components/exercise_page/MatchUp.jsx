@@ -43,7 +43,9 @@ const DraggableWord = ({ word, index, moveWord, isCorrect, disabled }) => {
     );
 };
 
-const MatchUp = ({ quiz, instructions, onAnswer, onQuit }) => {
+const isTouchScreen = isTouchDevice() ? TouchBackend : HTML5Backend;
+
+const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledWords, setShuffledWords] = useState([]);
@@ -149,7 +151,7 @@ const MatchUp = ({ quiz, instructions, onAnswer, onQuit }) => {
     };
 
     return (
-        <DndProvider backend={isTouchDevice() ? TouchBackend : HTML5Backend}>
+        <DndProvider backend={isTouchScreen}>
             <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
             <Card.Body>
                 <Row className="d-flex justify-content-center">
