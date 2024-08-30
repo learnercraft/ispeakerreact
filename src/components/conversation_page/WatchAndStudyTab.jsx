@@ -16,7 +16,7 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
         <div>
             <Row className="mb-4 g-4">
                 <Col md={6}>
-                    <Card>
+                    <Card className="shadow-sm">
                         <Card.Header className="fw-semibold">Watch the video</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">

@@ -184,7 +184,7 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
                         {quizCompleted ? (
                             ""
                         ) : (
-                            <Card className="mt-4">
+                            <Card className="mt-4 shadow-sm">
                                 <Card.Body>
                                     <p>
                                         You have answered {score} out of {totalAnswered} correctly.

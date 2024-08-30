@@ -71,7 +71,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                 </Col>
             </Row>
 
-            <Card className="mt-2">
+            <Card className="mt-2 shadow-sm">
                 <Card.Header>
                     <Nav variant="pills" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)}>
                         <Nav.Item>
