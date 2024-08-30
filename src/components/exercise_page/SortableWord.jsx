@@ -11,6 +11,8 @@ const SortableWord = ({ word, isCorrect, disabled }) => {
         transition,
         cursor: disabled ? "not-allowed" : "move",
         touchAction: "manipulation", // Prevent scrolling during touch interactions
+        userSelect: "none", // Prevent text selection
+        WebkitUserDrag: "none", // Prevent dragging the element as a browser action (Safari)
     };
 
     return (
