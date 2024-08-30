@@ -119,47 +119,49 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     };
 
     return (
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            autoScroll={{ layoutShiftCompensation: false, enable: false }}
-            onDragEnd={({ active, over }) => {
-                if (active.id !== over.id) {
-                    setShuffledWords((items) => {
-                        const oldIndex = items.findIndex((item) => item.text === active.id);
-                        const newIndex = items.findIndex((item) => item.text === over.id);
-                        return arrayMove(items, oldIndex, newIndex);
-                    });
-                }
-            }}>
+        <>
             <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
             <Card.Body>
-                <Row className="d-flex justify-content-center">
-                    <Col xs={2} md={2} className="d-flex justify-content-end">
-                        <div>
-                            {audioItems.map((audio, index) => (
-                                <div key={index} className="mb-3">
-                                    <Button variant="primary" onClick={() => handleAudioPlay(audio.src, index)}>
-                                        {isPlaying === index ? <VolumeUpFill /> : <VolumeUp />}
-                                    </Button>
-                                </div>
-                            ))}
-                        </div>
-                    </Col>
-                    <Col xs={6} md={4}>
-                        <SortableContext items={shuffledWords} strategy={verticalListSortingStrategy}>
-                            {shuffledWords.map((word, index) => (
-                                <SortableWord
-                                    key={word.text}
-                                    word={word}
-                                    index={index}
-                                    isCorrect={isCorrectArray[index]}
-                                    disabled={buttonsDisabled}
-                                />
-                            ))}
-                        </SortableContext>
-                    </Col>
-                </Row>
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    autoScroll={{ layoutShiftCompensation: false, enable: false }}
+                    onDragEnd={({ active, over }) => {
+                        if (active.id !== over.id) {
+                            setShuffledWords((items) => {
+                                const oldIndex = items.findIndex((item) => item.text === active.id);
+                                const newIndex = items.findIndex((item) => item.text === over.id);
+                                return arrayMove(items, oldIndex, newIndex);
+                            });
+                        }
+                    }}>
+                    <Row className="d-flex justify-content-center">
+                        <Col xs={2} md={2} className="d-flex justify-content-end">
+                            <div>
+                                {audioItems.map((audio, index) => (
+                                    <div key={index} className="mb-3">
+                                        <Button variant="primary" onClick={() => handleAudioPlay(audio.src, index)}>
+                                            {isPlaying === index ? <VolumeUpFill /> : <VolumeUp />}
+                                        </Button>
+                                    </div>
+                                ))}
+                            </div>
+                        </Col>
+                        <Col xs={6} md={4}>
+                            <SortableContext items={shuffledWords} strategy={verticalListSortingStrategy}>
+                                {shuffledWords.map((word, index) => (
+                                    <SortableWord
+                                        key={word.text}
+                                        word={word}
+                                        index={index}
+                                        isCorrect={isCorrectArray[index]}
+                                        disabled={buttonsDisabled}
+                                    />
+                                ))}
+                            </SortableContext>
+                        </Col>
+                    </Row>
+                </DndContext>
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="success" onClick={handleSubmit}>
                         Submit
@@ -174,7 +176,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                     </Button>
                 </div>
             </Card.Body>
-        </DndContext>
+        </>
     );
 };
 
