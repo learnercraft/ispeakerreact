@@ -221,9 +221,9 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
     return (
         <>
             <Row>
-                <Col md={9}>
+                <Col md={8}>
                     {taskData.map((task, taskIndex) => (
-                        <Card className="mb-4" key={taskIndex}>
+                        <Card className="mb-4 shadow-sm" key={taskIndex}>
                             <Card.Header className="fw-semibold">Task {taskIndex + 1}</Card.Header>
                             <Card.Body>
                                 <Row className="g-4 d-flex justify-content-center">
@@ -329,33 +329,37 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                     ))}
                 </Col>
                 <Col>
-                    <h4 className="fw-semibold">Tips</h4>
-                    <Accordion className="mt-2" alwaysOpen>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <div className="fw-semibold">Dos</div>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ul>
-                                    {tips.dos.map((tip, index) => (
-                                        <li key={index}>{tip}</li>
-                                    ))}
-                                </ul>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>
-                                <div className="fw-semibold">Don’ts</div>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ul>
-                                    {tips.donts.map((tip, index) => (
-                                        <li key={index}>{tip}</li>
-                                    ))}
-                                </ul>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
+                    <Card className="shadow-sm">
+                        <Card.Header className="fw-semibold">Tips</Card.Header>
+                        <Card.Body>
+                            <Accordion className="mt-2" alwaysOpen>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>
+                                        <div className="fw-semibold">Dos</div>
+                                    </Accordion.Header>
+                                    <Accordion.Body>
+                                        <ul className="ps-4">
+                                            {tips.dos.map((tip, index) => (
+                                                <li className="mb-3" key={index}>{tip}</li>
+                                            ))}
+                                        </ul>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                                <Accordion.Item eventKey="1">
+                                    <Accordion.Header>
+                                        <div className="fw-semibold">Don’ts</div>
+                                    </Accordion.Header>
+                                    <Accordion.Body>
+                                        <ul className="ps-4">
+                                            {tips.donts.map((tip, index) => (
+                                                <li className="mb-3" key={index}>{tip}</li>
+                                            ))}
+                                        </ul>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
 

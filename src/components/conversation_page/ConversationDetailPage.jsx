@@ -54,7 +54,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             <Button variant="primary" className="my-3" onClick={onBack}>
                 <ArrowLeftCircle className="me-1"/> Back to conversation list
             </Button>
-            <Card className="mt-2">
+            <Card className="mt-2 shadow-sm">
                 <Card.Header>
                     <Nav variant="pills" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)}>
                         <Nav.Item>

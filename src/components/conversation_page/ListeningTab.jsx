@@ -87,7 +87,7 @@ const ListeningTab = ({ sentences }) => {
             <Row className="g-4">
                 {sentences.map((subtopic, index) => (
                     <Col key={index}>
-                        <Card>
+                        <Card className="shadow-sm">
                             <Card.Header>
                                 <div className="fw-semibold">{subtopic.title}</div>
                             </Card.Header>

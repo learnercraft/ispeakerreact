@@ -407,7 +407,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     </Button>
                 </Col>
                 <Col lg={9}>
-                    <Card className="mb-4">
+                    <Card className="mb-4 shadow-sm">
                         <Card.Header className="fw-semibold">Watch</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
@@ -415,7 +415,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                             </Ratio>
                         </Card.Body>
                     </Card>
-                    <Card className="mb-4">
+                    <Card className="mb-4 shadow-sm">
                         <Card.Header className="fw-semibold">Practice</Card.Header>
                         <Card.Body>
                             <Card.Text>
