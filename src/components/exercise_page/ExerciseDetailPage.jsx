@@ -93,7 +93,6 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
         setScore(0);
         setTotalAnswered(0);
         setQuizCompleted(false);
-        fetchExerciseData();
     };
 
     const getEncouragementMessage = () => {
