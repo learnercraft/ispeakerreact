@@ -25,9 +25,9 @@ const TopNavBar = () => {
                             <NavLink to="/sounds" className="nav-link">
                                 Sounds
                             </NavLink>
-                            <Nav.Link href="#" disabled>
+                            <NavLink to="/exercises" className="nav-link">
                                 Exercises
-                            </Nav.Link>
+                            </NavLink>
                             <NavLink to="/conversations" className="nav-link">
                                 Conversations
                             </NavLink>
