@@ -4,7 +4,7 @@ import { EmojiSmile, EmojiNeutral, EmojiFrown } from "react-bootstrap-icons";
 
 const ReviewCard = ({ sound, handleReviewClick, emojiStyle }) => {
     return (
-        <Card>
+        <Card className="shadow-sm">
             <Card.Header className="fw-semibold">Review</Card.Header>
             <Card.Body>
                 <Card.Text>How do you pronounce the sound {he.decode(sound.phoneme)}?</Card.Text>

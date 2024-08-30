@@ -58,7 +58,7 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
 
     return (
         <>
-            <Card className="mb-4">
+            <Card className="mb-4 shadow-sm">
                 <Card.Header className="fw-semibold">Task</Card.Header>
                 <Card.Body>
                     <Row className="g-4 d-flex justify-content-center">
@@ -91,7 +91,7 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
             </Card>
             <Row className="g-4">
                 <Col md={6}>
-                    <Card>
+                    <Card className="shadow-sm">
                         <Card.Header className="fw-semibold">Watch the video</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
