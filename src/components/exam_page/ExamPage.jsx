@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Dropdown, Row, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, Col, Row, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
+import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import AccentDropdown from "../general/AccentDropdown";
 import TopNavBar from "../general/TopNavBar";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ExamDetailPage from "./ExamDetailPage";
@@ -10,16 +12,8 @@ import "nprogress/nprogress.css";
 const ExamPage = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedAccent, setSelectedAccent] = useState(() => {
-        const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
-        return savedSettings?.selectedAccent || "american";
-    });
+    const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedExam, setSelectedExam] = useState(null);
-
-    const selectedAccentOptions = [
-        { name: "American English", value: "american" },
-        { name: "British English", value: "british" },
-    ];
 
     const TooltipIcon = ({ exam_popup }) => (
         <OverlayTrigger
@@ -104,22 +98,7 @@ const ExamPage = () => {
                 />
             ) : (
                 <>
-                    <Dropdown className="my-4">
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <span className="fw-semibold">Accent:</span>{" "}
-                            {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {selectedAccentOptions.map((item) => (
-                                <Dropdown.Item
-                                    key={item.value}
-                                    onClick={() => setSelectedAccent(item.value)}
-                                    active={selectedAccent === item.value}>
-                                    {item.name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <AccentDropdown onAccentChange={setSelectedAccent} />
                     <p>Select an exam task to get started.</p>
                     {loading ? (
                         <LoadingOverlay />
