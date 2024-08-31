@@ -1,17 +1,19 @@
 import { useSortable } from "@dnd-kit/sortable";
-import he from "he";
+import { CSS } from "@dnd-kit/utilities";
 import { Button } from "react-bootstrap";
+import he from "he";
 
 const SortableWord = ({ word, isCorrect, disabled }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: word.text });
 
     const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        transform: CSS.Transform.toString(transform),
         transition,
+        touchAction: "none", // Prevents default touch behavior
         cursor: disabled ? "not-allowed" : "move",
-        touchAction: "manipulation", // Prevent scrolling during touch interactions
         userSelect: "none", // Prevent text selection
         WebkitUserDrag: "none", // Prevent dragging the element as a browser action (Safari)
+        WebkitTouchCallout: "none" // Prevent showing callout on touching and dragging
     };
 
     return (
