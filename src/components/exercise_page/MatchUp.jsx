@@ -28,6 +28,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const [isPlaying, setIsPlaying] = useState(null);
     const [isCorrectArray, setIsCorrectArray] = useState([]);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
+    const [originalPairs, setOriginalPairs] = useState([]); // Store the original pairs
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
@@ -58,10 +59,20 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     );
 
     const loadQuiz = (quizData) => {
-        const shuffled = ShuffleArray([...quizData.words]);
-        setShuffledWords(shuffled);
-        setAudioItems(quizData.audio);
-        setIsCorrectArray(new Array(shuffled.length).fill(null));
+        // Store the original pairs for checking answers
+        const pairs = quizData.audio.map((audio, index) => ({
+            audio: audio.src.split("_")[0].toLowerCase(),
+            word: quizData.words[index].text.toLowerCase(),
+        }));
+        setOriginalPairs(pairs);
+
+        // Shuffle words and audio independently
+        const shuffledWordsArray = ShuffleArray([...quizData.words]);
+        const shuffledAudioArray = ShuffleArray([...quizData.audio]);
+
+        setShuffledWords(shuffledWordsArray);
+        setAudioItems(shuffledAudioArray);
+        setIsCorrectArray(new Array(shuffledWordsArray.length).fill(null));
         setButtonsDisabled(false);
     };
 
@@ -93,7 +104,9 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             const audioSrc = audioItems[index].src.split("_")[0].toLowerCase();
             const wordText = word.text.toLowerCase();
 
-            const isCorrect = wordText === audioSrc;
+            // Compare the shuffled pair with the original pair
+            const isCorrect = originalPairs.some((pair) => pair.audio === audioSrc && pair.word === wordText);
+
             updatedCorrectArray[index] = isCorrect;
 
             if (isCorrect) {
@@ -104,7 +117,6 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         setIsCorrectArray(updatedCorrectArray);
         setButtonsDisabled(true);
 
-        // Notify parent component with the results
         onAnswer(correctCount, "multiple", shuffledWords.length);
     };
 
@@ -126,31 +138,31 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         <>
             <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
             <Card.Body>
-                <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    autoScroll={{ layoutShiftCompensation: false, enable: false }}
-                    onDragEnd={({ active, over }) => {
-                        if (active.id !== over.id) {
-                            setShuffledWords((items) => {
-                                const oldIndex = items.findIndex((item) => item.text === active.id);
-                                const newIndex = items.findIndex((item) => item.text === over.id);
-                                return arrayMove(items, oldIndex, newIndex);
-                            });
-                        }
-                    }}>
-                    <Row className="d-flex justify-content-center">
-                        <Col xs={2} md={2} className="d-flex justify-content-end">
-                            <div>
-                                {audioItems.map((audio, index) => (
-                                    <div key={index} className="mb-3">
-                                        <Button variant="primary" onClick={() => handleAudioPlay(audio.src, index)}>
-                                            {isPlaying === index ? <VolumeUpFill /> : <VolumeUp />}
-                                        </Button>
-                                    </div>
-                                ))}
-                            </div>
-                        </Col>
+                <Row className="d-flex justify-content-center">
+                    <Col xs={2} md={2} className="d-flex justify-content-end">
+                        <div>
+                            {audioItems.map((audio, index) => (
+                                <div key={index} className="mb-3">
+                                    <Button variant="primary" onClick={() => handleAudioPlay(audio.src, index)}>
+                                        {isPlaying === index ? <VolumeUpFill /> : <VolumeUp />}
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
+                    </Col>
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        autoScroll={{ layoutShiftCompensation: false, enable: false }}
+                        onDragEnd={({ active, over }) => {
+                            if (active.id !== over.id) {
+                                setShuffledWords((items) => {
+                                    const oldIndex = items.findIndex((item) => item.text === active.id);
+                                    const newIndex = items.findIndex((item) => item.text === over.id);
+                                    return arrayMove(items, oldIndex, newIndex);
+                                });
+                            }
+                        }}>
                         <Col xs={6} md={4}>
                             <SortableContext items={shuffledWords} strategy={verticalListSortingStrategy}>
                                 {shuffledWords.map((word, index) => (
@@ -164,8 +176,9 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                                 ))}
                             </SortableContext>
                         </Col>
-                    </Row>
-                </DndContext>
+                    </DndContext>
+                </Row>
+
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
                         Submit
