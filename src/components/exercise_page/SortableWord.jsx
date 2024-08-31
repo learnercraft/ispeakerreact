@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import he from "he";
 
 const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: word.text });
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: word.id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -19,7 +19,6 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
         boxShadow: isDragging ? "0 4px 8px rgba(0, 0, 0, 0.2)" : "none",
         ...(!isOverlay && {
             marginBottom: "1rem",
-            width: "100%",
         }),
     };
 
@@ -32,7 +31,7 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
             {...attributes}
             {...listeners}
             variant={variant}
-            className="mb-3 w-100 fw-bold"
+            className="mb-2 fw-bold"
             disabled={disabled}>
             {he.decode(word.text)}
         </Button>

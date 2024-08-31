@@ -3,12 +3,14 @@ import { Card, Col, Row, Button } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRepeat } from "react-bootstrap-icons";
 import DictationQuiz from "./DictationQuiz";
 import MatchUp from "./MatchUp";
+import Reordering from "./Reordering";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
     const [quiz, setQuiz] = useState([]);
+    const [split, setSplit] = useState("");
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [totalAnswered, setTotalAnswered] = useState(0);
@@ -31,7 +33,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
                 if (exerciseDetails) {
                     if (id === "random") {
-                        // Handle the "random" exercise
                         let combinedQuizzes = [];
 
                         data[exerciseKey].forEach((exercise) => {
@@ -40,13 +41,19 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                     accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
 
                                 if (selectedAccentData) {
-                                    combinedQuizzes = combinedQuizzes.concat(selectedAccentData.quiz);
+                                    combinedQuizzes = combinedQuizzes.concat(
+                                        selectedAccentData.quiz.map((quiz) => ({
+                                            ...quiz,
+                                            split: exercise.split, // Correctly apply the split from the exercise level
+                                        }))
+                                    );
                                 }
                             }
                         });
 
                         const shuffledCombinedQuizzes = ShuffleArray(combinedQuizzes);
                         setQuiz(shuffledCombinedQuizzes);
+
                         const selectedAccentData =
                             accent === "American English"
                                 ? exerciseDetails.american?.[0]
@@ -61,7 +68,12 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
                         if (selectedAccentData) {
                             setInstructions(selectedAccentData.instructions || []);
-                            setQuiz(selectedAccentData.quiz || []);
+                            setQuiz(
+                                selectedAccentData.quiz.map((quiz) => ({
+                                    ...quiz,
+                                    split: exerciseDetails.split,
+                                }))
+                            );
                         }
                     }
                 }
@@ -141,6 +153,16 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             case "matchup":
                 return (
                     <MatchUp quiz={quiz} instructions={instructions} onAnswer={handleAnswer} onQuit={handleQuizQuit} />
+                );
+            case "reordering":
+                return (
+                    <Reordering
+                        quiz={quiz}
+                        instructions={instructions}
+                        onAnswer={handleAnswer}
+                        onQuit={handleQuizQuit}
+                        split={split}
+                    />
                 );
             // Add more cases for other exercise types
             default:
