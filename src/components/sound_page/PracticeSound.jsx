@@ -390,7 +390,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         <>
             <Row className="mt-4">
                 <Col lg={3} className="mb-4">
-                    <h4>Sound {he.decode(sound.phoneme)}</h4>
+                    <h3>Sound {he.decode(sound.phoneme)}</h3>
                     <p>Accent: {accent.charAt(0).toUpperCase() + accent.slice(1)} English</p>
                     {accentData && (
                         <>
