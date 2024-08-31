@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ListGroup, Row, Col, Spinner, Card } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import ToastNotification from "../general/ToastNotification";
@@ -14,69 +14,89 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
 
     const subtopics = currentAccent === "american" ? subtopicsAme : subtopicsBre;
 
-    const handlePlayPause = (idx, audioSrc) => {
-        if (loadingIndex === idx) {
+    const handlePlayPause = (index, audioSrc) => {
+        if (loadingIndex === index) {
+            // Cancel the loading process if clicked again
+            if (abortController.current) {
+                abortController.current.abort();
+            }
+            setLoadingIndex(null);
             return;
         }
 
-        if (playingIndex === idx) {
-            // Stop playing if clicked again
+        if (playingIndex === index) {
+            // Stop current audio if the same index is clicked
             if (currentAudio) {
                 currentAudio.pause();
                 setPlayingIndex(null);
                 setCurrentAudio(null);
             }
         } else {
-            // Start loading the new audio
+            // Stop any currently playing audio
             if (currentAudio) {
                 currentAudio.pause();
             }
 
-            const audio = new Audio();
-            // Set audio source and load it
-            audio.src = `/media/exam/mp3/${audioSrc}.mp3`;
-            audio.load();
+            // Set loading state
+            setLoadingIndex(index);
 
-            setLoadingIndex(idx);
-            audio.oncanplaythrough = () => {
-                setLoadingIndex(null);
-                setCurrentAudio(audio);
-                setPlayingIndex(idx);
-                audio.play();
-            };
-            audio.onerror = () => {
-                audio.src = `/media/exam/ogg/${audioSrc}.ogg`;
-                audio.type = "audio/ogg";
-                audio.load();
-                audio.oncanplaythrough = () => {
-                    setLoadingIndex(null);
+            // AbortController to manage cancellation
+            const controller = new AbortController();
+            abortController.current = controller;
+            const signal = controller.signal;
+
+            // Fetch the audio file
+            fetch(`/media/exam/mp3/${audioSrc}.mp3`, { signal })
+                .then((response) => response.blob())
+                .then((audioBlob) => {
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+
+                    // Explicitly load the audio (for iOS < 17)
+                    audio.load();
+
+                    audio.oncanplaythrough = () => {
+                        setLoadingIndex(null);
+                        setCurrentAudio(audio);
+                        setPlayingIndex(index);
+                        audio.play();
+                    };
+
+                    audio.onended = () => {
+                        setCurrentAudio(null);
+                        setPlayingIndex(null);
+                        URL.revokeObjectURL(audioUrl);
+                    };
+
                     setCurrentAudio(audio);
-                    setPlayingIndex(idx);
-                    audio.play();
-                };
-                audio.onerror = () => {
+                })
+                .catch((error) => {
+                    if (error.name === "AbortError") {
+                        console.log("Audio loading aborted");
+                    } else {
+                        console.error("Error loading audio:", error);
+                        setToastMessage(
+                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
+                        );
+                        setShowToast(true);
+                    }
                     setLoadingIndex(null);
                     setCurrentAudio(null);
                     setPlayingIndex(null);
-                    setToastMessage(
-                        "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                    );
-                    setShowToast(true);
-                };
-            };
-            audio.onended = () => {
-                setPlayingIndex(null);
-                setCurrentAudio(null);
-            };
+                });
         }
     };
 
+    const abortController = useRef(null);
+
     useEffect(() => {
         return () => {
+            if (abortController.current) {
+                abortController.current.abort();
+            }
             if (currentAudio) {
                 currentAudio.pause();
                 setCurrentAudio(null);
-                setPlayingIndex(null);
             }
         };
     }, [currentAudio]);
