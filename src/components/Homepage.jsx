@@ -12,26 +12,26 @@ function Homepage() {
     const cardsInfo = [
         {
             title: "Sounds",
-            description: "Watch videos and practice pronouncing sounds in British and American English.",
-            icon: "/images/ispeaker/sound_page.svg",
+            description: "Watch videos and practice pronouncing sounds.",
+            icon: "/images/ispeaker/menu/sound_menu_icon.svg",
             path: "sounds",
         },
         {
             title: "Exercises (beta)",
             description: "Practice listening to sounds and sentences in various exercise types.",
-            icon: "/images/ispeaker/exercises_page.svg",
+            icon: "/images/ispeaker/menu/exercise_menu_icon.svg",
             path: "exercises",
         },
         {
             title: "Conversations",
             description: "Improve your conversation skills for different situations.",
-            icon: "/images/ispeaker/conversation_page.svg",
+            icon: "/images/ispeaker/menu/conversation_menu_icon.svg",
             path: "conversations",
         },
         {
             title: "Exams",
             description: "Prepare yourself for different types of speaking exams.",
-            icon: "/images/ispeaker/exam-speaking_page.svg",
+            icon: "/images/ispeaker/menu/exam_menu_icon.svg",
             path: "exams",
         }
     ];
