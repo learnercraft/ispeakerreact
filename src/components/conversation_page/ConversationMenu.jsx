@@ -1,26 +1,19 @@
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
-import { Card, Col, OverlayTrigger, Row, Tooltip, Dropdown, Button } from "react-bootstrap";
+import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
+import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import AccentDropdown from "../general/AccentDropdown";
+import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
 import ConversationDetailPage from "./ConversationDetailPage";
-import LoadingOverlay from "../general/LoadingOverlay";
 
 const ConversationListPage = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const [selectedAccent, setSelectedAccent] = useState(() => {
-        const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
-        return savedSettings?.selectedAccent || "american";
-    });
+    const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedConversation, setSelectedConversation] = useState(null);
-
-    const selectedAccentOptions = [
-        { name: "American English", value: "american" },
-        { name: "British English", value: "british" },
-    ];
 
     const TooltipIcon = ({ info }) => (
         <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
@@ -107,22 +100,7 @@ const ConversationListPage = () => {
                 />
             ) : (
                 <>
-                    <Dropdown className="my-4">
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <span className="fw-semibold">Accent:</span>{" "}
-                            {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {selectedAccentOptions.map((item) => (
-                                <Dropdown.Item
-                                    key={item.value}
-                                    onClick={() => setSelectedAccent(item.value)}
-                                    active={selectedAccent === item.value}>
-                                    {item.name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <AccentDropdown onAccentChange={setSelectedAccent} />
                     <p>Select a conversation type to get started.</p>
                     {loading ? (
                         <LoadingOverlay />
