@@ -138,57 +138,57 @@
                         {
                             "data": [{ "value": "concentrate" }],
                             "answer": ["concentrate"],
-                            "audio": { "src": "xconcentrate_gb_1" }
+                            "audio": { "src": "concentrate_gb_1" }
                         },
                         {
                             "data": [{ "value": "concept" }],
                             "answer": ["concept"],
-                            "audio": { "src": "xconcept_gb_1" }
+                            "audio": { "src": "concept_gb_1" }
                         },
                         {
                             "data": [{ "value": "conclude" }],
                             "answer": ["conclude"],
-                            "audio": { "src": "xconclude_gb_1" }
+                            "audio": { "src": "conclude_gb_1" }
                         },
                         {
                             "data": [{ "value": "conform" }],
                             "answer": ["conform"],
-                            "audio": { "src": "xconform_gb_1" }
+                            "audio": { "src": "conform_gb_1" }
                         },
                         {
                             "data": [{ "value": "consequent" }],
                             "answer": ["consequent"],
-                            "audio": { "src": "xconsequent_gb_1" }
+                            "audio": { "src": "consequent_gb_1" }
                         },
                         {
                             "data": [{ "value": "considerable" }],
                             "answer": ["considerable"],
-                            "audio": { "src": "xconsiderable_gb_1" }
+                            "audio": { "src": "considerable_gb_1" }
                         },
                         {
                             "data": [{ "value": "consist" }],
                             "answer": ["consist"],
-                            "audio": { "src": "xconsist_gb_1" }
+                            "audio": { "src": "consist_gb_1" }
                         },
                         {
                             "data": [{ "value": "contemporary" }],
                             "answer": ["contemporary"],
-                            "audio": { "src": "xcontemporary_gb_1" }
+                            "audio": { "src": "contemporary_gb_1" }
                         },
                         {
                             "data": [{ "value": "context" }],
                             "answer": ["context"],
-                            "audio": { "src": "xcontext_gb_1" }
+                            "audio": { "src": "context_gb_1" }
                         },
                         {
                             "data": [{ "value": "contradict" }],
                             "answer": ["contradict"],
-                            "audio": { "src": "xcontradict_gb_1" }
+                            "audio": { "src": "contradict_gb_1" }
                         },
                         {
                             "data": [{ "value": "contribution" }],
                             "answer": ["contribution"],
-                            "audio": { "src": "xcontribution_gb_1" }
+                            "audio": { "src": "contribution_gb_1" }
                         },
                         {
                             "data": [{ "value": "cooperate" }],
@@ -787,57 +787,57 @@
                         {
                             "data": [{ "value": "concentrate" }],
                             "answer": ["concentrate"],
-                            "audio": { "src": "xconcentrate_us_1" }
+                            "audio": { "src": "concentrate_us_1" }
                         },
                         {
                             "data": [{ "value": "concept" }],
                             "answer": ["concept"],
-                            "audio": { "src": "xconcept_us_1" }
+                            "audio": { "src": "concept_us_1" }
                         },
                         {
                             "data": [{ "value": "conclude" }],
                             "answer": ["conclude"],
-                            "audio": { "src": "xconclude_us_1" }
+                            "audio": { "src": "conclude_us_1" }
                         },
                         {
                             "data": [{ "value": "conform" }],
                             "answer": ["conform"],
-                            "audio": { "src": "xconform_us_1" }
+                            "audio": { "src": "conform_us_1" }
                         },
                         {
                             "data": [{ "value": "consequent" }],
                             "answer": ["consequent"],
-                            "audio": { "src": "xconsequent_us_1" }
+                            "audio": { "src": "consequent_us_1" }
                         },
                         {
                             "data": [{ "value": "considerable" }],
                             "answer": ["considerable"],
-                            "audio": { "src": "xconsiderable_us_1" }
+                            "audio": { "src": "considerable_us_1" }
                         },
                         {
                             "data": [{ "value": "consist" }],
                             "answer": ["consist"],
-                            "audio": { "src": "xconsist_us_1" }
+                            "audio": { "src": "consist_us_1" }
                         },
                         {
                             "data": [{ "value": "contemporary" }],
                             "answer": ["contemporary"],
-                            "audio": { "src": "xcontemporary_us_1" }
+                            "audio": { "src": "contemporary_us_1" }
                         },
                         {
                             "data": [{ "value": "context" }],
                             "answer": ["context"],
-                            "audio": { "src": "xcontext_us_1" }
+                            "audio": { "src": "context_us_1" }
                         },
                         {
                             "data": [{ "value": "contradict" }],
                             "answer": ["contradict"],
-                            "audio": { "src": "xcontradict_us_1" }
+                            "audio": { "src": "contradict_us_1" }
                         },
                         {
                             "data": [{ "value": "contribution" }],
                             "answer": ["contribution"],
-                            "audio": { "src": "xcontribution_us_1" }
+                            "audio": { "src": "contribution_us_1" }
                         },
                         {
                             "data": [{ "value": "cooperate" }],
