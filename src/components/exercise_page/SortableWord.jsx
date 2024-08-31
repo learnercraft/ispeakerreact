@@ -1,7 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Button } from "react-bootstrap";
 import he from "he";
+import { Button } from "react-bootstrap";
 
 const SortableWord = ({ word, isCorrect, disabled }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: word.text });
