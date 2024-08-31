@@ -16,8 +16,6 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
 
     const handlePlayPause = (idx, audioSrc) => {
         if (loadingIndex === idx) {
-            // Cancel loading if clicked again
-            setLoadingIndex(null);
             return;
         }
 
@@ -34,7 +32,11 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                 currentAudio.pause();
             }
 
-            const audio = new Audio(`/media/exam/mp3/${audioSrc}.mp3`);
+            const audio = new Audio();
+            // Set audio source and load it
+            audio.src = `/media/exam/mp3/${audioSrc}.mp3`;
+            audio.load();
+
             setLoadingIndex(idx);
             audio.oncanplaythrough = () => {
                 setLoadingIndex(null);

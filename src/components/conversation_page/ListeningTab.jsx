@@ -13,8 +13,6 @@ const ListeningTab = ({ sentences }) => {
 
     const handlePlayPause = (index, audioSrc) => {
         if (loadingIndex === index) {
-            // Cancel loading if clicked again
-            setLoadingIndex(null);
             return;
         }
 
@@ -32,10 +30,15 @@ const ListeningTab = ({ sentences }) => {
             }
 
             // Create new audio element
-            const audio = new Audio(`/media/conversation/mp3/${audioSrc}.mp3`);
+            const audio = new Audio();
 
             // Set loading state
             setLoadingIndex(index);
+
+            // Set audio source and load it
+            audio.src = `/media/conversation/mp3/${audioSrc}.mp3`;
+            audio.load();
+
             audio.oncanplaythrough = () => {
                 setLoadingIndex(null);
                 setCurrentAudio(audio);
@@ -44,15 +47,18 @@ const ListeningTab = ({ sentences }) => {
             };
 
             audio.onerror = () => {
+                // Try the alternative format
                 audio.src = `/media/conversation/ogg/${audioSrc}.ogg`;
                 audio.type = "audio/ogg";
                 audio.load();
+
                 audio.oncanplaythrough = () => {
                     setLoadingIndex(null);
                     setCurrentAudio(audio);
                     setPlayingIndex(index);
                     audio.play();
                 };
+
                 audio.onerror = () => {
                     setLoadingIndex(null);
                     setCurrentAudio(null);
