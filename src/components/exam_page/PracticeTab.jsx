@@ -212,7 +212,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
     };
 
     const handleImageClick = (imageName) => {
-        setModalImage(`/images/ispeaker/Exam/jpg/${imageName}.jpg`);
+        setModalImage(`/images/ispeaker/exam_images/jpg/${imageName}.jpg`);
         setShowModal(true);
     };
 
@@ -232,7 +232,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                                             <Ratio aspectRatio="16x9">
                                                 <Image
                                                     role="button"
-                                                    src={`/images/ispeaker/Exam/webp/${image}.webp`}
+                                                    src={`/images/ispeaker/exam_images/webp/${image}.webp`}
                                                     thumbnail
                                                     onClick={() => handleImageClick(image)}
                                                 />
@@ -340,7 +340,9 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                                     <Accordion.Body>
                                         <ul className="ps-4">
                                             {tips.dos.map((tip, index) => (
-                                                <li className="mb-3" key={index}>{tip}</li>
+                                                <li className="mb-3" key={index}>
+                                                    {tip}
+                                                </li>
                                             ))}
                                         </ul>
                                     </Accordion.Body>
@@ -352,7 +354,9 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                                     <Accordion.Body>
                                         <ul className="ps-4">
                                             {tips.donts.map((tip, index) => (
-                                                <li className="mb-3" key={index}>{tip}</li>
+                                                <li className="mb-3" key={index}>
+                                                    {tip}
+                                                </li>
                                             ))}
                                         </ul>
                                     </Accordion.Body>

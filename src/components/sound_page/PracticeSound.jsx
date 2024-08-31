@@ -54,7 +54,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         .map((video) => video.value);
 
     const imgPhonemeThumbSrc =
-        accent === "american" ? "/images/ispeaker/sounds_american.jpg" : "/images/ispeaker/sounds_british.jpg";
+        accent === "american" ? "/images/ispeaker/sound_images/sounds_american.jpg" : "/images/ispeaker/sound_images/sounds_british.jpg";
 
     const [review, setReview] = useState(null);
 
