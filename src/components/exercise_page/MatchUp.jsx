@@ -68,8 +68,14 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         }));
         setOriginalPairs(pairs);
 
+        // Generate unique IDs for each word
+        const wordsWithIds = quizData.words.map((word, index) => ({
+            ...word,
+            id: `${word.text}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+        }));
+
         // Shuffle words and audio independently
-        const shuffledWordsArray = ShuffleArray([...quizData.words]);
+        const shuffledWordsArray = ShuffleArray([...wordsWithIds]);
         const shuffledAudioArray = ShuffleArray([...quizData.audio]);
 
         setShuffledWords(shuffledWordsArray);
@@ -108,8 +114,8 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
         if (active.id !== over.id) {
             setShuffledWords((items) => {
-                const oldIndex = items.findIndex((item) => item.text === active.id);
-                const newIndex = items.findIndex((item) => item.text === over.id);
+                const oldIndex = items.findIndex((item) => item.id === active.id);
+                const newIndex = items.findIndex((item) => item.id === over.id);
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
@@ -123,7 +129,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             const audioSrc = audioItems[index].src.split("_")[0].toLowerCase();
             const wordText = word.text.toLowerCase();
 
-            // Compare the shuffled pair with the original pair
+            // Compare the shuffled pair with the original pair using the word text
             const isCorrect = originalPairs.some((pair) => pair.audio === audioSrc && pair.word === wordText);
 
             updatedCorrectArray[index] = isCorrect;
@@ -176,25 +182,32 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                         onDragStart={handleDragStart}
                         onDragEnd={handleDragEnd}>
                         <Col xs={6} md={4}>
-                            <SortableContext items={shuffledWords} strategy={verticalListSortingStrategy}>
-                                {shuffledWords.map((word, index) => (
-                                    <SortableWord
-                                        key={word.text}
-                                        word={word}
-                                        index={index}
-                                        isCorrect={isCorrectArray[index]}
-                                        disabled={buttonsDisabled}
-                                    />
-                                ))}
-                            </SortableContext>
-                            <DragOverlay>
-                                {activeId ? (
-                                    <SortableWord
-                                        word={{ text: activeId }}
-                                        isOverlay={true} // Pass a prop to indicate it's in the overlay
-                                    />
-                                ) : null}
-                            </DragOverlay>
+                            <div className="d-flex justify-content-center flex-column flex-wrap gap-2">
+                                <SortableContext
+                                    items={shuffledWords.map((word) => word.id)}
+                                    strategy={verticalListSortingStrategy}>
+                                    {shuffledWords.map((word, index) => (
+                                        <SortableWord
+                                            key={word.id}
+                                            word={word}
+                                            index={index}
+                                            isCorrect={isCorrectArray[index]}
+                                            disabled={buttonsDisabled}
+                                        />
+                                    ))}
+                                </SortableContext>
+                                <DragOverlay>
+                                    {activeId ? (
+                                        <SortableWord
+                                            word={{
+                                                id: activeId,
+                                                text: shuffledWords.find((item) => item.id === activeId)?.text,
+                                            }}
+                                            isOverlay={true} // Pass a prop to indicate it's in the overlay
+                                        />
+                                    ) : null}
+                                </DragOverlay>
+                            </div>
                         </Col>
                     </DndContext>
                 </Row>
