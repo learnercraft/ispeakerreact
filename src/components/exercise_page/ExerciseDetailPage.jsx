@@ -6,7 +6,7 @@ import MatchUp from "./MatchUp";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 
-const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
+const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
     const [quiz, setQuiz] = useState([]);
     const [quizCompleted, setQuizCompleted] = useState(false);
@@ -144,7 +144,7 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
                 );
             // Add more cases for other exercise types
             default:
-                return <Card.Body>This quiz type not yet implemented.</Card.Body>;
+                return <Card.Body>This quiz type is not yet implemented.</Card.Body>;
         }
     };
 
@@ -153,62 +153,65 @@ const ExerciseDetailPage = ({ id, title, accent, file, onBack }) => {
             {isloading ? (
                 <LoadingOverlay />
             ) : (
-                <Row className="mt-4 g-4">
-                    <Col md={4}>
-                        <Card className="mb-4 h-100 shadow-sm">
-                            <Card.Header className="fw-semibold">{title}</Card.Header>
-                            <Card.Body>
-                                <p>
-                                    <strong>Accent:</strong> {accent}
-                                </p>
-                                <p>
-                                    <strong>Instructions:</strong>
-                                </p>
-                                {instructions.map((instruction, index) => (
-                                    <p key={index}>{instruction}</p>
-                                ))}
-                                <Button variant="primary" onClick={onBack}>
-                                    <ArrowLeftCircle /> Back to exercise list
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                <>
+                    <h3 className="mt-4">Type: {heading}</h3>
+                    <Row className="mt-2 g-4">
+                        <Col md={4}>
+                            <Card className="mb-4 h-100 shadow-sm">
+                                <Card.Header className="fw-semibold">{title}</Card.Header>
+                                <Card.Body>
+                                    <p>
+                                        <strong>Accent:</strong> {accent}
+                                    </p>
+                                    <p>
+                                        <strong>Instructions:</strong>
+                                    </p>
+                                    {instructions.map((instruction, index) => (
+                                        <p key={index}>{instruction}</p>
+                                    ))}
+                                    <Button variant="primary" onClick={onBack}>
+                                        <ArrowLeftCircle /> Back to exercise list
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
 
-                    <Col md={8}>
-                        <Card className="mb-4 shadow-sm">
-                            {!quizCompleted ? (
-                                renderQuizComponent()
+                        <Col md={8}>
+                            <Card className="mb-4 shadow-sm">
+                                {!quizCompleted ? (
+                                    renderQuizComponent()
+                                ) : (
+                                    <>
+                                        <Card.Header className="fw-semibold">Result</Card.Header>
+                                        <Card.Body>
+                                            <p>
+                                                You have answered {score} out of {totalAnswered} correctly.
+                                            </p>
+                                            {encouragementMessage && <p>{encouragementMessage}</p>}
+                                            <Button variant="secondary" onClick={handleQuizRestart}>
+                                                <ArrowRepeat /> Restart quiz
+                                            </Button>
+                                        </Card.Body>
+                                    </>
+                                )}
+                            </Card>
+                            {quizCompleted ? (
+                                ""
                             ) : (
-                                <>
-                                    <Card.Header className="fw-semibold">Result</Card.Header>
+                                <Card className="mt-4 shadow-sm">
+                                    <Card.Header className="fw-semibold">Review</Card.Header>
                                     <Card.Body>
                                         <p>
                                             You have answered {score} out of {totalAnswered} correctly.
                                         </p>
-                                        {encouragementMessage && <p>{encouragementMessage}</p>}
-                                        <Button variant="secondary" onClick={handleQuizRestart}>
-                                            <ArrowRepeat /> Restart quiz
-                                        </Button>
+                                        <p>{getEncouragementMessage()}</p>
+                                        <p>Try this exercise again for further practice and different questions.</p>
                                     </Card.Body>
-                                </>
+                                </Card>
                             )}
-                        </Card>
-                        {quizCompleted ? (
-                            ""
-                        ) : (
-                            <Card className="mt-4 shadow-sm">
-                                <Card.Header className="fw-semibold">Review</Card.Header>
-                                <Card.Body>
-                                    <p>
-                                        You have answered {score} out of {totalAnswered} correctly.
-                                    </p>
-                                    <p>{getEncouragementMessage()}</p>
-                                    <p>Try this exercise again for further practice and different questions.</p>
-                                </Card.Body>
-                            </Card>
-                        )}
-                    </Col>
-                </Row>
+                        </Col>
+                    </Row>
+                </>
             )}
         </>
     );

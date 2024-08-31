@@ -27,12 +27,13 @@ const ExercisePage = () => {
         </OverlayTrigger>
     );
 
-    const handleSelectExercise = (exercise) => {
+    const handleSelectExercise = (exercise, heading) => {
         setSelectedExercise({
             id: exercise.id,
             title: exercise.title,
             accent: selectedAccentOptions.find((item) => item.value === selectedAccent).name,
             file: exercise.file, // Only pass the file name
+            heading: heading,
         });
     };
 
@@ -52,7 +53,7 @@ const ExercisePage = () => {
                                 <Button
                                     variant="link"
                                     className="p-0 m-0"
-                                    onClick={() => handleSelectExercise({ ...exercise, file })}>
+                                    onClick={() => handleSelectExercise({ ...exercise, file }, heading)}>
                                     {exercise.title}
                                 </Button>
                                 <TooltipIcon
@@ -98,6 +99,7 @@ const ExercisePage = () => {
             <h1 className="fw-semibold">Exercises (beta)</h1>
             {selectedExercise ? (
                 <ExerciseDetailPage
+                    heading={selectedExercise.heading}
                     id={selectedExercise.id}
                     title={selectedExercise.title}
                     accent={selectedExercise.accent}

@@ -16,7 +16,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
+import { VolumeUp, VolumeUpFill, Check2Circle, ArrowRightCircle, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import SortableWord from "./SortableWord";
 
@@ -201,15 +201,15 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                        Submit
+                        <Check2Circle /> Check
                     </Button>
                     {currentQuizIndex < shuffledQuiz.length - 1 && (
                         <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            Next
+                            <ArrowRightCircle /> Next
                         </Button>
                     )}
                     <Button variant="danger" className="ms-2" onClick={onQuit}>
-                        Quit
+                        <XCircle /> Quit
                     </Button>
                 </div>
             </Card.Body>
