@@ -105,8 +105,9 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             return;
         }
 
-        const audioSrc = `/media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
-        const audio = new Audio(audioSrc);
+        const audio = new Audio();
+        audio.src = `/media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
+        audio.load();
 
         audioRef.current = audio;
         setIsLoading(true);
