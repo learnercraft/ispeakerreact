@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import ToastNotification from "../general/ToastNotification";
@@ -13,6 +13,11 @@ const ListeningTab = ({ sentences }) => {
 
     const handlePlayPause = (index, audioSrc) => {
         if (loadingIndex === index) {
+            // Cancel the loading process if clicked again
+            if (abortController.current) {
+                abortController.current.abort();
+            }
+            setLoadingIndex(null);
             return;
         }
 
@@ -29,61 +34,66 @@ const ListeningTab = ({ sentences }) => {
                 currentAudio.pause();
             }
 
-            // Create new audio element
-            const audio = new Audio();
-
             // Set loading state
             setLoadingIndex(index);
 
-            // Set audio source and load it
-            audio.src = `/media/conversation/mp3/${audioSrc}.mp3`;
-            audio.load();
+            // AbortController to manage cancellation
+            const controller = new AbortController();
+            abortController.current = controller;
+            const signal = controller.signal;
 
-            audio.oncanplaythrough = () => {
-                setLoadingIndex(null);
-                setCurrentAudio(audio);
-                setPlayingIndex(index);
-                audio.play();
-            };
+            // Fetch the audio file
+            fetch(`/media/conversation/mp3/${audioSrc}.mp3`, { signal })
+                .then((response) => response.blob())
+                .then((audioBlob) => {
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
 
-            audio.onerror = () => {
-                // Try the alternative format
-                audio.src = `/media/conversation/ogg/${audioSrc}.ogg`;
-                audio.type = "audio/ogg";
-                audio.load();
+                    // Explicitly load the audio (for iOS < 17)
+                    audio.load();
 
-                audio.oncanplaythrough = () => {
-                    setLoadingIndex(null);
+                    audio.oncanplaythrough = () => {
+                        setLoadingIndex(null);
+                        setCurrentAudio(audio);
+                        setPlayingIndex(index);
+                        audio.play();
+                    };
+
+                    audio.onended = () => {
+                        setCurrentAudio(null);
+                        setPlayingIndex(null);
+                        URL.revokeObjectURL(audioUrl);
+                    };
+
                     setCurrentAudio(audio);
-                    setPlayingIndex(index);
-                    audio.play();
-                };
-
-                audio.onerror = () => {
+                })
+                .catch((error) => {
+                    if (error.name === "AbortError") {
+                        console.log("Audio loading aborted");
+                    } else {
+                        console.error("Error loading audio:", error);
+                        setToastMessage(
+                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
+                        );
+                        setShowToast(true);
+                    }
                     setLoadingIndex(null);
                     setCurrentAudio(null);
                     setPlayingIndex(null);
-                    setToastMessage(
-                        "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                    );
-                    setShowToast(true);
-                };
-            };
-
-            audio.onended = () => {
-                setCurrentAudio(null);
-                setPlayingIndex(null);
-            };
+                });
         }
     };
 
+    const abortController = useRef(null);
+
     useEffect(() => {
         return () => {
+            if (abortController.current) {
+                abortController.current.abort();
+            }
             if (currentAudio) {
                 currentAudio.pause();
-
                 setCurrentAudio(null);
-                setPlayingIndex(null);
             }
         };
     }, [currentAudio]);
