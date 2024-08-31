@@ -1,6 +1,7 @@
 import {
     closestCenter,
     DndContext,
+    DragOverlay,
     KeyboardSensor,
     PointerSensor,
     TouchSensor,
@@ -28,7 +29,8 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const [isPlaying, setIsPlaying] = useState(null);
     const [isCorrectArray, setIsCorrectArray] = useState([]);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [originalPairs, setOriginalPairs] = useState([]); // Store the original pairs
+    const [originalPairs, setOriginalPairs] = useState([]);
+    const [activeId, setActiveId] = useState(null);
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
@@ -96,6 +98,23 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         }
     };
 
+    const handleDragStart = (event) => {
+        const { active } = event;
+        setActiveId(active.id);
+    };
+
+    const handleDragEnd = ({ active, over }) => {
+        setActiveId(null);
+
+        if (active.id !== over.id) {
+            setShuffledWords((items) => {
+                const oldIndex = items.findIndex((item) => item.text === active.id);
+                const newIndex = items.findIndex((item) => item.text === over.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    };
+
     const handleSubmit = () => {
         let correctCount = 0;
         const updatedCorrectArray = [...isCorrectArray];
@@ -154,15 +173,8 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                         sensors={sensors}
                         collisionDetection={closestCenter}
                         autoScroll={{ layoutShiftCompensation: false, enable: false }}
-                        onDragEnd={({ active, over }) => {
-                            if (active.id !== over.id) {
-                                setShuffledWords((items) => {
-                                    const oldIndex = items.findIndex((item) => item.text === active.id);
-                                    const newIndex = items.findIndex((item) => item.text === over.id);
-                                    return arrayMove(items, oldIndex, newIndex);
-                                });
-                            }
-                        }}>
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}>
                         <Col xs={6} md={4}>
                             <SortableContext items={shuffledWords} strategy={verticalListSortingStrategy}>
                                 {shuffledWords.map((word, index) => (
@@ -175,6 +187,14 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                                     />
                                 ))}
                             </SortableContext>
+                            <DragOverlay>
+                                {activeId ? (
+                                    <SortableWord
+                                        word={{ text: activeId }}
+                                        isOverlay={true} // Pass a prop to indicate it's in the overlay
+                                    />
+                                ) : null}
+                            </DragOverlay>
                         </Col>
                     </DndContext>
                 </Row>
