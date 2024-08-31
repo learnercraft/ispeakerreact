@@ -62,7 +62,11 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             setValidationMessage("");
         } else {
             setValidationVariant("danger");
-            setValidationMessage(`Correct answer: "${correctAnswer}".`);
+            setValidationMessage(
+                <span>
+                    Correct answer: <span className="fw-bold fst-italic">{correctAnswer}</span>
+                </span>
+            );
             setShowValidation(true);
         }
     };
@@ -175,15 +179,14 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                     {isLoading ? <Spinner animation="border" size="sm" /> : isPlaying ? <VolumeUpFill /> : <VolumeUp />}
                 </Button>
 
-                {showValidation && validationVariant === "danger" && (
-                    <Alert variant={validationVariant}>{validationMessage}</Alert>
-                )}
-
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formAnswer">
                         <Form.Label>Answer:</Form.Label>
                         <div>{renderWords()}</div>
                     </Form.Group>
+                    {showValidation && validationVariant === "danger" && (
+                        <Alert className="mt-4" variant="info">{validationMessage}</Alert>
+                    )}
                     <Button variant="success" type="submit" className="mt-3" disabled={isSubmitButtonEnabled}>
                         <Check2Circle /> Check
                     </Button>
