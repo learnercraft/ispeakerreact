@@ -34,6 +34,16 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
     const audioRef = useRef(null);
 
+    const filterAndShuffleQuiz = (quiz) => {
+        // Extract unique quizzes using a Set to ensure uniqueness
+        const uniqueQuiz = Array.from(new Set(quiz.map((item) => JSON.stringify(item)))).map((item) =>
+            JSON.parse(item)
+        );
+
+        // Shuffle the unique items
+        return ShuffleArray(uniqueQuiz);
+    };
+
     const loadQuiz = useCallback((quizData) => {
         // Store the original pairs for checking answers
         const pairs = quizData.audio.map((audio, index) => ({
@@ -49,8 +59,8 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         }));
 
         // Shuffle words and audio independently
-        const shuffledWordsArray = ShuffleArray([...wordsWithIds]);
-        const shuffledAudioArray = ShuffleArray([...quizData.audio]);
+        const shuffledWordsArray = ShuffleArray(wordsWithIds);
+        const shuffledAudioArray = ShuffleArray(quizData.audio);
 
         setShuffledWords(shuffledWordsArray);
         setAudioItems(shuffledAudioArray);
@@ -60,12 +70,19 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
-            const shuffledQuizzes = ShuffleArray([...quiz]);
-            setShuffledQuiz(shuffledQuizzes);
-            loadQuiz(shuffledQuizzes[currentQuizIndex]);
-            setIsLoading(new Array(shuffledQuizzes[currentQuizIndex].audio.length).fill(false));
+            // Filter out unique items and shuffle the quiz array
+            const uniqueShuffledQuiz = filterAndShuffleQuiz(quiz);
+            setShuffledQuiz(uniqueShuffledQuiz);
+            // Reset currentQuizIndex to 0
+            setCurrentQuizIndex(0);
         }
-    }, [quiz, currentQuizIndex, loadQuiz]);
+    }, [quiz]);
+
+    useEffect(() => {
+        if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
+            loadQuiz(shuffledQuiz[currentQuizIndex]);
+        }
+    }, [shuffledQuiz, currentQuizIndex, loadQuiz]);
 
     useEffect(() => {
         // Initialize the audioRef
