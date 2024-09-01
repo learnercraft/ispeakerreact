@@ -15,31 +15,7 @@ import SortableWord from "./SortableWord";
 import he from "he";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 
-const useWindowSize = () => {
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
-    });
-
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
-
-        window.addEventListener("resize", handleResize);
-        handleResize(); // Call handler right away so state gets updated with initial window size
-
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    return windowSize;
-};
-
-const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
-    const size = useWindowSize();
+const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledItems, setShuffledItems] = useState([]);
     const [activeId, setActiveId] = useState(null);
