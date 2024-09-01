@@ -1,7 +1,7 @@
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Dropdown, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";

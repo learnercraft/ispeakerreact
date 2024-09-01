@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
-import { Card, Col, Row, Button } from "react-bootstrap";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowLeftCircle, ArrowRepeat } from "react-bootstrap-icons";
+import { ShuffleArray } from "../../utils/ShuffleArray";
+import LoadingOverlay from "../general/LoadingOverlay";
 import DictationQuiz from "./DictationQuiz";
 import MatchUp from "./MatchUp";
 import Reordering from "./Reordering";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import LoadingOverlay from "../general/LoadingOverlay";
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
