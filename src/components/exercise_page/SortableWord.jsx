@@ -28,7 +28,8 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
         userSelect: "none", // Prevent text selection
         WebkitUserDrag: "none", // Prevent dragging the element as a browser action (Safari)
         WebkitTouchCallout: "none", // Prevent showing callout on touching and dragging
-        width: isOverlay ? itemWidth : "", // Set the width to match with that of the current item
+        width: isDragging ? itemWidth + 1 : "inherit", // Set the width to match with that of the current item.
+        // Plus 1 is for not making text unexpectedly move to another line
     };
 
     const variant = isOverlay ? "secondary" : isCorrect === null ? "secondary" : isCorrect ? "success" : "danger";
