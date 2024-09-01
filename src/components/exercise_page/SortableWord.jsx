@@ -34,12 +34,13 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
     };
 
     const variant = isOverlay
-        ? "outline-secondary"
+        ? "secondary"
         : isCorrect === null
         ? "outline-secondary"
         : isCorrect
         ? "success"
         : "danger";
+
     const trueFalse = isOverlay ? (
         ""
     ) : isCorrect === null ? (
