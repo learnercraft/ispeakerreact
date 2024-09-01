@@ -33,7 +33,7 @@ function Homepage() {
             description: "Prepare yourself for different types of speaking exams.",
             icon: "/images/ispeaker/menu/exam_menu_icon.svg",
             path: "exams",
-        }
+        },
     ];
 
     return (
@@ -52,14 +52,19 @@ function Homepage() {
                                 <Card.Title>{card.title}</Card.Title>
                                 <Card.Text>{card.description}</Card.Text>
                                 <Card.Text className="mt-auto mb-3 d-flex justify-content-center">
-                                    <img className="w-25" src={card.icon} />
+                                    <img
+                                        alt={`${card.title} section icon`}
+                                        className="w-25"
+                                        src={card.icon}
+                                    />
                                 </Card.Text>
                                 <div className="mt-auto d-flex justify-content-center">
                                     <Button
                                         variant="primary"
                                         className="w-50"
                                         onClick={() => handleNavigate(card.path)}
-                                        disabled={card.disabled}>
+                                        disabled={card.disabled}
+                                        aria-label={`Open the ${card.title} section`}>
                                         Open
                                     </Button>
                                 </div>
