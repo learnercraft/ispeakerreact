@@ -17,7 +17,7 @@ const ExercisePage = () => {
 
     const TooltipIcon = ({ info }) => (
         <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
-            <InfoCircle className="ms-1" />
+            <InfoCircle className="ms-2" />
         </OverlayTrigger>
     );
 
