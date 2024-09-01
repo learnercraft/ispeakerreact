@@ -134,7 +134,8 @@ const SoundList = () => {
                                                             size="sm"
                                                             onClick={() =>
                                                                 handlePracticeClick(sound, selectedAccent, index)
-                                                            }>
+                                                            }
+                                                            aria-label={`Open the sound ${he.decode(sound.phoneme)}`}>
                                                             Practice
                                                         </Button>
                                                     </Card.Body>
