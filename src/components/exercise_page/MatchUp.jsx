@@ -14,7 +14,7 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
@@ -34,6 +34,30 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
     const audioRef = useRef(null);
 
+    const loadQuiz = useCallback((quizData) => {
+        // Store the original pairs for checking answers
+        const pairs = quizData.audio.map((audio, index) => ({
+            audio: audio.src.split("_")[0].toLowerCase(),
+            word: quizData.words[index].text.toLowerCase(),
+        }));
+        setOriginalPairs(pairs);
+
+        // Generate unique IDs for each word
+        const wordsWithIds = quizData.words.map((word, index) => ({
+            ...word,
+            id: `${word.text}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+        }));
+
+        // Shuffle words and audio independently
+        const shuffledWordsArray = ShuffleArray([...wordsWithIds]);
+        const shuffledAudioArray = ShuffleArray([...quizData.audio]);
+
+        setShuffledWords(shuffledWordsArray);
+        setAudioItems(shuffledAudioArray);
+        setIsCorrectArray(new Array(shuffledWordsArray.length).fill(null));
+        setButtonsDisabled(false);
+    }, []);
+
     useEffect(() => {
         if (quiz && quiz.length > 0) {
             const shuffledQuizzes = ShuffleArray([...quiz]);
@@ -41,7 +65,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             loadQuiz(shuffledQuizzes[currentQuizIndex]);
             setIsLoading(new Array(shuffledQuizzes[currentQuizIndex].audio.length).fill(false));
         }
-    }, [quiz, currentQuizIndex]);
+    }, [quiz, currentQuizIndex, loadQuiz]);
 
     useEffect(() => {
         // Initialize the audioRef
@@ -67,30 +91,6 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
-
-    const loadQuiz = (quizData) => {
-        // Store the original pairs for checking answers
-        const pairs = quizData.audio.map((audio, index) => ({
-            audio: audio.src.split("_")[0].toLowerCase(),
-            word: quizData.words[index].text.toLowerCase(),
-        }));
-        setOriginalPairs(pairs);
-
-        // Generate unique IDs for each word
-        const wordsWithIds = quizData.words.map((word, index) => ({
-            ...word,
-            id: `${word.text}-${index}-${Math.random().toString(36).substr(2, 9)}`,
-        }));
-
-        // Shuffle words and audio independently
-        const shuffledWordsArray = ShuffleArray([...wordsWithIds]);
-        const shuffledAudioArray = ShuffleArray([...quizData.audio]);
-
-        setShuffledWords(shuffledWordsArray);
-        setAudioItems(shuffledAudioArray);
-        setIsCorrectArray(new Array(shuffledWordsArray.length).fill(null));
-        setButtonsDisabled(false);
-    };
 
     const handleAudioPlay = (src, index) => {
         // Pause the current audio if it's playing
