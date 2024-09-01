@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
 import {
     DndContext,
-    useSensor,
-    useSensors,
+    DragOverlay,
     PointerSensor,
     TouchSensor,
-    DragOverlay,
     closestCenter,
+    useSensor,
+    useSensors,
 } from "@dnd-kit/core";
-import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
-import { Alert, Button, Card, Col, Row, Stack, Spinner } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
-import SortableWord from "./SortableWord";
+import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import he from "he";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Alert, Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
+import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import SortableWord from "./SortableWord";
 
 const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -30,40 +30,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     // Use a ref to manage the audio element
     const audioRef = useRef(null);
 
-    useEffect(() => {
-        if (quiz && quiz.length > 0) {
-            // Shuffle the quiz array once when the component mounts
-            const shuffledQuizArray = ShuffleArray([...quiz]);
-            loadQuiz(shuffledQuizArray[currentQuizIndex]);
-        }
-    }, [quiz, currentQuizIndex]);
-
-    useEffect(() => {
-        return () => {
-            // Clean up the audio element
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current.src = ""; // Set the src to empty to release the resource
-                audioRef.current.onerror = null;
-            }
-        };
-    }, []);
-
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(TouchSensor, {
-            preventScrolling: true,
-        })
-    );
-
-    const generateUniqueItems = (items) => {
-        return items.map((item, index) => ({
-            id: `${item}-${index}-${Math.random().toString(36).substr(2, 9)}`,
-            value: item,
-        }));
-    };
-
-    const loadQuiz = (quizData) => {
+    const loadQuiz = useCallback((quizData) => {
         const splitType = quizData.split;
         setCurrentSplitType(splitType);
 
@@ -94,6 +61,41 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
 
         setCurrentAudioSrc(`/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
         setCorrectAnswer(correctAnswer);
+    }, []);
+
+    useEffect(() => {
+        if (quiz && quiz.length > 0) {
+            // Shuffle the quiz array once when the component mounts
+            const shuffledQuizArray = ShuffleArray([...quiz]);
+            loadQuiz(shuffledQuizArray[currentQuizIndex]);
+        }
+    }, [quiz, currentQuizIndex, loadQuiz]);
+
+    useEffect(() => {
+        return () => {
+            if (audioRef.current) {
+                // Clean up the audio element
+                audioRef.current.pause();
+                // Remove event listeners
+                audioRef.current.oncanplaythrough = null;
+                audioRef.current.onended = null;
+                audioRef.current.onerror = null;
+            }
+        };
+    }, []);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(TouchSensor, {
+            preventScrolling: true,
+        })
+    );
+
+    const generateUniqueItems = (items) => {
+        return items.map((item, index) => ({
+            id: `${item}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+            value: item,
+        }));
     };
 
     const handleAudioPlay = () => {
