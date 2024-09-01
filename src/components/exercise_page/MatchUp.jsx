@@ -14,9 +14,9 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill, Check2Circle, ArrowRightCircle, XCircle } from "react-bootstrap-icons";
+import { useEffect, useRef, useState } from "react";
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import SortableWord from "./SortableWord";
 
@@ -25,29 +25,37 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledWords, setShuffledWords] = useState([]);
     const [audioItems, setAudioItems] = useState([]);
-    const [audioElement, setAudioElement] = useState(null);
     const [isPlaying, setIsPlaying] = useState(null);
+    const [isLoading, setIsLoading] = useState([]);
     const [isCorrectArray, setIsCorrectArray] = useState([]);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
     const [originalPairs, setOriginalPairs] = useState([]);
     const [activeId, setActiveId] = useState(null);
+
+    const audioRef = useRef(null);
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
             const shuffledQuizzes = ShuffleArray([...quiz]);
             setShuffledQuiz(shuffledQuizzes);
             loadQuiz(shuffledQuizzes[currentQuizIndex]);
+            setIsLoading(new Array(shuffledQuizzes[currentQuizIndex].audio.length).fill(false));
         }
     }, [quiz, currentQuizIndex]);
 
     useEffect(() => {
+        // Initialize the audioRef
+        if (!audioRef.current) {
+            audioRef.current = new Audio();
+        }
+
         return () => {
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current = null;
             }
         };
-    }, [audioElement]);
+    }, []);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -85,22 +93,46 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     };
 
     const handleAudioPlay = (src, index) => {
-        if (isPlaying === index) {
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
-            }
+        // Pause the current audio if it's playing
+        if (isPlaying !== null) {
+            audioRef.current.pause();
             setIsPlaying(null);
-        } else {
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
-            }
-            const newAudio = new Audio(`/media/exercise/mp3/${src}.mp3`);
-            setAudioElement(newAudio);
-            setIsPlaying(index);
-            newAudio.play();
-            newAudio.onended = () => setIsPlaying(null);
+        }
+
+        // Start the new audio if it's not already playing
+        if (isPlaying !== index) {
+            const audioSrc = `/media/exercise/mp3/${src}.mp3`;
+            audioRef.current.src = audioSrc; // Set the new audio source
+
+            // Set loading state for this specific button
+            setIsLoading((prev) => {
+                const newLoadingState = [...prev];
+                newLoadingState[index] = true;
+                console.log(newLoadingState);
+                return newLoadingState;
+            });
+
+            audioRef.current.play().then(() => {
+                setIsPlaying(index);
+                // Disable loading state for this specific button
+                setIsLoading((prev) => {
+                    const newLoadingState = [...prev];
+                    newLoadingState[index] = false;
+                    return newLoadingState;
+                });
+            });
+
+            audioRef.current.onended = () => setIsPlaying(null);
+            audioRef.current.onerror = () => {
+                setIsPlaying(null);
+                // Disable loading state in case of error
+                setIsLoading((prev) => {
+                    const newLoadingState = [...prev];
+                    newLoadingState[index] = false;
+                    return newLoadingState;
+                });
+                console.error("Error loading the audio file:", audioSrc);
+            };
         }
     };
 
@@ -152,6 +184,13 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             onAnswer(0, "multiple", shuffledWords.length);
         }
 
+        // Reset audio state and element
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0; // Reset to the start
+            setIsPlaying(null); // Reset the playing state
+        }
+
         if (currentQuizIndex < shuffledQuiz.length - 1) {
             setCurrentQuizIndex(currentQuizIndex + 1);
         } else {
@@ -168,8 +207,17 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                         <div>
                             {audioItems.map((audio, index) => (
                                 <div key={index} className="mb-3">
-                                    <Button variant="primary" onClick={() => handleAudioPlay(audio.src, index)}>
-                                        {isPlaying === index ? <VolumeUpFill /> : <VolumeUp />}
+                                    <Button
+                                        variant="primary"
+                                        onClick={() => handleAudioPlay(audio.src, index)}
+                                        disabled={isLoading[index]}>
+                                        {isLoading[index] ? (
+                                            <Spinner animation="border" size="sm" />
+                                        ) : isPlaying === index ? (
+                                            <VolumeUpFill />
+                                        ) : (
+                                            <VolumeUp />
+                                        )}
                                     </Button>
                                 </div>
                             ))}

@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { Button, Form, Alert, Card, Spinner } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill, Check2Circle, ArrowRightCircle, XCircle } from "react-bootstrap-icons";
+import { useEffect, useRef, useState } from "react";
+import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
+import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 
 const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
@@ -76,6 +76,14 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             onAnswer(false, "single");
         }
 
+        // Stop and reset audio if it's playing
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0; // Reset the audio to the start
+            audioRef.current.src = ""; // Clear the audio source to prevent replaying
+            setIsPlaying(false); // Reset the playing state
+        }
+
         if (currentQuestionIndex < shuffledQuiz.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setAnswer("");
@@ -109,31 +117,45 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             return;
         }
 
+        // Clear any existing audio source and load the new one with a slight delay
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.src = ""; // Clear the current source
+        }
+
         const audio = new Audio();
-        audio.src = `/media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
-        audio.load();
+        const audioSrc = `/media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
 
         audioRef.current = audio;
-        setIsLoading(true);
 
-        audio.oncanplaythrough = () => {
-            setIsLoading(false);
-            setIsPlaying(true);
-            audio.play();
-        };
+        // Add a small delay to ensure the previous audio is completely reset
+        setTimeout(() => {
+            audio.src = audioSrc;
+            audio.load();
+            setIsLoading(true);
 
-        audio.onended = () => {
-            setIsPlaying(false);
-        };
+            audio.oncanplaythrough = () => {
+                setIsLoading(false);
+                setIsPlaying(true);
+                audio.play();
+            };
 
-        audio.onerror = () => {
-            setIsLoading(false);
-            console.error("Error loading the audio file.");
-        };
+            audio.onended = () => {
+                setIsPlaying(false);
+            };
 
-        audio.onpause = () => {
-            setIsPlaying(false);
-        };
+            audio.onerror = () => {
+                setIsLoading(false);
+                if (audio.src && audio.src === audioSrc) {
+                    // Check if the error is for the correct source
+                    console.error("Error loading the audio file:", audio.src);
+                }
+            };
+
+            audio.onpause = () => {
+                setIsPlaying(false);
+            };
+        }, 50); // 50ms delay to avoid false positives
     };
 
     const renderWords = () => {
@@ -175,7 +197,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         <>
             <Card.Header className="fw-semibold">Question #{currentQuestionIndex + 1}</Card.Header>
             <Card.Body>
-                <Button variant="primary" size="lg" onClick={handleAudioPlay} className="mb-3" disabled={isLoading}>
+                <Button variant="primary" onClick={handleAudioPlay} className="mb-3" disabled={isLoading}>
                     {isLoading ? <Spinner animation="border" size="sm" /> : isPlaying ? <VolumeUpFill /> : <VolumeUp />}
                 </Button>
 
@@ -185,7 +207,9 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                         <div>{renderWords()}</div>
                     </Form.Group>
                     {showValidation && validationVariant === "danger" && (
-                        <Alert className="mt-4" variant="info">{validationMessage}</Alert>
+                        <Alert className="mt-4" variant="info">
+                            {validationMessage}
+                        </Alert>
                     )}
                     <Button variant="success" type="submit" className="mt-3" disabled={isSubmitButtonEnabled}>
                         <Check2Circle /> Check
