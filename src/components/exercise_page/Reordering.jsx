@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     DndContext,
     useSensor,
@@ -45,29 +45,30 @@ const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
     const [activeId, setActiveId] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [audioElement, setAudioElement] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [currentSplitType, setCurrentSplitType] = useState("");
+    
+    // Use a ref to manage the audio element
+    const audioRef = useRef(null);
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
             // Shuffle the quiz array once when the component mounts
             const shuffledQuizArray = ShuffleArray([...quiz]);
-
-            // Load the shuffled quiz based on the current index
             loadQuiz(shuffledQuizArray[currentQuizIndex]);
         }
     }, [quiz, currentQuizIndex]);
 
     useEffect(() => {
         return () => {
-            if (audioElement) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
+            // Clean up the audio element
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.src = ""; // Set the src to empty to release the resource
             }
         };
-    }, [audioElement]);
+    }, []);
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -84,24 +85,17 @@ const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
     };
 
     const loadQuiz = (quizData) => {
-        const splitType = quizData.split; // Use the split type from each quiz item
-
-        // Store the split type for later use
+        const splitType = quizData.split;
         setCurrentSplitType(splitType);
 
-        // Pair each word with its corresponding audio
         const pairedData = quizData.data.map((item, index) => ({
             word: item.value,
-            audio: quizData.audio.src, // Ensure the audio is paired correctly
+            audio: quizData.audio.src,
             answer: quizData.answer[index],
         }));
 
-        // Shuffle the paired data
         const shuffledPairs = ShuffleArray(pairedData);
-
-        // Separate the shuffled data back into words and audio
         const shuffledWords = shuffledPairs.map((pair) => pair.word);
-        const shuffledAudioSrc = shuffledPairs.map((pair) => pair.audio);
         const correctAnswer = shuffledPairs.map((pair) => pair.answer).join(splitType === "sentence" ? " " : "");
 
         let itemsToShuffle;
@@ -115,32 +109,34 @@ const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
         }
 
         const uniqueItems = generateUniqueItems(itemsToShuffle);
-        const shuffledItemsArray = ShuffleArray(uniqueItems); // Shuffle the words or letters
-
+        const shuffledItemsArray = ShuffleArray(uniqueItems);
         setShuffledItems(shuffledItemsArray);
         setButtonsDisabled(false);
 
-        // Update the audio source after shuffling
-        const shuffledAudioElement = new Audio(`/media/exercise/mp3/${shuffledAudioSrc[0]}.mp3`);
-        setAudioElement(shuffledAudioElement);
+        // Set the audio src
+        if (audioRef.current) {
+            audioRef.current.src = `/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`;
+        } else {
+            audioRef.current = new Audio(`/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
+        }
 
-        // Store the correct answer for later validation
         setCorrectAnswer(correctAnswer);
     };
 
     const handleAudioPlay = () => {
+        if (!audioRef.current) {
+            console.warn("No audio element set");
+            return;
+        }
+
         if (isPlaying) {
-            audioElement.pause();
-            audioElement.currentTime = 0;
+            audioRef.current.pause();
             setIsPlaying(false);
         } else {
-            if (audioElement) {
-                audioElement.play();
-                audioElement.onended = () => setIsPlaying(false);
-                setIsPlaying(true);
-            } else {
-                console.warn("No audio element set");
-            }
+            audioRef.current.play();
+            setIsPlaying(true);
+
+            audioRef.current.onended = () => setIsPlaying(false);
         }
     };
 
@@ -162,43 +158,43 @@ const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
     };
 
     const handleSubmit = () => {
-        // Retrieve the split type for the current quiz
         const splitType = currentSplitType;
-
-        // Join the shuffled items into a single string, adding spaces between words if it's a sentence
+    
+        // Join the shuffled items into a single string
         let joinedItems = shuffledItems.map((item) => item.value).join(splitType === "sentence" ? " " : "");
-
-        // Normalize user input by removing punctuation and making it lowercase
+    
+        // Normalize user answer
         let normalizedUserAnswer = joinedItems
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
             .toLowerCase();
-
-        // Normalize the correct answer for comparison
+    
+        // Normalize correct answer
         let normalizedCorrectAnswer = correctAnswer
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
             .toLowerCase();
-
-        // Compare the user's answer with the correct answer
+    
+        // Determine if the user's answer is correct
         const isCorrect = normalizedCorrectAnswer === normalizedUserAnswer;
         setButtonsDisabled(true);
-
-        // Ensure spaces between words are correctly added in the final display
-        const finalDisplay = shuffledItems.map((item) => item.value).join(splitType === "sentence" ? " " : "");
-
-        // Update shuffledItems to be a single item with the user's full input and the correct flag
+    
+        // Determine the final display text
+        const finalDisplay = isCorrect && splitType === "sentence" ? correctAnswer : joinedItems;
+    
+        // Update the shuffledItems to display either the user input or the correct answer
         setShuffledItems([{ value: finalDisplay, id: "united", isCorrect }]);
-
-        // Show the correct answer in an alert if the user's answer was incorrect
+    
+        // Show the correct answer alert if the user's answer was incorrect
         if (!isCorrect) {
             setShowAlert(true);
         }
-
+    
         onAnswer(isCorrect ? 1 : 0, "single");
     };
+    
 
     const handleNextQuiz = () => {
         if (!buttonsDisabled) {
@@ -219,7 +215,7 @@ const Reordering = ({ quiz, onAnswer, onQuit, split }) => {
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     <Col xs={12} className="d-flex justify-content-center">
-                        <Button variant="primary" onClick={() => handleAudioPlay(quiz[currentQuizIndex].audio.src)}>
+                        <Button variant="primary" onClick={handleAudioPlay}>
                             {isPlaying ? <VolumeUpFill /> : <VolumeUp />}
                         </Button>
                     </Col>
