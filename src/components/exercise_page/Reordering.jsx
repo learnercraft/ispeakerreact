@@ -26,6 +26,17 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [currentSplitType, setCurrentSplitType] = useState("");
     const [currentAudioSrc, setCurrentAudioSrc] = useState("");
+    const [shuffledQuizArray, setShuffledQuizArray] = useState([]);
+
+    const filterAndShuffleQuiz = (quiz) => {
+        // Extract unique items using a Set
+        const uniqueQuiz = Array.from(new Set(quiz.map((item) => JSON.stringify(item)))).map((item) =>
+            JSON.parse(item)
+        );
+
+        // Shuffle the unique items
+        return ShuffleArray(uniqueQuiz);
+    };
 
     // Use a ref to manage the audio element
     const audioRef = useRef(null);
@@ -65,11 +76,19 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
 
     useEffect(() => {
         if (quiz && quiz.length > 0) {
-            // Shuffle the quiz array once when the component mounts
-            const shuffledQuizArray = ShuffleArray([...quiz]);
+            // Filter out unique items and shuffle the quiz array
+            const uniqueShuffledQuiz = filterAndShuffleQuiz(quiz);
+            setShuffledQuizArray(uniqueShuffledQuiz);
+            // Reset currentQuizIndex to 0
+            setCurrentQuizIndex(0);
+        }
+    }, [quiz]);
+
+    useEffect(() => {
+        if (shuffledQuizArray.length > 0 && currentQuizIndex < shuffledQuizArray.length) {
             loadQuiz(shuffledQuizArray[currentQuizIndex]);
         }
-    }, [quiz, currentQuizIndex, loadQuiz]);
+    }, [shuffledQuizArray, currentQuizIndex, loadQuiz]);
 
     useEffect(() => {
         return () => {
@@ -206,16 +225,14 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             audioRef.current.onended = null;
             audioRef.current.onerror = null;
 
-            // Optionally: Keep the source but reset the playing state
-            setIsPlaying(false); // Reset the playing state
-            setIsLoading(false); // Ensure loading is reset
-
-            // Delay is not necessary since we're not clearing the source
+            setIsPlaying(false);
+            setIsLoading(false);
         }
 
-        if (currentQuizIndex < quiz.length - 1) {
+        if (currentQuizIndex < shuffledQuizArray.length - 1) {
             setCurrentQuizIndex(currentQuizIndex + 1);
             setShowAlert(false);
+            loadQuiz(shuffledQuizArray[currentQuizIndex + 1]);
         } else {
             onQuit();
         }
