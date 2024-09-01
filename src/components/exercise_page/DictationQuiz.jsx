@@ -80,8 +80,16 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0; // Reset the audio to the start
-            audioRef.current.src = ""; // Clear the audio source to prevent replaying
+
+            // Remove event listeners to avoid false positive errors
+            audioRef.current.oncanplaythrough = null;
+            audioRef.current.onended = null;
+            audioRef.current.onerror = null;
+            audioRef.current.onpause = null;
+
+            audioRef.current.src = ""; // Clear the audio source
             setIsPlaying(false); // Reset the playing state
+            setIsLoading(false); // Reset loading state if necessary
         }
 
         if (currentQuestionIndex < shuffledQuiz.length - 1) {
@@ -117,7 +125,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             return;
         }
 
-        // Clear any existing audio source and load the new one with a slight delay
+        // Clear any existing audio source and load the new one
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.src = ""; // Clear the current source
@@ -128,34 +136,34 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
         audioRef.current = audio;
 
-        // Add a small delay to ensure the previous audio is completely reset
-        setTimeout(() => {
-            audio.src = audioSrc;
-            audio.load();
-            setIsLoading(true);
+        setIsLoading(true); // Start loading spinner
 
-            audio.oncanplaythrough = () => {
-                setIsLoading(false);
-                setIsPlaying(true);
-                audio.play();
-            };
+        // Attach event listeners
+        audio.src = audioSrc;
+        audio.load();
 
-            audio.onended = () => {
-                setIsPlaying(false);
-            };
+        audio.oncanplaythrough = () => {
+            setIsLoading(false); // Stop loading spinner
+            audio.play();
+            setIsPlaying(true);
+        };
 
-            audio.onerror = () => {
-                setIsLoading(false);
-                if (audio.src && audio.src === audioSrc) {
-                    // Check if the error is for the correct source
-                    console.error("Error loading the audio file:", audio.src);
-                }
-            };
+        audio.onended = () => {
+            setIsPlaying(false);
+        };
 
-            audio.onpause = () => {
-                setIsPlaying(false);
-            };
-        }, 50); // 50ms delay to avoid false positives
+        audio.onerror = () => {
+            setIsLoading(false); // Stop loading spinner
+            setIsPlaying(false); // Reset playing state
+            console.error("Error loading the audio file:", audio.src);
+
+            // Provide feedback to the user
+            alert("There was an error loading the audio file. Please check your connection or try again later.");
+        };
+
+        audio.onpause = () => {
+            setIsPlaying(false);
+        };
     };
 
     const renderWords = () => {

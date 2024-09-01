@@ -44,6 +44,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.src = ""; // Set the src to empty to release the resource
+                audioRef.current.onerror = null;
             }
         };
     }, []);
@@ -128,6 +129,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
                 setIsLoading(false); // Stop loading spinner
                 setIsPlaying(false); // Reset playing state
                 console.error("Error playing audio.");
+                alert("There was an error loading the audio file. Please check your connection or try again later.");
             };
         }
     };
@@ -192,12 +194,21 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             onAnswer(0, "single");
         }
 
-        // Stop and reset the audio state
         if (audioRef.current) {
-            audioRef.current.pause(); // Pause the audio
+            // Stop the audio and remove event listeners
+            audioRef.current.pause();
             audioRef.current.currentTime = 0; // Reset the audio to the beginning
-            audioRef.current.src = ""; // Clear the source to prevent automatic replay
-            setIsPlaying(false); // Reset the isPlaying state
+
+            // Remove event listeners to prevent them from triggering after the source is cleared
+            audioRef.current.oncanplaythrough = null;
+            audioRef.current.onended = null;
+            audioRef.current.onerror = null;
+
+            // Optionally: Keep the source but reset the playing state
+            setIsPlaying(false); // Reset the playing state
+            setIsLoading(false); // Ensure loading is reset
+
+            // Delay is not necessary since we're not clearing the source
         }
 
         if (currentQuizIndex < quiz.length - 1) {
