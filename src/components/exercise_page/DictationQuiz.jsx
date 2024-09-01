@@ -80,16 +80,10 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0; // Reset the audio to the start
-
-            // Remove event listeners to avoid false positive errors
-            audioRef.current.oncanplaythrough = null;
-            audioRef.current.onended = null;
-            audioRef.current.onerror = null;
-            audioRef.current.onpause = null;
-
-            audioRef.current.src = ""; // Clear the audio source
+            audioRef.current.removeAttribute("src"); // Remove the audio source attribute
+            audioRef.current.load(); // Reload the audio element to reset the state
             setIsPlaying(false); // Reset the playing state
-            setIsLoading(false); // Reset loading state if necessary
+            setIsLoading(false);
         }
 
         if (currentQuestionIndex < shuffledQuiz.length - 1) {
@@ -119,16 +113,9 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             // Stop the current audio if it's playing
             if (audioRef.current) {
                 audioRef.current.pause();
-                audioRef.current = null;
+                setIsPlaying(false);
             }
-            setIsPlaying(false);
             return;
-        }
-
-        // Clear any existing audio source and load the new one
-        if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.src = ""; // Clear the current source
         }
 
         const audio = new Audio();
@@ -136,16 +123,13 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
         audioRef.current = audio;
 
-        setIsLoading(true); // Start loading spinner
-
-        // Attach event listeners
         audio.src = audioSrc;
-        audio.load();
+        setIsLoading(true);
 
         audio.oncanplaythrough = () => {
-            setIsLoading(false); // Stop loading spinner
-            audio.play();
+            setIsLoading(false);
             setIsPlaying(true);
+            audio.play();
         };
 
         audio.onended = () => {
@@ -153,17 +137,15 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         };
 
         audio.onerror = () => {
-            setIsLoading(false); // Stop loading spinner
-            setIsPlaying(false); // Reset playing state
-            console.error("Error loading the audio file:", audio.src);
-
-            // Provide feedback to the user
-            alert("There was an error loading the audio file. Please check your connection or try again later.");
+            setIsLoading(false);
+            console.error("Audio error occurred. Unable to play the audio.");
         };
 
         audio.onpause = () => {
             setIsPlaying(false);
         };
+
+        audioRef.current.load(); // Load the new audio source
     };
 
     const renderWords = () => {
