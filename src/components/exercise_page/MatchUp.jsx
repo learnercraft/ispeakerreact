@@ -108,7 +108,6 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             setIsLoading((prev) => {
                 const newLoadingState = [...prev];
                 newLoadingState[index] = true;
-                console.log(newLoadingState);
                 return newLoadingState;
             });
 
@@ -132,6 +131,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                     return newLoadingState;
                 });
                 console.error("Error loading the audio file:", audioSrc);
+                alert("There was an error loading the audio file. Please check your connection or try again later.");
             };
         }
     };
