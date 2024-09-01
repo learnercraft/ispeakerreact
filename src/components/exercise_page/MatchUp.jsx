@@ -55,7 +55,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         // Generate unique IDs for each word
         const wordsWithIds = quizData.words.map((word, index) => ({
             ...word,
-            id: `${word.text}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+            id: `${word.text}-${index}-${Math.random().toString(36).substring(2, 11)}`,
         }));
 
         // Shuffle words and audio independently
@@ -81,6 +81,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     useEffect(() => {
         if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
             loadQuiz(shuffledQuiz[currentQuizIndex]);
+            setIsLoading(new Array(shuffledQuiz[currentQuizIndex].audio.length).fill(false));
         }
     }, [shuffledQuiz, currentQuizIndex, loadQuiz]);
 
@@ -115,6 +116,9 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             audioRef.current.pause();
             setIsPlaying(null);
         }
+
+        // Reset all loading states before setting the new one
+        setIsLoading((prev) => prev.map(() => false));
 
         // Start the new audio if it's not already playing
         if (isPlaying !== index) {
@@ -206,6 +210,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
             audioRef.current.pause();
             audioRef.current.currentTime = 0; // Reset to the start
             setIsPlaying(null); // Reset the playing state
+            setIsLoading(false);
         }
 
         if (currentQuizIndex < shuffledQuiz.length - 1) {
