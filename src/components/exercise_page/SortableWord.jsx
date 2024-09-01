@@ -3,6 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import he from "he";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Check2, XLg } from "react-bootstrap-icons";
 
 const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
     const [itemWidth, setItemWidth] = useState(null);
@@ -33,6 +34,7 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
     };
 
     const variant = isOverlay ? "secondary" : isCorrect === null ? "secondary" : isCorrect ? "success" : "danger";
+    const trueFalse = isOverlay ? "" : isCorrect === null ? "" : isCorrect ? <Check2 className="ms-2" /> : <XLg className="ms-2" />;
 
     return (
         <Button
@@ -48,7 +50,7 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
                 isOverlay ? "z-2 shadow-sm" : ""
             }`}
             disabled={disabled}>
-            {he.decode(word.text)}
+            {he.decode(word.text)}{trueFalse}
         </Button>
     );
 };
