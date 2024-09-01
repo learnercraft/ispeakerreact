@@ -61,8 +61,8 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
             {...attributes}
             {...listeners}
             variant={variant}
-            className={`mb-2 fw-bold ${disabled ? "pe-none" : ""} ${isDragging && !disabled ? "opacity-50" : ""} ${
-                isOverlay ? "z-2 shadow-sm" : ""
+            className={`mb-2 fw-bold${isDragging && !disabled ? " opacity-50" : ""}${disabled ? " pe-none" : ""}${
+                isOverlay ? " z-2 shadow-sm" : ""
             }`}>
             {he.decode(word.text)}
             {trueFalse}
