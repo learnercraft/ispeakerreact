@@ -9,7 +9,7 @@ import {
     closestCenter,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
-import { Alert, Button, Card, Col, Row, Stack } from "react-bootstrap";
+import { Alert, Button, Card, Col, Row, Stack, Spinner } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import SortableWord from "./SortableWord";
 import he from "he";
@@ -20,11 +20,13 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [shuffledItems, setShuffledItems] = useState([]);
     const [activeId, setActiveId] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Loading state for audio
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [currentSplitType, setCurrentSplitType] = useState("");
-    
+    const [currentAudioSrc, setCurrentAudioSrc] = useState("");
+
     // Use a ref to manage the audio element
     const audioRef = useRef(null);
 
@@ -89,30 +91,44 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
         setShuffledItems(shuffledItemsArray);
         setButtonsDisabled(false);
 
-        // Set the audio src
-        if (audioRef.current) {
-            audioRef.current.src = `/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`;
-        } else {
-            audioRef.current = new Audio(`/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
-        }
-
+        setCurrentAudioSrc(`/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
         setCorrectAnswer(correctAnswer);
     };
 
     const handleAudioPlay = () => {
         if (!audioRef.current) {
-            console.warn("No audio element set");
-            return;
+            // Initialize the audio element if not already set
+            audioRef.current = new Audio();
         }
 
         if (isPlaying) {
             audioRef.current.pause();
             setIsPlaying(false);
         } else {
-            audioRef.current.play();
-            setIsPlaying(true);
+            setIsLoading(true); // Start loading
 
-            audioRef.current.onended = () => setIsPlaying(false);
+            // Set the audio source and load the audio
+            audioRef.current.src = currentAudioSrc;
+            audioRef.current.load();
+
+            // Play the audio once it's ready
+            audioRef.current.oncanplaythrough = () => {
+                setIsLoading(false); // Stop loading spinner
+                audioRef.current.play();
+                setIsPlaying(true);
+            };
+
+            // Handle the audio ended event
+            audioRef.current.onended = () => {
+                setIsPlaying(false);
+            };
+
+            // Handle errors during loading
+            audioRef.current.onerror = () => {
+                setIsLoading(false); // Stop loading spinner
+                setIsPlaying(false); // Reset playing state
+                console.error("Error playing audio.");
+            };
         }
     };
 
@@ -135,46 +151,53 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
 
     const handleSubmit = () => {
         const splitType = currentSplitType;
-    
+
         // Join the shuffled items into a single string
         let joinedItems = shuffledItems.map((item) => item.value).join(splitType === "sentence" ? " " : "");
-    
+
         // Normalize user answer
         let normalizedUserAnswer = joinedItems
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
             .toLowerCase();
-    
+
         // Normalize correct answer
         let normalizedCorrectAnswer = correctAnswer
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
             .toLowerCase();
-    
+
         // Determine if the user's answer is correct
         const isCorrect = normalizedCorrectAnswer === normalizedUserAnswer;
         setButtonsDisabled(true);
-    
+
         // Determine the final display text
         const finalDisplay = isCorrect && splitType === "sentence" ? correctAnswer : joinedItems;
-    
+
         // Update the shuffledItems to display either the user input or the correct answer
         setShuffledItems([{ value: finalDisplay, id: "united", isCorrect }]);
-    
+
         // Show the correct answer alert if the user's answer was incorrect
         if (!isCorrect) {
             setShowAlert(true);
         }
-    
+
         onAnswer(isCorrect ? 1 : 0, "single");
     };
-    
 
     const handleNextQuiz = () => {
         if (!buttonsDisabled) {
             onAnswer(0, "single");
+        }
+
+        // Stop and reset the audio state
+        if (audioRef.current) {
+            audioRef.current.pause(); // Pause the audio
+            audioRef.current.currentTime = 0; // Reset the audio to the beginning
+            audioRef.current.src = ""; // Clear the source to prevent automatic replay
+            setIsPlaying(false); // Reset the isPlaying state
         }
 
         if (currentQuizIndex < quiz.length - 1) {
@@ -191,8 +214,14 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     <Col xs={12} className="d-flex justify-content-center">
-                        <Button variant="primary" onClick={handleAudioPlay}>
-                            {isPlaying ? <VolumeUpFill /> : <VolumeUp />}
+                        <Button variant="primary" onClick={handleAudioPlay} disabled={isLoading}>
+                            {isLoading ? (
+                                <Spinner animation="border" size="sm" />
+                            ) : isPlaying ? (
+                                <VolumeUpFill />
+                            ) : (
+                                <VolumeUp />
+                            )}
                         </Button>
                     </Col>
                     <Col xs={12}>
