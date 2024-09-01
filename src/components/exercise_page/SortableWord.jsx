@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import he from "he";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Check2, XLg } from "react-bootstrap-icons";
+import { CheckCircleFill, XCircleFill } from "react-bootstrap-icons";
 
 const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
     const [itemWidth, setItemWidth] = useState(null);
@@ -33,8 +33,22 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
         // Plus 1 is for not making text unexpectedly move to another line
     };
 
-    const variant = isOverlay ? "secondary" : isCorrect === null ? "secondary" : isCorrect ? "success" : "danger";
-    const trueFalse = isOverlay ? "" : isCorrect === null ? "" : isCorrect ? <Check2 className="ms-2" /> : <XLg className="ms-2" />;
+    const variant = isOverlay
+        ? "outline-secondary"
+        : isCorrect === null
+        ? "outline-secondary"
+        : isCorrect
+        ? "success"
+        : "danger";
+    const trueFalse = isOverlay ? (
+        ""
+    ) : isCorrect === null ? (
+        ""
+    ) : isCorrect ? (
+        <CheckCircleFill className="ms-2" />
+    ) : (
+        <XCircleFill className="ms-2" />
+    );
 
     return (
         <Button
@@ -46,11 +60,11 @@ const SortableWord = ({ word, isCorrect, disabled, isOverlay }) => {
             {...attributes}
             {...listeners}
             variant={variant}
-            className={`mb-2 fw-bold ${isDragging && !disabled ? "opacity-50" : ""} ${
+            className={`mb-2 fw-bold ${disabled ? "pe-none" : ""} ${isDragging && !disabled ? "opacity-50" : ""} ${
                 isOverlay ? "z-2 shadow-sm" : ""
-            }`}
-            disabled={disabled}>
-            {he.decode(word.text)}{trueFalse}
+            }`}>
+            {he.decode(word.text)}
+            {trueFalse}
         </Button>
     );
 };
