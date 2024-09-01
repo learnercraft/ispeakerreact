@@ -9,9 +9,9 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import he from "he";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
+import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import SortableWord from "./SortableWord";
 
@@ -297,15 +297,15 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
                 <div className="d-flex justify-content-end mt-3">
                     <Stack direction="horizontal" gap={2}>
                         <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                            Submit
+                            <Check2Circle /> Check
                         </Button>
                         {currentQuizIndex < quiz.length - 1 && (
                             <Button variant="secondary" onClick={handleNextQuiz}>
-                                Next
+                                <ArrowRightCircle /> Next
                             </Button>
                         )}
                         <Button variant="danger" onClick={onQuit}>
-                            Quit
+                            <XCircle /> Quit
                         </Button>
                     </Stack>
                 </div>
