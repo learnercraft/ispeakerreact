@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { Button, Card, Col, Row, Stack } from "react-bootstrap";
-import { ArrowRightCircle, XCircle, VolumeUp, VolumeUpFill, CheckCircleFill, XCircleFill } from "react-bootstrap-icons";
-import { ShuffleArray } from "../../utils/ShuffleArray";
 import he from "he";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
+import { ArrowRightCircle, CheckCircleFill, VolumeUp, VolumeUpFill, XCircle, XCircleFill } from "react-bootstrap-icons";
+import { ShuffleArray } from "../../utils/ShuffleArray";
 
 const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -13,6 +13,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuestionText, setCurrentQuestionText] = useState("");
     const [currentAudioSrc, setCurrentAudioSrc] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Use a ref to manage the audio element
     const audioRef = useRef(null);
@@ -61,11 +62,30 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
             }
             setIsPlaying(false);
         } else {
+            setIsLoading(true);
             const newAudio = new Audio(currentAudioSrc);
             audioRef.current = newAudio;
-            setIsPlaying(true);
-            newAudio.play();
-            newAudio.onended = () => setIsPlaying(false);
+            newAudio.load();
+
+            // Handle when the audio can be played through
+            newAudio.oncanplaythrough = () => {
+                setIsLoading(false);
+                setIsPlaying(true);
+                newAudio.play();
+            };
+
+            // Handle when the audio ends
+            newAudio.onended = () => {
+                setIsPlaying(false);
+            };
+
+            // Handle any loading errors
+            newAudio.onerror = () => {
+                setIsLoading(false);
+                setIsPlaying(false);
+                console.error("Error playing audio.");
+                alert("There was an error loading the audio file. Please check your connection or try again later.");
+            };
         }
     };
 
@@ -91,6 +111,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
             audioRef.current.onerror = null;
 
             setIsPlaying(false);
+            setIsLoading(false);
         }
 
         if (currentQuizIndex < shuffledQuiz.length - 1) {
@@ -106,8 +127,14 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     <Col xs={12} className="d-flex justify-content-center">
-                        <Button variant="primary" onClick={handleAudioPlay}>
-                            {isPlaying ? <VolumeUpFill /> : <VolumeUp />}
+                        <Button variant="primary" onClick={handleAudioPlay} disabled={isLoading}>
+                            {isLoading ? (
+                                <Spinner animation="border" size="sm" />
+                            ) : isPlaying ? (
+                                <VolumeUpFill />
+                            ) : (
+                                <VolumeUp />
+                            )}
                         </Button>
                     </Col>
                     <Col xs={12} className="d-flex justify-content-center">
