@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowCounterclockwise, ArrowLeftCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
-import DictationQuiz from "./DictationQuiz";
-import MatchUp from "./MatchUp";
-import Reordering from "./Reordering";
-import SoundAndSpelling from "./SoundAndSpelling";
+
+// Lazy load the quiz components
+const DictationQuiz = lazy(() => import("./DictationQuiz"));
+const MatchUp = lazy(() => import("./MatchUp"));
+const Reordering = lazy(() => import("./Reordering"));
+const SoundAndSpelling = lazy(() => import("./SoundAndSpelling"));
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
@@ -170,42 +172,53 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         // Remove "exercise_" prefix and ".json" suffix
         const exerciseType = file.replace("exercise_", "").replace(".json", "");
 
-        switch (exerciseType) {
-            case "dictation":
-                return (
-                    <DictationQuiz
-                        quiz={quiz}
-                        instructions={instructions}
-                        onAnswer={handleAnswer}
-                        onQuit={handleQuizQuit}
-                    />
-                );
-            case "matchup":
-                return (
-                    <MatchUp quiz={quiz} instructions={instructions} onAnswer={handleAnswer} onQuit={handleQuizQuit} />
-                );
-            case "reordering":
-                return (
-                    <Reordering
-                        quiz={quiz}
-                        instructions={instructions}
-                        onAnswer={handleAnswer}
-                        onQuit={handleQuizQuit}
-                        split={split}
-                    />
-                );
-            case "sound_n_spelling":
-                return (
-                    <SoundAndSpelling
-                        quiz={quiz}
-                        instructions={instructions}
-                        onAnswer={handleAnswer}
-                        onQuit={handleQuizQuit}
-                    />
-                );
-            default:
-                return <Card.Body>This quiz type is not yet implemented.</Card.Body>;
-        }
+        return (
+            <Suspense fallback={<LoadingOverlay />}>
+                {(() => {
+                    switch (exerciseType) {
+                        case "dictation":
+                            return (
+                                <DictationQuiz
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                />
+                            );
+                        case "matchup":
+                            return (
+                                <MatchUp
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                />
+                            );
+                        case "reordering":
+                            return (
+                                <Reordering
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                    split={split}
+                                />
+                            );
+                        case "sound_n_spelling":
+                            return (
+                                <SoundAndSpelling
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                />
+                            );
+                        default:
+                            return <Card.Body>This quiz type is not yet implemented.</Card.Body>;
+                    }
+                })()}
+            </Suspense>
+        );
     };
 
     return (
