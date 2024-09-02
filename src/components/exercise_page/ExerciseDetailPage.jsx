@@ -117,21 +117,50 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     };
 
     const getEncouragementMessage = () => {
-        if (totalAnswered === 0) return "Let's get started! 🚀";
+        if (totalAnswered === 0)
+            return (
+                <>
+                    Let’s get started! <span className="noto-color-emoji">🚀</span>
+                </>
+            );
         const percentage = (score / totalAnswered) * 100;
 
         if (percentage === 100) {
-            return "Perfect! You nailed it! 🎉";
+            return (
+                <>
+                    Perfect! You nailed it! <span className="noto-color-emoji">🎉</span>
+                </>
+            );
         } else if (percentage >= 80) {
-            return "Great job! You're doing really well! 👍";
+            return (
+                <>
+                    Great job! You’re doing really well! <span className="noto-color-emoji">👍</span>
+                </>
+            );
         } else if (percentage >= 60) {
-            return "Nice work! Keep going, you're doing fine! 😊";
+            return (
+                <>
+                    Nice work! Keep going, you’re doing fine! <span className="noto-color-emoji">😊</span>
+                </>
+            );
         } else if (percentage >= 40) {
-            return "Not bad! Keep trying, you'll get there! 💪";
+            return (
+                <>
+                    Not bad! Keep trying, you’ll get there! <span className="noto-color-emoji">💪</span>
+                </>
+            );
         } else if (percentage >= 20) {
-            return "Keep going! You're learning and improving! 🌱";
+            return (
+                <>
+                    Keep going! You’re learning and improving! <span className="noto-color-emoji">🌱</span>
+                </>
+            );
         } else {
-            return "Keep practicing! Every step is progress! 🛤️";
+            return (
+                <>
+                    Keep practicing! Every step is progress! <span className="noto-color-emoji">🛤️</span>
+                </>
+            );
         }
     };
 
@@ -215,9 +244,16 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                     <>
                                         <Card.Header className="fw-semibold">Result</Card.Header>
                                         <Card.Body>
-                                            <p>
-                                                You have answered {score} out of {totalAnswered} correctly.
-                                            </p>
+                                            {score === 0 && totalAnswered === 0 ? (
+                                                <p>
+                                                    You have not answered any questions yet. Try restarting the quiz, or
+                                                    choose another exercise type.
+                                                </p>
+                                            ) : (
+                                                <p>
+                                                    You have answered {score} out of {totalAnswered} correctly.
+                                                </p>
+                                            )}
                                             {encouragementMessage && <p>{encouragementMessage}</p>}
                                             <Button variant="secondary" onClick={handleQuizRestart}>
                                                 <ArrowCounterclockwise /> Restart quiz
@@ -232,11 +268,21 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                 <Card className="mt-4 shadow-sm">
                                     <Card.Header className="fw-semibold">Review</Card.Header>
                                     <Card.Body>
-                                        <p>
-                                            You have answered {score} out of {totalAnswered} correctly.
-                                        </p>
+                                        {score === 0 && totalAnswered === 0 ? (
+                                            ""
+                                        ) : (
+                                            <p>
+                                                You have answered {score} out of {totalAnswered} correctly.
+                                            </p>
+                                        )}
+
                                         <p>{getEncouragementMessage()}</p>
-                                        <p>Try this exercise again for further practice and different questions.</p>
+
+                                        {score === 0 && totalAnswered === 0 ? (
+                                            ""
+                                        ) : (
+                                            <p>Try this exercise again for further practice and different questions.</p>
+                                        )}
                                     </Card.Body>
                                 </Card>
                             )}
