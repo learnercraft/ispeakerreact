@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Floppy, PlayCircle, RecordCircle, StopCircle, Trash } from "react-bootstrap-icons";
-import { openDatabase, saveRecording, playRecording, checkRecordingExists } from "../../utils/databaseOperations";
+import { checkRecordingExists, openDatabase, playRecording, saveRecording } from "../../utils/databaseOperations";
 
 const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) => {
     const [textValue, setTextValue] = useState("");

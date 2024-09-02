@@ -91,6 +91,10 @@ const SoundList = () => {
             });
     }, []);
 
+    useEffect(() => {
+        document.title = "Sounds | Oxford iSpeaker";
+    }, []);
+
     return (
         <>
             <TopNavBar />

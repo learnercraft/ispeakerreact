@@ -1,5 +1,6 @@
+import { useEffect } from "react";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Card, Button } from "react-bootstrap";
 import TopNavBar from "./general/TopNavBar";
 
 function Homepage() {
@@ -8,6 +9,10 @@ function Homepage() {
     const handleNavigate = (path) => {
         navigate(path);
     };
+
+    useEffect(() => {
+        document.title = "Homepage | Oxford iSpeaker";
+    }, []);
 
     const cardsInfo = [
         {
@@ -52,11 +57,7 @@ function Homepage() {
                                 <Card.Title>{card.title}</Card.Title>
                                 <Card.Text>{card.description}</Card.Text>
                                 <Card.Text className="mt-auto mb-3 d-flex justify-content-center">
-                                    <img
-                                        alt={`${card.title} section icon`}
-                                        className="w-25"
-                                        src={card.icon}
-                                    />
+                                    <img alt={`${card.title} section icon`} className="w-25" src={card.icon} />
                                 </Card.Text>
                                 <div className="mt-auto d-flex justify-content-center">
                                     <Button

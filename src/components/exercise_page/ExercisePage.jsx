@@ -36,6 +36,10 @@ const ExercisePage = () => {
         });
     };
 
+    useEffect(() => {
+        document.title = "Exercises | Oxford iSpeaker";
+    }, []);
+
     const ExerciseCard = ({ heading, titles, info, file }) => (
         <Col>
             <Card className="mb-4 h-100 shadow-sm">

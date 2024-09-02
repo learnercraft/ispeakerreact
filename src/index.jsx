@@ -1,14 +1,14 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Container } from "react-bootstrap";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Homepage from "./components/Homepage";
-import ExcercisePage from "./components/exercise_page/ExercisePage";
-import SoundList from "./components/sound_page/SoundList";
 import ConversationMenu from "./components/conversation_page/ConversationMenu";
 import ExamPage from "./components/exam_page/ExamPage";
-import { ThemeProvider } from "./utils/ThemeContext";
+import ExcercisePage from "./components/exercise_page/ExercisePage";
+import SoundList from "./components/sound_page/SoundList";
+import { ThemeProvider } from "./utils/ThemeProvider";
 import ThemeSwitcher from "./utils/ThemeSwitcher";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -4,8 +4,8 @@ import { Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
 import { ArrowLeftCircle, RecordCircleFill } from "react-bootstrap-icons";
 import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations";
 import ToastNotification from "../general/ToastNotification";
-import SoundPracticeCard from "./SoundPracticeCard";
 import ReviewCard from "./ReviewCard";
+import SoundPracticeCard from "./SoundPracticeCard";
 
 const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const accentKey = accent === "american" ? "a" : "b";
@@ -54,7 +54,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         .map((video) => video.value);
 
     const imgPhonemeThumbSrc =
-        accent === "american" ? "/images/ispeaker/sound_images/sounds_american.jpg" : "/images/ispeaker/sound_images/sounds_british.jpg";
+        accent === "american"
+            ? "/images/ispeaker/sound_images/sounds_american.jpg"
+            : "/images/ispeaker/sound_images/sounds_british.jpg";
 
     const [review, setReview] = useState(null);
 
@@ -419,8 +421,8 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         <Card.Header className="fw-semibold">Practice</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                Click/Tap on the image to watch the video clips. Click/Tap on the <RecordCircleFill aria-label="record icon" />{" "}
-                                button to record.
+                                Click/Tap on the image to watch the video clips. Click/Tap on the{" "}
+                                <RecordCircleFill aria-label="record icon" /> button to record.
                             </Card.Text>
                             <SoundPracticeCard
                                 sound={sound}
