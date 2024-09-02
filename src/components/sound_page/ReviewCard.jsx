@@ -1,6 +1,6 @@
 import he from "he";
 import { Card, Col, Row } from "react-bootstrap";
-import { EmojiSmile, EmojiNeutral, EmojiFrown } from "react-bootstrap-icons";
+import { EmojiFrown, EmojiNeutral, EmojiSmile } from "react-bootstrap-icons";
 
 const ReviewCard = ({ sound, handleReviewClick, emojiStyle }) => {
     return (

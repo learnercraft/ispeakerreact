@@ -87,6 +87,10 @@ const ConversationListPage = () => {
         setSelectedConversation(null);
     };
 
+    useEffect(() => {
+        document.title = "Conversations | Oxford iSpeaker";
+    }, []);
+
     return (
         <>
             <TopNavBar />

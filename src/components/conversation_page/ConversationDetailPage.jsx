@@ -52,7 +52,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             <h3 className="mt-4">Topic: {title}</h3>
             <p>Accent: {accentDisplay}</p>
             <Button variant="primary" className="my-3" onClick={onBack}>
-                <ArrowLeftCircle className="me-1"/> Back to conversation list
+                <ArrowLeftCircle className="me-1" /> Back to conversation list
             </Button>
             <Card className="mt-2 shadow-sm">
                 <Card.Header>
@@ -100,11 +100,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     )}
 
                     {activeTab === "#review" && (
-                        <ReviewTab
-                            reviews={accentData.reviews}
-                            accent={accent}
-                            conversationId={id}
-                        />
+                        <ReviewTab reviews={accentData.reviews} accent={accent} conversationId={id} />
                     )}
                 </Card.Body>
             </Card>

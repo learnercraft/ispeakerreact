@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { ListGroup, Row, Col, Spinner, Card } from "react-bootstrap";
+import Masonry from "masonry-layout";
+import { useEffect, useRef, useState } from "react";
+import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import ToastNotification from "../general/ToastNotification";
-import Masonry from "masonry-layout";
 
 const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
     const [playingIndex, setPlayingIndex] = useState(null);
