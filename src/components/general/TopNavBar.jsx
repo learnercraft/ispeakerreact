@@ -1,6 +1,6 @@
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { CardChecklist, ChatDots, ClipboardCheck, House, Mic } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
-import { Nav, Navbar, Container } from "react-bootstrap";
-import { House, Mic, CardChecklist, ChatDots, ClipboardCheck } from "react-bootstrap-icons";
 
 const TopNavBar = () => {
     return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, Card, Col, Row, Modal, Image, Form } from "react-bootstrap";
+import { Accordion, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
 
 const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
