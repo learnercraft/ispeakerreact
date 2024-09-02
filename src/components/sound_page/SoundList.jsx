@@ -1,13 +1,14 @@
 import he from "he";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import PracticeSound from "./PracticeSound";
+
+const PracticeSound = lazy(() => import("./PracticeSound"));
 
 const SoundList = () => {
     const [selectedSound, setSelectedSound] = useState(null);
@@ -100,13 +101,15 @@ const SoundList = () => {
             <TopNavBar />
             <h1 className="fw-semibold">Sounds</h1>
             {selectedSound ? (
-                <PracticeSound
-                    sound={selectedSound.sound}
-                    accent={selectedSound.accent}
-                    soundsData={soundsData}
-                    index={selectedSound.index}
-                    onBack={() => handleGoBack()}
-                />
+                <Suspense fallback={<LoadingOverlay />}>
+                    <PracticeSound
+                        sound={selectedSound.sound}
+                        accent={selectedSound.accent}
+                        soundsData={soundsData}
+                        index={selectedSound.index}
+                        onBack={() => handleGoBack()}
+                    />
+                </Suspense>
             ) : (
                 <>
                     <AccentDropdown onAccentChange={setSelectedAccent} />

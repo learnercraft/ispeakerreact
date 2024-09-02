@@ -1,13 +1,14 @@
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import ConversationDetailPage from "./ConversationDetailPage";
+
+const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
 
 const ConversationListPage = () => {
     const [data, setData] = useState([]);
@@ -96,12 +97,14 @@ const ConversationListPage = () => {
             <TopNavBar />
             <h1 className="fw-semibold">Conversations</h1>
             {selectedConversation ? (
-                <ConversationDetailPage
-                    id={selectedConversation.id}
-                    accent={selectedAccent}
-                    title={selectedConversation.title}
-                    onBack={handleGoBack}
-                />
+                <Suspense fallback={<LoadingOverlay />}>
+                    <ConversationDetailPage
+                        id={selectedConversation.id}
+                        accent={selectedAccent}
+                        title={selectedConversation.title}
+                        onBack={handleGoBack}
+                    />
+                </Suspense>
             ) : (
                 <>
                     <AccentDropdown onAccentChange={setSelectedAccent} />
