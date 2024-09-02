@@ -1,13 +1,14 @@
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import ExamDetailPage from "./ExamDetailPage";
+
+const ExamDetailPage = lazy(() => import("./ExamDetailPage"));
 
 const ExamPage = () => {
     const [data, setData] = useState([]);
@@ -94,12 +95,14 @@ const ExamPage = () => {
             <TopNavBar />
             <h1 className="fw-semibold">Exams</h1>
             {selectedExam ? (
-                <ExamDetailPage
-                    id={selectedExam.id}
-                    accent={selectedAccent}
-                    title={selectedExam.title}
-                    onBack={handleGoBack}
-                />
+                <Suspense fallback={<LoadingOverlay />}>
+                    <ExamDetailPage
+                        id={selectedExam.id}
+                        accent={selectedAccent}
+                        title={selectedExam.title}
+                        onBack={handleGoBack}
+                    />
+                </Suspense>
             ) : (
                 <>
                     <AccentDropdown onAccentChange={setSelectedAccent} />
