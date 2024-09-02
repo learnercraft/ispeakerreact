@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { ArrowLeftCircle, ArrowRepeat } from "react-bootstrap-icons";
+import { ArrowCounterclockwise, ArrowLeftCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 import DictationQuiz from "./DictationQuiz";
-import SoundAndSpelling from "./SoundAndSpelling";
 import MatchUp from "./MatchUp";
 import Reordering from "./Reordering";
+import SoundAndSpelling from "./SoundAndSpelling";
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
     const [quiz, setQuiz] = useState([]);
-    const [split, setSplit] = useState("");
+    const [split] = useState("");
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [totalAnswered, setTotalAnswered] = useState(0);
@@ -185,7 +185,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                 <LoadingOverlay />
             ) : (
                 <>
-                    <h3 className="mt-4">Type: {heading}</h3>
+                    <h3 className="mt-4">{heading}</h3>
                     <Row className="mt-2 g-4">
                         <Col md={4}>
                             <Card className="mb-4 h-100 shadow-sm">
@@ -220,7 +220,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                             </p>
                                             {encouragementMessage && <p>{encouragementMessage}</p>}
                                             <Button variant="secondary" onClick={handleQuizRestart}>
-                                                <ArrowRepeat /> Restart quiz
+                                                <ArrowCounterclockwise /> Restart quiz
                                             </Button>
                                         </Card.Body>
                                     </>
