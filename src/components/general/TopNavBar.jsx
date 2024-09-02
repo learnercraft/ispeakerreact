@@ -7,7 +7,7 @@ const TopNavBar = () => {
         <div className="mb-4">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand className="fw-semibold">
+                    <Navbar.Brand as={NavLink} to="/" className="fw-semibold">
                         <img
                             alt="Oxford iSpeaker logo"
                             src="/images/icons/ios/128.png"
