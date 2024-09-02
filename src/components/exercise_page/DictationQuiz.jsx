@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
+import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 
@@ -173,8 +173,8 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                         autoComplete="off"
                         spellCheck="false"
                         disabled={isTextboxDisabled} // Disable the textbox when showing validation
-                        className={hasValueAndTextbox ? "mx-2" : ""} // Apply class only if both value and textbox are present
-                        style={hasValueAndTextbox ? { width: "40%", display: "inline-block" } : {}} // Set width to 40% only if both are present
+                        className={`text-center${hasValueAndTextbox ? " mx-2" : ""}`} // Apply class only if both value and textbox are present
+                        style={hasValueAndTextbox ? { minWidth: "30%", width: "45%", display: "inline-block" } : {}} // Set width to 40% only if both are present
                     />
                 );
             }
@@ -187,21 +187,38 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         <>
             <Card.Header className="fw-semibold">Question #{currentQuestionIndex + 1}</Card.Header>
             <Card.Body>
-                <Button variant="primary" onClick={handleAudioPlay} className="mb-3" disabled={isLoading}>
-                    {isLoading ? <Spinner animation="border" size="sm" /> : isPlaying ? <VolumeUpFill /> : <VolumeUp />}
-                </Button>
-
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formAnswer">
-                        <Form.Label>Answer:</Form.Label>
-                        <div>{renderWords()}</div>
-                    </Form.Group>
-                    {showValidation && validationVariant === "danger" && (
-                        <Alert className="mt-4" variant="info">
-                            {validationMessage}
-                        </Alert>
-                    )}
-                    <Button variant="success" type="submit" className="mt-3" disabled={isSubmitButtonEnabled}>
+                <Row>
+                    <Col xs={12} className="d-flex justify-content-center">
+                        <Button variant="primary" onClick={handleAudioPlay} className="mb-3" disabled={isLoading}>
+                            {isLoading ? (
+                                <Spinner animation="border" size="sm" />
+                            ) : isPlaying ? (
+                                <VolumeUpFill />
+                            ) : (
+                                <VolumeUp />
+                            )}
+                        </Button>
+                    </Col>
+                    <Col xs={12}>
+                        <Form onSubmit={handleSubmit} className="text-center">
+                            <Form.Group controlId="formAnswer">
+                                <div>{renderWords()}</div>
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                {showValidation && validationVariant === "danger" && (
+                    <Alert className="mt-4" variant="info">
+                        {validationMessage}
+                    </Alert>
+                )}
+                <div className="d-flex justify-content-end mt-3">
+                    <Button
+                        variant="success"
+                        type="submit"
+                        className="mt-3"
+                        disabled={isSubmitButtonEnabled}
+                        onClick={handleSubmit}>
                         <Check2Circle /> Check
                     </Button>
                     {currentQuestionIndex < quiz.length - 1 && (
@@ -212,7 +229,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                     <Button variant="danger" className="mt-3 ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
-                </Form>
+                </div>
             </Card.Body>
         </>
     );
