@@ -28,27 +28,29 @@ const SoundCardItem = ({
                 </Col>
                 <Col xs={"auto"} className="d-flex align-items-center">
                     <RecordCircleFill
+                        aria-label="record icon"
                         size={24}
                         role="button"
-                        className={`bi me-2 ${
+                        className={`bi me-2${
                             activeRecordingCard === id
-                                ? "text-danger"
+                                ? " text-danger"
                                 : activeRecordingCard !== null || isRecordingPlaying
-                                ? "pe-none opacity-25"
+                                ? " pe-none opacity-25"
                                 : ""
                         }`}
                         onClick={() => handleRecording(id)}
                     />
                     <PlayCircleFill
+                        aria-label="play recording icon"
                         size={24}
                         role="button"
-                        className={`bi me-2 ${
+                        className={`bi me-2${
                             isRecordingPlaying && activePlaybackCard !== id
-                                ? "pe-none opacity-25"
+                                ? " pe-none opacity-25"
                                 : isRecordingPlayingActive(id)
-                                ? "text-success"
+                                ? " text-success"
                                 : !isRecordingAvailable(id) || activeRecordingCard !== null
-                                ? "pe-none opacity-25"
+                                ? " pe-none opacity-25"
                                 : ""
                         }`}
                         onClick={() => (isRecordingAvailable(id) ? handlePlayRecording(id) : null)}
