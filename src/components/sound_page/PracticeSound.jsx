@@ -419,7 +419,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         <Card.Header className="fw-semibold">Practice</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                Click/Tap on the image to watch the video clips. Click/Tap on the <RecordCircleFill />{" "}
+                                Click/Tap on the image to watch the video clips. Click/Tap on the <RecordCircleFill aria-label="record icon" />{" "}
                                 button to record.
                             </Card.Text>
                             <SoundPracticeCard
