@@ -4,6 +4,7 @@ import { ArrowLeftCircle, ArrowRepeat } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 import DictationQuiz from "./DictationQuiz";
+import SoundAndSpelling from "./SoundAndSpelling";
 import MatchUp from "./MatchUp";
 import Reordering from "./Reordering";
 
@@ -164,7 +165,15 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         split={split}
                     />
                 );
-            // Add more cases for other exercise types
+            case "sound_n_spelling":
+                return (
+                    <SoundAndSpelling
+                        quiz={quiz}
+                        instructions={instructions}
+                        onAnswer={handleAnswer}
+                        onQuit={handleQuizQuit}
+                    />
+                );
             default:
                 return <Card.Body>This quiz type is not yet implemented.</Card.Body>;
         }
