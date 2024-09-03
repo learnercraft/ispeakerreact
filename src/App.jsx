@@ -4,10 +4,10 @@ import LoadingOverlay from "./components/general/LoadingOverlay";
 import { ThemeProvider } from "./utils/ThemeProvider";
 import ThemeSwitcher from "./utils/ThemeSwitcher";
 import Homepage from "./components/Homepage";
-import SoundList from ./components/sound_page/SoundList";
-import ConversationMenu from ./components/conversation_page/ConversationMenu";
-import ExamPage from ./components/exam_page/ExamPage";
-import ExcercisePage from ./components/exercise_page/ExercisePage";
+import SoundList from "./components/sound_page/SoundList";
+import ConversationMenu from "./components/conversation_page/ConversationMenu";
+import ExamPage from "./components/exam_page/ExamPage";
+import ExcercisePage from "./components/exercise_page/ExercisePage";
 
 const App = () => {
     return (
