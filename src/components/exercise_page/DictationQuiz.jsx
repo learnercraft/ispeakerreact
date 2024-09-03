@@ -1,7 +1,7 @@
+import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
-import { ShuffleArray } from "../../utils/ShuffleArray";
 
 const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -19,11 +19,16 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     const audioRef = useRef(null);
 
+    const filterAndShuffleQuiz = (quiz) => {
+        const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
+        return _.shuffle(uniqueQuiz);
+    };
+
     useEffect(() => {
         // Shuffle the quiz array when the component mounts
         if (quiz && quiz.length > 0) {
-            const shuffled = ShuffleArray([...quiz]);
-            setShuffledQuiz(shuffled);
+            const uniqueAndShuffledQuiz = filterAndShuffleQuiz([...quiz]);
+            setShuffledQuiz(uniqueAndShuffledQuiz);
         }
 
         return () => {
