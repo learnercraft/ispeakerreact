@@ -2,17 +2,18 @@
     "odd_one_out": [
         {
             "exercise": "Word stress",
+            "id": "word-stress",
             "info": "Find the word that has a different stress pattern from the others",
             "b_s": "yes",
             "a_s": "yes",
-            "b": [
+            "british_american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Choose the word that has a different stress pattern from the other words in the group.",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": [
+                    "quiz": [
                         {
                             "data": [
                                 { "value": "capable", "index": "0", "answer": "false" },
@@ -466,28 +467,29 @@
                     ]
                 }
             ],
-            "a": [
+            "american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Choose the word that has a different stress pattern from the other words in the group.",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": []
+                    "quiz": []
                 }
             ]
         },
         {
             "exercise": "Rhyming words",
+            "id": "rhyming",
             "info": "Find the word that ends in a different sounds from the others",
-            "b": [
+            "british_american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Which word ends in a different sound from the other three words?",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": [
+                    "quiz": [
                         {
                             "data": [
                                 { "value": "advice", "index": "0", "answer": "false" },
@@ -941,28 +943,29 @@
                     ]
                 }
             ],
-            "a": [
+            "american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Which word ends in a different sound from the other three words?",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": []
+                    "quiz": []
                 }
             ]
         },
         {
             "exercise": "Syllables",
+            "id": "syllables",
             "info": "Find the word that has a different number of syllables from the others",
-            "b": [
+            "british_american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Which word has a different number of syllables from the other three?",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": [
+                    "quiz": [
                         {
                             "data": [
                                 { "value": "created", "index": "0", "answer": "false" },
@@ -1416,40 +1419,41 @@
                     ]
                 }
             ],
-            "a": [
+            "american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Which word has a different number of syllables from the other three?",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": []
+                    "quiz": []
                 }
             ]
         },
         {
             "exercise": "Random",
+            "id": "random",
             "info": "Find the word that has a different stress pattern from the others",
-            "b": [
+            "british_american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Choose the word that is different from the other words in the group.",
                         "The odd one out may have different word stress, may end in a different sound, or may have a different number of syllables.",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": []
+                    "quiz": []
                 }
             ],
-            "a": [
+            "american": [
                 {
-                    "h4": "British and American English",
-                    "left_p": [
+                    "accent": "British and American English",
+                    "instructions": [
                         "Choose the word that is different from the other words in the group.",
                         "The odd one out may have different word stress, may end in a different sound, or may have a different number of syllables.",
                         "When you want to stop, select \"Quit\" to see your score in this session."
                     ],
-                    "act": []
+                    "quiz": []
                 }
             ]
         }
