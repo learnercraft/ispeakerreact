@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import he from "he";
+import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
@@ -29,10 +30,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [shuffledQuizArray, setShuffledQuizArray] = useState([]);
 
     const filterAndShuffleQuiz = (quiz) => {
-        // Extract unique items using a Set
-        const uniqueQuiz = Array.from(new Set(quiz.map((item) => JSON.stringify(item)))).map((item) =>
-            JSON.parse(item)
-        );
+        const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
 
         // Shuffle the unique items
         return ShuffleArray(uniqueQuiz);

@@ -14,6 +14,7 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
@@ -35,10 +36,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const audioRef = useRef(null);
 
     const filterAndShuffleQuiz = (quiz) => {
-        // Extract unique quizzes using a Set to ensure uniqueness
-        const uniqueQuiz = Array.from(new Set(quiz.map((item) => JSON.stringify(item)))).map((item) =>
-            JSON.parse(item)
-        );
+        const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
 
         // Shuffle the unique items
         return ShuffleArray(uniqueQuiz);
