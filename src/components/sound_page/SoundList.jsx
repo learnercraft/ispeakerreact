@@ -92,6 +92,7 @@ const SoundList = () => {
             .then((data) => {
                 setSoundsData(data);
                 setLoading(false);
+                dataFetchedRef.current = true;
                 NProgress.done();
             })
             .catch((error) => {
