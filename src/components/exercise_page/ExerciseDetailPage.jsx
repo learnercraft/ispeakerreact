@@ -1,7 +1,7 @@
+import _ from "lodash";
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowCounterclockwise, ArrowLeftCircle } from "react-bootstrap-icons";
-import { ShuffleArray } from "../../utils/ShuffleArray";
 import LoadingOverlay from "../general/LoadingOverlay";
 
 // Lazy load the quiz components
@@ -9,6 +9,7 @@ const DictationQuiz = lazy(() => import("./DictationQuiz"));
 const MatchUp = lazy(() => import("./MatchUp"));
 const Reordering = lazy(() => import("./Reordering"));
 const SoundAndSpelling = lazy(() => import("./SoundAndSpelling"));
+const SortingExercise = lazy(() => import("./SortingExercise"));
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
@@ -27,7 +28,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             .then((data) => {
                 let exerciseDetails;
 
-                // Remove "exercise_" prefix and ".json" suffix
                 const exerciseKey = file.replace("exercise_", "").replace(".json", "");
 
                 if (data[exerciseKey]) {
@@ -45,17 +45,20 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
                                 if (selectedAccentData) {
                                     combinedQuizzes = combinedQuizzes.concat(
-                                        selectedAccentData.quiz.map((quiz) => ({
-                                            ...quiz,
-                                            split: exercise.split, // Correctly apply the split from the exercise level
-                                        }))
+                                        _.cloneDeep(
+                                            selectedAccentData.quiz.map((quiz) => ({
+                                                ...quiz,
+                                                split: exercise.split,
+                                            }))
+                                        )
                                     );
                                 }
                             }
                         });
 
-                        const shuffledCombinedQuizzes = ShuffleArray(combinedQuizzes);
-                        setQuiz(shuffledCombinedQuizzes);
+                        // Ensure uniqueness and shuffle
+                        const uniqueShuffledCombinedQuizzes = _.shuffle(_.uniqWith(combinedQuizzes, _.isEqual));
+                        setQuiz(uniqueShuffledCombinedQuizzes);
 
                         const selectedAccentData =
                             accent === "American English"
@@ -63,7 +66,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                 : exerciseDetails.british?.[0];
                         setInstructions(selectedAccentData.instructions || []);
                     } else {
-                        // Handle normal exercises
                         const selectedAccentData =
                             accent === "American English"
                                 ? exerciseDetails.american?.[0]
@@ -72,10 +74,12 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         if (selectedAccentData) {
                             setInstructions(selectedAccentData.instructions || []);
                             setQuiz(
-                                selectedAccentData.quiz.map((quiz) => ({
-                                    ...quiz,
-                                    split: exerciseDetails.split,
-                                }))
+                                _.cloneDeep(
+                                    selectedAccentData.quiz.map((quiz) => ({
+                                        ...quiz,
+                                        split: exerciseDetails.split,
+                                    }))
+                                )
                             );
                         }
                     }
@@ -207,6 +211,15 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         case "sound_n_spelling":
                             return (
                                 <SoundAndSpelling
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                />
+                            );
+                        case "sorting":
+                            return (
+                                <SortingExercise
                                     quiz={quiz}
                                     instructions={instructions}
                                     onAnswer={handleAnswer}
