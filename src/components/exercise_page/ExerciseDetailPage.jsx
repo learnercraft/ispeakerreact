@@ -10,6 +10,7 @@ const MatchUp = lazy(() => import("./MatchUp"));
 const Reordering = lazy(() => import("./Reordering"));
 const SoundAndSpelling = lazy(() => import("./SoundAndSpelling"));
 const SortingExercise = lazy(() => import("./SortingExercise"));
+const OddOneOut = lazy(() => import("./OddOneOut"));
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
@@ -21,77 +22,86 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
     const [isloading, setIsLoading] = useState(true);
 
-    const fetchExerciseData = useCallback(() => {
-        setIsLoading(true);
-        fetch(`/json/${file}`)
-            .then((response) => response.json())
-            .then((data) => {
-                let exerciseDetails;
+    const fetchExerciseData = useCallback(async () => {
+        try {
+            setIsLoading(true);
 
-                const exerciseKey = file.replace("exercise_", "").replace(".json", "");
+            const response = await fetch(`/json/${file}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch exercise data");
+            }
 
-                if (data[exerciseKey]) {
-                    exerciseDetails = data[exerciseKey].find((exercise) => exercise.id === id);
-                }
+            const data = await response.json();
+            const exerciseKey = file.replace("exercise_", "").replace(".json", "");
+            const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
 
-                if (exerciseDetails) {
-                    if (id === "random") {
-                        let combinedQuizzes = [];
+            if (exerciseDetails) {
+                let selectedAccentData;
+                let combinedQuizzes = [];
 
-                        data[exerciseKey].forEach((exercise) => {
-                            if (exercise.id !== "random") {
-                                const selectedAccentData =
+                if (id === "random") {
+                    data[exerciseKey].forEach((exercise) => {
+                        if (exercise.id !== "random") {
+                            if (exercise.british_american) {
+                                selectedAccentData = exercise.british_american[0];
+                            } else {
+                                selectedAccentData =
                                     accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
-
-                                if (selectedAccentData) {
-                                    combinedQuizzes = combinedQuizzes.concat(
-                                        _.cloneDeep(
-                                            selectedAccentData.quiz.map((quiz) => ({
-                                                ...quiz,
-                                                split: exercise.split,
-                                            }))
-                                        )
-                                    );
-                                }
                             }
-                        });
 
-                        // Ensure uniqueness and shuffle
-                        const uniqueShuffledCombinedQuizzes = _.shuffle(_.uniqWith(combinedQuizzes, _.isEqual));
-                        setQuiz(uniqueShuffledCombinedQuizzes);
-
-                        const selectedAccentData =
-                            accent === "American English"
-                                ? exerciseDetails.american?.[0]
-                                : exerciseDetails.british?.[0];
-                        setInstructions(selectedAccentData.instructions || []);
-                    } else {
-                        const selectedAccentData =
-                            accent === "American English"
-                                ? exerciseDetails.american?.[0]
-                                : exerciseDetails.british?.[0];
-
-                        if (selectedAccentData) {
-                            setInstructions(selectedAccentData.instructions || []);
-                            setQuiz(
-                                _.cloneDeep(
-                                    selectedAccentData.quiz.map((quiz) => ({
+                            if (selectedAccentData) {
+                                combinedQuizzes.push(
+                                    ...selectedAccentData.quiz.map((quiz) => ({
                                         ...quiz,
-                                        split: exerciseDetails.split,
+                                        split: exercise.split,
                                     }))
-                                )
-                            );
+                                );
+                            }
                         }
+                    });
+
+                    const uniqueShuffledCombinedQuizzes = _.shuffle(
+                        Array.from(new Set(combinedQuizzes.map(JSON.stringify))).map(JSON.parse)
+                    );
+                    setQuiz(uniqueShuffledCombinedQuizzes);
+
+                    if (exerciseDetails.british_american) {
+                        selectedAccentData = exerciseDetails.british_american[0];
+                    } else {
+                        selectedAccentData =
+                            accent === "American English"
+                                ? exerciseDetails.american?.[0]
+                                : exerciseDetails.british?.[0];
+                    }
+
+                    setInstructions(selectedAccentData?.instructions || []);
+                } else {
+                    if (exerciseDetails.british_american) {
+                        selectedAccentData = exerciseDetails.british_american[0];
+                    } else {
+                        selectedAccentData =
+                            accent === "American English"
+                                ? exerciseDetails.american?.[0]
+                                : exerciseDetails.british?.[0];
+                    }
+
+                    if (selectedAccentData) {
+                        setInstructions(selectedAccentData.instructions || []);
+                        setQuiz(
+                            selectedAccentData.quiz.map((quiz) => ({
+                                ...quiz,
+                                split: exerciseDetails.split,
+                            }))
+                        );
                     }
                 }
-
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching exercise data:", error);
-                alert("Error loading exercise data. Please check your Internet connection.");
-                setIsLoading(false);
-            });
+            }
+        } catch (error) {
+            console.error("Error fetching exercise data:", error);
+            alert("Error loading exercise data. Please check your Internet connection.");
+        } finally {
+            setIsLoading(false);
+        }
     }, [id, file, accent]);
 
     useEffect(() => {
@@ -220,6 +230,15 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         case "sorting":
                             return (
                                 <SortingExercise
+                                    quiz={quiz}
+                                    instructions={instructions}
+                                    onAnswer={handleAnswer}
+                                    onQuit={handleQuizQuit}
+                                />
+                            );
+                        case "odd_one_out":
+                            return (
+                                <OddOneOut
                                     quiz={quiz}
                                     instructions={instructions}
                                     onAnswer={handleAnswer}
