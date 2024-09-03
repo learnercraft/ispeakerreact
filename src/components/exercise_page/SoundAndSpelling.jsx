@@ -1,4 +1,5 @@
 import he from "he";
+import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
 import { ArrowRightCircle, CheckCircleFill, VolumeUp, VolumeUpFill, XCircle, XCircleFill } from "react-bootstrap-icons";
@@ -19,9 +20,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
     const audioRef = useRef(null);
 
     const filterAndShuffleQuiz = (quiz) => {
-        const uniqueQuiz = Array.from(new Set(quiz.map((item) => JSON.stringify(item)))).map((item) =>
-            JSON.parse(item)
-        );
+        const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     };
 
