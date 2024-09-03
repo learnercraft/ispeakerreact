@@ -1,7 +1,7 @@
 import he from "he";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";
@@ -23,6 +23,8 @@ const SoundList = () => {
         vowels_b: [],
         vowels_a: [],
     });
+
+    const dataFetchedRef = useRef(false);
 
     const handlePracticeClick = (sound, accent, index) => {
         setSelectedSound({ sound, accent, index });
@@ -77,7 +79,14 @@ const SoundList = () => {
     };
 
     useEffect(() => {
+        if (dataFetchedRef.current) {
+            // Data has already been fetched, no need to fetch again
+            setLoading(false);
+            return;
+        }
+
         NProgress.start();
+
         fetch("json/sounds_data.json")
             .then((response) => response.json())
             .then((data) => {
