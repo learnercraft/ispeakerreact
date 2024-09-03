@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Container } from "react-bootstrap";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import LoadingOverlay from "./components/general/LoadingOverlay";
