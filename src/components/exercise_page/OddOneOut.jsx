@@ -2,7 +2,7 @@ import he from "he";
 import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { ArrowRightCircle, Check2Circle, XCircle } from "react-bootstrap-icons";
+import { ArrowRightCircle, Check2Circle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 
 const OddOneOut = ({ quiz, onAnswer, onQuit }) => {
@@ -73,9 +73,22 @@ const OddOneOut = ({ quiz, onAnswer, onQuit }) => {
                                         : "outline-secondary"
                                 }
                                 size="lg"
-                                className={`w-100 text-center p-3${buttonsDisabled ? " pe-none" : ""}`}
+                                className={`fw-bold w-100 text-center p-3${buttonsDisabled ? " pe-none" : ""}${
+                                    submitted && option.answer === "true" && selectedOption !== index
+                                        ? " text-warning"
+                                        : ""
+                                }`}
                                 onClick={() => handleOptionClick(index)}>
                                 {he.decode(option.value)}
+                                {submitted ? (
+                                    submitted && option.answer === "true" ? (
+                                        <CheckCircleFill className="ms-2" />
+                                    ) : (
+                                        <XCircleFill className="ms-2" />
+                                    )
+                                ) : (
+                                    ""
+                                )}
                             </Button>
                         </Col>
                     ))}
