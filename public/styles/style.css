@@ -38,3 +38,7 @@ html {
     font-weight: 400;
     font-style: normal;
 }
+
+.bg-tertiary {
+    background-color: var(--bs-tertiary-bg);
+}

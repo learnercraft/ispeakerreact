@@ -11,6 +11,7 @@ const Reordering = lazy(() => import("./Reordering"));
 const SoundAndSpelling = lazy(() => import("./SoundAndSpelling"));
 const SortingExercise = lazy(() => import("./SortingExercise"));
 const OddOneOut = lazy(() => import("./OddOneOut"));
+const Snap = lazy(() => import("./Snap"));
 
 const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [instructions, setInstructions] = useState([]);
@@ -186,69 +187,31 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         // Remove "exercise_" prefix and ".json" suffix
         const exerciseType = file.replace("exercise_", "").replace(".json", "");
 
+        const componentsMap = {
+            dictation: DictationQuiz,
+            matchup: MatchUp,
+            reordering: Reordering,
+            sound_n_spelling: SoundAndSpelling,
+            sorting: SortingExercise,
+            odd_one_out: OddOneOut,
+            snap: Snap,
+        };
+
+        const QuizComponent = componentsMap[exerciseType];
+
         return (
             <Suspense fallback={<LoadingOverlay />}>
-                {(() => {
-                    switch (exerciseType) {
-                        case "dictation":
-                            return (
-                                <DictationQuiz
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                />
-                            );
-                        case "matchup":
-                            return (
-                                <MatchUp
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                />
-                            );
-                        case "reordering":
-                            return (
-                                <Reordering
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                    split={split}
-                                />
-                            );
-                        case "sound_n_spelling":
-                            return (
-                                <SoundAndSpelling
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                />
-                            );
-                        case "sorting":
-                            return (
-                                <SortingExercise
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                />
-                            );
-                        case "odd_one_out":
-                            return (
-                                <OddOneOut
-                                    quiz={quiz}
-                                    instructions={instructions}
-                                    onAnswer={handleAnswer}
-                                    onQuit={handleQuizQuit}
-                                />
-                            );
-                        default:
-                            return <Card.Body>This quiz type is not yet implemented.</Card.Body>;
-                    }
-                })()}
+                {QuizComponent ? (
+                    <QuizComponent
+                        quiz={quiz}
+                        instructions={instructions}
+                        onAnswer={handleAnswer}
+                        onQuit={handleQuizQuit}
+                        {...(exerciseType === "reordering" ? { split } : {})} // Pass `split` prop for reordering
+                    />
+                ) : (
+                    <Card.Body>This quiz type is not yet implemented.</Card.Body>
+                )}
             </Suspense>
         );
     };
