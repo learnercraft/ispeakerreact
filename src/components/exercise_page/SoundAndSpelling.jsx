@@ -47,6 +47,27 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
         }
     }, [quiz]);
 
+    const stopAudio = () => {
+        if (audioRef.current) {
+            // Stop the audio and remove event listeners
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+
+            audioRef.current.oncanplaythrough = null;
+            audioRef.current.onended = null;
+            audioRef.current.onerror = null;
+
+            setIsPlaying(false);
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        return () => {
+            stopAudio();
+        };
+    }, []);
+
     useEffect(() => {
         if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
             loadQuiz(shuffledQuiz[currentQuizIndex]);
@@ -93,30 +114,20 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
         setSelectedOption({ index, isCorrect });
 
         // Replace the underscore with the selected answer
-        const updatedQuestionText = currentQuestionText.replace("_", shuffledOptions[index].value);
+        const updatedQuestionText = currentQuestionText.replace("_____", shuffledOptions[index].value);
         setCurrentQuestionText(updatedQuestionText);
 
         onAnswer(isCorrect ? 1 : 0, "single");
     };
 
     const handleNextQuiz = () => {
-        if (audioRef.current) {
-            // Stop the audio and remove event listeners
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0;
-
-            audioRef.current.oncanplaythrough = null;
-            audioRef.current.onended = null;
-            audioRef.current.onerror = null;
-
-            setIsPlaying(false);
-            setIsLoading(false);
-        }
+        stopAudio();
 
         if (currentQuizIndex < shuffledQuiz.length - 1) {
             setCurrentQuizIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
+            stopAudio();
         }
     };
 
