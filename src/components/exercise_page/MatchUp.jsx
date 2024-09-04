@@ -35,12 +35,10 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
     const audioRef = useRef(null);
 
-    const filterAndShuffleQuiz = (quiz) => {
+    const filterAndShuffleQuiz = useCallback((quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
-
-        // Shuffle the unique items
         return ShuffleArray(uniqueQuiz);
-    };
+    }, []);
 
     const loadQuiz = useCallback((quizData) => {
         // Store the original pairs for checking answers
@@ -67,14 +65,11 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     }, []);
 
     useEffect(() => {
-        if (quiz && quiz.length > 0) {
-            // Filter out unique items and shuffle the quiz array
-            const uniqueShuffledQuiz = filterAndShuffleQuiz(quiz);
-            setShuffledQuiz(uniqueShuffledQuiz);
-            // Reset currentQuizIndex to 0
+        if (quiz?.length > 0) {
+            setShuffledQuiz(filterAndShuffleQuiz(quiz));
             setCurrentQuizIndex(0);
         }
-    }, [quiz]);
+    }, [quiz, filterAndShuffleQuiz]);
 
     useEffect(() => {
         if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
@@ -155,6 +150,17 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         }
     };
 
+    const stopAudio = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0; // Reset the audio to the start
+            audioRef.current.removeAttribute("src"); // Remove the audio source attribute
+            audioRef.current.load(); // Reload the audio element to reset the state
+            setIsPlaying(false); // Reset the playing state
+            setIsLoading(false);
+        }
+    };
+
     const handleDragStart = (event) => {
         const { active } = event;
         setActiveId(active.id);
@@ -204,17 +210,13 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         }
 
         // Reset audio state and element
-        if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0; // Reset to the start
-            setIsPlaying(null); // Reset the playing state
-            setIsLoading(false);
-        }
+        stopAudio();
 
         if (currentQuizIndex < shuffledQuiz.length - 1) {
             setCurrentQuizIndex(currentQuizIndex + 1);
         } else {
             onQuit();
+            stopAudio();
         }
     };
 

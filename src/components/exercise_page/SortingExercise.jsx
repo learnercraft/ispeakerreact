@@ -25,10 +25,10 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
 
     const sensors = useSensors(useSensor(PointerSensor));
 
-    const filterAndShuffleQuiz = (quiz) => {
+    const filterAndShuffleQuiz = useCallback((quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
-    };
+    }, []);
 
     const generateUniqueItems = (items) => {
         return items.map((item, index) => ({
@@ -38,18 +38,13 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     };
 
     const loadQuiz = useCallback((quizData) => {
-        const shuffledOptions = ShuffleArray([...quizData.rowOptions]);
-        const uniqueItems = generateUniqueItems(shuffledOptions);
-
+        const uniqueItems = generateUniqueItems(quizData.rowOptions);
         const halfwayPoint = Math.ceil(uniqueItems.length / 2);
-        const itemsLeft = uniqueItems.slice(0, halfwayPoint);
-        const itemsRight = uniqueItems.slice(halfwayPoint);
-
-        setItemsLeft(itemsLeft);
-        setItemsRight(itemsRight);
+        setItemsLeft(uniqueItems.slice(0, halfwayPoint));
+        setItemsRight(uniqueItems.slice(halfwayPoint));
         setCurrentTableHeading(quizData.tableHeading);
         setButtonsDisabled(false);
-        setHasSubmitted(false); // Reset submission status for each quiz
+        setHasSubmitted(false);
     }, []);
 
     useEffect(() => {
