@@ -23,7 +23,6 @@ export default defineConfig({
         compression({
             threshold: 1025,
             algorithm: "brotliCompress",
-            deleteOriginalAssets: true
         }),
     ],
 });
