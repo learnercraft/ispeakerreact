@@ -72,6 +72,23 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
         setCorrectAnswer(correctAnswer);
     }, []);
 
+    // Clean up the audio element
+    const stopAudio = () => {
+        if (audioRef.current) {
+            // Stop the audio and remove event listeners
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0; // Reset the audio to the beginning
+
+            // Remove event listeners to prevent them from triggering after the source is cleared
+            audioRef.current.oncanplaythrough = null;
+            audioRef.current.onended = null;
+            audioRef.current.onerror = null;
+
+            setIsPlaying(false);
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         if (quiz && quiz.length > 0) {
             // Filter out unique items and shuffle the quiz array
@@ -90,14 +107,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
 
     useEffect(() => {
         return () => {
-            if (audioRef.current) {
-                // Clean up the audio element
-                audioRef.current.pause();
-                // Remove event listeners
-                audioRef.current.oncanplaythrough = null;
-                audioRef.current.onended = null;
-                audioRef.current.onerror = null;
-            }
+            stopAudio();
         };
     }, []);
 
@@ -213,19 +223,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             onAnswer(0, "single");
         }
 
-        if (audioRef.current) {
-            // Stop the audio and remove event listeners
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0; // Reset the audio to the beginning
-
-            // Remove event listeners to prevent them from triggering after the source is cleared
-            audioRef.current.oncanplaythrough = null;
-            audioRef.current.onended = null;
-            audioRef.current.onerror = null;
-
-            setIsPlaying(false);
-            setIsLoading(false);
-        }
+        stopAudio();
 
         if (currentQuizIndex < shuffledQuizArray.length - 1) {
             setCurrentQuizIndex(currentQuizIndex + 1);
@@ -233,6 +231,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
             loadQuiz(shuffledQuizArray[currentQuizIndex + 1]);
         } else {
             onQuit();
+            stopAudio();
         }
     };
 

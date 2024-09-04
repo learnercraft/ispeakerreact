@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 
@@ -25,63 +25,17 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
     };
 
     useEffect(() => {
-        // Shuffle the quiz array when the component mounts
-        if (quiz && quiz.length > 0) {
-            const uniqueAndShuffledQuiz = filterAndShuffleQuiz([...quiz]);
-            setShuffledQuiz(uniqueAndShuffledQuiz);
+        if (quiz?.length > 0) {
+            setShuffledQuiz(filterAndShuffleQuiz([...quiz]));
         }
 
         return () => {
             // Cleanup: Stop audio when component unmounts
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current = null;
-            }
+            stopAudio();
         };
     }, [quiz]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!shuffledQuiz[currentQuestionIndex]) return; // Safeguard against undefined access
-
-        // Find the word with the textbox
-        const textboxWord = shuffledQuiz[currentQuestionIndex].words.find((word) => word.textbox);
-
-        if (!textboxWord) {
-            // If no textbox is found, prevent the function from continuing
-            console.error("No textbox found in the current question.");
-            return;
-        }
-
-        const correctAnswer = textboxWord.textbox.toLowerCase();
-        const isCorrect = answer.trim().toLowerCase() === correctAnswer;
-
-        onAnswer(isCorrect, "single"); // Notify parent of the answer
-        setIsTextboxDisabled(true); // Disable the textbox
-        setIsSubmitButtonEnabled(true);
-        setHasAnswered(true);
-
-        if (isCorrect) {
-            setShowValidation(true);
-            setValidationVariant("success");
-            setValidationMessage("");
-        } else {
-            setValidationVariant("danger");
-            setValidationMessage(
-                <span>
-                    Correct answer: <span className="fw-bold fst-italic">{correctAnswer}</span>
-                </span>
-            );
-            setShowValidation(true);
-        }
-    };
-
-    const nextQuestion = () => {
-        if ((!hasAnswered && answer.trim() === "") || !hasAnswered) {
-            onAnswer(false, "single");
-        }
-
-        // Stop and reset audio if it's playing
+    const stopAudio = () => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0; // Reset the audio to the start
@@ -90,6 +44,44 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             setIsPlaying(false); // Reset the playing state
             setIsLoading(false);
         }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!shuffledQuiz[currentQuestionIndex]) return;
+
+        const textboxWord = shuffledQuiz[currentQuestionIndex].words.find((word) => word.textbox);
+        if (!textboxWord) {
+            console.error("No textbox found in the current question.");
+            return;
+        }
+
+        const correctAnswer = textboxWord.textbox.toLowerCase();
+        const isCorrect = answer.trim().toLowerCase() === correctAnswer;
+
+        setIsTextboxDisabled(true);
+        setIsSubmitButtonEnabled(true);
+        setHasAnswered(true);
+        setShowValidation(true);
+        setValidationVariant(isCorrect ? "success" : "danger");
+        setValidationMessage(
+            isCorrect ? (
+                ""
+            ) : (
+                <>
+                    Correct answer: <span className="fw-bold fst-italic">{correctAnswer}</span>
+                </>
+            )
+        );
+
+        onAnswer(isCorrect, "single");
+    };
+
+    const nextQuestion = () => {
+        if ((!hasAnswered && answer.trim() === "") || !hasAnswered) {
+            onAnswer(false, "single");
+        }
+        stopAudio();
 
         if (currentQuestionIndex < shuffledQuiz.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -100,6 +92,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             setHasAnswered(false); // Reset for the next question
         } else {
             onQuit(); // Notify parent that the quiz is finished
+            stopAudio();
         }
     };
 
@@ -109,6 +102,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     const handleQuit = () => {
         onQuit();
+        stopAudio();
     };
 
     const handleAudioPlay = () => {
@@ -154,14 +148,12 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
     };
 
     const renderWords = () => {
-        if (!shuffledQuiz[currentQuestionIndex]) return null; // Safeguard against undefined access
+        const currentWords = shuffledQuiz[currentQuestionIndex]?.words || [];
 
-        const currentWords = shuffledQuiz[currentQuestionIndex].words;
+        // Check if the current word has both `value` and `textbox`
+        const hasValueAndTextbox = currentWords.some((w) => w.value) && currentWords.some((w) => w.textbox);
 
         return currentWords.map((word, index) => {
-            // Check if the current word has both `value` and `textbox`
-            const hasValueAndTextbox = currentWords.some((w) => w.value) && currentWords.some((w) => w.textbox);
-
             if (word.value) {
                 return <span key={index}>{word.value}</span>;
             }
@@ -174,12 +166,12 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                         value={answer}
                         onChange={(e) => setAnswer(e.target.value)}
                         isInvalid={validationVariant === "danger" && showValidation}
-                        isValid={validationVariant === "success" && showValidation} // Show valid checkmark when correct
+                        isValid={validationVariant === "success" && showValidation}
                         autoComplete="off"
                         spellCheck="false"
-                        disabled={isTextboxDisabled} // Disable the textbox when showing validation
-                        className={`text-center${hasValueAndTextbox ? " mx-2" : ""}`} // Apply class only if both value and textbox are present
-                        style={hasValueAndTextbox ? { minWidth: "30%", width: "45%", display: "inline-block" } : {}} // Set width to 40% only if both are present
+                        disabled={isTextboxDisabled}
+                        className={`text-center${hasValueAndTextbox ? " mx-2" : " w-50 mx-auto"}`}
+                        style={hasValueAndTextbox ? { width: "40%", display: "inline-block" } : {}}
                     />
                 );
             }
