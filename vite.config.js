@@ -6,6 +6,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: "/ispeaker/",
     /*build: {
         rollupOptions: {
             output: {
@@ -19,7 +20,6 @@ export default defineConfig({
     },*/
     plugins: [
         react(),
-        base: "/ispeaker/",
         visualizer(),
         compression({
             threshold: 1025,
