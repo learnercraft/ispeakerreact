@@ -34,7 +34,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         try {
             setIsLoading(true);
 
-            const response = await fetch(`/json/${file}`);
+            const response = await fetch(`${import.meta.env.BASE_URL}json/${file}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch exercise data");
             }
