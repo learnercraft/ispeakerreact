@@ -14,7 +14,7 @@ const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"
 const App = () => {
     return (
         <Container className="p-4 mb-5">
-            <Router>
+            <Router basname="/ispeaker">
                 <Routes>
                     <Route path="/" element={<Homepage />} />
                     <Route path="/sounds" element={
