@@ -128,7 +128,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
-    const MAX_RECORDING_DURATION_MS = 10 * 1000; // 10 seconds in milliseconds
+    const MAX_RECORDING_DURATION_MS = 20 * 1000; // 20 seconds in milliseconds
 
     const handleRecording = (cardIndex) => {
         const recordingDataIndex = getRecordingKey(cardIndex);
