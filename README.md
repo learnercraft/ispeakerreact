@@ -43,7 +43,7 @@ Visit the webiste to use the tool online: <https://yell0wsuit.github.io/ispeaker
 
   Preparing for an English speaking exam? SpeakerReact's Exam Speaking is here to help. Explore a repertoire of tasks frequently encountered in speaking evaluations like Cambridge First, IELTS, TOEFL, and so on. Watch real students tackle these tasks, pinpoint essential phrases within the scripts, and enhance your comprehension. Tune your ear to both British and American accents while practicing practical language. Elevate your skills by recording* yourself performing similar tasks, refining your language abilities and exam strategies.
 
-*In order to use the recording functionality, please ensure that you have a microphone device,, and you have allowed the app to access it.
+*In order to use the recording functionality, please ensure that you have a microphone device, and you have allowed the app to access it.
 
 ## Browser compatibility
 
