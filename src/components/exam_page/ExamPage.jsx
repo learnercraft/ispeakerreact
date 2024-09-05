@@ -61,7 +61,7 @@ const ExamPage = () => {
 
     useEffect(() => {
         NProgress.start();
-        fetch("/json/examspeaking_list.json")
+        fetch(`${import.meta.env.BASE_URL}json/examspeaking_list.json`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.examList);
