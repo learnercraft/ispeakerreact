@@ -79,7 +79,7 @@ const SoundList = () => {
     useEffect(() => {
         NProgress.start();
 
-        fetch("json/sounds_data.json")
+        fetch(`${import.meta.env.BASE_URL}json/sounds_data.json`)
             .then((response) => response.json())
             .then((data) => {
                 setSoundsData(data);
