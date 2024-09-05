@@ -56,7 +56,7 @@ const ConversationListPage = () => {
 
     useEffect(() => {
         NProgress.start();
-        fetch("/json/conversation_list.json")
+        fetch(`${import.meta.env.BASE_URL}json/conversation_list.json`)
             .then((response) => response.json())
             .then((data) => {
                 setData(data.conversationList);
