@@ -37,7 +37,7 @@ const ExercisePage = () => {
     };
 
     useEffect(() => {
-        document.title = "Exercises | Oxford iSpeaker";
+        document.title = "Exercises | SpeakerReact";
     }, []);
 
     const ExerciseCard = ({ heading, titles, info, file }) => (
@@ -99,7 +99,7 @@ const ExercisePage = () => {
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">Exercises (beta)</h1>
+            <h1 className="fw-semibold">Exercises</h1>
             {selectedExercise ? (
                 <ExerciseDetailPage
                     heading={selectedExercise.heading}

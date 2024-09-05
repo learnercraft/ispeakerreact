@@ -22,6 +22,7 @@
     "react-bootstrap": "^2.10.4",
     "react-bootstrap-icons": "^1.11.4",
     "react-dom": "^18.3.1",
+    "react-flip-toolkit": "^7.2.4",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {

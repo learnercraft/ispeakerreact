@@ -9,13 +9,13 @@ const TopNavBar = () => {
                 <Container>
                     <Navbar.Brand as={NavLink} to="/" className="fw-semibold">
                         <img
-                            alt="Oxford iSpeaker logo"
+                            alt="SpeakerReact logo"
                             src="/images/icons/ios/128.png"
                             width="32"
                             height="32"
                             className="d-inline-block align-top"
                         />{" "}
-                        Oxford iSpeaker
+                        SpeakerReact
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="top-NavBar" />
                     <Navbar.Collapse id="top-NavBar" className="mt-3 mt-md-0">

@@ -1,8 +1,8 @@
 {
-    "name": "Oxford iSpeaker",
-    "short_name": "Oxford iSpeaker",
-    "description": "An interactive tool designed for learners of English who want to speak more accurately and fluently in a variety of situations.",
-    "version": "3.0",
+    "name": "SpeakerReact",
+    "short_name": "SpeakerReact",
+    "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
+    "version": "2.0react",
     "start_url": "index.html",
     "display": "fullscreen",
     "orientation": "any",
@@ -458,9 +458,8 @@
             "sizes": "1024x1024"
         }
     ],
-    "theme_color": "#002147",
+    "theme_color": "#f8f5f0",
     "dir": "ltr",
-    "scope": "https://yell0wsuit.github.io/ispeaker/",
     "lang": "en",
     "categories": [
         "education"
