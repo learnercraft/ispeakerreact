@@ -38,13 +38,18 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     };
 
     const loadQuiz = useCallback((quizData) => {
-        const uniqueItems = generateUniqueItems(quizData.rowOptions);
+        const shuffledOptions = ShuffleArray([...quizData.rowOptions]);
+        const uniqueItems = generateUniqueItems(shuffledOptions);
+
         const halfwayPoint = Math.ceil(uniqueItems.length / 2);
-        setItemsLeft(uniqueItems.slice(0, halfwayPoint));
-        setItemsRight(uniqueItems.slice(halfwayPoint));
+        const itemsLeft = uniqueItems.slice(0, halfwayPoint);
+        const itemsRight = uniqueItems.slice(halfwayPoint);
+
+        setItemsLeft(itemsLeft);
+        setItemsRight(itemsRight);
         setCurrentTableHeading(quizData.tableHeading);
         setButtonsDisabled(false);
-        setHasSubmitted(false);
+        setHasSubmitted(false); // Reset submission status for each quiz
     }, []);
 
     useEffect(() => {
@@ -53,7 +58,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
             setShuffledQuiz(uniqueShuffledQuiz);
             setCurrentQuizIndex(0); // Reset currentQuizIndex to 0
         }
-    }, [quiz]);
+    }, [quiz, filterAndShuffleQuiz]);
 
     useEffect(() => {
         if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
