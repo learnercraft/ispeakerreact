@@ -89,7 +89,7 @@ const ConversationListPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Conversations | Oxford iSpeaker";
+        document.title = "Conversations | SpeakerReact";
     }, []);
 
     return (

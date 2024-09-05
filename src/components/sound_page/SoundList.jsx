@@ -94,7 +94,7 @@ const SoundList = () => {
     }, []);
 
     useEffect(() => {
-        document.title = "Sounds | Oxford iSpeaker";
+        document.title = "Sounds | SpeakerReact";
     }, []);
 
     return (

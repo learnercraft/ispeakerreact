@@ -87,7 +87,7 @@ const ExamPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Exams | Oxford iSpeaker";
+        document.title = "Exams | SpeakerReact";
     }, []);
 
     return (
