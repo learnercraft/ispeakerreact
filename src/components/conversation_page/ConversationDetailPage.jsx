@@ -19,7 +19,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
 
     useEffect(() => {
         NProgress.start();
-        fetch("/json/conversation_data.json")
+        fetch(`${import.meta.env.BASE_URL}json/conversation_data.json`)
             .then((response) => response.json())
             .then((data) => {
                 // Find the correct conversation data in the array based on the ID
