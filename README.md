@@ -4,11 +4,13 @@
 
 **Introducing SpeakerReact**: A modern reimagining of [Oxford iSpeaker](https://www.oxfordlearnersdictionaries.com/about/get-premium/ispeaker)
 
-Rewritten from the ground up, **SpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. Based on the original Oxford iSpeaker developed by Oxford University, this new version blends the best of both worlds.
+Rewritten from the ground up with React + Vite, **SpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. Based on the original Oxford iSpeaker developed by Oxford University, this new version blends the best of both worlds.
 
 While the official, modern, Angular-based Oxford iSpeaker has introduced significant updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
 
 Visit the webiste to use the tool online: <https://yell0wsuit.github.io/ispeaker/>
+
+![](./public/images/homepage_screenshot.png)
 
 ## Now available as an app on Microsoft Store
 
@@ -22,8 +24,6 @@ Visit the webiste to use the tool online: <https://yell0wsuit.github.io/ispeaker
 
 - [iWriter](http://github.com/yell0wsuit/iwriter): help learners write effectively in English.
 - [Practical English Usage: Diagnostic Test](http://github.com/yell0wsuit/oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
-
-![](./public/images/homepage_screenshot.png)
 
 ## Features
 
