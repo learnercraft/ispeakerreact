@@ -10,7 +10,7 @@ const TopNavBar = () => {
                     <Navbar.Brand as={NavLink} to="/" className="fw-semibold">
                         <img
                             alt="SpeakerReact logo"
-                            src="/images/icons/ios/128.png"
+                            src={`${import.meta.env.BASE_URL}images/icons/ios/128.png`}
                             width="32"
                             height="32"
                             className="d-inline-block align-top"
