@@ -18,7 +18,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
 
     useEffect(() => {
         // Fetch the exam data from the JSON file
-        fetch("/json/examspeaking_data.json")
+        fetch(`${import.meta.env.BASE_URL}json/examspeaking_data.json`)
             .then((response) => response.json())
             .then((data) => {
                 setExamData(data);
