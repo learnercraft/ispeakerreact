@@ -19,6 +19,7 @@ export default defineConfig({
     },*/
     plugins: [
         react(),
+        base: "/ispeaker/",
         visualizer(),
         compression({
             threshold: 1025,
