@@ -112,7 +112,7 @@ const Snap = ({ quiz, onAnswer, onQuit }) => {
                 {...attributes}
                 {...listeners}
                 variant="primary"
-                className={`fw-bold${isDropped ? " z-3" : " z-2"}`}
+                className={`w-100 fw-bold${isDropped ? " z-3" : " z-2"}`}
                 disabled={isDropped}>
                 Drag this
             </Button>
