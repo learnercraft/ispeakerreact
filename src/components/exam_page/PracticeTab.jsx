@@ -154,10 +154,10 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                             mediaRecorder.stop();
                             setIsRecording(false);
                             setActiveTaskIndex(null);
-                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 minutes.");
+                            setToastMessage("Recording stopped because it exceeded the duration limit of 15 minutes.");
                             setShowToast(true);
                         }
-                    }, 10 * 60 * 1000); // 10 minutes limit
+                    }, 15 * 60 * 1000); // 15 minutes limit
                 })
                 .catch((error) => {
                     setToastMessage("Recording failed: " + error.message);
