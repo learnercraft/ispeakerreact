@@ -130,15 +130,15 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                         }
                     });
 
-                    // Auto-stop after 10 minutes
+                    // Auto-stop after 15 minutes
                     setTimeout(() => {
                         if (mediaRecorder.state !== "inactive") {
                             mediaRecorder.stop();
-                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 minutes.");
+                            setToastMessage("Recording stopped because it exceeded the duration limit of 15 minutes.");
                             setShowToast(true);
                             setIsRecording(false);
                         }
-                    }, 10 * 60 * 1000);
+                    }, 15 * 60 * 1000);
                 })
                 .catch((error) => {
                     setToastMessage("Recording failed: " + error.message);
