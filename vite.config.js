@@ -18,6 +18,16 @@ export default defineConfig({
             },
         },
     },*/
+    build: {
+        rollupOptions: {
+          input: {
+            main: "./index.html",
+          },
+        },
+      },
+    server: {
+        historyApiFallback: true,
+    },
     plugins: [
         react(),
         visualizer(),
