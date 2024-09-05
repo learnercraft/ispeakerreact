@@ -11,7 +11,7 @@ function Homepage() {
     };
 
     useEffect(() => {
-        document.title = "Homepage | Oxford iSpeaker";
+        document.title = "Homepage | SpeakerReact";
     }, []);
 
     const cardsInfo = [
@@ -22,7 +22,7 @@ function Homepage() {
             path: "sounds",
         },
         {
-            title: "Exercises (beta)",
+            title: "Exercises",
             description: "Practice listening to sounds and sentences in various exercise types.",
             icon: "/images/ispeaker/menu/exercise_menu_icon.svg",
             path: "exercises",
@@ -46,7 +46,7 @@ function Homepage() {
             <TopNavBar />
             <Row className="justify-content-center text-center">
                 <Col md="auto">
-                    <h1 className="fw-bold">Oxford iSpeaker</h1>
+                    <h1 className="fw-bold">SpeakerReact</h1>
                 </Col>
             </Row>
             <Row xs={1} md={2} className="g-4 mt-1 d-flex justify-content-center">

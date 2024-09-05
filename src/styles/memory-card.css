@@ -1,0 +1,77 @@
+.memory-card {
+    width: 100px;
+    height: 120px;
+    perspective: 1000px; /* Add depth for the flip animation */
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease; /* Smooth transition for flipping */
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg); /* Flip the card */
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    -webkit-user-select: none;
+    user-select: none;
+    backface-visibility: hidden; /* Prevents showing the reverse side */
+}
+
+/* Style for the front side */
+.card-front {
+    background-color: #f8f5f0; /* Light grey for front face */
+    background-image: url("/images/logos/speakerreact-logo-color.svg");
+    background-size: contain; /* Ensure the SVG fits within the card */
+    background-repeat: no-repeat; /* Avoid repeating the SVG */
+    background-position: center; /* Center the SVG */ /* Light grey for front face */
+    color: #ccc;
+    z-index: 2; /* Front face should be on top when the card is not flipped */
+}
+
+/* Style for the back side (default is blue) */
+.card-back {
+    background-color: var(--bs-primary); /* This will apply text-bg-primary by default */
+    color: white;
+    word-wrap: break-word;
+    word-break: break-word;
+    transform: rotateY(180deg); /* Back side should be rotated 180 degrees initially */
+    z-index: 1; /* Back face behind when card is not flipped */
+}
+
+/* Transition background colors when feedback is given */
+.memory-card.text-bg-primary .card-back {
+    background-color: var(--bs-primary); /* Default primary color */
+}
+
+.memory-card.text-bg-success .card-back {
+    background-color: var(--bs-success); /* Green for success */
+}
+
+.memory-card.text-bg-danger .card-back {
+    background-color: var(--bs-danger); /* Red for danger */
+}
+
+.feedback-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    z-index: 3; /* Ensure the icon is above other elements */
+}
