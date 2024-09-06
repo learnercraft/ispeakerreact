@@ -65,6 +65,14 @@ const ListeningTab = ({ sentences }) => {
                         URL.revokeObjectURL(audioUrl);
                     };
 
+                    audio.onerror = () => {
+                        setLoadingIndex(null);
+                        setCurrentAudio(null);
+                        setPlayingIndex(null);
+                        console.log("Audio loading error");
+                        alert("Unable to play audio due to a network issue. Please check your connection and reload the page.");
+                    }
+
                     setCurrentAudio(audio);
                 })
                 .catch((error) => {
