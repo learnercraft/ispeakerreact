@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Accordion, Card, Col, Form, Ratio, Row } from "react-bootstrap";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
     const [highlightState, setHighlightState] = useState({});
+    const [iframeLoading, setiFrameLoading] = useState(true);
+
+    const handleIframeLoad = () => setiFrameLoading(false);
 
     // Handle checkbox change
     const handleCheckboxChange = (index) => {
@@ -20,7 +25,17 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
                         <Card.Header className="fw-semibold">Watch the video</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
-                                <iframe src={videoUrl} title="Study Video" allowFullScreen loading="lazy"></iframe>
+                                <div>
+                                    {iframeLoading && <Skeleton className="placeholder" height="100%" width="100%" />}
+                                    <iframe
+                                        src={videoUrl}
+                                        title="Conversation Video"
+                                        loading="lazy"
+                                        allowFullScreen
+                                        onLoad={handleIframeLoad}
+                                        style={iframeLoading ? { visibility: "hidden" } : { visibility: "visible" }}
+                                        className="w-100 h-100"></iframe>
+                                </div>
                             </Ratio>
                         </Card.Body>
                     </Card>
