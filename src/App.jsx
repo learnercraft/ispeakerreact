@@ -1,10 +1,11 @@
 import { Suspense, lazy } from "react";
 import { Container } from "react-bootstrap";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import LoadingOverlay from "./components/general/LoadingOverlay";
+import Homepage from "./components/Homepage";
+import NotFound from "./components/general/NotFound";
 import { ThemeProvider } from "./utils/ThemeProvider";
 import ThemeSwitcher from "./utils/ThemeSwitcher";
-import Homepage from "./components/Homepage";
 
 const SoundList = lazy(() => import("./components/sound_page/SoundList"));
 const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu"));
@@ -14,7 +15,7 @@ const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"
 const App = () => {
     return (
         <Container className="p-4 mb-5">
-            <Router>
+            <Router basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
                     <Route
@@ -49,6 +50,7 @@ const App = () => {
                             </Suspense>
                         }
                     />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
             <ThemeProvider>
