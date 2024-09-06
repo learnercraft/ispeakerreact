@@ -7,7 +7,7 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
     const [modalImage, setModalImage] = useState("");
 
     const handleImageClick = (imageName) => {
-        setModalImage(`/images/ispeaker/exam_images/jpg/${imageName}.jpg`);
+        setModalImage(`${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`);
         setShowModal(true);
     };
 
@@ -67,7 +67,7 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
                                 <Ratio aspectRatio="16x9">
                                     <Image
                                         role="button"
-                                        src={`/images/ispeaker/exam_images/webp/${image}.webp`}
+                                        src={`${import.meta.env.BASE_URL}images/ispeaker/exam_images/webp/${image}.webp`}
                                         thumbnail
                                         onClick={() => handleImageClick(image)}
                                     />
