@@ -118,7 +118,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         }
 
         const audio = new Audio();
-        const audioSrc = `/media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
+        const audioSrc = `${import.meta.env.BASE_URL}media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
 
         audioRef.current = audio;
 
@@ -138,6 +138,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         audio.onerror = () => {
             setIsLoading(false);
             console.error("Audio error occurred. Unable to play the audio.");
+            alert("Unable to play audio due to a network issue. Please check your connection and reload the page.");
         };
 
         audio.onpause = () => {
