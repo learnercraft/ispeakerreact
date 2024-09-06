@@ -73,7 +73,9 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                         setCurrentAudio(null);
                         setPlayingIndex(null);
                         console.log("Audio loading error");
-                        alert("Unable to play audio due to a network issue. Please check your connection and reload the page.");
+                        alert(
+                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
+                        );
                     };
 
                     setCurrentAudio(audio);
