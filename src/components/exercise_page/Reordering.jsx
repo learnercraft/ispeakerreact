@@ -68,7 +68,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
         setShuffledItems(shuffledItemsArray);
         setButtonsDisabled(false);
 
-        setCurrentAudioSrc(`/media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
+        setCurrentAudioSrc(`${import.meta.env.BASE_URL}media/exercise/mp3/${shuffledPairs[0].audio}.mp3`);
         setCorrectAnswer(correctAnswer);
     }, []);
 
