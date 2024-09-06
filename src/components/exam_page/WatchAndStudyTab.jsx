@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Accordion, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
     const [showModal, setShowModal] = useState(false);
     const [modalImage, setModalImage] = useState("");
+    const [iframeLoading, setiFrameLoading] = useState(true);
 
     const handleImageClick = (imageName) => {
         setModalImage(`${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`);
@@ -12,6 +15,8 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
     };
 
     const handleCloseModal = () => setShowModal(false);
+
+    const handleIframeLoad = () => setiFrameLoading(false);
 
     // State for highlighting the dialog
     const [highlightState, setHighlightState] = useState({
@@ -67,7 +72,9 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
                                 <Ratio aspectRatio="16x9">
                                     <Image
                                         role="button"
-                                        src={`${import.meta.env.BASE_URL}images/ispeaker/exam_images/webp/${image}.webp`}
+                                        src={`${
+                                            import.meta.env.BASE_URL
+                                        }images/ispeaker/exam_images/webp/${image}.webp`}
                                         thumbnail
                                         onClick={() => handleImageClick(image)}
                                     />
@@ -95,7 +102,17 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
                         <Card.Header className="fw-semibold">Watch the video</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
-                                <iframe src={videoUrl} title="Video" allowFullScreen loading="lazy" />
+                                <div>
+                                    {iframeLoading && <Skeleton className="placeholder" height="100%" width="100%" />}
+                                    <iframe
+                                        src={videoUrl}
+                                        title="Exam video"
+                                        loading="lazy"
+                                        allowFullScreen
+                                        onLoad={handleIframeLoad}
+                                        style={iframeLoading ? { visibility: "hidden" } : { visibility: "visible" }}
+                                        className="w-100 h-100"></iframe>
+                                </div>
                             </Ratio>
                         </Card.Body>
                     </Card>
