@@ -118,7 +118,9 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         }
 
         const audio = new Audio();
-        const audioSrc = `${import.meta.env.BASE_URL}media/exercise/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
+        const audioSrc = `${import.meta.env.BASE_URL}media/exercise/mp3/${
+            shuffledQuiz[currentQuestionIndex].audio.src
+        }.mp3`;
 
         audioRef.current = audio;
 

@@ -17,26 +17,38 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<Homepage />} />
-                    <Route path="/sounds" element={
-                        <Suspense fallback={<LoadingOverlay />}>
-                            <SoundList />
-                        </Suspense>
-                    } />
-                    <Route path="/conversations" element={
-                        <Suspense fallback={<LoadingOverlay />}>
-                            <ConversationMenu />
-                        </Suspense>
-                    } />
-                    <Route path="/exams" element={
-                        <Suspense fallback={<LoadingOverlay />}>
-                            <ExamPage />
-                        </Suspense>
-                    } />
-                    <Route path="/exercises" element={
-                        <Suspense fallback={<LoadingOverlay />}>
-                            <ExercisePage />
-                        </Suspense>
-                    } />
+                    <Route
+                        path="/sounds"
+                        element={
+                            <Suspense fallback={<LoadingOverlay />}>
+                                <SoundList />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/conversations"
+                        element={
+                            <Suspense fallback={<LoadingOverlay />}>
+                                <ConversationMenu />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/exams"
+                        element={
+                            <Suspense fallback={<LoadingOverlay />}>
+                                <ExamPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/exercises"
+                        element={
+                            <Suspense fallback={<LoadingOverlay />}>
+                                <ExercisePage />
+                            </Suspense>
+                        }
+                    />
                 </Routes>
             </Router>
             <ThemeProvider>
