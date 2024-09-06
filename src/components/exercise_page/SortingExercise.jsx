@@ -87,7 +87,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
             // Determine if the item is moving between columns
             if (itemsLeft.some((item) => item.id === active.id)) {
                 // Moving from left to right
-                if (itemsRight.some((item) => item.id === over.id)) {
+                if (itemsRight.some((item) => item.id === over.id) || itemsRight.length === 0) {
                     setItemsLeft((items) => items.filter((item) => item.id !== active.id));
                     setItemsRight((items) => [...itemsRight, activeItem]);
                 } else {
@@ -97,7 +97,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                 }
             } else if (itemsRight.some((item) => item.id === active.id)) {
                 // Moving from right to left
-                if (itemsLeft.some((item) => item.id === over.id)) {
+                if (itemsLeft.some((item) => item.id === over.id) || itemsLeft.length === 0) {
                     setItemsRight((items) => items.filter((item) => item.id !== active.id));
                     setItemsLeft((items) => [...itemsLeft, activeItem]);
                 } else {
@@ -159,14 +159,24 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                                 </Card.Header>
                                 <Card.Body>
                                     <SortableContext items={itemsLeft} strategy={sortableStrategy}>
-                                        {itemsLeft.map((item) => (
-                                            <SortableWord
-                                                key={item.id}
-                                                item={item}
-                                                isCorrect={hasSubmitted ? item.columnPos === 1 : null}
-                                                disabled={buttonsDisabled}
-                                            />
-                                        ))}
+                                        {itemsLeft.length > 0 ? (
+                                            itemsLeft.map((item) => (
+                                                <SortableWord
+                                                    key={item.id}
+                                                    item={item}
+                                                    isCorrect={hasSubmitted ? item.columnPos === 1 : null}
+                                                    disabled={buttonsDisabled}
+                                                />
+                                            ))
+                                        ) : (
+                                            <>
+                                                <div className="text-center w-100 p-4">
+                                                    <div className="p-4 border rounded text-secondary">
+                                                        Drop here...
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
                                     </SortableContext>
                                 </Card.Body>
                             </Card>
@@ -182,14 +192,24 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                                 </Card.Header>
                                 <Card.Body>
                                     <SortableContext items={itemsRight} strategy={sortableStrategy}>
-                                        {itemsRight.map((item) => (
-                                            <SortableWord
-                                                key={item.id}
-                                                item={item}
-                                                isCorrect={hasSubmitted ? item.columnPos === 2 : null}
-                                                disabled={buttonsDisabled}
-                                            />
-                                        ))}
+                                        {itemsRight.length > 0 ? (
+                                            itemsRight.map((item) => (
+                                                <SortableWord
+                                                    key={item.id}
+                                                    item={item}
+                                                    isCorrect={hasSubmitted ? item.columnPos === 2 : null}
+                                                    disabled={buttonsDisabled}
+                                                />
+                                            ))
+                                        ) : (
+                                            <>
+                                                <div className="text-center w-100 p-4">
+                                                    <div className="p-4 border rounded text-secondary">
+                                                        Drop here...
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
                                     </SortableContext>
                                 </Card.Body>
                             </Card>
