@@ -115,7 +115,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
         // Start the new audio if it's not already playing
         if (isPlaying !== index) {
-            const audioSrc = `/media/exercise/mp3/${src}.mp3`;
+            const audioSrc = `${import.meta.env.BASE_URL}media/exercise/mp3/${src}.mp3`;
             audioRef.current.src = audioSrc; // Set the new audio source
 
             // Set loading state for this specific button
