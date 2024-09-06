@@ -212,7 +212,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
     };
 
     const handleImageClick = (imageName) => {
-        setModalImage(`/images/ispeaker/exam_images/jpg/${imageName}.jpg`);
+        setModalImage(`${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`);
         setShowModal(true);
     };
 
@@ -232,7 +232,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                                             <Ratio aspectRatio="16x9">
                                                 <Image
                                                     role="button"
-                                                    src={`/images/ispeaker/exam_images/webp/${image}.webp`}
+                                                    src={`${import.meta.env.BASE_URL}images/ispeaker/exam_images/webp/${image}.webp`}
                                                     thumbnail
                                                     onClick={() => handleImageClick(image)}
                                                 />
