@@ -43,7 +43,7 @@ const ListeningTab = ({ sentences }) => {
             const signal = controller.signal;
 
             // Fetch the audio file
-            fetch(`/media/conversation/mp3/${audioSrc}.mp3`, { signal })
+            fetch(`${import.meta.env.BASE_URL}media/conversation/mp3/${audioSrc}.mp3`, { signal })
                 .then((response) => response.blob())
                 .then((audioBlob) => {
                     const audioUrl = URL.createObjectURL(audioBlob);
