@@ -2,10 +2,15 @@ import he from "he";
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
 import { ArrowLeftCircle, RecordCircleFill } from "react-bootstrap-icons";
-import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { checkRecordingExists } from "../../utils/databaseOperations";
 import ToastNotification from "../general/ToastNotification";
 import ReviewCard from "./ReviewCard";
 import SoundPracticeCard from "./SoundPracticeCard";
+import { usePlaybackFunction } from "./usePlaybackFunction";
+import { useRecordingFunction } from "./useRecordingFunction";
+import { useSoundVideoMapping } from "./useSoundVideoMapping";
 
 const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const accentKey = accent === "american" ? "a" : "b";
@@ -30,28 +35,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
 
     const { index: phonemeIndex, type } = findPhonemeDetails(sound.phoneme);
 
-    const videoArrayKey =
-        type === "consonant"
-            ? accent === "british"
-                ? "consonants_b"
-                : "consonants_a"
-            : accent === "british"
-            ? "vowels_b"
-            : "vowels_a";
-
-    const videoArray = soundsData[videoArrayKey];
-    const videoBlockStartIndex = phonemeIndex * 5;
-
-    // Find the first non-empty video URL in this phoneme's video block
-    const videoUrl = videoArray
-        .slice(videoBlockStartIndex, videoBlockStartIndex + 5)
-        .find((video) => video.value)?.value;
-
-    // Video url for practice part
-    const videoUrls = videoArray
-        .slice(videoBlockStartIndex, videoBlockStartIndex + 5)
-        .filter((video) => video.value)
-        .map((video) => video.value);
+    const { videoUrls, videoUrl } = useSoundVideoMapping(type, accent, soundsData, phonemeIndex);
 
     const imgPhonemeThumbSrc =
         accent === "american"
@@ -107,9 +91,26 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const handleShow = (videoIndex) => {
         setSelectedVideoUrl(videoUrls[videoIndex]);
         setShow(true);
+        setIframeLoadingStates((prevStates) => ({
+            ...prevStates,
+            modalIframe: true, // Reset the modal iframe loading state to true when modal is opened
+        }));
     };
 
     const handleClose = () => setShow(false);
+
+    // iframe loading
+    const [iframeLoadingStates, setIframeLoadingStates] = useState({
+        mainIframe: true,
+        modalIframe: true,
+    });
+
+    const handleIframeLoad = (iframeKey) => {
+        setIframeLoadingStates((prevStates) => ({
+            ...prevStates,
+            [iframeKey]: false,
+        }));
+    };
 
     // Recording & playback
 
@@ -128,107 +129,22 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
-    const MAX_RECORDING_DURATION_MS = 20 * 1000; // 20 seconds in milliseconds
-
-    const handleRecording = (cardIndex) => {
-        const recordingDataIndex = getRecordingKey(cardIndex);
-        // Determine if a recording is starting or stopping
-        if (activeRecordingCard !== cardIndex) {
-            setActiveRecordingCard(cardIndex);
-            // Start the recording process
-            navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then((stream) => {
-                    const recordOptions = {
-                        audioBitsPerSecond: 128000,
-                    };
-                    const mediaRecorder = new MediaRecorder(stream, recordOptions);
-                    let audioChunks = [];
-                    let mimeType = "";
-                    let recordingStartTime = Date.now();
-
-                    mediaRecorder.start();
-                    setIsRecording(true);
-                    setMediaRecorder(mediaRecorder);
-                    setActiveRecordingCard(cardIndex);
-
-                    mediaRecorder.addEventListener("dataavailable", (event) => {
-                        audioChunks.push(event.data);
-
-                        if (!mimeType && event.data && event.data.type) {
-                            mimeType = event.data.type;
-                            console.log("Captured MIME type:", mimeType);
-                        }
-
-                        // Check if the recording duration exceeds the time limit
-                        const recordingDuration = Date.now() - recordingStartTime;
-                        if (recordingDuration > MAX_RECORDING_DURATION_MS) {
-                            mediaRecorder.stop();
-                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 seconds.");
-                            setShowToast(true);
-                            setIsRecording(false);
-                            setActiveRecordingCard(null);
-                        }
-
-                        if (mediaRecorder.state === "inactive") {
-                            const audioBlob = new Blob(audioChunks, { type: mimeType });
-                            saveRecording(audioBlob, recordingDataIndex, mimeType);
-                            setToastMessage("Recording saved.");
-                            setShowToast(true);
-                            setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
-                            audioChunks = [];
-                        }
-                    });
-
-                    // Automatically stop recording after 10 minutes if not already stopped
-                    setTimeout(() => {
-                        if (mediaRecorder.state !== "inactive") {
-                            mediaRecorder.stop();
-                            setToastMessage("Recording stopped because it exceeded the duration limit of 10 seconds.");
-                            setShowToast(true);
-                            setIsRecording(false);
-                            setActiveRecordingCard(null);
-                        }
-                    }, MAX_RECORDING_DURATION_MS);
-                })
-                .catch((err) => {
-                    console.error("Error accessing the microphone.", err);
-                    setToastMessage("Recording failed. Reason(s): " + err.message);
-                    setShowToast(true);
-                    setIsRecording(false);
-                    setActiveRecordingCard(null);
-                });
-        } else {
-            // Stop recording if this cardIndex was already recording
-            setActiveRecordingCard(null);
-            // Stop the recording process
-            if (isRecording) {
-                if (mediaRecorder) {
-                    mediaRecorder.stop();
-                    setIsRecording(false);
-                    setActiveRecordingCard(null);
-                }
-            }
-        }
-    };
-
-    const getRecordingKey = useCallback(
-        (cardIndex) => {
-            const { index, type } = findPhonemeDetails(sound.phoneme);
-            return `${accent}-${type}${index + 1}_${cardIndex}`;
-        },
-        [findPhonemeDetails, sound.phoneme, accent] // Dependencies array
+    const { getRecordingKey, isRecordingPlayingActive, isRecordingAvailable, handleRecording } = useRecordingFunction(
+        activeRecordingCard,
+        setActiveRecordingCard,
+        setIsRecording,
+        setMediaRecorder,
+        setToastMessage,
+        setShowToast,
+        setRecordingAvailability,
+        isRecording,
+        mediaRecorder,
+        findPhonemeDetails,
+        sound,
+        accent,
+        recordingAvailability,
+        playingRecordings
     );
-
-    const isRecordingAvailable = (cardIndex) => {
-        const recordingKey = getRecordingKey(cardIndex);
-        return recordingAvailability[recordingKey];
-    };
-
-    const isRecordingPlayingActive = (cardIndex) => {
-        const recordingKey = getRecordingKey(cardIndex);
-        return !!playingRecordings[recordingKey];
-    };
 
     useEffect(() => {
         // Assume checkRecordingExists is a function that checks if a recording exists and returns a promise that resolves to a boolean
@@ -247,118 +163,20 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         });
     }, [getRecordingKey]);
 
-    const handlePlayRecording = async (cardIndex) => {
-        const key = getRecordingKey(cardIndex);
-
-        if (isRecordingPlaying && activePlaybackCard === cardIndex) {
-            // Stop current playback
-            if (currentAudioSource) {
-                currentAudioSource.stop();
-                setCurrentAudioSource(null);
-            }
-
-            if (currentAudioElement) {
-                currentAudioElement.pause();
-                currentAudioElement.currentTime = 0;
-                setCurrentAudioElement(null);
-            }
-
-            setIsRecordingPlaying(false);
-            setActivePlaybackCard(null);
-            setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-        } else {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            console.log("Initial audioContext state: " + audioContext.state);
-
-            if (audioContext.state === "suspended") {
-                try {
-                    await audioContext.resume(); // Resume within the event handler
-                    console.log("AudioContext state after resume attempt: " + audioContext.state);
-
-                    if (audioContext.state === "running") {
-                        // Proceed with playback after resuming AudioContext
-                        initiatePlayback(key, cardIndex, audioContext);
-                    } else {
-                        console.log("AudioContext did not resume. Fallback to Audio element.");
-                        fallbackToAudioElement(key, cardIndex); // Handle iOS fallback
-                    }
-                } catch (error) {
-                    console.error("Failed to resume AudioContext:", error);
-                    setToastMessage("Error resuming audio playback: " + error.message);
-                    setShowToast(true);
-                }
-            } else {
-                // AudioContext is already running
-                console.log("AudioContext is running, proceeding with playback.");
-                initiatePlayback(key, cardIndex, audioContext);
-            }
-        }
-    };
-
-    // Fallback to Audio element on iOS
-    const fallbackToAudioElement = (key, cardIndex) => {
-        playRecording(
-            key,
-            (audio, audioSource) => {
-                setIsRecordingPlaying(true);
-                setActivePlaybackCard(cardIndex);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                if (audioSource) {
-                    setCurrentAudioSource(audioSource);
-                } else {
-                    setCurrentAudioElement(audio); // Handle Audio element playback
-                }
-            },
-            (error) => {
-                console.error("Error during playback:", error);
-                setToastMessage("Error during playback: " + error.message);
-                setShowToast(true);
-                setIsRecordingPlaying(false);
-                setActivePlaybackCard(null);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-            },
-            () => {
-                setIsRecordingPlaying(false);
-                setActivePlaybackCard(null);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                setCurrentAudioSource(null);
-                setCurrentAudioElement(null);
-            },
-            null // Do not pass audioContext, fallback to Blob URL
-        );
-    };
-
-    const initiatePlayback = (key, cardIndex, audioContext) => {
-        playRecording(
-            key,
-            (audio, audioSource) => {
-                setIsRecordingPlaying(true);
-                setActivePlaybackCard(cardIndex);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: true }));
-                if (audioSource) {
-                    setCurrentAudioSource(audioSource);
-                } else {
-                    setCurrentAudioElement(audio);
-                }
-            },
-            (error) => {
-                console.error("Error during playback:", error);
-                setToastMessage("Error during playback: " + error.message);
-                setShowToast(true);
-                setIsRecordingPlaying(false);
-                setActivePlaybackCard(null);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-            },
-            () => {
-                setIsRecordingPlaying(false);
-                setActivePlaybackCard(null);
-                setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
-                setCurrentAudioSource(null);
-                setCurrentAudioElement(null);
-            },
-            audioContext // Pass audioContext to playRecording
-        );
-    };
+    const handlePlayRecording = usePlaybackFunction(
+        getRecordingKey,
+        isRecordingPlaying,
+        activePlaybackCard,
+        currentAudioSource,
+        setCurrentAudioSource,
+        currentAudioElement,
+        setCurrentAudioElement,
+        setIsRecordingPlaying,
+        setActivePlaybackCard,
+        setPlayingRecordings,
+        setToastMessage,
+        setShowToast
+    );
 
     useEffect(() => {
         // Cleanup function to stop recording and playback
@@ -413,7 +231,25 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         <Card.Header className="fw-semibold">Watch</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
-                                <iframe src={videoUrl} title="Phoneme Video" loading="lazy" allowFullScreen></iframe>
+                                <div>
+                                    {iframeLoadingStates.mainIframe && (
+                                        <Skeleton className="placeholder" height="100%" width="100%" />
+                                    )}
+                                    <iframe
+                                        src={videoUrl}
+                                        title="Phoneme Video"
+                                        loading="lazy"
+                                        allowFullScreen
+                                        onLoad={() => {
+                                            handleIframeLoad("mainIframe");
+                                        }}
+                                        style={
+                                            iframeLoadingStates.mainIframe
+                                                ? { visibility: "hidden" }
+                                                : { visibility: "visible" }
+                                        }
+                                        className="w-100 h-100"></iframe>
+                                </div>
                             </Ratio>
                         </Card.Body>
                     </Card>
@@ -442,13 +278,31 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     <ReviewCard sound={sound} handleReviewClick={handleReviewClick} emojiStyle={emojiStyle} />
                 </Col>
             </Row>
-            <Modal show={show} onHide={handleClose} size="xl" centered>
+            <Modal show={show} onHide={handleClose} size="lg" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Watch video pronunciation clip</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Ratio aspectRatio="16x9">
-                        <iframe src={selectedVideoUrl} loading="lazy" allowFullScreen />
+                        <div>
+                            {iframeLoadingStates.modalIframe && (
+                                <Skeleton className="placeholder" height="100%" width="100%" />
+                            )}
+                            <iframe
+                                src={selectedVideoUrl}
+                                title="Phoneme Video"
+                                loading="lazy"
+                                allowFullScreen
+                                onLoad={() => {
+                                    handleIframeLoad("modalIframe");
+                                }}
+                                style={
+                                    iframeLoadingStates.modalIframe
+                                        ? { visibility: "hidden" }
+                                        : { visibility: "visible" }
+                                }
+                                className="w-100 h-100"></iframe>
+                        </div>
                     </Ratio>
                 </Modal.Body>
                 <Modal.Footer>
