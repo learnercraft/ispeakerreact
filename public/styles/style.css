@@ -27,7 +27,7 @@ html {
 
 @font-face {
     font-family: "Noto Color Emoji";
-    src: url("/fonts/NotoColorEmoji-Regular.woff2");
+    src: url("../fonts/NotoColorEmoji-Regular.woff2");
     font-style: normal;
     font-weight: 400;
     font-display: swap;
