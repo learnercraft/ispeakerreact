@@ -18,25 +18,25 @@ function Homepage() {
         {
             title: "Sounds",
             description: "Watch videos and practice pronouncing sounds.",
-            icon: "/images/ispeaker/menu/sound_menu_icon.svg",
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/sound_menu_icon.svg`,
             path: "sounds",
         },
         {
             title: "Exercises",
             description: "Practice listening to sounds and sentences in various exercise types.",
-            icon: "/images/ispeaker/menu/exercise_menu_icon.svg",
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/exercise_menu_icon.svg`,
             path: "exercises",
         },
         {
             title: "Conversations",
             description: "Improve your conversation skills for different situations.",
-            icon: "/images/ispeaker/menu/conversation_menu_icon.svg",
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/conversation_menu_icon.svg`,
             path: "conversations",
         },
         {
             title: "Exams",
             description: "Prepare yourself for different types of speaking exams.",
-            icon: "/images/ispeaker/menu/exam_menu_icon.svg",
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/exam_menu_icon.svg`,
             path: "exams",
         },
     ];
