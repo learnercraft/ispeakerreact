@@ -55,8 +55,8 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
 
     const imgPhonemeThumbSrc =
         accent === "american"
-            ? "/images/ispeaker/sound_images/sounds_american.jpg"
-            : "/images/ispeaker/sound_images/sounds_british.jpg";
+            ? "${import.meta.env.BASE_URL}images/ispeaker/sound_images/sounds_american.jpg"
+            : "${import.meta.env.BASE_URL}images/ispeaker/sound_images/sounds_british.jpg";
 
     const [review, setReview] = useState(null);
 
