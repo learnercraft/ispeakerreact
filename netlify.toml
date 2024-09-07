@@ -2,12 +2,7 @@
   publish = "dist"
   command = "npm run build"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[context.deploy-preview]]
+[context.deploy-preview]
   # For PR previews on Netlify
   [context.deploy-preview.environment]
     VITE_BASE = "/"
