@@ -50,7 +50,7 @@ const AppearanceSettings = () => {
                     <Form.Group className="px-0 form-switch">
                         <div className="d-flex justify-content-between">
                             <Form.Label className="fw-semibold mb-0" htmlFor="toggleThemeButton" role="button">
-                                Show 'Toggle theme' button
+                                Show “Toggle theme” button
                             </Form.Label>
                             <Form.Control
                                 className="form-check-input"
