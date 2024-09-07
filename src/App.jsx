@@ -11,52 +11,61 @@ const SoundList = lazy(() => import("./components/sound_page/SoundList"));
 const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu"));
 const ExamPage = lazy(() => import("./components/exam_page/ExamPage"));
 const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"));
+const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
 
 const App = () => {
     return (
-        <Container className="p-4 mb-5">
-            <Router basename={import.meta.env.BASE_URL}>
-                <Routes>
-                    <Route path="/" element={<Homepage />} />
-                    <Route
-                        path="/sounds"
-                        element={
-                            <Suspense fallback={<LoadingOverlay />}>
-                                <SoundList />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/conversations"
-                        element={
-                            <Suspense fallback={<LoadingOverlay />}>
-                                <ConversationMenu />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/exams"
-                        element={
-                            <Suspense fallback={<LoadingOverlay />}>
-                                <ExamPage />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path="/exercises"
-                        element={
-                            <Suspense fallback={<LoadingOverlay />}>
-                                <ExercisePage />
-                            </Suspense>
-                        }
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </Router>
-            <ThemeProvider>
+        <ThemeProvider>
+            <Container className="p-4 mb-5">
+                <Router basename={import.meta.env.BASE_URL}>
+                    <Routes>
+                        <Route path="/" element={<Homepage />} />
+                        <Route
+                            path="/sounds"
+                            element={
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <SoundList />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/conversations"
+                            element={
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <ConversationMenu />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/exams"
+                            element={
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <ExamPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/exercises"
+                            element={
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <ExercisePage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="/settings"
+                            element={
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <SettingsPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </Router>
                 <ThemeSwitcher />
-            </ThemeProvider>
-        </Container>
+            </Container>
+        </ThemeProvider>
     );
 };
 
