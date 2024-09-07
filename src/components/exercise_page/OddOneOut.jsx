@@ -4,14 +4,23 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
-const OddOneOut = ({ quiz, onAnswer, onQuit }) => {
+const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledOptions, setShuffledOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    useEffect(() => {
+        if (timer > 0) {
+            startTimer();
+        }
+    }, [timer, startTimer]);
 
     const filterAndShuffleQuiz = useCallback((quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
@@ -52,12 +61,23 @@ const OddOneOut = ({ quiz, onAnswer, onQuit }) => {
             setCurrentQuizIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        clearTimer();
     };
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     {shuffledOptions.map((option, index) => (
@@ -105,7 +125,7 @@ const OddOneOut = ({ quiz, onAnswer, onQuit }) => {
                             <ArrowRightCircle /> Next
                         </Button>
                     )}
-                    <Button variant="danger" className="ms-2" onClick={onQuit}>
+                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
                 </div>

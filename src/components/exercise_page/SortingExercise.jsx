@@ -11,9 +11,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
 
-const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false }) => {
+const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [itemsLeft, setItemsLeft] = useState([]);
     const [itemsRight, setItemsRight] = useState([]);
@@ -22,6 +23,14 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     const [currentTableHeading, setCurrentTableHeading] = useState([]);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    useEffect(() => {
+        if (timer > 0) {
+            startTimer();
+        }
+    }, [timer, startTimer]);
 
     const sensors = useSensors(useSensor(PointerSensor));
 
@@ -133,14 +142,25 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
             setCurrentQuizIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        clearTimer();
     };
 
     const sortableStrategy = useHorizontalStrategy ? horizontalListSortingStrategy : verticalListSortingStrategy;
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <DndContext
                     sensors={sensors}
@@ -233,7 +253,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                             <ArrowRightCircle /> Next
                         </Button>
                     )}
-                    <Button variant="danger" className="ms-2" onClick={onQuit}>
+                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
                 </div>

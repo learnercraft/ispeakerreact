@@ -48,7 +48,8 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             const timerValue =
                 exerciseKey === "memory_match"
                     ? savedSettings?.timerSettings?.memory_match || 4 // Use a default value for memory match
-                    : savedSettings?.timerSettings?.[exerciseKey] || 0; // For other exercises
+                    : (savedSettings?.timerSettings?.enabled === true && savedSettings?.timerSettings?.[exerciseKey]) ||
+                      0; // For other exercises
 
             setTimer(timerValue);
 
@@ -336,7 +337,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                 )}
                             </Card>
 
-                            {quizCompleted || currentExerciseType == "memory_match" ? (
+                            {timeIsUp || quizCompleted || currentExerciseType == "memory_match" ? (
                                 ""
                             ) : (
                                 <Card className="mt-4 shadow-sm">
