@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const useCountdownTimer = (initialTime, onTimerEnd) => {
     const [remainingTime, setRemainingTime] = useState(initialTime * 60); // Track remaining time in state (seconds)
@@ -14,14 +14,13 @@ const useCountdownTimer = (initialTime, onTimerEnd) => {
                     if (prevTime <= 1) {
                         clearInterval(intervalIdRef.current);
                         intervalIdRef.current = null;
-                        onTimerEnd(); // Notify when time is up
                         return 0;
                     }
                     return prevTime - 1;
                 });
             }, 1000);
         }
-    }, [isActive, onTimerEnd]);
+    }, [isActive]);
 
     // Clear the timer when needed
     const clearTimer = useCallback(() => {
@@ -31,6 +30,13 @@ const useCountdownTimer = (initialTime, onTimerEnd) => {
         }
         setIsActive(false); // Deactivate the timer
     }, []);
+
+    // Effect to trigger `onTimerEnd` when the time is up
+    useEffect(() => {
+        if (remainingTime === 0) {
+            onTimerEnd(); // Call the parent function when time is up
+        }
+    }, [remainingTime, onTimerEnd]);
 
     // Format time into minutes and seconds
     const formatTime = useCallback(() => {
