@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
 const filterAndShuffleQuiz = (quiz) => {
     // Remove duplicate questions
@@ -22,7 +23,7 @@ const filterAndShuffleQuiz = (quiz) => {
     });
 };
 
-const Snap = ({ quiz, onAnswer, onQuit }) => {
+const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [currentQuiz, setCurrentQuiz] = useState({});
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
@@ -30,6 +31,14 @@ const Snap = ({ quiz, onAnswer, onQuit }) => {
     const [result, setResult] = useState(null);
     const [droppedOn, setDroppedOn] = useState(null); // Track where the item is dropped
     const [isHorizontal, setIsHorizontal] = useState(true);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    useEffect(() => {
+        if (timer > 0) {
+            startTimer();
+        }
+    }, [timer, startTimer]);
 
     const loadQuiz = useCallback((quizData) => {
         const shuffledOptions = ShuffleArray([...quizData.data]); // Shuffle the options for this specific question
@@ -83,7 +92,13 @@ const Snap = ({ quiz, onAnswer, onQuit }) => {
             loadQuiz(shuffledQuiz[nextQuizIndex]);
         } else {
             onQuit();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        clearTimer();
     };
 
     // Draggable item component
@@ -161,7 +176,12 @@ const Snap = ({ quiz, onAnswer, onQuit }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 {/* Present Word and Phonetic Transcription */}
                 <Row className="text-center mb-4">
@@ -209,7 +229,7 @@ const Snap = ({ quiz, onAnswer, onQuit }) => {
                     <Button variant="secondary" onClick={handleNextQuiz}>
                         <ArrowRightCircle /> Next
                     </Button>
-                    <Button variant="danger" className="ms-2" onClick={onQuit}>
+                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
                 </div>

@@ -1,9 +1,10 @@
 import _ from "lodash";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
-const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
+const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answer, setAnswer] = useState("");
     const [showValidation, setShowValidation] = useState(false);
@@ -16,6 +17,8 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     const audioRef = useRef(null);
 
@@ -93,6 +96,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
         } else {
             onQuit(); // Notify parent that the quiz is finished
             stopAudio();
+            clearTimer();
         }
     };
 
@@ -103,6 +107,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
     const handleQuit = () => {
         onQuit();
         stopAudio();
+        clearTimer();
     };
 
     const handleAudioPlay = () => {
@@ -131,6 +136,7 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
             setIsLoading(false);
             setIsPlaying(true);
             audio.play();
+            startTimer();
         };
 
         audio.onended = () => {
@@ -167,7 +173,10 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
                         key={index}
                         type="text"
                         value={answer}
-                        onChange={(e) => setAnswer(e.target.value)}
+                        onChange={(e) => {
+                            setAnswer(e.target.value);
+                            startTimer();
+                        }}
                         isInvalid={validationVariant === "danger" && showValidation}
                         isValid={validationVariant === "success" && showValidation}
                         autoComplete="off"
@@ -185,7 +194,12 @@ const DictationQuiz = ({ quiz, onAnswer, onQuit }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuestionIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuestionIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <Row>
                     <Col xs={12} className="d-flex justify-content-center">

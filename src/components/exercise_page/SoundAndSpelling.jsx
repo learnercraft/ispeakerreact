@@ -4,8 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
 import { ArrowRightCircle, CheckCircleFill, VolumeUp, VolumeUpFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
-const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
+const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledOptions, setShuffledOptions] = useState([]);
@@ -15,6 +16,8 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
     const [currentAudioSrc, setCurrentAudioSrc] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     // Use a ref to manage the audio element
     const audioRef = useRef(null);
@@ -92,6 +95,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
                 setIsLoading(false);
                 setIsPlaying(true);
                 newAudio.play();
+                startTimer();
             };
 
             // Handle when the audio ends
@@ -110,6 +114,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
     };
 
     const handleOptionClick = (isCorrect, index) => {
+        startTimer();
         setButtonsDisabled(true);
         setSelectedOption({ index, isCorrect });
 
@@ -128,12 +133,24 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
         } else {
             onQuit();
             stopAudio();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        stopAudio();
+        clearTimer();
     };
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     <Col xs={12} className="d-flex justify-content-center">
@@ -189,7 +206,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit }) => {
                             <ArrowRightCircle /> Next
                         </Button>
                     )}
-                    <Button variant="danger" className="ms-2" onClick={onQuit}>
+                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
                 </div>
