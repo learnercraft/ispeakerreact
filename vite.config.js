@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     const isDev = mode === "development";
 
     return {
-        base: isElectron || isDev ? "/" : "/ispeaker/", // "/" for Electron, "/ispeaker/" for GitHub Pages
+        base: process.env.VITE_BASE || (isElectron || isDev ? "/" : "/ispeaker/"),
         /*build: {
             rollupOptions: {
                 output: {
