@@ -20,8 +20,9 @@ import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import SortableWord from "./SortableWord";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
-const MatchUp = ({ quiz, onAnswer, onQuit }) => {
+const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledWords, setShuffledWords] = useState([]);
@@ -32,6 +33,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
     const [originalPairs, setOriginalPairs] = useState([]);
     const [activeId, setActiveId] = useState(null);
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     const audioRef = useRef(null);
 
@@ -127,6 +129,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
 
             audioRef.current.play().then(() => {
                 setIsPlaying(index);
+                startTimer();
                 // Disable loading state for this specific button
                 setIsLoading((prev) => {
                     const newLoadingState = [...prev];
@@ -164,6 +167,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
     const handleDragStart = (event) => {
         const { active } = event;
         setActiveId(active.id);
+        startTimer();
     };
 
     const handleDragEnd = ({ active, over }) => {
@@ -217,12 +221,24 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
         } else {
             onQuit();
             stopAudio();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        stopAudio();
+        clearTimer();
     };
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <Row className="d-flex justify-content-center">
                     <Col xs={2} md={2} className="d-flex justify-content-end">
@@ -291,7 +307,7 @@ const MatchUp = ({ quiz, onAnswer, onQuit }) => {
                             <ArrowRightCircle /> Next
                         </Button>
                     )}
-                    <Button variant="danger" className="ms-2" onClick={onQuit}>
+                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
                         <XCircle /> Quit
                     </Button>
                 </div>

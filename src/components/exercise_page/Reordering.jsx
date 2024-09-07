@@ -14,9 +14,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
 
-const Reordering = ({ quiz, onAnswer, onQuit }) => {
+const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [shuffledItems, setShuffledItems] = useState([]);
     const [activeId, setActiveId] = useState(null);
@@ -28,6 +29,8 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const [currentSplitType, setCurrentSplitType] = useState("");
     const [currentAudioSrc, setCurrentAudioSrc] = useState("");
     const [shuffledQuizArray, setShuffledQuizArray] = useState([]);
+
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     const filterAndShuffleQuiz = (quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
@@ -146,6 +149,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
                 setIsLoading(false); // Stop loading spinner
                 audioRef.current.play();
                 setIsPlaying(true);
+                startTimer();
             };
 
             // Handle the audio ended event
@@ -166,6 +170,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
     const handleDragStart = (event) => {
         const { active } = event;
         setActiveId(active.id);
+        startTimer();
     };
 
     const handleDragEnd = ({ active, over }) => {
@@ -232,12 +237,24 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
         } else {
             onQuit();
             stopAudio();
+            clearTimer();
         }
+    };
+
+    const handleQuit = () => {
+        onQuit();
+        stopAudio();
+        clearTimer();
     };
 
     return (
         <>
-            <Card.Header className="fw-semibold">Question #{currentQuizIndex + 1}</Card.Header>
+            <Card.Header className="fw-semibold">
+                <div className="d-flex">
+                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                </div>
+            </Card.Header>
             <Card.Body>
                 <Row className="d-flex justify-content-center g-3">
                     <Col xs={12} className="d-flex justify-content-center">
@@ -301,7 +318,7 @@ const Reordering = ({ quiz, onAnswer, onQuit }) => {
                                 <ArrowRightCircle /> Next
                             </Button>
                         )}
-                        <Button variant="danger" onClick={onQuit}>
+                        <Button variant="danger" onClick={handleQuit}>
                             <XCircle /> Quit
                         </Button>
                     </Stack>
