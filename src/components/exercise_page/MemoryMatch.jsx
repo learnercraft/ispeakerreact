@@ -16,7 +16,7 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
     const [hasStarted, setHasStarted] = useState(false);
     const [currentMatchedPair, setCurrentMatchedPair] = useState([]);
 
-    // Use the improved countdown timer
+    // Use the countdown timer
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     // Function to randomly pick 8 pairs from the entire quiz data
