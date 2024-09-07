@@ -42,7 +42,7 @@ const ExerciseTimer = () => {
 
     const handleInputChange = (e, settingKey) => {
         const value = parseInt(e.target.value, 10);
-        if (value >= 0 && value <= 8) {
+        if (value >= 0 && value <= 10) {
             setTimerSettings((prev) => ({
                 ...prev,
                 [settingKey]: value,
@@ -81,7 +81,7 @@ const ExerciseTimer = () => {
                         </div>
                     </Form.Group>
 
-                    <p className="mb-0 small text-secondary">
+                    <p className="mb-0 small text-secondary-emphasis">
                         Extra challenge by completing as many exercises as possible within the time limit.
                     </p>
                     <Collapse in={timerSettings.enabled}>
@@ -106,7 +106,7 @@ const ExerciseTimer = () => {
                                             </Col>
                                         ))}
                                     </Row>
-                                    <p className="mb-0 small text-secondary">
+                                    <p className="mb-0 small text-secondary-emphasis">
                                         Setting to 0 to disable timer for specific exercises.
                                     </p>
                                 </>
