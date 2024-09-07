@@ -23,7 +23,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
         transform: CSS.Transform.toString(transform),
         transition,
         touchAction: "none",
-        cursor: disabled ? "not-allowed" : isDragging ? "grabbing" : "grab",
+        cursor: disabled ? "not-allowed" : isOverlay ? "grabbing" : "grab",
         userSelect: "none",
         WebkitUserDrag: "none",
         WebkitTouchCallout: "none",
