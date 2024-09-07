@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { CardChecklist, ChatDots, ClipboardCheck, House, Mic } from "react-bootstrap-icons";
+import { CardChecklist, ChatDots, ClipboardCheck, House, Mic, Gear } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 
 const TopNavBar = () => {
@@ -39,6 +39,10 @@ const TopNavBar = () => {
                             <NavLink to="/exams" className="nav-link">
                                 <ClipboardCheck className="me-2" />
                                 Exams
+                            </NavLink>
+                            <NavLink to="/settings" className="nav-link">
+                                <Gear className="me-2" />
+                                Settings
                             </NavLink>
                         </Nav>
                     </Navbar.Collapse>
