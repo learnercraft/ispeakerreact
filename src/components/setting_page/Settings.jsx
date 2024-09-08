@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import TopNavBar from "../general/TopNavBar";
-import ExerciseTimer from "./ExerciseTimer";
 import AppearanceSettings from "./Appearance";
 import CachingSettings from "./Caching";
+import ExerciseTimer from "./ExerciseTimer";
+import ResetSettings from "./ResetSettings";
 
 const SettingsPage = () => {
+    const [resetFlag, setResetFlag] = useState(false); // Boolean flag to force remount
+    const handleReset = () => {
+        // Change the key to remount the CachingSettings component
+        setResetFlag((prevFlag) => !prevFlag);
+    };
+
     return (
         <>
             <TopNavBar />
@@ -17,7 +25,9 @@ const SettingsPage = () => {
                             <hr className="my-4" />
                             <AppearanceSettings />
                             <hr className="my-4" />
-                            <CachingSettings />
+                            <CachingSettings key={resetFlag} />
+                            <hr className="my-4" />
+                            <ResetSettings onReset={handleReset} />
                         </div>
                     </Col>
                 </Row>
