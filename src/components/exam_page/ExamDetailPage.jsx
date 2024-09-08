@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Nav, Row } from "react-bootstrap";
 import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones, InfoCircle } from "react-bootstrap-icons";
+import { useIsElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
+import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ListeningTab from "./ListeningTab";
 import PracticeTab from "./PracticeTab";
 import ReviewTab from "./ReviewTab";
@@ -16,20 +18,49 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
+    const isElectron = useIsElectron();
+
     useEffect(() => {
-        // Fetch the exam data from the JSON file
-        fetch(`${import.meta.env.BASE_URL}json/examspeaking_data.json`)
-            .then((response) => response.json())
-            .then((data) => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+
+                // If it's not an Electron environment, check IndexedDB first
+                if (!isElectron) {
+                    const cachedDataBlob = await getFileFromIndexedDB("examspeaking_data.json", "json");
+
+                    if (cachedDataBlob) {
+                        // Convert Blob to text, then parse the JSON
+                        const cachedDataText = await cachedDataBlob.text();
+                        const cachedData = JSON.parse(cachedDataText);
+
+                        setExamData(cachedData);
+                        setLoading(false);
+                        return;
+                    }
+                }
+
+                setLoading(true);
+
+                // If not in IndexedDB or running in Electron, fetch from the network
+                const response = await fetch(`${import.meta.env.BASE_URL}json/examspeaking_data.json`);
+                const data = await response.json();
+
                 setExamData(data);
                 setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching exam data:", error);
+
+                // Save the fetched data to IndexedDB (excluding Electron)
+                if (!isElectron) {
+                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+                    await saveFileToIndexedDB("examspeaking_data.json", blob, "json");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
-                setLoading(false);
-            });
-    }, []);
+            }
+        };
+        fetchData();
+    }, [isElectron]);
 
     // Check if data is still loading
     if (loading) {
