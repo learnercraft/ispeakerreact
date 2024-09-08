@@ -26,6 +26,8 @@ const ExerciseTimer = () => {
         return defaultTimerSettings;
     });
 
+    const [collapseOpen, setCollapseOpen] = useState(timerSettings.enabled);
+
     // Automatically save settings to localStorage whenever timerSettings change
     useEffect(() => {
         const savedSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
@@ -38,6 +40,7 @@ const ExerciseTimer = () => {
             ...prev,
             enabled,
         }));
+        setCollapseOpen(enabled);
     };
 
     const handleInputChange = (e, settingKey) => {
@@ -84,33 +87,27 @@ const ExerciseTimer = () => {
                     <p className="mb-0 small text-secondary-emphasis">
                         Extra challenge by completing as many exercises as possible within the time limit.
                     </p>
-                    <Collapse in={timerSettings.enabled}>
+                    <Collapse in={collapseOpen}>
                         <div>
-                            {timerSettings.enabled && (
-                                <>
-                                    <Row className="my-3 g-2">
-                                        {Object.keys(exerciseNames).map((exercise) => (
-                                            <Col key={exercise} md={4}>
-                                                <Form.Group controlId={exercise}>
-                                                    <Form.Label className="fw-semibold">
-                                                        {exerciseNames[exercise]}
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        type="number"
-                                                        value={timerSettings[exercise]}
-                                                        onChange={(e) => handleInputChange(e, exercise)}
-                                                        min="0"
-                                                        max="10"
-                                                    />
-                                                </Form.Group>
-                                            </Col>
-                                        ))}
-                                    </Row>
-                                    <p className="mb-0 small text-secondary-emphasis">
-                                        Setting to 0 to disable timer for specific exercises.
-                                    </p>
-                                </>
-                            )}
+                            <Row className="my-3 g-2">
+                                {Object.keys(exerciseNames).map((exercise) => (
+                                    <Col key={exercise} md={4}>
+                                        <Form.Group controlId={exercise}>
+                                            <Form.Label className="fw-semibold">{exerciseNames[exercise]}</Form.Label>
+                                            <Form.Control
+                                                type="number"
+                                                value={timerSettings[exercise]}
+                                                onChange={(e) => handleInputChange(e, exercise)}
+                                                min="0"
+                                                max="10"
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                ))}
+                            </Row>
+                            <p className="mb-0 small text-secondary-emphasis">
+                                Setting to 0 to disable timer for specific exercises.
+                            </p>
                         </div>
                     </Collapse>
                 </Card.Body>
