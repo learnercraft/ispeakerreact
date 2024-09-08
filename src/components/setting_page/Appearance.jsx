@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Card, Col, Dropdown, Form, Row } from "react-bootstrap";
 import { ThemeContext } from "../../utils/ThemeProvider";
+import { Check2 } from "react-bootstrap-icons";
 
 const AppearanceSettings = () => {
     const { theme, setTheme, showToggleButton, setShowToggleButton } = useContext(ThemeContext);
@@ -26,17 +27,38 @@ const AppearanceSettings = () => {
                         </Col>
                         <Col xs="auto" className="ms-auto">
                             <Dropdown>
-                                <Dropdown.Toggle variant="outline-secondary" id="dropdown-selected">
+                                <Dropdown.Toggle
+                                    variant="none"
+                                    id="dropdown-selected"
+                                    style={{
+                                        "--bs-btn-border-color": "var(--bs-body-color)",
+                                        "--bs-btn-hover-border-color": "var(--bs-secondary-color)",
+                                    }}>
                                     {theme === "auto"
                                         ? "Follow OS theme"
                                         : theme.charAt(0).toUpperCase() + theme.slice(1)}
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => handleThemeSelect("light")}>Light</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => handleThemeSelect("dark")}>Dark</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => handleThemeSelect("auto")}>
-                                        Follow OS theme
+                                    <Dropdown.Item
+                                        onClick={() => handleThemeSelect("light")}
+                                        active={theme === "light"}>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <span>Light</span>
+                                            {theme === "light" && <Check2 />}
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleThemeSelect("dark")} active={theme === "dark"}>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <span>Dark</span>
+                                            {theme === "dark" && <Check2 />}
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleThemeSelect("auto")} active={theme === "auto"}>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <span>Follow OS theme</span>
+                                            {theme === "auto" && <Check2 className="ms-2" />}
+                                        </div>
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
