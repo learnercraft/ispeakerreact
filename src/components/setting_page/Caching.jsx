@@ -133,12 +133,12 @@ const CachingSettings = () => {
 
     return (
         <div>
-            <h4>Caching Settings</h4>
+            <h4>Caching settings</h4>
             <Card className="mt-4 mb-4">
                 <Card.Body>
                     <Form.Group className="px-0 form-switch">
                         <div className="d-flex justify-content-between">
-                            <Form.Label className="fw-semibold mb-0" htmlFor="cacheJson">
+                            <Form.Label className="fw-semibold mb-0" htmlFor="cacheJson" role="button">
                                 Cache menu files for faster loading
                             </Form.Label>
                             {isProcessing ? (
