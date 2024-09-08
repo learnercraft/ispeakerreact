@@ -16,6 +16,7 @@
         "@dnd-kit/sortable": "^8.0.0",
         "@react-spring/web": "^9.7.4",
         "bootstrap": "^5.3.3",
+        "dexie": "^4.0.8",
         "he": "^1.2.0",
         "lodash": "^4.17.21",
         "masonry-layout": "^4.2.2",

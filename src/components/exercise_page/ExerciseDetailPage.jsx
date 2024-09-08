@@ -2,7 +2,9 @@ import _ from "lodash";
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Collapse, Row } from "react-bootstrap";
 import { ArrowCounterclockwise, ArrowLeftCircle, ChevronDown, ChevronUp } from "react-bootstrap-icons";
+import { useIsElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
+import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 
 // Lazy load the quiz components
 const DictationQuiz = lazy(() => import("./DictationQuiz"));
@@ -30,20 +32,11 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
     const [isloading, setIsLoading] = useState(true);
 
-    const fetchExerciseData = useCallback(async () => {
-        try {
-            setIsLoading(true);
+    const isElectron = useIsElectron();
 
-            const response = await fetch(`${import.meta.env.BASE_URL}json/${file}`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch exercise data");
-            }
-
-            const data = await response.json();
-            const exerciseKey = file.replace("exercise_", "").replace(".json", "");
-            const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
-            setCurrentExerciseType(exerciseKey);
-
+    // Helper function to handle the exercise data logic (setting quiz, instructions, etc.)
+    const handleExerciseData = useCallback(
+        (exerciseDetails, data, exerciseKey) => {
             const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
             const timerValue =
                 exerciseKey === "memory_match"
@@ -53,66 +46,112 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
             setTimer(timerValue);
 
-            if (exerciseDetails) {
-                let selectedAccentData;
-                let combinedQuizzes = [];
+            let selectedAccentData;
+            let combinedQuizzes = [];
 
-                if (id === "random") {
-                    data[exerciseKey].forEach((exercise) => {
-                        if (exercise.id !== "random") {
-                            if (exercise.british_american) {
-                                selectedAccentData = exercise.british_american[0];
-                            } else {
-                                selectedAccentData =
-                                    accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
-                            }
-
-                            if (selectedAccentData) {
-                                combinedQuizzes.push(
-                                    ...selectedAccentData.quiz.map((quiz) => ({
-                                        ...quiz,
-                                        split: exercise.split,
-                                    }))
-                                );
-                            }
+            if (id === "random") {
+                data[exerciseKey].forEach((exercise) => {
+                    if (exercise.id !== "random") {
+                        if (exercise.british_american) {
+                            selectedAccentData = exercise.british_american[0];
+                        } else {
+                            selectedAccentData =
+                                accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
                         }
-                    });
 
-                    const uniqueShuffledCombinedQuizzes = _.shuffle(
-                        Array.from(new Set(combinedQuizzes.map(JSON.stringify))).map(JSON.parse)
-                    );
-                    setQuiz(uniqueShuffledCombinedQuizzes);
-
-                    if (exerciseDetails.british_american) {
-                        selectedAccentData = exerciseDetails.british_american[0];
-                    } else {
-                        selectedAccentData =
-                            accent === "American English"
-                                ? exerciseDetails.american?.[0]
-                                : exerciseDetails.british?.[0];
+                        if (selectedAccentData) {
+                            combinedQuizzes.push(
+                                ...selectedAccentData.quiz.map((quiz) => ({
+                                    ...quiz,
+                                    split: exercise.split,
+                                }))
+                            );
+                        }
                     }
+                });
 
-                    setInstructions(selectedAccentData?.instructions || []);
+                const uniqueShuffledCombinedQuizzes = _.shuffle(
+                    Array.from(new Set(combinedQuizzes.map(JSON.stringify))).map(JSON.parse)
+                );
+                setQuiz(uniqueShuffledCombinedQuizzes);
+
+                if (exerciseDetails.british_american) {
+                    selectedAccentData = exerciseDetails.british_american[0];
                 } else {
-                    if (exerciseDetails.british_american) {
-                        selectedAccentData = exerciseDetails.british_american[0];
-                    } else {
-                        selectedAccentData =
-                            accent === "American English"
-                                ? exerciseDetails.american?.[0]
-                                : exerciseDetails.british?.[0];
+                    selectedAccentData =
+                        accent === "American English" ? exerciseDetails.american?.[0] : exerciseDetails.british?.[0];
+                }
+
+                setInstructions(selectedAccentData?.instructions || []);
+            } else {
+                if (exerciseDetails.british_american) {
+                    selectedAccentData = exerciseDetails.british_american[0];
+                } else {
+                    selectedAccentData =
+                        accent === "American English" ? exerciseDetails.american?.[0] : exerciseDetails.british?.[0];
+                }
+
+                if (selectedAccentData) {
+                    setInstructions(selectedAccentData.instructions || []);
+                    setQuiz(
+                        selectedAccentData.quiz.map((quiz) => ({
+                            ...quiz,
+                            split: exerciseDetails.split,
+                        }))
+                    );
+                }
+            }
+        },
+        [accent, id]
+    );
+
+    const fetchExerciseData = useCallback(async () => {
+        try {
+            setIsLoading(true);
+
+            // Check if the app is not running in Electron and try to fetch data from IndexedDB
+            if (!isElectron) {
+                const cachedDataBlob = await getFileFromIndexedDB(`${file}`, "json");
+
+                if (cachedDataBlob) {
+                    // Convert Blob to text, then parse the JSON
+                    const cachedDataText = await cachedDataBlob.text();
+                    const cachedData = JSON.parse(cachedDataText);
+
+                    const exerciseKey = file.replace("exercise_", "").replace(".json", "");
+                    const exerciseDetails = cachedData[exerciseKey]?.find((exercise) => exercise.id === id);
+
+                    setCurrentExerciseType(exerciseKey);
+
+                    if (exerciseDetails) {
+                        handleExerciseData(exerciseDetails, cachedData, exerciseKey);
                     }
 
-                    if (selectedAccentData) {
-                        setInstructions(selectedAccentData.instructions || []);
-                        setQuiz(
-                            selectedAccentData.quiz.map((quiz) => ({
-                                ...quiz,
-                                split: exerciseDetails.split,
-                            }))
-                        );
-                    }
+                    setIsLoading(false);
+                    return; // Early return if data is served from cache
                 }
+            }
+
+            // If no cache or in Electron, fetch data from the network
+            const response = await fetch(`${import.meta.env.BASE_URL}json/${file}`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch exercise data");
+            }
+
+            const data = await response.json();
+            const exerciseKey = file.replace("exercise_", "").replace(".json", "");
+            const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
+
+            // Save fetched data to IndexedDB (excluding Electron)
+            if (!isElectron) {
+                const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+                await saveFileToIndexedDB(`${file}`, blob, "json");
+            }
+
+            setCurrentExerciseType(exerciseKey);
+
+            if (exerciseDetails) {
+                handleExerciseData(exerciseDetails, data, exerciseKey);
             }
         } catch (error) {
             console.error("Error fetching exercise data:", error);
@@ -120,7 +159,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         } finally {
             setIsLoading(false);
         }
-    }, [id, file, accent]);
+    }, [id, file, isElectron, handleExerciseData]);
 
     useEffect(() => {
         fetchExerciseData();
