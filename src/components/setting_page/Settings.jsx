@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import TopNavBar from "../general/TopNavBar";
 import ExerciseTimer from "./ExerciseTimer";
 import AppearanceSettings from "./Appearance";
+import CachingSettings from "./Caching";
 
 const SettingsPage = () => {
     return (
@@ -15,6 +16,8 @@ const SettingsPage = () => {
                             <ExerciseTimer />
                             <hr className="my-4" />
                             <AppearanceSettings />
+                            <hr className="my-4" />
+                            <CachingSettings />
                         </div>
                     </Col>
                 </Row>

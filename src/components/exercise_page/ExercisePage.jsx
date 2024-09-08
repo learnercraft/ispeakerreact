@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { useIsElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
+import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ExerciseDetailPage from "./ExerciseDetailPage";
 
 const ExercisePage = () => {
@@ -14,6 +16,7 @@ const ExercisePage = () => {
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedExercise, setSelectedExercise] = useState(null);
+    const isElectron = useIsElectron();
 
     const TooltipIcon = ({ info }) => (
         <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
@@ -70,20 +73,49 @@ const ExercisePage = () => {
     );
 
     useEffect(() => {
-        NProgress.start();
-        fetch(`${import.meta.env.BASE_URL}json/exercise_list.json`)
-            .then((response) => response.json())
-            .then((data) => {
+        const fetchData = async () => {
+            try {
+                NProgress.start();
+                setLoading(true);
+
+                // If it's not an Electron environment, check IndexedDB first
+                if (!isElectron) {
+                    const cachedDataBlob = await getFileFromIndexedDB("exercise_list.json", "json");
+
+                    if (cachedDataBlob) {
+                        // Convert Blob to text, then parse the JSON
+                        const cachedDataText = await cachedDataBlob.text();
+                        const cachedData = JSON.parse(cachedDataText);
+
+                        setData(cachedData.exerciseList);
+                        setLoading(false);
+                        NProgress.done();
+                        return;
+                    }
+                }
+
+                // If not in IndexedDB or running in Electron, fetch from the network
+                const response = await fetch(`${import.meta.env.BASE_URL}json/exercise_list.json`);
+                const data = await response.json();
+
                 setData(data.exerciseList);
                 setLoading(false);
+
+                // Save the fetched data to IndexedDB (excluding Electron)
+                if (!isElectron) {
+                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+                    await saveFileToIndexedDB("exercise_list.json", blob, "json");
+                }
+
                 NProgress.done();
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
                 NProgress.done();
-            });
-    }, []);
+            }
+        };
+        fetchData();
+    }, [isElectron]);
 
     useEffect(() => {
         // Save the selected accent to localStorage

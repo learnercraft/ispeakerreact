@@ -4,9 +4,11 @@ import "nprogress/nprogress.css";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { useIsElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
+import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 
 const PracticeSound = lazy(() => import("./PracticeSound"));
 
@@ -14,6 +16,7 @@ const SoundList = () => {
     const [selectedSound, setSelectedSound] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
+    const isElectron = useIsElectron();
 
     const [soundsData, setSoundsData] = useState({
         consonants: [],
@@ -77,21 +80,49 @@ const SoundList = () => {
     };
 
     useEffect(() => {
-        NProgress.start();
+        const fetchData = async () => {
+            try {
+                NProgress.start();
+                setLoading(true);
 
-        fetch(`${import.meta.env.BASE_URL}json/sounds_data.json`)
-            .then((response) => response.json())
-            .then((data) => {
+                // If it's not an Electron environment, check IndexedDB first
+                if (!isElectron) {
+                    const cachedDataBlob = await getFileFromIndexedDB("sounds_data.json", "json");
+
+                    if (cachedDataBlob) {
+                        // Convert Blob to text, then parse the JSON
+                        const cachedDataText = await cachedDataBlob.text();
+                        const cachedData = JSON.parse(cachedDataText);
+
+                        setSoundsData(cachedData);
+                        setLoading(false);
+                        NProgress.done();
+                        return;
+                    }
+                }
+
+                // If not in IndexedDB or running in Electron, fetch from the network
+                const response = await fetch(`${import.meta.env.BASE_URL}json/sounds_data.json`);
+                const data = await response.json();
+
                 setSoundsData(data);
                 setLoading(false);
+
+                // Save the fetched data to IndexedDB (excluding Electron)
+                if (!isElectron) {
+                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+                    await saveFileToIndexedDB("sounds_data.json", blob, "json");
+                }
+
                 NProgress.done();
-            })
-            .catch((error) => {
-                console.error("Error fetching sounds data:", error);
+            } catch (error) {
+                console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
                 NProgress.done();
-            });
-    }, []);
+            }
+        };
+        fetchData();
+    }, [isElectron]);
 
     useEffect(() => {
         document.title = "Sounds | SpeakerReact";
