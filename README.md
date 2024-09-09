@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="300" height="300" src="./public/images/logos/ispeakerreact-logo-color.svg" />
+</p>
+
 # iSpeakerReact
 
 *Formerly Oxford iSpeaker on this repo, a modified version of the official tool of the same name.*
