@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Collapse, Form, Row, Button } from "react-bootstrap";
+import { Button, Card, Col, Collapse, Form, Row } from "react-bootstrap";
 
 const defaultTimerSettings = {
     enabled: false,

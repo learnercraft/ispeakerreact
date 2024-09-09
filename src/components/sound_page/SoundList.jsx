@@ -125,7 +125,7 @@ const SoundList = () => {
     }, [isElectron]);
 
     useEffect(() => {
-        document.title = "Sounds | SpeakerReact";
+        document.title = "Sounds | iSpeakerReact";
     }, []);
 
     return (

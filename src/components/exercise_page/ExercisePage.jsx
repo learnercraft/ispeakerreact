@@ -40,7 +40,7 @@ const ExercisePage = () => {
     };
 
     useEffect(() => {
-        document.title = "Exercises | SpeakerReact";
+        document.title = "Exercises | iSpeakerReact";
     }, []);
 
     const ExerciseCard = ({ heading, titles, info, file }) => (

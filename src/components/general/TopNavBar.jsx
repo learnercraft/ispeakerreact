@@ -1,21 +1,55 @@
+import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { CardChecklist, ChatDots, ClipboardCheck, House, Mic, Gear } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
+import { ThemeContext } from "../../utils/ThemeProvider";
 
 const TopNavBar = () => {
+    const { theme } = useContext(ThemeContext);
+    const [currentTheme, setCurrentTheme] = useState(theme);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        // Function to update the logo based on the theme or system preference
+        const updateTheme = () => {
+            if (theme === "auto") {
+                // If theme is auto, check if system prefers dark mode
+                setCurrentTheme(mediaQuery.matches ? "dark" : "light");
+            } else {
+                setCurrentTheme(theme);
+            }
+        };
+
+        // Initial check
+        updateTheme();
+
+        // Add listener for system theme changes if "auto" is selected
+        mediaQuery.addEventListener("change", updateTheme);
+
+        // Cleanup the listener on unmount
+        return () => mediaQuery.removeEventListener("change", updateTheme);
+    }, [theme]);
+
+    const logoSrc =
+        currentTheme === "dark"
+            ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
+            : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
+
+    console.log(theme);
+
     return (
         <div className="mb-4">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand as={NavLink} to="/" className="fw-semibold">
                         <img
-                            alt="SpeakerReact logo"
-                            src={`${import.meta.env.BASE_URL}images/icons/ios/128.png`}
+                            alt="iSpeakerReact logo"
+                            src={logoSrc}
                             width="32"
                             height="32"
                             className="d-inline-block align-top"
                         />{" "}
-                        SpeakerReact
+                        iSpeakerReact
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="top-NavBar" />
                     <Navbar.Collapse id="top-NavBar" className="mt-3 mt-md-0">

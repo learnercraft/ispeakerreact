@@ -37,7 +37,7 @@
 /* Style for the front side */
 .card-front {
     background-color: #f8f5f0; /* Light grey for front face */
-    background-image: url("/images/logos/speakerreact-logo-color.svg");
+    background-image: url("/images/logos/ispeakerreact-logo-color.svg");
     background-size: contain; /* Ensure the SVG fits within the card */
     background-repeat: no-repeat; /* Avoid repeating the SVG */
     background-position: center; /* Center the SVG */ /* Light grey for front face */

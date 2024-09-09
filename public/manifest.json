@@ -1,6 +1,6 @@
 {
-    "name": "SpeakerReact",
-    "short_name": "SpeakerReact",
+    "name": "iSpeakerReact",
+    "short_name": "iSpeakerReact",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
     "version": "2.0react",
     "start_url": "index.html",
