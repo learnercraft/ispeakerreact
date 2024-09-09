@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import TopNavBar from "../general/TopNavBar";
 import AppearanceSettings from "./Appearance";
@@ -7,6 +7,10 @@ import ExerciseTimer from "./ExerciseTimer";
 import ResetSettings from "./ResetSettings";
 
 const SettingsPage = () => {
+    useEffect(() => {
+        document.title = "Settings | iSpeakerReact";
+    }, []);
+
     const [resetFlag, setResetFlag] = useState(false); // Boolean flag to force remount
     const handleReset = () => {
         // Change the key to remount the CachingSettings component
@@ -19,7 +23,7 @@ const SettingsPage = () => {
             <div className="p-1 p-md-3">
                 <Row className="justify-content-center">
                     <Col lg={8}>
-                        <h1 className="fw-semibold">SpeakerReact settings</h1>
+                        <h1 className="fw-semibold">iSpeakerReact settings</h1>
                         <div className="mt-4">
                             <ExerciseTimer />
                             <hr className="my-4" />

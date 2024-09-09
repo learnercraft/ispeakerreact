@@ -121,7 +121,7 @@ const ConversationListPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Conversations | SpeakerReact";
+        document.title = "Conversations | iSpeakerReact";
     }, []);
 
     return (
