@@ -39,6 +39,12 @@ function Homepage() {
             icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/exam_menu_icon.svg`,
             path: "exams",
         },
+        {
+            title: "Settings",
+            description: "Exercise timer, appearance, and more",
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/settings_menu_icon.svg`,
+            path: "settings",
+        },
     ];
 
     return (
@@ -49,7 +55,7 @@ function Homepage() {
                     <h1 className="fw-bold">SpeakerReact</h1>
                 </Col>
             </Row>
-            <Row xs={1} md={2} className="g-4 mt-1 d-flex justify-content-center">
+            <Row xs={1} md={3} className="g-4 mt-1 d-flex justify-content-center">
                 {cardsInfo.map((card, idx) => (
                     <Col key={idx}>
                         <Card className="h-100 shadow-sm">
