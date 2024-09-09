@@ -112,7 +112,7 @@ const ResetSettings = ({ onReset }) => {
                                     {isResettingLocalStorage ? (
                                         <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                                     ) : null}
-                                    Reset SpeakerReact’s settings and sound data
+                                    Reset iSpeakerReact’s settings and sound data
                                 </Button>
                             </div>
                             <div className="col-auto d-inline-block ms-auto">
@@ -156,7 +156,7 @@ const ResetSettings = ({ onReset }) => {
                     <Modal.Title>Confirm Reset</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure you want to reset SpeakerReact's settings and sound data? This action cannot be undone.
+                    Are you sure you want to reset iSpeakerReact's settings and sound data? This action cannot be undone.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseLocalStorage} disabled={isResettingLocalStorage}>

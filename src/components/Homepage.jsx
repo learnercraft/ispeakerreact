@@ -11,7 +11,7 @@ function Homepage() {
     };
 
     useEffect(() => {
-        document.title = "Homepage | SpeakerReact";
+        document.title = "Homepage | iSpeakerReact";
     }, []);
 
     const cardsInfo = [
@@ -52,7 +52,7 @@ function Homepage() {
             <TopNavBar />
             <Row className="justify-content-center text-center">
                 <Col md="auto">
-                    <h1 className="fw-bold">SpeakerReact</h1>
+                    <h1 className="fw-bold">iSpeakerReact</h1>
                 </Col>
             </Row>
             <Row xs={1} md={3} className="g-4 mt-1 d-flex justify-content-center">

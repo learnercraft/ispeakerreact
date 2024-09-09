@@ -119,7 +119,7 @@ const ExamPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Exams | SpeakerReact";
+        document.title = "Exams | iSpeakerReact";
     }, []);
 
     return (
