@@ -6,7 +6,7 @@
     "start_url": "index.html",
     "display": "fullscreen",
     "orientation": "any",
-    "background_color": "#ffffff",
+    "background_color": "#F8F5F0",
     "icons": [
         {
             "src": "images/icons/windows11/SmallTile.scale-100.png",
@@ -461,8 +461,6 @@
     "theme_color": "#f8f5f0",
     "dir": "ltr",
     "lang": "en",
-    "categories": [
-        "education"
-    ],
+    "categories": ["education"],
     "prefer_related_applications": false
 }
