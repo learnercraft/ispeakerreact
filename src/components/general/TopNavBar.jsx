@@ -35,8 +35,6 @@ const TopNavBar = () => {
             ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
             : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
 
-    console.log(theme);
-
     return (
         <div className="mb-4">
             <Navbar expand="lg" className="bg-body-tertiary">

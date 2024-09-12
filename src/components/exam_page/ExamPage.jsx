@@ -1,5 +1,3 @@
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
@@ -65,7 +63,6 @@ const ExamPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                NProgress.start();
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
@@ -79,7 +76,7 @@ const ExamPage = () => {
 
                         setData(cachedData.examList);
                         setLoading(false);
-                        NProgress.done();
+
                         return;
                     }
                 }
@@ -96,12 +93,9 @@ const ExamPage = () => {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("examspeaking_list.json", blob, "json");
                 }
-
-                NProgress.done();
             } catch (error) {
                 console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
-                NProgress.done();
             }
         };
         fetchData();
@@ -119,7 +113,7 @@ const ExamPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Exams | iSpeakerReact";
+        document.title = `Exams | iSpeakerReact ${__APP_VERSION__}`;
     }, []);
 
     return (

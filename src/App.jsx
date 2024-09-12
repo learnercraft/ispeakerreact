@@ -1,9 +1,10 @@
 import { Suspense, lazy } from "react";
 import { Container } from "react-bootstrap";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter, HashRouter, Routes } from "react-router-dom";
 import LoadingOverlay from "./components/general/LoadingOverlay";
-import Homepage from "./components/Homepage";
 import NotFound from "./components/general/NotFound";
+import Homepage from "./components/Homepage";
+import { useIsElectron } from "./utils/isElectron";
 import { ThemeProvider } from "./utils/ThemeProvider";
 import ThemeSwitcher from "./utils/ThemeSwitcher";
 
@@ -14,16 +15,19 @@ const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"
 const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
 
 const App = () => {
+    const isElectron = useIsElectron();
+    const RouterComponent = isElectron ? HashRouter : BrowserRouter;
+
     return (
         <ThemeProvider>
             <Container className="p-4 mb-5">
-                <Router basename={import.meta.env.BASE_URL}>
+                <RouterComponent {...(!isElectron && { basename: import.meta.env.BASE_URL })}>
                     <Routes>
                         <Route path="/" element={<Homepage />} />
                         <Route
                             path="/sounds"
                             element={
-                                <Suspense fallback={<LoadingOverlay />}>
+                                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
                                     <SoundList />
                                 </Suspense>
                             }
@@ -31,7 +35,7 @@ const App = () => {
                         <Route
                             path="/conversations"
                             element={
-                                <Suspense fallback={<LoadingOverlay />}>
+                                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
                                     <ConversationMenu />
                                 </Suspense>
                             }
@@ -39,7 +43,7 @@ const App = () => {
                         <Route
                             path="/exams"
                             element={
-                                <Suspense fallback={<LoadingOverlay />}>
+                                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
                                     <ExamPage />
                                 </Suspense>
                             }
@@ -47,7 +51,7 @@ const App = () => {
                         <Route
                             path="/exercises"
                             element={
-                                <Suspense fallback={<LoadingOverlay />}>
+                                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
                                     <ExercisePage />
                                 </Suspense>
                             }
@@ -55,14 +59,14 @@ const App = () => {
                         <Route
                             path="/settings"
                             element={
-                                <Suspense fallback={<LoadingOverlay />}>
+                                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
                                     <SettingsPage />
                                 </Suspense>
                             }
                         />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
-                </Router>
+                </RouterComponent>
                 <ThemeSwitcher />
             </Container>
         </ThemeProvider>
