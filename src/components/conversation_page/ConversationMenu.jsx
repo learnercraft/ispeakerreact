@@ -1,5 +1,3 @@
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
@@ -60,7 +58,6 @@ const ConversationListPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                NProgress.start();
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
@@ -74,7 +71,7 @@ const ConversationListPage = () => {
 
                         setData(cachedData.conversationList);
                         setLoading(false);
-                        NProgress.done();
+
                         return;
                     }
                 }
@@ -91,12 +88,9 @@ const ConversationListPage = () => {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("conversation_list.json", blob, "json");
                 }
-
-                NProgress.done();
             } catch (error) {
                 console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
-                NProgress.done();
             }
         };
         fetchData();
@@ -121,7 +115,7 @@ const ConversationListPage = () => {
     };
 
     useEffect(() => {
-        document.title = "Conversations | iSpeakerReact";
+        document.title = `Conversations | iSpeakerReact ${__APP_VERSION__}`;
     }, []);
 
     return (

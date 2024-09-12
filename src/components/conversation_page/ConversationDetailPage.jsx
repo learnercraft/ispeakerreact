@@ -1,5 +1,3 @@
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
 import { Button, Card, Nav } from "react-bootstrap";
 import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
@@ -25,7 +23,6 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                NProgress.start();
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
@@ -41,7 +38,6 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                         setAccentData(accentData);
 
                         setLoading(false);
-                        NProgress.done();
 
                         return;
                     }
@@ -59,7 +55,6 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     setAccentData(accentData); // Set the accent-specific data
 
                     setLoading(false);
-                    NProgress.done();
                 } else {
                     console.error("Conversation not found.");
                 }
@@ -72,7 +67,6 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             } catch (error) {
                 console.error("Error fetching data:", error);
                 alert("Error while loading the data for this section. Please check your Internet connection.");
-                NProgress.done();
             }
         };
         fetchData();
