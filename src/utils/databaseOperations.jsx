@@ -1,11 +1,25 @@
+import { isElectron } from "./isElectron";
+
 let db;
 
+// Helper function to convert Blob to ArrayBuffer
+async function blobToArrayBuffer(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+        reader.readAsArrayBuffer(blob);
+    });
+}
+
+// Open IndexedDB database
 export function openDatabase() {
     return new Promise((resolve, reject) => {
         if (db) {
-            resolve(db); // If db is already defined, resolve immediately
+            resolve(db);
             return;
         }
+
         const request = window.indexedDB.open("iSpeaker_data", 1);
 
         request.onerror = function (event) {
@@ -14,104 +28,153 @@ export function openDatabase() {
         };
 
         request.onsuccess = function (event) {
-            db = event.target.result; // Set db to the successfully opened database
+            db = event.target.result;
             resolve(db);
         };
 
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
-
-            // Create the recording_data store if it doesn't already exist
             if (!db.objectStoreNames.contains("recording_data")) {
                 db.createObjectStore("recording_data", { keyPath: "id" });
-            }
-
-            // Create the conversation_data store if it doesn't already exist
-            if (!db.objectStoreNames.contains("conversation_data")) {
-                db.createObjectStore("conversation_data", { keyPath: "id" });
-            }
-
-            // Create the exam_data store if it doesn't already exist
-            if (!db.objectStoreNames.contains("exam_data")) {
-                db.createObjectStore("exam_data", { keyPath: "id" });
             }
         };
     });
 }
 
-export async function saveRecording(blob, key, mimeType) {
-    try {
-        // First, convert Blob to ArrayBuffer outside of the transaction
-        const arrayBuffer = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-            reader.readAsArrayBuffer(blob);
-        });
+// Save recording to either Electron or IndexedDB
+export async function saveRecording(blob, key) {
+    const arrayBuffer = await blobToArrayBuffer(blob);
 
-        const db = await openDatabase();
-        const transaction = db.transaction(["recording_data"], "readwrite");
-        const store = transaction.objectStore("recording_data");
+    if (isElectron()) {
+        // Electron environment
+        try {
+            await window.electron.saveRecording(key, arrayBuffer);
+            console.log("Recording saved successfully via Electron API");
+        } catch (error) {
+            console.error("Error saving recording in Electron:", error);
+        }
+    } else {
+        // Browser environment with IndexedDB
+        try {
+            const db = await openDatabase();
+            if (!db) return;
 
-        // Now that we have the ArrayBuffer, store it
-        const request = store.put({ id: key, recording: arrayBuffer, mimeType });
-        request.onsuccess = () => console.log("Recording saved successfully");
-        request.onerror = (error) => console.error("Error saving recording:", error);
-    } catch (error) {
-        console.error("Error saving recording: ", error);
+            const transaction = db.transaction(["recording_data"], "readwrite");
+            const store = transaction.objectStore("recording_data");
+
+            const request = store.put({ id: key, recording: arrayBuffer });
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = () => {
+                    console.log("Recording saved successfully to IndexedDB");
+                    resolve();
+                };
+                request.onerror = (error) => {
+                    console.error("Error saving recording:", error);
+                    reject(error);
+                };
+            });
+        } catch (error) {
+            console.error("Error saving recording to IndexedDB:", error);
+        }
     }
 }
 
+// Check if recording exists
 export async function checkRecordingExists(key) {
-    try {
-        const db = await openDatabase(); // Ensure the db is opened before using it
-        const transaction = db.transaction(["recording_data"]);
-        const store = transaction.objectStore("recording_data");
-        const request = store.get(key);
+    if (isElectron()) {
+        return window.electron.checkRecordingExists(key);
+    } else {
+        try {
+            const db = await openDatabase();
+            if (!db) return false;
 
-        return new Promise((resolve, reject) => {
-            request.onsuccess = () => {
-                if (request.result) resolve(true);
-                else resolve(false);
+            const transaction = db.transaction(["recording_data"]);
+            const store = transaction.objectStore("recording_data");
+            const request = store.get(key);
+
+            return new Promise((resolve, reject) => {
+                request.onsuccess = () => {
+                    if (request.result) resolve(true);
+                    else resolve(false);
+                };
+                request.onerror = (error) => reject(error);
+            });
+        } catch (error) {
+            console.error("Error checking recording existence in IndexedDB:", error);
+            return false;
+        }
+    }
+}
+
+// Play recording from either Electron or IndexedDB
+export async function playRecording(key, onSuccess, onError, onEnded) {
+    if (isElectron()) {
+        try {
+            // Get the audio data as an ArrayBuffer from the main process
+            const arrayBuffer = await window.electron.playRecording(key);
+
+            // Create a Blob from the ArrayBuffer
+            const audioBlob = new Blob([arrayBuffer], { type: "audio/wav" });
+
+            // Create a Blob URL
+            const blobUrl = URL.createObjectURL(audioBlob);
+
+            console.log("Blob URL:", blobUrl);
+
+            // Use the Blob URL for audio playback
+            const audio = new Audio(blobUrl);
+            audio.onended = () => {
+                // Revoke the Blob URL after playback to free up memory
+                URL.revokeObjectURL(blobUrl);
+                if (onEnded) onEnded();
+            };
+            audio.onerror = (error) => {
+                // Revoke the Blob URL in case of an error
+                URL.revokeObjectURL(blobUrl);
+                if (onError) onError(error);
             };
 
-            request.onerror = () => reject(request.error);
-        });
-    } catch (error) {
-        console.error("Error opening database: ", error);
-    }
-}
+            // Play the audio
+            await audio.play();
 
-export async function playRecording(key, onSuccess, onError, onEnded) {
-    try {
-        const db = await openDatabase();
-        const transaction = db.transaction(["recording_data"]);
-        const store = transaction.objectStore("recording_data");
-        const request = store.get(key);
+            // Call success callback
+            if (onSuccess) onSuccess(audio, null);
+        } catch (error) {
+            console.error("Error playing audio file in Electron:", error);
 
-        request.onsuccess = function () {
-            const { recording, mimeType } = request.result; // Retrieve the recording and MIME type
+            // Call error callback
+            if (onError) onError(error);
+        }
+    } else {
+        // Browser environment with IndexedDB
+        try {
+            const db = await openDatabase();
+            if (!db) return;
 
-            // Try using AudioContext for playback
-            const audioContext = new AudioContext();
-            audioContext.decodeAudioData(
-                recording,
-                (buffer) => {
+            const transaction = db.transaction(["recording_data"]);
+            const store = transaction.objectStore("recording_data");
+            const request = store.get(key);
+
+            request.onsuccess = async function () {
+                const { recording, mimeType } = request.result;
+
+                try {
+                    // Use AudioContext for playback
+                    const audioContext = new AudioContext();
+                    const buffer = await audioContext.decodeAudioData(recording);
                     const source = audioContext.createBufferSource();
                     source.buffer = buffer;
                     source.connect(audioContext.destination);
 
-                    source.onended = () => {
-                        if (onEnded) onEnded(); // Call onEnded callback when playback finishes
-                    };
-
+                    source.onended = onEnded;
                     source.start();
-                    if (onSuccess) onSuccess(null, source); // Pass AudioContext source
-                },
-                (error) => {
-                    console.error("Error decoding audio data: ", error);
 
-                    // Fallback to using Blob URL if AudioContext fails (especially for iOS)
+                    if (onSuccess) onSuccess(null, source);
+                } catch (decodeError) {
+                    console.error("Error decoding audio data:", decodeError);
+
+                    // Fallback to Blob URL
                     const audioBlob = new Blob([recording], { type: mimeType });
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
@@ -122,23 +185,22 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
                     audio
                         .play()
                         .then(() => {
-                            if (onSuccess) onSuccess(audio, null); // Pass Audio element
+                            if (onSuccess) onSuccess(audio, null);
                         })
-                        .catch((err) => {
-                            console.error("Error playing audio via Blob URL: ", err);
-                            if (onError) onError(err); // Call onError callback if playback fails
+                        .catch((playError) => {
+                            console.error("Error playing audio via Blob URL:", playError);
+                            if (onError) onError(playError);
                         });
                 }
-            );
-        };
+            };
 
-        request.onerror = () => {
-            console.error("Error getting recording from IndexedDB: ", request.error);
-            if (onError) onError(request.error); // Handle error when fetching from IndexedDB fails
-        };
-    } catch (error) {
-        console.error("Error playing recording: ", error);
-        if (onError) onError(error); // Handle general errors
-        throw error;
+            request.onerror = (error) => {
+                console.error("Error retrieving recording from IndexedDB:", error);
+                if (onError) onError(error);
+            };
+        } catch (error) {
+            console.error("Error playing recording from IndexedDB:", error);
+            if (onError) onError(error);
+        }
     }
 }

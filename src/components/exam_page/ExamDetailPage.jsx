@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Nav, Row } from "react-bootstrap";
 import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones, InfoCircle } from "react-bootstrap-icons";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
 import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
@@ -18,15 +18,13 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
-    const isElectron = useIsElectron();
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron) {
+                if (!isElectron()) {
                     const cachedDataBlob = await getFileFromIndexedDB("examspeaking_data.json", "json");
 
                     if (cachedDataBlob) {
@@ -50,7 +48,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                 setLoading(false);
 
                 // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron) {
+                if (!isElectron()) {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("examspeaking_data.json", blob, "json");
                 }
@@ -60,7 +58,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
             }
         };
         fetchData();
-    }, [isElectron]);
+    }, []);
 
     // Check if data is still loading
     if (loading) {

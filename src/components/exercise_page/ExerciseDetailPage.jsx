@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Collapse, Row } from "react-bootstrap";
 import { ArrowCounterclockwise, ArrowLeftCircle, ChevronDown, ChevronUp } from "react-bootstrap-icons";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
 import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 
@@ -31,8 +31,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [openInstructions, setOpenInstructions] = useState(false);
 
     const [isloading, setIsLoading] = useState(true);
-
-    const isElectron = useIsElectron();
 
     // Helper function to handle the exercise data logic (setting quiz, instructions, etc.)
     const handleExerciseData = useCallback(
@@ -110,7 +108,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             setIsLoading(true);
 
             // Check if the app is not running in Electron and try to fetch data from IndexedDB
-            if (!isElectron) {
+            if (!isElectron()) {
                 const cachedDataBlob = await getFileFromIndexedDB(`${file}`, "json");
 
                 if (cachedDataBlob) {
@@ -143,7 +141,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
 
             // Save fetched data to IndexedDB (excluding Electron)
-            if (!isElectron) {
+            if (!isElectron()) {
                 const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                 await saveFileToIndexedDB(`${file}`, blob, "json");
             }
@@ -159,7 +157,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         } finally {
             setIsLoading(false);
         }
-    }, [id, file, isElectron, handleExerciseData]);
+    }, [id, file, handleExerciseData]);
 
     useEffect(() => {
         fetchExerciseData();

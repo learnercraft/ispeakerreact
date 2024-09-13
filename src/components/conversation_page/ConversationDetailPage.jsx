@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Nav } from "react-bootstrap";
 import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
+import { isElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
+import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ListeningTab from "./ListeningTab";
 import PracticeTab from "./PracticeTab";
 import ReviewTab from "./ReviewTab";
 import WatchAndStudyTab from "./WatchAndStudyTab";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
-import { useIsElectron } from "../../utils/isElectron";
 
 const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     const [activeTab, setActiveTab] = useState("#watch_and_study");
@@ -18,15 +18,13 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
-    const isElectron = useIsElectron();
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron) {
+                if (!isElectron()) {
                     const cachedDataBlob = await getFileFromIndexedDB("conversation_data.json", "json");
 
                     if (cachedDataBlob) {
@@ -60,7 +58,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                 }
 
                 // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron) {
+                if (!isElectron()) {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("conversation_data.json", blob, "json");
                 }
@@ -70,7 +68,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             }
         };
         fetchData();
-    }, [id, isElectron, accent]);
+    }, [id, accent]);
 
     const accentDisplay = accentData === "british" ? "British English" : "American English";
 
