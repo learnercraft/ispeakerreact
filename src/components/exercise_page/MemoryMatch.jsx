@@ -166,7 +166,7 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                                                 : ""
                                         }`}>
                                         <div className="card-inner">
-                                            <div className="card-front">?</div>
+                                            <div className="card-front"></div>
                                             <div className="card-back">
                                                 {he.decode(card.text)}
                                                 {feedback === "success" && currentMatchedPair.includes(card.id) && (
