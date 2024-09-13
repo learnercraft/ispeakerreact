@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
@@ -15,7 +15,6 @@ const ConversationListPage = () => {
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedConversation, setSelectedConversation] = useState(null);
-    const isElectron = useIsElectron();
 
     const TooltipIcon = ({ info }) => (
         <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
@@ -61,7 +60,7 @@ const ConversationListPage = () => {
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron) {
+                if (!isElectron()) {
                     const cachedDataBlob = await getFileFromIndexedDB("conversation_list.json", "json");
 
                     if (cachedDataBlob) {
@@ -84,7 +83,7 @@ const ConversationListPage = () => {
                 setLoading(false);
 
                 // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron) {
+                if (!isElectron()) {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("conversation_list.json", blob, "json");
                 }
@@ -94,7 +93,7 @@ const ConversationListPage = () => {
             }
         };
         fetchData();
-    }, [isElectron]);
+    }, []);
 
     useEffect(() => {
         // Load existing data from localStorage

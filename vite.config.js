@@ -1,11 +1,8 @@
 import { visualizer } from "rollup-plugin-visualizer";
-import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 
 import react from "@vitejs/plugin-react";
-
-const __filename = fileURLToPath(import.meta.url);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
