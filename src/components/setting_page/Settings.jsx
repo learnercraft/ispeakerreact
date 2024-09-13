@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import TopNavBar from "../general/TopNavBar";
 import AppearanceSettings from "./Appearance";
 import AppInfo from "./AppInfo";
@@ -9,8 +9,6 @@ import ExerciseTimer from "./ExerciseTimer";
 import ResetSettings from "./ResetSettings";
 
 const SettingsPage = () => {
-    const isElectron = useIsElectron();
-
     useEffect(() => {
         document.title = `Settings | iSpeakerReact ${__APP_VERSION__}`;
     }, []);
@@ -29,7 +27,7 @@ const SettingsPage = () => {
                     <Col lg={8}>
                         <h1 className="fw-semibold">iSpeakerReact settings</h1>
                         <div className="mt-4">
-                            {isElectron && (
+                            {isElectron() && (
                                 <>
                                     <hr className="my-4" />
                                     <AppInfo />
@@ -38,7 +36,7 @@ const SettingsPage = () => {
                             <ExerciseTimer />
                             <hr className="my-4" />
                             <AppearanceSettings />
-                            {!isElectron && (
+                            {!isElectron() && (
                                 <>
                                     <hr className="my-4" />
                                     <CachingSettings key={resetFlag} />

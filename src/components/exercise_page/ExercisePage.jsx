@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
@@ -14,7 +14,6 @@ const ExercisePage = () => {
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedExercise, setSelectedExercise] = useState(null);
-    const isElectron = useIsElectron();
 
     const TooltipIcon = ({ info }) => (
         <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
@@ -76,7 +75,7 @@ const ExercisePage = () => {
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron) {
+                if (!isElectron()) {
                     const cachedDataBlob = await getFileFromIndexedDB("exercise_list.json", "json");
 
                     if (cachedDataBlob) {
@@ -99,7 +98,7 @@ const ExercisePage = () => {
                 setLoading(false);
 
                 // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron) {
+                if (!isElectron()) {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("exercise_list.json", blob, "json");
                 }
@@ -109,7 +108,7 @@ const ExercisePage = () => {
             }
         };
         fetchData();
-    }, [isElectron]);
+    }, []);
 
     useEffect(() => {
         // Save the selected accent to localStorage

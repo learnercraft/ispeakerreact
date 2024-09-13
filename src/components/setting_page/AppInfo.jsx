@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Button, Col, Container, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Row, Spinner } from "react-bootstrap";
 
 const AppInfo = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -55,8 +55,6 @@ const AppInfo = () => {
     const openGithubPage = () => {
         window.electron.openExternal("https://github.com/yell0wsuit/ispeaker"); // Use the API exposed in preload
     };
-
-    console.log(window.electron);
 
     return (
         <div className="mt-4">

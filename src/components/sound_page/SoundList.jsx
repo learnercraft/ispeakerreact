@@ -2,7 +2,7 @@ import he from "he";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { useIsElectron } from "../../utils/isElectron";
+import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
@@ -14,7 +14,6 @@ const SoundList = () => {
     const [selectedSound, setSelectedSound] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const isElectron = useIsElectron();
 
     const [soundsData, setSoundsData] = useState({
         consonants: [],
@@ -83,7 +82,7 @@ const SoundList = () => {
                 setLoading(true);
 
                 // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron) {
+                if (!isElectron()) {
                     const cachedDataBlob = await getFileFromIndexedDB("sounds_data.json", "json");
 
                     if (cachedDataBlob) {
@@ -106,7 +105,7 @@ const SoundList = () => {
                 setLoading(false);
 
                 // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron) {
+                if (!isElectron()) {
                     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
                     await saveFileToIndexedDB("sounds_data.json", blob, "json");
                 }
@@ -116,7 +115,7 @@ const SoundList = () => {
             }
         };
         fetchData();
-    }, [isElectron]);
+    }, []);
 
     useEffect(() => {
         document.title = `Sounds | iSpeakerReact ${__APP_VERSION__}`;
@@ -127,7 +126,7 @@ const SoundList = () => {
             <TopNavBar />
             <h1 className="fw-semibold">Sounds</h1>
             {selectedSound ? (
-                <Suspense fallback={isElectron ? null : <LoadingOverlay />}>
+                <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
                     <PracticeSound
                         sound={selectedSound.sound}
                         accent={selectedSound.accent}
