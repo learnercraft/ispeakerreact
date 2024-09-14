@@ -33,9 +33,9 @@ const SettingsPage = () => {
                                     <AppInfo />
                                 </>
                             )}
-                            <ExerciseTimer />
+                            <ExerciseTimer key={resetFlag} />
                             <hr className="my-4" />
-                            <AppearanceSettings />
+                            <AppearanceSettings key={resetFlag} />
                             {!isElectron() && (
                                 <>
                                     <hr className="my-4" />
