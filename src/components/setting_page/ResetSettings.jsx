@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, Card, Modal, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row, Spinner } from "react-bootstrap";
 import { ChevronRight } from "react-bootstrap-icons";
+import { isElectron } from "../../utils/isElectron";
 
 const ResetSettings = ({ onReset }) => {
     const [showLocalStorageModal, setShowLocalStorageModal] = useState(false);
@@ -102,8 +103,8 @@ const ResetSettings = ({ onReset }) => {
                 <h4 className="mb-3">Reset settings</h4>
                 <Card className="mt-3">
                     <Card.Body>
-                        <div className="row">
-                            <div className="col-auto d-flex align-items-center fw-semibold">
+                        <Row>
+                            <Col className="d-flex align-items-center fw-semibold">
                                 <Button
                                     variant="link"
                                     className="fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
@@ -114,35 +115,37 @@ const ResetSettings = ({ onReset }) => {
                                     ) : null}
                                     Reset iSpeakerReact’s settings and sound data
                                 </Button>
-                            </div>
-                            <div className="col-auto d-inline-block ms-auto">
+                            </Col>
+                            <Col className="d-inline-block ms-auto">
                                 <ChevronRight />
-                            </div>
-                        </div>
+                            </Col>
+                        </Row>
                     </Card.Body>
                 </Card>
 
-                <Card className="mt-3">
-                    <Card.Body>
-                        <div className="row">
-                            <div className="col-auto d-flex align-items-center">
-                                <Button
-                                    variant="link"
-                                    className="fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
-                                    onClick={handleShowIndexedDb}
-                                    disabled={isResettingIndexedDb}>
-                                    {isResettingIndexedDb ? (
-                                        <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
-                                    ) : null}
-                                    Reset saved recordings
-                                </Button>
-                            </div>
-                            <div className="col-auto d-inline-block ms-auto">
-                                <ChevronRight />
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
+                {!isElectron() && (
+                    <Card className="mt-3">
+                        <Card.Body>
+                            <Row>
+                                <Col className="d-flex align-items-center">
+                                    <Button
+                                        variant="link"
+                                        className="fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
+                                        onClick={handleShowIndexedDb}
+                                        disabled={isResettingIndexedDb}>
+                                        {isResettingIndexedDb ? (
+                                            <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
+                                        ) : null}
+                                        Reset saved recordings
+                                    </Button>
+                                </Col>
+                                <Col className="d-inline-block ms-auto">
+                                    <ChevronRight />
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                )}
             </div>
 
             {/* Modal for resetting localStorage */}
@@ -156,7 +159,8 @@ const ResetSettings = ({ onReset }) => {
                     <Modal.Title>Confirm Reset</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Are you sure you want to reset iSpeakerReact's settings and sound data? This action cannot be undone.
+                    Are you sure you want to reset iSpeakerReact’s settings and sound data? This action cannot be
+                    undone.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseLocalStorage} disabled={isResettingLocalStorage}>
@@ -172,28 +176,32 @@ const ResetSettings = ({ onReset }) => {
             </Modal>
 
             {/* Modal for resetting IndexedDB */}
-            <Modal
-                show={showIndexedDbModal}
-                onHide={!isResettingIndexedDb ? handleCloseIndexedDb : null} // Disable close button during reset
-                backdrop={isResettingIndexedDb ? "static" : true}
-                keyboard={!isResettingIndexedDb} // Disable keyboard close (Esc) during reset
-            >
-                <Modal.Header closeButton={!isResettingIndexedDb}>
-                    <Modal.Title>Confirm Reset</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to reset saved recordings? This action cannot be undone.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseIndexedDb} disabled={isResettingIndexedDb}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={resetIndexedDb} disabled={isResettingIndexedDb}>
-                        {isResettingIndexedDb ? (
-                            <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
-                        ) : null}
-                        Reset Recordings
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            {!isElectron() && (
+                <Modal
+                    show={showIndexedDbModal}
+                    onHide={!isResettingIndexedDb ? handleCloseIndexedDb : null} // Disable close button during reset
+                    backdrop={isResettingIndexedDb ? "static" : true}
+                    keyboard={!isResettingIndexedDb} // Disable keyboard close (Esc) during reset
+                >
+                    <Modal.Header closeButton={!isResettingIndexedDb}>
+                        <Modal.Title>Confirm Reset</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure you want to reset saved recordings? This action cannot be undone.
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseIndexedDb} disabled={isResettingIndexedDb}>
+                            Cancel
+                        </Button>
+                        <Button variant="danger" onClick={resetIndexedDb} disabled={isResettingIndexedDb}>
+                            {isResettingIndexedDb ? (
+                                <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
+                            ) : null}
+                            Reset Recordings
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
         </>
     );
 };
