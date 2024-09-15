@@ -139,11 +139,11 @@ jobs:
             - name: Get latest tag
               id: get_tag
               run: |
-                  latest_tag=$(git tag | sort -V | tail -n 1)
+                  latest_tag=$(git describe --tags --abbrev=0 || echo "")
                   if [ -z "$latest_tag" ]; then
                     new_tag="v${{ env.PACKAGE_VERSION }}"
                   else
-                    new_tag=$(( ${latest_tag%.*} + 1 ))
+                    new_tag="v${{ env.PACKAGE_VERSION }}"
                   fi
                   echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
