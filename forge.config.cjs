@@ -43,7 +43,11 @@ module.exports = {
         },
         {
             name: "@electron-forge/maker-deb",
-            config: {},
+            config: {
+                options: {
+                    productName: "iSpeakerReact",
+                },
+            },
         },
         {
             name: "@electron-forge/maker-rpm",
