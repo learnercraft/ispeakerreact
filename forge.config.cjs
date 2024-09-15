@@ -5,7 +5,6 @@ module.exports = {
     packagerConfig: {
         asar: true,
         name: "iSpeakerReact",
-        executableName: "iSpeakerReact",
         appCopyright:
             "Licensed under the Apache License, Version 2.0. Video and audio materials © Oxford University Press. All rights reserved.",
         appBundleId: "page.yell0wsuit.ispeakerreact",
