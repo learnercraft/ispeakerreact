@@ -16,11 +16,12 @@ const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
 
 const App = () => {
     const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
+    const baseUrl = import.meta.env.VITE_BASE;
 
     return (
         <ThemeProvider>
             <Container className="p-4 mb-5">
-                <RouterComponent {...(!isElectron() && { basename: import.meta.env.BASE_URL })}>
+                <RouterComponent basename={!isElectron()? baseUrl : ""}>
                     <Routes>
                         <Route path="/" element={<Homepage />} />
                         <Route
