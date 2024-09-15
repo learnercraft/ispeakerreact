@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+    <head>
+        <meta charset="UTF-8" />
+        <title>iSpeakerReact</title>
+        <style>
+            .img-fluid {
+                max-width: 100%;
+                height: auto;
+            }
+            body {
+                overflow: hidden;
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="vh-100 d-flex justify-content-center align-items-center">
+            <img
+                class="img-fluid"
+                src="../dist/images/icons/windows11/Wide310x150Logo.scale-400.png"
+                id="splash"
+                alt="Splash Image" />
+        </div>
+
+        <script>
+            const htmlEl = document.getElementsByTagName("html");
+            const bodyElement = document.body;
+            const splashImage = document.getElementById("splash");
+
+            let storedTheme = localStorage.getItem("theme");
+            if (storedTheme === null) {
+                storedTheme = htmlEl[0].getAttribute("data-bs-theme");
+                localStorage.setItem("theme", storedTheme);
+            }
+
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme;
+                }
+
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            };
+
+            const setTheme = function (theme) {
+                if (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    document.documentElement.setAttribute("data-bs-theme", "dark");
+                    splashImage.src = "../dist/images/icons/logo-splash-dark.png";
+                } else {
+                    document.documentElement.setAttribute("data-bs-theme", theme);
+                    if (theme === "dark") {
+                        splashImage.src = "../dist/images/icons/logo-splash-dark.png";
+                    } else {
+                        splashImage.src = "../dist/images/icons/windows11/Wide310x150Logo.scale-400.png";
+                        bodyElement.style.backgroundColor = "#f2f2f2";
+                    }
+                }
+            };
+
+            setTheme(getPreferredTheme());
+
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+                if (storedTheme !== "light" || storedTheme !== "dark") {
+                    setTheme(getPreferredTheme());
+                }
+            });
+
+            window.addEventListener("DOMContentLoaded", () => {
+                setTheme(getPreferredTheme());
+            });
+        </script>
+    </body>
+</html>
