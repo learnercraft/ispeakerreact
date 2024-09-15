@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Accordion, Card, Col, Form, Ratio, Row } from "react-bootstrap";
+import { Accordion, Alert, Card, Col, Form, Ratio, Row } from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { isElectron } from "../../utils/isElectron";
 
 const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
     const [highlightState, setHighlightState] = useState({});
@@ -26,17 +27,37 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
                                 <div>
-                                    {iframeLoading && <Skeleton className="placeholder" height="100%" width="100%" />}
-                                    <iframe
-                                        src={videoUrl}
-                                        title="Conversation Video"
-                                        loading="lazy"
-                                        allowFullScreen
-                                        onLoad={handleIframeLoad}
-                                        style={iframeLoading ? { visibility: "hidden" } : { visibility: "visible" }}
-                                        className="w-100 h-100"></iframe>
+                                    {isElectron() && videoUrl && videoUrl.startsWith("http://localhost") ? (
+                                        <video controls className="w-100 h-100">
+                                            <source src={videoUrl} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    ) : (
+                                        <>
+                                            {iframeLoading && (
+                                                <Skeleton className="placeholder" height="100%" width="100%" />
+                                            )}
+                                            <iframe
+                                                src={videoUrl}
+                                                title="Conversation video"
+                                                loading="lazy"
+                                                allowFullScreen
+                                                onLoad={handleIframeLoad}
+                                                style={
+                                                    iframeLoading ? { visibility: "hidden" } : { visibility: "visible" }
+                                                }
+                                                className="w-100 h-100"></iframe>
+                                        </>
+                                    )}
                                 </div>
                             </Ratio>
+                            {isElectron() && !videoUrl.startsWith("http://localhost") ? (
+                                <Alert variant="secondary" className="mt-4">
+                                    Want to watch the video offline? Head to the “Settings” page to download it.
+                                </Alert>
+                            ) : (
+                                ""
+                            )}
                         </Card.Body>
                     </Card>
                 </Col>
