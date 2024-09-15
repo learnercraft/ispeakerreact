@@ -16,7 +16,7 @@ const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
 
 const App = () => {
     const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
-    const baseUrl = import.meta.env.VITE_BASE;
+    const baseUrl = import.meta.env.BASE_URL;
 
     return (
         <ThemeProvider>
