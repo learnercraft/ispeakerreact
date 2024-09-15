@@ -1,7 +1,10 @@
-name: Build and Release
+name: Build portable Electron versions
 
 on:
     push:
+        branches:
+            - main
+    pull_request:
         branches:
             - main
 
@@ -159,6 +162,7 @@ jobs:
                   name: v${{ env.PACKAGE_VERSION }}
                   body: |
                       Release version ${{ env.PACKAGE_VERSION }} of the project.
+                  prerelease: ${{ github.event_name == 'pull_request' }}
 
             - name: Display the release directory structure
               run: ls -R ./release
@@ -177,30 +181,3 @@ jobs:
                   done
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    check_changes_in_app_folder:
-        runs-on: ubuntu-latest
-        outputs:
-            changes_detected: ${{ steps.check.outputs.changes_detected }}
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@main
-              with:
-                  fetch-depth: 0
-
-            - name: Check for changes in the "./app" directory
-              id: check
-              run: |
-                  git fetch origin main
-                  changes=$(git diff --name-only HEAD~1)
-                  echo "Files changed: $changes"
-                  if echo "$changes" | grep -q '^app/'; then
-                    echo "Changes detected in the ./app directory."
-                    echo "changes_detected=true" >> $GITHUB_ENV
-                    echo "changes_detected=true" >> $GITHUB_OUTPUT
-                  else
-                    echo "No changes in the ./app directory."
-                    echo "changes_detected=false" >> $GITHUB_ENV
-                    echo "changes_detected=false" >> $GITHUB_OUTPUT
-                  fi
-              shell: bash
