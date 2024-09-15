@@ -6,13 +6,15 @@ module.exports = {
         asar: true,
         name: "iSpeakerReact",
         executableName: "iSpeakerReact",
+        appCopyright:
+            "Licensed under the Apache License, Version 2.0. Video and audio materials © Oxford University Press. All rights reserved.",
         appBundleId: "page.yell0wsuit.ispeakerreact",
         appCategoryType: "public.app-category.education",
         win32metadata: {
             CompanyName: "yell0wsuit",
             ProductName: "iSpeakerReact",
             FileDescription:
-                "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
+                "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
         },
         prune: true,
         icon: "./dist/appicon",
