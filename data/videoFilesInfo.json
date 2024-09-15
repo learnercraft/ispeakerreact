@@ -1,0 +1,2167 @@
+[
+    {
+        "zipFile": "iSpeakerReact_ExamVideos.7z",
+        "name": "Exam videos",
+        "fileSize": 739618896,
+        "link": "https://www.mediafire.com/file/5l3cbi231td6elz/iSpeakerReact_ExamVideos.7z/file",
+        "zipHash": "c3e5f22a73058369aecce043078a3e48dac27dc91b5c77ee14a43002fe0dda0e",
+        "zipContents": [
+            {
+                "extractedFiles": [
+                    {
+                        "name": "1_talking_about_a_topic.mp4",
+                        "hash": "edc00a33e89254822346f9f54493ad863cf96a287a3dea880ca36c905b064df9"
+                    },
+                    {
+                        "name": "2_discussing_opinions.mp4",
+                        "hash": "987d0c34d945685b73f263eb113c99731281f3676cd164701fbacffb4f52d394"
+                    },
+                    {
+                        "name": "3_negotiating.mp4",
+                        "hash": "01ba7190cefe88e15c5bdbe49d14e3fdbb37e37c4bd4e1f335fa76c94e4597aa"
+                    },
+                    {
+                        "name": "4_describing_a_picture.mp4",
+                        "hash": "37ab507848313cec064367260d92ea1408164fb587f125a1821911e71a67ce21"
+                    },
+                    {
+                        "name": "5_giving_personal_information.mp4",
+                        "hash": "4fc70e4d37bf6023e274d4dc8e4708664edafb1cfb55fbd95b54febb0c1bb21e"
+                    },
+                    {
+                        "name": "6_job_interview.mp4",
+                        "hash": "0ece8091388713e4b3337fe07f6fa19ebdfe4b269efa7ee344aee266b3759d73"
+                    },
+                    {
+                        "name": "7_giving_a_presentation.mp4",
+                        "hash": "639d2dac509d3c949098facd4f380a3b3f1825f8bc662485a0f9945ea0fff50b"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "zipFile": "iSpeakerReact_ConversationVideos_GB.7z",
+        "name": "Conversation videos (British English)",
+        "link": "https://www.mediafire.com/file/iu1agd8tzu5t0re/iSpeakerReact_ConversationVideos_GB.7z/file",
+        "fileSize": 533645654,
+        "zipHash": "e5d93529520be96eee6d53f745bb8b70e38480f76385ad164b2e49782d0a1460",
+        "zipContents": [
+            {
+                "extractedFiles": [
+                    {
+                        "name": "OALD9_GB_dialogues_1.mp4",
+                        "hash": "fa73a4e0d3d58ffa55e85ed1fccd1d9e2c9a07c19d7b009261b240a01ace4ef7"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_10.mp4",
+                        "hash": "70a20ea3ca0793ad1eb740b79501a294e99a91007308525fc9ec7f4bce2d5d47"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_11.mp4",
+                        "hash": "2f2c9ca43f38b0c691334215ffab875439ba32420083f59455d4ef98d646038b"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_12.mp4",
+                        "hash": "43ddb61bc089c64f0b6407947fa79a2eb911f21ed8cb01f6628b21511c625f9c"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_13.mp4",
+                        "hash": "7b97d9510d36377bfa5c90df2243d15b30980714b649d98a645d2ee09fdeb8f4"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_14.mp4",
+                        "hash": "3afe59f38c75753351422c2dc7e9554bc9ef9989973904dce9ca8f48a1c39d9b"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_15.mp4",
+                        "hash": "df3d645e428c77f8af741d3c768ca364ce1bd4203aeeda77d2ea0ac30207664f"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_16.mp4",
+                        "hash": "c69fa48fd314efb1fd96ceed2d72dcdf09218f1702fe6cd92a9e13cd16afd798"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_17.mp4",
+                        "hash": "c9725ab3649d9d929d3e7dc4b452700b5dc145b76eac14ff00c14af3131eed6a"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_18.mp4",
+                        "hash": "0fae8a14af3c481f25511645765297afdb34a2c76f9ffc3ccf06e2b32abf4a5c"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_19.mp4",
+                        "hash": "761f94bd56b774d22edd632c2fa270441276902233cfd8427ff193b25f4a9d33"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_2.mp4",
+                        "hash": "f67a083a2c3c429a4432d082283efa41dfc80ea7e98a0a0264e537fd4555b42f"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_20.mp4",
+                        "hash": "94870aba478be9733a390db1d3d6daa2361fc45cd32ddf06a5afb2942c3ede17"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_21.mp4",
+                        "hash": "ec2eed3500cd752ceb98520be69826cbfe3617e9e095ab8b3324c82c176e9812"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_22.mp4",
+                        "hash": "395227a213fa9422a81a4e2f05771ed78eeeedbb669c85ab1a141f1d922f5588"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_23.mp4",
+                        "hash": "970b5976ea264696a408304e4cd44d3087b2fa28421f74e74b0053be24eca080"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_24.mp4",
+                        "hash": "e67b6fcd32e15d9d9ecfce1691e4e99907aa11139b0229f82f37411ce657ca2d"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_25.mp4",
+                        "hash": "b02d7db5495273e748fab2d4a456857f97236ee474b9c4d9e50a6f7be6e0da47"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_26.mp4",
+                        "hash": "f3a690edafec4d2639134a95f82d390c11023305efd3928d7b5398b4f4466273"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_27.mp4",
+                        "hash": "4cf3b21a57287b80dbddb06107f0c315fa1db84e70ac6313c9b08c4ffd63a41b"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_28.mp4",
+                        "hash": "008c5c26a415b6989bc9545ac274e49eb5db50379fcbdcdfb80de1ac1b876234"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_29.mp4",
+                        "hash": "d4354fe6c41b75c48a78264f83250fa5b96a465b679ecd6758f1b8b5059c1229"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_3.mp4",
+                        "hash": "7b310ecae8f34a7c7c7e26b863b0d5212f93257494e812cf1e3f4ce639214935"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_30.mp4",
+                        "hash": "f324556df96b2416662172546974816d19ddd2975e21467f098e60de4892882a"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_31.mp4",
+                        "hash": "8c495a99b0f3230011d9ddfca22408015f7daa5352497705cfe7737beea61608"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_32.mp4",
+                        "hash": "08e24d4bd8b0f6cefc309d71d633f480b527e30516ba69814994d8641104b214"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_33.mp4",
+                        "hash": "d8092dea11772bc1a50ff0e09d0278b139d24e99ad6faedfde6e1251c7718813"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_34.mp4",
+                        "hash": "edd6f58e3da76372c4201e8bb7d255549b197ef2a69b6860912f14d861f3a59f"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_35.mp4",
+                        "hash": "a6d15d967c83ab1d0324bf53185393f14df47cb3c867199510346f4f3d9eab40"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_36.mp4",
+                        "hash": "b83a9ad63ab3385c679ce68c96b1d0708eb7c349ff8e236466004126cc1f8e7e"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_37.mp4",
+                        "hash": "71a6b6c64bca06f47d60efeb89e62c8a3bea63cca28d42d853bf6e413c7e47b8"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_38.mp4",
+                        "hash": "52a1c1a1d450214e3e20dd00136aae146f8875ec6322efd799b31bd53a7a495b"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_39.mp4",
+                        "hash": "4ffcd3cc99f6815867e5ca88f548bddfda7bbd935572636c734ace749a794b4b"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_4.mp4",
+                        "hash": "97fbd0187df4bb8bd03dc204fc8d37281c8ca96369e9a52ccf3151b0e55664b8"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_5.mp4",
+                        "hash": "548465fe6b75a2b22642216b859dd38c0a4c77e92ba7c9044e73e4497a3c03d8"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_6.mp4",
+                        "hash": "cb7e27e3b8d581028802d19a49bbd44305474b1ea3e2e47b78a80c43c2e5c031"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_7.mp4",
+                        "hash": "417cf43c6a6cdbfce6326578d49100ea42558225ec41be68aa378083f0542d6e"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_8.mp4",
+                        "hash": "d7eb75def0446df342017a1fb9a93f444e86ebae0a6d3f0db47c6e140d458817"
+                    },
+                    {
+                        "name": "OALD9_GB_dialogues_9.mp4",
+                        "hash": "7a8c8ebb106f93fe130b0d3167965f1bbe86790e360e754f15c9fa6f90a70f17"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "zipFile": "iSpeakerReact_ConversationVideos_US.7z",
+        "name": "Conversation videos (American English)",
+        "link": "https://www.mediafire.com/file/yxdk05jikwepp5y/iSpeakerReact_ConversationVideos_US.7z/file",
+        "fileSize": 480917870,
+        "zipHash": "de2813f9ad29623507a4446ce0399bc8a31a5c3c0aeebceda16232f1712280df",
+        "zipContents": [
+            {
+                "extractedFiles": [
+                    {
+                        "name": "OALD9_US_dialogues_1.mp4",
+                        "hash": "215b3d82f53f8cd6af6c861e3a5d3e1fe0f6f989f14767cf697348c914513910"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_10.mp4",
+                        "hash": "7b1eba3acca3f2b504f3a7f6c0f73a51235c1413775fa33ea00f1bed6a3f6e96"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_11.mp4",
+                        "hash": "b1133d8ff94ebed2ef5f73406df2b7d65b29196800a73124677421e51eff56a4"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_12.mp4",
+                        "hash": "0dc38ebbff8c767ae4b87769d90b9ad35cc7859646864bb0d3217adb1694a4c2"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_13.mp4",
+                        "hash": "ea1c51da10109c5eb4a4f21a64249e0d3f759e2e0d1c053894905848192ab8fc"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_14.mp4",
+                        "hash": "708907e6e7125ecb36cf8a718b4c41ea0d391c31555ce2eef2677e0dbdae9270"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_15.mp4",
+                        "hash": "ab09bba6641de1572334ebc9138a94b418f30fe599a35081fc93cc5c41c11f23"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_16.mp4",
+                        "hash": "fe4f707eba3bee9780106b317ef4933f876eda7180eebe1321fc2eb768ca8fe5"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_17.mp4",
+                        "hash": "aada8538bb8cb8338122fc9dd8b748226eda41102f51ac02b86c0c5d152ebf5d"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_18.mp4",
+                        "hash": "968017f14427585d4fbc81e31ee322ace642c08deb544d1ca9e50b891eb617e4"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_19.mp4",
+                        "hash": "af8c76f80487c40a5188cc2349f06d417c57865b92cf8f8fca33f372637f3759"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_2.mp4",
+                        "hash": "be84a9b094688b14f7c5d9fde066955e0fadc780f3275c971dd5eed636617a9c"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_20.mp4",
+                        "hash": "b94039380609540a91eba467169746842f95acf8a8fe5ad454f09e76d69a8c9f"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_21.mp4",
+                        "hash": "cef8716cb35a2b0391898e88cf3e02243bf4f83bd5e072fda44ac21438b78ae9"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_22.mp4",
+                        "hash": "4c1361785d0de9de1c454b0640c0928f643424becd3542f71691353d8d9e0c57"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_23.mp4",
+                        "hash": "f0f9784413c47c58e482f139640f25eedb0ed028ab1fd4f603bfeaac4a48aedc"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_24.mp4",
+                        "hash": "48651e935608f7d7d3fd93f22a585bce8e90d0bd3f72b37a11ee2556b44d0ed5"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_25.mp4",
+                        "hash": "baf3b726a6b47936ebfc66c34e7d697ac03fe8606ffd21684f3e95cea3b0c379"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_26.mp4",
+                        "hash": "5413fe4c792b99adf789db2e5b8c78112ea3fc0ba4547a6eecaabe86a1aad1aa"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_27.mp4",
+                        "hash": "baf2436c0d2defc4323443b3a7b010eebdb9cbcd417da6211a37b309cf97ecf0"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_28.mp4",
+                        "hash": "52044c2c4774ccdee827a35c8134a11c19c5fb50c3e749ec4571fc59eef76c67"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_29.mp4",
+                        "hash": "d2ff873efe44b20202f6b1a113ed560c2395c9e9483b3aba62bf5efefd896f3a"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_3.mp4",
+                        "hash": "909e91533e8b5be3cdd156c3bf8267b27b6476ae28d67592026e526248d673a3"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_30.mp4",
+                        "hash": "32ff0627fc21a3cb9179e9cbae29ca0f75b937482c365a3f4abd95e68aecc643"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_31.mp4",
+                        "hash": "be7f4ada26b62d0a3223c8b5a0ed6b7bf358f370debe4da90378abcfea7a5a51"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_32.mp4",
+                        "hash": "92f5c3deaf45075127f143d47d27cc6d8ffee9e1e7bd8b8580583ed95c91c000"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_33.mp4",
+                        "hash": "cf70e3211a2e2d336789c1d5a77fac659e93df928ce527a92b2b7ef21ab074e5"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_34.mp4",
+                        "hash": "809e92f4c036cc3340e866e78fc9cef7c70584b44162244fbe23d6b0e51e7634"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_35.mp4",
+                        "hash": "86181a8ec783be74cd6229e5f0520c4ee8c4706bc4ca868e59078bf0dfeb88d4"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_36.mp4",
+                        "hash": "67ae4c2628235893c7a33906d72860bc2843c244943d60eb963a3f96c128fd32"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_37.mp4",
+                        "hash": "b2c067027fe6ddc86fb86b3cd495d0b42e0688751b9ed8ea03aa9ad05f97880b"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_38.mp4",
+                        "hash": "df1fb263063374bf0a8977c2397c5342b7f2c635468ddad583ee73266157cfe6"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_39.mp4",
+                        "hash": "93ea65455c782c428cf7b5450cdd724c2523d2980e2a29d646f227c9aa675920"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_4.mp4",
+                        "hash": "ff23a63d880c8bf7ab419e2a55439cb6842a3d77a348f56d6e18c007110319b5"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_5.mp4",
+                        "hash": "e3878b6aad27368c63a0a0c04f75787868d9fabb735cc306d40e56a5e0c1c821"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_6.mp4",
+                        "hash": "3338f28bdcd3629d4e8de3ae96f5354f6efa11221825bfaeaf480b314294455f"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_7.mp4",
+                        "hash": "471f3d0eac0e329837ab42b5e1369862b691e72b8f95f4fea9431672f635aafb"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_8.mp4",
+                        "hash": "697f9db836cec420f7e46d741327dbd994706f83dd00df58e3c21733f78599b8"
+                    },
+                    {
+                        "name": "OALD9_US_dialogues_9.mp4",
+                        "hash": "5ac4518ba3f52aeee0c7b71da0e5e13e02ce9f716a344f309a80b12826321573"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "zipFile": "iSpeakerReact_SoundVideos_GB.7z",
+        "name": "Sound videos (British English)",
+        "link": "https://www.mediafire.com/file/x0p74u4syijmoub/iSpeakerReact_SoundVideos_GB.7z/file",
+        "fileSize": 747512309,
+        "zipHash": "d9d873f3fe91dcf16a1b20d50e0837730b1c8442e9185c4a4142cdea8a5498be",
+        "zipContents": [
+            {
+                "extractedFiles": [
+                    {
+                        "name": "OALD_UK_Pron_air_1.mp4",
+                        "hash": "63931d56772a8b19fbbea336363be5e9fe8d0b7c913f5ba0a4c5c527358788e6"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_air_2.mp4",
+                        "hash": "4b3d890eebe9c0fca88bfbc0d47d96b0e5163794964f1bdb2cfc6d40bca2efea"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_air_3.mp4",
+                        "hash": "4b8cd8277da0ff0312bc4e2d6d710409d69f3830b8beb4d50fc2a251924fe710"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_air_4.mp4",
+                        "hash": "217b02300c6ce71e9a87dfc2f15dec47236c6fa4270f42ba420ae612d8ab1572"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_air_5.mp4",
+                        "hash": "3ddeb5f428f231aff30f180a23f018fe0f4e43030e8202f34708d3211b26ec16"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ar_1.mp4",
+                        "hash": "afdaf3e16968fcd9e9b3c30b67a02047f1d91c1d02cd3007a45a6a77e527222c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ar_2.mp4",
+                        "hash": "ada201e7543b43aa2d2dd4a380b5afd674c18f2d8798d8c5689e5ffeac72ec11"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ar_3.mp4",
+                        "hash": "340c3c64b06436cbab5b5a1e909c656bf0dcf927e592bdf44805a38116517e8b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ar_4.mp4",
+                        "hash": "a6567e3c74a4a4c4be47facb363a1a13cd5b92bd41051e0367adbeafb4d60f8f"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ar_5.mp4",
+                        "hash": "b92625620c63e3491e92db673306cfd0d8e7c1e053a85948255b0827279f153b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_awe_1.mp4",
+                        "hash": "a9ad725f47958976f9be44f2d84b53842b526f1898c425fa224c329a95036c0b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_awe_2.mp4",
+                        "hash": "0639e0c5aa02c7ef7e260240a4d7410a44db5bf3ca20df6c508f4537899047fd"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_awe_3.mp4",
+                        "hash": "7b936c78f2b0fcc87db9a45a8454d88b8f3cf1054fd98f62b04c42e2532f574e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_awe_4.mp4",
+                        "hash": "9ad2b8223c263aadf9be0da619199764b5d644d718879adf91636768860984ab"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_awe_5.mp4",
+                        "hash": "12561c454c0c6411a385410b8655c5f6bf37ae6b90b5f89df7c047473e9d2481"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ay_1.mp4",
+                        "hash": "2e37469ccc31f6132656ce313e85631864eadd7e5d9b412be3ef3f86456ef277"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ay_2.mp4",
+                        "hash": "5b009847a013bf2e1b3e71a85e2de05dd820e74fd8ab4e08c59b3b04f4f6c254"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ay_3.mp4",
+                        "hash": "41653cd734dee95efb3270dee791bee4ee0423ef48311a22cf950689bec8321c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ay_4.mp4",
+                        "hash": "3c7510af57d687dc302637e0afd5a3c9e72b5b67e6059cf84e74b1917a090606"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ay_5.mp4",
+                        "hash": "6e0eb05abb20cd6dd0e48082721a4dda4a99e496c00159e49980c63630b827cf"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_1.mp4",
+                        "hash": "6b69ff3c3068e09ae5138c7dbd01939ba096b9d4e4c744038679154d7769c33e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_2.mp4",
+                        "hash": "b15f1b290d87a32a9f4ae056ed658c354ef1cc05adbb7b96cd3c80da44375720"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_3.mp4",
+                        "hash": "037bd043b6b124efe7893e7f2808e66c0c617534305a23b46acb8db2ed45d887"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_4.mp4",
+                        "hash": "0d80b4a39f081acbf561a0c669c9cfe2527680ea67cfcd93060958d7c5e45bce"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_about_1.mp4",
+                        "hash": "b2665fe69fd25565959be21b38b084e57e1f499f06f51b5df3058ef579d22335"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_about_2.mp4",
+                        "hash": "3dea21df822d6da368034ddaf7f0199e71d2012d88d83faf6bf159381abb82ee"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_about_3.mp4",
+                        "hash": "738d8d2ce97d51f520e70c172f12cff25b07431f9529088fd82477a700f78d15"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_about_4.mp4",
+                        "hash": "eccfabbacd28dfd16eed8ebae3145b2cfbfcdfd292bf2991166b0ba1cd9ceb55"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_a_about_5.mp4",
+                        "hash": "5b1f69f1dcd096d8594b570e721f5d0c4dde89bcbba62bbea5763b695c344636"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_b_1.mp4",
+                        "hash": "813a0adb76b9cc44a342570a516d2f8d92bb34db73e47d92a40f97cd6046d25a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_b_2.mp4",
+                        "hash": "dccc9394c8a98defbd4e5be9de3c5eeff8d08a2efb774d1aff1d46959271c458"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_b_3.mp4",
+                        "hash": "264814eb9e0ef3e9990460dd5d18ce4a7ebcb27bc3f391389e29d5b74f125245"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_b_4.mp4",
+                        "hash": "f23c9434b32d9804c40dedd7759a097adcef1b1c736d4da79fc138a8726119ad"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_b_5.mp4",
+                        "hash": "12e74bda458b17a658ce002d2f05432f551f2d2b991204389793f67c4fa15793"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_chanukah_1.mp4",
+                        "hash": "e7ddbe38386c1dbaa87d8e3ba30d9327f4fc50eb3305cdba973d833dbc748e72"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_chanukah_2.mp4",
+                        "hash": "802784936950ecc74b300b5b991eac73d02ab3c885d077b452f5eff1d66e2677"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_chanukah_3.mp4",
+                        "hash": "06bbd1634de093d84e44840c8e37c4f1a877e2c11d0e74eeb99338db33eb4024"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_chanukah_4.mp4",
+                        "hash": "de18307567d12c1537dc6f3b4f1f4097159475c891a25001ecf422f4212658e6"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ch_1.mp4",
+                        "hash": "6990ae4f6b7767a635ca0bf17716248cca3b79f57d070d2b95ede99116bf393e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ch_2.mp4",
+                        "hash": "ed5a46748b86be0f29b74221449614e6e51d717b527c6cdf3e2fe172d7c828bc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ch_3.mp4",
+                        "hash": "2015da5c3926e1e0a6a6fea890a951231ea2dc279fc4c18defc43e640d6fd14f"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ch_4.mp4",
+                        "hash": "239f271fad7d317dd5c992d9a0f294b929e3dfec93713a4954f6e9b67f4e98e4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ch_5.mp4",
+                        "hash": "c04a43c0ea59207146fd82ec7dc623509a10aeb2a6b355d97b3d04ecfe558509"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_d_1.mp4",
+                        "hash": "625f91dd9a46d23c696185e1dec60416f76c19d7327db5b3e0c5f708cfae31e2"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_d_2.mp4",
+                        "hash": "53e6aa56f5fe0391235d10bbda4b627619f99f56e07cc133d6f043ea5ccb00a3"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_d_3.mp4",
+                        "hash": "feed24e4b0f9774b8b4084b8e4a386e77a75efc454b23f49f42cbfe67e3a035d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_d_4.mp4",
+                        "hash": "02d180062bac5c01e24d0d82c4b91c2aab4d75ae86b23cbb01cf08443456c111"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_d_5.mp4",
+                        "hash": "b4953eb522edef1f03e9ff03e880c4cc8fea1a65e7505c29e247d01f66ecf90f"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ear_1.mp4",
+                        "hash": "31dd4fd7398fedb4370e3783bf008b3775f2b5a3851aa429a368a453947a6c04"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ear_2.mp4",
+                        "hash": "8a0eeb6dae8751da1a01b00cc083dea0c4345ab1610200a44ab1fa9636f40799"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ear_3.mp4",
+                        "hash": "d58a5c8b28c7cd10a563486b2010a19cabf8c49670597f2732bba5304379e1a9"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ear_4.mp4",
+                        "hash": "0e3c2cc1e529dae5cda881e007083c288e54f83b4679ba15134ea97a787879cc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ee_1.mp4",
+                        "hash": "80f05d01ef61a38b2122712ac979583d956bfb05795b1aeb420e61c15caccc0d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ee_2.mp4",
+                        "hash": "a6e9ed6effd50157411a67ec16dd4cc0a27fc0a3e875f5fca47ba5f43bde125e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ee_3.mp4",
+                        "hash": "5c9bbcbc59513cfa79fb8e0cad3301d5aee079d51bb86255cf58e5321b84384a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ee_4.mp4",
+                        "hash": "49ea93f61fb4c839408e81217516f2a7ba15944df80e9024349954f78687b843"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ee_5.mp4",
+                        "hash": "2700c1eba8d092af757f73f01c266825141ea924a0394ecde966b68a419b8fce"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_en_1.mp4",
+                        "hash": "c9d8e61849214b845e30b1ba9fa9ff93293e963e0a2560deeb722b5f5befb0df"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_en_2.mp4",
+                        "hash": "49aa59bff67fe1af39d5fcce9925f84cb2eb27a961d74c71f72b405dbc301219"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_en_3.mp4",
+                        "hash": "d8c6eac2f6d425b646ea011b239df147cdc069308936f9e15fc9d1c5be59d5fe"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_en_4.mp4",
+                        "hash": "8aef8a401968f0a38c82db9edd0f18d302a7c85c2f3d7ed7250aa522bdd81e7d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_er_1.mp4",
+                        "hash": "e9b3ab9372346058e835e760a5b887b9380d09320248efcf00ae1f975bcd1c55"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_er_2.mp4",
+                        "hash": "ab402b8549bd19123dd4c42e45ba216ba4e2a8cd966640b9e8f3ef57a8198f96"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_er_3.mp4",
+                        "hash": "543d632edf3c7969a46fd35bd0937dd0f553d63ce44cbb3ad6086f63a5c97517"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_er_4.mp4",
+                        "hash": "008642f5bdec7e1f68480f7c614b48fb126b4137dcaec8f528db48a9e965fe2f"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_er_5.mp4",
+                        "hash": "5483793802656f561af39cded1012108cb4c6953b6bc82aff48868b248fc1a62"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_eye_1.mp4",
+                        "hash": "b6a1713187edc5d302231cf085a386d1e7b9e8e61e3fd27405fe9654847d5d9c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_eye_2.mp4",
+                        "hash": "c34fdd48d171edeccf475ca49f81bd026ed9797ffa480e1ec689ffcb982f3c0c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_eye_3.mp4",
+                        "hash": "6dc215e8e610bf7c6293f891dd405b957b04a9603424c2e4be0358ea873f0986"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_eye_4.mp4",
+                        "hash": "ea3e276029868a9a68811eac84ec06a3cd9b0faaf392062b576c4f7242b9b270"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_eye_5.mp4",
+                        "hash": "adcad2cce7630983bb515e825bcedb3b0b19095904dd7d4b05e86d698dd4add3"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_e_1.mp4",
+                        "hash": "71b28df62d03cb915204263a9663ed0e89a04298797802fb3b1ae1bf5de994be"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_e_2.mp4",
+                        "hash": "4194359526509f3af990bda216989bdeb2c7f44f1c92ecc403745547e5186c00"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_e_3.mp4",
+                        "hash": "562f2bcfc788fbd43bd2a30dcec44ae968fbd37f71e2b5ded5412083e7d3643b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_e_4.mp4",
+                        "hash": "4d6c59b83f6e6cd50611bf9f2877e93865bd649eca131276c3b535823587d57b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_f_1.mp4",
+                        "hash": "c3d5a4fadaf86a7b89ea4b5f4e70338e18eac942cc2907568f15c878db671b6d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_f_2.mp4",
+                        "hash": "5e919a36fa6d905fd75843947d8cd03ff3f218449c2ef0d88ee76ab37d343fc2"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_f_3.mp4",
+                        "hash": "6f716fd859fd28f29e6b19ab36e36cc0f0563f93a42be487d2473355769365ea"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_f_4.mp4",
+                        "hash": "77b5100fa09658d6aa9a3878c8135ed3e2a46ab47caebf3254214bdf94e0b329"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_f_5.mp4",
+                        "hash": "087bc1a00a92731f40c47d9f16959aa78db318bf700a659f842e38abb92d245e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_g_1.mp4",
+                        "hash": "17761521ceee5af1ad1bf839c30a9a571c486833c5a0eb3466821668c1d570ff"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_g_2.mp4",
+                        "hash": "f11b9d43b7c9c208f67915481212836f401b6c025f26918dfff4f571519454cb"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_g_3.mp4",
+                        "hash": "8d8c89295863651338fbd461e6d521e0b6bc58eeb0dd4e9ee43772609fd52965"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_g_4.mp4",
+                        "hash": "c8d8fb139588bcd7ad25306c46919a042413e51042e61cd6ceed6f3e4860dba5"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_g_5.mp4",
+                        "hash": "90eb5d4d065bcc3bb70b289f106bb6cd78864a3f89c58e4a2b2abc29d15e95cb"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_h_1.mp4",
+                        "hash": "af8724ac8cc4651d7d7d1b220872ecb8954017c91deb71cf0f8a8118752406b5"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_h_2.mp4",
+                        "hash": "25ab8519cba454fb1bcb89246d5fee428505c1ad6f776d0c9068ab69f9b410ff"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_h_3.mp4",
+                        "hash": "2fc6a8a05d524e08fcdc9ac835ccbd6eabf4bfc82d4b0fdfc96c554983b05281"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_h_4.mp4",
+                        "hash": "de5263c6dedc0abacc0c3d21c37703ce6eb3b6abd477d0428ac3659ce074f2ee"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_if_1.mp4",
+                        "hash": "30b1af609a4c1e6484e8c726568560f4727c7c86ae29110f3cff4ebd701d3d06"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_if_2.mp4",
+                        "hash": "2bbd727eb1edddfbfa7cdee3448156e1e5e3bf33fa4aea5f3e9975b9be43eac4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_if_3.mp4",
+                        "hash": "1a36509b0d7f6284c90f49b71c6116e373c3af69883915f322568db89168c85a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_if_4.mp4",
+                        "hash": "c8e6f127822425381db1f6a30d8f8833af436edf23a845b51c9df44a17695f81"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_medium_1.mp4",
+                        "hash": "72e128a4bd042bc4f5f4068d2ac6f87a5d3a01eaa85946ae7afc773401f55e80"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_medium_2.mp4",
+                        "hash": "9ba233f43af8302159af7e7baca4cc59c8cd496db91c0d61b07ca07eaaf8a2e8"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_medium_3.mp4",
+                        "hash": "ca80b06bbd355618df657cdc539b2e69f18af7cb17ff30b3783942e6c7ab5e9e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_i_medium_4.mp4",
+                        "hash": "81274f0865cf89ec6735f3faafeec88a5528a9599b257fa1e23fe4820bb7ec81"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_j_1.mp4",
+                        "hash": "5efe7ef0251f54423297782fee7467985a83a02df3ee35d0975bdd5350fc0644"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_j_2.mp4",
+                        "hash": "53e147d4c0f1abcb61a8eadb7330a3c0c5ccbedb8bd7f4476aa2419478d73dc4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_j_3.mp4",
+                        "hash": "72c70d44f87f6fe79e3b172b1d79f0bf7eb8f314febfeb94e4e6a161ddaeae89"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_j_4.mp4",
+                        "hash": "24fec4a92d7e17d5fe54b8dbf1de6c44715bdaa4d4335d10b6188979be6e55e5"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_j_5.mp4",
+                        "hash": "5d08f84c6be9720d633c0b9f729685470222c5abfb685df0903f5504760020cb"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_k_1.mp4",
+                        "hash": "c08c8d801b503ce2cd01627b35d7f74c11670dcb830f00367e42122cc4676b6c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_k_2.mp4",
+                        "hash": "4bafb0b9194881f7b4fd74da360962621ef47128eaa68e764659a5ace2b973cc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_k_3.mp4",
+                        "hash": "e5805794b493db63c86dec0fb69e04b0a393c0aa5eea77906524146a0cc12125"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_k_4.mp4",
+                        "hash": "80fc4aaf33918cdbacda8caae2e00b38f0cf68f8a6459bd8497d318a86dab889"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_k_5.mp4",
+                        "hash": "4a10900a020269c7a2003fad3819ec1e5ea5d270f6a93f8ddba1b763c289c87a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_L_1.mp4",
+                        "hash": "2ae35e78cac59c24814e7a01b2ce584f28a5e5de6e413d9fbfdc5ec9da880840"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_L_2.mp4",
+                        "hash": "62a2544844c0efc9782e8582bdabc99426ba06a1b094bf3a2bd011c64e03e87c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_L_3.mp4",
+                        "hash": "63025e72217a0a0d9194e36aa7b01c8cc08eae60633e1d3458adce5e7e63826d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_L_4.mp4",
+                        "hash": "5e6715d7a19e5c22275adfdc4fc7cf0eaac7bfb2ed9e6747a9dcde53ad4ed380"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_L_5.mp4",
+                        "hash": "c5298bc285815b0175be1f155f8f891cd3a38bb595f5130fbe1f9686675f546d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_m_1.mp4",
+                        "hash": "f4079936cd8899f8370c1dc0913ff88f641b511852990cd331f00b1c44cc83aa"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_m_2.mp4",
+                        "hash": "5b738b88ea309c0fc7a05d1b6d656623439607c945302b99e6aab31f7f671da9"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_m_3.mp4",
+                        "hash": "f056813f7bd2e2680a6ef14d7d5b04bb0aa7e1da61974fe2f2ead5f18165235e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_m_4.mp4",
+                        "hash": "f5c66a61d45ecc57528088fb4f22e994b133b8efaa2cd7c0b6ad0d63cf381ccc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_m_5.mp4",
+                        "hash": "64ccc15d4c51fbf5dededd7c2759694dba8dd7bac703f2f8fe447b4238e13671"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ng_1.mp4",
+                        "hash": "5103589ebf1f8ee8f58764e05d7db2d5bd91a94e147384ef00385c06c9b2e88a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ng_2.mp4",
+                        "hash": "7147aec9cf640345ccf400b299e6854487d085de07ae3ebcb8ed495c0a2f6942"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ng_3.mp4",
+                        "hash": "37e689d9ea1ad746f4408d7542a3566634faeb301cbf5d0dfa3b6d27b281cfa0"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ng_4.mp4",
+                        "hash": "e7bd7f4418bea88db2196b2acb5f0abd8f718af983360b46eaed9e2fb96fa56d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_n_1.mp4",
+                        "hash": "44c047d0a807317888dc9dddb7e60193d500a5825ff38e89f7fe3b56d6b53221"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_n_2.mp4",
+                        "hash": "2faaaf36c3e8ffe3fbe82ae122beed25210d206442ee9032773f146012e3fe33"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_n_3.mp4",
+                        "hash": "338e097d1c918e000d0188f8422fb1a7dce16f9caa3c1ae10f1e8282b90ad1a7"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_n_4.mp4",
+                        "hash": "ffe5ba2b6d221bce01ae1198d9ca92cf9ac71a092e91b8b0427173f5066ebf45"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_n_5.mp4",
+                        "hash": "e1c5afed1bf8b59d095525e924e535121a2959e3c1dfed74a193e35a423a5d80"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oh_1.mp4",
+                        "hash": "78918588da0e8b93a9d3dde94dc01f10c23c66ce63557a7f0aa9c9e86df96b21"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oh_2.mp4",
+                        "hash": "2791932310e03dba20f4891f1659fdf3aebc4d4041bfbd98dfefcf51afeb1cb2"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oh_3.mp4",
+                        "hash": "e85fc72c324e4454dd9cbdc404f4c2f4112942692c662c4827f20da7435ca737"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oh_4.mp4",
+                        "hash": "318b375595693b4493b2642d92a1893c39b97ce7ebc310bf26daa05cdcb81e69"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oh_5.mp4",
+                        "hash": "25fcce7309b3d77f09a8ab89898d43f8710af95f0b9bb95e1d3bf8e0ae30b2d4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oo_1.mp4",
+                        "hash": "e04f774f04549b33e89b0a16e9c46cc3fea1a38beacab191ce2f25b5addca474"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oo_2.mp4",
+                        "hash": "dbf6979aa6758cfcb359ec1a8128e2f0d240cc0b2a8c69ac43a10c1a0fd532a0"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oo_3.mp4",
+                        "hash": "0dde7495a3b0ec1c880026ca3243447f040878ac0cd56cdf97d835192907450b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oo_4.mp4",
+                        "hash": "ac7d56c9d36018c3bfcd35e16279d965c4dcc677c09bc80b9de91c7444102e14"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oo_5.mp4",
+                        "hash": "56f3045df7fcb318c3cc6bcb7e3c6f787b7a7f8f0bba9f772f0a852bcef83e25"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ow_1.mp4",
+                        "hash": "55bd0f7b84b80a769122873fff56267c128fd9722b05427afba0130a210bedda"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ow_2.mp4",
+                        "hash": "b7e8d42747c8b12b3a9a22d2eff36eb876b86e1f53bc7c7814f7b51a55aa6b31"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ow_3.mp4",
+                        "hash": "9d603d49da6f51fd30501988160816e00c3523bbff4e914bc27c61f8a2ed4a6a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ow_4.mp4",
+                        "hash": "c53b59be3fe396c187f7f08b7d61bb201a23bd658def6128b8ddbe7d43bd6efc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ow_5.mp4",
+                        "hash": "9d5094d8650bbe6fd382a83c947f2e1b1a55a40f5df4ff0d34d3a6c9af27ac46"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oy_1.mp4",
+                        "hash": "70b22b02207d83346165071cea1d1d82dea5d61b8ae7ebcc510484d9b30abde6"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oy_2.mp4",
+                        "hash": "9f3a54bb1781b610e92bf4f8f2fbb4fe87a24c4992b707ddb9889d451cd03678"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oy_3.mp4",
+                        "hash": "b537e9928cc99b45d9fd7a64a89a9cc4795b13adcb846d3cb06415cd54163b6b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oy_4.mp4",
+                        "hash": "760552b7d5c805eba6c1475e12331f3afdae6f38c2ed83525195c6827c8ec787"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_oy_5.mp4",
+                        "hash": "1be497888248207b0eb9bf2d13404007e751504ab4dcbab5761363a0f4ee39dc"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_o_1.mp4",
+                        "hash": "0255d668415ad6f3f3c4ea83383de52a56baeacd3efbb72ec21d31a752dadd46"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_o_2.mp4",
+                        "hash": "a056000884fa836c231dba98a5743064b7e54a99f36fce93e0937f6e886c7c6d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_o_3.mp4",
+                        "hash": "3284b3e2e631f6d10e4625fcbfbe653c596909043a88bd346d31c2788256f400"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_o_4.mp4",
+                        "hash": "2dfe2f3daf6997c9061220ed4b8891cb3f905739218805aa2c6aa2c94aafc561"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_p_1.mp4",
+                        "hash": "a41843aa37bbe4269a93b089a51a9afc065c7b3916373b4a500c207662a1db67"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_p_2.mp4",
+                        "hash": "3fe434a99ada934bc218f5fdb7ce70277f21bcf8e351ab238da8f1fb5b5d41aa"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_p_3.mp4",
+                        "hash": "411d0738fad7dee2872091ba278edaa77cb39d0d9c0f44d81b45e28e40be2444"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_p_4.mp4",
+                        "hash": "f0dddbc6a0317651edc865a90418fd1a502a916a99e10689d853184724c9e51e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_p_5.mp4",
+                        "hash": "9cb2dd06151461088befc61d3d5813f5dc2e23d1dc6371d94242761d7cafb761"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_r_1.mp4",
+                        "hash": "d9b250d499b68925980fbf7971d1ed45a89b86c875938e5b355a8167c12d2561"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_r_2.mp4",
+                        "hash": "9ba481263bbf4bd4ca52f9e3e95dc700a1595f05612dd663a7bb315b5cac9ec4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_r_3.mp4",
+                        "hash": "14d1db98f4881c518e4eaaea80a74b2795eeaaf7e2f33bae908cee3c4652ae1c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_r_4.mp4",
+                        "hash": "8796de43492eb391bbeef48b2f8cea89d45f2f99c43a62933a754cfa52574c1c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_sh_1.mp4",
+                        "hash": "73a553f417baf1aa70937c3d524f55f85cc23b02fc4b0ebfac206a84b55755b4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_sh_2.mp4",
+                        "hash": "428370b8d531e50c34e173d039762b4146c6fbe74402bd7e13c6018df8a2268c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_sh_3.mp4",
+                        "hash": "f46517a488681786ccbeb9d0757e02a72eecb103b6a6c682c2a19e7b98dc5f6d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_sh_4.mp4",
+                        "hash": "b9b4dbb42b9768b211e3df27a554106ceeeccd12c6f72649ee2b2bb0c5e197ba"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_sh_5.mp4",
+                        "hash": "f289b6280fc69058a17b5cfe051197798e53df5a25f7811375e4b1195d2d2ea0"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_s_1_alt.mp4",
+                        "hash": "7c462f5c2ac978fde3c02c261129ebde9d38bb5ae5bddd32863785f0662ff165"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_s_2_alt.mp4",
+                        "hash": "78ce52233cfe36c49de15ea88bd3f645ffc5f1ff08f55930a522e2e4bb45807e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_s_3.mp4",
+                        "hash": "ae533050423c3a31fad8c9bd9f6644c4bf32f3c4094f93bdbc3cf029352d1ee8"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_s_4.mp4",
+                        "hash": "c14844adeeabb523c0e73df43aecd6b75653688d48403bc6053998300196eb96"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_s_5.mp4",
+                        "hash": "436dfc2c8d1087850faa8ea0cd88cd8b1b5e33680fcf8325917975cb8269e422"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_unvoiced_1.mp4",
+                        "hash": "d86db61f3e830273f62ac324f6baeb463d11664f832c723f7a722c513d501bc2"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_unvoiced_2.mp4",
+                        "hash": "a2b5eadd3a8bc920304670f9cb0d6952140a9f2a84c74aad69af35182c142713"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_unvoiced_3.mp4",
+                        "hash": "f1aa013f54af3e9ad8859f6012b9876484ef9be7f97250b27ffbfab27506f11b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_unvoiced_4.mp4",
+                        "hash": "47b7612d38915b94995279ebd5dca886b9071826323cdd2ea1c711a8af8a3aaa"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_unvoiced_5.mp4",
+                        "hash": "b1a0111d15a5b2191a0eb1be5325ba8f87d87719fb47bba63308ba8441fe0c49"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_voiced_1.mp4",
+                        "hash": "3214a2e59f8cf5c6c136bb0d11d8eec3b38823d2ea70317aab168fb64b12a1d8"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_voiced_2.mp4",
+                        "hash": "595bd046587331990f78cedc1001da7e92fed17e0bda75452848bf7cc77ff246"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_voiced_3.mp4",
+                        "hash": "b3d864f8a3bf181ac12e861187214d35b27b8d133e88a5af244a0a411b21e27c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_voiced_4.mp4",
+                        "hash": "4d98248e74b275423b4c7f2883d1d7be1edd178935eb73c17b076e85f591d380"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_TH_voiced_5.mp4",
+                        "hash": "24fd42c5c6c15fa0a770b19205496d16a6f460ce1c310458d929d176ea9e3d71"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_t_1.mp4",
+                        "hash": "1bf492c8cf55462b3b81d629a24dfaa206e751a128b7c19e81cb9d9c16606fde"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_t_2.mp4",
+                        "hash": "2d5223f0d8336146bac99a85bbcd48f54183357783f5be2f1bb2b970b5ab4510"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_t_3.mp4",
+                        "hash": "0d161566a46416cbce4afa028386b3e519b02a5277dac8e05dbefea5edfb5631"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_t_4.mp4",
+                        "hash": "da966f2c3db6eb1065bc6e5d73d34578f7d2e69f1ed5a1ae0e84d381c164a0bf"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_t_5.mp4",
+                        "hash": "dfcd017c2e39b74b90f877a00d58f92962d5908b51aedf11a6d17591e5c3a6f0"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ur_1.mp4",
+                        "hash": "027b02f53518d784f98d9ccb453f49a1326a8c823ca892ea3348e7331d8f9101"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ur_2.mp4",
+                        "hash": "8fd80a00efa483422a8fa0eaebf11e8509e94fb1d4a45b5fd2b6897a0292c369"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ur_3.mp4",
+                        "hash": "ae9abbd87a976a602db9e36a6b90acc747397f298f28cb4fbd71f3c66bf3f7da"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_ur_4.mp4",
+                        "hash": "d78d5cfa470f058633a72434b116eaad7b18a512ba7db4feb37034c82712e48d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_actual_1.mp4",
+                        "hash": "48b78786e2b4eaf98aeec0cf48d3f3630f9b3da9ccc3076f0442b6b672171532"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_actual_2.mp4",
+                        "hash": "e473a3672905ce0111e4fcd4d734a7b2cbc5483bdd8af80793e20c88a126df81"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_actual_3.mp4",
+                        "hash": "a53b1f60c32a985b19530f64e3048ee93317e4e29057ea6c801f2de650672b03"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_book_1.mp4",
+                        "hash": "59e85a7b3a9dddfc7282f5d58552d78379ced972a1d0b28c134111ff85fdf610"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_book_2.mp4",
+                        "hash": "6793f2e11fcf75b010bae763574914631f9fb9dc698a7556814070ba7256f82a"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_book_3.mp4",
+                        "hash": "74fba351d2debad6ab42b4d948c143d206f816c93dd5d8044f8e7126470a5d4c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_up_1.mp4",
+                        "hash": "82b5774f9e46bdd5e17d366e573faee0e787362c3f18ee469bbc13c5584ce4a9"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_up_2.mp4",
+                        "hash": "0fd1795696919a84364725f83a6a27d24d6473362c0a45edfe2b2e7eacd5212e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_up_3.mp4",
+                        "hash": "d813d0fd19a2343c1187b5dae2dc7919b03764a5b8bf6c63785f08499b9ad8db"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_u_up_4.mp4",
+                        "hash": "3f7214c5663a3f903604f3a9fb190cd82158ce3f3fa7c8d4c273bc5aeb4f35a7"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_v_1.mp4",
+                        "hash": "552adc5cefaba0317efda3b2d9fe446828d0e8f831dc3b2ccdd874920caa69e4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_v_2.mp4",
+                        "hash": "27221ec9d2cab722ba9ad69c6f138976711aecd002e53c25f518d2e08642a23d"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_v_3.mp4",
+                        "hash": "25ef4e36a520c46ea25a97ef228fb513cc3232431ca35f23fe577af4bd51c503"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_v_4.mp4",
+                        "hash": "efc4436fc0cdcb88b148063ddac017287032754b5aa55eb86e53eb01dc96fc90"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_v_5.mp4",
+                        "hash": "f173d314c9dc293daaa5ed2d6b3bd2af93477b2b41d2ba9d42e8bebd7be2acf4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_w_1.mp4",
+                        "hash": "a91059a893b85fce8441d74e7219ddf655eb89a77cf59e2d6195cf6b1de2837c"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_w_2.mp4",
+                        "hash": "14d888f0abbe19b0a56b16dfcc872c99e2f52e3f93ffbec33ac2a32837cf01ca"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_w_3.mp4",
+                        "hash": "bacb28b61c1fed7eb9a01465632bf47d3211af6838465f64e14d135c4a142933"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_w_4.mp4",
+                        "hash": "2146342d1c0d794c4d916d02630148461cbd317a8e8fb7b814ff52df60aa19a7"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_y_1.mp4",
+                        "hash": "16c489d9e0f4313e5a945b30645eeeebb9025df01b18c89a220a4ffd0571a74e"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_y_2.mp4",
+                        "hash": "d6fee36a42deb6b4b86f7464c56cda17a6c1d68a2da11aa7abd7b37a220dfba4"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_y_3.mp4",
+                        "hash": "f129bd238cc43a1b63ea91dc7219ab1e916dd72c70e73833a62b435192f258d3"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_y_4.mp4",
+                        "hash": "9b8d86f59523ca7edf44d8a47a73c2712bf58d33d949f07fb154ddba91dd99a5"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_Z_gilet_1.mp4",
+                        "hash": "dfbdee969bc6ba017e48702a8549224a735e1c2e7eae27af924f5a31535f48c2"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_Z_gilet_2.mp4",
+                        "hash": "e7c8c8056ac4191799e669e8aea1036ddc49700e1d29987fa7ccf7b6c50f693b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_Z_gilet_3.mp4",
+                        "hash": "b4ee0d7fd9cd5021305b048ba9ee83382fc0a7b1a9f7fe5f3a89c193a40c6290"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_Z_gilet_4.mp4",
+                        "hash": "3c90535ce1e6e80d724f4482b9bcbb1558fa419eabd951dd7e82b39ed5ff72c6"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_Z_gilet_5.mp4",
+                        "hash": "04818c85c957d5bd45afd5d7df92f1c296d2810bab0d138384b60144716395e9"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_z_zone_1_alt.mp4",
+                        "hash": "9d7cd89c39bce46f67ffad69f32e8d112402daf0cd0ac3f5bb85ff0a0d70fb20"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_z_zone_2_alt.mp4",
+                        "hash": "f434105be3f9329e9998cc151b3c524e3c884d45709e9285a71603bad51a1561"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_z_zone_3.mp4",
+                        "hash": "00cc62303ac7619022408a20f6543c04fcd2af8e58349dea4da31470e72acf56"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_z_zone_4.mp4",
+                        "hash": "3f3ccf0b4094b5a56f269aa234601c3c2c022983256ff5578a0b25518643ea1b"
+                    },
+                    {
+                        "name": "OALD_UK_Pron_z_zone_5.mp4",
+                        "hash": "45e11ce5d56e855f6fc275035cd2f08e2502e9af7f47e7a9953fd7a8b46dbdd7"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "zipFile": "iSpeakerReact_SoundVideos_US.7z",
+        "name": "Sound videos (American English)",
+        "link": "https://www.mediafire.com/file/5blfu0s7oa015ba/iSpeakerReact_SoundVideos_US.7z/file",
+        "fileSize": 794655768,
+        "zipHash": "2ebfc24ae88b47e495e83af2605bc4fa930caf736dd7f40378e139ff92fc43c4",
+        "zipContents": [
+            {
+                "extractedFiles": [
+                    {
+                        "name": "OALD_US_Pron_ah_1.mp4",
+                        "hash": "2e57b5c8960ee83bb064a5e3d650b82682af789cd13d622b56524d80513dd15c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ah_2.mp4",
+                        "hash": "93ef9a82e3210ec7a1468d29503a799ef62824b092ac60b34b1bacc21ed94dbc"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ah_3.mp4",
+                        "hash": "f5aa5479bd9c6c3191de44f71d7187f9b4aaf9c9a823cbb7d1f7c8c844e3f93d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ah_4.mp4",
+                        "hash": "d0b1d50448cd1ef83b094227941b846c0fb820a5dbb2c98616470f1c6353c29b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ah_5.mp4",
+                        "hash": "f5d3355b4031fb9c11225dd5c96affc4988587daf2514a12405b937cc8d9a646"
+                    },
+                    {
+                        "name": "OALD_US_Pron_air_1.mp4",
+                        "hash": "0f99fae1f8ae2c41550019df59f2d231ba5a845dd4ee3bfb24df729dde9d863f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_air_2.mp4",
+                        "hash": "e34ac13a72b5ca3fd6acadd51d0fb33c5ba91b535dc7306553fb24b43ae45314"
+                    },
+                    {
+                        "name": "OALD_US_Pron_air_3.mp4",
+                        "hash": "6d7ac44d88eb69ef159870bcc17d44fb6abc9f0ac494986bc393451ffb8bb459"
+                    },
+                    {
+                        "name": "OALD_US_Pron_air_4.mp4",
+                        "hash": "c9a5aa330b700e160b49a7adbf9e04db356c178135b551797aad0282f084baf8"
+                    },
+                    {
+                        "name": "OALD_Us_Pron_air_5.mp4",
+                        "hash": "da12e93e0d2ae5c266db24920ba4c44fa26dc0964c722c4ec5365096e2f9f840"
+                    },
+                    {
+                        "name": "OALD_US_Pron_awe_1.mp4",
+                        "hash": "052efe7b2272a22a688731c6a04f50040db9dcf4615fe9bbc1037eff6b6d4be9"
+                    },
+                    {
+                        "name": "OALD_US_Pron_awe_2.mp4",
+                        "hash": "e065a75b1b740dcf43c14c5bebf6228cdb7682c1cc7e586c685ce3d9b68734ab"
+                    },
+                    {
+                        "name": "OALD_US_Pron_awe_3.mp4",
+                        "hash": "564c201785a476d03238e31fc4de69c93cce520ccd32824ce783fa5e2dce317a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_awe_4.mp4",
+                        "hash": "c446a934580e83ef748b9a29bf049c0bfa2d5f9cfb467abe1f0d43da5395fb4e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_awe_5.mp4",
+                        "hash": "71dd4a8d4f1221c2c8cf7c49f3fa5c585658fe6d58c646c627582a0b58fc3da7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ay_1.mp4",
+                        "hash": "e3710f2715dbe75eddac6298974c47036c399ead725a61890ef7853fa153562c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ay_2.mp4",
+                        "hash": "1ee1e4c5097ff9e681b45bf4cc83b5cd16938d9b183d9a1681c4bdb997a3675c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ay_3.mp4",
+                        "hash": "3afccf974c2218b4820dcdaf24e757d0c58f13ae3deaac04e0c1577958e2a96a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ay_4.mp4",
+                        "hash": "bd4627696c1b5e62d9ca4c44bb4d40348f0133a108cf44e2cb28af2690d9483b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ay_5.mp4",
+                        "hash": "5b3b4b9116b5b727446dd7ccc14b95d1e6c76297e248916a930bf33250e8cb7d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_about_1.mp4",
+                        "hash": "39367d3744f5f9ad27a674fd52aa8d6e37ad5c05f1c16c7465fdf7a2a04366b0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_about_2.mp4",
+                        "hash": "c66c5165820c941274bcc65d171e981a4a3d9656d8365a03cd2ceaf24910a7d5"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_about_3.mp4",
+                        "hash": "d018ac6e50a858a9eea969e1f097504d4ff2ef09b6866622666ea7e53de4f2ad"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_about_4.mp4",
+                        "hash": "80a92669efe09c5862ca7d0f60fe3a258656a062475642605879bae4667e1373"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_about_5.mp4",
+                        "hash": "c614f03dfc4087ec473f6ce7d4958ddda792dc7bb51b68bb52dd9568f09e7f9f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_add_1.mp4",
+                        "hash": "240e4cec1b19f2bd76e411431b3b348383b947c6fba6cee955d446e06f711ce3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_add_2.mp4",
+                        "hash": "cb4cc38d366faaf6437d2594bbad04764b932943e4b2d04f906cc15df82e3ff2"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_add_3.mp4",
+                        "hash": "c5b058d971d1ddc705c8208b9d7b9c0dab60c3083bc1a359012fd49a648a005b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_a_add_4.mp4",
+                        "hash": "64011a18e4b092f14c8864adb65e1243d7d1727ea8b2c18dc39e125d7afa777f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_b_1.mp4",
+                        "hash": "b1eebdc454219a8f6e862d49142e8e097ce21507b304c699c0f8055ccafa32f7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_b_2.mp4",
+                        "hash": "6afc23d6955be1149b8571028ee2934d4a4d14bfc2c3c4c86074a606c8e98748"
+                    },
+                    {
+                        "name": "OALD_US_Pron_b_3.mp4",
+                        "hash": "06f3dbcc40881bc5ce23204d9043ba041efbc4d376c72aa517f6ce207b6a2f19"
+                    },
+                    {
+                        "name": "OALD_US_Pron_b_4.mp4",
+                        "hash": "cfa17ab016a892bd7b28dca9416fddbab08b63bc267f063c6f70f8a8603dc31e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_b_5.mp4",
+                        "hash": "4adc36f9abd98eec358afa539e737b149de7a2f55366d983f3ea6ad0013d87d5"
+                    },
+                    {
+                        "name": "OALD_US_Pron_chanukah_1.mp4",
+                        "hash": "8ca4f4f7c0b11c0920e2aa92dddc0780f90a63e5ca253f164b29f8847b4a0b18"
+                    },
+                    {
+                        "name": "OALD_US_Pron_chanukah_2.mp4",
+                        "hash": "d1cb45c8ac6c7e6e8a9631c1f7a22ca9eacb9ac58a4d78232c5cde09f19048e4"
+                    },
+                    {
+                        "name": "OALD_US_Pron_chanukah_3.mp4",
+                        "hash": "6ceeb885678c9683e211e217bea779de229d5fc0915b3b667feeb129ed5c8e08"
+                    },
+                    {
+                        "name": "OALD_US_Pron_chanukah_4.mp4",
+                        "hash": "4cf65ffdda2403839fcc8a6df4ab10337d3ffaf373f98179c77c0ce5d4a9a19f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ch_1.mp4",
+                        "hash": "7e0dcc4af318e8554c10f13fc265fe3a64f8f40a654474e949149b849b3dc2b5"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ch_2.mp4",
+                        "hash": "ca3906297172ee8bbdeaec88461a9cde531cf99fde78294b554d5176c4b07c42"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ch_3.mp4",
+                        "hash": "81d66d8d3d35ee8258f2a9196bb7cb54a9e52f1688a62a8ed3a4c0a617efee25"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ch_4.mp4",
+                        "hash": "046227a0563601b1b3208ef7fd050fb4b01de95d3d959478a8464402f3fbe2a7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ch_5.mp4",
+                        "hash": "8479cedc8ed65724a68d3ad67f1f865742e2ab2fd7dda5aa0c9e9e2ca496133d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_d_1.mp4",
+                        "hash": "8e915b3b04726768bfbd89e4b9848229244d41431ab0076f097156d79d680ae4"
+                    },
+                    {
+                        "name": "OALD_US_Pron_d_2.mp4",
+                        "hash": "808732f8a333613678a1ede15be09fbf859755019cdb9bc7ad1042ae351dab5d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_d_3.mp4",
+                        "hash": "8eacb8f4f8c99c89d930fca3ace6a6e032a4a1da2fd3c7fb7e743787d5238fee"
+                    },
+                    {
+                        "name": "OALD_US_Pron_d_4.mp4",
+                        "hash": "848efd97c5424ec0755cf22bd8479e426ffd9f6dc624b493bb7e6d1b4c3253b0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_d_5.mp4",
+                        "hash": "6d4264458e9d285142c1d602b628c87dfa81ab4f5193556a39fcc242f0f02a03"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ear_1.mp4",
+                        "hash": "d46b55dc16e93109715bddcd7a6d14fb4793fc567c6f9eb521a68a20e0a2ba0d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ear_2.mp4",
+                        "hash": "2b1e7a337eb70fef4e93d023d86ddf2599b060e79f249798b029b833ea685019"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ear_3.mp4",
+                        "hash": "34ea2dcb77fce0a30a40c5f78fc33c7a33be72d68eb6cf3d551d61c26dbb50f2"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ear_4.mp4",
+                        "hash": "e947ccc007178e5d325eaff831b225cf07ad0091f55aebcf37da9956cf1f46eb"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ear_5.mp4",
+                        "hash": "4d9703b0032104ffdd49dd2ce0c5fd5d8ed94cf4ec266921d718c5869f733ed1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ee_1.mp4",
+                        "hash": "0d2ce3b6aff7c069361a53144a8616f5a556559eb31c00e7da9f786dbeca0108"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ee_2.mp4",
+                        "hash": "ab422099de5bc6a22330739878dac64eeccca18445d0b70c406d68273af15d94"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ee_3.mp4",
+                        "hash": "d309e37e6499a0dcb4a1ebeb8e53edc3506988756a4828db8c85d3d7af554dfc"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ee_4.mp4",
+                        "hash": "bf5512cfe45143c82ba885772fa2150536c7cfe8c599079c368bb1f1e6d439df"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ee_5.mp4",
+                        "hash": "48929cac99e29321c3881aaddd49d3f37291ea11b601135a3cdf63657aa691c7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_en_1.mp4",
+                        "hash": "79f17b9b831c6404dc4500486c9ed2b45ec7aa9d88602142413661149c4d0e91"
+                    },
+                    {
+                        "name": "OALD_US_Pron_en_2.mp4",
+                        "hash": "a8715fb366d218765be3e0acd7b00d44b20dd3e221218a4079185789ff8aab23"
+                    },
+                    {
+                        "name": "OALD_US_Pron_en_3.mp4",
+                        "hash": "7ce171832012223070b0f8313b9c58937f6c5a80ef25c4a61fba0d84c2ec0aa6"
+                    },
+                    {
+                        "name": "OALD_US_Pron_en_4.mp4",
+                        "hash": "12594de48fb5a97ebe7e868e08f23938da4785c31e9abe671449fc4e4920186b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_er_1.mp4",
+                        "hash": "d4858e2b5139800187204efcb377a754c18d22a1d386226fc84031f60a77e781"
+                    },
+                    {
+                        "name": "OALD_US_Pron_er_2.mp4",
+                        "hash": "efabb863c2152e46359e80c05beb00e5ca51c870d5dc7776ed3fbf2f895d7816"
+                    },
+                    {
+                        "name": "OALD_US_Pron_er_3.mp4",
+                        "hash": "592f13859bbdd855e8f805d88ef6f662dc25c6852f6fa011ad767c5cb3faa59e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_er_4.mp4",
+                        "hash": "b436b2065b512311f41f027c27f45a537dd300979c66fa3f55be07096f1fa600"
+                    },
+                    {
+                        "name": "OALD_US_Pron_eye_1.mp4",
+                        "hash": "66d4f2598790846b71f2ac987be7eab93fc4b527068049915040f4c083be2e7f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_eye_2.mp4",
+                        "hash": "3b823768e3e0887282eeda54193166b4adb279bee304add08101d6a23e730017"
+                    },
+                    {
+                        "name": "OALD_US_Pron_eye_3.mp4",
+                        "hash": "c2ce393da646bf3ae4c1062755712f00e95fbd2fd1643ad540d5a05b71a1ae15"
+                    },
+                    {
+                        "name": "OALD_US_Pron_eye_4.mp4",
+                        "hash": "c349b81fe4021583a64bd8607b821e53e734ad0fbda9ce83ee52ddb49ec0a8fa"
+                    },
+                    {
+                        "name": "OALD_US_Pron_eye_5.mp4",
+                        "hash": "acdea3cdd2b8a1f4ac49f82bd6b90050545eee92394a763d3b2fad8bd3e7bc4f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_e_1.mp4",
+                        "hash": "cf69e6f2124eabcc2c09dff4cbad74a585484df4ba6dfd8e806f1893a72ab708"
+                    },
+                    {
+                        "name": "OALD_US_Pron_e_2.mp4",
+                        "hash": "1932eb22166dfa18c85dc68e3b60ae179ca3e3c36aa839b2d6f7aa1d04d21510"
+                    },
+                    {
+                        "name": "OALD_US_Pron_e_3.mp4",
+                        "hash": "62cce16ac38b10ecacdca89bd758318213a46388fcf919bfdc68b51ef26870e9"
+                    },
+                    {
+                        "name": "OALD_US_Pron_e_4.mp4",
+                        "hash": "ba7d7c00ce08d82f229e0c3620f5f72727189b4406f540bd06c9bf528a3b317c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_f_1.mp4",
+                        "hash": "ab41c236af222bef6d0ded466d735a409e0baa197619b7ecfd7c94267401ba74"
+                    },
+                    {
+                        "name": "OALD_US_Pron_f_2.mp4",
+                        "hash": "1a9cec710dc1d90ecf5696659fd018e40234e368f150488a9edfe1d4c6d28ea6"
+                    },
+                    {
+                        "name": "OALD_US_Pron_f_3.mp4",
+                        "hash": "4cb25fd63d5ba5e237719983ac5f3d0cb39f62c8e2cdeeb70f1ea2682866a777"
+                    },
+                    {
+                        "name": "OALD_US_Pron_f_4.mp4",
+                        "hash": "c59f5963c83a8caede3adcfb5bfcd739cb6e70baa2b7e7e8ebf615f171a7b544"
+                    },
+                    {
+                        "name": "OALD_US_Pron_f_5.mp4",
+                        "hash": "97443be5a6069d36df8b5b1129980094af715353eafe0f40a791392743d57678"
+                    },
+                    {
+                        "name": "OALD_US_Pron_g_1.mp4",
+                        "hash": "15eaf24b7fcf45dbb7cb8c2f8d87882ec18368075bc1849dc43549ce28372a22"
+                    },
+                    {
+                        "name": "OALD_US_Pron_g_2.mp4",
+                        "hash": "af9a809abf40c2be99635ffb9ff662674eda8828e4a7fbdcc61d7a454b2959b4"
+                    },
+                    {
+                        "name": "OALD_US_Pron_g_3.mp4",
+                        "hash": "1ff711d4a10fc5d7c1422e356dbb7d0e37342cf32413f0b013ddbe0af357f7b6"
+                    },
+                    {
+                        "name": "OALD_US_Pron_g_4.mp4",
+                        "hash": "469cfe83ca35fbd416fa97cc2b31c217f850f07d9db071ff1c361a9e31477ce7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_g_5.mp4",
+                        "hash": "c875fa21d062fc0692d70cda7b43a14f841a440472b9231765f0abedd1756be3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_h_1.mp4",
+                        "hash": "7c0ac6e0d2834a879da29f83dc8c1c3f156abb34c738d196ae0d278e7bda9626"
+                    },
+                    {
+                        "name": "OALD_US_Pron_h_2.mp4",
+                        "hash": "3b2e855bc75b0535c3c108ce71a3ed4729dc45830fd6d276463be1c8abba43f3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_h_3.mp4",
+                        "hash": "df980be446bbd661e8c01820bc6e7a1116819c330299f8875e3f59efefc8f561"
+                    },
+                    {
+                        "name": "OALD_US_Pron_h_4.mp4",
+                        "hash": "5abd87c157340ad8cf1e2bff8465d4448538df955aa995acb9a0e0cf45be9c4a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_if_1.mp4",
+                        "hash": "ea8ffc9c16068ab664b1eb1feda5c453cf70cf24908ac9bbec6b5f8ed61065f6"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_if_2.mp4",
+                        "hash": "518a8507899d63c56198121fbf67c3ecb1543b356c51bdef6155c7ae86d4ed86"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_if_3.mp4",
+                        "hash": "9f6924b888aa21ad377058289f42fc399937179ee741abaeb079f394c2fffe72"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_if_4.mp4",
+                        "hash": "2e0854a5904a883c8e6c8a359ab92891313096da574b6d2ac72d8fa92f8052b8"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_medium_1.mp4",
+                        "hash": "c9e5f22feef4c40fa388c26f3d7477e31197217b32375ed559e0190670068608"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_medium_2.mp4",
+                        "hash": "d3377b87bc5226e71d4a22c83867a44a77132d2574c3f787774e3730a73fa6b1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_medium_3.mp4",
+                        "hash": "f4beb587393476ed0a89bcd1fdf8f99b01e0dbfcf2533846106d29b156a8f35f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_i_medium_4.mp4",
+                        "hash": "11b4732c977f057d2e5e4a2d8a1d7d0d35659b128492dd4ab216942a928ade70"
+                    },
+                    {
+                        "name": "OALD_US_Pron_j_1.mp4",
+                        "hash": "14ef3dddf8980c79c1aba527b42c21af7a0ef5b7ff447ecd1fd938bf12b193b3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_j_2.mp4",
+                        "hash": "4295fdef498ea11c014b1b54bf17a08eb6ca2929d9d304c3612a6c0fa24c360e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_j_3.mp4",
+                        "hash": "d52dd9ade5cea803928706dd3a11334ebf38b92aea56d6adc6a404e5c2f61261"
+                    },
+                    {
+                        "name": "OALD_US_Pron_j_4.mp4",
+                        "hash": "029c5d5da8e16007c56b722efd11931512e300a651a681ca4ec494e9e605b520"
+                    },
+                    {
+                        "name": "OALD_US_Pron_j_5.mp4",
+                        "hash": "5f22c0ef8656dd411f30587e6e2600bcf3fadc88fa2b3eefcbcaf46f0f7c6d64"
+                    },
+                    {
+                        "name": "OALD_US_Pron_k_1.mp4",
+                        "hash": "e7047851eef8d54dc4f33ad8aff536c78cc232aa7bb0f5ef07aa277866cf615f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_k_2.mp4",
+                        "hash": "cebdb4f0d4669e6ff16c1647f9fdbd818964ad18672866b729245aadaa74251f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_k_3.mp4",
+                        "hash": "312a8287ce1cb44b656144c4bf14c761606e71b3a85a69170934ae2ba252275c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_k_4.mp4",
+                        "hash": "92ee7630a5c622bcee11379b6383cb5e8bf73131797aa012cd24975e76df3941"
+                    },
+                    {
+                        "name": "OALD_US_Pron_k_5.mp4",
+                        "hash": "7092aeb8b709820e0c4d57301703fa6ad58613536ffffd00ea566286a93164b1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_L_1.mp4",
+                        "hash": "ab2e144741441ab8605b78cdadaae4a06504109a9423a9b68c6c79a526e97a9f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_L_2.mp4",
+                        "hash": "2ebe52bf4296cf836113ab74b755ab06e2a87bc95457b42e4574c760dd24bbda"
+                    },
+                    {
+                        "name": "OALD_US_Pron_L_3.mp4",
+                        "hash": "6ef75a35767bcabefa8f568c475c6dfbb40504142779738a6a98c32925bd2583"
+                    },
+                    {
+                        "name": "OALD_US_Pron_L_4.mp4",
+                        "hash": "2534c4b9d30f575363f5e4c94f4fb27e09b077b84269cb71249ebfef7b764117"
+                    },
+                    {
+                        "name": "OALD_US_Pron_L_5.mp4",
+                        "hash": "e513fadf30292becf180cc000e3c60b94808f8b05d6d0fa2053e165bf1c0ca0b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_m_1.mp4",
+                        "hash": "9d768305f85adc737c3c4356d6a9e2ec38077c8258ce884c21de1c2deb0d9243"
+                    },
+                    {
+                        "name": "OALD_US_Pron_m_2.mp4",
+                        "hash": "5c9e6dda10bd04f548dbdbf73c9d1c3bbb0367891967d448776433895c736503"
+                    },
+                    {
+                        "name": "OALD_US_Pron_m_3.mp4",
+                        "hash": "709756f8fa4cfa1850300a68162b9492bc24ea20c914a6434498bc39a4ebb7fa"
+                    },
+                    {
+                        "name": "OALD_US_Pron_m_4.mp4",
+                        "hash": "110465015a59eda49307c098862a6e173c8cf2f9b97fe1b2edfd14fcd0e5be4b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_m_5.mp4",
+                        "hash": "d95af40553574c51a9df9148a9810e2649e145e4f540f4a8a27c0b3a5cccf312"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ng_1.mp4",
+                        "hash": "83ef1c55750b06819933a5da935dc0aca19bc3857e4e0bfe8f3e15806fc90dea"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ng_2.mp4",
+                        "hash": "4af5e81a74b9bdeb0327417bee5fad3b271873a9c77f27022e543cca7ff4c458"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ng_3.mp4",
+                        "hash": "f1818154aa7f6720a906334545ad71efec62329e8e9c08f599b70905342523dc"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ng_4.mp4",
+                        "hash": "9aa0ffaa70e2a84ea1113df4cf54f2c82fe666f8e3d37bb976b2effeba2b856e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_n_1.mp4",
+                        "hash": "3925f8808eff1bca34dbc0ce5146dcca2f105d500f282490f8cdedd3f5477661"
+                    },
+                    {
+                        "name": "OALD_US_Pron_n_2.mp4",
+                        "hash": "5b73ba689ce4a51d9af51e08e84b9a85471c8e7094d9ba93f1c6053a344171ca"
+                    },
+                    {
+                        "name": "OALD_US_Pron_n_3.mp4",
+                        "hash": "6a102f56a1c4fbb76b6990c5cd295402a8314eba4f79a38e838880f9a4f3c0bb"
+                    },
+                    {
+                        "name": "OALD_US_Pron_n_4.mp4",
+                        "hash": "030c2b5768467695706dac588ceff854182e05e4952c3a1945ea97d8a39175f1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_n_5.mp4",
+                        "hash": "a18e5f2414e1a73a349e9ce7c4310eace65aa6837e1cb69f90453a8254d8eca0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oh_1.mp4",
+                        "hash": "ec07a3e01a465ee5e00f686168565b5f7dfc49492d459b577339bcad7d4b2ab0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oh_2.mp4",
+                        "hash": "d315d0025ebfab2b22d8a8ecd49ff64f7ee943c5f62fbe29be119fcd177b4ac1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oh_3.mp4",
+                        "hash": "e5589d500230c00fc24d722bb3d22b2be63cca156990933677b3149df5e78b35"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oh_4.mp4",
+                        "hash": "2b72aa65d82d08968f6d83c6ff259032bbaa554779ac2d9ad310b77358c6dc38"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oh_5.mp4",
+                        "hash": "acd556306f9e892e9794384e7d49fb7aad63ed88aff8088c2f7b9213f4fabf04"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oo_1.mp4",
+                        "hash": "8c156dc401cb247e2bc63eb319c4a9ab45f4d1da44dbaaf913263161171d906a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oo_2.mp4",
+                        "hash": "6fd0d7fdbaf18ea4349677e5d04e2ea3249c3a0fa90eacbfa6f631f5e2cb6b5d"
+                    },
+                    {
+                        "name": "OALD_Us_Pron_oo_3.mp4",
+                        "hash": "25d1b9534031e65ed5709998655a033c285de17bbc16bd29829d2347dbf6587d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oo_4.mp4",
+                        "hash": "b49fc78477c7876b9882d54b41505af0d46345e5007afc035e71f18b8c1ff4d3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oo_5.mp4",
+                        "hash": "56db35fc497a1f3e1d7d76561763f6f73f5ac8847018ff6accffc6206401e7ae"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ow_1.mp4",
+                        "hash": "4bf681018147a3d7cc1bac3fb26ea127f0be42cc19d3380b2758410f71f01a2a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ow_2.mp4",
+                        "hash": "ec25ac3c068b4eef7e659350ff7d0a65390a7db1ce659ac9116018301102f289"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ow_3.mp4",
+                        "hash": "2207e8f11f128b098efc00390f4f08eeb3720ca38435f06e49d615ed607efc81"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ow_4.mp4",
+                        "hash": "9ac45e6d2077e7e43963123a94eb3bc79d370a4ef5e09ec0fd3d7bd8b060909c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ow_5.mp4",
+                        "hash": "520455f11ce7ec6df017d1b5510e6d31dfbb68d586c40ba36e750ceca3f0a75d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oy_1.mp4",
+                        "hash": "1702e2d5768905c9366fd307d8075d36ce443bbb7b4db913f677c836b5da3bfa"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oy_2.mp4",
+                        "hash": "c95e40af7e9d349a9150e17980f2de793dbfffdaa74e09dfc9ffb9d141c33722"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oy_3.mp4",
+                        "hash": "71a6a48318841697d5f559eb4385a49af06c43d251f494d533b15364957a2514"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oy_4.mp4",
+                        "hash": "a88d66449da7b76a899d44390b4703256c51a7d7dced2e1388369b66fa8c4a3c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_oy_5.mp4",
+                        "hash": "e3e2db56ca5facad6eafdbc3ee77a14695ae7c4ab4baf510d7edaa17a21e9dca"
+                    },
+                    {
+                        "name": "OALD_US_Pron_p_1.mp4",
+                        "hash": "af520425aeeaf67bc4936d9a94e4790009cf2698d3c4ed5c58e63d953f4f1298"
+                    },
+                    {
+                        "name": "OALD_US_Pron_p_2.mp4",
+                        "hash": "5fad86bc9e8b7985f06f4012b9769ccf02e904b47fb7da3716d8a687c9315cd7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_p_3.mp4",
+                        "hash": "87183daaa89936f342427554a751f166e5bed2a08e55cc4f85cf7d6fecc3390b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_p_4.mp4",
+                        "hash": "4f496d20a9151f30365c02433bbd6bc47e950f92f36acb7fab9be86ad9d5500b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_p_5.mp4",
+                        "hash": "cb699479712e0057e8b7a87ec7916d2ab76dd0d3f0fe6b015c85f90322710981"
+                    },
+                    {
+                        "name": "OALD_US_Pron_r_1.mp4",
+                        "hash": "1c125ea5215f02657cce44f7bdcbe5e3d28281714d39d564fb4b8f926a8462f8"
+                    },
+                    {
+                        "name": "OALD_US_Pron_r_2.mp4",
+                        "hash": "344c93bae4a06c84c60c7fd3abadb92106f5bf249ec769b73ffac8c418d6f8e8"
+                    },
+                    {
+                        "name": "OALD_US_Pron_r_3.mp4",
+                        "hash": "77b8f0dd23d7e13ac8f8090249b47f07ae44f595a5e08615679fa8ef54a92d77"
+                    },
+                    {
+                        "name": "OALD_US_Pron_r_4.mp4",
+                        "hash": "3d107b36071fec917931a52b857ae4f78f9b914e3be35bd4c27d3716e5fd7d0a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_r_5.mp4",
+                        "hash": "50525d176e3f62b6f4ad740104d20217be4e58cf8f5d86a5fdc6edda280a56fe"
+                    },
+                    {
+                        "name": "OALD_US_Pron_sh_1.mp4",
+                        "hash": "67e63aa951d40f7c68efd6fa8f3eac8ae43003fcce9141f0adbbdd539ea94e49"
+                    },
+                    {
+                        "name": "OALD_US_Pron_sh_2.mp4",
+                        "hash": "9029130951f71f51cf25763126085690eccb30b43be815ed6b7f87f91591205b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_sh_3.mp4",
+                        "hash": "7d31780bafcd428ce5162272310ab525090939841af6661668492a20d5a9977b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_sh_4.mp4",
+                        "hash": "5812a5d0fdef5fa1329e1044e038c5ed97600e6562e0d076778beb0e4c728290"
+                    },
+                    {
+                        "name": "OALD_US_Pron_sh_5.mp4",
+                        "hash": "2ae5bb19405ca3fd188731c31f278f929e561ceddb43c4aacbb3bf90fc672d17"
+                    },
+                    {
+                        "name": "OALD_US_Pron_s_1.mp4",
+                        "hash": "1868665d20d4201a651349f666755f31eb07e8519a98db61aa88d711a7e727bf"
+                    },
+                    {
+                        "name": "OALD_US_Pron_s_2.mp4",
+                        "hash": "89a807c76a775315824616cc9e137ebee3683d723a2f13315a3026cb7655491e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_s_3.mp4",
+                        "hash": "56f17ee7fca988a2e5ecac2b8ef03a5d7eafb503d5d98837f72d8e8b4fb7d288"
+                    },
+                    {
+                        "name": "OALD_US_Pron_s_4.mp4",
+                        "hash": "22be95a3cbf5d7aa1af4cba9b310038105f877e7a7ce2c0b1cdf1236d6dc9bed"
+                    },
+                    {
+                        "name": "OALD_US_Pron_s_5.mp4",
+                        "hash": "6d1cddad5ff130fedebbfe9dcffe586b1768b0c6ee82cdf84814838138ecbfd7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_unvoiced_1.mp4",
+                        "hash": "8db4a5c5d385ea243fc4e53aacea48ba4b9f3fa077e31d979b10cc46714b6855"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_unvoiced_2.mp4",
+                        "hash": "c2ad96b656333fdb16eefcc3c3bf8b15d8694b9805c6b98fac2744ef1e4dcf62"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_unvoiced_3.mp4",
+                        "hash": "e582102fd022c8568054d831613225d7da7453b08a8396d7f813e69e190d23ee"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_unvoiced_4.mp4",
+                        "hash": "d0b42e1d425c63da3d893e8a48ecf1a96210cad8da3485c87c9d108700f47f80"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_unvoiced_5.mp4",
+                        "hash": "2891435eb525f4da2d911265a04eede6f09361c9697b89378fbe354bb412b4f0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_voiced_1.mp4",
+                        "hash": "54cee69e3b814b5a0ba5cdff24fca806bffcb02ac40593d1b1ad72262e558883"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_voiced_2.mp4",
+                        "hash": "ea52c950fcf0ec425d62981aa1f7b42999c6a4a52a01c9a96b84d2ef38b7bc1b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_voiced_3.mp4",
+                        "hash": "74f51361436d8ea74b00d9938e6a8c94c9f6c6dbdeff9768fe6f4162dd5000f3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_voiced_4.mp4",
+                        "hash": "2e276e1721a87b15f80186486454714849ef850ebc29b2bdf2d7ab26718af122"
+                    },
+                    {
+                        "name": "OALD_US_Pron_TH_voiced_5.mp4",
+                        "hash": "4df9dec65856dafe65ba2bc0e596877e239fdd890f3119c3351e46f48ef124f0"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_1.mp4",
+                        "hash": "f418c9ab9dd786f22c793a480af869539d4c5833f2e360cd2253d340cdf9709c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_2.mp4",
+                        "hash": "ace41a1f82e83f52cd073842eee3bcf75e8266c06f3b26fb772a6a26a1686725"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_3.mp4",
+                        "hash": "87102fe54b01b86c53c2bab12e38c17a2f6611ebfc368cd96812850950fd1ecd"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_4.mp4",
+                        "hash": "a39fcadb97f5ca233ef5afe431c02c4f18b50dd362ae5b3a8526bdf351b21f83"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_5.mp4",
+                        "hash": "6c4bf9a16baef828e1a0ecf797e830799cb48b64ff1b07bc87fa2abf2e89be0b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_t_flapped_1.mp4",
+                        "hash": "cba4bcfbea0d5ead83873c1c93cf6f10ce76025d472c5adc3e023969bf9e1888"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ur_1.mp4",
+                        "hash": "501b6f89c678c5d713fe3b5648c84849bc8a0eddc76596113cb120d72cbd24ae"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ur_2.mp4",
+                        "hash": "22dc6bbf83abd18644b1004cce9aff2a6635bfc46dde2b567c2c6d7d835fa56a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ur_3.mp4",
+                        "hash": "35ae2675822d7c09e291d36b028fb6e94e4abc73c113994c351abd59699aa1f5"
+                    },
+                    {
+                        "name": "OALD_US_Pron_ur_4.mp4",
+                        "hash": "e08274ca14ae99c839b73cf4277a85d3fe1274c19238b6b7239a8c4861a0a32a"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_actual_1.mp4",
+                        "hash": "0888e21a3ae8f7af371003cbb6f56d7645d62b00d7183d49a170ee73a5cd8cb2"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_actual_2.mp4",
+                        "hash": "91b24ba5423914013078635bed5b175adabfcb2ddcd9f4e9a687a1b83fa0bc7f"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_actual_3.mp4",
+                        "hash": "7b0839aa1466c894370c7dbad25a2483fedff0cf6f82e460484c2952f79249b1"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_book_1.mp4",
+                        "hash": "248c451ad1fe6b28122e8ccc46bdaf743fed6a57add5ef7bd177716a2ee69546"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_book_2.mp4",
+                        "hash": "a6b0dd1e833e971c5a944e20a25e61052ac567540e1f346329a8fdd7665c04eb"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_book_3.mp4",
+                        "hash": "b2e63a77ebf4545981c52bfb03f08c7c5e191f22e4b65ab11277932bc81f8361"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_up_1.mp4",
+                        "hash": "57489b4dcf0050a01111628ab893be731f2405fe0b4fce2aa7f51c305abdc230"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_up_2.mp4",
+                        "hash": "c3380ef1ec868fd74c581e51869480124e2f2622737b3085d7dbe946f8d26b72"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_up_3.mp4",
+                        "hash": "aa6c60a821f7de85e1ce2e8ebaa8fed0dd0436d70d51bc4ece35b5835ccceb5b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_u_up_4.mp4",
+                        "hash": "aaccceae567924c84f2a59cb532dccc95ea3a6a6f032515d490bc1222568812d"
+                    },
+                    {
+                        "name": "OALD_US_Pron_v_1.mp4",
+                        "hash": "b7cabfd72de71bc03449194184897effc74f8d123bbb994413773d98c66332e3"
+                    },
+                    {
+                        "name": "OALD_US_Pron_v_2.mp4",
+                        "hash": "f58032d53ca539e247dc5a51bea27bfce31f027cd752f4b62c3c16c648369646"
+                    },
+                    {
+                        "name": "OALD_US_Pron_v_3.mp4",
+                        "hash": "fad15c89de3500939292a87e51374a1dd17a75c9020b4d57e509669cc96a1375"
+                    },
+                    {
+                        "name": "OALD_US_Pron_v_4.mp4",
+                        "hash": "9fc627ea7f65967b54a1474910273b09eb7b1d2c409d0c28fae5102a6049ebb4"
+                    },
+                    {
+                        "name": "OALD_US_Pron_v_5.mp4",
+                        "hash": "2953c4b11f95bbc8e15f4bad8ef10b078ee0ab5d5b95de5c4daa0ba2a913a17c"
+                    },
+                    {
+                        "name": "OALD_US_Pron_w_1.mp4",
+                        "hash": "370d329d1d9443379a30410b4a0a1d4c16a114fb572ba1d2f86edfe58aa045b2"
+                    },
+                    {
+                        "name": "OALD_US_Pron_w_2.mp4",
+                        "hash": "776a44eba5e1573d0e4a3984564f9038eb1a51668c0bded8531d48ba56803188"
+                    },
+                    {
+                        "name": "OALD_US_Pron_w_3.mp4",
+                        "hash": "5267b7d1d367c9ab288a409d7309504cd20c9205398a826112f45d0b1e01c2a4"
+                    },
+                    {
+                        "name": "OALD_US_Pron_w_4.mp4",
+                        "hash": "4174a9c6ea120c9ca9a4fb8c72ff3970fd48473b7edc0634fdca04ece445cd1b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_y_1.mp4",
+                        "hash": "631b29cc923e5cd4d2869dbe0987edd415d0370d3f151f897fedef09ce2dd8c2"
+                    },
+                    {
+                        "name": "OALD_US_Pron_y_2.mp4",
+                        "hash": "b8aeb44a8d532273e85fb69bad31e1e9230de13100096494cb7e871d4952c856"
+                    },
+                    {
+                        "name": "OALD_US_Pron_y_3.mp4",
+                        "hash": "e6a4350425ba4be1d3a90b9ff05f6b467b628af7e3b2e33fe55b1f15d855cf38"
+                    },
+                    {
+                        "name": "OALD_US_Pron_y_4.mp4",
+                        "hash": "7705e571e83676f101d95f5df786113546428d742444d8c4ab2fa99b5a171cd7"
+                    },
+                    {
+                        "name": "OALD_US_Pron_Z_gilet_1_alt.mp4",
+                        "hash": "377f0edd26f8e807e4fc7638492c3a7a514794c084b62b26998341e5cb8ea646"
+                    },
+                    {
+                        "name": "OALD_US_Pron_Z_gilet_2_alt.mp4",
+                        "hash": "1a290d4dbd2af2cdde15908c3ad91e16df95dcdd68af87712f42f81016302c32"
+                    },
+                    {
+                        "name": "OALD_US_Pron_Z_gilet_3.mp4",
+                        "hash": "ea31d3059af3b5cfc3fb892b7c54fe97ee568cee016d3352cae21d691504b26e"
+                    },
+                    {
+                        "name": "OALD_US_Pron_Z_gilet_4.mp4",
+                        "hash": "c44cd0a564208e0b0799901829a67425e5ad9473dcfe0d10644dcbd14af5aa2b"
+                    },
+                    {
+                        "name": "OALD_US_Pron_Z_gilet_5.mp4",
+                        "hash": "4ad634c45d05d022c3e8ba01fc72f1cc5c3be1061004cfb371980bf18d86b6c5"
+                    },
+                    {
+                        "name": "OALD_US_Pron_z_zone_1_alt.mp4",
+                        "hash": "3a94fe68c9c852817370208d1e1384752ce077ea34c30f088bc204ffe35bbd30"
+                    },
+                    {
+                        "name": "OALD_US_Pron_z_zone_2_alt.mp4",
+                        "hash": "bba347b2e00282ca58ebd89882304bfc2b02403c3010363f498109bbb8681941"
+                    },
+                    {
+                        "name": "OALD_US_Pron_z_zone_3.mp4",
+                        "hash": "97d982ee4bcfbc2338848f54ed3d65d03b57df124479215db89233065b932815"
+                    },
+                    {
+                        "name": "OALD_US_Pron_z_zone_4.mp4",
+                        "hash": "7fe1ed29b0f12f9ff267ee2fe278bf3bfe0ade284b348bdfa860d34ca1d1a000"
+                    },
+                    {
+                        "name": "OALD_US_Pron_z_zone_5.mp4",
+                        "hash": "370de76c04c79be50664397c20c577aa30b032d31811e2612004ff9ff6bd6d0d"
+                    }
+                ]
+            }
+        ]
+    }
+]
