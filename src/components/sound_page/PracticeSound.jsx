@@ -1,16 +1,18 @@
 import he from "he";
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
 import { ArrowLeftCircle, RecordCircleFill } from "react-bootstrap-icons";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { checkRecordingExists } from "../../utils/databaseOperations";
+import { isElectron } from "../../utils/isElectron";
 import ToastNotification from "../general/ToastNotification";
 import ReviewCard from "./ReviewCard";
 import SoundPracticeCard from "./SoundPracticeCard";
 import { usePlaybackFunction } from "./usePlaybackFunction";
 import { useRecordingFunction } from "./useRecordingFunction";
 import { useSoundVideoMapping } from "./useSoundVideoMapping";
+import LoadingOverlay from "../general/LoadingOverlay";
 
 const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     const accentKey = accent === "american" ? "a" : "b";
@@ -35,7 +37,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
 
     const { index: phonemeIndex, type } = findPhonemeDetails(sound.phoneme);
 
-    const { videoUrls, videoUrl } = useSoundVideoMapping(type, accent, soundsData, phonemeIndex);
+    const { videoUrls, videoUrl, videoLoading } = useSoundVideoMapping(type, accent, soundsData, phonemeIndex);
 
     const imgPhonemeThumbSrc =
         accent === "american"
@@ -206,6 +208,10 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         };
     }, [isRecording, mediaRecorder, currentAudioSource, currentAudioElement]);
 
+    if (!videoUrl) {
+        return <LoadingOverlay />;
+    }
+
     return (
         <>
             <Row className="mt-4">
@@ -232,25 +238,43 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
                                 <div>
-                                    {iframeLoadingStates.mainIframe && (
-                                        <Skeleton className="placeholder" height="100%" width="100%" />
+                                    {isElectron() &&
+                                    videoUrl?.isLocal &&
+                                    videoUrl.value.includes("http://localhost") ? (
+                                        <video controls className="w-100 h-100">
+                                            <source src={videoUrl.value} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    ) : (
+                                        <>
+                                            {iframeLoadingStates.mainIframe && (
+                                                <Skeleton className="placeholder" height="100%" width="100%" />
+                                            )}
+                                            <iframe
+                                                src={videoUrl?.value}
+                                                title="Phoneme Video"
+                                                loading="lazy"
+                                                allowFullScreen
+                                                onLoad={() => {
+                                                    handleIframeLoad("mainIframe");
+                                                }}
+                                                style={
+                                                    iframeLoadingStates.mainIframe
+                                                        ? { visibility: "hidden" }
+                                                        : { visibility: "visible" }
+                                                }
+                                                className="w-100 h-100"></iframe>
+                                        </>
                                     )}
-                                    <iframe
-                                        src={videoUrl}
-                                        title="Phoneme Video"
-                                        loading="lazy"
-                                        allowFullScreen
-                                        onLoad={() => {
-                                            handleIframeLoad("mainIframe");
-                                        }}
-                                        style={
-                                            iframeLoadingStates.mainIframe
-                                                ? { visibility: "hidden" }
-                                                : { visibility: "visible" }
-                                        }
-                                        className="w-100 h-100"></iframe>
                                 </div>
                             </Ratio>
+                            {isElectron() && !videoUrl?.value.includes("http://localhost") ? (
+                                <Alert variant="secondary" className="mt-4">
+                                    Want to watch the video offline? Head to the “Settings” page to download it.
+                                </Alert>
+                            ) : (
+                                ""
+                            )}
                         </Card.Body>
                     </Card>
                     <Card className="mb-4 shadow-sm">
@@ -285,25 +309,40 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 <Modal.Body>
                     <Ratio aspectRatio="16x9">
                         <div>
-                            {iframeLoadingStates.modalIframe && (
-                                <Skeleton className="placeholder" height="100%" width="100%" />
+                            {isElectron() && selectedVideoUrl.includes("localhost:8998") ? (
+                                <video controls className="w-100 h-100">
+                                    <source src={selectedVideoUrl} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            ) : (
+                                <>
+                                    {iframeLoadingStates.modalIframe && (
+                                        <Skeleton className="placeholder" height="100%" width="100%" />
+                                    )}
+                                    <iframe
+                                        src={selectedVideoUrl}
+                                        title="Phoneme Video"
+                                        allowFullScreen
+                                        onLoad={() => {
+                                            handleIframeLoad("modalIframe");
+                                        }}
+                                        style={
+                                            iframeLoadingStates.modalIframe
+                                                ? { visibility: "hidden" }
+                                                : { visibility: "visible" }
+                                        }
+                                        className="w-100 h-100"></iframe>
+                                </>
                             )}
-                            <iframe
-                                src={selectedVideoUrl}
-                                title="Phoneme Video"
-                                loading="lazy"
-                                allowFullScreen
-                                onLoad={() => {
-                                    handleIframeLoad("modalIframe");
-                                }}
-                                style={
-                                    iframeLoadingStates.modalIframe
-                                        ? { visibility: "hidden" }
-                                        : { visibility: "visible" }
-                                }
-                                className="w-100 h-100"></iframe>
                         </div>
                     </Ratio>
+                    {isElectron() && !selectedVideoUrl.startsWith("http://localhost") ? (
+                        <Alert variant="secondary" className="mt-4">
+                            Want to watch the video offline? Head to the “Settings” page to download it.
+                        </Alert>
+                    ) : (
+                        ""
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
