@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell } = require("electron");
+const { app, Menu, BrowserWindow, ipcMain, shell } = require("electron");
 const path = require("path");
 const isDev = process.env.NODE_ENV === "development";
 const fs = require("fs");
@@ -20,15 +20,15 @@ function createSplashWindow() {
     splashWindow = new BrowserWindow({
         width: 854,
         height: 413,
-        frame: false, // Remove window controls (optional)
-        transparent: true, // Make the window background transparent (optional)
-        alwaysOnTop: true, // Ensure the splash window is always on top
+        frame: false, // Remove window controls
+        transparent: true, // Make the window background transparent
+        alwaysOnTop: true,
     });
 
     // Load the splash screen HTML
     splashWindow.loadFile(path.join(__dirname, "data", "splash.html"));
 
-    splashWindow.setTitle("iSpeakerReact loading...");
+    splashWindow.setTitle("Starting up...");
 
     // Splash window should close when the main window is ready
     splashWindow.on("closed", () => {
@@ -46,6 +46,7 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
+            devTools: isDev ? true : false,
         },
     });
 
@@ -65,6 +66,72 @@ function createWindow() {
 
     mainWindow.on("closed", () => {
         mainWindow = null;
+    });
+
+    mainWindow.on("enter-full-screen", () => {
+        mainWindow.setMenuBarVisibility(false);
+    });
+
+    mainWindow.on("leave-full-screen", () => {
+        mainWindow.setMenuBarVisibility(true);
+    });
+
+    const menu = Menu.buildFromTemplate([
+        {
+            label: "File",
+            submenu: [{ role: "quit" }],
+        },
+        {
+            label: "Edit",
+            submenu: [
+                { role: "undo" },
+                { role: "redo" },
+                { type: "separator" },
+                { role: "cut" },
+                { role: "copy" },
+                { role: "paste" },
+            ],
+        },
+        {
+            label: "View",
+            submenu: [
+                { role: "reload" },
+                { role: "forceReload" },
+                { type: "separator" },
+                { role: "resetZoom" },
+                { role: "zoomIn" },
+                { role: "zoomOut" },
+                { type: "separator" },
+                { role: "togglefullscreen" },
+                { role: "toggleDevTools" },
+            ],
+        },
+        {
+            label: "Window",
+            submenu: [{ role: "minimize" }, { role: "zoom" }],
+        },
+        {
+            label: "About",
+            submenu: [
+                {
+                    label: "Project's GitHub page",
+                    click: () => {
+                        shell.openExternal("https://github.com/yell0wsuit/ispeaker");
+                    },
+                },
+            ],
+        },
+    ]);
+
+    Menu.setApplicationMenu(menu);
+
+    app.on("second-instance", () => {
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) {
+                mainWindow.restore();
+            }
+            mainWindow.focus();
+        }
     });
 }
 

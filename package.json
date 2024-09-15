@@ -2,7 +2,7 @@
     "name": "ispeakerreact",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "2.0.0",
+    "version": "2.1.0",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
