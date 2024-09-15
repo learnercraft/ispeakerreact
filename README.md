@@ -12,7 +12,13 @@ Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-stud
 
 While the official, modern, Angular-based Oxford iSpeaker has introduced significant updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
 
+# Use the app
+
 Visit the webiste to use the tool online: <https://yell0wsuit.github.io/ispeaker/>
+
+Or download the offline portable version: <https://github.com/yell0wsuit/ispeaker/releases/latest>
+
+The offline portable version includes audio files for offline playback. You can manually download the video files in the Settings page for offline use.
 
 ![](./public/images/homepage_screenshot.webp)
 
