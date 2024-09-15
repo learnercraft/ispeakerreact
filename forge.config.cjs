@@ -4,6 +4,31 @@ const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 module.exports = {
     packagerConfig: {
         asar: true,
+        name: "iSpeakerReact",
+        executableName: "iSpeakerReact",
+        appBundleId: "page.yell0wsuit.ispeakerreact",
+        appCategoryType: "public.app-category.education",
+        win32metadata: {
+            CompanyName: "yell0wsuit",
+            ProductName: "iSpeakerReact",
+            FileDescription:
+                "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
+        },
+        prune: true,
+        icon: "./dist/appicon",
+        ignore: [
+            "^/\\.github$", // Ignore the .github directory
+            "^/venv$", // Ignore the venv directory
+            //"^/node_modules$", // Ignore the node_modules directory
+            "^/\\.vscode$", // Ignore .vscode if exists
+            "^/tests$", // Ignore tests directory if exists
+            "^/scripts$", // Ignore scripts directory if exists
+            "^/\\..*$", // Ignore any dotfiles (e.g., .gitignore, .eslintrc, etc.)
+            "^/README.md$", // Ignore README.md file
+            "^/package-lock.json$", // Ignore package-lock.json file
+            "^/public$",
+            "^/src$",
+        ],
     },
     rebuildConfig: {},
     makers: [

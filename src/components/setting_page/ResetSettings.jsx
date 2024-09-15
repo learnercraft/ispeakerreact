@@ -104,10 +104,10 @@ const ResetSettings = ({ onReset }) => {
                 <Card className="mt-3">
                     <Card.Body>
                         <Row>
-                            <Col className="d-flex align-items-center fw-semibold">
+                            <Col xs="auto" className="d-flex align-items-center">
                                 <Button
                                     variant="link"
-                                    className="fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
+                                    className="text-start fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
                                     onClick={handleShowLocalStorage}
                                     disabled={isResettingLocalStorage}>
                                     {isResettingLocalStorage ? (
@@ -116,7 +116,7 @@ const ResetSettings = ({ onReset }) => {
                                     Reset iSpeakerReact’s settings and sound data
                                 </Button>
                             </Col>
-                            <Col className="d-inline-block ms-auto">
+                            <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">
                                 <ChevronRight />
                             </Col>
                         </Row>
@@ -127,10 +127,10 @@ const ResetSettings = ({ onReset }) => {
                     <Card className="mt-3">
                         <Card.Body>
                             <Row>
-                                <Col className="d-flex align-items-center">
+                                <Col xs="auto" className="d-flex align-items-center">
                                     <Button
                                         variant="link"
-                                        className="fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
+                                        className="text-start fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
                                         onClick={handleShowIndexedDb}
                                         disabled={isResettingIndexedDb}>
                                         {isResettingIndexedDb ? (
@@ -139,7 +139,7 @@ const ResetSettings = ({ onReset }) => {
                                         Reset saved recordings
                                     </Button>
                                 </Col>
-                                <Col className="d-inline-block ms-auto">
+                                <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">
                                     <ChevronRight />
                                 </Col>
                             </Row>
@@ -170,7 +170,7 @@ const ResetSettings = ({ onReset }) => {
                         {isResettingLocalStorage ? (
                             <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                         ) : null}
-                        Reset Data
+                        Reset data
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -197,7 +197,7 @@ const ResetSettings = ({ onReset }) => {
                             {isResettingIndexedDb ? (
                                 <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                             ) : null}
-                            Reset Recordings
+                            Reset recordings
                         </Button>
                     </Modal.Footer>
                 </Modal>

@@ -18,6 +18,9 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
+    const [videoUrl, setVideoUrl] = useState(null);
+    const [videoLoading, setVideoLoading] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -55,6 +58,8 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     setLoading(false);
                 } else {
                     console.error("Conversation not found.");
+                    setLoading(false);
+                    return;
                 }
 
                 // Save the fetched data to IndexedDB (excluding Electron)
@@ -70,7 +75,39 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
         fetchData();
     }, [id, accent]);
 
-    const accentDisplay = accentData === "british" ? "British English" : "American English";
+    // Use offline file if running in Electron
+    useEffect(() => {
+        const fetchVideoUrl = async () => {
+            if (isElectron() && accentData) {
+                const accentVideoData = accent === "british" ? "GB" : "US";
+                const videoFileName = accentData.watch_and_study.offlineFile;
+                const folderName = `iSpeakerReact_ConversationVideos_${accentVideoData}`;
+
+                const videoStreamUrl = `http://localhost:8998/video/${folderName}/${videoFileName}`;
+
+                try {
+                    const response = await fetch(videoStreamUrl, { method: "HEAD" });
+
+                    if (response.ok) {
+                        setVideoUrl(videoStreamUrl);
+                    } else {
+                        throw new Error("Local video file not found");
+                    }
+                } catch (error) {
+                    console.warn("Falling back to Vimeo due to local video file not found:", error);
+                    setVideoUrl(accentData.watch_and_study.videoLink);
+                }
+                setVideoLoading(false);
+            } else if (accentData) {
+                setVideoUrl(accentData.watch_and_study.videoLink);
+                setVideoLoading(false);
+            }
+        };
+
+        fetchVideoUrl();
+    }, [accentData, accent]);
+
+    const accentDisplay = accent === "british" ? "British English" : "American English";
 
     return (
         <>
@@ -79,7 +116,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             <Button variant="primary" className="my-3" onClick={onBack}>
                 <ArrowLeftCircle className="me-1" /> Back to conversation list
             </Button>
-            {loading ? (
+            {loading || videoLoading ? (
                 <LoadingOverlay />
             ) : (
                 <Card className="mt-2 shadow-sm">
@@ -113,7 +150,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     <Card.Body>
                         {activeTab === "#watch_and_study" && (
                             <WatchAndStudyTab
-                                videoUrl={accentData.watch_and_study.videoLink}
+                                videoUrl={videoUrl}
                                 dialog={accentData.watch_and_study.study.dialog}
                                 skillCheckmark={accentData.watch_and_study.study.skill_checkmark}
                             />
