@@ -155,9 +155,14 @@ jobs:
               run: |
                   latest_tag=$(git describe --tags --abbrev=0 || echo "")
                   if [ -z "$latest_tag" ]; then
-                    new_tag=$(( ${latest_tag%.*} + 1 ))
+                      new_tag="v${{ env.PACKAGE_VERSION }}"
                   else
-                    new_tag="v${{ env.PACKAGE_VERSION }}"
+                      if [ "$latest_tag" == "v${{ env.PACKAGE_VERSION }}" ]; then
+                          random_str=$(openssl rand -hex 4)
+                          new_tag="v${{ env.PACKAGE_VERSION }}-$random_str"
+                      else
+                          new_tag="v${{ env.PACKAGE_VERSION }}"
+                      fi
                   fi
                   echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
