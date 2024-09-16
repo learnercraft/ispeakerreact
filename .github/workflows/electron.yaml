@@ -190,7 +190,7 @@ jobs:
 
             - name: Upload Release Assets
               run: |
-                  for artifact in "./release/iSpeakerReact-*"; do
+                  for artifact in ./release/iSpeakerReact-*; do
                     for file in $(find "$artifact" -type f); do
                       if [[ "$file" == *"RELEASES"* ]]; then
                         echo "Skipping $file"
