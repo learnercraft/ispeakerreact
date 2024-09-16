@@ -24,6 +24,9 @@ jobs:
           id: get_version
           run: |
               echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+        
+        - name: Fetch tags
+          run: git fetch --tags
 
         - name: Get latest tag
           id: get_tag
@@ -38,6 +41,7 @@ jobs:
 
         - name: Test create tag
           run: |
+              git fetch --tags
               if git rev-parse "${{ env.LATEST_TAG }}" >/dev/null 2>&1; then
                   echo "Tag ${{ env.LATEST_TAG }} already exists. Please update the package version."
                   exit 1
