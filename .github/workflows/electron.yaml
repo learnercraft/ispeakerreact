@@ -14,6 +14,22 @@ permissions:
     id-token: write
 
 jobs:
+    check-tag:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get latest tag
+          id: get_tag
+          run: |
+              latest_tag=$(git describe --tags --abbrev=0 || echo "")
+              echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+
+        - name: Check if package version matches latest tag
+          run: |
+              if [ "${{ env.LATEST_TAG }}" == "v${{ env.PACKAGE_VERSION }}" ]; then
+                echo "Error: Package version matches the latest tag. Please update the package version."
+                exit 1
+              fi
+
     build:
         strategy:
             matrix:
@@ -25,6 +41,7 @@ jobs:
                       arch: [x64, arm64]  # Added ARM64 for Windows
 
         runs-on: ${{ matrix.os }}
+        needs: check-tag
 
         steps:
             - name: Checkout code
@@ -34,19 +51,6 @@ jobs:
               id: get_version
               run: |
                   echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
-
-            - name: Get latest tag
-              id: get_tag
-              run: |
-                  latest_tag=$(git describe --tags --abbrev=0 || echo "")
-                  echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
-
-            - name: Check if package version matches latest tag
-              run: |
-                  if [ "${{ env.LATEST_TAG }}" == "v${{ env.PACKAGE_VERSION }}" ]; then
-                    echo "Error: Package version matches the latest tag. Please update the package version."
-                    exit 1
-                  fi
 
             - name: Set up Node.js
               uses: actions/setup-node@main
