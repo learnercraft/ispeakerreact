@@ -104,7 +104,7 @@ const ResetSettings = ({ onReset }) => {
                 <Card className="mt-3">
                     <Card.Body>
                         <Row>
-                            <Col xs="auto" className="d-flex align-items-center">
+                            <Col xs={10} className="d-flex align-items-center">
                                 <Button
                                     variant="link"
                                     className="text-start fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"

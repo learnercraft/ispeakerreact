@@ -137,8 +137,8 @@ const CachingSettings = () => {
             <Card className="mt-4 mb-4">
                 <Card.Body>
                     <Form.Group className="px-0 form-switch">
-                        <div className="d-flex justify-content-between">
-                            <Form.Label className="fw-semibold mb-0" htmlFor="cacheJson" role="button">
+                        <div className="d-flex justify-content-between align-items-center">
+                            <Form.Label className="fw-semibold mb-0 col-10" htmlFor="cacheJson" role="button">
                                 Cache menu files for faster loading
                             </Form.Label>
                             {isProcessing ? (
