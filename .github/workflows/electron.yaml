@@ -190,19 +190,28 @@ jobs:
 
             - name: Upload Release Assets
               run: |
+                if [ -d ./release ]; then
                   for artifact in ./release/iSpeakerReact-*; do
-                    for file in $(find "$artifact" -type f); do
-                      if [[ "$file" == *"RELEASES"* ]]; then
-                        echo "Skipping $file"
-                        continue
-                      fi
-                      echo "Attempting to upload: $file"
-                      if gh release upload ${{ env.LATEST_TAG }} "$file" --clobber; then
-                        echo "Successfully uploaded: $file"
-                      else
-                        echo "Failed to upload: $file"
-                      fi
-                    done
+                    if [ -d "$artifact" ]; then
+                      find "$artifact" -type f | while read -r file; do
+                        if [[ "$file" == *"RELEASES"* ]]; then
+                          echo "Skipping $file"
+                          continue
+                        fi
+                        echo "Attempting to upload: $file"
+                        if gh release upload "${{ env.LATEST_TAG }}" "$file" --clobber; then
+                          echo "Successfully uploaded: $file"
+                        else
+                          echo "Failed to upload: $file"
+                        fi
+                      done
+                    else
+                      echo "No artifacts found in $artifact"
+                    fi
                   done
+                else
+                  echo "No release directory found."
+                  exit 1
+                fi
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
