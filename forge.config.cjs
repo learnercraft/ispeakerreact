@@ -1,5 +1,6 @@
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
+const path = require("path");
 
 module.exports = {
     packagerConfig: {
@@ -13,8 +14,6 @@ module.exports = {
         win32metadata: {
             CompanyName: "yell0wsuit",
             ProductName: "iSpeakerReact",
-            FileDescription:
-                "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
         },
         prune: true,
         icon: "./dist/appicon",
@@ -57,6 +56,8 @@ module.exports = {
         {
             name: "@electron-forge/maker-squirrel",
             config: (arch) => ({
+                setupIcon: path.join(__dirname, "dist", "appicon.ico"),
+                iconUrl: path.join(__dirname, "dist", "appicon.ico"),
                 setupExe: `iSpeakerReact-win32-${arch}-Setup.exe`,
             }),
         },
