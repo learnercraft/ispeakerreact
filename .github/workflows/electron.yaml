@@ -107,11 +107,12 @@ jobs:
             - name: Build Electron app (Windows)
               if: matrix.os == 'windows-latest'
               run: |
-                  for arch in ${{ join(matrix.arch, ' ') }}; do
-                    npm run make -- --arch=$arch
-                    mkdir -p out/make-$arch
-                    mv out/make/* out/make-$arch/
-                  done
+                  $architectures = @("x64", "arm64")
+                  foreach ($arch in $architectures) {
+                      npm run make -- --arch=$arch
+                      New-Item -ItemType Directory -Force -Path "out/make-$arch"
+                      Move-Item -Path "out/make/*" -Destination "out/make-$arch/"
+                  }
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
 
