@@ -125,10 +125,10 @@ jobs:
             - name: Upload Artifacts
               uses: actions/upload-artifact@main
               with:
-                  name: iSpeakerReact-${{ matrix.os }}-${{ matrix.arch }}
+                  name: iSpeakerReact-${{ matrix.os }}
                   path: |
                       out/make*
-                      out/make-$arch/
+                      out/make-*
 
     release:
         runs-on: ubuntu-latest
