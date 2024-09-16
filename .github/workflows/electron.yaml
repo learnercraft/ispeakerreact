@@ -129,6 +129,9 @@ jobs:
                   path: |
                       out/make*
                       out/make-*
+                      out/make-${{ matrix.arch[0] }}/*
+                      out/make/squirrel.windows/${{ matrix.arch[0] }}/*.exe
+                      out/make/squirrel.windows/${{ matrix.arch[0] }}/*.nupkg
 
     release:
         runs-on: ubuntu-latest
@@ -157,7 +160,7 @@ jobs:
                   if [ -z "$latest_tag" ]; then
                     new_tag="v${{ env.PACKAGE_VERSION }}"
                   else
-                    new_tag="v${{ env.PACKAGE_VERSION }}"
+                    new_tag=$(( ${latest_tag%.*} + 1 ))
                   fi
                   echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
