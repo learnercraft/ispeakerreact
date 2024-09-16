@@ -129,9 +129,8 @@ jobs:
                   path: |
                       out/make*
                       out/make-*
-                      out/make-${{ matrix.arch[0] }}/*
-                      out/make/squirrel.windows/${{ matrix.arch[0] }}/*.exe
-                      out/make/squirrel.windows/${{ matrix.arch[0] }}/*.nupkg
+                      out/make*/**/*.exe
+                      out/make*/**/*.nupkg
 
     release:
         runs-on: ubuntu-latest
