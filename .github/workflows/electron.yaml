@@ -34,15 +34,15 @@ jobs:
               else
                 new_tag=$(( ${latest_tag%.*} + 1 ))
               fi
-              echo "latest_tag=$new_tag" >> $GITHUB_ENV
+              echo "LATEST_TAG=$new_tag" >> $GITHUB_ENV
 
         - name: Test create tag
           run: |
-              if git rev-parse "$latest_tag" >/dev/null 2>&1; then
-                  echo "Tag $latest_tag already exists. Please update the package version."
+              if git rev-parse "${{ env.LATEST_TAG }}" >/dev/null 2>&1; then
+                  echo "Tag ${{ env.LATEST_TAG }} already exists. Please update the package version."
                   exit 1
               else
-                  echo "Tag v${{ env.LATEST_TAG }} is available."
+                  echo "Tag ${{ env.LATEST_TAG }} is available."
               fi
 
     build:
