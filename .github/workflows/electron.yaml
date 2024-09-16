@@ -165,11 +165,12 @@ jobs:
                       fi
                   fi
                   echo "latest_tag=$new_tag" >> $GITHUB_ENV
+                  echo "new_tag=$new_tag"
 
             - name: Create tag
               run: |
-                  git tag ${{ env.latest_tag }}
-                  git push origin ${{ env.latest_tag }}
+                  git tag ${{ env.new_tag }}
+                  git push origin ${{ env.new_tag }}
 
             - name: Create GitHub release
               id: create_release
