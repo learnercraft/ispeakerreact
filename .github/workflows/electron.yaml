@@ -193,7 +193,7 @@ jobs:
                 if [ -d ./release ]; then
                   for artifact in ./release/iSpeakerReact-*; do
                     if [ -d "$artifact" ]; then
-                      find "$artifact" -type f | while read -r file; do
+                      find "$artifact" -type f | while IFS= read -r -d '' file; do
                         if [[ "$file" == *"RELEASES"* ]]; then
                           echo "Skipping $file"
                           continue
