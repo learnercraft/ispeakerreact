@@ -38,8 +38,8 @@ jobs:
 
         - name: Test create tag
           run: |
-              if git rev-parse "$LATEST_TAG" >/dev/null 2>&1; then
-                  echo "Tag $LATEST_TAG already exists. Please update the package version."
+              if git rev-parse "$latest_tag" >/dev/null 2>&1; then
+                  echo "Tag $latest_tag already exists. Please update the package version."
                   exit 1
               else
                   echo "Tag v${{ env.LATEST_TAG }} is available."
