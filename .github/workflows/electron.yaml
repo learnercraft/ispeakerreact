@@ -17,6 +17,9 @@ jobs:
     check-tag:
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout code
+          uses: actions/checkout@main
+
         - name: Get latest tag
           id: get_tag
           run: |
