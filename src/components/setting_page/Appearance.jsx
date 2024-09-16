@@ -70,7 +70,7 @@ const AppearanceSettings = () => {
             <Card className="mt-4 mb-4">
                 <Card.Body>
                     <Form.Group className="px-0 form-switch">
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between align-items-center">
                             <Form.Label className="fw-semibold mb-0" htmlFor="toggleThemeButton" role="button">
                                 Show “Toggle theme” button
                             </Form.Label>
