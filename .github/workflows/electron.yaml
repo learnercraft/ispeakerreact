@@ -36,12 +36,14 @@ jobs:
               fi
               echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
-        - name: Create tag
+        - name: Test create tag
           run: |
-              # Try to create a new tag. If the tag already exists, exit with an error.
               if git rev-parse "$LATEST_TAG" >/dev/null 2>&1; then
                   echo "Tag $LATEST_TAG already exists. Please update the package version."
                   exit 1
+              else
+                  echo "Tag v${{ env.LATEST_TAG }} is available."
+              fi
 
     build:
         strategy:
