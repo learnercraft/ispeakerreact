@@ -20,11 +20,21 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@main
 
+        - name: Get version from package.json
+          id: get_version
+          run: |
+              echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
         - name: Get latest tag
           id: get_tag
           run: |
-              latest_tag=$(git describe --tags --abbrev=0 || echo "")
-              echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
+              latest_tag=$(git tag | sort -V | tail -n 1)
+              if [ -z "$latest_tag" ]; then
+                new_tag="v${{ env.PACKAGE_VERSION }}"
+              else
+                new_tag=$(( ${latest_tag%.*} + 1 ))
+              fi
+              echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
         - name: Check if package version matches latest tag
           run: |
@@ -178,16 +188,11 @@ jobs:
             - name: Get latest tag
               id: get_tag
               run: |
-                  latest_tag=$(git describe --tags --abbrev=0 || echo "")
+                  latest_tag=$(git tag | sort -V | tail -n 1)
                   if [ -z "$latest_tag" ]; then
-                      new_tag="v${{ env.PACKAGE_VERSION }}"
+                    new_tag="v${{ env.PACKAGE_VERSION }}"
                   else
-                      if [ "$latest_tag" == "v${{ env.PACKAGE_VERSION }}" ]; then
-                          random_str=$(openssl rand -hex 4)
-                          new_tag="v${{ env.PACKAGE_VERSION }}-$random_str"
-                      else
-                          new_tag="v${{ env.PACKAGE_VERSION }}"
-                      fi
+                    new_tag=$(( ${latest_tag%.*} + 1 ))
                   fi
                   echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
