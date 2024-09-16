@@ -190,10 +190,9 @@ jobs:
 
             - name: Upload Release Assets
               run: |
-                if [ -d ./release ]; then
                   for artifact in ./release/iSpeakerReact-*; do
                     if [ -d "$artifact" ]; then
-                      find "$artifact" -type f | while IFS= read -r -d '' file; do
+                      find "$artifact" -type f -print0 | while IFS= read -r -d '' file; do
                         if [[ "$file" == *"RELEASES"* ]]; then
                           echo "Skipping $file"
                           continue
@@ -206,12 +205,8 @@ jobs:
                         fi
                       done
                     else
-                      echo "No artifacts found in $artifact"
+                      echo "No artifact found in $artifact"
                     fi
                   done
-                else
-                  echo "No release directory found."
-                  exit 1
-                fi
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
