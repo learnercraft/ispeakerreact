@@ -35,7 +35,8 @@ jobs:
               if [ -z "$latest_tag" ]; then
                 new_tag="v${{ env.PACKAGE_VERSION }}"
               else
-                new_tag=$(( ${latest_tag%.*} + 1 ))
+                random_str=$(openssl rand -hex 4)
+                new_tag=$(( ${latest_tag%.*}-$random_str ))
               fi
               echo "LATEST_TAG=$new_tag" >> $GITHUB_ENV
 
