@@ -129,8 +129,6 @@ jobs:
                   path: |
                       out/make*
                       out/make-*
-                      out/make*/**/*.exe
-                      out/make*/**/*.nupkg
 
     release:
         runs-on: ubuntu-latest
@@ -185,8 +183,12 @@ jobs:
 
             - name: Upload Release Assets
               run: |
-                  for artifact in ./release/iSpeakerReact-*; do
-                    for file in $(find $artifact -type f); do
+                  for artifact in "./release/iSpeakerReact-*"; do
+                    for file in $(find "$artifact" -type f); do
+                      if [[ "$file" == *"RELEASES"* ]]; then
+                        echo "Skipping $file"
+                        continue
+                      fi
                       echo "Attempting to upload: $file"
                       if gh release upload ${{ env.latest_tag }} "$file" --clobber; then
                         echo "Successfully uploaded: $file"
