@@ -57,7 +57,7 @@ module.exports = {
         {
             name: "@electron-forge/maker-squirrel",
             config: (arch) => ({
-                setupExe: `iSpeakerReact-${arch}-Setup.exe`,
+                setupExe: `iSpeakerReact-win32-${arch}-Setup.exe`,
             }),
         },
     ],
