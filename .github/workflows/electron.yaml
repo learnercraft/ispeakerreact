@@ -36,12 +36,12 @@ jobs:
               fi
               echo "latest_tag=$new_tag" >> $GITHUB_ENV
 
-        - name: Check if package version matches latest tag
+        - name: Create tag
           run: |
-              if [ "${{ env.LATEST_TAG }}" == "v${{ env.PACKAGE_VERSION }}" ]; then
-                echo "Error: Package version matches the latest tag. Please update the package version."
-                exit 1
-              fi
+              # Try to create a new tag. If the tag already exists, exit with an error.
+              if git rev-parse "$LATEST_TAG" >/dev/null 2>&1; then
+                  echo "Tag $LATEST_TAG already exists. Please update the package version."
+                  exit 1
 
     build:
         strategy:
