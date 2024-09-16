@@ -21,6 +21,8 @@ jobs:
                 include:
                     - os: macos-latest
                       arch: [x64, arm64]
+                    - os: windows-latest
+                      arch: [x64, arm64]  # Added ARM64 for Windows
 
         runs-on: ${{ matrix.os }}
 
@@ -102,8 +104,19 @@ jobs:
                     mv out/make/* out/make-$arch/
                   done
 
-            - name: Build Electron app (Windows & Linux)
-              if: matrix.os != 'macos-latest'
+            - name: Build Electron app (Windows)
+              if: matrix.os == 'windows-latest'
+              run: |
+                  for arch in ${{ join(matrix.arch, ' ') }}; do
+                    npm run make -- --arch=$arch
+                    mkdir -p out/make-$arch
+                    mv out/make/* out/make-$arch/
+                  done
+              env:
+                  CSC_IDENTITY_AUTO_DISCOVERY: false
+
+            - name: Build Electron app (Linux)
+              if: matrix.os == 'ubuntu-latest'
               run: npm run make
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
@@ -111,10 +124,10 @@ jobs:
             - name: Upload Artifacts
               uses: actions/upload-artifact@main
               with:
-                  name: iSpeakerReact-${{ matrix.os }}
+                  name: iSpeakerReact-${{ matrix.os }}-${{ matrix.arch }}
                   path: |
                       out/make*
-                      out/make-*
+                      out/make-$arch/
 
     release:
         runs-on: ubuntu-latest
