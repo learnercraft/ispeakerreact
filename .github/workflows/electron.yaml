@@ -14,43 +14,6 @@ permissions:
     id-token: write
 
 jobs:
-    check-tag:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@main
-
-        - name: Get version from package.json
-          id: get_version
-          run: |
-              echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
-        
-        - name: Fetch tags
-          run: git fetch --tags
-
-        - name: Get latest tag
-          id: get_tag
-          run: |
-              latest_tag=$(git tag | sort -V | tail -n 1)
-              if [ -z "$latest_tag" ]; then
-                new_tag="v${{ env.PACKAGE_VERSION }}"
-              else
-                random_str=$(openssl rand -hex 4)
-                version_prefix=${latest_tag%.*}
-                new_tag="${version_prefix}-${random_str}"
-              fi
-              echo "LATEST_TAG=$new_tag" >> $GITHUB_ENV
-
-        - name: Test create tag
-          run: |
-              git fetch --tags
-              if git rev-parse "${{ env.LATEST_TAG }}" >/dev/null 2>&1; then
-                  echo "Tag ${{ env.LATEST_TAG }} already exists. Please update the package version."
-                  exit 1
-              else
-                  echo "Tag ${{ env.LATEST_TAG }} is available."
-              fi
-
     build:
         strategy:
             matrix:
@@ -62,7 +25,6 @@ jobs:
                       arch: [x64, arm64]  # Added ARM64 for Windows
 
         runs-on: ${{ matrix.os }}
-        needs: check-tag
 
         steps:
             - name: Checkout code
@@ -208,8 +170,8 @@ jobs:
 
             - name: Create tag
               run: |
-                  git tag ${{ env.latest_tag }}
-                  git push origin ${{ env.latest_tag }}
+                  git tag ${{ env.LATEST_TAG }}
+                  git push origin ${{ env.LATEST_TAG }}
 
             - name: Create GitHub release
               id: create_release
@@ -217,7 +179,7 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ env.latest_tag }}
+                  tag_name: ${{ env.LATEST_TAG }}
                   name: v${{ env.PACKAGE_VERSION }}
                   body: |
                       Release version ${{ env.PACKAGE_VERSION }} of the project.
@@ -235,7 +197,7 @@ jobs:
                         continue
                       fi
                       echo "Attempting to upload: $file"
-                      if gh release upload ${{ env.latest_tag }} "$file" --clobber; then
+                      if gh release upload ${{ env.LATEST_TAG }} "$file" --clobber; then
                         echo "Successfully uploaded: $file"
                       else
                         echo "Failed to upload: $file"
