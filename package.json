@@ -1,5 +1,6 @@
 {
     "name": "ispeakerreact",
+    "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
     "version": "2.2.1-a",
