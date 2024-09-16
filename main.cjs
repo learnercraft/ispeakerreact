@@ -8,6 +8,8 @@ const crypto = require("crypto");
 const express = require("express");
 const cors = require("cors");
 
+if (require("electron-squirrel-startup")) app.quit();
+
 // Create Express server
 const expressApp = express();
 
