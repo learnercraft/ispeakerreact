@@ -104,8 +104,7 @@ function createWindow() {
                 { role: "zoomIn" },
                 { role: "zoomOut" },
                 { type: "separator" },
-                { role: "togglefullscreen" },
-                { role: "toggleDevTools" },
+                { role: "togglefullscreen" }
             ],
         },
         {

@@ -53,7 +53,7 @@ const AppInfo = () => {
     };
 
     const openGithubPage = () => {
-        window.electron.openExternal("https://github.com/yell0wsuit/ispeaker"); // Use the API exposed in preload
+        window.electron.openExternal("https://github.com/yell0wsuit/ispeaker/releases/latest");
     };
 
     return (
