@@ -78,6 +78,7 @@ export function usePlaybackFunction(
             },
             (error) => {
                 console.error("Error during playback:", error);
+                window.electron.log("error", `Error during playback: ${error}`);
                 setToastMessage("Error during playback: " + error.message);
                 setShowToast(true);
                 setIsRecordingPlaying(false);
@@ -110,6 +111,7 @@ export function usePlaybackFunction(
             },
             (error) => {
                 console.error("Error during playback:", error);
+                window.electron.log("error", `Error during playback: ${error}`);
                 setToastMessage("Error during playback: " + error.message);
                 setShowToast(true);
                 setIsRecordingPlaying(false);
@@ -126,5 +128,30 @@ export function usePlaybackFunction(
             audioContext // Pass audioContext to playRecording
         );
     };
+
+    // Fix for iOS < 17 playback issue due to AudioContext suspend
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const iOSVersion = isIOS && navigator.userAgent.match(/OS (\d+)_/);
+    const iOSMajorVersion = iOSVersion ? parseInt(iOSVersion[1], 10) : null;
+
+    if (isIOS && iOSMajorVersion && iOSMajorVersion < 17) {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        const resumeAudioContext = () => {
+            if (audioContext.state === "suspended") {
+                audioContext
+                    .resume()
+                    .then(() => {
+                        document.removeEventListener("touchend", resumeAudioContext);
+                    })
+                    .catch((err) => {
+                        console.error("AudioContext resume failed:", err);
+                    });
+            }
+        };
+
+        document.addEventListener("touchend", resumeAudioContext, false);
+    }
+
     return handlePlayRecording;
 }

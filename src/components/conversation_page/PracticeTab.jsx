@@ -70,11 +70,13 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                 setShowToast(true);
             };
             request.onerror = (error) => {
+                window.electron.log("error", `Error saving text: ${error}`);
                 setToastMessage("Error saving text: " + error.message);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error saving text: ", error);
+            window.electron.log("error", `Error saving text: ${error}`);
         }
     };
 
@@ -93,10 +95,12 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
             };
             request.onerror = (error) => {
                 setToastMessage("Error clearing text: " + error.message);
+                window.electron.log("error", `Error clearing text: ${error}`);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
+            window.electron.log("error", `Error clearing text: ${error}`);
             setToastMessage("Error clearing text: " + error.message);
             setShowToast(true);
         }
@@ -124,6 +128,7 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                             const audioBlob = new Blob(audioChunks, { type: event.data.type });
                             saveRecording(audioBlob, recordingKey, event.data.type);
                             setToastMessage("Recording saved.");
+                            window.electron.log("log", `Recording saved: ${recordingKey}`);
                             setShowToast(true);
                             setRecordingExists(true);
                             audioChunks = [];
@@ -142,6 +147,7 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                 })
                 .catch((error) => {
                     setToastMessage("Recording failed: " + error.message);
+                    window.electron.log("error", `Recording failed: ${error}`);
                     setShowToast(true);
                 });
         } else {
@@ -177,6 +183,7 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                 },
                 (error) => {
                     setToastMessage("Error during playback: " + error.message);
+                    window.electron.log("error", `Error saving text: ${error}`);
                     setShowToast(true);
                     setIsRecordingPlaying(false);
                 },

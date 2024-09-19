@@ -9,6 +9,7 @@ import ExerciseTimer from "./ExerciseTimer";
 import ResetSettings from "./ResetSettings";
 import VideoDownloadMenu from "./VideoDownloadMenu";
 import VideoDownloadSubPage from "./VideoDownloadSubPage";
+import LogSettings from "./LogSettings";
 
 const SettingsPage = () => {
     useEffect(() => {
@@ -60,6 +61,12 @@ const SettingsPage = () => {
                                         <>
                                             <hr className="my-4" />
                                             <CachingSettings key={resetFlag} />
+                                        </>
+                                    )}
+                                    {isElectron() && (
+                                        <>
+                                            <hr className="my-4" />
+                                            <LogSettings />
                                         </>
                                     )}
                                     <hr className="my-4" />
