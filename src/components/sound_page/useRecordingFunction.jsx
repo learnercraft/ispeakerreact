@@ -95,6 +95,7 @@ export function useRecordingFunction(
                     })
                     .catch((err) => {
                         console.error("Error accessing the microphone.", err);
+                        window.electron.log("error", `Error accessing the microphone: ${err}`);
                         setToastMessage("Recording failed. Reason(s): " + err.message);
                         setShowToast(true);
                         setIsRecording(false);

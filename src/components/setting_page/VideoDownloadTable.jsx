@@ -140,7 +140,7 @@ const VideoDownloadTable = ({ data }) => {
                                 </Button>
                             </td>
                             <td className="text-center">
-                                {isDownloaded[item.zipFile] ? <CheckCircleFill /> : <XCircleFill />}
+                                {isDownloaded[item.zipFile] ? <CheckCircleFill className="text-success" /> : <XCircleFill className="text-danger" />}
                             </td>
                             <td className="text-center">
                                 <Button onClick={() => handleVerify(item)} disabled={!isDownloaded[item.zipFile]}>

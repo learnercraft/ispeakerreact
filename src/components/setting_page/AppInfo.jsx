@@ -11,6 +11,14 @@ const AppInfo = () => {
     const checkForUpdates = async () => {
         setIsLoading(true);
 
+        if (!navigator.onLine) {
+            setAlertMessage("No internet connection. Please check your connection and try again.");
+            setAlertVariant("warning");
+            setAlertVisible(true);
+            setIsLoading(false);
+            return;
+        }
+
         try {
             // Replace with your real GitHub API endpoint or raw package.json link
             const response = await fetch("https://api.github.com/repos/yell0wsuit/ispeaker/contents/package.json", {
@@ -30,11 +38,13 @@ const AppInfo = () => {
 
             // GitHub returns the content in base64 encoding, so we need to decode it
             const decodedContent = JSON.parse(atob(data.content));
-
             const latestVersion = decodedContent.version;
 
             if (latestVersion !== currentVersion) {
-                setAlertMessage("A new update is found. Go to the project's GitHub page for more information.");
+                const updateMessage = window.electron.isUwp()
+                    ? "A new version is available. Open the Microsoft Store app to update this app."
+                    : "A new update is found. Go to the project's GitHub page for more information.";
+                setAlertMessage(updateMessage);
                 setAlertVariant("success");
                 setAlertVisible(true);
             } else {
@@ -44,6 +54,7 @@ const AppInfo = () => {
             }
         } catch (error) {
             console.error("Failed to fetch version:", error);
+            window.electron.log("Failed to fetch version:", error);
             setAlertMessage("Error checking for updates.");
             setAlertVariant("danger");
             setAlertVisible(true);
@@ -56,11 +67,23 @@ const AppInfo = () => {
         window.electron.openExternal("https://github.com/yell0wsuit/ispeaker/releases/latest");
     };
 
+    const openMsStore = () => {
+        window.electron.openExternal("ms-windows-store://home");
+    };
+
     return (
         <div className="mt-4">
             {alertVisible && (
                 <Alert variant={alertVariant} onClose={() => setAlertVisible(false)} dismissible>
-                    {alertMessage.includes("GitHub") ? (
+                    {window.electron.isUwp() ? (
+                        alertMessage.includes("Microsoft Store") ? (
+                            <>
+                                {alertMessage} <Alert.Link onClick={openMsStore}>Open Microsoft Store</Alert.Link>.
+                            </>
+                        ) : (
+                            { alertMessage }
+                        )
+                    ) : alertMessage.includes("GitHub") ? (
                         <>
                             {alertMessage} <Alert.Link onClick={openGithubPage}>Open GitHub</Alert.Link>.
                         </>
@@ -70,16 +93,16 @@ const AppInfo = () => {
                 </Alert>
             )}
             <Row className="mb-3">
-                <Col xs="auto">
+                <Col xs="auto" className="d-flex align-items-center justify-content-center">
                     <img
                         className="img-fluid"
                         src={`${import.meta.env.BASE_URL}images/icons/windows11/StoreLogo.scale-200.png`}
                         alt="App logo"
                     />
                 </Col>
-                <Col xs="auto" className="align-self-center">
-                    <h4 className="fw-semibold">iSpeakerReact</h4>
-                    <p className="text-body-secondary mb-1">Version {currentVersion}</p>
+                <Col xs="auto" className="align-self-center h-100">
+                    <h4 className="fw-semibold mb-2">iSpeakerReact</h4>
+                    <p className="text-body-secondary mb-2">Version {currentVersion}</p>
                     <Button onClick={checkForUpdates} variant="primary">
                         {isLoading && <Spinner animation="border" size="sm" className="me-2" />}
                         Check for new updates
