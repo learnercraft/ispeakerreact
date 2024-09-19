@@ -78,11 +78,13 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
             };
             request.onerror = (error) => {
                 console.error("Error saving text: ", error);
+                window.electron.log("error", `Error saving text: ${error}`);
                 setToastMessage("Error saving text: " + error.message);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error saving text: ", error);
+            window.electron.log("error", `Error saving text: ${error}`);
         }
     };
 
@@ -107,11 +109,13 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
             };
             request.onerror = (error) => {
                 console.error("Error clearing text: ", error);
+                window.electron.log("error", `Error clearing text: ${error}`);
                 setToastMessage("Error clearing text: " + error.message);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
+            window.electron.log("error", `Error clearing text: ${error}`);
             setToastMessage("Error clearing text: " + error.message);
             setShowToast(true);
         }
@@ -139,6 +143,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                             const recordingKey = `${accent}-exam-${examId}-${index}`;
                             saveRecording(audioBlob, recordingKey, event.data.type);
                             setToastMessage("Recording saved.");
+                            window.electron.log("log", `Recording saved: ${recordingKey}`);
                             setShowToast(true);
                             setRecordingExists((prev) => {
                                 const updatedExists = [...prev];
@@ -161,6 +166,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                 })
                 .catch((error) => {
                     setToastMessage("Recording failed: " + error.message);
+                    window.electron.log("error", `Recording failed: ${error}`);
                     setShowToast(true);
                 });
         } else {
@@ -198,6 +204,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                 },
                 (error) => {
                     setToastMessage("Error during playback: " + error.message);
+                    window.electron.log("error", `Error during playback: ${error}`);
                     setIsRecordingPlaying(false);
                     setActiveTaskIndex(null);
                 },
@@ -232,7 +239,9 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                                             <Ratio aspectRatio="16x9">
                                                 <Image
                                                     role="button"
-                                                    src={`${import.meta.env.BASE_URL}images/ispeaker/exam_images/webp/${image}.webp`}
+                                                    src={`${
+                                                        import.meta.env.BASE_URL
+                                                    }images/ispeaker/exam_images/webp/${image}.webp`}
                                                     thumbnail
                                                     onClick={() => handleImageClick(image)}
                                                 />
