@@ -18,17 +18,15 @@ Visit the webiste to use the tool online: <https://yell0wsuit.github.io/ispeaker
 
 Or download the offline portable version: <https://github.com/yell0wsuit/ispeaker/releases/latest>
 
-The offline portable version includes audio files for offline playback. You can manually download the video files in the Settings page for offline use.
+For Windows, you can also download from the Microsoft Store if you want automatic updates:
 
-![](./public/images/homepage_screenshot.webp)
-
-## Now available as an app on Microsoft Store
-
-<a href="https://apps.microsoft.com/store/detail/9PNK809K6635?launch=true&mode=mini">
+<a href="https://apps.microsoft.com/store/detail/9NWK49GLXGFP?launch=true&mode=mini">
  <img width="300px" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
 </a>
 
-*The Microsoft Store version will be soon updated to follow the new version, along with name change.*
+The offline portable version (or "Slim edition" on the Microsoft Store) includes audio files for offline playback. You can manually download the video files in the Settings page for offline use.
+
+![](./public/images/homepage_screenshot.webp)
 
 **==Also check out other English-learning interactive tools==**
 
