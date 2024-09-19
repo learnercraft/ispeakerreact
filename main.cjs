@@ -652,20 +652,6 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
     }
 });
 
-// Retrieve offline video path
-ipcMain.handle("get-offline-video-file-path", (event, folderName, videoFileName) => {
-    const documentsPath = app.getPath("documents");
-    const videoFolder = path.join(documentsPath, "iSpeakerReact", "video_files", folderName); // Use folderName passed from the renderer
-    let videoFilePath = path.join(videoFolder, videoFileName);
-
-    if (fs.existsSync(videoFilePath)) {
-        videoFilePath = videoFilePath.replace(/\\/g, "/");
-        return `video-file://${videoFilePath}`; // Return the full path to the video file
-    } else {
-        throw new Error(`File not found: ${videoFilePath}`);
-    }
-});
-
 // Listen for logging messages from the renderer process
 ipcMain.on("renderer-log", (event, logMessage) => {
     const { level, message } = logMessage;
