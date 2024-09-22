@@ -206,23 +206,30 @@ jobs:
         if: github.event_name == 'pull_request'
 
         steps:
-            - name: debug
-              run: echo steps.upload-mac-x64.artifact-id
+          - name: Set Artifact URLs
+            id: set-urls
+            run: |
+              echo "mac_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-x64.artifact-id }}/macos-x64" >> $GITHUB_OUTPUT
+              echo "mac_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-arm64.artifact-id }}/macos-arm64" >> $GITHUB_OUTPUT
+              echo "win_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-x64.artifact-id }}/windows-x64" >> $GITHUB_OUTPUT
+              echo "win_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-arm64.artifact-id }}/windows-arm64" >> $GITHUB_OUTPUT
+              echo "linux_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-linux-x64.artifact-id }}/linux-x64" >> $GITHUB_OUTPUT
 
-            - name: Post Comment with Download Links
-              if: ${{ github.event_name == 'pull_request' }}
-              uses: peter-evans/create-or-update-comment@main
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  repository: ${{ github.repository }}
-                  issue-number: ${{ github.event.pull_request.number }}
-                  body: |
-                      :package: **Build artifacts** are ready for download:
-                      - [Download for macOS (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-x64.artifact-id }}/macos-x64)
-                      - [Download for macOS Apple Silicon (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-arm64.artifact-id }}/macos-arm64)
-                      - [Download for Windows (64-bit)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-x64.artifact-id }}/windows-x64)
-                      - [Download for Windows on Arm (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-arm64.artifact-id }}/windows-arm64)
-                      - [Download for Linux (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-linux-x64.artifact-id }}/linux-x64)
+          - name: Post or Update Comment with Download Links
+            uses: peter-evans/create-or-update-comment@main
+            with:
+              token: ${{ secrets.GITHUB_TOKEN }}
+              repository: ${{ github.repository }}
+              issue-number: ${{ github.event.pull_request.number }}
+              body: |
+                :package: **Build artifacts** are ready for download:
+                - [Download for macOS (x64)](${{ steps.set-urls.outputs.mac_x64_url }})
+                - [Download for macOS Apple Silicon (arm64)](${{ steps.set-urls.outputs.mac_arm64_url }})
+                - [Download for Windows (64-bit)](${{ steps.set-urls.outputs.win_x64_url }})
+                - [Download for Windows on Arm (arm64)](${{ steps.set-urls.outputs.win_arm64_url }})
+                - [Download for Linux (x64)](${{ steps.set-urls.outputs.linux_x64_url }})
+              comment-id: build-artifacts
+
 
     release:
         if: github.event.pull_request.merged == true
