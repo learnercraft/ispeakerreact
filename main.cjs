@@ -293,7 +293,7 @@ function createWindow() {
                 {
                     label: "Project's GitHub page",
                     click: () => {
-                        shell.openExternal("https://github.com/yell0wsuit/ispeaker");
+                        shell.openExternal("https://github.com/yllst-testing-labs/ispeakerreact");
                     },
                 },
             ],

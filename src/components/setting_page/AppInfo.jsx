@@ -12,7 +12,7 @@ const AppInfo = () => {
         setIsLoading(true);
 
         if (!navigator.onLine) {
-            setAlertMessage("No internet connection. Please check your connection and try again.");
+            setAlertMessage("No Internet connection. Please check your connection and try again.");
             setAlertVariant("warning");
             setAlertVisible(true);
             setIsLoading(false);
@@ -20,19 +20,22 @@ const AppInfo = () => {
         }
 
         try {
-            // Replace with your real GitHub API endpoint or raw package.json link
-            const response = await fetch("https://api.github.com/repos/yell0wsuit/ispeaker/contents/package.json", {
-                headers: {
-                    "Content-Type": "application/json",
-                    "User-Agent": "iSpeakerReact-yell0wsuit",
-                    Accept: "application/vnd.github.v3+json",
-                },
-            });
+            const response = await fetch(
+                "https://api.github.com/repos/yllst-testing-labs/ispeakerreact/contents/package.json",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "User-Agent": "iSpeakerReact-yllst-testing-labs",
+                        Accept: "application/vnd.github.v3+json",
+                    },
+                }
+            );
 
             const data = await response.json();
 
             // Check if html_url contains the expected URL
-            if (!data.html_url || !data.html_url.startsWith("https://github.com/yell0wsuit/ispeaker/")) {
+            if (!data.html_url || !data.html_url.startsWith("https://github.com/yllst-testing-labs/ispeakerreact/")) {
+                window.electron.log("error", "The html_url is invalid or does not match the expected repository.");
                 throw new Error("The html_url is invalid or does not match the expected repository.");
             }
 
@@ -54,7 +57,7 @@ const AppInfo = () => {
             }
         } catch (error) {
             console.error("Failed to fetch version:", error);
-            window.electron.log("Failed to fetch version:", error);
+            window.electron.log("error", `Failed to fetch version. ${error}`);
             setAlertMessage("Error checking for updates.");
             setAlertVariant("danger");
             setAlertVisible(true);
@@ -81,7 +84,7 @@ const AppInfo = () => {
                                 {alertMessage} <Alert.Link onClick={openMsStore}>Open Microsoft Store</Alert.Link>.
                             </>
                         ) : (
-                            { alertMessage }
+                            alertMessage
                         )
                     ) : alertMessage.includes("GitHub") ? (
                         <>
