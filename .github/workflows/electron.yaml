@@ -24,7 +24,7 @@ jobs:
                     - os: macos-latest
                       arch: [x64, arm64]
                     - os: windows-latest
-                      arch: [x64, arm64]  # Added ARM64 for Windows
+                      arch: [x64, arm64] # Added ARM64 for Windows
 
         runs-on: ${{ matrix.os }}
 
@@ -129,22 +129,52 @@ jobs:
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
 
-            - name: Upload Artifacts
+            - name: Upload Artifacts (macOS x64)
+              if: matrix.os == 'macos-latest' && contains(matrix.arch, 'x64')
+              id: upload-mac-x64
               uses: actions/upload-artifact@main
               with:
-                  name: iSpeakerReact-${{ matrix.os }}
-                  path: |
-                      out/make*
-                      out/make-*
+                name: iSpeakerReact-macos-x64
+                path: out/make-x64
+      
+            - name: Upload Artifacts (macOS arm64)
+              if: matrix.os == 'macos-latest' && contains(matrix.arch, 'arm64')
+              id: upload-mac-arm64
+              uses: actions/upload-artifact@main
+              with:
+                name: iSpeakerReact-macos-arm64
+                path: out/make-arm64
+      
+            - name: Upload Artifacts (Windows x64)
+              if: matrix.os == 'windows-latest' && contains(matrix.arch, 'x64')
+              id: upload-win-x64
+              uses: actions/upload-artifact@main
+              with:
+                name: iSpeakerReact-windows-x64
+                path: out/make-x64
+      
+            - name: Upload Artifacts (Windows arm64)
+              if: matrix.os == 'windows-latest' && contains(matrix.arch, 'arm64')
+              id: upload-win-arm64
+              uses: actions/upload-artifact@main
+              with:
+                name: iSpeakerReact-windows-arm64
+                path: out/make-arm64
+      
+            - name: Upload Artifacts (Linux x64)
+              if: matrix.os == 'ubuntu-latest'
+              id: upload-linux-x64
+              uses: actions/upload-artifact@main
+              with:
+                name: iSpeakerReact-linux-x64
+                path: out/make
 
-            - name: Upload Artifacts
-              uses: actions/upload-artifact@main
-              with:
-                  name: iSpeakerReact-${{ matrix.os }}-${{ matrix.arch }}
-                  path: |
-                      out/make*
-                      out/make-*
-            
+    comment:
+        runs-on: ubuntu-latest
+        needs: build
+        if: github.event_name == 'pull_request'
+
+        steps:
             - name: Post Comment with Download Links
               if: ${{ github.event_name == 'pull_request' }}
               uses: peter-evans/create-or-update-comment@main
@@ -154,11 +184,11 @@ jobs:
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
                       :package: **Build artifacts** are ready for download:
-                      - [Download for macOS x64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-mac-x64.outputs.artifact_id }}/macos-x64)
-                      - [Download for macOS arm64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-mac-arm64.outputs.artifact_id }}/macos-arm64)
-                      - [Download for Windows x64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-win-x64.outputs.artifact_id }}/windows-x64)
-                      - [Download for Windows arm64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-win-arm64.outputs.artifact_id }}/windows-arm64)
-                      - [Download for Ubuntu x64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-linux-x64.outputs.artifact_id }}/ubuntu-x64)
+                      - [Download for macOS (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-mac-x64'].artifact_id }}/macos-x64)
+                      - [Download for macOS Apple Silicon (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-mac-arm64'].artifact_id }}/macos-arm64)
+                      - [Download for Windows (64-bit)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-win-x64'].artifact_id }}/windows-x64)
+                      - [Download for Windows on Arm (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-win-arm64'].artifact_id }}/windows-arm64)
+                      - [Download for Linux (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-linux-x64'].artifact_id }}/linux-x64)
 
     release:
         if: github.event.pull_request.merged == true
