@@ -159,6 +159,7 @@ jobs:
                       - [Download for Ubuntu x64](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.build-linux-x64.outputs.artifact_id }}/ubuntu-x64)
 
     release:
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
         needs: build
 
@@ -206,7 +207,6 @@ jobs:
                   name: v${{ env.PACKAGE_VERSION }}
                   body: |
                       Release version ${{ env.PACKAGE_VERSION }} of the project.
-                  prerelease: ${{ github.event_name == 'pull_request' }}
 
             - name: Display the release directory structure
               run: ls -R ./release
