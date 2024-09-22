@@ -251,11 +251,11 @@ jobs:
             - name: Set Artifact URLs
               id: set-urls
               run: |
-                  echo "mac_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.mac_x64_artifact_id }}/macos-x64" >> $GITHUB_OUTPUT
-                  echo "mac_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.mac_arm64_artifact_id }}/macos-arm64" >> $GITHUB_OUTPUT
-                  echo "win_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.win_x64_artifact_id }}/windows-x64" >> $GITHUB_OUTPUT
-                  echo "win_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.win_arm64_artifact_id }}/windows-arm64" >> $GITHUB_OUTPUT
-                  echo "linux_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.linux_x64_artifact_id }}/linux-x64" >> $GITHUB_OUTPUT
+                  echo "mac_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.mac_x64_artifact_id }}.zip" >> $GITHUB_OUTPUT
+                  echo "mac_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.mac_arm64_artifact_id }}.zip" >> $GITHUB_OUTPUT
+                  echo "win_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.win_x64_artifact_id }}.zip" >> $GITHUB_OUTPUT
+                  echo "win_arm64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.win_arm64_artifact_id }}.zip" >> $GITHUB_OUTPUT
+                  echo "linux_x64_url=https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs.linux_x64_artifact_id }}.zip" >> $GITHUB_OUTPUT
 
             - name: Post or Update Comment with Download Links
               uses: peter-evans/create-or-update-comment@main
