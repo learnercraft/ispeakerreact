@@ -15,6 +15,8 @@
         "start": "concurrently \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .\"",
         "package": "vite build --mode electron && electron-forge package",
         "make": "vite build --mode electron && electron-forge make",
+        "vitebuildcli": "vite build --mode electron",
+        "makecli": "electron-forge make",
         "appx": "vite build --mode electron && electron-forge package && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
         "appxarm": "vite build --mode electron && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml"
     },
