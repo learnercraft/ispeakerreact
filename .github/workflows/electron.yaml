@@ -200,28 +200,13 @@ jobs:
                   name: iSpeakerReact-linux-x64
                   path: out/make-linux-x64
 
-    collect-metadata:
-      runs-on: ubuntu-latest
-      needs: build
-      if: github.event_name == 'pull_request'
-
-      steps:
-        - name: Create metadata for all platforms
-          run: |
-            echo "::set-output name=upload-mac-x64::${{ needs.build.outputs.upload-mac-x64 }}"
-            echo "::set-output name=upload-mac-arm64::${{ needs.build.outputs.upload-mac-arm64 }}"
-            echo "::set-output name=upload-win-x64::${{ needs.build.outputs.upload-win-x64 }}"
-            echo "::set-output name=upload-win-arm64::${{ needs.build.outputs.upload-win-arm64 }}"
-            echo "::set-output name=upload-linux-x64::${{ needs.build.outputs.upload-linux-x64 }}"
-
     comment:
         runs-on: ubuntu-latest
-        needs: collect-metadata
         if: github.event_name == 'pull_request'
 
         steps:
             - name: debug
-              run: echo needs.build.outputs['upload-mac-x64']
+              run: echo steps.upload-mac-x64.artifact-id
 
             - name: Post Comment with Download Links
               if: ${{ github.event_name == 'pull_request' }}
@@ -232,11 +217,11 @@ jobs:
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
                       :package: **Build artifacts** are ready for download:
-                      - [Download for macOS (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-mac-x64'].artifact_id }}/macos-x64)
-                      - [Download for macOS Apple Silicon (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-mac-arm64'].artifact_id }}/macos-arm64)
-                      - [Download for Windows (64-bit)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-win-x64'].artifact_id }}/windows-x64)
-                      - [Download for Windows on Arm (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-win-arm64'].artifact_id }}/windows-arm64)
-                      - [Download for Linux (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ needs.build.outputs['upload-linux-x64'].artifact_id }}/linux-x64)
+                      - [Download for macOS (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-x64.artifact-id }}/macos-x64)
+                      - [Download for macOS Apple Silicon (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-mac-arm64.artifact-id }}/macos-arm64)
+                      - [Download for Windows (64-bit)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-x64.artifact-id }}/windows-x64)
+                      - [Download for Windows on Arm (arm64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-win-arm64.artifact-id }}/windows-arm64)
+                      - [Download for Linux (x64)](https://nightly.link/${{ github.repository }}/actions/artifacts/${{ steps.upload-linux-x64.artifact-id }}/linux-x64)
 
     release:
         if: github.event.pull_request.merged == true
