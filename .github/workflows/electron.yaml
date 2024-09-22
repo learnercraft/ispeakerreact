@@ -272,7 +272,7 @@ jobs:
                   comment-id: ${{ needs.get-comment-id.outputs.comment-id }}
 
     release:
-        if: github.event.pull_request.merged == true
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         needs: build
 
