@@ -12,9 +12,6 @@ contextBridge.exposeInMainWorld("electron", {
         removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
     },
     getDirName: () => __dirname,
-    process: {
-        env: process.env,
-    },
     isUwp: () => process.windowsStore,
     send: (channel, data) => {
         ipcRenderer.send(channel, data);
