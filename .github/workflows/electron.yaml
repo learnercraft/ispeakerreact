@@ -16,6 +16,30 @@ permissions:
     issues: write
 
 jobs:
+    vite-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@main
+
+            - name: Set up Node.js
+              uses: actions/setup-node@main
+              with:
+                  node-version: "21"
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Build Vite App
+              run: npm run vitebuildcli
+
+            - name: Upload Vite Build Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: vite-dist
+                  path: ./dist
+
     build:
         strategy:
             matrix:
@@ -24,13 +48,20 @@ jobs:
                     - os: macos-latest
                       arch: [x64, arm64]
                     - os: windows-latest
-                      arch: [x64, arm64] # Added ARM64 for Windows
+                      arch: [x64, arm64]
 
         runs-on: ${{ matrix.os }}
+        needs: vite-build
 
         steps:
             - name: Checkout code
               uses: actions/checkout@main
+
+            - name: Download Vite Build Artifact
+              uses: actions/download-artifact@main
+              with:
+                name: vite-dist
+                path: ./dist
 
             - name: Get version from package.json
               id: get_version
@@ -106,9 +137,9 @@ jobs:
               run: |
                   source venv/bin/activate
                   for arch in ${{ join(matrix.arch, ' ') }}; do
-                    npm run make -- --arch=$arch
-                    mkdir -p out/make-$arch
-                    mv out/make/* out/make-$arch/
+                    npm run makecli -- --arch=$arch
+                    mkdir -p out/make-mac-$arch
+                    mv out/make/* out/make-mac-$arch/
                   done
 
             - name: Build Electron app (Windows)
@@ -116,16 +147,16 @@ jobs:
               run: |
                   $architectures = @("x64", "arm64")
                   foreach ($arch in $architectures) {
-                      npm run make -- --arch=$arch
-                      New-Item -ItemType Directory -Force -Path "out/make-$arch"
-                      Move-Item -Path "out/make/*" -Destination "out/make-$arch/"
+                      npm run makecli -- --arch=$arch
+                      New-Item -ItemType Directory -Force -Path "out/make-win-$arch"
+                      Move-Item -Path "out/make/*" -Destination "out/make-win-$arch/"
                   }
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
 
             - name: Build Electron app (Linux)
               if: matrix.os == 'ubuntu-latest'
-              run: npm run make
+              run: npm run makecli
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
 
@@ -134,47 +165,64 @@ jobs:
               id: upload-mac-x64
               uses: actions/upload-artifact@main
               with:
-                name: iSpeakerReact-macos-x64
-                path: out/make-x64
-      
+                  name: iSpeakerReact-macos-x64
+                  path: out/make-mac-x64
+
             - name: Upload Artifacts (macOS arm64)
               if: matrix.os == 'macos-latest' && contains(matrix.arch, 'arm64')
               id: upload-mac-arm64
               uses: actions/upload-artifact@main
               with:
-                name: iSpeakerReact-macos-arm64
-                path: out/make-arm64
-      
+                  name: iSpeakerReact-macos-arm64
+                  path: out/make-mac-arm64
+
             - name: Upload Artifacts (Windows x64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'x64')
               id: upload-win-x64
               uses: actions/upload-artifact@main
               with:
-                name: iSpeakerReact-windows-x64
-                path: out/make-x64
-      
+                  name: iSpeakerReact-windows-x64
+                  path: out/make-win-x64
+
             - name: Upload Artifacts (Windows arm64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'arm64')
               id: upload-win-arm64
               uses: actions/upload-artifact@main
               with:
-                name: iSpeakerReact-windows-arm64
-                path: out/make-arm64
-      
+                  name: iSpeakerReact-windows-arm64
+                  path: out/make-win-arm64
+
             - name: Upload Artifacts (Linux x64)
               if: matrix.os == 'ubuntu-latest'
               id: upload-linux-x64
               uses: actions/upload-artifact@main
               with:
-                name: iSpeakerReact-linux-x64
-                path: out/make
+                  name: iSpeakerReact-linux-x64
+                  path: out/make-linux-x64
+
+    collect-metadata:
+      runs-on: ubuntu-latest
+      needs: build
+      if: github.event_name == 'pull_request'
+
+      steps:
+        - name: Create metadata for all platforms
+          run: |
+            echo "::set-output name=upload-mac-x64::${{ needs.build.outputs.upload-mac-x64 }}"
+            echo "::set-output name=upload-mac-arm64::${{ needs.build.outputs.upload-mac-arm64 }}"
+            echo "::set-output name=upload-win-x64::${{ needs.build.outputs.upload-win-x64 }}"
+            echo "::set-output name=upload-win-arm64::${{ needs.build.outputs.upload-win-arm64 }}"
+            echo "::set-output name=upload-linux-x64::${{ needs.build.outputs.upload-linux-x64 }}"
 
     comment:
         runs-on: ubuntu-latest
-        needs: build
+        needs: collect-metadata
         if: github.event_name == 'pull_request'
 
         steps:
+            - name: debug
+              run: echo needs.build.outputs['upload-mac-x64']
+
             - name: Post Comment with Download Links
               if: ${{ github.event_name == 'pull_request' }}
               uses: peter-evans/create-or-update-comment@main
