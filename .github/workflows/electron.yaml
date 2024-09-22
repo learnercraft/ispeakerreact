@@ -163,7 +163,10 @@ jobs:
 
             - name: Build Electron app (Linux)
               if: matrix.os == 'ubuntu-latest'
-              run: npm run makecli
+              run: | 
+                  npm run makecli
+                  mkdir -p out/make-linux
+                  mv out/make/* out/make-linux/
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
 
@@ -205,7 +208,7 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-linux-x64
-                  path: out/make-linux-x64
+                  path: out/make-linux
 
     get-comment-id:
         runs-on: ubuntu-latest
@@ -219,7 +222,7 @@ jobs:
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   script: |
-                      const comments = await github.issues.listComments({
+                      const comments = await github.rest.issues.listComments({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         issue_number: context.issue.number,
@@ -227,7 +230,7 @@ jobs:
 
                       const comment = comments.data.find(
                         (comment) =>
-                          comment.user.login === "github-actions[bot]" &&
+                          comment.user.login === "github-actions[bot]" && comment.user.id == 41898282 &&
                           comment.body.includes(":package: **Build artifacts** are ready for download")
                       );
 
