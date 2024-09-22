@@ -182,7 +182,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         autoComplete="off"
                         spellCheck="false"
                         disabled={isTextboxDisabled}
-                        className={`text-center${hasValueAndTextbox ? " mx-2" : " w-50 mx-auto"}`}
+                        className={`px-0 text-center${hasValueAndTextbox ? " mx-2" : " w-50 mx-auto"}`}
                         style={hasValueAndTextbox ? { width: "40%", display: "inline-block" } : {}}
                     />
                 );
