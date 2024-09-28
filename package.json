@@ -3,7 +3,7 @@
     "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "2.3.1",
+    "version": "2.3.2",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
