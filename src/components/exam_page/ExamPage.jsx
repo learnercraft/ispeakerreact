@@ -112,7 +112,7 @@ const ExamPage = () => {
     };
 
     useEffect(() => {
-        document.title = `Exams | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Exams | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     return (

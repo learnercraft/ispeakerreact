@@ -37,7 +37,7 @@ const ExercisePage = () => {
     };
 
     useEffect(() => {
-        document.title = `Exercises | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Exercises | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     const ExerciseCard = ({ heading, titles, info, file }) => (

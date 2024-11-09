@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Col, Row, Spinner } from "react-bootstrap";
+import { BoxArrowUpRight } from "react-bootstrap-icons";
 
 const AppInfo = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -44,9 +45,7 @@ const AppInfo = () => {
             const latestVersion = decodedContent.version;
 
             if (latestVersion !== currentVersion) {
-                const updateMessage = window.electron.isUwp()
-                    ? "A new version is available. Open the Microsoft Store app to update this app."
-                    : "A new update is found. Go to the project's GitHub page for more information.";
+                const updateMessage = "A new update is found. Go to the project's GitHub page for more information.";
                 setAlertMessage(updateMessage);
                 setAlertVariant("success");
                 setAlertVisible(true);
@@ -71,22 +70,14 @@ const AppInfo = () => {
     };
 
     const openMsStore = () => {
-        window.electron.openExternal("ms-windows-store://home");
+        window.electron.openExternal("ms-windows-store://pdp/?productid=9NWK49GLXGFP");
     };
 
     return (
         <div className="mt-4">
             {alertVisible && (
                 <Alert variant={alertVariant} onClose={() => setAlertVisible(false)} dismissible>
-                    {window.electron.isUwp() ? (
-                        alertMessage.includes("Microsoft Store") ? (
-                            <>
-                                {alertMessage} <Alert.Link onClick={openMsStore}>Open Microsoft Store</Alert.Link>.
-                            </>
-                        ) : (
-                            alertMessage
-                        )
-                    ) : alertMessage.includes("GitHub") ? (
+                    {alertMessage.includes("GitHub") ? (
                         <>
                             {alertMessage} <Alert.Link onClick={openGithubPage}>Open GitHub</Alert.Link>.
                         </>
@@ -106,10 +97,16 @@ const AppInfo = () => {
                 <Col xs="auto" className="align-self-center h-100">
                     <h4 className="fw-semibold mb-2">iSpeakerReact</h4>
                     <p className="text-body-secondary mb-2">Version {currentVersion}</p>
-                    <Button onClick={checkForUpdates} variant="primary">
-                        {isLoading && <Spinner animation="border" size="sm" className="me-2" />}
-                        Check for new updates
-                    </Button>
+                    {window.electron.isUwp() ? (
+                        <Button onClick={openMsStore} variant="primary">
+                            Check for updates in Microsoft Store <BoxArrowUpRight />
+                        </Button>
+                    ) : (
+                        <Button onClick={checkForUpdates} variant="primary">
+                            {isLoading && <Spinner animation="border" size="sm" className="me-2" />}
+                            Check for new updates
+                        </Button>
+                    )}
                 </Col>
             </Row>
         </div>
