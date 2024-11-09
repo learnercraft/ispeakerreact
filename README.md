@@ -6,7 +6,7 @@
 
 *Formerly Oxford iSpeaker on this repo, a modified version of the official tool of the same name.*
 
-**Introducing iSpeakerReact**: A modern reimagining of Oxford iSpeaker
+**Introducing iSpeakerReact**: A modern reimagining, open-source alternative to Oxford iSpeaker
 
 Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. Based on the original Oxford iSpeaker developed by Oxford University, this new version blends the best of both worlds.
 
