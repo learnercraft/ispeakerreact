@@ -11,7 +11,7 @@ function Homepage() {
     };
 
     useEffect(() => {
-        document.title = `Homepage | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Homepage | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     const cardsInfo = [

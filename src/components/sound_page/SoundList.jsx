@@ -118,7 +118,7 @@ const SoundList = () => {
     }, []);
 
     useEffect(() => {
-        document.title = `Sounds | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Sounds | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     return (
