@@ -114,7 +114,7 @@ const ConversationListPage = () => {
     };
 
     useEffect(() => {
-        document.title = `Conversations | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Conversations | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     return (

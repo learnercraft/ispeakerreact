@@ -13,7 +13,7 @@ import LogSettings from "./LogSettings";
 
 const SettingsPage = () => {
     useEffect(() => {
-        document.title = `Settings | iSpeakerReact ${__APP_VERSION__}`;
+        document.title = `Settings | iSpeakerReact v${__APP_VERSION__}`;
     }, []);
 
     const [resetFlag, setResetFlag] = useState(false); // Boolean flag to force remount
