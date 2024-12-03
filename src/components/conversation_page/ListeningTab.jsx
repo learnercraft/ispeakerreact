@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import ToastNotification from "../general/ToastNotification";
 
 const ListeningTab = ({ sentences }) => {
+    const { t } = useTranslation();
+
     const [currentAudio, setCurrentAudio] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
     const [loadingIndex, setLoadingIndex] = useState(null);
@@ -70,9 +73,7 @@ const ListeningTab = ({ sentences }) => {
                         setCurrentAudio(null);
                         setPlayingIndex(null);
                         console.log("Audio loading error");
-                        alert(
-                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                        );
+                        alert(t("toast.audioPlayFailed"));
                     };
 
                     setCurrentAudio(audio);
@@ -82,9 +83,7 @@ const ListeningTab = ({ sentences }) => {
                         console.log("Audio loading aborted");
                     } else {
                         console.error("Error loading audio:", error);
-                        setToastMessage(
-                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                        );
+                        setToastMessage(t("toast.audioPlayFailed"));
                         setShowToast(true);
                     }
                     setLoadingIndex(null);
@@ -115,7 +114,7 @@ const ListeningTab = ({ sentences }) => {
                     <Col key={index}>
                         <Card className="shadow-sm">
                             <Card.Header>
-                                <div className="fw-semibold">{subtopic.title}</div>
+                                <div className="fw-semibold">{t(subtopic.title)}</div>
                             </Card.Header>
                             <Card.Body>
                                 <ListGroup variant="flush">

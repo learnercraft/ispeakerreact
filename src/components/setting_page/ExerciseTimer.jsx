@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Collapse, Form, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const defaultTimerSettings = {
     enabled: false,
@@ -13,6 +14,8 @@ const defaultTimerSettings = {
 };
 
 const ExerciseTimer = () => {
+    const { t } = useTranslation();
+
     const [timerSettings, setTimerSettings] = useState(() => {
         const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
         if (savedSettings && savedSettings.timerSettings) {
@@ -83,24 +86,24 @@ const ExerciseTimer = () => {
     }, [tempSettings]);
 
     const exerciseNames = {
-        dictation: "Dictation",
-        matchup: "Match-up",
-        reordering: "Reordering",
-        sound_n_spelling: "Sounds and Spelling",
-        sorting: "Sorting",
-        odd_one_out: "Odd One Out",
-        snap: "Snap!",
+        dictation: t("exercise_page.dictationHeading"),
+        matchup: t("exercise_page.matchUpHeading"),
+        reordering: t("exercise_page.reorderingHeading"),
+        sound_n_spelling: t("exercise_page.soundSpellingHeading"),
+        sorting: t("exercise_page.sortingHeading"),
+        odd_one_out: t("exercise_page.oddOneOutHeading"),
+        snap: t("exercise_page.snapHeading"),
     };
 
     return (
         <div className="mt-4">
-            <h4 className="mb-3">Exercise timer</h4>
+            <h4 className="mb-3">{t("settingPage.exerciseSettings.timerHeading")}</h4>
             <Card>
                 <Card.Body>
                     <Form.Group className="px-0 form-switch">
                         <div className="d-flex justify-content-between">
                             <Form.Label className="fw-semibold" htmlFor="enableTimer" role="button">
-                                Enable timer
+                                {t("settingPage.exerciseSettings.timerOption")}
                             </Form.Label>
                             <Form.Control
                                 className="form-check-input"
@@ -114,7 +117,7 @@ const ExerciseTimer = () => {
                     </Form.Group>
 
                     <p className="mb-0 small text-secondary-emphasis">
-                        Extra challenge by completing as many exercises as possible within the time limit.
+                        {t("settingPage.exerciseSettings.timerDescription")}
                     </p>
                     <Collapse in={collapseOpen}>
                         <div>
@@ -138,7 +141,7 @@ const ExerciseTimer = () => {
                                                     }
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    Enter a value between 0 and 10.
+                                                    {t("settingPage.exerciseSettings.textboxError")}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
@@ -146,7 +149,7 @@ const ExerciseTimer = () => {
                                 </Row>
 
                                 <p className="mb-4 small text-secondary-emphasis">
-                                    Setting to 0 to disable timer for specific exercises.
+                                    {t("settingPage.exerciseSettings.hint")}
                                 </p>
                                 <div className="d-flex justify-content-end">
                                     <Button
@@ -155,14 +158,14 @@ const ExerciseTimer = () => {
                                         className="w-25 me-2"
                                         onClick={handleApply}
                                         disabled={!isValid || !isModified}>
-                                        Apply
+                                        {t("settingPage.exerciseSettings.applyBtn")}
                                     </Button>
                                     <Button
                                         variant="secondary"
                                         className="w-25"
                                         onClick={handleCancel}
                                         disabled={!isModified}>
-                                        Cancel
+                                        {t("settingPage.exerciseSettings.cancelBtn")}
                                     </Button>
                                 </div>
                             </Form>

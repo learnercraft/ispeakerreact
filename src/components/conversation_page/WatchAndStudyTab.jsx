@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Accordion, Alert, Card, Col, Form, Ratio, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { isElectron } from "../../utils/isElectron";
 
 const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
+    const { t } = useTranslation();
     const [highlightState, setHighlightState] = useState({});
     const [iframeLoading, setiFrameLoading] = useState(true);
 
@@ -23,7 +25,7 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
             <Row className="mb-4 g-4">
                 <Col md={6}>
                     <Card className="shadow-sm">
-                        <Card.Header className="fw-semibold">Watch the video</Card.Header>
+                        <Card.Header className="fw-semibold">{t("tabConversationExam.watchCard")}</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
                                 <div>
@@ -53,7 +55,7 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
                             </Ratio>
                             {isElectron() && !videoUrl.startsWith("http://localhost") ? (
                                 <Alert variant="secondary" className="mt-4">
-                                    Want to watch the video offline? Head to the “Settings” page to download it.
+                                    {t("alert.alertOnlineVideo")}
                                 </Alert>
                             ) : (
                                 ""
@@ -65,7 +67,7 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <div className="fw-semibold">Study</div>
+                                <div className="fw-semibold">{t("tabConversationExam.studyCard")}</div>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="dialog-section mb-4">
@@ -102,7 +104,7 @@ const WatchAndStudyTab = ({ videoUrl, dialog, skillCheckmark }) => {
                                                                 : "text-bg-secondary"
                                                             : ""
                                                     }`}>
-                                                    {skill.label}
+                                                    {t(skill.label)}
                                                 </span>
                                             </Form.Check.Label>
                                         </Form.Check>

@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
@@ -11,6 +12,7 @@ import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offli
 const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
 
 const ConversationListPage = () => {
+    const { t } = useTranslation();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
@@ -23,7 +25,7 @@ const ConversationListPage = () => {
     );
 
     const handleSelectConversation = (id, title) => {
-        const selected = data.find((section) => section.titles.some((title) => title.id === id));
+        const selected = data.find((section) => section.titles.some((item) => item.id === id));
         if (selected) {
             setSelectedConversation({
                 id,
@@ -36,7 +38,7 @@ const ConversationListPage = () => {
     const ConversationCard = ({ heading, titles }) => (
         <Col>
             <Card className="mb-4 h-100 shadow-sm">
-                <Card.Header className="fw-semibold">{heading}</Card.Header>
+                <Card.Header className="fw-semibold">{t(heading)}</Card.Header>
                 <Card.Body>
                     {titles.map(({ title, info, id }, index) => (
                         <Card.Text key={index} className="">
@@ -44,9 +46,9 @@ const ConversationListPage = () => {
                                 variant="link"
                                 className="p-0 m-0"
                                 onClick={() => handleSelectConversation(id, title)}>
-                                {title}
+                                {t(title)}
                             </Button>
-                            <TooltipIcon info={info} />
+                            <TooltipIcon info={t(info)} />
                         </Card.Text>
                     ))}
                 </Card.Body>
@@ -68,7 +70,18 @@ const ConversationListPage = () => {
                         const cachedDataText = await cachedDataBlob.text();
                         const cachedData = JSON.parse(cachedDataText);
 
-                        setData(cachedData.conversationList);
+                        // Use localization keys
+                        const localizedData = cachedData.conversationList.map((section) => ({
+                            ...section,
+                            heading: `${section.heading}`,
+                            titles: section.titles.map((title) => ({
+                                ...title,
+                                title: `${title.title}`, // Adjust key for titles
+                                info: `${title.info}`, // Adjust key for info
+                            })),
+                        }));
+
+                        setData(localizedData);
                         setLoading(false);
 
                         return;
@@ -77,14 +90,25 @@ const ConversationListPage = () => {
 
                 // If not in IndexedDB or running in Electron, fetch from the network
                 const response = await fetch(`${import.meta.env.BASE_URL}json/conversation_list.json`);
-                const data = await response.json();
+                const fetchedData = await response.json();
 
-                setData(data.conversationList);
+                // Use localization keys
+                const localizedData = fetchedData.conversationList.map((section) => ({
+                    ...section,
+                    heading: `${section.heading}`,
+                    titles: section.titles.map((title) => ({
+                        ...title,
+                        title: `${title.title}`, // Adjust key for titles
+                        info: `${title.info}`, // Adjust key for info
+                    })),
+                }));
+
+                setData(localizedData);
                 setLoading(false);
 
                 // Save the fetched data to IndexedDB (excluding Electron)
                 if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+                    const blob = new Blob([JSON.stringify(fetchedData)], { type: "application/json" });
                     await saveFileToIndexedDB("conversation_list.json", blob, "json");
                 }
             } catch (error) {
@@ -114,13 +138,13 @@ const ConversationListPage = () => {
     };
 
     useEffect(() => {
-        document.title = `Conversations | iSpeakerReact v${__APP_VERSION__}`;
-    }, []);
+        document.title = `${t("navigation.conversations")} | iSpeakerReact v${__APP_VERSION__}`;
+    }, [t]);
 
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">Conversations</h1>
+            <h1 className="fw-semibold">{t("navigation.conversations")}</h1>
             {selectedConversation ? (
                 <Suspense fallback={<LoadingOverlay />}>
                     <ConversationDetailPage
@@ -133,7 +157,7 @@ const ConversationListPage = () => {
             ) : (
                 <>
                     <AccentDropdown onAccentChange={setSelectedAccent} />
-                    <p>Select a conversation type to get started.</p>
+                    <p>{t("conversationPage.selectType")}</p>
                     {loading ? (
                         <LoadingOverlay />
                     ) : (

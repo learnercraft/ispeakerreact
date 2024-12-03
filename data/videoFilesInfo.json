@@ -1,7 +1,7 @@
 [
     {
         "zipFile": "iSpeakerReact_ExamVideos.7z",
-        "name": "Exam videos",
+        "name": "settingPage.videoDownloadSettings.downloadTable.examVideos",
         "fileSize": 739618896,
         "link": "https://www.mediafire.com/file/5l3cbi231td6elz/iSpeakerReact_ExamVideos.7z/file",
         "zipHash": "c3e5f22a73058369aecce043078a3e48dac27dc91b5c77ee14a43002fe0dda0e",
@@ -42,7 +42,7 @@
     },
     {
         "zipFile": "iSpeakerReact_ConversationVideos_GB.7z",
-        "name": "Conversation videos (British English)",
+        "name": "settingPage.videoDownloadSettings.downloadTable.conversationVideosUK",
         "link": "https://www.mediafire.com/file/iu1agd8tzu5t0re/iSpeakerReact_ConversationVideos_GB.7z/file",
         "fileSize": 533645654,
         "zipHash": "e5d93529520be96eee6d53f745bb8b70e38480f76385ad164b2e49782d0a1460",
@@ -211,7 +211,7 @@
     },
     {
         "zipFile": "iSpeakerReact_ConversationVideos_US.7z",
-        "name": "Conversation videos (American English)",
+        "name": "settingPage.videoDownloadSettings.downloadTable.conversationVideosUS",
         "link": "https://www.mediafire.com/file/yxdk05jikwepp5y/iSpeakerReact_ConversationVideos_US.7z/file",
         "fileSize": 480917870,
         "zipHash": "de2813f9ad29623507a4446ce0399bc8a31a5c3c0aeebceda16232f1712280df",
@@ -380,7 +380,7 @@
     },
     {
         "zipFile": "iSpeakerReact_SoundVideos_GB.7z",
-        "name": "Sound videos (British English)",
+        "name": "settingPage.videoDownloadSettings.downloadTable.soundVideosUK",
         "link": "https://www.mediafire.com/file/x0p74u4syijmoub/iSpeakerReact_SoundVideos_GB.7z/file",
         "fileSize": 747512309,
         "zipHash": "d9d873f3fe91dcf16a1b20d50e0837730b1c8442e9185c4a4142cdea8a5498be",
@@ -1277,7 +1277,7 @@
     },
     {
         "zipFile": "iSpeakerReact_SoundVideos_US.7z",
-        "name": "Sound videos (American English)",
+        "name": "settingPage.videoDownloadSettings.downloadTable.soundVideosUS",
         "link": "https://www.mediafire.com/file/5blfu0s7oa015ba/iSpeakerReact_SoundVideos_US.7z/file",
         "fileSize": 794655768,
         "zipHash": "2ebfc24ae88b47e495e83af2605bc4fa930caf736dd7f40378e139ff92fc43c4",

@@ -1,0 +1,980 @@
+{
+    "navigation": {
+        "home": "Home",
+        "sounds": "Sounds",
+        "exercises": "Exercises",
+        "conversations": "Conversations",
+        "exams": "Exams",
+        "settings": "Settings"
+    },
+    "homepage": {
+        "soundDescription": "Watch videos and practice pronouncing sounds.",
+        "exerciseDescription": "Practice listening to sounds and sentences in various exercise types.",
+        "conversationDescription": "Improve your conversation skills for different situations.",
+        "examDescription": "Prepare yourself for different types of speaking exams.",
+        "settingDescription": "Exercise timer, appearance, and more.",
+        "openBtn": "Open"
+    },
+    "accent": {
+        "accentSettings": "Accent",
+        "accentAmerican": "American English",
+        "accentBritish": "British English"
+    },
+    "alert": {
+        "alertOnlineVideo": "Want to watch the video offline? Head to the “Settings” page to download it.",
+        "alertAppNoInternet": "No Internet connection. Please check your connection and try again.",
+        "appNewVersionGitHub": "A new update is found. Go to the project's GitHub page for more information.",
+        "appVersionLatest": "You are already using the latest version.",
+        "appUpdateError": "Error checking for updates. Please try again."
+    },
+    "toast": {
+        "recordingExceeded": "Duration limit reached. Recording has stopped.",
+        "recordingSuccess": "Recording saved successfully.",
+        "recordingFailed": "Recording failed. Reason: ",
+        "playbackError": "Error during playback. Reason: ",
+        "textSaveSuccess": "Text saved successfully.",
+        "textSaveFailed": "Error saving text. Reason: ",
+        "textClearSuccess": "Text cleared successfully.",
+        "textClearFailed": "Error clearing text. Reason: ",
+        "audioPlayFailed": "Unable to play audio due to a network issue. Please check your connection and reload the page.",
+        "loadingError": "Error while loading the data. Please try refreshing the page."
+    },
+    "buttonConversationExam": {
+        "watchBtn": "Watch",
+        "listenBtn": "Listen",
+        "practiceBtn": "Practice",
+        "reviewBtn": "Review",
+        "saveBtn": "Save text",
+        "clearBtn": "Clear text",
+        "recordBtn": "Record",
+        "stopRecordBtn": "Stop recording",
+        "playBtn": "Play recording",
+        "stopPlayBtn": "Stop playback",
+        "conversationBackBtn": "Back to conversation list",
+        "examBackBtn": "Back to exam list"
+    },
+    "tabConversationExam": {
+        "taskCard": "Task",
+        "watchCard": "Watch the video",
+        "studyCard": "Study",
+        "imageFullSizeModal": "Full size view",
+        "practiceConversationText": [
+            "Practice writing your own conversation.",
+            "You may use some of the language from this topic.",
+            "Remember to save your text frequently!"
+        ],
+        "practiceConversationBox": "Enter your conversation:",
+        "practiceExamTextbox": "Your notes:",
+        "recordSectionText": "Use the script you have written above to record yourself. Then listen to how you sound.",
+        "tipCardExam": "Tips",
+        "doCardExam": "Dos",
+        "dontsCardExam": "Don’ts"
+    },
+    "sound_page": {
+        "consonants": "Consonants",
+        "vowels_dipthongs": "Vowels and diphthongs",
+        "practiceBtn": "Practice",
+        "reviewGood": "good",
+        "reviewNeutral": "neutral",
+        "reviewBad": "bad",
+        "soundTop": "Sound",
+        "exampleWords": "Words that include this sound",
+        "backBtn": "Back to sound list",
+        "closeBtn": "Close",
+        "watchCard": "Watch",
+        "practiceCard": "Practice",
+        "reviewCard": "Review",
+        "clipModalTitle": "Pronunciation clip",
+        "recordInstructions": "Watch pronunciation clips, and use the <0>{{icon}}</0> button to record your own sound.",
+        "reviewInstructions": "How do you pronounce the sound {{phoneme}}?"
+    },
+    "exercise_page": {
+        "exerciseSubheading": "Select an exercise to get started.",
+        "dictationHeading": "Dictation",
+        "matchUpHeading": "Match-up",
+        "reorderingHeading": "Reordering",
+        "soundSpellingHeading": "Sounds and spelling",
+        "sortingHeading": "Sorting",
+        "oddOneOutHeading": "Odd one out",
+        "snapHeading": "Snap!",
+        "memoryMatchHeading": "Memory match",
+        "randomExercise": "Random",
+        "wordExercise": "Words",
+        "missingWordExercise": "Missing words",
+        "sentenceExercise": "Sentences",
+        "similarSoundExercise": "Similar sounds",
+        "readingPhoneticsExercise": "Reading phonetics",
+        "comprehensionExercise": "Comprehension",
+        "wordStressExercise": "Word stress",
+        "rhymingWordExercise": "Rhyming words",
+        "syllablesExercise": "Syllables",
+        "homophonesExercise": "Homophones",
+        "questionNo": "Question",
+        "timer": "Time:",
+        "dropLayer": "Drop here...",
+        "dragThisItem": "Drag this",
+        "snapCorrect": "Correct",
+        "snapIncorrect": "Incorrect",
+        "buttons": {
+            "checkBtn": "Check",
+            "nextBtn": "Next",
+            "quitBtn": "Quit",
+            "restartBtn": "Restart quiz",
+            "backBtn": "Back to exercise list",
+            "collapseBtn": "Collapse instructions",
+            "expandBtn": "View instructions"
+        },
+        "exerciseInfo": {
+            "dictationWord": "Test your listening and spelling with word dictations",
+            "dictationMissingWord": "Listen to full sentences and write the missing words",
+            "dictationSentence": "Test your listening and spelling with sentence dictations",
+            "dictationRandom": "A mixture of word and sentence dictations",
+            "matchUpSimilarSound": "Match the written words with the words you hear",
+            "matchUpReadingPhonetics": "Test your knowledge of phonetics by matching the phonetic transcriptions to the words",
+            "matchUpComprehension": "Match the words to the sentences they appear in",
+            "matchUpRandom": "A mixture of matching exercises",
+            "reorderingWord": "Reorder the letters to make the words you hear",
+            "reorderingSentence": "Reorder the words to make the sentences you hear",
+            "reorderingRandom": "A mixture of word and sentence reordering",
+            "soundSpellingInfo": "Listen and choose the correct spelling",
+            "soundSpellingRandom": "A mixture of sounds and spelling questions",
+            "sortingSimilarSound": "Group together words with the same sound",
+            "sortingWordStress": "Group together words with the same stress pattern",
+            "sortingSyllable": "Group together words that have the same number of syllables",
+            "sortingRandom": "A mixture of grouping questions",
+            "oddOneOutWordStress": "Find the word that has a different stress pattern from the other",
+            "oddOneOutRhymingWord": "Find the word that ends in a different sounds from the others",
+            "oddOneOutSyllable": "Find the word that has a different number of syllables from the others",
+            "oddOneOutRandom": "Find the word that has a different stress pattern, ends in a different sounds, or has a different number of syllables from the other",
+            "snapReadingPhonetics": "Does the phonetic transcription match the word?",
+            "snapHomophones": "Do the two words sound the same or different?",
+            "snapRandom": "A mixture of homophones and phonetics matching questions",
+            "memoryMatchRhymingWord": "Find words that end in the same sound",
+            "memoryMatchHomophones": "Find words that sound the same but have different spellings",
+            "memoryMatchRandom": "A mixture of homophone and rhyming matches"
+        },
+        "exerciseInstruction": {
+            "dictation": {
+                "words": [
+                    "Listen and write the word you hear. You can listen to the word as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell the word correctly! The word is case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "missing-words": [
+                    "Listen to the full sentence and write the missing word in the textbox. You can listen to the sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell the word correctly! The word is case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "sentences": [
+                    "Listen and write the sentence you hear. You can listen to the sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell everything correctly! All words are case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word or sentence, and write either the word, the missing word, or the full sentence that you hear. You can listen to the word or sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell everything correctly! All words are case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+
+            "matchup": {
+                "similar-sounds": [
+                    "Here is a group of words that contain similar sounds.",
+                    "Listen to each word and match the written and spoken forms. You can listen to the words as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "reading-phonetics": [
+                    "Test your knowledge of the International Phonetic Alphabet!",
+                    "Listen to each word and match it to its phonetic transcription. You can listen to the words as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "comprehension": [
+                    "Listen to sentences by selecting the speaker icons and listen out for the words you see here.",
+                    "Match each word to the sentence it appears in. You can listen to the sentences as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Rearrange the words or phonetic transcriptions so that they are next to the correct speaker.",
+                    "You will either hear a word or a sentence. Which phonetic transcription matches the word you hear, or which word is included in the sentence you hear?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "reordering": {
+                "words": [
+                    "Listen to the word and rearrange the letters into the correct order. You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "sentences": [
+                    "Listen to the sentence and rearrange the words into the correct order. You can listen to the sentence as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word or sentence and rearrange the letters or words into the correct order. You can listen to the word or sentence as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "sound_n_spelling": {
+                "sound": [
+                    "Listen to the word and choose the spelling that represents the sound {{ipaSound}}.",
+                    "You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word and choose the correct missing letter or letters. You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "sorting": {
+                "similar-sounds": [
+                    "Move the words into the correct column according to the sound that each word contains.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "word-stress": [
+                    "Look at the word stress pattern shown at the top of each column. The large dot represents the main stress, and the number of dots shows the number of syllables in the word.",
+                    "Move the words into the correct column according to the number of syllables and where the main stress falls in the word.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "syllables": [
+                    "The numbers at the top of the columns represent the number of syllables in a word.",
+                    "Put the words into the correct column according to the number of syllables that each one has.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Move the words into the correct column according to the categories given at the top of the columns.",
+                    "The categories show sounds the words contain, word stress patterns, or numbers of syllables.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "odd_one_out": {
+                "word-stress": [
+                    "Choose the word that has a different stress pattern from the other words in the group.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "rhyming": [
+                    "Which word ends in a different sound from the other three words?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "syllables": [
+                    "Which word has a different number of syllables from the other three?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Choose the word that is different from the other words in the group.",
+                    "The odd one out may have different word stress, may end in a different sound, or may have a different number of syllables.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "snap": {
+                "reading-phonetics": [
+                    "Does the phonetic transcription match the word? Select “Yes” if the two match, or “No” if not.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "homophones": [
+                    "Look at the two words. Are they pronounced the same or different?",
+                    "Select “Yes” if you think the pronunciation is the same, and “No” if you think it's different.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Look at the two words. Do they match or not? Either the pronunciation should be the same, or the phonetic transcription should match the word.",
+                    "Select “Yes” if they match, or “No” if not.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "memory_match": {
+                "rhyming": [
+                    "Turn over two cards at a time to find pairs of words that end in the same sound, for example “you” and “shoe”.",
+                    "Can you complete the game before the timer runs out?"
+                ],
+                "homophones": [
+                    "Turn over two cards at a time to find pairs of words with the same pronunciation, for example “here” and “hear”.",
+                    "Can you complete the game before the timer runs out?"
+                ],
+                "random": [
+                    "Turn over two cards at a time to find pairs of words that either have the same pronunciation, or end in the same sound.",
+                    "Can you complete the game before the timer runs out?"
+                ]
+            }
+        },
+        "encouragementMsg": {
+            "level0": "Let’s get started!",
+            "level1": "Keep practicing! Every step is progress!",
+            "level2": "Keep going! You’re learning and improving!",
+            "level3": "Not bad! Keep trying, you’ll get there!",
+            "level4": "Nice work! Keep going, you’re doing fine!",
+            "level5": "Great job! You’re doing really well!",
+            "level6": "Perfect! You nailed it!"
+        },
+        "result": {
+            "cardHeading": "Result",
+            "correctAnswer": "Correct answer:",
+            "matchUpFinished": "You have revealed all of the cards! Congratulations!",
+            "timeUp": "Time’s up!",
+            "notAnswered": "You have not answered any questions yet. Try restarting the quiz, or choose another exercise type.",
+            "answerResult": "You have answered {{score}} out of {{totalAnswered}} correctly.",
+            "answerBottom": "Try this exercise again for further practice and different questions, or choose another exercise type.",
+            "tryAgainBottom": "Try this exercise again for further practice and different questions."
+        }
+    },
+    "conversationPage": {
+        "selectType": "Select a conversation type to get started",
+        "topicHeading": "Topic: ",
+        "discussionAndOpinion": {
+            "heading": "Discussion and opinion",
+            "agreeingTitle": "Agreeing",
+            "agreeingInfo": "You can say that you support what somebody has said in a number of ways.",
+            "askingForOpinionsTitle": "Asking for opinions",
+            "askingForOpinionsInfo": "When you need to find out what somebody thinks or you want to involve others in a conversation, you can ask for opinions.",
+            "concedingAPointTitle": "Conceding a point",
+            "concedingAPointInfo": "When you want to show that somebody has convinced you with their argument, at least partially, you can concede.",
+            "dealingWithQuestionsTitle": "Dealing with questions",
+            "dealingWithQuestionsInfo": "If you are talking to a group of people, you need to be able to deal with the questions that people ask.",
+            "disagreeingTitle": "Disagreeing",
+            "disagreeingInfo": "There are various polite ways of saying that you think something somebody has said is wrong.",
+            "expressingPreferencesTitle": "Expressing preferences",
+            "expressingPreferencesInfo": "When you are asked to make a choice, you can express preferences in various ways.",
+            "givingReasonsTitle": "Giving reasons",
+            "givingReasonsInfo": "You can explain and justify your choices and decisions in a number of ways.",
+            "interruptingSomebodyTitle": "Interrupting somebody",
+            "interruptingSomebodyInfo": "If you need to say something when somebody else is speaking or to stop somebody in a group talking too much, there are a various ways of interrupting politely.",
+            "agreeingCheckbox": "Expressing agreement",
+            "agreeingReview": "I can express agreement in a variety of ways.",
+            "askingForOpinionsCheckbox": "Asking for opinions",
+            "askingForOpinionsReview": "I can ask for opinions in a variety of ways.",
+            "concedingAPointCheckbox": "Conceding a point",
+            "concedingAPointReview": "I can concede a point in a variety of ways.",
+            "dealingWithQuestionsCheckbox": "Dealing with questions",
+            "dealingWithQuestionsReview": "I can deal with questions in a variety of ways.",
+            "disagreeingCheckbox": "Expressing disagreement",
+            "disagreeingReview": "I can express disagreement in a variety of ways.",
+            "expressingPreferencesCheckbox": "Expressing preferences",
+            "expressingPreferencesReview": "I can express preferences in a variety of ways.",
+            "givingReasonsCheckbox": "Giving reasons and justifying choices",
+            "givingReasonsReview": "I can give reasons and justify choices in a variety of ways.",
+            "interruptingSomebodyCheckbox": "Interrupting somebody",
+            "interruptingSomebodyReview": "I can interrupt somebody in a variety of ways."
+        },
+        "doubtGuessingAndCertainty": {
+            "heading": "Doubt, guessing and certainty",
+            "askingForClarificationTitle": "Asking for clarification",
+            "askingForClarificationInfo": "When you are given some information or asked to do something, you can check that you have understood correctly in various ways.",
+            "askingForClarificationCheckbox1": "Asking for clarification",
+            "askingForClarificationCheckbox2": "Providing clarification",
+            "askingForClarificationReview1": "I can ask for clarification in a variety of ways.",
+            "askingForClarificationReview2": "I can provide clarification in a variety of ways.",
+            "correctingYourselfTitle": "Correcting yourself",
+            "correctingYourselfInfo": "When you say something that was not quite what you intended, you can correct yourself in various ways.",
+            "correctingYourselfCheckbox": "Correcting yourself",
+            "correctingYourselfReview": "I can correct myself in a variety of ways.",
+            "expressingCertaintyTitle": "Expressing certainty",
+            "expressingCertaintyInfo": "When you are stating what has happened or is going to happen, there are various ways of saying how certain or uncertain you are.",
+            "expressingCertaintyCheckbox": "Expressing uncertainty",
+            "expressingCertaintyReview1": "I can express certainty in a variety of ways.",
+            "expressingCertaintyReview2": "I can express uncertainty in a variety of ways.",
+            "expressingIgnoranceTitle": "Expressing ignorance",
+            "expressingIgnoranceInfo": "There are different ways of telling people that you haven't got the information they're asking for.",
+            "expressingIgnoranceCheckbox": "Saying that you don't know something",
+            "expressingIgnoranceReview": "I can say that I don’t know something in a variety of ways.",
+            "expressingLikelihoodTitle": "Expressing likelihood",
+            "expressingLikelihoodInfo": "When you are talking about possible situations, you can express how likely you think they are.",
+            "expressingLikelihoodCheckbox1": "Saying things are likely",
+            "expressingLikelihoodCheckbox2": "Saying things are unlikely",
+            "expressingLikelihoodReview1": "I can say things are likely in a variety of ways.",
+            "expressingLikelihoodReview2": "I can say things are unlikely in a variety of ways.",
+            "speculatingTitle": "Speculating",
+            "speculatingInfo": "There are various ways of giving your opinion when you don't know all the details or facts about something.",
+            "speculatingCheckbox": "Speculating",
+            "speculatingReview": "I can speculate in a variety of ways."
+        },
+        "feelingsAndEmotions": {
+            "heading": "Feelings and emotions",
+            "apologizingTitle": "Apologizing",
+            "apologizingInfo": "When you have caused a problem for somebody, you can make polite apologies in various ways.",
+            "apologizingCheckbox1": "Apologizing",
+            "apologizingCheckbox2": "Responding to apologies",
+            "apologizingReview1": "I can apologize in a variety of ways.",
+            "apologizingReview2": "I can respond to apologies in a variety of ways.",
+            "congratulatingSomebodyTitle": "Congratulating somebody",
+            "congratulatingSomebodyInfo": "When somebody tells you some good news about their family, or what they have done, you can congratulate them.",
+            "congratulatingSomebodyCheckbox1": "Congratulating somebody",
+            "congratulatingSomebodyCheckbox2": "Responding to being congratulated",
+            "congratulatingSomebodyReview1": "I can congratulate somebody in a variety of ways.",
+            "congratulatingSomebodyReview2": "I can respond to being congratulated in a variety of ways.",
+            "expressingSympathyTitle": "Expressing sympathy",
+            "expressingSympathyInfo": "If someone is ill, or something bad has happened to them, you can express that you are sorry.",
+            "expressingSympathyCheckbox": "Expressing sympathy",
+            "expressingSympathyReview": "I can express sympathy in a variety of ways.",
+            "makingComplaintsTitle": "Making complaints",
+            "makingComplaintsInfo": "When something you buy is of poor quality or the standard of service you receive is not good enough, you can express your dissatisfaction in various ways.",
+            "makingComplaintsCheckbox": "Making complaints",
+            "makingComplaintsReview": "I can make complaints in a variety of ways.",
+            "thankingSomebodyTitle": "Thanking somebody",
+            "thankingSomebodyInfo": "When someone gives you something, or does something for you, there are different ways of saying more than just a brief 'thank you'.",
+            "thankingSomebodyCheckbox1": "Thanking somebody for something",
+            "thankingSomebodyCheckbox2": "Responding to thanks",
+            "thankingSomebodyReview1": "I can thank somebody for something in a variety of ways.",
+            "thankingSomebodyReview2": "I can respond to thanks in a variety of ways.",
+            "wishingSomebodyLuckTitle": "Wishing somebody luck",
+            "wishingSomebodyLuckInfo": "If someone is going to do something difficult, you can wish them luck.",
+            "wishingSomebodyLuckCheckbox1": "Wishing somebody luck",
+            "wishingSomebodyLuckCheckbox2": "Responding to wishes of good luck",
+            "wishingSomebodyLuckReview1": "I can wish somebody luck in a variety of ways.",
+            "wishingSomebodyLuckReview2": "I can respond to wishes of good luck in a variety of ways."
+        },
+        "openingsAndEndings": {
+            "heading": "Openings and endings",
+            "endingConversationsTitle": "Ending conversations",
+            "endingConversationsInfo": "When you stop talking to somebody, you can end the conversation in a number of ways.",
+            "introducingSomebodyTitle": "Introducing somebody",
+            "introducingSomebodyInfo": "There are different ways of introducing people to one another, depending on how formal the situation is.",
+            "invitingSomebodyToSomethingTitle": "Inviting somebody to something",
+            "invitingSomebodyToSomethingInfo": "You can make and respond to invitations in a number of ways.",
+            "leavingPhoneMessagesTitle": "Leaving phone messages",
+            "leavingPhoneMessagesInfo": "If you phone somebody who is not able to take your call, you may need to leave a message.",
+            "openingConversationsTitle": "Opening conversations",
+            "openingConversationsInfo": "When speaking to someone for the first time, you will need to know some possible ways of starting a conversation. When talking in front of a group of people, you may also want to know how to get their attention.",
+            "wrappingUpDiscussionsTitle": "Wrapping up discussions",
+            "wrappingUpDiscussionsInfo": "In a formal meeting or conference, you may have to bring the session to a close. There are some polite ways to get people to stop speaking.",
+            "endingConversationsCheckbox": "Ending conversations",
+            "endingConversationsReview": "I can end conversations in a variety of ways.",
+            "introducingSomebodyCheckbox1": "Introducing somebody",
+            "introducingSomebodyCheckbox2": "Responding to introductions",
+            "introducingSomebodyReview1": "I can introduce somebody in a variety of ways.",
+            "introducingSomebodyReview2": "I can respond to introductions in a variety of ways.",
+            "invitingSomebodyToSomethingCheckbox1": "Inviting somebody to something",
+            "invitingSomebodyToSomethingCheckbox2": "Responding to an invitation to something",
+            "invitingSomebodyToSomethingReview1": "I can invite somebody to something in a variety of ways.",
+            "invitingSomebodyToSomethingReview2": "I can respond to an invitation to something in a variety of ways.",
+            "leavingPhoneMessagesCheckbox": "Leaving phone messages",
+            "leavingPhoneMessagesReview": "I can leave phone messages in a variety of ways.",
+            "openingConversationsCheckbox": "Opening conversations",
+            "openingConversationsReview": "I can open a conversation in a variety of ways.",
+            "wrappingUpDiscussionsCheckbox": "Wrapping up discussions",
+            "wrappingUpDiscussionsReview": "I can wrap up discussions in a variety of ways."
+        },
+        "permissionAndObligation": {
+            "heading": "Permission and obligation",
+            "askingAboutObligationTitle": "Asking about obligation",
+            "askingAboutObligationInfo": "When you are unsure about what is expected of you in a situation, you can ask about obligations.",
+            "askingAboutObligationCheckbox": "Asking about obligation",
+            "askingAboutObligationReview": "I can ask about obligation in a variety of ways.",
+            "askingForPermissionTitle": "Asking for permission",
+            "askingForPermissionInfo": "If you need to ask for permission or a favor, you are more likely to get what you want if you can ask for it politely.",
+            "askingForPermissionCheckbox1": "Asking for permission or favors",
+            "askingForPermissionCheckbox2": "Giving permission",
+            "askingForPermissionReview1": "I can ask for permission or favors in a variety of ways.",
+            "askingForPermissionReview2": "I can give permission in a variety of ways.",
+            "forbiddingSomethingTitle": "Forbidding something",
+            "forbiddingSomethingInfo": "There are different polite ways of asking somebody not to do something.",
+            "forbiddingSomethingCheckbox": "Forbidding somebody to do something",
+            "forbiddingSomethingReview": "I can forbid somebody to do something in a variety of ways.",
+            "givingOrdersTitle": "Giving orders",
+            "givingOrdersInfo": "There are various ways of telling somebody to do something politely.",
+            "givingOrdersCheckbox": "Telling somebody to do something",
+            "givingOrdersReview": "I can tell somebody to do something in a variety of ways.",
+            "makingRequestsTitle": "Making requests",
+            "makingRequestsInfo": "Whether you are in shops or restaurants or in somebody's home, you can use polite questions to get what you want.",
+            "makingRequestsCheckbox1": "Making requests",
+            "makingRequestsCheckbox2": "Responding to a request",
+            "makingRequestsReview1": "I can make requests in a variety of ways.",
+            "makingRequestsReview2": "I can respond to a request in a variety of ways."
+        },
+        "suggestionsAndAdvice": {
+            "heading": "Suggestions and advice",
+            "askingForHelpTitle": "Asking for help",
+            "askingForHelpInfo": "If you need help, people are more likely to react favorably if you ask politely.",
+            "askingForHelpCheckbox1": "Asking for help",
+            "askingForHelpCheckbox2": "Responding to requests for help",
+            "askingForHelpReview1": "I can ask for help in a variety of ways.",
+            "askingForHelpReview2": "I can respond to requests for help in a variety of ways.",
+            "askingForInformationTitle": "Asking for information",
+            "askingForInformationInfo": "When you want to find something out, it sounds more polite if you can phrase your questions in an indirect way.",
+            "askingForInformationCheckbox": "Asking for information",
+            "askingForInformationReview": "I can ask for information in a variety of ways.",
+            "givingSomebodyAdviceTitle": "Giving somebody advice",
+            "givingSomebodyAdviceInfo": "There are a various tactful ways of telling somebody what you think they should do.",
+            "givingSomebodyAdviceCheckbox1": "Giving somebody advice",
+            "givingSomebodyAdviceCheckbox2": "Responding to advice",
+            "givingSomebodyAdviceReview1": "I can give somebody advice in a variety of ways.",
+            "givingSomebodyAdviceReview2": "I can respond to advice in a variety of ways.",
+            "makingRecommendationsTitle": "Making recommendations",
+            "makingRecommendationsInfo": "When you need help making a choice, you can ask somebody to give you their view.",
+            "makingRecommendationsCheckbox1": "Asking for a recommendation",
+            "makingRecommendationsCheckbox2": "Making a recommendation",
+            "makingRecommendationsReview1": "I can ask for a recommendation in a variety of ways.",
+            "makingRecommendationsReview2": "I can make a recommendation in a variety of ways.",
+            "makingSuggestionsTitle": "Making suggestions",
+            "makingSuggestionsInfo": "When you are asked to make suggestions, there are various ways of putting forward your ideas.",
+            "makingSuggestionsCheckbox": "Making suggestions",
+            "makingSuggestionsReview": "I can make suggestions in a variety of ways.",
+            "offeringHelpTitle": "Offering help",
+            "offeringHelpInfo": "There are a various ways of offering and accepting help.",
+            "offeringHelpCheckbox1": "Offering to do something",
+            "offeringHelpCheckbox2": "Refusing offers to do something",
+            "offeringHelpReview1": "I can offer to do something in a variety of ways.",
+            "offeringHelpReview2": "I can respond to offers of help in a variety of ways.",
+            "offeringSomebodySomethingTitle": "Offering somebody something",
+            "offeringSomebodySomethingInfo": "Particularly when you are the host, you may want to make polite offers to your guests.",
+            "offeringSomebodySomethingCheckbox1": "Offering somebody something",
+            "offeringSomebodySomethingCheckbox2": "Responding to offers",
+            "offeringSomebodySomethingReview1": "I can offer somebody something in a variety of ways.",
+            "offeringSomebodySomethingReview2": "I can respond to offers in a variety of ways.",
+            "warningSomebodyOfDangerTitle": "Warning somebody of danger",
+            "warningSomebodyOfDangerInfo": "You may need to tell someone that they are in danger or advise them not to do something dangerous.",
+            "warningSomebodyOfDangerCheckbox": "Warning somebody of danger",
+            "warningSomebodyOfDangerReview": "I can warn somebody of danger in a variety of ways."
+        }
+    },
+    "examPage": {
+        "selectType": "Select an exam task to get started.",
+        "taskInfo": "Task info",
+        "groupTask": {
+            "heading": "Group tasks",
+            "discussingOpinions": {
+                "title": "Discussing opinions",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "- Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency, Business Certificates",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "You may be taking an exam where you and a partner have to discuss something, for example pictures that the examiner shows you. You may not have to describe the pictures in detail, but to interpret the situations that they show and express an opinion about them. You must make sure that you take part in the conversation, but also that you involve your partner.",
+                    "This type of task often appears in the following exams: Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency, Business Certificates; Trinity ISE, GESE"
+                ],
+                "taskQuestion": ["Look at the pictures and discuss the questions."],
+                "taskList": [
+                    "What are the good and bad points about cycling?",
+                    "Which situation in the pictures seems more dangerous for the cyclists?"
+                ],
+                "skillCheckbox1": "Ways of giving and responding to opinions",
+                "skillCheckbox2": "Ways of involving the other person in the conversation",
+                "skillCheckbox3": "Phrases for linking one idea to the next",
+                "skillCheckbox4": "Ways of coping when you don’t know the word",
+                "listenHeading1": "Asking for somebody’s opinion",
+                "listenHeading2": "Giving opinions",
+                "listenHeading3": "Responding to opinions",
+                "listenHeading4": "Inviting a response",
+                "listenHeading5": "Sentence stress",
+                "practiceQuestion1": [
+                    "Look at the picture and discuss with your partner why people might choose each type of meal."
+                ],
+                "practiceQuestion2": [
+                    "Look at the pictures and discuss with your partner which is the better way to see the world and learn about other countries."
+                ],
+                "tipDos": [
+                    "Listen to what the other person says and respond to it.",
+                    "Use expressions like ’Let’s see now’, to buy thinking time.",
+                    "Use questions or question tags like ’isn’t it?’ to involve the other person in the conversation.",
+                    "Talk about each of the questions.",
+                    "Relate your comments to the photographs.",
+                    "Open out the discussion beyond the questions.",
+                    "Indicate personal opinions and relate the topic to your own life."
+                ],
+                "tipDonts": [
+                    "Say things that you know the other person won’t understand.",
+                    "Give one-word answers to a question.",
+                    "Change to a completely different topic from the task."
+                ],
+                "review1": "I can express my own opinions clearly and in a variety of different ways.",
+                "review2": "I can invite other people to respond or express their own opinions.",
+                "review3": "I can respond to opinions in a variety of different ways."
+            },
+            "negotiating": {
+                "title": "Negotiating",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency, Business Certificates"
+                ],
+                "description": [
+                    "There are many occasions when you will have to discuss various possibilities with someone and try to come to an agreement. In some exams, you have to agree on a solution, for example the choice of a particular suggestion.",
+                    "This type of task often appears in the following exams: Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency, Business Certificates"
+                ],
+                "taskQuestion": [
+                    "Look at the pictures and think about which ones would best promote Scotland as a tourist destination for international visitors.",
+                    "Discuss and decide together which one image would be the best to place on the front cover of a travel brochure."
+                ],
+                "skillCheckbox1": "Ways of organizing a discussion",
+                "skillCheckbox2": "Ways of expressing a personal view",
+                "skillCheckbox3": "Ways of expressing alternative possibilities",
+                "skillCheckbox4": "Ways of agreeing or conceding a point",
+                "skillCheckbox5": "Ways of making suggestions",
+                "listenHeading1": "Asking for a recommendation",
+                "listenHeading2": "Making a recommendation",
+                "listenHeading3": "Making suggestions",
+                "listenHeading4": "Asking for somebody’s opinion",
+                "listenHeading5": "Disagreeing",
+                "listenHeading6": "Conceding a point",
+                "listenHeading7": "Expressing personal viewpoints",
+                "practiceQuestion1": [
+                    "Look at the pictures and think about the different styles of learning they represent. Discuss and decide which is the most effective way to learn."
+                ],
+                "practiceQuestion2": [
+                    "Look at the pictures and think about the different ways that people do their shopping. Discuss and decide together which is the best way to shop in the 21st century."
+                ],
+                "tipDos": [
+                    "Listen to what the other person says and respond to it.",
+                    "Use expressions like ’personally’ to show you are giving a personal opinion rather than a statement of fact.",
+                    "Show that you understand and appreciate the other person’s suggestions.",
+                    "Try to reach a decision which is satisfactory for both or all participants in the discussion."
+                ],
+                "tipDonts": [
+                    "Move too far away from the task.",
+                    "Agree on the first idea mentioned, without discussing the other options.",
+                    "Insist on your choice without carefully considering your partner’s ideas.",
+                    "Spend too long talking about one option, leaving no time to consider the others.",
+                    "Take the outcome too seriously - you are here to show your English, not your decision-making skills!"
+                ],
+                "review1": "I can start a discussion, take my turn and end the conversation when appropriate.",
+                "review2": "I can make suggestions in a variety of ways.",
+                "review3": "I can disagree in a polite way.",
+                "review4": "I can express personal opinions and give clear reasons for my choices."
+            }
+        },
+        "individualTask": {
+            "heading": "Individual tasks",
+            "describingPicture": {
+                "title": "Describing a picture",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "- TOEIC",
+                    "- Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency"
+                ],
+                "description": [
+                    "In some exams, you have to describe what you see in a picture or photograph. You might also want to speculate about the situation or about a wider issue prompted by the picture or photograph.",
+                    "This type of task often appears in the following exams: TOEIC; Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency"
+                ],
+                "taskQuestion": [
+                    "Describe the photo. What do you think is happening, and what is your opinion about it?"
+                ],
+                "skillCheckbox1": "Ways of describing what you can see in a picture",
+                "skillCheckbox2": "Ways of speculating about what may be true in a picture",
+                "skillCheckbox3": "Ways of talking about the ideas presented in a picture",
+                "listenHeading1": "Describing a picture",
+                "listenHeading2": "Speculating",
+                "listenHeading3": "Expressing personal viewpoints",
+                "practiceQuestion": [
+                    "Describe the photo. What do you think is happening and what is your opinion about it?"
+                ],
+                "tipDos": [
+                    "Take a few moments to think before you start talking.",
+                    "Explain which part of the picture you’re talking about.",
+                    "Speculate about what might be true about the picture or photograph.",
+                    "If appropriate, describe what you think might have happened before or after the scene in the picture or photograph.",
+                    "Ff the photograph or picture contains people, describe what you think the relationship is between them.",
+                    "Use the present continuous tense to say what is happening in the picture.",
+                    "If you have to look at two photographs or pictures, think about how you could compare them.",
+                    "Try to guess which questions you may be asked about the photograph or picture.",
+                    "Give your impressions and opinions about the ideas presented in the picture or photograph.",
+                    "Think of a different way of expressing something if you don’t know the exact word for what you can see."
+                ],
+                "tipDonts": [
+                    "Move too far away from the ideas presented in the picture or photograph.",
+                    "Be too certain about what may or may not be happening in the picture or photograph, if it is unclear.",
+                    "Worry if you are unsure about exactly what is happening in the picture or photograph. Instead say what you think might be happening."
+                ],
+                "review1": "I can give a detailed description of what I can see in a picture.",
+                "review2": "I can speculate about what may be true in a picture.",
+                "review3": "I can give my opinion about what a picture represents."
+            },
+            "personalInformation": {
+                "title": "Giving personal information",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "- IELTS",
+                    "- TOEIC",
+                    "- Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "On some occasions, you will be required to give personal information about yourself. You may also be asked to talk about your experiences and what you’d like to do in the future.",
+                    "This type of task often appears in the following exams: IELTS; TOEIC; Cambridge Assessment English: B2 First, C1 Advanced, C2 Proficiency; Trinity ISE, GESE"
+                ],
+                "taskQuestion": [
+                    "Answer the examiner’s questions about yourself, your current situation and your future plans."
+                ],
+                "skillCheckbox1": "Ways of finding out personal information",
+                "skillCheckbox2": "Ways of giving basic personal information about yourself",
+                "skillCheckbox3": "Ways of responding when somebody gives you personal information",
+                "skillCheckbox4": "Ways of talking about what you’d like to do in the future",
+                "skillCheckbox5": "Ways of talking about your experiences",
+                "listenHeading1": "Asking for personal information",
+                "listenHeading2": "Giving personal information",
+                "listenHeading3": "Talking about future plans",
+                "practiceQuestion": ["Answer the same questions from the video, giving information about yourself."],
+                "tipDos": [
+                    "Use language you know is correct.",
+                    "Think of a different way of expressing your idea if you’ve forgotten a word.",
+                    "Correct yourself if you make a mistake, and continue.",
+                    "Use a wide range of tenses and vocabulary.",
+                    "Make eye contact with the examiner.",
+                    "Ask the examiner to clarify a question if you are not sure what it means.",
+                    "Record yourself answering possible questions or practice with a friend or relative.",
+                    "Speak clearly.",
+                    "Try to relax and be spontaneous."
+                ],
+                "tipDonts": [
+                    "Give one-word answers. Try to give as much detail as possible.",
+                    "Speak too quickly.",
+                    "Learn prepared answers word-for-word."
+                ],
+                "review1": "I can talk about myself.",
+                "review2": "I can ask other people about themselves.",
+                "review3": "I can talk about what I’d like to do in the future."
+            },
+            "topicTalking": {
+                "title": "Talking about a topic",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "- IELTS",
+                    "- TOEIC",
+                    "- TOEFL",
+                    "- Cambridge Assessment English: C1 Advanced, C2 Proficiency, Business Certificates",
+                    "- Trinity GESE"
+                ],
+                "description": [
+                    "In some exams, you are asked to talk for a short time about a topic which you are given during the test. You may have a few minutes to prepare it and to make a few notes. You could be asked to choose something that is the most important, best, most useful, etc. of its kind, and you have to describe it and explain why you have chosen it.",
+                    "This type of task often appears in the following exams: IELTS; TOEIC; TOEFL; Cambridge Assessment English: C1 Advanced, C2 Proficiency, Business Certificates; Trinity GESE"
+                ],
+                "taskQuestion": [
+                    "Describe a place that you sometimes visit which is very important to you. You should say:"
+                ],
+                "taskList": [
+                    "where it is, how often and why you go there.",
+                    "what it is like.",
+                    "why it is so important to you."
+                ],
+                "skillCheckbox1": "Ways you can describe something",
+                "skillCheckbox2": "Ways of explaining and giving your reasons",
+                "skillCheckbox3": "Ways of correcting yourself or finding alternative ways of expressing something",
+                "skillCheckbox4": "Ways of expressing your preferences",
+                "listenHeading1": "Expressing a preference",
+                "listenHeading2": "Giving reasons, justifying a choice",
+                "listenHeading3": "Correcting yourself",
+                "listenHeading4": "Using adverbs to give more emphasis to a point",
+                "listenHeading5": "Changing emphasis by turning the sentence around",
+                "practiceQuestion1": ["Describe a friend. You should say:"],
+                "practiceQuestion1List": [
+                    "how long you have known each other.",
+                    "how you met.",
+                    "what you usually do together.",
+                    "what you like most about him/her."
+                ],
+                "practiceQuestion2": ["Describe your education. You should say:"],
+                "practiceQuestion2List": [
+                    "what kind of school you went to/go to.",
+                    "what was/is your favorite subject.",
+                    "who was/is your favorite teacher.",
+                    "how effective you think your country’s education system is."
+                ],
+                "tipDos": [
+                    "Write brief notes to use as prompts.",
+                    "Use a wide range of vocabulary.",
+                    "Try to use the full time allowed.",
+                    "Think of a different way of expressing your idea if you’ve forgotten a word.",
+                    "Correct yourself if you make a mistake, and continue.",
+                    "Make eye contact with the examiner.",
+                    "Try to vary the vocabulary you use. For example, choose descriptive adjectives, not just ‘nice’, ‘good’ or ‘interesting’."
+                ],
+                "tipDonts": [
+                    "Spend too much time trying to think of the ideal topic.",
+                    "Use your note-making time to write full sentences.",
+                    "Speak too quickly.",
+                    "Just read out your notes to the examiner or give a prepared speech.",
+                    "Stop if you can’t remember a word."
+                ],
+                "review1": "I can give clear, detailed descriptions.",
+                "review2": "I have a good range of vocabulary and can choose different words to avoid frequent repetition.",
+                "review3": "I can paraphrase if I don’t know a particular word.",
+                "review4": "I can correct myself if I realize I have made a mistake."
+            }
+        },
+        "realLifeTask": {
+            "heading": "Real-life tasks",
+            "presentation": {
+                "title": "Giving a presentation",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "- Cambridge Assessment English: Business Certificates",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "You may be taking an exam where you are required to give a presentation. You will need to structure your presentation appropriately. You should be able to introduce different points and ensure that there is a smooth transition between each part of the presentation. You may wish to support what you are saying with the use of visual aids.",
+                    "This type of task often appears in the following exams: Cambridge Assessment English: Business Certificates; Trinity ISE, GESE"
+                ],
+                "taskQuestion": [
+                    "You have been commissioned by an electric company to survey their customers.",
+                    "The company is concerned that more and more customers are cancelling contracts within the first fourteen days, or are making complaints.",
+                    "Present your findings with the help of some visual aids."
+                ],
+                "skillCheckbox1": "How you can introduce a presentation",
+                "skillCheckbox2": "Ways of explaining the structure of a presentation",
+                "skillCheckbox3": "Ways of introducing each point in a presentation",
+                "skillCheckbox4": "How you can change the subject in a presentation",
+                "skillCheckbox5": "How you can conclude a presentation",
+                "skillCheckbox6": "Ways of referring to charts or graphs in a presentation",
+                "listenHeading1": "Introductions",
+                "listenHeading2": "Explaining structure",
+                "listenHeading3": "Introducing a point",
+                "listenHeading4": "Clarifying",
+                "listenHeading5": "Changing the subject",
+                "listenHeading6": "Concluding",
+                "listenHeading7": "Dealing with questions",
+                "practiceQuestion": ["Write your own presentation on a subject you know about."],
+                "tipDos": [
+                    "Think about the purpose of your talk.",
+                    "Think about your audience and how much they already know.",
+                    "Structure your talk with an introduction, a middle and a conclusion.",
+                    "Make notes on cards in English that you can refer to while you are speaking.",
+                    "Close with a summary and an invitation for people to ask questions.",
+                    "Practise on your own and then with one or more friends listening."
+                ],
+                "tipDonts": [
+                    "Put too much information on each slide.",
+                    "Try to cover more than is realistic in the time available.",
+                    "Read out your whole talk like an essay."
+                ],
+                "review1": "I can introduce a presentation in a variety of ways.",
+                "review2": "I can introduce each point in a presentation in a variety of ways.",
+                "review3": "I can change the subject in a presentation in a variety of ways.",
+                "review4": "I can refer to charts or graphs in a presentation in a variety of ways.",
+                "review5": "I can conclude a presentation in a variety of ways."
+            },
+            "jobInterview": {
+                "title": "Job interview",
+                "tooltip": [
+                    "Appears in the following exams:",
+                    "Cambridge Assessment English: C1 Advanced, Business Certificates"
+                ],
+                "description": [
+                    "In an exam, you may have to pretend that you are attending a job interview. You will need to be able to describe your personal qualities and skills. You may also have to talk about your work experience and your hopes and aspirations for the future.",
+                    "This type of task often appears in the following exams: Cambridge Assessment English: C1 Advanced, Business Certificates"
+                ],
+                "taskQuestion": [
+                    "You have applied for a job with a television company.",
+                    "Answer the interviewer’s questions about your qualifications and experience. And about why you want the job."
+                ],
+                "skillCheckbox1": "Phrases an interviewer may use",
+                "skillCheckbox2": "Questions you may be asked in an interview",
+                "skillCheckbox3": "Ways of talking about your work experience",
+                "skillCheckbox4": "Ways of talking about your personal qualities and aspirations",
+                "skillCheckbox5": "Ways of explaining why you would like a particular job",
+                "listenHeading1": "Asking questions in an interview",
+                "listenHeading2": "Talking about why you want a particular job",
+                "listenHeading3": "Talking about your skills and work experience",
+                "listenHeading4": "Talking about your hopes for the future",
+                "listenHeading5": "Questions to ask an employer",
+                "practiceQuestion": ["Role-play a job interview, talking about your own skills and experience."],
+                "tipDos": [
+                    "Maintain eye contact when possible.",
+                    "Listen carefully to each question and ask for clarification if you aren’t sure what something means.",
+                    "Prepare some questions to ask the interviewer.",
+                    "Show that you know something about the employer.",
+                    "Record yourself answering possible questions or practice with a friend or relative."
+                ],
+                "tipDonts": [
+                    "Make negative comments about your previous employers.",
+                    "Be embarrassed to talk about yourself and your achievements.",
+                    "Worry if you need to pause to think before giving an answer."
+                ],
+                "review1": "I can talk about my work experience in a variety of ways.",
+                "review2": "I can talk about my personal qualities and skills in a variety of ways.",
+                "review3": "I can talk about my hopes for the future in a variety of ways.",
+                "review4": "I can give different reasons for why I want a particular job."
+            }
+        }
+    },
+    "settingPage": {
+        "heading": "iSpeakerReact settings",
+        "version": "Version",
+        "checkUpdateBtn": "Check for updates",
+        "checkUpdateMSBtn": "Check for updates in Microsoft Store",
+        "openGitHubAlertLink": "Open GitHub",
+        "exerciseSettings": {
+            "timerHeading": "Exercise timer",
+            "timerOption": "Enable timer",
+            "timerDescription": "Extra challenge by completing as many exercises as possible within the time limit.",
+            "hint": "Setting to 0 to disable timer for specific exercises.",
+            "textboxError": "Enter a value between 0 and 10.",
+            "applyBtn": "Apply",
+            "cancelBtn": "Cancel"
+        },
+        "appearanceSettings": {
+            "appearanceHeading": "Appearance",
+            "themeOption": "Theme",
+            "themeLight": "Light",
+            "themeDark": "Dark",
+            "themeAuto": "Follow OS theme",
+            "themeToggleBtn": "Toggle theme",
+            "themeAutoOptionToggle": "Auto",
+            "themeToggleOption": "Show “Toggle theme” button"
+        },
+        "cacheSettings": {
+            "cacheHeading": "Caching",
+            "menuCacheOption": "Cache menu files for faster loading",
+            "cacheMenuError": "Failed to download menu files.",
+            "cacheJSONFileError": "Error downloading or caching files."
+        },
+        "videoDownloadSettings": {
+            "videoDownloadHeading": "Video downloads",
+            "videoDownloadOption": "Download video files",
+            "videoPageHeading": "Download video files for offline watching",
+            "backToSettingsBtn": "Back to settings",
+            "instructionCardHeading": "Instructions",
+            "steps": [
+                "<1>Step {{number}}</1>: Click on the “Download” link to download the video file you want to watch offline.",
+                "<1>Step {{number}}</1>: Click on the “Open download folder” button, and move the file(s) you have downloaded into there.",
+                "<1>Step {{number}}</1>: Click on the “Back to settings” button (or any page), and then go back to this page. This is to refresh the state of the file downloaded status.",
+                "<1>Step {{number}}</1>: Click on the “Verify” button, and wait until the verification process is finished."
+            ],
+            "warningHeading": "Warning!",
+            "warningBody": "Do not manually extract, rename the file(s), or modify the zip file’s content. Doing so will make the verification process fail.",
+            "openDownloadBtn": "Open download folder",
+            "downloadTable": {
+                "nameHeading": "Name",
+                "fileSizeTotalHeading": "Total file size",
+                "linkHeading": "Download link",
+                "downloadStatusHeading": "Downloaded?",
+                "actionHeading": "Action",
+                "verifyBtn": "Verify",
+                "downloadLink": "Download",
+                "examVideos": "Exam videos",
+                "conversationVideosUK": "Conversation videos (British English)",
+                "conversationVideosUS": "Conversation videos (American English)",
+                "soundVideosUK": "Sound videos (British English)",
+                "soundVideosUS": "Sound videos (American English)"
+            },
+            "verifyModalHeading": "Verify downloaded files",
+            "verifyTitle": "You are about to verify this:",
+            "verifyFooter": "Proceed?",
+            "nextBtn": "Next",
+            "inProgressModalHeading": "Verification in progress",
+            "verifySuccess": "Verification success",
+            "verifySuccessMessage": "All extracted files are verified in the folder: ",
+            "verifyFailed": "Verification failed",
+            "verifyFailedMessage": "It seems like either the files are corrupted or missing. Please try downloading the file again."
+        },
+        "logSettings": {
+            "logSettingsHeading": "Log settings",
+            "logSettingsDescription": "Log files assist in troubleshooting issues such as application crashes, recording errors, and other unexpected behaviors.",
+            "numOfLogsOption": "Number of logs",
+            "numOfLogsNumLog": " logs",
+            "numOfLogsUnlimited": "Unlimited",
+            "deleteOldLogsOption": "Delete logs older than",
+            "deleteOldLogNumDay": " days",
+            "deleteOldLogNever": "Never",
+            "openLogBtn": "Open log folder"
+        },
+        "resetSettings": {
+            "resetHeading": "Reset settings",
+            "resetSettingsData": "Reset iSpeakerReact’s settings and review data",
+            "resetSettingsDataModalMessage": "Are you sure you want to reset iSpeakerReact’s settings and review data? This action cannot be undone.",
+            "deleteRecordingData": "Delete saved recordings",
+            "deleteRecordingDataModalMessage": "Are you sure you want to delete saved recordings? This action cannot be undone.",
+            "resetModalHeading": "Confirm...",
+            "resetConfirmBtn": "Confirm"
+        }
+    }
+}

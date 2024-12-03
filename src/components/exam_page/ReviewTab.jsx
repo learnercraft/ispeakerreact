@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const ReviewTab = ({ reviews, examId, accent }) => {
+    const { t } = useTranslation();
+
     const [checkedReviews, setCheckedReviews] = useState(() => {
         // Retrieve saved reviews from ispeaker -> examReview in localStorage
         const savedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
@@ -34,7 +37,7 @@ const ReviewTab = ({ reviews, examId, accent }) => {
                     key={index}
                     type="checkbox"
                     id={`review-${index}`}
-                    label={review.text}
+                    label={t(review.text)}
                     checked={!!checkedReviews[`${examId}-${index}`]}
                     onChange={() => handleCheckboxChange(index)}
                 />
