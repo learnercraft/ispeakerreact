@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, ProgressBar, Table } from "react-bootstrap";
 import { CheckCircleFill, XCircleFill } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const VideoDownloadTable = ({ data }) => {
+    const { t } = useTranslation();
+
     const [showVerifyModal, setShowVerifyModal] = useState(false);
     const [showProgressModal, setShowProgressModal] = useState(false);
     const [selectedZip, setSelectedZip] = useState(null);
@@ -118,33 +121,36 @@ const VideoDownloadTable = ({ data }) => {
             <Table responsive striped bordered hover>
                 <thead>
                     <tr className="align-middle text-center">
-                        <th>Name</th>
-                        <th>Total file size</th>
-                        <th>Download link</th>
-                        <th>Downloaded?</th>
-                        <th>Action</th>
+                        <th>{t("settingPage.videoDownloadSettings.downloadTable.nameHeading")}</th>
+                        <th>{t("settingPage.videoDownloadSettings.downloadTable.fileSizeTotalHeading")}</th>
+                        <th>{t("settingPage.videoDownloadSettings.downloadTable.linkHeading")}</th>
+                        <th>{t("settingPage.videoDownloadSettings.downloadTable.downloadStatusHeading")}</th>
+                        <th>{t("settingPage.videoDownloadSettings.downloadTable.actionHeading")}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((item) => (
                         <tr className="align-middle" key={item.zipFile}>
-                            <td>{item.name}</td>
+                            <td>{t(item.name)}</td>
                             <td className="text-center">{(item.fileSize / (1024 * 1024)).toFixed(2)} MB</td>
                             <td className="text-center">
                                 <Button
                                     variant="link"
                                     className="p-0"
-                                    onClick={() => window.electron.openExternal(item.link)} // Use window.electron.openExternal here
-                                >
-                                    Download
+                                    onClick={() => window.electron.openExternal(item.link)}>
+                                    {t("settingPage.videoDownloadSettings.downloadTable.downloadLink")}
                                 </Button>
                             </td>
                             <td className="text-center">
-                                {isDownloaded[item.zipFile] ? <CheckCircleFill className="text-success" /> : <XCircleFill className="text-danger" />}
+                                {isDownloaded[item.zipFile] ? (
+                                    <CheckCircleFill className="text-success" />
+                                ) : (
+                                    <XCircleFill className="text-danger" />
+                                )}
                             </td>
                             <td className="text-center">
                                 <Button onClick={() => handleVerify(item)} disabled={!isDownloaded[item.zipFile]}>
-                                    Verify
+                                    {t("settingPage.videoDownloadSettings.downloadTable.verifyBtn")}
                                 </Button>
                             </td>
                         </tr>
@@ -154,18 +160,18 @@ const VideoDownloadTable = ({ data }) => {
 
             <Modal show={showVerifyModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Verify downloaded files</Modal.Title>
+                    <Modal.Title>{t("settingPage.videoDownloadSettings.verifyModalHeading")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {verifyFiles.length > 0 ? (
                         <>
-                            <p>You are about to verify this:</p>
+                            <p>{t("settingPage.videoDownloadSettings.verifyTitle")}</p>
                             <ul>
                                 {verifyFiles.map((file, idx) => (
                                     <li key={idx}>{file.name}</li>
                                 ))}
                             </ul>
-                            <p className="mb-0">Proceed?</p>
+                            <p className="mb-0">{t("settingPage.videoDownloadSettings.verifyFooter")}</p>
                         </>
                     ) : (
                         <p>Either you haven’t downloaded the file(s) yet, or the filename does not match.</p>
@@ -173,10 +179,10 @@ const VideoDownloadTable = ({ data }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        Cancel
+                        {t("settingPage.exerciseSettings.cancelBtn")}
                     </Button>
                     <Button variant="primary" onClick={handleNextModal} disabled={verifyFiles.length === 0}>
-                        Next
+                        {t("settingPage.videoDownloadSettings.nextBtn")}
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -185,10 +191,10 @@ const VideoDownloadTable = ({ data }) => {
                 <Modal.Header>
                     <Modal.Title>
                         {isSuccess === null
-                            ? "Verification in progress"
+                            ? t("settingPage.videoDownloadSettings.inProgressModalHeading")
                             : isSuccess
-                            ? "Verification success"
-                            : "Verification failed"}
+                            ? t("settingPage.videoDownloadSettings.verifySuccess")
+                            : t("settingPage.videoDownloadSettings.verifyFailed")}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -207,7 +213,7 @@ const VideoDownloadTable = ({ data }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setModalMessage("")} disabled={isSuccess === null}>
-                        Close
+                        {t("sound_page.closeBtn")}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Floppy, PlayCircle, RecordCircle, StopCircle, Trash } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { checkRecordingExists, openDatabase, playRecording, saveRecording } from "../../utils/databaseOperations";
+import { isElectron } from "../../utils/isElectron";
 
 const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) => {
+    const { t } = useTranslation();
+
     const [textValue, setTextValue] = useState("");
     const [isRecording, setIsRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -66,17 +70,17 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
             const request = store.put({ id: textKey, text: textValue });
 
             request.onsuccess = () => {
-                setToastMessage("Text saved successfully.");
+                setToastMessage(t("toast.textSaveSuccess"));
                 setShowToast(true);
             };
             request.onerror = (error) => {
-                window.electron.log("error", `Error saving text: ${error}`);
-                setToastMessage("Error saving text: " + error.message);
+                isElectron() && window.electron.log("error", `Error saving text: ${error}`);
+                setToastMessage(t("toast.textSaveFailed") + error.message);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error saving text: ", error);
-            window.electron.log("error", `Error saving text: ${error}`);
+            isElectron() && window.electron.log("error", `Error saving text: ${error}`);
         }
     };
 
@@ -90,18 +94,18 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
 
             request.onsuccess = () => {
                 setTextValue("");
-                setToastMessage("Text cleared successfully.");
+                setToastMessage(t("toast.textClearSuccess"));
                 setShowToast(true);
             };
             request.onerror = (error) => {
-                setToastMessage("Error clearing text: " + error.message);
-                window.electron.log("error", `Error clearing text: ${error}`);
+                setToastMessage(t("toast.textClearFailed") + error.message);
+                isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
                 setShowToast(true);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
-            window.electron.log("error", `Error clearing text: ${error}`);
-            setToastMessage("Error clearing text: " + error.message);
+            isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
+            setToastMessage(t("toast.textClearFailed") + error.message);
             setShowToast(true);
         }
     };
@@ -127,8 +131,8 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                         if (mediaRecorder.state === "inactive") {
                             const audioBlob = new Blob(audioChunks, { type: event.data.type });
                             saveRecording(audioBlob, recordingKey, event.data.type);
-                            setToastMessage("Recording saved.");
-                            window.electron.log("log", `Recording saved: ${recordingKey}`);
+                            setToastMessage(t("toast.recordingSuccess"));
+                            isElectron() && window.electron.log("log", `Recording saved: ${recordingKey}`);
                             setShowToast(true);
                             setRecordingExists(true);
                             audioChunks = [];
@@ -139,15 +143,15 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                     setTimeout(() => {
                         if (mediaRecorder.state !== "inactive") {
                             mediaRecorder.stop();
-                            setToastMessage("Recording stopped because it exceeded the duration limit of 15 minutes.");
+                            setToastMessage(t("toast.recordingExceeded"));
                             setShowToast(true);
                             setIsRecording(false);
                         }
                     }, 15 * 60 * 1000);
                 })
                 .catch((error) => {
-                    setToastMessage("Recording failed: " + error.message);
-                    window.electron.log("error", `Recording failed: ${error}`);
+                    setToastMessage(t("toast.recordingFailed") + error.message);
+                    isElectron() && window.electron.log("error", `Recording failed: ${error}`);
                     setShowToast(true);
                 });
         } else {
@@ -182,8 +186,8 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                     }
                 },
                 (error) => {
-                    setToastMessage("Error during playback: " + error.message);
-                    window.electron.log("error", `Error saving text: ${error}`);
+                    setToastMessage(t("toast.playbackError") + error.message);
+                    isElectron() && window.electron.log("error", `Error saving text: ${error}`);
                     setShowToast(true);
                     setIsRecordingPlaying(false);
                 },
@@ -198,12 +202,13 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
 
     return (
         <>
-            <p>Practice writing your own conversation.</p>
-            <p>You may use some of the language from this topic.</p>
-            <p>Remember to save your text frequently!</p>
+            {t("tabConversationExam.practiceConversationText", { returnObjects: true }).map((text, index) => (
+                <p key={index}>{text}</p>
+            ))}
+
             <Form>
                 <Form.Group controlId="practiceText" className="mb-2">
-                    <Form.Label>Enter your conversation:</Form.Label>
+                    <Form.Label>{t("tabConversationExam.practiceConversationBox")}</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -214,34 +219,34 @@ const PracticeTab = ({ accent, conversationId, setToastMessage, setShowToast }) 
                     />
                 </Form.Group>
                 <Button variant="primary" onClick={handleSaveText} disabled={!textValue}>
-                    <Floppy /> Save
+                    <Floppy /> {t("buttonConversationExam.saveBtn")}
                 </Button>
                 <Button variant="danger" onClick={handleClearText} className="ms-2">
-                    <Trash /> Clear
+                    <Trash /> {t("buttonConversationExam.clearBtn")}
                 </Button>
             </Form>
 
             <div className="mt-4">
-                <p>Use the script you have written above to record yourself. Then listen to how you sound.</p>
+                <p>{t("tabConversationExam.recordSectionText")}</p>
                 <Button variant="primary" onClick={handleRecording}>
                     {isRecording ? (
                         <>
-                            <StopCircle /> Stop recording
+                            <StopCircle /> {t("buttonConversationExam.stopRecordBtn")}
                         </>
                     ) : (
                         <>
-                            <RecordCircle /> Record
+                            <RecordCircle /> {t("buttonConversationExam.recordBtn")}
                         </>
                     )}
                 </Button>
                 <Button variant="success" onClick={handlePlayRecording} disabled={!recordingExists} className="ms-2">
                     {isRecordingPlaying ? (
                         <>
-                            <StopCircle /> Stop playback
+                            <StopCircle /> {t("buttonConversationExam.stopPlayBtn")}
                         </>
                     ) : (
                         <>
-                            <PlayCircle /> Play recording
+                            <PlayCircle /> {t("buttonConversationExam.playBtn")}
                         </>
                     )}
                 </Button>

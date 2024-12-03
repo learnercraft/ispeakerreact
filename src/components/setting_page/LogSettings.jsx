@@ -1,27 +1,30 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { Card, Col, Dropdown, Row, Button } from "react-bootstrap";
-import { Check2, BoxArrowUpRight } from "react-bootstrap-icons";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Button, Card, Col, Dropdown, Row } from "react-bootstrap";
+import { BoxArrowUpRight, Check2 } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const LogSettings = () => {
+    const { t } = useTranslation();
+
     const [folderPath, setFolderPath] = useState(null);
 
     const maxLogOptions = useMemo(
         () => [
-            { value: "5", label: "5 logs", numOfLogs: 5 },
-            { value: "10", label: "10 logs", numOfLogs: 10 },
-            { value: "25", label: "25 logs", numOfLogs: 25 },
-            { value: "unlimited", label: "Unlimited", numOfLogs: 0 },
+            { value: "5", label: `5 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 5 },
+            { value: "10", label: `10 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 10 },
+            { value: "25", label: `25 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 25 },
+            { value: "unlimited", label: t("settingPage.logSettings.numOfLogsUnlimited"), numOfLogs: 0 },
         ],
-        []
+        [t]
     );
 
     const deleteLogsOptions = useMemo(
         () => [
-            { value: "1", label: "1 day", keepForDays: 1 },
-            { value: "7", label: "7 days", keepForDays: 7 },
-            { value: "14", label: "14 days", keepForDays: 14 },
-            { value: "30", label: "30 days", keepForDays: 30 },
-            { value: "never", label: "Never", keepForDays: 0 },
+            { value: "1", label: `1 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 1 },
+            { value: "7", label: `7 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 7 },
+            { value: "14", label: `14 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 14 },
+            { value: "30", label: `30 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 30 },
+            { value: "never", label: t("settingPage.logSettings.deleteOldLogNever"), keepForDays: 0 },
         ],
         []
     );
@@ -92,17 +95,14 @@ const LogSettings = () => {
 
     return (
         <>
-            <h4>Log settings</h4>
-            <p className="small text-secondary-emphasis">
-                Log files assist in troubleshooting issues such as application crashes, recording errors, and other
-                unexpected behaviors.
-            </p>
+            <h4>{t("settingPage.logSettings.logSettingsHeading")}</h4>
+            <p className="small text-secondary-emphasis">{t("settingPage.logSettings.logSettingsDescription")}</p>
 
             <Card>
                 <Card.Body>
                     <Row>
                         <Col xs="auto" className="d-flex align-items-center fw-semibold">
-                            <label htmlFor="logNumber">Number of logs</label>
+                            <label htmlFor="logNumber">{t("settingPage.logSettings.numOfLogsOption")}</label>
                         </Col>
                         <Col xs="auto" className="ms-auto">
                             <Dropdown>
@@ -139,7 +139,7 @@ const LogSettings = () => {
                 <Card.Body>
                     <Row>
                         <Col xs="auto" className="d-flex align-items-center fw-semibold">
-                            <label htmlFor="deleteLogs">Delete logs older than</label>
+                            <label htmlFor="deleteLogs">{t("settingPage.logSettings.deleteOldLogsOption")}</label>
                         </Col>
                         <Col xs="auto" className="ms-auto">
                             <Dropdown>
@@ -180,7 +180,7 @@ const LogSettings = () => {
                                 variant="link"
                                 className="text-start fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
                                 onClick={handleOpenLogFolder}>
-                                Open log folder
+                                {t("settingPage.logSettings.openLogBtn")}
                             </Button>
                         </Col>
                         <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">

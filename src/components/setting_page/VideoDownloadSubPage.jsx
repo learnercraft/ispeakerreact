@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Card } from "react-bootstrap";
 import { ArrowLeftCircle, ExclamationTriangleFill } from "react-bootstrap-icons";
+import { Trans, useTranslation } from "react-i18next";
 import VideoDownloadTable from "./VideoDownloadTable";
 
 const VideoDownloadSubPage = ({ onGoBack }) => {
+    const { t } = useTranslation();
+
     const [folderPath, setFolderPath] = useState(null);
     const [zipFileData, setZipFileData] = useState([]);
 
@@ -27,46 +30,37 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
         fetchData(); // Call fetchData when component mounts
     }, []); // Empty dependency array means this effect runs once when the component mounts
 
+    const localizedInstructionStep = t("settingPage.videoDownloadSettings.steps", { returnObjects: true });
+
     return (
         <div className="">
             <Button variant="primary" className="mb-4" onClick={onGoBack}>
-                <ArrowLeftCircle /> Back to settings
+                <ArrowLeftCircle /> {t("settingPage.videoDownloadSettings.backToSettingsBtn")}
             </Button>
-            <h4 className="mb-4">Download video files for offline watching</h4>
+            <h4 className="mb-4">{t("settingPage.videoDownloadSettings.videoPageHeading")}</h4>
             <Card className="mb-4">
                 <Card.Header>
-                    <div className="fw-semibold">Instructions</div>
+                    <div className="fw-semibold">{t("settingPage.videoDownloadSettings.instructionCardHeading")}</div>
                 </Card.Header>
                 <Card.Body>
-                    <p>
-                        <span className="fw-bold">Step 1.</span> Click on the “Download” link to download the video file
-                        you want to watch offline.
-                    </p>
-                    <p>
-                        <span className="fw-bold">Step 2.</span> Click on the “Open download folder” button, and move
-                        the file(s) you have downloaded into there.
-                    </p>
-                    <p>
-                        <span className="fw-bold">Step 3.</span> Click on the “Back to settings” button (or any page),
-                        and then go back to this page. This is to refresh the state of the file downloaded status.
-                    </p>
-                    <p>
-                        <span className="fw-bold">Step 4.</span> Click on the “Verify” button, and wait until the
-                        verification process is finished.
-                    </p>
+                    {localizedInstructionStep.map((step, index) => (
+                        <p key={index}>
+                            <Trans values={{ number: index + 1 }} components={{ 1: <span className="fw-bold" /> }}>
+                                {step}
+                            </Trans>
+                        </p>
+                    ))}
+
                     <Alert className="mb-0" variant="warning">
                         <Alert.Heading as="h5" className="fw-semibold">
-                            <ExclamationTriangleFill /> Warning!
+                            <ExclamationTriangleFill /> {t("settingPage.videoDownloadSettings.warningHeading")}
                         </Alert.Heading>
-                        <div className="fw-semibold">
-                            Do not manually extract, rename the file(s), or modify the zip file’s content. Doing so will
-                            make the verification process fail.
-                        </div>
+                        <div className="fw-semibold">{t("settingPage.videoDownloadSettings.warningBody")}</div>
                     </Alert>
                 </Card.Body>
             </Card>
             <Button variant="primary" className="mb-4" onClick={handleOpenFolder}>
-                Open download folder
+                {t("settingPage.videoDownloadSettings.openDownloadBtn")}
             </Button>
             <VideoDownloadTable data={zipFileData} />
         </div>

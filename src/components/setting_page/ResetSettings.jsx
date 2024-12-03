@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Button, Card, Col, Modal, Row, Spinner } from "react-bootstrap";
 import { ChevronRight } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { isElectron } from "../../utils/isElectron";
 
 const ResetSettings = ({ onReset }) => {
+    const { t } = useTranslation();
+
     const [showLocalStorageModal, setShowLocalStorageModal] = useState(false);
     const [showIndexedDbModal, setShowIndexedDbModal] = useState(false);
     const [isResettingLocalStorage, setIsResettingLocalStorage] = useState(false);
@@ -100,7 +103,7 @@ const ResetSettings = ({ onReset }) => {
     return (
         <>
             <div className="mt-4">
-                <h4 className="mb-3">Reset settings</h4>
+                <h4 className="mb-3">{t("settingPage.resetSettings.resetHeading")}</h4>
                 <Card className="mt-3">
                     <Card.Body>
                         <Row>
@@ -113,7 +116,7 @@ const ResetSettings = ({ onReset }) => {
                                     {isResettingLocalStorage ? (
                                         <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                                     ) : null}
-                                    Reset iSpeakerReact’s settings and sound data
+                                    {t("settingPage.resetSettings.resetSettingsData")}
                                 </Button>
                             </Col>
                             <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">
@@ -136,7 +139,7 @@ const ResetSettings = ({ onReset }) => {
                                         {isResettingIndexedDb ? (
                                             <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                                         ) : null}
-                                        Reset saved recordings
+                                        {t("settingPage.resetSettings.deleteRecordingData")}
                                     </Button>
                                 </Col>
                                 <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">
@@ -156,21 +159,18 @@ const ResetSettings = ({ onReset }) => {
                 keyboard={!isResettingLocalStorage} // Disable keyboard close (Esc) during reset
             >
                 <Modal.Header closeButton={!isResettingLocalStorage}>
-                    <Modal.Title>Confirm Reset</Modal.Title>
+                    <Modal.Title>{t("settingPage.resetSettings.resetModalHeading")}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    Are you sure you want to reset iSpeakerReact’s settings and sound data? This action cannot be
-                    undone.
-                </Modal.Body>
+                <Modal.Body>{t("settingPage.resetSettings.deleteRecordingDataModalMessage")}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseLocalStorage} disabled={isResettingLocalStorage}>
-                        Cancel
+                        {t("settingPage.exerciseSettings.cancelBtn")}
                     </Button>
                     <Button variant="danger" onClick={resetLocalStorage} disabled={isResettingLocalStorage}>
                         {isResettingLocalStorage ? (
                             <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                         ) : null}
-                        Reset data
+                        {t("settingPage.resetSettings.resetConfirmBtn")}
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -184,20 +184,18 @@ const ResetSettings = ({ onReset }) => {
                     keyboard={!isResettingIndexedDb} // Disable keyboard close (Esc) during reset
                 >
                     <Modal.Header closeButton={!isResettingIndexedDb}>
-                        <Modal.Title>Confirm Reset</Modal.Title>
+                        <Modal.Title>{t("settingPage.resetSettings.resetModalHeading")}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        Are you sure you want to reset saved recordings? This action cannot be undone.
-                    </Modal.Body>
+                    <Modal.Body>{t("settingPage.resetSettings.deleteRecordingDataModalMessage")}</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseIndexedDb} disabled={isResettingIndexedDb}>
-                            Cancel
+                            {t("settingPage.exerciseSettings.cancelBtn")}
                         </Button>
                         <Button variant="danger" onClick={resetIndexedDb} disabled={isResettingIndexedDb}>
                             {isResettingIndexedDb ? (
                                 <Spinner animation="border" size="sm" style={{ marginRight: "0.5rem" }} />
                             ) : null}
-                            Reset recordings
+                            {t("settingPage.resetSettings.resetConfirmBtn")}
                         </Button>
                     </Modal.Footer>
                 </Modal>

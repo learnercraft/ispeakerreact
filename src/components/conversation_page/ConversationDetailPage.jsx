@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Nav } from "react-bootstrap";
 import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { isElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
@@ -11,6 +12,8 @@ import ReviewTab from "./ReviewTab";
 import WatchAndStudyTab from "./WatchAndStudyTab";
 
 const ConversationDetailPage = ({ id, accent, title, onBack }) => {
+    const { t } = useTranslation();
+
     const [activeTab, setActiveTab] = useState("#watch_and_study");
     const [loading, setLoading] = useState(true);
     const [accentData, setAccentData] = useState(null);
@@ -107,14 +110,17 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
         fetchVideoUrl();
     }, [accentData, accent]);
 
-    const accentDisplay = accent === "british" ? "British English" : "American English";
-
     return (
         <>
-            <h3 className="mt-4">Topic: {title}</h3>
-            <p>Accent: {accentDisplay}</p>
+            <h3 className="mt-4">
+                {t("conversationPage.topicHeading")} {t(title)}
+            </h3>
+            <p>
+                {t("accent.accentSettings")}:{" "}
+                {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
+            </p>
             <Button variant="primary" className="my-3" onClick={onBack}>
-                <ArrowLeftCircle className="me-1" /> Back to conversation list
+                <ArrowLeftCircle className="me-1" /> {t("buttonConversationExam.conversationBackBtn")}
             </Button>
             {loading || videoLoading ? (
                 <LoadingOverlay />
@@ -127,22 +133,22 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                             onSelect={(selectedKey) => setActiveTab(selectedKey)}>
                             <Nav.Item>
                                 <Nav.Link eventKey="#watch_and_study">
-                                    <CameraVideo /> Watch
+                                    <CameraVideo /> {t("buttonConversationExam.watchBtn")}
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="#listen">
-                                    <Headphones /> Listen
+                                    <Headphones /> {t("buttonConversationExam.listenBtn")}
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="#practice">
-                                    <ChatDots /> Practice
+                                    <ChatDots /> {t("buttonConversationExam.practiceBtn")}
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="#review">
-                                    <CardChecklist /> Review
+                                    <CardChecklist /> {t("buttonConversationExam.reviewBtn")}
                                 </Nav.Link>
                             </Nav.Item>
                         </Nav>
