@@ -16,7 +16,7 @@ i18n.use(HttpApi) // Load translations via HTTP (use with i18next-http-backend)
         load: "languageOnly",
         debug: true, // Enable debug messages
         backend: {
-            loadPath: "/locales/{{lng}}.json", // Translation files path
+            loadPath: `${import.meta.env.BASE_URL}locales/{{lng}}.json`, // Translation files path
         },
         interpolation: {
             escapeValue: false, // React already escapes values
