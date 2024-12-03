@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Alert, Button, Col, Row, Spinner } from "react-bootstrap";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const AppInfo = () => {
+    const { t } = useTranslation();
+
     const [isLoading, setIsLoading] = useState(false);
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -13,7 +16,7 @@ const AppInfo = () => {
         setIsLoading(true);
 
         if (!navigator.onLine) {
-            setAlertMessage("No Internet connection. Please check your connection and try again.");
+            setAlertMessage(t("alert.alertAppNoInternet"));
             setAlertVariant("warning");
             setAlertVisible(true);
             setIsLoading(false);
@@ -45,19 +48,18 @@ const AppInfo = () => {
             const latestVersion = decodedContent.version;
 
             if (latestVersion !== currentVersion) {
-                const updateMessage = "A new update is found. Go to the project's GitHub page for more information.";
-                setAlertMessage(updateMessage);
+                setAlertMessage(t("alert.appNewVersionGitHub"));
                 setAlertVariant("success");
                 setAlertVisible(true);
             } else {
-                setAlertMessage("You are already using the latest version.");
+                setAlertMessage(t("alert.appVersionLatest"));
                 setAlertVariant("info");
                 setAlertVisible(true);
             }
         } catch (error) {
             console.error("Failed to fetch version:", error);
             window.electron.log("error", `Failed to fetch version. ${error}`);
-            setAlertMessage("Error checking for updates.");
+            setAlertMessage(t("alert.appUpdateError"));
             setAlertVariant("danger");
             setAlertVisible(true);
         } finally {
@@ -79,7 +81,8 @@ const AppInfo = () => {
                 <Alert variant={alertVariant} onClose={() => setAlertVisible(false)} dismissible>
                     {alertMessage.includes("GitHub") ? (
                         <>
-                            {alertMessage} <Alert.Link onClick={openGithubPage}>Open GitHub</Alert.Link>.
+                            {alertMessage}{" "}
+                            <Alert.Link onClick={openGithubPage}>{t("settingPage.openGitHubAlertLink")}</Alert.Link>.
                         </>
                     ) : (
                         alertMessage
@@ -99,12 +102,12 @@ const AppInfo = () => {
                     <p className="text-body-secondary mb-2">Version {currentVersion}</p>
                     {window.electron.isUwp() ? (
                         <Button onClick={openMsStore} variant="primary">
-                            Check for updates in Microsoft Store <BoxArrowUpRight />
+                            {t("settingPage.checkUpdateMSBtn")} <BoxArrowUpRight />
                         </Button>
                     ) : (
                         <Button onClick={checkForUpdates} variant="primary">
                             {isLoading && <Spinner animation="border" size="sm" className="me-2" />}
-                            Check for new updates
+                            {t("settingPage.checkUpdateBtn")}
                         </Button>
                     )}
                 </Col>

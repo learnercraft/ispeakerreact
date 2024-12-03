@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, Form, Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import {
     deleteCachedJsonFiles,
     getFileFromIndexedDB,
@@ -9,6 +10,8 @@ import {
 } from "./offlineStorageDb";
 
 const CachingSettings = () => {
+    const { t } = useTranslation();
+
     const [cacheMenuFiles, setCacheMenuFiles] = useState(false);
     const [menuErrorText, setMenuErrorText] = useState("");
     const [isProcessing, setIsProcessing] = useState(false);
@@ -78,7 +81,7 @@ const CachingSettings = () => {
             try {
                 const downloadedHashJson = await downloadHashJson(jsonUrl);
                 if (!downloadedHashJson) {
-                    setMenuErrorText("Failed to download menu files.");
+                    setMenuErrorText(t("settingPage.cacheSettings.cacheMenuError"));
                     setIsProcessing(false);
                     return;
                 }
@@ -89,7 +92,7 @@ const CachingSettings = () => {
                 updateLocalStorage(true);
             } catch (error) {
                 console.error("Error caching files:", error);
-                setMenuErrorText("Error downloading or caching files.");
+                setMenuErrorText(t("settingPage.cacheSettings.cacheJSONFileError"));
             }
         }
 
@@ -133,13 +136,13 @@ const CachingSettings = () => {
 
     return (
         <div>
-            <h4>Caching settings</h4>
+            <h4>{t("settingPage.cacheSettings.cacheHeading")}</h4>
             <Card className="mt-4 mb-4">
                 <Card.Body>
                     <Form.Group className="px-0 form-switch">
                         <div className="d-flex justify-content-between align-items-center">
                             <Form.Label className="fw-semibold mb-0 col-10" htmlFor="cacheJson" role="button">
-                                Cache menu files for faster loading
+                            {t("settingPage.cacheSettings.menuCacheOption")}
                             </Form.Label>
                             {isProcessing ? (
                                 <Spinner

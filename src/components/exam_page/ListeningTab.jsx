@@ -2,9 +2,12 @@ import Masonry from "masonry-layout";
 import { useEffect, useRef, useState } from "react";
 import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
 import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import ToastNotification from "../general/ToastNotification";
 
 const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
+    const { t } = useTranslation();
+
     const [playingIndex, setPlayingIndex] = useState(null);
     const [currentAudio, setCurrentAudio] = useState(null);
     const [loadingIndex, setLoadingIndex] = useState(null);
@@ -73,9 +76,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                         setCurrentAudio(null);
                         setPlayingIndex(null);
                         console.log("Audio loading error");
-                        alert(
-                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                        );
+                        alert(t("toast.audioPlayFailed"));
                     };
 
                     setCurrentAudio(audio);
@@ -85,9 +86,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                         console.log("Audio loading aborted");
                     } else {
                         console.error("Error loading audio:", error);
-                        setToastMessage(
-                            "Unable to play audio due to a network issue. Please check your connection and reload the page."
-                        );
+                        setToastMessage(t("toast.audioPlayFailed"));
                         setShowToast(true);
                     }
                     setLoadingIndex(null);
@@ -127,7 +126,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                     <Col md={4} key={accordionIndex} className="masonry-item">
                         <Card className="shadow-sm mb-4">
                             <Card.Header>
-                                <div className="fw-semibold">{subtopic.title}</div>
+                                <div className="fw-semibold">{t(subtopic.title)}</div>
                             </Card.Header>
                             <Card.Body>
                                 <ListGroup variant="flush">

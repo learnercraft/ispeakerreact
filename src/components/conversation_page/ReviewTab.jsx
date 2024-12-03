@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const ReviewTab = ({ reviews, accent, conversationId }) => {
+    const { t } = useTranslation();
+
     const [reviewState, setReviewState] = useState({});
 
     const reviewKey = `${accent}-${conversationId}-review`;
@@ -53,7 +56,7 @@ const ReviewTab = ({ reviews, accent, conversationId }) => {
                     key={index}
                     id={`review-${index}`}
                     type="checkbox"
-                    label={review.text}
+                    label={t(review.text)}
                     checked={!!reviewState[index + 1]}
                     onChange={() => handleCheckboxChange(index + 1)}
                     className="mb-2"
