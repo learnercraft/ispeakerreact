@@ -1,0 +1,24 @@
+1
+00:00:06,920 --> 00:00:09,749
+Do you know what time it is in New York?
+
+2
+00:00:09,750 --> 00:00:12,305
+I'm not at all sure to be honest. Why? 
+
+3
+00:00:12,306 --> 00:00:15,953
+I'm supposed to phone the New York office.
+
+4
+00:00:15,960 --> 00:00:17,324
+Well, I think it's probably
+
+5
+00:00:17,325 --> 00:00:18,143
+very early morning.
+
+6
+00:00:18,150 --> 00:00:20,333
+I doubt they'll be at work right now.
+

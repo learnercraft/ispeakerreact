@@ -1,0 +1,16 @@
+1
+00:00:06,220 --> 00:00:10,746
+Oh, is that the time? I'd better be off.
+
+2
+00:00:10,750 --> 00:00:12,195
+It's been lovely talking to you.
+
+3
+00:00:12,200 --> 00:00:13,893
+Yes, it was nice to meet you.
+
+4
+00:00:13,900 --> 00:00:14,859
+Maybe see you later?
+

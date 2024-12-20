@@ -1,9 +1,7 @@
-import Masonry from "masonry-layout";
 import { useEffect, useRef, useState } from "react";
-import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
-import ToastNotification from "../general/ToastNotification";
+import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 
 const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
     const { t } = useTranslation();
@@ -11,9 +9,6 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
     const [playingIndex, setPlayingIndex] = useState(null);
     const [currentAudio, setCurrentAudio] = useState(null);
     const [loadingIndex, setLoadingIndex] = useState(null);
-
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
 
     const subtopics = currentAccent === "american" ? subtopicsAme : subtopicsBre;
 
@@ -76,7 +71,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                         setCurrentAudio(null);
                         setPlayingIndex(null);
                         console.log("Audio loading error");
-                        alert(t("toast.audioPlayFailed"));
+                        sonnerErrorToast(t("toast.audioPlayFailed"));
                     };
 
                     setCurrentAudio(audio);
@@ -86,8 +81,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                         console.log("Audio loading aborted");
                     } else {
                         console.error("Error loading audio:", error);
-                        setToastMessage(t("toast.audioPlayFailed"));
-                        setShowToast(true);
+                        sonnerErrorToast(t("toast.audioPlayFailed"));
                     }
                     setLoadingIndex(null);
                     setCurrentAudio(null);
@@ -110,67 +104,73 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
         };
     }, [currentAudio]);
 
-    useEffect(() => {
-        // Initialize Masonry after the component mounts
-        new Masonry(".masonry-grid", {
-            itemSelector: ".masonry-item",
-            columnWidth: ".masonry-item",
-            percentPosition: true,
-        });
-    }, []);
-
     return (
         <>
-            <Row className="g-4 masonry-grid">
-                {subtopics.map((subtopic, accordionIndex) => (
-                    <Col md={4} key={accordionIndex} className="masonry-item">
-                        <Card className="shadow-sm mb-4">
-                            <Card.Header>
-                                <div className="fw-semibold">{t(subtopic.title)}</div>
-                            </Card.Header>
-                            <Card.Body>
-                                <ListGroup variant="flush">
-                                    {subtopic.sentences.map((sentenceObj, sentenceIndex) => {
-                                        const uniqueIndex = `${accordionIndex}-${sentenceIndex}`;
-                                        return (
-                                            <ListGroup.Item
-                                                action
-                                                key={uniqueIndex}
-                                                onClick={() => handlePlayPause(uniqueIndex, sentenceObj.audioSrc)}
-                                                // Disable all items if loading or playing another audio
-                                                disabled={
-                                                    (loadingIndex !== null && loadingIndex !== uniqueIndex) ||
-                                                    (playingIndex !== null && playingIndex !== uniqueIndex)
-                                                }
-                                                type="button"
-                                                aria-pressed={playingIndex === uniqueIndex}
-                                                aria-disabled={loadingIndex !== null && loadingIndex !== uniqueIndex}>
+            <div className="flex flex-wrap justify-center gap-4">
+                {subtopics.map((subtopic, topicIndex) => (
+                    <div
+                        key={topicIndex}
+                        className="card card-bordered w-full shadow-md md:w-2/5 lg:w-[30%] dark:border-slate-600"
+                    >
+                        <div className="card-body px-4 md:px-8">
+                            <div className="card-title font-semibold">{t(subtopic.title)}</div>
+                            <div className="divider divider-secondary m-0"></div>
+
+                            <ul
+                                role="list"
+                                className="divide-y divide-gray-300 dark:divide-gray-600"
+                            >
+                                {subtopic.sentences.map((sentenceObj, sentenceIndex) => {
+                                    const uniqueIndex = `${topicIndex}-${sentenceIndex}`;
+                                    return (
+                                        <li
+                                            role="button"
+                                            className={`flex justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
+                                            key={uniqueIndex}
+                                            onClick={() =>
+                                                handlePlayPause(uniqueIndex, sentenceObj.audioSrc)
+                                            }
+                                            // Disable all items if loading or playing another audio
+                                            disabled={
+                                                (loadingIndex !== null &&
+                                                    loadingIndex !== uniqueIndex) ||
+                                                (playingIndex !== null &&
+                                                    playingIndex !== uniqueIndex)
+                                            }
+                                            type="button"
+                                            aria-pressed={playingIndex === uniqueIndex}
+                                            aria-disabled={
+                                                loadingIndex !== null &&
+                                                loadingIndex !== uniqueIndex
+                                            }
+                                        >
+                                            <div className="flex min-w-0 gap-x-4">
+                                                <div className="min-w-0 flex-auto">
+                                                    <p
+                                                        className="italic"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: sentenceObj.sentence,
+                                                        }}
+                                                    ></p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-x-2">
                                                 {loadingIndex === uniqueIndex ? (
-                                                    <Spinner animation="border" size="sm" className="me-2" />
+                                                    <span className="loading loading-spinner loading-md"></span>
                                                 ) : playingIndex === uniqueIndex ? (
-                                                    <VolumeUpFill className="me-2" />
+                                                    <IoVolumeHigh className="h-6 w-6" />
                                                 ) : (
-                                                    <VolumeUp className="me-2" />
+                                                    <IoVolumeHighOutline className="h-6 w-6" />
                                                 )}
-                                                <span
-                                                    className="fst-italic"
-                                                    dangerouslySetInnerHTML={{ __html: sentenceObj.sentence }}
-                                                />
-                                            </ListGroup.Item>
-                                        );
-                                    })}
-                                </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </div>
                 ))}
-            </Row>
-            <ToastNotification
-                show={showToast}
-                onClose={() => setShowToast(false)}
-                message={toastMessage}
-                variant="warning"
-            />
+            </div>
         </>
     );
 };

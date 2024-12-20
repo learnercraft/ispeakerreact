@@ -1,13 +1,11 @@
-import { Suspense, lazy, useEffect, useState } from "react";
-import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { InfoCircle } from "react-bootstrap-icons";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 
 const ExamDetailPage = lazy(() => import("./ExamDetailPage"));
 
@@ -19,30 +17,26 @@ const ExamPage = () => {
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedExam, setSelectedExam] = useState(null);
 
-    const TooltipIcon = ({ exam_popup }) => {
-        // Get localized array or ensure fallback as an array
-        const lines = t(exam_popup, { returnObjects: true });
+    // Ref and state for modal tooltip handling
+    const modalRef = useRef(null);
+    const [tooltipContent, setTooltipContent] = useState("");
 
-        // Ensure lines is an array (fallback to empty array if not)
-        const tooltipLines = Array.isArray(lines) ? lines : [lines];
+    const handleShowTooltip = (content) => {
+        setTooltipContent(content);
+        if (modalRef.current) {
+            modalRef.current.showModal();
+        }
+    };
 
-        return (
-            <OverlayTrigger
-                overlay={
-                    <Tooltip>
-                        {tooltipLines.map((line, index) => (
-                            <div key={index}>{line}</div>
-                        ))}
-                    </Tooltip>
-                }
-                trigger={["hover", "focus"]}>
-                <InfoCircle className="ms-1" />
-            </OverlayTrigger>
-        );
+    const handleCloseTooltip = () => {
+        if (modalRef.current) {
+            modalRef.current.close();
+        }
+        setTooltipContent("");
     };
 
     const handleSelectExam = (id, title) => {
-        const selected = data.find((section) => section.titles.some((title) => title.id === id));
+        const selected = data.find((section) => section.titles.some((item) => item.id === id));
         if (selected) {
             setSelectedExam({
                 id,
@@ -52,22 +46,56 @@ const ExamPage = () => {
         }
     };
 
+    const TooltipIcon = ({ exam_popup }) => {
+        const lines = t(exam_popup, { returnObjects: true });
+        const tooltipArray = Array.isArray(lines) ? lines : [lines];
+        const tooltipText = tooltipArray.map((line, index) => <p key={index}>{line}</p>);
+
+        return (
+            <>
+                <div className="dropdown dropdown-end dropdown-top dropdown-hover hidden cursor-pointer md:flex">
+                    <div className="hover:text-primary dark:hover:text-accent">
+                        <IoInformationCircleOutline className="h-5 w-5" />
+                    </div>
+                    <div
+                        tabIndex={0}
+                        className="card dropdown-content compact z-[1] w-64 bg-secondary dark:bg-accent dark:text-accent-content"
+                    >
+                        <div tabIndex={0} className="card-body">
+                            {tooltipText}
+                        </div>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    title={t("examPage.expandInfoBtn")}
+                    className="btn btn-circle btn-sm items-center sm:hidden"
+                    onClick={() => handleShowTooltip(tooltipText)}
+                >
+                    <IoInformationCircleOutline className="h-5 w-5" />
+                </button>
+            </>
+        );
+    };
+
     const ExamCard = ({ heading, titles }) => (
-        <Col>
-            <Card className="mb-4 h-100 shadow-sm">
-                <Card.Header className="fw-semibold">{t(heading)}</Card.Header>
-                <Card.Body>
-                    {titles.map(({ title, exam_popup, id }, index) => (
-                        <Card.Text key={index} className="">
-                            <Button variant="link" className="p-0 m-0" onClick={() => handleSelectExam(id, title)}>
-                                {t(title)}
-                            </Button>
-                            <TooltipIcon exam_popup={exam_popup} />
-                        </Card.Text>
-                    ))}
-                </Card.Body>
-            </Card>
-        </Col>
+        <div className="card card-bordered flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
+            <div className="card-body flex-grow">
+                <div className="card-title font-semibold">{t(heading)}</div>
+                <div className="divider divider-secondary m-0"></div>
+                {titles.map(({ title, exam_popup, id }, index) => (
+                    <div key={index} className="mb-2 flex items-center gap-2 align-middle">
+                        <a
+                            className="link hover:link-primary dark:hover:link-accent"
+                            onClick={() => handleSelectExam(id, title)}
+                        >
+                            {t(title)}
+                        </a>
+                        <TooltipIcon exam_popup={exam_popup} />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 
     useEffect(() => {
@@ -75,52 +103,28 @@ const ExamPage = () => {
             try {
                 setLoading(true);
 
-                // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron()) {
-                    const cachedDataBlob = await getFileFromIndexedDB("examspeaking_list.json", "json");
+                const response = await fetch(
+                    `${import.meta.env.BASE_URL}json/examspeaking_list.json`
+                );
+                const fetchedData = await response.json();
 
-                    if (cachedDataBlob) {
-                        // Convert Blob to text, then parse the JSON
-                        const cachedDataText = await cachedDataBlob.text();
-                        const cachedData = JSON.parse(cachedDataText);
-
-                        setData(cachedData.examList);
-                        setLoading(false);
-
-                        return;
-                    }
-                }
-
-                // If not in IndexedDB or running in Electron, fetch from the network
-                const response = await fetch(`${import.meta.env.BASE_URL}json/examspeaking_list.json`);
-                const data = await response.json();
-
-                setData(data.examList);
+                setData(fetchedData.examList);
                 setLoading(false);
-
-                // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-                    await saveFileToIndexedDB("examspeaking_list.json", blob, "json");
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Error while loading the data for this section. Please check your Internet connection.");
+                alert(
+                    "Error while loading the data for this section. Please check your Internet connection."
+                );
             }
         };
         fetchData();
     }, []);
 
     useEffect(() => {
-        // Save the selected accent to localStorage
         const savedSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
         savedSettings.selectedAccent = selectedAccent;
         localStorage.setItem("ispeaker", JSON.stringify(savedSettings));
     }, [selectedAccent]);
-
-    const handleGoBack = () => {
-        setSelectedExam(null);
-    };
 
     useEffect(() => {
         document.title = `${t("navigation.exams")} | iSpeakerReact v${__APP_VERSION__}`;
@@ -129,31 +133,53 @@ const ExamPage = () => {
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">{t("navigation.exams")}</h1>
-            {selectedExam ? (
-                <Suspense fallback={<LoadingOverlay />}>
-                    <ExamDetailPage
-                        id={selectedExam.id}
-                        accent={selectedAccent}
-                        title={selectedExam.title}
-                        onBack={handleGoBack}
-                    />
-                </Suspense>
-            ) : (
-                <>
-                    <AccentDropdown onAccentChange={setSelectedAccent} />
-                    {t("examPage.selectType")}
-                    {loading ? (
-                        <LoadingOverlay />
-                    ) : (
-                        <Row xs={1} md={3} className="g-4 mt-1 d-flex justify-content-center">
-                            {data.map((section, index) => (
-                                <ExamCard key={index} heading={section.heading} titles={section.titles} />
-                            ))}
-                        </Row>
-                    )}
-                </>
-            )}
+            <Container>
+                <h1 className="py-6 text-3xl font-bold md:text-4xl">{t("navigation.exams")}</h1>
+                {selectedExam ? (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <ExamDetailPage
+                            id={selectedExam.id}
+                            accent={selectedAccent}
+                            title={selectedExam.title}
+                            onBack={() => setSelectedExam(null)}
+                        />
+                    </Suspense>
+                ) : (
+                    <>
+                        <AccentDropdown onAccentChange={setSelectedAccent} />
+                        <p className="my-4">{t("examPage.selectType")}</p>
+                        {loading ? (
+                            <LoadingOverlay />
+                        ) : (
+                            <div className="my-10 flex flex-wrap justify-center gap-7">
+                                {data.map((section, index) => (
+                                    <ExamCard
+                                        key={index}
+                                        heading={section.heading}
+                                        titles={section.titles}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {/* Tooltip Modal */}
+                        <dialog ref={modalRef} className="modal">
+                            <div className="modal-box">
+                                <h3 className="text-lg font-bold">{t("examPage.examModalInfo")}</h3>
+                                <div className="py-4">{tooltipContent}</div>
+                                <div className="modal-action">
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        onClick={handleCloseTooltip}
+                                    >
+                                        {t("sound_page.closeBtn")}
+                                    </button>
+                                </div>
+                            </div>
+                        </dialog>
+                    </>
+                )}
+            </Container>
         </>
     );
 };

@@ -1,0 +1,32 @@
+1
+00:00:06,990 --> 00:00:09,041
+We're organizing a trip to 
+
+2
+00:00:09,042 --> 00:00:10,409
+Stratford on Wednesday afternoon.
+
+3
+00:00:10,410 --> 00:00:12,796
+Would you be interested in coming along?
+
+4
+00:00:12,800 --> 00:00:15,562
+I'd love to, but I don't think I can
+
+5
+00:00:15,563 --> 00:00:18,274
+make it any sooner than two o'clock.
+
+6
+00:00:18,280 --> 00:00:20,325
+Is that too late? I'm afraid so,
+
+7
+00:00:20,330 --> 00:00:22,375
+we're all meeting at one. 
+
+8
+00:00:22,380 --> 00:00:23,408
+OK. Thanks anyway.
+

@@ -1,0 +1,20 @@
+1
+00:00:06,610 --> 00:00:08,601
+There's a Chinese restaurant next door
+
+2
+00:00:08,602 --> 00:00:11,037
+or an Italian just across the street.
+
+3
+00:00:11,040 --> 00:00:13,426
+I think I'd prefer the Italian myself.
+
+4
+00:00:13,430 --> 00:00:15,816
+What about you? I don't really mind either way.
+
+5
+00:00:15,817 --> 00:00:17,859
+OK, the Italian then.
+

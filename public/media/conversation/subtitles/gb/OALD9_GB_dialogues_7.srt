@@ -1,0 +1,48 @@
+1
+00:00:07,190 --> 00:00:08,904
+I've got to go soon.
+
+2
+00:00:08,905 --> 00:00:10,276
+I'm picking up Claire from the airport.
+
+3
+00:00:10,277 --> 00:00:12,158
+Oh, I hate airports.
+
+4
+00:00:12,160 --> 00:00:13,305
+Traveling by train's
+
+5
+00:00:13,306 --> 00:00:15,009
+much nicer, isn't it? 
+
+6
+00:00:15,010 --> 00:00:16,889
+Depends on the train.
+
+7
+00:00:16,890 --> 00:00:20,634
+Sometimes they're dirty and crowded, aren't they?
+
+8
+00:00:20,640 --> 00:00:22,928
+I guess so.
+
+9
+00:00:22,930 --> 00:00:24,544
+What do you think about
+
+10
+00:00:24,545 --> 00:00:26,159
+those new high-speed trains? 
+
+11
+00:00:26,160 --> 00:00:27,071
+They're great,
+
+12
+00:00:27,072 --> 00:00:28,895
+but they're terribly expensive.
+

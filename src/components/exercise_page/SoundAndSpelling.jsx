@@ -1,14 +1,15 @@
 import he from "he";
 import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
-import { ArrowRightCircle, CheckCircleFill, VolumeUp, VolumeUpFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
+import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
+import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 
 const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledOptions, setShuffledOptions] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -18,7 +19,9 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
+        setTimeIsUp(true)
+    );
 
     const { t } = useTranslation();
 
@@ -37,7 +40,9 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
         // Set the question text and audio source
         setCurrentQuestionText(quizData.question[0].text);
-        setCurrentAudioSrc(`${import.meta.env.BASE_URL}media/exercise/mp3/${quizData.audio.src}.mp3`);
+        setCurrentAudioSrc(
+            `${import.meta.env.BASE_URL}media/exercise/mp3/${quizData.audio.src}.mp3`
+        );
 
         setButtonsDisabled(false);
         setSelectedOption(null);
@@ -48,8 +53,8 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             // Filter out unique items and shuffle the quiz array
             const uniqueShuffledQuiz = filterAndShuffleQuiz(quiz);
             setShuffledQuiz(uniqueShuffledQuiz);
-            // Reset currentQuizIndex to 0
-            setCurrentQuizIndex(0);
+            // Reset currentQuestionIndex to 0
+            setcurrentQuestionIndex(0);
         }
     }, [quiz]);
 
@@ -75,10 +80,10 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     }, []);
 
     useEffect(() => {
-        if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
-            loadQuiz(shuffledQuiz[currentQuizIndex]);
+        if (shuffledQuiz.length > 0 && currentQuestionIndex < shuffledQuiz.length) {
+            loadQuiz(shuffledQuiz[currentQuestionIndex]);
         }
-    }, [shuffledQuiz, currentQuizIndex, loadQuiz]);
+    }, [shuffledQuiz, currentQuestionIndex, loadQuiz]);
 
     const handleAudioPlay = () => {
         if (isPlaying) {
@@ -111,7 +116,9 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 setIsLoading(false);
                 setIsPlaying(false);
                 console.error("Error playing audio.");
-                alert("There was an error loading the audio file. Please check your connection or try again later.");
+                alert(
+                    "There was an error loading the audio file. Please check your connection or try again later."
+                );
             };
         }
     };
@@ -122,7 +129,10 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         setSelectedOption({ index, isCorrect });
 
         // Replace the underscore with the selected answer
-        const updatedQuestionText = currentQuestionText.replace("_____", shuffledOptions[index].value);
+        const updatedQuestionText = currentQuestionText.replace(
+            "_____",
+            shuffledOptions[index].value
+        );
         setCurrentQuestionText(updatedQuestionText);
 
         onAnswer(isCorrect ? 1 : 0, "single");
@@ -131,8 +141,8 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const handleNextQuiz = () => {
         stopAudio();
 
-        if (currentQuizIndex < shuffledQuiz.length - 1) {
-            setCurrentQuizIndex((prevIndex) => prevIndex + 1);
+        if (currentQuestionIndex < shuffledQuiz.length - 1) {
+            setcurrentQuestionIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
             stopAudio();
@@ -148,78 +158,104 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">
-                <div className="d-flex">
-                    <div className="me-auto">
-                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
-                    </div>
-                    {timer > 0 && (
-                        <div className="ms-auto">
-                            {t("exercise_page.timer")} {formatTime()}
+            <div className="card-body">
+                <div className="text-lg font-semibold">
+                    {timer > 0 ? (
+                        <div className="flex items-center">
+                            <div className="flex-1 md:flex-none">
+                                {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                            </div>
+                            <div className="ms-auto flex justify-end">
+                                {t("exercise_page.timer")} {formatTime()}
+                            </div>
                         </div>
+                    ) : (
+                        <p>
+                            {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                        </p>
                     )}
                 </div>
-            </Card.Header>
-            <Card.Body>
-                <Row className="d-flex justify-content-center g-3">
-                    <Col xs={12} className="d-flex justify-content-center">
-                        <Button variant="primary" onClick={handleAudioPlay} disabled={isLoading}>
+                <div className="divider divider-secondary m-0"></div>
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <div>
+                        <button
+                            type="button"
+                            title={t("exercise_page.buttons.playAudioBtn")}
+                            className="btn btn-circle btn-success"
+                            onClick={handleAudioPlay}
+                            disabled={isLoading}
+                        >
                             {isLoading ? (
-                                <Spinner animation="border" size="sm" />
+                                <span className="loading loading-spinner loading-md"></span>
                             ) : isPlaying ? (
-                                <VolumeUpFill />
+                                <IoVolumeHigh className="h-6 w-6" />
                             ) : (
-                                <VolumeUp />
+                                <IoVolumeHighOutline className="h-6 w-6" />
                             )}
-                        </Button>
-                    </Col>
-                    <Col xs={12} className="d-flex justify-content-center">
-                        <Button
-                            variant={selectedOption ? (selectedOption.isCorrect ? "success" : "danger") : "none"}
-                            className={`fs-4 mb-0 border-0 ${!selectedOption ? "" : ""}`}>
-                            {he.decode(currentQuestionText)}
-                            {selectedOption ? (
-                                selectedOption.isCorrect ? (
-                                    <CheckCircleFill className="ms-2" />
-                                ) : (
-                                    <XCircleFill className="ms-2" />
-                                )
+                        </button>
+                    </div>
+
+                    <div
+                        className={`flex items-center gap-2 rounded-lg px-6 py-3 text-xl ${
+                            selectedOption
+                                ? selectedOption.isCorrect
+                                    ? "bg-success text-success-content"
+                                    : "bg-error text-error-content"
+                                : ""
+                        }`}
+                    >
+                        {he.decode(currentQuestionText)}
+                        {selectedOption ? (
+                            selectedOption.isCorrect ? (
+                                <BsCheckCircleFill className="h-5 w-5" />
                             ) : (
-                                ""
-                            )}
-                        </Button>
-                    </Col>
-                    <Col xs={12} className="d-flex justify-content-center">
-                        <Stack direction="horizontal" gap={3}>
-                            {shuffledOptions.map((option, index) => (
-                                <Button
-                                    className={`fw-bold ${buttonsDisabled ? "pe-none" : ""}`}
+                                <BsXCircleFill className="h-5 w-5" />
+                            )
+                        ) : (
+                            ""
+                        )}
+                    </div>
+
+                    <div className="flex flex-row flex-wrap justify-center gap-3">
+                        {shuffledOptions.map((option, index) => {
+                            const isSelected = selectedOption?.index === index;
+                            return (
+                                <button
+                                    type="button"
+                                    className={`btn ${isSelected ? "btn-primary" : "btn-outline"} text-lg font-bold ${
+                                        buttonsDisabled ? "pointer-events-none" : ""
+                                    }`}
                                     key={index}
-                                    variant={
-                                        selectedOption
-                                            ? selectedOption.index === index
-                                                ? "secondary"
-                                                : "outline-secondary"
-                                            : "outline-secondary"
+                                    onClick={() =>
+                                        handleOptionClick(option.answer === "true", index)
                                     }
-                                    onClick={() => handleOptionClick(option.answer === "true", index)}>
+                                    disabled={!!selectedOption && !isSelected}
+                                >
                                     {option.value}
-                                </Button>
-                            ))}
-                        </Stack>
-                    </Col>
-                </Row>
-                <div className="d-flex justify-content-end mt-3">
-                    {currentQuizIndex < shuffledQuiz.length - 1 && (
-                        <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
-                        </Button>
-                    )}
-                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
-                    </Button>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
-            </Card.Body>
+                <div className="card-actions justify-center">
+                    <div className="my-3 flex flex-wrap justify-center gap-2">
+                        {currentQuestionIndex < shuffledQuiz.length - 1 && (
+                            <button
+                                type="button"
+                                className="btn btn-accent"
+                                onClick={handleNextQuiz}
+                            >
+                                <LiaChevronCircleRightSolid className="h-6 w-6" />{" "}
+                                {t("exercise_page.buttons.nextBtn")}
+                            </button>
+                        )}
+                        <button type="button" className="btn btn-error" onClick={handleQuit}>
+                            <LiaTimesCircle className="h-6 w-6" />{" "}
+                            {t("exercise_page.buttons.quitBtn")}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

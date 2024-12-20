@@ -1,0 +1,12 @@
+1
+00:00:06,370 --> 00:00:08,657
+Can I have a glass of water, please? 
+
+2
+00:00:08,660 --> 00:00:10,861
+Yes, of course. Sorry, it's not very cold.
+
+3
+00:00:10,862 --> 00:00:12,919
+That's alright. Thank you.
+

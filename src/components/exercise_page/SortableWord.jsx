@@ -2,8 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import he from "he";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { CheckCircleFill, XCircleFill } from "react-bootstrap-icons";
+import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 
 const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
     const [itemWidth, setItemWidth] = useState(null);
@@ -31,26 +30,26 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
         opacity: isDragging ? 0.5 : 1,
     };
 
-    const variant = isOverlay
-        ? "secondary"
+    const btnVariant = isOverlay
+        ? ""
         : isCorrect === null
-        ? "outline-secondary"
-        : isCorrect
-        ? "success"
-        : "danger";
+          ? "btn-outline"
+          : isCorrect
+            ? "btn-success"
+            : "btn-error";
 
-    const trueFalse = isOverlay ? (
-        ""
-    ) : isCorrect === null ? (
-        ""
-    ) : isCorrect ? (
-        <CheckCircleFill className="ms-2" />
-    ) : (
-        <XCircleFill className="ms-2" />
-    );
+    const renderTrueFalseIcon = () => {
+        if (isOverlay || isCorrect === null) return null;
+        return isCorrect ? (
+            <BsCheckCircleFill className="ms-1 inline-block h-6 w-6" />
+        ) : (
+            <BsXCircleFill className="ms-1 inline-block h-6 w-6" />
+        );
+    };
 
-    return (
-        <Button
+    return !disabled ? (
+        <button
+            type="button"
             ref={(node) => {
                 setNodeRef(node);
                 ref.current = node;
@@ -58,13 +57,24 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
             style={style}
             {...attributes}
             {...listeners}
-            variant={variant}
-            className={`${item ? "w-100 " : ""}mb-2 text-center fw-bold ${
-                isDragging && !disabled ? " opacity-50" : ""
-            } ${disabled ? "pe-none" : ""} ${isOverlay ? "z-2 shadow-sm" : ""}`}>
+            className={`btn no-animation h-[unset] break-all transition-none ${btnVariant} text-lg ${item ? "min-w-full" : ""} ${
+                isDragging && !disabled ? "opacity-50" : ""
+            } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
+        >
             {he.decode(word?.text || item?.value)}
-            {trueFalse}
-        </Button>
+            {renderTrueFalseIcon()}
+        </button>
+    ) : (
+        <button
+            type="button"
+            className={`btn no-animation h-[unset] w-full justify-center break-all text-lg transition-none ${
+                item ? "" : "lg:w-4/5 xl:w-3/4"
+            } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
+        >
+            <p className="text-center font-bold">
+                {he.decode(word?.text || item?.value)} {renderTrueFalseIcon()}
+            </p>
+        </button>
     );
 };
 

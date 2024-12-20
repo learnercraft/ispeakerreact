@@ -1,0 +1,32 @@
+1
+00:00:10,010 --> 00:00:11,989
+Excuse me, I wonder if you can help me.
+
+2
+00:00:11,990 --> 00:00:13,795
+I'm trying to find out if there's
+
+3
+00:00:13,796 --> 00:00:15,508
+an art supplies store near here. 
+
+4
+00:00:15,510 --> 00:00:18,689
+Art supplies? I don't know. 
+
+5
+00:00:18,690 --> 00:00:19,773
+There's an office supplies store
+
+6
+00:00:19,774 --> 00:00:20,857
+down Main Street -
+
+7
+00:00:20,860 --> 00:00:22,756
+You might find what you're looking for.
+
+8
+00:00:22,760 --> 00:00:24,109
+there, maybe. OK, thanks. 
+

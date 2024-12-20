@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { Alert, Button, Card, Col, Nav, Row } from "react-bootstrap";
-import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones, InfoCircle } from "react-bootstrap-icons";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
+import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
 import { isElectron } from "../../utils/isElectron";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 import LoadingOverlay from "../general/LoadingOverlay";
-import ToastNotification from "../general/ToastNotification";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ListeningTab from "./ListeningTab";
 import PracticeTab from "./PracticeTab";
 import ReviewTab from "./ReviewTab";
@@ -14,53 +13,33 @@ import WatchAndStudyTab from "./WatchAndStudyTab";
 const ExamDetailPage = ({ id, title, onBack, accent }) => {
     const { t } = useTranslation();
 
-    const [activeTab, setActiveTab] = useState("#watch_and_study");
+    const [activeTab, setActiveTab] = useState("watchStudyTab");
     const [examData, setExamData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-
     const [videoUrl, setVideoUrl] = useState(null);
     const [videoLoading, setVideoLoading] = useState(true);
+
+    const examMainInfoModal = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
 
-                // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron()) {
-                    const cachedDataBlob = await getFileFromIndexedDB("examspeaking_data.json", "json");
-
-                    if (cachedDataBlob) {
-                        // Convert Blob to text, then parse the JSON
-                        const cachedDataText = await cachedDataBlob.text();
-                        const cachedData = JSON.parse(cachedDataText);
-
-                        setExamData(cachedData);
-                        setLoading(false);
-                        return;
-                    }
-                }
-
-                setLoading(true);
-
                 // If not in IndexedDB or running in Electron, fetch from the network
-                const response = await fetch(`${import.meta.env.BASE_URL}json/examspeaking_data.json`);
+                const response = await fetch(
+                    `${import.meta.env.BASE_URL}json/examspeaking_data.json`
+                );
                 const data = await response.json();
 
                 setExamData(data);
                 setLoading(false);
-
-                // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-                    await saveFileToIndexedDB("examspeaking_data.json", blob, "json");
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Error while loading the data for this section. Please check your Internet connection.");
+                alert(
+                    "Error while loading the data for this section. Please check your Internet connection."
+                );
             }
         };
         fetchData();
@@ -110,105 +89,146 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
 
     // Check if examData is available
     if (!examData || !examData[id]) {
-        return <Alert variant="warning">{t("toast.loadingError")}</Alert>;
+        return sonnerErrorToast(t("toast.loadingError"));
     }
 
     const examDetails = examData[id];
 
     const examLocalizedDescArray = t(examDetails.description, { returnObjects: true });
 
+    const videoSubtitle = examData[id].watch_and_study.subtitle;
+    const subtitleUrl = `${import.meta.env.BASE_URL}media/exam/subtitles/${videoSubtitle}`;
+
     return (
         <>
-            <Row className="mb-2">
-                <Col md={3}>
-                    <h3 className="mt-4">
-                        {t("tabConversationExam.taskCard")}: {t(title)}
-                    </h3>
-                    <p>
-                        {t("accent.accentSettings")}:{" "}
-                        {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
-                    </p>
-                    <Button variant="primary" className="my-3" onClick={onBack}>
-                        <ArrowLeftCircle className="me-1" /> {t("buttonConversationExam.examBackBtn")}
-                    </Button>
-                </Col>
-                <Col>
-                    {examDetails.description && (
-                        <Alert variant="info">
-                            <Alert.Heading as="p" className="mb-2">
-                                <InfoCircle className="me-2" />
-                                <strong>{t("examPage.taskInfo")}</strong>
-                            </Alert.Heading>
-                            {examLocalizedDescArray.map((desc, index) => (
-                                <p key={index} className={index === examLocalizedDescArray.length - 1 ? "mb-0" : ""}>
-                                    {desc}
-                                </p>
-                            ))}
-                        </Alert>
-                    )}
-                </Col>
-            </Row>
+            <h3 className="mb-2 mt-4 text-2xl font-semibold">
+                {t("tabConversationExam.taskCard")}: {t(title)}
+                <button
+                    type="button"
+                    className="btn btn-circle btn-ghost btn-sm ms-1 align-middle"
+                    onClick={() => examMainInfoModal.current?.showModal()}
+                >
+                    <IoInformationCircleOutline className="h-6 w-6" />
+                </button>
+            </h3>
+            <p>
+                {t("accent.accentSettings")}:{" "}
+                {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
+            </p>
+            <button type="button" className="btn btn-secondary my-4" onClick={onBack}>
+                <IoChevronBackOutline className="h-5 w-5" />{" "}
+                {t("buttonConversationExam.examBackBtn")}
+            </button>
 
-            <Card className="mt-2 shadow-sm">
-                <Card.Header>
-                    <Nav variant="pills" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)}>
-                        <Nav.Item>
-                            <Nav.Link eventKey="#watch_and_study">
-                                <CameraVideo /> {t("buttonConversationExam.watchBtn")}
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="#listen">
-                                <Headphones /> {t("buttonConversationExam.listenBtn")}
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="#practice">
-                                <ChatDots /> {t("buttonConversationExam.practiceBtn")}
-                            </Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="#review">
-                                <CardChecklist /> {t("buttonConversationExam.reviewBtn")}
-                            </Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Card.Header>
-                <Card.Body>
-                    {activeTab === "#watch_and_study" && (
+            <div className="sticky top-[calc(5rem)] z-10 bg-base-100 py-8">
+                <div className="flex justify-center">
+                    <ul className="menu menu-horizontal w-auto justify-center rounded-box bg-base-200 dark:bg-slate-600">
+                        <li>
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab("watchStudyTab")}
+                                className={`md:text-base ${
+                                    activeTab === "watchStudyTab" ? "active font-semibold" : ""
+                                }`}
+                            >
+                                <MdOutlineOndemandVideo className="h-6 w-6" />{" "}
+                                {t("buttonConversationExam.watchBtn")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab("listenTab")}
+                                className={`md:text-base ${
+                                    activeTab === "listenTab" ? "active font-semibold" : ""
+                                }`}
+                            >
+                                <MdHeadphones className="h-6 w-6" />{" "}
+                                {t("buttonConversationExam.listenBtn")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab("practiceTab")}
+                                className={`md:text-base ${
+                                    activeTab === "practiceTab" ? "active font-semibold" : ""
+                                }`}
+                            >
+                                <MdKeyboardVoice className="h-6 w-6" />{" "}
+                                {t("buttonConversationExam.practiceBtn")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab("reviewTab")}
+                                className={`md:text-base ${
+                                    activeTab === "reviewTab" ? "active font-semibold" : ""
+                                }`}
+                            >
+                                <MdChecklist className="h-6 w-6" />{" "}
+                                {t("buttonConversationExam.reviewBtn")}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className="card card-bordered mb-6 w-full shadow-md dark:border-slate-600">
+                <div className="card-body">
+                    {activeTab === "watchStudyTab" && (
                         <WatchAndStudyTab
                             videoUrl={videoUrl}
+                            subtitleUrl={subtitleUrl}
                             taskData={examDetails.watch_and_study.taskData}
                             dialog={examDetails.watch_and_study.study.dialog}
                             skills={examDetails.watch_and_study.study.skills}
                         />
                     )}
-                    {activeTab === "#listen" && (
+                    {activeTab === "listenTab" && (
                         <ListeningTab
                             subtopicsBre={examDetails.listen.BrE?.subtopics || []}
                             subtopicsAme={examDetails.listen.AmE?.subtopics || []}
                             currentAccent={accent}
                         />
                     )}
-                    {activeTab === "#practice" && (
+                    {activeTab === "practiceTab" && (
                         <PracticeTab
                             examId={id}
                             accent={accent}
                             taskData={examDetails.practise.task}
                             tips={examDetails.practise.tips}
-                            setToastMessage={setToastMessage}
-                            setShowToast={setShowToast}
                         />
                     )}
-                    {activeTab === "#review" && <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent} />}
-                </Card.Body>
-            </Card>
-            <ToastNotification
-                show={showToast}
-                onClose={() => setShowToast(false)}
-                message={toastMessage}
-                variant="warning"
-            />
+                    {activeTab === "reviewTab" && (
+                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent} />
+                    )}
+                </div>
+            </div>
+
+            <dialog ref={examMainInfoModal} className="modal">
+                <div className="modal-box">
+                    <h3 className="text-lg font-bold">{t("examPage.taskInfo")}</h3>
+                    <div className="py-4">
+                        {examLocalizedDescArray.map((desc, index) => (
+                            <p
+                                key={index}
+                                className={
+                                    index === examLocalizedDescArray.length - 1 ? "mb-0" : "mb-2"
+                                }
+                            >
+                                {desc}
+                            </p>
+                        ))}
+                    </div>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };

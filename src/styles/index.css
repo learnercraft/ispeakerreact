@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:where([data-sonner-toast]) :where([data-title]) {
+    @apply text-base; /* For success toasts */
+}

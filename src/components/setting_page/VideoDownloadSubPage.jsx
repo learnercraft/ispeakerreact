@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { Alert, Button, Card } from "react-bootstrap";
-import { ArrowLeftCircle, ExclamationTriangleFill } from "react-bootstrap-icons";
+import { useCallback, useEffect, useState } from "react";
+import { IoWarningOutline } from "react-icons/io5";
 import { Trans, useTranslation } from "react-i18next";
 import VideoDownloadTable from "./VideoDownloadTable";
+import { BsArrowLeft } from "react-icons/bs";
 
 const VideoDownloadSubPage = ({ onGoBack }) => {
     const { t } = useTranslation();
 
-    const [folderPath, setFolderPath] = useState(null);
+    const [, setFolderPath] = useState(null);
     const [zipFileData, setZipFileData] = useState([]);
+    const [isDownloaded, setIsDownloaded] = useState({});
 
     const handleOpenFolder = async () => {
         // Send an IPC message to open the folder and get the folder path
@@ -30,39 +31,108 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
         fetchData(); // Call fetchData when component mounts
     }, []); // Empty dependency array means this effect runs once when the component mounts
 
-    const localizedInstructionStep = t("settingPage.videoDownloadSettings.steps", { returnObjects: true });
+    const checkDownloadedFiles = useCallback(async () => {
+        try {
+            const downloadedFiles = await window.electron.ipcRenderer.invoke("check-downloads");
+            console.log("Downloaded files in folder:", downloadedFiles);
+
+            const fileStatus = {};
+
+            for (const item of zipFileData) {
+                const extractedFolderExists = await window.electron.ipcRenderer.invoke(
+                    "check-extracted-folder",
+                    item.zipFile.replace(".7z", ""),
+                    item.zipContents
+                );
+
+                if (extractedFolderExists) {
+                    fileStatus[item.zipFile] = true;
+                    console.log(`Extracted folder exists for ${item.zipFile}`);
+                } else {
+                    const isDownloadedFile = downloadedFiles.includes(item.zipFile);
+                    console.log(
+                        `Checking if ${item.zipFile} is in downloaded files:`,
+                        isDownloadedFile
+                    );
+                    fileStatus[item.zipFile] = isDownloadedFile;
+                }
+            }
+
+            console.log("File status for all files:", fileStatus);
+            setIsDownloaded(fileStatus);
+        } catch (error) {
+            console.error("Error checking downloaded or extracted files:", error);
+        }
+    }, [zipFileData]);
+
+    useEffect(() => {
+        checkDownloadedFiles();
+    }, [zipFileData, checkDownloadedFiles]);
+
+    const localizedInstructionStep = t("settingPage.videoDownloadSettings.steps", {
+        returnObjects: true,
+    });
 
     return (
-        <div className="">
-            <Button variant="primary" className="mb-4" onClick={onGoBack}>
-                <ArrowLeftCircle /> {t("settingPage.videoDownloadSettings.backToSettingsBtn")}
-            </Button>
-            <h4 className="mb-4">{t("settingPage.videoDownloadSettings.videoPageHeading")}</h4>
-            <Card className="mb-4">
-                <Card.Header>
-                    <div className="fw-semibold">{t("settingPage.videoDownloadSettings.instructionCardHeading")}</div>
-                </Card.Header>
-                <Card.Body>
+        <div>
+            <div className="flex flex-row items-center">
+                <BsArrowLeft className="me-2 h-6 w-6" />
+                <div className="breadcrumbs text-xl">
+                    <ul>
+                        <li>
+                            <a className="link" onClick={onGoBack}>
+                                Settings
+                            </a>
+                        </li>
+                        <li>Video downloads</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 className="my-4 text-xl font-semibold">
+                {t("settingPage.videoDownloadSettings.videoPageHeading")}
+            </h4>
+
+            <div className="card card-bordered my-4">
+                <div className="card-body">
+                    <div className="card-title font-semibold">
+                        {t("settingPage.videoDownloadSettings.instructionCardHeading")}
+                    </div>
+                    <div className="divider divider-secondary mt-0"></div>
                     {localizedInstructionStep.map((step, index) => (
                         <p key={index}>
-                            <Trans values={{ number: index + 1 }} components={{ 1: <span className="fw-bold" /> }}>
+                            <Trans
+                                values={{ number: index + 1 }}
+                                components={{ 1: <span className="font-bold" /> }}
+                            >
                                 {step}
                             </Trans>
                         </p>
                     ))}
 
-                    <Alert className="mb-0" variant="warning">
-                        <Alert.Heading as="h5" className="fw-semibold">
-                            <ExclamationTriangleFill /> {t("settingPage.videoDownloadSettings.warningHeading")}
-                        </Alert.Heading>
-                        <div className="fw-semibold">{t("settingPage.videoDownloadSettings.warningBody")}</div>
-                    </Alert>
-                </Card.Body>
-            </Card>
-            <Button variant="primary" className="mb-4" onClick={handleOpenFolder}>
-                {t("settingPage.videoDownloadSettings.openDownloadBtn")}
-            </Button>
-            <VideoDownloadTable data={zipFileData} />
+                    <div className="alert alert-warning my-2">
+                        <IoWarningOutline className="h-6 w-6" />
+                        <div>
+                            <h3 className="font-bold">
+                                {t("settingPage.videoDownloadSettings.warningHeading")}
+                            </h3>
+                            <div>{t("settingPage.videoDownloadSettings.warningBody")}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="my-4 flex justify-center gap-2">
+                <button type="button" className="btn btn-primary" onClick={handleOpenFolder}>
+                    {t("settingPage.videoDownloadSettings.openDownloadBtn")}
+                </button>
+
+                <button type="button" className="btn btn-secondary" onClick={checkDownloadedFiles}>
+                    {t("settingPage.videoDownloadSettings.refreshDownloadStateBtn")}
+                </button>
+            </div>
+
+            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} />
         </div>
     );
 };
