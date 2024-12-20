@@ -1,7 +1,7 @@
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
-import packageJson from "./package.json";
 import { VitePWA } from "vite-plugin-pwa";
+import packageJson from "./package.json";
 
 import react from "@vitejs/plugin-react";
 
@@ -9,9 +9,10 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(({ mode }) => {
     const isElectron = mode === "electron";
     const isDev = mode === "development";
+    const base = process.env.VITE_BASE || isElectron ? "./" : isDev ? "/" : "/ispeakerreact/";
 
     return {
-        base: process.env.VITE_BASE || isElectron ? "./" : isDev ? "/" : "/ispeakerreact/",
+        base: base,
         build: {
             rollupOptions: {
                 output: {
@@ -33,16 +34,60 @@ export default defineConfig(({ mode }) => {
                     name: "iSpeakerReact",
                     short_name: "iSpeakerReact",
                     theme_color: "#fcfcfc",
+                    description:
+                        "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
                     icons: [
                         {
-                            src: "/images/icons/ios/192.png",
+                            src: `${base}images/icons/ios/192.png`,
                             sizes: "192x192",
                             type: "image/png",
                         },
                         {
-                            src: "/images/icons/ios/512.png",
+                            src: `${base}images/icons/ios/512.png`,
                             sizes: "512x512",
                             type: "image/png",
+                        },
+                    ],
+                    screenshots: [
+                        {
+                            src: `${base}images/screenshots/screenshot-00.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-01.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-02.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-03.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-04.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-05.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-06.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
+                        },
+                        {
+                            src: `${base}images/screenshots/screenshot-07.webp`,
+                            sizes: "1920x1080",
+                            type: "image/webp",
                         },
                     ],
                 },
