@@ -126,7 +126,7 @@ jobs:
                   pip install --upgrade pip setuptools
 
             - name: Ensure package-lock.json is up to date
-              run: npm install
+              run: npm install --force
               env:
                   CI: true
 
@@ -135,13 +135,13 @@ jobs:
               run: |
                   if [ "${{ matrix.os }}" = "macos-latest" ]; then
                     source venv/bin/activate
-                    npm install appdmg --save-dev
+                    npm install appdmg --save-dev --force
                   fi
-                  npm ci
+                  npm ci --force
 
             - name: Install dependencies (Windows)
               if: matrix.os == 'windows-latest'
-              run: npm ci
+              run: npm ci --force
 
             - name: Build Electron app (macOS)
               if: matrix.os == 'macos-latest'
