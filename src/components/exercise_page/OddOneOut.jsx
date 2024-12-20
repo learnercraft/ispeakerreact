@@ -1,21 +1,23 @@
 import he from "he";
 import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { ArrowRightCircle, Check2Circle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
+import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
+import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
-import { useTranslation } from "react-i18next";
 
 const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [shuffledOptions, setShuffledOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [buttonsDisabled, setButtonsDisabled] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
+        setTimeIsUp(true)
+    );
 
     const { t } = useTranslation();
 
@@ -42,9 +44,9 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         if (quiz && quiz.length > 0) {
             const shuffledQuizArray = filterAndShuffleQuiz([...quiz]);
             setShuffledQuiz(shuffledQuizArray);
-            loadQuiz(shuffledQuizArray[currentQuizIndex]);
+            loadQuiz(shuffledQuizArray[currentQuestionIndex]);
         }
-    }, [quiz, currentQuizIndex, loadQuiz, filterAndShuffleQuiz]);
+    }, [quiz, currentQuestionIndex, loadQuiz, filterAndShuffleQuiz]);
 
     const handleOptionClick = (index) => {
         setSelectedOption(index);
@@ -60,8 +62,8 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     };
 
     const handleNextQuiz = () => {
-        if (currentQuizIndex < shuffledQuiz.length - 1) {
-            setCurrentQuizIndex((prevIndex) => prevIndex + 1);
+        if (currentQuestionIndex < shuffledQuiz.length - 1) {
+            setcurrentQuestionIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
             clearTimer();
@@ -75,70 +77,89 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">
-                <div className="d-flex">
-                    <div className="me-auto">
-                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
-                    </div>
-                    {timer > 0 && (
-                        <div className="ms-auto">
-                            {t("exercise_page.timer")} {formatTime()}
+            <div className="card-body">
+                <div className="text-lg font-semibold">
+                    {timer > 0 ? (
+                        <div className="flex items-center">
+                            <div className="flex-1 md:flex-none">
+                                {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                            </div>
+                            <div className="ms-auto flex justify-end">
+                                {t("exercise_page.timer")} {formatTime()}
+                            </div>
                         </div>
+                    ) : (
+                        <p>
+                            {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                        </p>
                     )}
                 </div>
-            </Card.Header>
-            <Card.Body>
-                <Row className="d-flex justify-content-center g-3">
+                <div className="divider divider-secondary m-0"></div>
+                <div className="grid grid-cols-2 place-content-stretch gap-4">
                     {shuffledOptions.map((option, index) => (
-                        <Col xs={12} md={6} key={index} className="d-flex justify-content-center">
-                            <Button
-                                variant={
+                        <div key={index}>
+                            <button
+                                type="button"
+                                className={`btn btn-lg w-full p-3 text-center font-bold ${
                                     submitted && selectedOption === index
                                         ? option.answer === "true"
-                                            ? "success"
-                                            : "danger"
+                                            ? "btn-success"
+                                            : "btn-error"
                                         : selectedOption === index
-                                        ? "secondary"
-                                        : "outline-secondary"
-                                }
-                                size="lg"
-                                className={`fw-bold w-100 text-center p-3${buttonsDisabled ? " pe-none" : ""}${
-                                    submitted && option.answer === "true" && selectedOption !== index
-                                        ? " text-warning"
+                                          ? "btn-accent"
+                                          : ""
+                                } ${buttonsDisabled ? "pointer-events-none" : ""} ${
+                                    submitted &&
+                                    option.answer === "true" &&
+                                    selectedOption !== index
+                                        ? "btn-warning"
                                         : ""
                                 }`}
-                                onClick={() => handleOptionClick(index)}>
+                                onClick={() => handleOptionClick(index)}
+                            >
                                 {he.decode(option.value)}
                                 {submitted ? (
                                     submitted && option.answer === "true" ? (
-                                        <CheckCircleFill className="ms-2" />
+                                        <BsCheckCircleFill />
                                     ) : (
-                                        <XCircleFill className="ms-2" />
+                                        <BsXCircleFill />
                                     )
                                 ) : (
                                     ""
                                 )}
-                            </Button>
-                        </Col>
+                            </button>
+                        </div>
                     ))}
-                </Row>
-                <div className="d-flex justify-content-end mt-3">
-                    <Button
-                        variant="success"
-                        onClick={handleSubmit}
-                        disabled={selectedOption === null || buttonsDisabled}>
-                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
-                    </Button>
-                    {currentQuizIndex < shuffledQuiz.length - 1 && (
-                        <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
-                        </Button>
-                    )}
-                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
-                    </Button>
                 </div>
-            </Card.Body>
+
+                <div className="card-actions justify-center">
+                    <div className="my-3 flex flex-wrap justify-center gap-2">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            disabled={selectedOption === null || buttonsDisabled}
+                            onClick={handleSubmit}
+                        >
+                            <LiaCheckCircle className="h-6 w-6" />{" "}
+                            {t("exercise_page.buttons.checkBtn")}
+                        </button>
+                        {currentQuestionIndex < quiz.length - 1 && (
+                            <button
+                                type="button"
+                                className="btn btn-accent"
+                                onClick={handleNextQuiz}
+                            >
+                                <LiaChevronCircleRightSolid className="h-6 w-6" />{" "}
+                                {t("exercise_page.buttons.nextBtn")}
+                            </button>
+                        )}
+                        <button type="button" className="btn btn-error" onClick={handleQuit}>
+                            <LiaTimesCircle className="h-6 w-6" />{" "}
+                            {t("exercise_page.buttons.quitBtn")}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

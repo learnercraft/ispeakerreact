@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { InfoCircle } from "react-bootstrap-icons";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ExerciseDetailPage from "./ExerciseDetailPage";
 
 const ExercisePage = () => {
@@ -17,11 +15,22 @@ const ExercisePage = () => {
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedExercise, setSelectedExercise] = useState(null);
 
-    const TooltipIcon = ({ info }) => (
-        <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
-            <InfoCircle className="ms-2" />
-        </OverlayTrigger>
-    );
+    const modalRef = useRef(null);
+    const [modalInfo, setModalInfo] = useState(null);
+
+    const handleShowModal = (info) => {
+        setModalInfo(info);
+        if (modalRef.current) {
+            modalRef.current.showModal();
+        }
+    };
+
+    const handleCloseModal = () => {
+        if (modalRef.current) {
+            modalRef.current.close();
+        }
+        setModalInfo(null);
+    };
 
     const selectedAccentOptions = [
         { name: "American English", value: "american" },
@@ -54,31 +63,65 @@ const ExercisePage = () => {
         return exercise.infoKey ? t(exercise.infoKey) : t(defaultInfoKey);
     };
 
-    const ExerciseCard = ({ heading, titles, infoKey, file }) => (
-        <Col>
-            <Card className="mb-4 h-100 shadow-sm">
-                <Card.Header className="fw-semibold">{t(heading)}</Card.Header>
-                <Card.Body>
-                    {titles
-                        .filter(({ american, british }) => {
-                            if (selectedAccent === "american" && american === false) return false;
-                            if (selectedAccent === "british" && british === false) return false;
-                            return true;
-                        })
-                        .map((exercise, index) => (
-                            <Card.Text key={index} className="">
-                                <Button
-                                    variant="link"
-                                    className="p-0 m-0"
-                                    onClick={() => handleSelectExercise({ ...exercise, file }, heading)}>
+    const TooltipIcon = ({ info, onClick }) => {
+        return (
+            <>
+                {/* Tooltip for larger screens */}
+                <div
+                    className="tooltip tooltip-secondary hidden dark:tooltip-accent sm:inline"
+                    data-tip={info}
+                >
+                    <IoInformationCircleOutline className="h-5 w-5 cursor-pointer hover:text-primary dark:hover:text-accent" />
+                </div>
+
+                {/* Modal trigger button for small screens */}
+                <button
+                    type="button"
+                    title={t("exercise_page.buttons.expandBtn")}
+                    className="btn btn-circle btn-sm focus:ring-2 sm:hidden"
+                    onClick={onClick}
+                >
+                    <IoInformationCircleOutline className="h-5 w-5 cursor-pointer" />
+                </button>
+            </>
+        );
+    };
+
+    const ExerciseCard = ({ heading, titles, infoKey, file, onShowModal }) => (
+        <div className="card card-bordered flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
+            <div className="card-body flex-grow">
+                <div className="card-title font-semibold">{t(heading)}</div>
+                <div className="divider divider-secondary m-0"></div>
+                {titles
+                    .filter(({ american, british }) => {
+                        if (selectedAccent === "american" && american === false) return false;
+                        if (selectedAccent === "british" && british === false) return false;
+                        return true;
+                    })
+                    .map((exercise, index) => {
+                        const modalId = `exerciseInfoModal-${heading}-${index}`;
+                        const info = getInfoText(exercise, infoKey);
+
+                        return (
+                            <div key={index} className="mb-2 flex items-center space-x-2">
+                                <a
+                                    className="link hover:link-primary dark:hover:link-accent"
+                                    onClick={() =>
+                                        handleSelectExercise({ ...exercise, file }, heading)
+                                    }
+                                >
                                     {t(exercise.titleKey) || exercise.title}
-                                </Button>
-                                <TooltipIcon info={getInfoText(exercise, infoKey)} />
-                            </Card.Text>
-                        ))}
-                </Card.Body>
-            </Card>
-        </Col>
+                                </a>
+                                <TooltipIcon
+                                    info={info}
+                                    modalId={modalId}
+                                    onClick={() => onShowModal(info)}
+                                />
+                            </div>
+                        );
+                    })}
+            </div>
+        </div>
     );
 
     useEffect(() => {
@@ -86,37 +129,17 @@ const ExercisePage = () => {
             try {
                 setLoading(true);
 
-                // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron()) {
-                    const cachedDataBlob = await getFileFromIndexedDB("exercise_list.json", "json");
-
-                    if (cachedDataBlob) {
-                        // Convert Blob to text, then parse the JSON
-                        const cachedDataText = await cachedDataBlob.text();
-                        const cachedData = JSON.parse(cachedDataText);
-
-                        setData(cachedData.exerciseList);
-                        setLoading(false);
-
-                        return;
-                    }
-                }
-
                 // If not in IndexedDB or running in Electron, fetch from the network
                 const response = await fetch(`${import.meta.env.BASE_URL}json/exercise_list.json`);
                 const data = await response.json();
 
                 setData(data.exerciseList);
                 setLoading(false);
-
-                // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-                    await saveFileToIndexedDB("exercise_list.json", blob, "json");
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Error while loading the data for this section. Please check your Internet connection.");
+                alert(
+                    "Error while loading the data for this section. Please check your Internet connection."
+                );
             }
         };
         fetchData();
@@ -136,38 +159,61 @@ const ExercisePage = () => {
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">{t("navigation.exercises")}</h1>
-            {selectedExercise ? (
-                <ExerciseDetailPage
-                    heading={selectedExercise.heading}
-                    id={selectedExercise.id}
-                    title={selectedExercise.title}
-                    accent={selectedExercise.accent}
-                    instructions={selectedExercise.instructions}
-                    file={selectedExercise.file}
-                    onBack={handleGoBack}
-                />
-            ) : (
-                <>
-                    <AccentDropdown onAccentChange={setSelectedAccent} />
-                    <p>{t("exercise_page.exerciseSubheading")}</p>
-                    {loading ? (
-                        <LoadingOverlay />
-                    ) : (
-                        <Row xs={1} md={4} className="g-4 mt-1 d-flex justify-content-center">
-                            {data.map((section, index) => (
-                                <ExerciseCard
-                                    key={index}
-                                    heading={section.heading}
-                                    titles={section.titles}
-                                    infoKey={section.infoKey}
-                                    file={section.file}
-                                />
-                            ))}
-                        </Row>
-                    )}
-                </>
-            )}
+            <Container>
+                <h1 className="py-6 text-3xl font-bold md:text-4xl">{t("navigation.exercises")}</h1>
+                {selectedExercise ? (
+                    <ExerciseDetailPage
+                        heading={selectedExercise.heading}
+                        id={selectedExercise.id}
+                        title={selectedExercise.title}
+                        accent={selectedExercise.accent}
+                        instructions={selectedExercise.instructions}
+                        file={selectedExercise.file}
+                        onBack={handleGoBack}
+                    />
+                ) : (
+                    <>
+                        <AccentDropdown onAccentChange={setSelectedAccent} />
+                        <p className="my-4">{t("exercise_page.exerciseSubheading")}</p>
+                        {loading ? (
+                            <LoadingOverlay />
+                        ) : (
+                            <div className="my-10 flex flex-wrap justify-center gap-7">
+                                {data.map((section, index) => (
+                                    <ExerciseCard
+                                        key={index}
+                                        heading={section.heading}
+                                        titles={section.titles}
+                                        infoKey={section.infoKey}
+                                        file={section.file}
+                                        onShowModal={handleShowModal}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        <dialog ref={modalRef} className="modal">
+                            <div className="modal-box">
+                                <h3 className="text-lg font-bold">
+                                    {t("exercise_page.modalInfoHeader")}
+                                </h3>
+                                <p className="py-4">{modalInfo}</p>
+                                <div className="modal-action">
+                                    <form method="dialog">
+                                        <button
+                                            type="button"
+                                            className="btn"
+                                            onClick={handleCloseModal}
+                                        >
+                                            {t("sound_page.closeBtn")}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                    </>
+                )}
+            </Container>
         </>
     );
 };

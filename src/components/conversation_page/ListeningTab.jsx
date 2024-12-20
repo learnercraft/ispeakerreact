@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, Col, ListGroup, Row, Spinner } from "react-bootstrap";
-import { VolumeUp, VolumeUpFill } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
-import ToastNotification from "../general/ToastNotification";
+import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 
 const ListeningTab = ({ sentences }) => {
     const { t } = useTranslation();
@@ -10,9 +9,6 @@ const ListeningTab = ({ sentences }) => {
     const [currentAudio, setCurrentAudio] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
     const [loadingIndex, setLoadingIndex] = useState(null);
-
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
 
     const handlePlayPause = (index, audioSrc) => {
         if (loadingIndex === index) {
@@ -73,7 +69,7 @@ const ListeningTab = ({ sentences }) => {
                         setCurrentAudio(null);
                         setPlayingIndex(null);
                         console.log("Audio loading error");
-                        alert(t("toast.audioPlayFailed"));
+                        sonnerErrorToast(t("toast.audioPlayFailed"));
                     };
 
                     setCurrentAudio(audio);
@@ -83,8 +79,7 @@ const ListeningTab = ({ sentences }) => {
                         console.log("Audio loading aborted");
                     } else {
                         console.error("Error loading audio:", error);
-                        setToastMessage(t("toast.audioPlayFailed"));
-                        setShowToast(true);
+                        sonnerErrorToast(t("toast.audioPlayFailed"));
                     }
                     setLoadingIndex(null);
                     setCurrentAudio(null);
@@ -109,56 +104,61 @@ const ListeningTab = ({ sentences }) => {
 
     return (
         <>
-            <Row className="g-4">
+            <div className="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
                 {sentences.map((subtopic, index) => (
-                    <Col key={index}>
-                        <Card className="shadow-sm">
-                            <Card.Header>
-                                <div className="fw-semibold">{t(subtopic.title)}</div>
-                            </Card.Header>
-                            <Card.Body>
-                                <ListGroup variant="flush">
-                                    {subtopic.sentences.map((sentenceObj, idx) => {
-                                        const uniqueIdx = `${index}-${idx}`; // Create a unique index for each sentence
-                                        return (
-                                            <ListGroup.Item
-                                                action
-                                                key={uniqueIdx}
-                                                onClick={() => handlePlayPause(uniqueIdx, sentenceObj.audioSrc)}
-                                                disabled={
-                                                    (loadingIndex !== null && loadingIndex !== uniqueIdx) ||
-                                                    (playingIndex !== null && playingIndex !== uniqueIdx)
-                                                }
-                                                type="button"
-                                                aria-pressed={playingIndex === uniqueIdx}
-                                                aria-disabled={loadingIndex !== null && loadingIndex !== uniqueIdx}>
+                    <div
+                        key={index}
+                        className="card card-bordered w-full shadow-md lg:w-1/2 dark:border-slate-600"
+                    >
+                        <div className="card-body px-4 md:px-8">
+                            <div className="card-title font-semibold">{t(subtopic.title)}</div>
+                            <div className="divider divider-secondary m-0"></div>
+                            <ul
+                                role="list"
+                                className="divide-y divide-gray-300 dark:divide-gray-600"
+                            >
+                                {subtopic.sentences.map((sentenceObj, idx) => {
+                                    const uniqueIdx = `${index}-${idx}`; // Create a unique index for each sentence
+                                    return (
+                                        <li
+                                            key={uniqueIdx}
+                                            className={`flex justify-between gap-x-6 py-3 ${playingIndex === uniqueIdx ? "bg-secondary text-secondary-content" : ""}`}
+                                            role="button"
+                                            onClick={() =>
+                                                handlePlayPause(uniqueIdx, sentenceObj.audioSrc)
+                                            }
+                                            aria-pressed={playingIndex === uniqueIdx}
+                                            aria-disabled={
+                                                loadingIndex !== null && loadingIndex !== uniqueIdx
+                                            }
+                                        >
+                                            <div className="flex min-w-0 gap-x-4">
+                                                <div className="min-w-0 flex-auto">
+                                                    <p
+                                                        className="italic"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: sentenceObj.sentence,
+                                                        }}
+                                                    ></p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-x-2">
                                                 {loadingIndex === uniqueIdx ? (
-                                                    <Spinner animation="border" size="sm" className="me-2" />
+                                                    <span className="loading loading-spinner loading-md"></span>
                                                 ) : playingIndex === uniqueIdx ? (
-                                                    <VolumeUpFill className="me-2" />
+                                                    <IoVolumeHigh className="h-6 w-6" />
                                                 ) : (
-                                                    <VolumeUp className="me-2" />
+                                                    <IoVolumeHighOutline className="h-6 w-6" />
                                                 )}
-                                                <span
-                                                    className="fst-italic"
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: sentenceObj.sentence,
-                                                    }}></span>
-                                            </ListGroup.Item>
-                                        );
-                                    })}
-                                </ListGroup>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </div>
                 ))}
-            </Row>
-            <ToastNotification
-                show={showToast}
-                onClose={() => setShowToast(false)}
-                message={toastMessage}
-                variant="warning"
-            />
+            </div>
         </>
     );
 };

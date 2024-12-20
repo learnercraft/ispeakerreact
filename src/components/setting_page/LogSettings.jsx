@@ -1,32 +1,67 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Card, Col, Dropdown, Row } from "react-bootstrap";
-import { BoxArrowUpRight, Check2 } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const LogSettings = () => {
     const { t } = useTranslation();
 
-    const [folderPath, setFolderPath] = useState(null);
+    const [, setFolderPath] = useState(null);
 
     const maxLogOptions = useMemo(
         () => [
-            { value: "5", label: `5 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 5 },
-            { value: "10", label: `10 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 10 },
-            { value: "25", label: `25 ${t("settingPage.logSettings.numOfLogsNumLog")}`, numOfLogs: 25 },
-            { value: "unlimited", label: t("settingPage.logSettings.numOfLogsUnlimited"), numOfLogs: 0 },
+            {
+                value: "5",
+                label: `5 ${t("settingPage.logSettings.numOfLogsNumLog")}`,
+                numOfLogs: 5,
+            },
+            {
+                value: "10",
+                label: `10 ${t("settingPage.logSettings.numOfLogsNumLog")}`,
+                numOfLogs: 10,
+            },
+            {
+                value: "25",
+                label: `25 ${t("settingPage.logSettings.numOfLogsNumLog")}`,
+                numOfLogs: 25,
+            },
+            {
+                value: "unlimited",
+                label: t("settingPage.logSettings.numOfLogsUnlimited"),
+                numOfLogs: 0,
+            },
         ],
         [t]
     );
 
     const deleteLogsOptions = useMemo(
         () => [
-            { value: "1", label: `1 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 1 },
-            { value: "7", label: `7 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 7 },
-            { value: "14", label: `14 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 14 },
-            { value: "30", label: `30 ${t("settingPage.logSettings.deleteOldLogNumDay")}`, keepForDays: 30 },
-            { value: "never", label: t("settingPage.logSettings.deleteOldLogNever"), keepForDays: 0 },
+            {
+                value: "1",
+                label: `1 ${t("settingPage.logSettings.deleteOldLogNumDay")}`,
+                keepForDays: 1,
+            },
+            {
+                value: "7",
+                label: `7 ${t("settingPage.logSettings.deleteOldLogNumDay")}`,
+                keepForDays: 7,
+            },
+            {
+                value: "14",
+                label: `14 ${t("settingPage.logSettings.deleteOldLogNumDay")}`,
+                keepForDays: 14,
+            },
+            {
+                value: "30",
+                label: `30 ${t("settingPage.logSettings.deleteOldLogNumDay")}`,
+                keepForDays: 30,
+            },
+            {
+                value: "never",
+                label: t("settingPage.logSettings.deleteOldLogNever"),
+                keepForDays: 0,
+            },
         ],
-        []
+        [t]
     );
 
     // State initialization using the initial values from localStorage or defaults
@@ -39,10 +74,12 @@ const LogSettings = () => {
 
         // Find the corresponding options based on stored values
         const initialMaxLog =
-            maxLogOptions.find((option) => option.numOfLogs === electronSettings.numOfLogs)?.value || "unlimited";
+            maxLogOptions.find((option) => option.numOfLogs === electronSettings.numOfLogs)
+                ?.value || "unlimited";
 
         const initialDeleteLog =
-            deleteLogsOptions.find((option) => option.keepForDays === electronSettings.keepForDays)?.value || "never";
+            deleteLogsOptions.find((option) => option.keepForDays === electronSettings.keepForDays)
+                ?.value || "never";
 
         return { initialMaxLog, initialDeleteLog };
     };
@@ -54,7 +91,9 @@ const LogSettings = () => {
     // Memoize the function so that it doesn't change on every render
     const handleApplySettings = useCallback(
         (maxLogWrittenValue, deleteLogsOlderThanValue) => {
-            const selectedMaxLogOption = maxLogOptions.find((option) => option.value === maxLogWrittenValue);
+            const selectedMaxLogOption = maxLogOptions.find(
+                (option) => option.value === maxLogWrittenValue
+            );
             const selectedDeleteLogOption = deleteLogsOptions.find(
                 (option) => option.value === deleteLogsOlderThanValue
             );
@@ -70,7 +109,6 @@ const LogSettings = () => {
             localStorage.setItem("ispeaker", JSON.stringify(settings));
 
             console.log("Log settings applied:", electronSettings);
-
             window.electron.ipcRenderer.send("update-log-settings", electronSettings);
         },
         [maxLogOptions, deleteLogsOptions]
@@ -95,100 +133,81 @@ const LogSettings = () => {
 
     return (
         <>
-            <h4>{t("settingPage.logSettings.logSettingsHeading")}</h4>
-            <p className="small text-secondary-emphasis">{t("settingPage.logSettings.logSettingsDescription")}</p>
+            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 md:flex-nowrap">
+                <div className="space-y-1">
+                    <p className="text-base font-semibold">
+                        {t("settingPage.logSettings.logSettingsHeading")}
+                    </p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                        {t("settingPage.logSettings.logSettingsDescription")}
+                    </p>
+                </div>
+                <div className="flex flex-grow basis-1/2 justify-end">
+                    <div>
+                        <p className="mb-2 text-base">
+                            {t("settingPage.logSettings.numOfLogsOption")}
+                        </p>
+                        <div className="dropdown mb-6">
+                            <div tabIndex={0} role="button" className="btn btn-wide justify-start">
+                                {getLabel(maxLogOptions, maxLogWritten)}
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                            >
+                                {maxLogOptions.map((option) => (
+                                    <button
+                                        type="button"
+                                        className={`btn btn-ghost btn-sm justify-start ${maxLogWritten === option.value ? "btn-active" : ""}`}
+                                        key={option.value}
+                                        onClick={() => {
+                                            setMaxLogWritten(option.value);
+                                            sonnerSuccessToast(t("settingPage.changeSaved"));
+                                        }}
+                                    >
+                                        {option.label}
+                                    </button>
+                                ))}
+                            </ul>
+                        </div>
 
-            <Card>
-                <Card.Body>
-                    <Row>
-                        <Col xs="auto" className="d-flex align-items-center fw-semibold">
-                            <label htmlFor="logNumber">{t("settingPage.logSettings.numOfLogsOption")}</label>
-                        </Col>
-                        <Col xs="auto" className="ms-auto">
-                            <Dropdown>
-                                <Dropdown.Toggle
-                                    variant="none"
-                                    id="dropdown-selected"
-                                    style={{
-                                        "--bs-btn-border-color": "var(--bs-body-color)",
-                                        "--bs-btn-hover-border-color": "var(--bs-secondary-color)",
-                                    }}>
-                                    {getLabel(maxLogOptions, maxLogWritten)}
-                                </Dropdown.Toggle>
+                        <p className="mb-2 text-base">
+                            {t("settingPage.logSettings.deleteOldLogsOption")}
+                        </p>
+                        <div className="dropdown mb-6">
+                            <div tabIndex={0} role="button" className="btn btn-wide justify-start">
+                                {getLabel(deleteLogsOptions, deleteLogsOlderThan)}
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                            >
+                                {deleteLogsOptions.map((option) => (
+                                    <button
+                                        type="button"
+                                        className={`btn btn-ghost btn-sm justify-start ${deleteLogsOlderThan === option.value ? "btn-active" : ""}`}
+                                        key={option.value}
+                                        onClick={() => {
+                                            setDeleteLogsOlderThan(option.value);
+                                            sonnerSuccessToast(t("settingPage.changeSaved"));
+                                        }}
+                                    >
+                                        {option.label}
+                                    </button>
+                                ))}
+                            </ul>
+                        </div>
 
-                                <Dropdown.Menu>
-                                    {maxLogOptions.map((option) => (
-                                        <Dropdown.Item
-                                            key={option.value}
-                                            onClick={() => setMaxLogWritten(option.value)}
-                                            active={maxLogWritten === option.value}>
-                                            <div className="d-flex align-items-center justify-content-between">
-                                                <span>{option.label}</span>
-                                                {maxLogWritten === option.value && <Check2 />}
-                                            </div>
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
-
-            <Card className="my-3">
-                <Card.Body>
-                    <Row>
-                        <Col xs="auto" className="d-flex align-items-center fw-semibold">
-                            <label htmlFor="deleteLogs">{t("settingPage.logSettings.deleteOldLogsOption")}</label>
-                        </Col>
-                        <Col xs="auto" className="ms-auto">
-                            <Dropdown>
-                                <Dropdown.Toggle
-                                    variant="none"
-                                    id="dropdown-delete-logs"
-                                    style={{
-                                        "--bs-btn-border-color": "var(--bs-body-color)",
-                                        "--bs-btn-hover-border-color": "var(--bs-secondary-color)",
-                                    }}>
-                                    {getLabel(deleteLogsOptions, deleteLogsOlderThan)}
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    {deleteLogsOptions.map((option) => (
-                                        <Dropdown.Item
-                                            key={option.value}
-                                            onClick={() => setDeleteLogsOlderThan(option.value)}
-                                            active={deleteLogsOlderThan === option.value}>
-                                            <div className="d-flex align-items-center justify-content-between">
-                                                <span>{option.label}</span>
-                                                {deleteLogsOlderThan === option.value && <Check2 />}
-                                            </div>
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
-
-            <Card className="mt-3 mb-4">
-                <Card.Body>
-                    <Row>
-                        <Col xs="auto" className="d-flex align-items-center">
-                            <Button
-                                variant="link"
-                                className="text-start fw-semibold p-0 link-underline link-underline-opacity-0 stretched-link text-reset"
-                                onClick={handleOpenLogFolder}>
-                                {t("settingPage.logSettings.openLogBtn")}
-                            </Button>
-                        </Col>
-                        <Col xs="auto" className="d-flex ms-auto align-items-center justify-content-center">
-                            <BoxArrowUpRight />
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
+                        <button
+                            type="button"
+                            className="btn btn-wide justify-start"
+                            onClick={handleOpenLogFolder}
+                        >
+                            {t("settingPage.logSettings.openLogBtn")}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

@@ -1,0 +1,20 @@
+1
+00:00:06,210 --> 00:00:08,045
+(...)
+
+2
+00:00:08,046 --> 00:00:09,890
+Look out! Oh, sorry!
+
+3
+00:00:09,891 --> 00:00:11,425
+I nearly spilled coffee everywhere!
+
+4
+00:00:11,430 --> 00:00:13,487
+I know it's not a good place
+
+5
+00:00:13,488 --> 00:00:15,419
+to stand and talk, is it?
+

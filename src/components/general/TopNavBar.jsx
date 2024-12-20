@@ -1,89 +1,149 @@
-import { useContext, useEffect, useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { CardChecklist, ChatDots, ClipboardCheck, House, Mic, Gear } from "react-bootstrap-icons";
-import { NavLink } from "react-router-dom";
-import { ThemeContext } from "../../utils/ThemeProvider";
+import { useEffect, useState } from "react";
+import { BsCardChecklist, BsChatText } from "react-icons/bs";
+import { IoHomeOutline, IoMicOutline } from "react-icons/io5";
+import { LiaToolsSolid } from "react-icons/lia";
+import { PiExam } from "react-icons/pi";
+
 import { useTranslation } from "react-i18next";
+import { CgMenuLeft } from "react-icons/cg";
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
+import { useTheme } from "../../utils/ThemeContext/useTheme";
 
 const TopNavBar = () => {
     const { t } = useTranslation();
-    const { theme } = useContext(ThemeContext);
-    const [currentTheme, setCurrentTheme] = useState(theme);
+    const { theme } = useTheme();
+    const [, setCurrentTheme] = useState(theme);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-        // Function to update the logo based on the theme or system preference
         const updateTheme = () => {
             if (theme === "auto") {
-                // If theme is auto, check if system prefers dark mode
-                setCurrentTheme(mediaQuery.matches ? "dark" : "light");
+                const systemPrefersDark = mediaQuery.matches;
+                setCurrentTheme(systemPrefersDark ? "dark" : "light");
+                setIsDarkMode(systemPrefersDark);
             } else {
                 setCurrentTheme(theme);
+                setIsDarkMode(theme === "dark");
             }
         };
 
-        // Initial check
+        // Initial check and listener
         updateTheme();
+        if (theme === "auto") {
+            mediaQuery.addEventListener("change", updateTheme);
+        }
 
-        // Add listener for system theme changes if "auto" is selected
-        mediaQuery.addEventListener("change", updateTheme);
-
-        // Cleanup the listener on unmount
-        return () => mediaQuery.removeEventListener("change", updateTheme);
+        return () => {
+            mediaQuery.removeEventListener("change", updateTheme);
+        };
     }, [theme]);
 
-    const logoSrc =
-        currentTheme === "dark"
-            ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
-            : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
+    const logoSrc = isDarkMode
+        ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
+        : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
+
+    const navbarClass = isDarkMode ? "bg-slate-600/50" : "bg-lime-300/75";
+
+    const menuItems = [
+        { to: "/", icon: <IoHomeOutline className="h-6 w-6" />, label: t("navigation.home") },
+        {
+            to: "/sounds",
+            icon: <IoMicOutline className="h-6 w-6" />,
+            label: t("navigation.sounds"),
+        },
+        {
+            to: "/exercises",
+            icon: <BsCardChecklist className="h-6 w-6" />,
+            label: t("navigation.exercises"),
+        },
+        {
+            to: "/conversations",
+            icon: <BsChatText className="h-6 w-6" />,
+            label: t("navigation.conversations"),
+        },
+        { to: "/exams", icon: <PiExam className="h-6 w-6" />, label: t("navigation.exams") },
+        {
+            to: "/settings",
+            icon: <LiaToolsSolid className="h-6 w-6" />,
+            label: t("navigation.settings"),
+        },
+    ];
 
     return (
-        <div className="mb-4">
-            <Navbar expand="lg" className="bg-body-tertiary">
-                <Container>
-                    <Navbar.Brand as={NavLink} to="/" className="fw-semibold">
-                        <img
-                            alt="iSpeakerReact logo"
-                            src={logoSrc}
-                            width="32"
-                            height="32"
-                            className="d-inline-block align-top"
-                        />{" "}
-                        iSpeakerReact
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="top-NavBar" />
-                    <Navbar.Collapse id="top-NavBar" className="mt-3 mt-md-0">
-                        <Nav className="me-auto" variant="underline">
-                            <NavLink to="/" className="nav-link">
-                                <House className="me-2" />
-                                {t("navigation.home")}
+        <nav
+            className={`navbar sticky top-0 z-[300] w-full flex-none backdrop-blur-md backdrop-brightness-125 backdrop-saturate-200 ${navbarClass}`}
+        >
+            <div className="navbar md:navbar-start">
+                {/* Mobile Drawer */}
+                <div className="lg:hidden">
+                    <label htmlFor="mobile-menu" className="btn btn-ghost drawer-button">
+                        <CgMenuLeft size="1.5em" />
+                    </label>
+                    <input type="checkbox" id="mobile-menu" className="drawer-toggle hidden" />
+                    <div className="drawer-side">
+                        <label htmlFor="mobile-menu" className="drawer-overlay"></label>
+                        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base text-base-content">
+                            {menuItems.map((item) => (
+                                <li key={item.to}>
+                                    <NavLink to={item.to} aria-label={item.label}>
+                                        {item.icon} {item.label}
+                                    </NavLink>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Logo */}
+                <NavLink
+                    className="btn btn-ghost no-animation flex w-full items-center justify-center md:w-auto lg:text-xl"
+                    to="/"
+                >
+                    <img
+                        alt="iSpeakerReact logo"
+                        src={logoSrc}
+                        width="60"
+                        height="60"
+                        className="h-12 w-12"
+                    />
+                    <span className="hidden md:block">iSpeakerReact</span>
+                </NavLink>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal px-1 lg:text-base">
+                    {menuItems.map((item) => (
+                        <li key={item.to}>
+                            <NavLink to={item.to} aria-label={item.label}>
+                                {item.icon} {item.label}
                             </NavLink>
-                            <NavLink to="/sounds" className="nav-link">
-                                <Mic className="me-2" />
-                                {t("navigation.sounds")}
-                            </NavLink>
-                            <NavLink to="/exercises" className="nav-link">
-                                <CardChecklist className="me-2" />
-                                {t("navigation.exercises")}
-                            </NavLink>
-                            <NavLink to="/conversations" className="nav-link">
-                                <ChatDots className="me-2" />
-                                {t("navigation.conversations")}
-                            </NavLink>
-                            <NavLink to="/exams" className="nav-link">
-                                <ClipboardCheck className="me-2" />
-                                {t("navigation.exams")}
-                            </NavLink>
-                            <NavLink to="/settings" className="nav-link">
-                                <Gear className="me-2" />
-                                {t("navigation.settings")}
-                            </NavLink>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* GitHub Link */}
+            <div className="navbar-end">
+                <a
+                    className="btn btn-ghost no-animation flex items-center"
+                    href="https://github.com/yllst-testing-labs/ispeakerreact"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub repository"
+                >
+                    <FaGithub size="1.5em" />
+                    <span className="ml-1 hidden items-center space-x-1 md:inline-flex">
+                        <span>GitHub</span>
+                        <FiExternalLink />
+                    </span>
+                </a>
+            </div>
+        </nav>
     );
 };
 

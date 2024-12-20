@@ -1,0 +1,24 @@
+1
+00:00:06,210 --> 00:00:08,549
+I don't think these clients will commit
+
+2
+00:00:08,550 --> 00:00:11,088
+if the price is too high. 
+
+3
+00:00:11,090 --> 00:00:12,959
+Actually, these clients are sponsored.
+
+4
+00:00:12,960 --> 00:00:15,959
+They aren't paying for themselves.
+
+5
+00:00:15,960 --> 00:00:18,467
+Oh, I see what you mean. 
+
+6
+00:00:18,470 --> 00:00:19,477
+I didn't know that.
+

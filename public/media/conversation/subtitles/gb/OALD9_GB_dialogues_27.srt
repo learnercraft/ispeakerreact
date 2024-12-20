@@ -1,0 +1,24 @@
+1
+00:00:06,570 --> 00:00:09,224
+Hello, ABC print here. How can I help you? 
+
+2
+00:00:09,230 --> 00:00:11,589
+Yes, can I speak to Adam Talbot, please? 
+
+3
+00:00:11,590 --> 00:00:14,539
+I'm afraid he's not in. Can I take a message? 
+
+4
+00:00:14,540 --> 00:00:16,899
+Yes, er, can you ask him to
+
+5
+00:00:16,900 --> 00:00:18,374
+call me back, please? It's Jo Walker. 
+
+6
+00:00:18,375 --> 00:00:20,439
+OK I'll let him know. Thank you.
+

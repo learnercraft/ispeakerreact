@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Nav } from "react-bootstrap";
-import { ArrowLeftCircle, CameraVideo, CardChecklist, ChatDots, Headphones } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { IoChevronBackOutline } from "react-icons/io5";
+import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
 import { isElectron } from "../../utils/isElectron";
 import LoadingOverlay from "../general/LoadingOverlay";
-import ToastNotification from "../general/ToastNotification";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 import ListeningTab from "./ListeningTab";
 import PracticeTab from "./PracticeTab";
 import ReviewTab from "./ReviewTab";
@@ -14,12 +12,9 @@ import WatchAndStudyTab from "./WatchAndStudyTab";
 const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     const { t } = useTranslation();
 
-    const [activeTab, setActiveTab] = useState("#watch_and_study");
+    const [activeTab, setActiveTab] = useState("watchStudyTab");
     const [loading, setLoading] = useState(true);
     const [accentData, setAccentData] = useState(null);
-
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
 
     const [videoUrl, setVideoUrl] = useState(null);
     const [videoLoading, setVideoLoading] = useState(true);
@@ -29,26 +24,9 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             try {
                 setLoading(true);
 
-                // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron()) {
-                    const cachedDataBlob = await getFileFromIndexedDB("conversation_data.json", "json");
-
-                    if (cachedDataBlob) {
-                        // Convert Blob to text, then parse the JSON
-                        const cachedDataText = await cachedDataBlob.text();
-                        const cachedData = JSON.parse(cachedDataText);
-                        const conversationData = cachedData[id]?.[0];
-                        const accentData = conversationData[accent === "british" ? "BrE" : "AmE"];
-                        setAccentData(accentData);
-
-                        setLoading(false);
-
-                        return;
-                    }
-                }
-
-                // If not in IndexedDB or running in Electron, fetch from the network
-                const response = await fetch(`${import.meta.env.BASE_URL}json/conversation_data.json`);
+                const response = await fetch(
+                    `${import.meta.env.BASE_URL}json/conversation_data.json`
+                );
                 const data = await response.json();
 
                 // Find the correct conversation data in the array based on the ID
@@ -64,15 +42,11 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     setLoading(false);
                     return;
                 }
-
-                // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-                    await saveFileToIndexedDB("conversation_data.json", blob, "json");
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Error while loading the data for this section. Please check your Internet connection.");
+                alert(
+                    "Error while loading the data for this section. Please check your Internet connection."
+                );
             }
         };
         fetchData();
@@ -110,82 +84,121 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
         fetchVideoUrl();
     }, [accentData, accent]);
 
+    let videoSubtitle = "";
+    let subtitleUrl = "";
+
+    if (accentData) {
+        videoSubtitle = accentData.watch_and_study.subtitle;
+        subtitleUrl = `${import.meta.env.BASE_URL}media/conversation/subtitles/${accent === "british" ? "gb" : "us"}/${videoSubtitle}`;
+    }
+
     return (
         <>
-            <h3 className="mt-4">
+            <h3 className="mb-2 mt-4 text-2xl font-semibold">
                 {t("conversationPage.topicHeading")} {t(title)}
             </h3>
             <p>
                 {t("accent.accentSettings")}:{" "}
                 {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
             </p>
-            <Button variant="primary" className="my-3" onClick={onBack}>
-                <ArrowLeftCircle className="me-1" /> {t("buttonConversationExam.conversationBackBtn")}
-            </Button>
+            <button type="button" className="btn btn-secondary my-4" onClick={onBack}>
+                <IoChevronBackOutline className="h-5 w-5" />
+                {t("buttonConversationExam.conversationBackBtn")}
+            </button>
             {loading || videoLoading ? (
                 <LoadingOverlay />
             ) : (
-                <Card className="mt-2 shadow-sm">
-                    <Card.Header>
-                        <Nav
-                            variant="pills"
-                            activeKey={activeTab}
-                            onSelect={(selectedKey) => setActiveTab(selectedKey)}>
-                            <Nav.Item>
-                                <Nav.Link eventKey="#watch_and_study">
-                                    <CameraVideo /> {t("buttonConversationExam.watchBtn")}
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="#listen">
-                                    <Headphones /> {t("buttonConversationExam.listenBtn")}
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="#practice">
-                                    <ChatDots /> {t("buttonConversationExam.practiceBtn")}
-                                </Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="#review">
-                                    <CardChecklist /> {t("buttonConversationExam.reviewBtn")}
-                                </Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    </Card.Header>
-                    <Card.Body>
-                        {activeTab === "#watch_and_study" && (
-                            <WatchAndStudyTab
-                                videoUrl={videoUrl}
-                                dialog={accentData.watch_and_study.study.dialog}
-                                skillCheckmark={accentData.watch_and_study.study.skill_checkmark}
-                            />
-                        )}
+                <>
+                    <div className="sticky top-[calc(5rem)] z-10 bg-base-100 py-8">
+                        <div className="flex justify-center">
+                            <ul className="menu menu-horizontal w-auto justify-center rounded-box bg-base-200 dark:bg-slate-600">
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab("watchStudyTab")}
+                                        className={`md:text-base ${
+                                            activeTab === "watchStudyTab"
+                                                ? "active font-semibold"
+                                                : ""
+                                        }`}
+                                    >
+                                        <MdOutlineOndemandVideo className="h-6 w-6" />{" "}
+                                        {t("buttonConversationExam.watchBtn")}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab("listenTab")}
+                                        className={`md:text-base ${
+                                            activeTab === "listenTab" ? "active font-semibold" : ""
+                                        }`}
+                                    >
+                                        <MdHeadphones className="h-6 w-6" />{" "}
+                                        {t("buttonConversationExam.listenBtn")}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab("practiceTab")}
+                                        className={`md:text-base ${
+                                            activeTab === "practiceTab"
+                                                ? "active font-semibold"
+                                                : ""
+                                        }`}
+                                    >
+                                        <MdKeyboardVoice className="h-6 w-6" />{" "}
+                                        {t("buttonConversationExam.practiceBtn")}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab("reviewTab")}
+                                        className={`md:text-base ${
+                                            activeTab === "reviewTab" ? "active font-semibold" : ""
+                                        }`}
+                                    >
+                                        <MdChecklist className="h-6 w-6" />{" "}
+                                        {t("buttonConversationExam.reviewBtn")}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="card card-bordered mb-6 w-full shadow-md dark:border-slate-600">
+                        <div className="card-body">
+                            {activeTab === "watchStudyTab" && (
+                                <WatchAndStudyTab
+                                    videoUrl={videoUrl}
+                                    subtitleUrl={subtitleUrl}
+                                    dialog={accentData.watch_and_study.study.dialog}
+                                    skillCheckmark={
+                                        accentData.watch_and_study.study.skill_checkmark
+                                    }
+                                />
+                            )}
 
-                        {activeTab === "#listen" && <ListeningTab sentences={accentData.listen.subtopics} />}
+                            {activeTab === "listenTab" && (
+                                <ListeningTab sentences={accentData.listen.subtopics} />
+                            )}
 
-                        {activeTab === "#practice" && (
-                            <PracticeTab
-                                accent={accent}
-                                conversationId={id}
-                                setToastMessage={setToastMessage}
-                                setShowToast={setShowToast}
-                            />
-                        )}
+                            {activeTab === "practiceTab" && (
+                                <PracticeTab accent={accent} conversationId={id} />
+                            )}
 
-                        {activeTab === "#review" && (
-                            <ReviewTab reviews={accentData.reviews} accent={accent} conversationId={id} />
-                        )}
-                    </Card.Body>
-                </Card>
+                            {activeTab === "reviewTab" && (
+                                <ReviewTab
+                                    reviews={accentData.reviews}
+                                    accent={accent}
+                                    conversationId={id}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </>
             )}
-
-            <ToastNotification
-                show={showToast}
-                onClose={() => setShowToast(false)}
-                message={toastMessage}
-                variant="warning"
-            />
         </>
     );
 };

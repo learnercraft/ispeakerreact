@@ -1,0 +1,36 @@
+1
+00:00:05,920 --> 00:00:07,394
+We're organizing a trip to
+
+2
+00:00:07,395 --> 00:00:08,574
+Boston on Friday afternoon.
+
+3
+00:00:08,580 --> 00:00:10,637
+Do you want to come with us?
+
+4
+00:00:10,640 --> 00:00:12,759
+I'd love to, but I don't think
+
+5
+00:00:12,760 --> 00:00:14,767
+I could make it before two o'clock. 
+
+6
+00:00:14,770 --> 00:00:15,953
+Is that too late?
+
+7
+00:00:15,954 --> 00:00:17,131
+Oh, that's too bad -
+
+8
+00:00:17,132 --> 00:00:18,307
+we're meeting at twelve.
+
+9
+00:00:18,310 --> 00:00:19,489
+Oh, OK. Thanks anyway.
+

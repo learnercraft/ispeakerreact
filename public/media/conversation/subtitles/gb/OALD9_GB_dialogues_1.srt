@@ -1,0 +1,28 @@
+1
+00:00:06,370 --> 00:00:08,235
+Our website looks a bit dated,
+
+2
+00:00:08,240 --> 00:00:09,319
+don't you think?
+
+3
+00:00:09,320 --> 00:00:11,479
+Absolutely, we should get a web designer
+
+4
+00:00:11,480 --> 00:00:13,229
+to take a look at it. 
+
+5
+00:00:13,230 --> 00:00:14,465
+I think you're right.
+
+6
+00:00:14,466 --> 00:00:17,287
+Let's put it on the agenda for next week.
+
+7
+00:00:17,290 --> 00:00:19,785
+I would certainly go along with that idea.
+

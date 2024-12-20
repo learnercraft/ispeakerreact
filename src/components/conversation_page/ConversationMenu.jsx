@@ -1,13 +1,11 @@
-import { Suspense, lazy, useEffect, useState } from "react";
-import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
-import { InfoCircle } from "react-bootstrap-icons";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
 
 const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
 
@@ -18,11 +16,25 @@ const ConversationListPage = () => {
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const [selectedConversation, setSelectedConversation] = useState(null);
 
-    const TooltipIcon = ({ info }) => (
-        <OverlayTrigger overlay={<Tooltip>{info}</Tooltip>} trigger={["hover", "focus"]}>
-            <InfoCircle className="ms-1" />
-        </OverlayTrigger>
-    );
+    // Modal state
+    const modalRef = useRef(null);
+    const [modalInfo, setModalInfo] = useState(null);
+
+    // Handle showing the modal
+    const handleShowModal = (info) => {
+        setModalInfo(info);
+        if (modalRef.current) {
+            modalRef.current.showModal();
+        }
+    };
+
+    // Handle closing the modal
+    const handleCloseModal = () => {
+        if (modalRef.current) {
+            modalRef.current.close();
+        }
+        setModalInfo(null);
+    };
 
     const handleSelectConversation = (id, title) => {
         const selected = data.find((section) => section.titles.some((item) => item.id === id));
@@ -35,25 +47,46 @@ const ConversationListPage = () => {
         }
     };
 
-    const ConversationCard = ({ heading, titles }) => (
-        <Col>
-            <Card className="mb-4 h-100 shadow-sm">
-                <Card.Header className="fw-semibold">{t(heading)}</Card.Header>
-                <Card.Body>
-                    {titles.map(({ title, info, id }, index) => (
-                        <Card.Text key={index} className="">
-                            <Button
-                                variant="link"
-                                className="p-0 m-0"
-                                onClick={() => handleSelectConversation(id, title)}>
-                                {t(title)}
-                            </Button>
-                            <TooltipIcon info={t(info)} />
-                        </Card.Text>
-                    ))}
-                </Card.Body>
-            </Card>
-        </Col>
+    const TooltipIcon = ({ info, onClick }) => (
+        <>
+            {/* Tooltip for larger screens */}
+            <div
+                className="tooltip tooltip-secondary hidden dark:tooltip-accent sm:inline"
+                data-tip={info}
+            >
+                <IoInformationCircleOutline className="h-5 w-5 cursor-pointer hover:text-primary dark:hover:text-accent" />
+            </div>
+
+            {/* Modal trigger button for small screens */}
+            <button
+                type="button"
+                title={t("conversationPage.expandInfoBtn")}
+                className="btn btn-circle btn-sm focus:ring-2 sm:hidden"
+                onClick={onClick}
+            >
+                <IoInformationCircleOutline className="h-5 w-5 cursor-pointer" />
+            </button>
+        </>
+    );
+
+    const ConversationCard = ({ heading, titles, onShowModal }) => (
+        <div className="card card-bordered flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
+            <div className="card-body flex-grow">
+                <div className="card-title font-semibold">{t(heading)}</div>
+                <div className="divider divider-secondary m-0"></div>
+                {titles.map(({ title, id, info }, index) => (
+                    <div key={index} className="mb-2 flex items-center space-x-2">
+                        <a
+                            className="link hover:link-primary dark:hover:link-accent"
+                            onClick={() => handleSelectConversation(id, title)}
+                        >
+                            {t(title)}
+                        </a>
+                        <TooltipIcon info={t(info)} onClick={() => onShowModal(t(info))} />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 
     useEffect(() => {
@@ -61,81 +94,28 @@ const ConversationListPage = () => {
             try {
                 setLoading(true);
 
-                // If it's not an Electron environment, check IndexedDB first
-                if (!isElectron()) {
-                    const cachedDataBlob = await getFileFromIndexedDB("conversation_list.json", "json");
-
-                    if (cachedDataBlob) {
-                        // Convert Blob to text, then parse the JSON
-                        const cachedDataText = await cachedDataBlob.text();
-                        const cachedData = JSON.parse(cachedDataText);
-
-                        // Use localization keys
-                        const localizedData = cachedData.conversationList.map((section) => ({
-                            ...section,
-                            heading: `${section.heading}`,
-                            titles: section.titles.map((title) => ({
-                                ...title,
-                                title: `${title.title}`, // Adjust key for titles
-                                info: `${title.info}`, // Adjust key for info
-                            })),
-                        }));
-
-                        setData(localizedData);
-                        setLoading(false);
-
-                        return;
-                    }
-                }
-
-                // If not in IndexedDB or running in Electron, fetch from the network
-                const response = await fetch(`${import.meta.env.BASE_URL}json/conversation_list.json`);
+                // Fetch from network
+                const response = await fetch(
+                    `${import.meta.env.BASE_URL}json/conversation_list.json`
+                );
                 const fetchedData = await response.json();
 
-                // Use localization keys
-                const localizedData = fetchedData.conversationList.map((section) => ({
-                    ...section,
-                    heading: `${section.heading}`,
-                    titles: section.titles.map((title) => ({
-                        ...title,
-                        title: `${title.title}`, // Adjust key for titles
-                        info: `${title.info}`, // Adjust key for info
-                    })),
-                }));
-
-                setData(localizedData);
+                setData(fetchedData.conversationList);
                 setLoading(false);
-
-                // Save the fetched data to IndexedDB (excluding Electron)
-                if (!isElectron()) {
-                    const blob = new Blob([JSON.stringify(fetchedData)], { type: "application/json" });
-                    await saveFileToIndexedDB("conversation_list.json", blob, "json");
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                alert("Error while loading the data for this section. Please check your Internet connection.");
+                alert(
+                    "Error while loading the data for this section. Please check your Internet connection."
+                );
             }
         };
         fetchData();
     }, []);
 
     useEffect(() => {
-        // Load existing data from localStorage
         const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
-
-        // Update the selectedAccent while preserving other data
-        const updatedData = {
-            ...storedData,
-            selectedAccent,
-        };
-
-        // Save the updated data back to localStorage
-        localStorage.setItem("ispeaker", JSON.stringify(updatedData));
+        localStorage.setItem("ispeaker", JSON.stringify({ ...storedData, selectedAccent }));
     }, [selectedAccent]);
-
-    const handleGoBack = () => {
-        setSelectedConversation(null);
-    };
 
     useEffect(() => {
         document.title = `${t("navigation.conversations")} | iSpeakerReact v${__APP_VERSION__}`;
@@ -144,31 +124,58 @@ const ConversationListPage = () => {
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">{t("navigation.conversations")}</h1>
-            {selectedConversation ? (
-                <Suspense fallback={<LoadingOverlay />}>
-                    <ConversationDetailPage
-                        id={selectedConversation.id}
-                        accent={selectedAccent}
-                        title={selectedConversation.title}
-                        onBack={handleGoBack}
-                    />
-                </Suspense>
-            ) : (
-                <>
-                    <AccentDropdown onAccentChange={setSelectedAccent} />
-                    <p>{t("conversationPage.selectType")}</p>
-                    {loading ? (
-                        <LoadingOverlay />
-                    ) : (
-                        <Row xs={1} md={3} className="g-4 mt-1 d-flex justify-content-center">
-                            {data.map((section, index) => (
-                                <ConversationCard key={index} heading={section.heading} titles={section.titles} />
-                            ))}
-                        </Row>
-                    )}
-                </>
-            )}
+            <Container>
+                <h1 className="py-6 text-3xl font-bold md:text-4xl">
+                    {t("navigation.conversations")}
+                </h1>
+                {selectedConversation ? (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <ConversationDetailPage
+                            id={selectedConversation.id}
+                            accent={selectedAccent}
+                            title={selectedConversation.title}
+                            onBack={() => setSelectedConversation(null)}
+                        />
+                    </Suspense>
+                ) : (
+                    <>
+                        <AccentDropdown onAccentChange={setSelectedAccent} />
+                        <p className="my-4">{t("conversationPage.selectType")}</p>
+                        {loading ? (
+                            <LoadingOverlay />
+                        ) : (
+                            <div className="my-10 flex flex-wrap justify-center gap-7">
+                                {data.map((section, index) => (
+                                    <ConversationCard
+                                        key={index}
+                                        heading={section.heading}
+                                        titles={section.titles}
+                                        onShowModal={handleShowModal}
+                                    />
+                                ))}
+                            </div>
+                        )}
+
+                        <dialog ref={modalRef} className="modal">
+                            <div className="modal-box">
+                                <h3 className="text-lg font-bold">
+                                    {t("conversationPage.conversationModalInfo")}
+                                </h3>
+                                <p className="py-4">{modalInfo}</p>
+                                <div className="modal-action">
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        onClick={handleCloseModal}
+                                    >
+                                        {t("sound_page.closeBtn")}
+                                    </button>
+                                </div>
+                            </div>
+                        </dialog>
+                    </>
+                )}
+            </Container>
         </>
     );
 };

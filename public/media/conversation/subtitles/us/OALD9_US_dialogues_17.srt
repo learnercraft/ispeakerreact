@@ -1,0 +1,28 @@
+1
+00:00:07,010 --> 00:00:09,879
+Do you think you'll be in DC on the 15th?
+
+2
+00:00:09,880 --> 00:00:11,314
+Ah, I'm probably going to
+
+3
+00:00:11,315 --> 00:00:12,749
+be in Baltimore that day,
+
+4
+00:00:12,750 --> 00:00:14,758
+Will you be back by six?
+
+5
+00:00:14,760 --> 00:00:16,189
+I wouldn't bet on it -
+
+6
+00:00:16,190 --> 00:00:17,881
+There'll probably be a lot of
+
+7
+00:00:17,882 --> 00:00:19,638
+traffic on the way home. 
+

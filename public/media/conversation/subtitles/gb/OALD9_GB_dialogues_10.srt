@@ -1,0 +1,24 @@
+1
+00:00:07,820 --> 00:00:09,859
+Hi Sarah! Congratulations on the promotion. 
+
+2
+00:00:09,860 --> 00:00:11,559
+I just heard this morning.
+
+3
+00:00:11,560 --> 00:00:12,875
+Oh, thank you very much. 
+
+4
+00:00:12,876 --> 00:00:15,610
+When will you start in the new position?
+
+5
+00:00:15,611 --> 00:00:18,354
+At the end of May, when Tony retires.
+
+6
+00:00:18,360 --> 00:00:19,719
+Wow, that'll be great!
+

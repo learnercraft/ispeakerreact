@@ -1,6 +1,5 @@
 import he from "he";
-import { Card, Col, Row } from "react-bootstrap";
-import { PlayCircleFill, RecordCircleFill } from "react-bootstrap-icons";
+import { BsRecordCircleFill, BsPlayCircleFill } from "react-icons/bs";
 
 const SoundCardItem = ({
     id,
@@ -14,53 +13,68 @@ const SoundCardItem = ({
     isRecordingAvailable,
     handleRecording,
     handlePlayRecording,
-}) => (
-    <Card className="mb-2">
-        <Card.Body>
-            <Row>
-                <Col xs={"auto"} className="d-flex align-items-center">
-                    <button type="button" className="btn focus-ring p-1" onClick={() => handleShow(id)}>
-                        <img src={imgPhonemeThumbSrc} alt="Phoneme Thumbnail" />
-                    </button>
-                </Col>
-                <Col xs={"auto"} className="d-flex align-items-center">
-                    <span dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}></span>
-                </Col>
-                <Col xs={"auto"} className="d-flex align-items-center">
-                    <RecordCircleFill
-                        aria-label="record icon"
-                        size={24}
-                        role="button"
-                        className={`bi me-2${
-                            activeRecordingCard === id
-                                ? " text-danger"
-                                : activeRecordingCard !== null || isRecordingPlaying
-                                ? " pe-none opacity-25"
-                                : ""
-                        }`}
-                        onClick={() => handleRecording(id)}
-                    />
-                    <PlayCircleFill
-                        aria-label="play recording icon"
-                        size={24}
-                        role="button"
-                        className={`bi me-2${
-                            isRecordingPlaying && activePlaybackCard !== id
-                                ? " pe-none opacity-25"
-                                : isRecordingPlayingActive(id)
-                                ? " text-success"
-                                : !isRecordingAvailable(id) || activeRecordingCard !== null
-                                ? " pe-none opacity-25"
-                                : ""
-                        }`}
-                        onClick={() => (isRecordingAvailable(id) ? handlePlayRecording(id) : null)}
-                        disabled={isRecordingPlaying && activePlaybackCard !== id}
-                    />
-                </Col>
-            </Row>
-        </Card.Body>
-    </Card>
-);
+}) => {
+    const isRecordingDisabled = activeRecordingCard !== null || isRecordingPlaying;
+    const isPlayingDisabled =
+        (isRecordingPlaying && activePlaybackCard !== id) ||
+        !isRecordingAvailable(id) ||
+        activeRecordingCard !== null;
+
+    const recordIconClasses = `me-2${
+        activeRecordingCard === id
+            ? " text-success"
+            : isRecordingDisabled
+              ? " pointer-events-none opacity-25"
+              : ""
+    }`;
+    const playIconClasses = `me-2${
+        isRecordingPlaying && activePlaybackCard !== id
+            ? " pointer-events-none opacity-25"
+            : isRecordingPlayingActive(id)
+              ? " text-success"
+              : isPlayingDisabled
+                ? " pointer-events-none opacity-25"
+                : ""
+    }`;
+
+    return (
+        <div className="flex flex-wrap">
+            <div className="card card-bordered mb-2 w-full dark:border-slate-600">
+                <div className="card-body">
+                    <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+                        <button
+                            type="button"
+                            className="btn btn-ghost"
+                            onClick={() => handleShow(id)}
+                        >
+                            <img src={imgPhonemeThumbSrc} alt="Phoneme Thumbnail" />
+                        </button>
+                        <span dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}></span>
+                        <div className="flex space-x-4">
+                            <BsRecordCircleFill
+                                aria-label="record icon"
+                                size={24}
+                                role="button"
+                                className={recordIconClasses}
+                                onClick={() => handleRecording(id)}
+                            />
+                            <BsPlayCircleFill
+                                aria-label="play recording icon"
+                                size={24}
+                                role="button"
+                                className={playIconClasses}
+                                onClick={() =>
+                                    isRecordingAvailable(id) ? handlePlayRecording(id) : null
+                                }
+                                disabled={isRecordingPlaying && activePlaybackCard !== id}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 const SoundPracticeCard = ({
     sound,
@@ -75,67 +89,37 @@ const SoundPracticeCard = ({
     handleRecording,
     handlePlayRecording,
 }) => {
+    const commonProps = {
+        imgPhonemeThumbSrc,
+        handleShow,
+        activeRecordingCard,
+        isRecordingPlaying,
+        activePlaybackCard,
+        isRecordingPlayingActive,
+        isRecordingAvailable,
+        handleRecording,
+        handlePlayRecording,
+    };
+
+    const items = [
+        { id: 1, textContent: sound.phoneme, shouldShow: sound.shouldShow !== false },
+        { id: 2, textContent: accentData.initial, shouldShow: !!accentData.initial },
+        { id: 3, textContent: accentData.medial, shouldShow: !!accentData.medial },
+        { id: 4, textContent: accentData.final, shouldShow: !!accentData.final },
+    ];
+
     return (
         <>
-            {sound.shouldShow !== false && (
-                <SoundCardItem
-                    id={1}
-                    imgPhonemeThumbSrc={imgPhonemeThumbSrc}
-                    handleShow={handleShow}
-                    textContent={sound.phoneme}
-                    activeRecordingCard={activeRecordingCard}
-                    isRecordingPlaying={isRecordingPlaying}
-                    activePlaybackCard={activePlaybackCard}
-                    isRecordingPlayingActive={isRecordingPlayingActive}
-                    isRecordingAvailable={isRecordingAvailable}
-                    handleRecording={handleRecording}
-                    handlePlayRecording={handlePlayRecording}
-                />
-            )}
-            {accentData.initial && (
-                <SoundCardItem
-                    id={2}
-                    imgPhonemeThumbSrc={imgPhonemeThumbSrc}
-                    handleShow={handleShow}
-                    textContent={accentData.initial}
-                    activeRecordingCard={activeRecordingCard}
-                    isRecordingPlaying={isRecordingPlaying}
-                    activePlaybackCard={activePlaybackCard}
-                    isRecordingPlayingActive={isRecordingPlayingActive}
-                    isRecordingAvailable={isRecordingAvailable}
-                    handleRecording={handleRecording}
-                    handlePlayRecording={handlePlayRecording}
-                />
-            )}
-            {accentData.medial && (
-                <SoundCardItem
-                    id={3}
-                    imgPhonemeThumbSrc={imgPhonemeThumbSrc}
-                    handleShow={handleShow}
-                    textContent={accentData.medial}
-                    activeRecordingCard={activeRecordingCard}
-                    isRecordingPlaying={isRecordingPlaying}
-                    activePlaybackCard={activePlaybackCard}
-                    isRecordingPlayingActive={isRecordingPlayingActive}
-                    isRecordingAvailable={isRecordingAvailable}
-                    handleRecording={handleRecording}
-                    handlePlayRecording={handlePlayRecording}
-                />
-            )}
-            {accentData.final && (
-                <SoundCardItem
-                    id={4}
-                    imgPhonemeThumbSrc={imgPhonemeThumbSrc}
-                    handleShow={handleShow}
-                    textContent={accentData.final}
-                    activeRecordingCard={activeRecordingCard}
-                    isRecordingPlaying={isRecordingPlaying}
-                    activePlaybackCard={activePlaybackCard}
-                    isRecordingPlayingActive={isRecordingPlayingActive}
-                    isRecordingAvailable={isRecordingAvailable}
-                    handleRecording={handleRecording}
-                    handlePlayRecording={handlePlayRecording}
-                />
+            {items.map(
+                (item) =>
+                    item.shouldShow && (
+                        <SoundCardItem
+                            key={item.id}
+                            id={item.id}
+                            textContent={item.textContent}
+                            {...commonProps}
+                        />
+                    )
             )}
         </>
     );
