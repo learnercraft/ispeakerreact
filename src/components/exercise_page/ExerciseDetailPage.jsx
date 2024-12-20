@@ -1,11 +1,18 @@
 import _ from "lodash";
-import { Suspense, lazy, useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Collapse, Row } from "react-bootstrap";
-import { ArrowCounterclockwise, ArrowLeftCircle, ChevronDown, ChevronUp } from "react-bootstrap-icons";
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { isElectron } from "../../utils/isElectron";
+import { BsChevronLeft } from "react-icons/bs";
+import { PiArrowsCounterClockwise } from "react-icons/pi";
 import LoadingOverlay from "../general/LoadingOverlay";
-import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offlineStorageDb";
+
+// Emoji SVGs import
+import seedlingEmoji from "../../emojiSvg/emoji_u1f331.svg";
+import partyPopperEmoji from "../../emojiSvg/emoji_u1f389.svg";
+import thumbUpEmoji from "../../emojiSvg/emoji_u1f44d.svg";
+import flexedBicepsEmoji from "../../emojiSvg/emoji_u1f4aa.svg";
+import smilingFaceWithSmilingEyesEmoji from "../../emojiSvg/emoji_u1f60a.svg";
+import rocketEmoji from "../../emojiSvg/emoji_u1f680.svg";
+import railwayPathEmoji from "../../emojiSvg/emoji_u1f6e4.svg";
 
 // Lazy load the quiz components
 const DictationQuiz = lazy(() => import("./DictationQuiz"));
@@ -29,21 +36,25 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const [timeIsUp, setTimeIsUp] = useState(false);
     const [onMatchFinished, setOnMatchFinished] = useState(false); // Track if all cards in Memory Match are matched
 
-    const [openInstructions, setOpenInstructions] = useState(false);
-
     const [isloading, setIsLoading] = useState(true);
 
     const { t } = useTranslation();
 
+    const instructionModal = useRef(null);
+
     const getInstructionKey = (exerciseKey, exerciseId) => {
-        if (exerciseKey === "sound_n_spelling") return `exercise_page.exerciseInstruction.sound_n_spelling.sound`;
+        if (exerciseKey === "sound_n_spelling")
+            return `exercise_page.exerciseInstruction.sound_n_spelling.sound`;
         return `exercise_page.exerciseInstruction.${exerciseKey}.${exerciseId}`;
     };
 
     const fetchInstructions = useCallback(
         (exerciseKey, exerciseId, ipaSound) => {
             const instructionKey = getInstructionKey(exerciseKey, exerciseId);
-            const instructions = t(instructionKey, { ipaSound: ipaSound || "", returnObjects: true });
+            const instructions = t(instructionKey, {
+                ipaSound: ipaSound || "",
+                returnObjects: true,
+            });
             return Array.isArray(instructions) ? instructions : []; // Ensure it's always an array
         },
         [t]
@@ -56,7 +67,8 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             const timerValue =
                 exerciseKey === "memory_match"
                     ? savedSettings?.timerSettings?.memory_match || 4 // Use a default value for memory match
-                    : (savedSettings?.timerSettings?.enabled === true && savedSettings?.timerSettings?.[exerciseKey]) ||
+                    : (savedSettings?.timerSettings?.enabled === true &&
+                          savedSettings?.timerSettings?.[exerciseKey]) ||
                       0; // For other exercises
 
             setTimer(timerValue);
@@ -64,7 +76,8 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             let selectedAccentData;
             let combinedQuizzes = [];
 
-            const ipaSound = (exerciseKey === "sound_n_spelling" && exerciseDetails.exercise.trim()) || "";
+            const ipaSound =
+                (exerciseKey === "sound_n_spelling" && exerciseDetails.exercise.trim()) || "";
             const loadInstructions = fetchInstructions(exerciseKey, id, ipaSound);
 
             if (id === "random") {
@@ -74,7 +87,9 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                             selectedAccentData = exercise.british_american[0];
                         } else {
                             selectedAccentData =
-                                accent === "American English" ? exercise.american?.[0] : exercise.british?.[0];
+                                accent === "American English"
+                                    ? exercise.american?.[0]
+                                    : exercise.british?.[0];
                         }
 
                         if (selectedAccentData) {
@@ -97,7 +112,9 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                     selectedAccentData = exerciseDetails.british_american[0];
                 } else {
                     selectedAccentData =
-                        accent === "American English" ? exerciseDetails.american?.[0] : exerciseDetails.british?.[0];
+                        accent === "American English"
+                            ? exerciseDetails.american?.[0]
+                            : exerciseDetails.british?.[0];
                 }
 
                 setInstructions(loadInstructions || selectedAccentData?.instructions);
@@ -106,7 +123,9 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                     selectedAccentData = exerciseDetails.british_american[0];
                 } else {
                     selectedAccentData =
-                        accent === "American English" ? exerciseDetails.american?.[0] : exerciseDetails.british?.[0];
+                        accent === "American English"
+                            ? exerciseDetails.american?.[0]
+                            : exerciseDetails.british?.[0];
                 }
 
                 if (selectedAccentData) {
@@ -127,29 +146,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         try {
             setIsLoading(true);
 
-            // Check if the app is not running in Electron and try to fetch data from IndexedDB
-            if (!isElectron()) {
-                const cachedDataBlob = await getFileFromIndexedDB(`${file}`, "json");
-
-                if (cachedDataBlob) {
-                    // Convert Blob to text, then parse the JSON
-                    const cachedDataText = await cachedDataBlob.text();
-                    const cachedData = JSON.parse(cachedDataText);
-
-                    const exerciseKey = file.replace("exercise_", "").replace(".json", "");
-                    const exerciseDetails = cachedData[exerciseKey]?.find((exercise) => exercise.id === id);
-
-                    setCurrentExerciseType(exerciseKey);
-
-                    if (exerciseDetails) {
-                        handleExerciseData(exerciseDetails, cachedData, exerciseKey);
-                    }
-
-                    setIsLoading(false);
-                    return; // Early return if data is served from cache
-                }
-            }
-
             // If no cache or in Electron, fetch data from the network
             const response = await fetch(`${import.meta.env.BASE_URL}json/${file}`);
             if (!response.ok) {
@@ -161,10 +157,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
 
             // Save fetched data to IndexedDB (excluding Electron)
-            if (!isElectron()) {
-                const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-                await saveFileToIndexedDB(`${file}`, blob, "json");
-            }
 
             setCurrentExerciseType(exerciseKey);
 
@@ -217,52 +209,54 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const getEncouragementMessage = () => {
         if (totalAnswered === 0)
             return (
-                <>
-                    {t("exercise_page.encouragementMsg.level0")} <span className="noto-color-emoji">🚀</span>
-                </>
+                <div>
+                    {t("exercise_page.encouragementMsg.level0")}
+                    <img src={rocketEmoji} className="ms-2 inline h-5 w-5" />
+                </div>
             );
+
         const percentage = (score / totalAnswered) * 100;
 
-        if (percentage === 100) {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level6")} <span className="noto-color-emoji">🎉</span>
-                </>
-            );
-        } else if (percentage >= 80) {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level5")} <span className="noto-color-emoji">👍</span>
-                </>
-            );
-        } else if (percentage >= 60) {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level4")} <span className="noto-color-emoji">😊</span>
-                </>
-            );
-        } else if (percentage >= 40) {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level3")} <span className="noto-color-emoji">💪</span>
-                </>
-            );
-        } else if (percentage >= 20) {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level2")} <span className="noto-color-emoji">🌱</span>
-                </>
-            );
-        } else {
-            return (
-                <>
-                    {t("exercise_page.encouragementMsg.level1")} <span className="noto-color-emoji">🛤️</span>
-                </>
-            );
+        let level;
+        switch (true) {
+            case percentage === 100:
+                level = 6;
+                break;
+            case percentage >= 80:
+                level = 5;
+                break;
+            case percentage >= 60:
+                level = 4;
+                break;
+            case percentage >= 40:
+                level = 3;
+                break;
+            case percentage >= 20:
+                level = 2;
+                break;
+            default:
+                level = 1;
         }
+
+        const emojis = {
+            6: partyPopperEmoji,
+            5: thumbUpEmoji,
+            4: smilingFaceWithSmilingEyesEmoji,
+            3: flexedBicepsEmoji,
+            2: seedlingEmoji,
+            1: railwayPathEmoji,
+        };
+
+        return (
+            <div>
+                {t(`exercise_page.encouragementMsg.level${level}`)}
+                <img src={emojis[level]} className="ms-2 inline h-5 w-5" />
+            </div>
+        );
     };
 
-    const encouragementMessage = quizCompleted && totalAnswered > 0 ? getEncouragementMessage() : null;
+    const encouragementMessage =
+        quizCompleted && totalAnswered > 0 ? getEncouragementMessage() : null;
 
     const renderQuizComponent = () => {
         // Remove "exercise_" prefix and ".json" suffix
@@ -295,7 +289,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         onMatchFinished={handleMatchFinished}
                     />
                 ) : (
-                    <Card.Body>This quiz type is not yet implemented.</Card.Body>
+                    <div className="card-body">This quiz type is not yet implemented.</div>
                 )}
             </Suspense>
         );
@@ -307,72 +301,120 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                 <LoadingOverlay />
             ) : (
                 <>
-                    <h3 className="mt-4">{t(heading)}</h3>
-                    <Row className="mt-2 g-4">
-                        <Col md={4}>
-                            <Card className="h-100 shadow-sm">
-                                <Card.Header className="fw-semibold">{title}</Card.Header>
-                                <Card.Body>
-                                    <p>
-                                        <strong>{t("accent.accentSettings")}:</strong>{" "}
-                                        {accent === "American English"
-                                            ? t("accent.accentAmerican")
-                                            : t("accent.accentBritish")}
-                                    </p>
+                    <h3 className="mt-4 text-2xl font-semibold">{t(heading)}</h3>
+                    <p className="mb-6 text-lg">{title}</p>
+                    <div className="flex flex-wrap gap-8 md:flex-nowrap">
+                        <div className="w-full md:w-1/3">
+                            <p className="mb-4">
+                                <strong>{t("accent.accentSettings")}:</strong>{" "}
+                                {accent === "American English"
+                                    ? t("accent.accentAmerican")
+                                    : t("accent.accentBritish")}
+                            </p>
 
-                                    <div>
-                                        <Button
-                                            variant="info"
-                                            onClick={() => setOpenInstructions(!openInstructions)}
-                                            aria-controls="instructions-collapse"
-                                            aria-expanded={openInstructions}>
-                                            {openInstructions
-                                                ? t("exercise_page.buttons.collapseBtn")
-                                                : t("exercise_page.buttons.expandBtn")}{" "}
-                                            {openInstructions ? <ChevronUp /> : <ChevronDown />}
-                                        </Button>
-                                        <Collapse in={openInstructions}>
-                                            <div id="instructions-collapse">
-                                                <Card body className="mt-2">
-                                                    {instructions &&
-                                                    Array.isArray(instructions) &&
-                                                    instructions.length > 0 ? (
-                                                        instructions.map((instruction, index) => (
-                                                            <p
-                                                                key={index}
-                                                                className={
-                                                                    index === instructions.length - 1 ? "mb-0" : ""
-                                                                }>
-                                                                {instruction}
-                                                            </p>
-                                                        ))
-                                                    ) : (
-                                                        <p className="mb-0">
-                                                            [Instructions for this type of exercise is not yet
-                                                            translated. Please update accordingly.]
-                                                        </p>
-                                                    )}
-                                                </Card>
-                                            </div>
-                                        </Collapse>
+                            <dialog ref={instructionModal} className="modal">
+                                <div className="modal-box">
+                                    <h3 className="text-lg font-bold">
+                                        {t("exercise_page.buttons.instructionBtn")}
+                                    </h3>
+                                    <div className="py-4">
+                                        {instructions &&
+                                        Array.isArray(instructions) &&
+                                        instructions.length > 0 ? (
+                                            instructions.map((instruction, index) => (
+                                                <p
+                                                    key={index}
+                                                    className={`mb-2 ${
+                                                        index === instructions.length - 1
+                                                            ? "mb-0"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    {instruction}
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <p className="mb-0">
+                                                [Instructions for this type of exercise is not yet
+                                                translated. Please update accordingly.]
+                                            </p>
+                                        )}
                                     </div>
+                                    <div className="modal-action">
+                                        <form method="dialog">
+                                            <button
+                                                type="button"
+                                                className="btn"
+                                                onClick={() => instructionModal.current?.close()}
+                                            >
+                                                {t("sound_page.closeBtn")}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
 
-                                    <Button className="mb-2 mt-4" variant="primary" onClick={onBack}>
-                                        <ArrowLeftCircle /> {t("exercise_page.buttons.backBtn")}
-                                    </Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                            <button
+                                type="button"
+                                className="btn btn-neutral block dark:btn-outline md:hidden"
+                                onClick={() => instructionModal.current?.showModal()}
+                            >
+                                {t("exercise_page.buttons.expandBtn")}
+                            </button>
 
-                        <Col md={8}>
-                            <Card className="shadow-sm">
+                            <div className="collapse collapse-arrow hidden bg-base-200 md:grid dark:bg-slate-700">
+                                <input type="checkbox" />
+                                <button
+                                    type="button"
+                                    className="collapse-title text-start font-semibold"
+                                >
+                                    {t("exercise_page.buttons.expandBtn")}
+                                </button>
+                                <div className="collapse-content">
+                                    {instructions &&
+                                    Array.isArray(instructions) &&
+                                    instructions.length > 0 ? (
+                                        instructions.map((instruction, index) => (
+                                            <p
+                                                key={index}
+                                                className={`mb-2 ${index === instructions.length - 1 ? "mb-0" : ""}`}
+                                            >
+                                                {instruction}
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p className="mb-0">
+                                            [Instructions for this type of exercise is not yet
+                                            translated. Please update accordingly.]
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="btn btn-secondary my-8"
+                                onClick={onBack}
+                            >
+                                <BsChevronLeft className="h-5 w-5" />{" "}
+                                {t("exercise_page.buttons.backBtn")}
+                            </button>
+                        </div>
+
+                        <div className="w-full md:w-2/3">
+                            <div className="card card-bordered shadow-md dark:border-slate-600">
                                 {timeIsUp || quizCompleted || onMatchFinished ? (
                                     <>
-                                        <Card.Header className="fw-semibold">
-                                            {t("exercise_page.result.cardHeading")}
-                                        </Card.Header>
-                                        <Card.Body>
-                                            {onMatchFinished ? <p>{t("exercise_page.result.matchUpFinished")}</p> : ""}
+                                        <div className="card-body">
+                                            <div className="card-title font-semibold">
+                                                {t("exercise_page.result.cardHeading")}
+                                            </div>
+                                            <div className="divider divider-secondary m-0"></div>
+                                            {onMatchFinished ? (
+                                                <p>{t("exercise_page.result.matchUpFinished")}</p>
+                                            ) : (
+                                                ""
+                                            )}
                                             {timeIsUp && !onMatchFinished ? (
                                                 <p>{t("exercise_page.result.timeUp")}</p>
                                             ) : (
@@ -390,46 +432,61 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                                             totalAnswered,
                                                         })}
                                                     </p>
-                                                    <p>{encouragementMessage}</p>
+                                                    {encouragementMessage}
                                                     <p>{t("exercise_page.result.answerBottom")}</p>
                                                 </>
                                             ) : (
-                                                <p>{t("exercise_page.buttons.answerBottom")}</p>
+                                                <p>{t("exercise_page.result.answerBottom")}</p>
                                             )}
-                                            <Button variant="secondary" onClick={handleQuizRestart}>
-                                                <ArrowCounterclockwise /> {t("exercise_page.buttons.restartBtn")}
-                                            </Button>
-                                        </Card.Body>
+                                            <div className="card-actions justify-center">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-accent mt-4"
+                                                    onClick={handleQuizRestart}
+                                                >
+                                                    <PiArrowsCounterClockwise className="h-5 w-5" />{" "}
+                                                    {t("exercise_page.buttons.restartBtn")}
+                                                </button>
+                                            </div>
+                                        </div>
                                     </>
                                 ) : (
                                     <>{renderQuizComponent()}</>
                                 )}
-                            </Card>
+                            </div>
 
                             {timeIsUp || quizCompleted || currentExerciseType == "memory_match" ? (
                                 ""
                             ) : (
-                                <Card className="mt-4 shadow-sm">
-                                    <Card.Header className="fw-semibold">Review</Card.Header>
-                                    <Card.Body>
+                                <div className="card card-bordered mt-4 shadow-md dark:border-slate-600">
+                                    <div className="card-body">
+                                        <div className="card-title font-semibold">
+                                            {t("sound_page.reviewCard")}
+                                        </div>
+                                        <div className="divider divider-secondary m-0"></div>
                                         {score === 0 && totalAnswered === 0 ? (
                                             ""
                                         ) : (
-                                            <p>{t("exercise_page.result.answerResult", { score, totalAnswered })}</p>
+                                            <p>
+                                                {t("exercise_page.result.answerResult", {
+                                                    score,
+                                                    totalAnswered,
+                                                })}
+                                            </p>
                                         )}
 
-                                        <p>{getEncouragementMessage()}</p>
+                                        {getEncouragementMessage()}
 
                                         {score === 0 && totalAnswered === 0 ? (
                                             ""
                                         ) : (
                                             <p>{t("exercise_page.result.tryAgainBottom")}</p>
                                         )}
-                                    </Card.Body>
-                                </Card>
+                                    </div>
+                                </div>
                             )}
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </>
             )}
         </>

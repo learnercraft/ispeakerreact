@@ -1,24 +1,63 @@
-import { useState } from "react";
-import { Accordion, Alert, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import Ratio from "react-bootstrap/Ratio";
+import { MediaPlayer, MediaProvider, Track } from "@vidstack/react";
+import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
+import "@vidstack/react/player/styles/default/layouts/video.css";
+import "@vidstack/react/player/styles/default/theme.css";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { isElectron } from "../../utils/isElectron";
+import { useTheme } from "../../utils/ThemeContext/useTheme";
 
-const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
+const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) => {
     const { t } = useTranslation();
 
-    const [showModal, setShowModal] = useState(false);
     const [modalImage, setModalImage] = useState("");
+    const [imageLoading, setImageLoading] = useState(false);
+    const imageModalRef = useRef(null);
     const [iframeLoading, setiFrameLoading] = useState(true);
 
-    const handleImageClick = (imageName) => {
-        setModalImage(`${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`);
-        setShowModal(true);
-    };
+    const { theme } = useTheme();
+    const [, setCurrentTheme] = useState(theme);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    const handleCloseModal = () => setShowModal(false);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const updateTheme = () => {
+            if (theme === "auto") {
+                const systemPrefersDark = mediaQuery.matches;
+                setCurrentTheme(systemPrefersDark ? "dark" : "light");
+                setIsDarkMode(systemPrefersDark);
+            } else {
+                setCurrentTheme(theme);
+                setIsDarkMode(theme === "dark");
+            }
+        };
+
+        // Initial check and listener
+        updateTheme();
+        if (theme === "auto") {
+            mediaQuery.addEventListener("change", updateTheme);
+        }
+
+        return () => {
+            mediaQuery.removeEventListener("change", updateTheme);
+        };
+    }, [theme]);
+
+    const videoColorScheme = isDarkMode ? "dark" : "light";
+
+    const handleImageClick = (imageName) => {
+        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`;
+
+        // Only set loading if the image is different
+        if (modalImage !== newImage) {
+            setImageLoading(true);
+            setModalImage(newImage);
+        }
+
+        imageModalRef.current?.showModal();
+    };
 
     const handleIframeLoad = () => setiFrameLoading(false);
 
@@ -42,17 +81,36 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
     const getHighlightClass = (index) => {
         switch (index) {
             case 1:
-                return "text-bg-primary";
+                return "font-semibold bg-primary text-primary-content";
             case 2:
-                return "text-bg-secondary";
+                return "font-semibold bg-secondary text-secondary-content";
             case 3:
-                return "text-bg-success";
+                return "font-semibold bg-accent text-accent-content";
             case 4:
-                return "text-bg-warning";
+                return "font-semibold bg-info text-info-content";
             case 5:
-                return "text-bg-danger";
+                return "font-semibold bg-error text-error-content";
             case 6:
-                return "text-bg-info";
+                return "font-semibold bg-fuchsia-600 text-white";
+            default:
+                return "";
+        }
+    };
+
+    const getCheckboxHighlightClass = (index) => {
+        switch (index) {
+            case 1:
+                return "checkbox-primary";
+            case 2:
+                return "checkbox-secondary";
+            case 3:
+                return "checkbox-accent";
+            case 4:
+                return "checkbox-info";
+            case 5:
+                return "checkbox-error";
+            case 6:
+                return "border-fuchsia-600 [--chkbg:theme(colors.fuchsia.600)] checked:bg-fuchsia-600";
             default:
                 return "";
         }
@@ -70,132 +128,197 @@ const WatchAndStudyTab = ({ videoUrl, taskData, dialog, skills }) => {
 
     return (
         <>
-            <Card className="mb-4 shadow-sm">
-                <Card.Header className="fw-semibold">{t("tabConversationExam.taskCard")}</Card.Header>
-                <Card.Body>
-                    <Row className="g-4 d-flex justify-content-center">
-                        {taskData.images.map((image, index) => (
-                            <Col md={4} key={index}>
-                                <Ratio aspectRatio="16x9">
-                                    <Image
-                                        role="button"
-                                        src={`${
-                                            import.meta.env.BASE_URL
-                                        }images/ispeaker/exam_images/webp/${image}.webp`}
-                                        thumbnail
-                                        onClick={() => handleImageClick(image)}
-                                    />
-                                </Ratio>
-                            </Col>
-                        ))}
-                    </Row>
-                    <div className="mt-3">
-                        {examTaskQuestion.map((paragraph, index) => (
-                            <p key={index}>{paragraph}</p>
-                        ))}
-                        {examTaskList && (
-                            <ul>
-                                {examTaskList.map((item, index) => (
-                                    <li key={index}>{item}</li>
-                                ))}
-                            </ul>
+            <div className="mb-4">
+                <div className="text-xl font-semibold">{t("tabConversationExam.taskCard")}</div>
+                <div className="divider divider-secondary mb-4 mt-0"></div>
+
+                <div className="flex flex-row flex-wrap justify-center gap-4">
+                    {taskData.images.map((image, index) => (
+                        <div className="flex w-full md:w-[30%]" key={index}>
+                            <div className="aspect-w-16 aspect-h-9">
+                                <img
+                                    role="button"
+                                    src={`${
+                                        import.meta.env.BASE_URL
+                                    }images/ispeaker/exam_images/webp/${image}.webp`}
+                                    className="h-full w-full object-cover"
+                                    onClick={() => handleImageClick(image)}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-3">
+                    {examTaskQuestion.map((paragraph, index) => (
+                        <p key={index}>{paragraph}</p>
+                    ))}
+                    {examTaskList && (
+                        <ul className="list-inside list-disc">
+                            {examTaskList.map((item, index) => (
+                                <li className="my-1" key={index}>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
+            <div className="divider"></div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                    <div className="text-xl font-semibold">
+                        {t("tabConversationExam.watchCard")}
+                    </div>
+                    <div className="divider divider-secondary mb-4 mt-0"></div>
+
+                    <div className="top-[calc(14rem)] bg-base-100 md:sticky md:z-10">
+                        <div className="aspect-video">
+                            <div className="relative h-full w-full">
+                                {isElectron() &&
+                                videoUrl &&
+                                videoUrl.startsWith("http://localhost") ? (
+                                    <MediaPlayer src={videoUrl}>
+                                        <MediaProvider />
+                                        <DefaultVideoLayout
+                                            icons={defaultLayoutIcons}
+                                            colorScheme={videoColorScheme}
+                                        />
+                                        <Track
+                                            src={subtitleUrl}
+                                            kind="subtitles"
+                                            label="English"
+                                            lang="en"
+                                            type="srt"
+                                            default
+                                        />
+                                    </MediaPlayer>
+                                ) : (
+                                    <>
+                                        {iframeLoading && (
+                                            <div className="skeleton absolute inset-0 h-full w-full"></div>
+                                        )}
+                                        <iframe
+                                            src={videoUrl}
+                                            title="Exam video"
+                                            loading="lazy"
+                                            allowFullScreen
+                                            onLoad={handleIframeLoad}
+                                            style={
+                                                iframeLoading
+                                                    ? { visibility: "hidden" }
+                                                    : { visibility: "visible" }
+                                            }
+                                            className={`h-full w-full transition-opacity duration-300 ${
+                                                iframeLoading ? "opacity-0" : "opacity-100"
+                                            }`}
+                                        ></iframe>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                        {isElectron() && !videoUrl.startsWith("http://localhost") ? (
+                            <div role="alert" className="alert mt-5">
+                                <IoInformationCircleOutline className="h-6 w-6" />
+                                <span>{t("alert.alertOnlineVideo")}</span>
+                            </div>
+                        ) : (
+                            ""
                         )}
                     </div>
-                </Card.Body>
-            </Card>
-            <Row className="g-4">
-                <Col md={6}>
-                    <Card className="shadow-sm">
-                        <Card.Header className="fw-semibold">{t("tabConversationExam.watchCard")}</Card.Header>
-                        <Card.Body>
-                            <Ratio aspectRatio="16x9">
-                                <div>
-                                    {isElectron() && videoUrl && videoUrl.startsWith("http://localhost") ? (
-                                        <video controls className="w-100 h-100">
-                                            <source src={videoUrl} type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    ) : (
-                                        <>
-                                            {iframeLoading && (
-                                                <Skeleton className="placeholder" height="100%" width="100%" />
-                                            )}
-                                            <iframe
-                                                src={videoUrl}
-                                                title="Exam video"
-                                                loading="lazy"
-                                                allowFullScreen
-                                                onLoad={handleIframeLoad}
-                                                style={
-                                                    iframeLoading ? { visibility: "hidden" } : { visibility: "visible" }
-                                                }
-                                                className="w-100 h-100"></iframe>
-                                        </>
-                                    )}
-                                </div>
-                            </Ratio>
-                            {isElectron() && !videoUrl.startsWith("http://localhost") ? (
-                                <Alert variant="secondary" className="mt-4">
-                                    {t("alert.alertOnlineVideo")}
-                                </Alert>
-                            ) : (
-                                ""
-                            )}
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={6}>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                <div className="fw-semibold">{t("tabConversationExam.studyCard")}</div>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <div className="dialog-section mb-4">
-                                    {dialog.map((line, index) => (
-                                        <div key={index}>
-                                            <strong>{line.speaker}: </strong>
+                </div>
+
+                <div>
+                    <div className="text-xl font-semibold">
+                        {t("tabConversationExam.studyCard")}
+                    </div>
+                    <div className="divider divider-secondary mb-4 mt-0"></div>
+                    <div className="collapse collapse-arrow bg-base-200 dark:bg-slate-700">
+                        <input type="checkbox" />
+                        <button type="button" className="collapse-title text-start font-semibold">
+                            {t("tabConversationExam.studyExpandBtn")}
+                        </button>
+                        <div className="collapse-content">
+                            <div className="dialog-section">
+                                {dialog.map((line, index) => (
+                                    <div key={index} className="mb-2">
+                                        <span className="font-bold">{line.speaker}:</span>{" "}
+                                        <span
+                                            dangerouslySetInnerHTML={{
+                                                __html: highlightDialog(line.speech),
+                                            }}
+                                        ></span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="divider"></div>
+                            <div className="px-3">
+                                {skills.map((skill, index) => (
+                                    <div key={index} className="mb-2">
+                                        <label
+                                            htmlFor={`skilllabel-${index}`}
+                                            className="cursor-pointer"
+                                        >
                                             <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: highlightDialog(line.speech),
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="bg-body-tertiary p-3">
-                                    {skills.map((skill, index) => (
-                                        <Form.Check key={index} id={`skilllabel-${index}`} label={skill.label}>
-                                            <Form.Check.Input
+                                                className={`${
+                                                    highlightState[index + 1]
+                                                        ? getHighlightClass(index + 1)
+                                                        : ""
+                                                }`}
+                                            >
+                                                {t(skill.label)}
+                                            </span>
+                                            <input
+                                                id={`skilllabel-${index}`}
                                                 type="checkbox"
+                                                className={`checkbox checkbox-sm ms-2 align-text-bottom ${
+                                                    highlightState[index + 1]
+                                                        ? getCheckboxHighlightClass(index + 1)
+                                                        : ""
+                                                }`}
                                                 checked={!!highlightState[index + 1]}
                                                 onChange={() => handleCheckboxChange(index + 1)}
                                             />
-                                            <Form.Check.Label>
-                                                <span
-                                                    className={
-                                                        highlightState[index + 1] ? getHighlightClass(index + 1) : ""
-                                                    }>
-                                                    {t(skill.label)}
-                                                </span>
-                                            </Form.Check.Label>
-                                        </Form.Check>
-                                    ))}
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
-            </Row>
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
-                <Modal.Header closeButton className="fw-semibold">
-                    <Modal.Title>{t("tabConversationExam.imageFullSizeModal")}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Image src={modalImage} fluid />
-                </Modal.Body>
-            </Modal>
+            <dialog ref={imageModalRef} className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog">
+                        <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                            <IoCloseOutline className="h-6 w-6" />
+                        </button>
+                    </form>
+                    <h3 className="text-lg font-bold">
+                        {t("tabConversationExam.imageFullSizeModal")}
+                    </h3>
+                    <div className="relative flex w-full items-center justify-center py-4">
+                        {imageLoading && ( // Show skeleton loader if image is loading
+                            <div
+                                className={`skeleton absolute h-full max-h-[600px] w-full max-w-6xl ${imageLoading ? "z-30" : "z-0"}`}
+                            ></div>
+                        )}
+                        {modalImage && (
+                            <img
+                                src={modalImage}
+                                className={`max-h-[600px] object-contain transition-opacity duration-300 ${
+                                    imageLoading ? "z-0 opacity-0" : "z-30 opacity-100"
+                                }`}
+                                loading="lazy"
+                                onLoad={() => setImageLoading(false)} // Stop loading when image is loaded
+                                onError={() => setImageLoading(false)} // Handle errors
+                                alt="Full size"
+                            />
+                        )}
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };

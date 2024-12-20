@@ -14,31 +14,9 @@
     font-display: swap;
 }
 
-.bi {
-    vertical-align: -0.125em;
-    fill: currentColor;
-}
-
 *,
 html {
     font-family: Inter, system-ui;
     font-variation-settings: "opsz" 15;
-}
-
-@font-face {
-    font-family: "Noto Color Emoji";
-    src: url("../fonts/NotoColorEmoji-Regular.woff2");
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-}
-
-.noto-color-emoji {
-    font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 400;
-    font-style: normal;
-}
-
-.bg-tertiary {
-    background-color: var(--bs-tertiary-bg);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv05", "cv08", "cv10", "cv11";
 }

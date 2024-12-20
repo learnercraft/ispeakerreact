@@ -1,0 +1,24 @@
+1
+00:00:06,500 --> 00:00:08,467
+I don't think these clients will pay
+
+2
+00:00:08,468 --> 00:00:10,967
+if the price is too high.
+
+3
+00:00:10,968 --> 00:00:12,557
+Yes, but these clients are sponsored. 
+
+4
+00:00:12,560 --> 00:00:14,159
+They aren't paying for themselves.
+
+5
+00:00:14,160 --> 00:00:16,529
+I see what you mean.
+
+6
+00:00:16,530 --> 00:00:18,287
+I hadn't really appreciated that before.
+

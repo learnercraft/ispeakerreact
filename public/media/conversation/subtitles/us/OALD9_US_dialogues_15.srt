@@ -1,0 +1,20 @@
+1
+00:00:08,440 --> 00:00:11,193
+Do you know what time it is in Australia?
+
+2
+00:00:11,200 --> 00:00:13,432
+Uh, I'm not sure. Why? I'm supposed
+
+3
+00:00:13,433 --> 00:00:15,459
+to call the Sydney office.
+
+4
+00:00:15,460 --> 00:00:17,944
+Well, I think it's probably night time.
+
+5
+00:00:17,950 --> 00:00:20,427
+I doubt they'll be at work now.
+

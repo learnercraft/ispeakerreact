@@ -1,11 +1,22 @@
 import { useEffect, useRef, useState } from "react";
-import { Accordion, Button, Card, Col, Form, Image, Modal, Ratio, Row } from "react-bootstrap";
-import { Floppy, PlayCircle, RecordCircle, StopCircle, Trash } from "react-bootstrap-icons";
-import { useTranslation } from "react-i18next";
-import { checkRecordingExists, openDatabase, playRecording, saveRecording } from "../../utils/databaseOperations";
-import { isElectron } from "../../utils/isElectron";
+import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
+import { IoCheckmark, IoCloseOutline } from "react-icons/io5";
 
-const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowToast }) => {
+import { useTranslation } from "react-i18next";
+import {
+    checkRecordingExists,
+    openDatabase,
+    playRecording,
+    saveRecording,
+} from "../../utils/databaseOperations";
+import { isElectron } from "../../utils/isElectron";
+import {
+    sonnerErrorToast,
+    sonnerSuccessToast,
+    sonnerWarningToast,
+} from "../../utils/sonnerCustomToast";
+
+const PracticeTab = ({ accent, examId, taskData, tips }) => {
     const { t } = useTranslation();
 
     const [textValues, setTextValues] = useState(() => taskData.map(() => ""));
@@ -17,8 +28,9 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
     const [currentAudioElement, setCurrentAudioElement] = useState(null);
     const [activeTaskIndex, setActiveTaskIndex] = useState(null);
     const textAreaRefs = useRef([]);
+    const imageModalRef = useRef(null);
 
-    const [showModal, setShowModal] = useState(false);
+    const [imageLoading, setImageLoading] = useState(false);
     const [modalImage, setModalImage] = useState("");
 
     // Load saved text from IndexedDB
@@ -60,7 +72,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
 
     // Auto-expand textarea
     const autoExpand = (e) => {
-        const textArea = textAreaRefs.current[e.target.dataset.index];
+        const textArea = textAreaRefs.current[e.target.id];
         if (textArea) {
             textArea.style.height = "auto"; // Reset height to calculate new height
             textArea.style.height = `${textArea.scrollHeight}px`; // Set height to the new calculated height
@@ -77,14 +89,12 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
             const request = store.put({ id: textKey, text: textValues[index] });
 
             request.onsuccess = () => {
-                setToastMessage(t("toast.textSaveSuccess"));
-                setShowToast(true);
+                sonnerSuccessToast(t("toast.textSaveSuccess"));
             };
             request.onerror = (error) => {
                 console.error("Error saving text: ", error);
                 isElectron() && window.electron.log("error", `Error saving text: ${error}`);
-                setToastMessage(t("toast.textSaveFailed") + error.message);
-                setShowToast(true);
+                sonnerErrorToast(t("toast.textSaveFailed") + error.message);
             };
         } catch (error) {
             console.error("Error saving text: ", error);
@@ -108,20 +118,17 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                     return updated;
                 });
                 console.log("Text cleared successfully.");
-                setToastMessage(t("toast.textClearSuccess"));
-                setShowToast(true);
+                sonnerSuccessToast(t("toast.textClearSuccess"));
             };
             request.onerror = (error) => {
                 console.error("Error clearing text: ", error);
                 isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
-                setToastMessage(t("toast.textClearFailed") + error.message);
-                setShowToast(true);
+                sonnerErrorToast(t("toast.textClearFailed") + error.message);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
             isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
-            setToastMessage(t("toast.textClearFailed") + error.message);
-            setShowToast(true);
+            sonnerErrorToast(t("toast.textClearFailed") + error.message);
         }
     };
 
@@ -146,9 +153,10 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                             const audioBlob = new Blob(audioChunks, { type: event.data.type });
                             const recordingKey = `${accent}-exam-${examId}-${index}`;
                             saveRecording(audioBlob, recordingKey, event.data.type);
-                            setToastMessage(t("toast.recordingSuccess"));
-                            isElectron() && window.electron.log("log", `Recording saved: ${recordingKey}`);
-                            setShowToast(true);
+                            sonnerSuccessToast(t("toast.recordingSuccess"));
+                            isElectron() &&
+                                window.electron.log("log", `Recording saved: ${recordingKey}`);
+
                             setRecordingExists((prev) => {
                                 const updatedExists = [...prev];
                                 updatedExists[index] = true;
@@ -158,20 +166,21 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                         }
                     });
 
-                    setTimeout(() => {
-                        if (mediaRecorder.state !== "inactive") {
-                            mediaRecorder.stop();
-                            setIsRecording(false);
-                            setActiveTaskIndex(null);
-                            setToastMessage(t("toast.recordingExceeded"));
-                            setShowToast(true);
-                        }
-                    }, 15 * 60 * 1000); // 15 minutes limit
+                    setTimeout(
+                        () => {
+                            if (mediaRecorder.state !== "inactive") {
+                                mediaRecorder.stop();
+                                setIsRecording(false);
+                                setActiveTaskIndex(null);
+                                sonnerWarningToast(t("toast.recordingExceeded"));
+                            }
+                        },
+                        15 * 60 * 1000
+                    ); // 15 minutes limit
                 })
                 .catch((error) => {
-                    setToastMessage(t("toast.recordingFailed") + error.message);
+                    sonnerErrorToast(t("toast.recordingFailed") + error.message);
                     isElectron() && window.electron.log("error", `Recording failed: ${error}`);
-                    setShowToast(true);
                 });
         } else {
             mediaRecorder.stop();
@@ -207,7 +216,7 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
                     }
                 },
                 (error) => {
-                    setToastMessage(t("toast.playbackError") + error.message);
+                    sonnerErrorToast(t("toast.playbackError") + error.message);
                     isElectron() && window.electron.log("error", `Error during playback: ${error}`);
                     setIsRecordingPlaying(false);
                     setActiveTaskIndex(null);
@@ -223,179 +232,248 @@ const PracticeTab = ({ accent, examId, taskData, tips, setToastMessage, setShowT
     };
 
     const handleImageClick = (imageName) => {
-        setModalImage(`${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`);
-        setShowModal(true);
-    };
+        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`;
 
-    const handleCloseModal = () => setShowModal(false);
+        // Only set loading if the image is different
+        if (modalImage !== newImage) {
+            setImageLoading(true);
+            setModalImage(newImage);
+        }
+
+        imageModalRef.current?.showModal();
+    };
 
     const examTipDoLocalized = t(tips.dos, { returnObjects: true });
     const examTipDontLocalized = t(tips.donts, { returnObjects: true });
 
     return (
         <>
-            <Row>
-                <Col md={8}>
-                    {taskData.map((task, taskIndex) => {
-                        const examLocalizedPara = t(task.para, { returnObjects: true });
-                        const examLocalizedListItems = task.listItems && t(task.listItems, { returnObjects: true });
+            <div className="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
+                {taskData.map((task, taskIndex) => {
+                    const examLocalizedPara = t(task.para, { returnObjects: true });
+                    const examLocalizedListItems =
+                        task.listItems && t(task.listItems, { returnObjects: true });
 
-                        return (
-                            <Card className="mb-4 shadow-sm" key={taskIndex}>
-                                <Card.Header className="fw-semibold">
+                    return (
+                        <div
+                            className="card card-bordered flex dark:border-slate-600"
+                            key={taskIndex}
+                        >
+                            <div className="card-body p-4">
+                                <div className="text-xl font-semibold">
                                     {t("tabConversationExam.taskCard")} {taskIndex + 1}
-                                </Card.Header>
-                                <Card.Body>
-                                    <Row className="g-4 d-flex justify-content-center">
+                                </div>
+                                <div className="divider divider-secondary mb-4 mt-0"></div>
+                                {task.images.length > 0 && (
+                                    <div className="mb-3 flex flex-row flex-wrap justify-center gap-4">
                                         {task.images.map((image, index) => (
-                                            <Col md={6} key={index}>
-                                                <Ratio aspectRatio="16x9">
-                                                    <Image
+                                            <div className="flex w-full md:w-[30%]" key={index}>
+                                                <div className="aspect-w-16 aspect-h-9">
+                                                    <img
+                                                        className="h-full w-full object-cover"
                                                         role="button"
                                                         src={`${
                                                             import.meta.env.BASE_URL
                                                         }images/ispeaker/exam_images/webp/${image}.webp`}
-                                                        thumbnail
                                                         onClick={() => handleImageClick(image)}
                                                     />
-                                                </Ratio>
-                                            </Col>
+                                                </div>
+                                            </div>
                                         ))}
-                                    </Row>
-                                    <div className="mt-3">
-                                        {examLocalizedPara.map((paragraph, index) => (
-                                            <p key={index}>{paragraph}</p>
-                                        ))}
-                                        {examLocalizedListItems.length > 0 && (
-                                            <ul>
-                                                {examLocalizedListItems.map((item, index) => (
-                                                    <li key={index}>{item}</li>
-                                                ))}
-                                            </ul>
-                                        )}
                                     </div>
+                                )}
+                                <div>
+                                    {examLocalizedPara.map((paragraph, index) => (
+                                        <p key={index}>{paragraph}</p>
+                                    ))}
+                                    {examLocalizedListItems.length > 0 && (
+                                        <ul>
+                                            {examLocalizedListItems.map((item, index) => (
+                                                <li key={index}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
 
-                                    <Form>
-                                        <Form.Group controlId={`practiceText-${taskIndex}`} className="mb-2">
-                                            <Form.Label>{t("tabConversationExam.practiceExamTextbox")}</Form.Label>
-                                            <Form.Control
-                                                as="textarea"
-                                                rows={3}
-                                                data-index={taskIndex}
-                                                ref={(el) => (textAreaRefs.current[taskIndex] = el)}
-                                                value={textValues[taskIndex]}
-                                                onChange={(e) =>
-                                                    setTextValues((prevValues) => {
-                                                        const newValues = [...prevValues];
-                                                        newValues[taskIndex] = e.target.value;
-                                                        return newValues;
-                                                    })
-                                                }
-                                                onInput={autoExpand}
-                                            />
-                                        </Form.Group>
-                                        <Button
-                                            variant="primary"
-                                            onClick={() => handleSaveText(taskIndex)}
-                                            disabled={!textValues[taskIndex]}>
-                                            <Floppy /> {t("buttonConversationExam.saveBtn")}
-                                        </Button>
-                                        <Button
-                                            variant="danger"
-                                            onClick={() => handleClearText(taskIndex)}
-                                            className="ms-2">
-                                            <Trash /> {t("buttonConversationExam.clearBtn")}
-                                        </Button>
-                                    </Form>
+                                <label className="form-control mb-4">
+                                    <div className="label">
+                                        <span className="label-text">
+                                            {t("tabConversationExam.practiceExamTextbox")}
+                                        </span>
+                                    </div>
+                                    <textarea
+                                        key={taskIndex}
+                                        id={taskIndex}
+                                        className="textarea textarea-bordered text-base"
+                                        ref={(el) => (textAreaRefs.current[taskIndex] = el)}
+                                        value={textValues[taskIndex]}
+                                        onChange={(e) =>
+                                            setTextValues((prevValues) => {
+                                                const newValues = [...prevValues];
+                                                newValues[taskIndex] = e.target.value;
+                                                return newValues;
+                                            })
+                                        }
+                                        onInput={autoExpand}
+                                    ></textarea>
+                                </label>
 
-                                    <div className="mt-4">
-                                        <p>{t("tabConversationExam.recordSectionText")}</p>
-                                        <Button
-                                            variant="primary"
+                                <div className="flex flex-wrap justify-center gap-2">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => handleSaveText(taskIndex)}
+                                        disabled={!textValues[taskIndex]}
+                                    >
+                                        <BsFloppy className="h-5 w-5" />{" "}
+                                        {t("buttonConversationExam.saveBtn")}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-error"
+                                        onClick={() => handleClearText(taskIndex)}
+                                        disabled={!textValues[taskIndex]}
+                                    >
+                                        <BsTrash className="h-5 w-5" />{" "}
+                                        {t("buttonConversationExam.clearBtn")}
+                                    </button>
+                                </div>
+
+                                <div className="divider"></div>
+
+                                <div className="mt-4">
+                                    <p className="mb-4">
+                                        {t("tabConversationExam.recordSectionText")}
+                                    </p>
+                                    <div className="flex flex-wrap justify-center gap-2">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
                                             onClick={() => handleRecording(taskIndex)}
-                                            disabled={activeTaskIndex !== null && activeTaskIndex !== taskIndex}>
+                                            disabled={
+                                                isRecordingPlaying ||
+                                                (activeTaskIndex !== null &&
+                                                    activeTaskIndex !== taskIndex)
+                                            }
+                                        >
                                             {isRecording && activeTaskIndex === taskIndex ? (
                                                 <>
-                                                    <StopCircle /> {t("buttonConversationExam.stopRecordBtn")}
+                                                    <BsStopCircle className="h-5 w-5" />{" "}
+                                                    {t("buttonConversationExam.stopRecordBtn")}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <RecordCircle /> {t("buttonConversationExam.recordBtn")}
+                                                    <BsRecordCircle className="h-5 w-5" />{" "}
+                                                    {t("buttonConversationExam.recordBtn")}
                                                 </>
                                             )}
-                                        </Button>
-                                        <Button
-                                            variant="success"
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-accent"
                                             onClick={() => handlePlayRecording(taskIndex)}
                                             disabled={
-                                                (activeTaskIndex !== null && activeTaskIndex !== taskIndex) ||
+                                                isRecording ||
+                                                (activeTaskIndex !== null &&
+                                                    activeTaskIndex !== taskIndex) ||
                                                 !recordingExists[taskIndex]
                                             }
-                                            className="ms-2">
+                                        >
                                             {isRecordingPlaying && activeTaskIndex === taskIndex ? (
                                                 <>
-                                                    <StopCircle /> {t("buttonConversationExam.stopPlayBtn")}
+                                                    <BsStopCircle className="h-5 w-5" />{" "}
+                                                    {t("buttonConversationExam.stopPlayBtn")}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <PlayCircle /> {t("buttonConversationExam.playBtn")}
+                                                    <BsPlayCircle className="h-5 w-5" />{" "}
+                                                    {t("buttonConversationExam.playBtn")}
                                                 </>
                                             )}
-                                        </Button>
+                                        </button>
                                     </div>
-                                </Card.Body>
-                            </Card>
-                        );
-                    })}
-                </Col>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
 
-                <Col>
-                    <Card className="shadow-sm">
-                        <Card.Header className="fw-semibold">{t("tabConversationExam.tipCardExam")}</Card.Header>
-                        <Card.Body>
-                            <Accordion className="mt-2" alwaysOpen>
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>
-                                        <div className="fw-semibold">{t("tabConversationExam.doCardExam")}</div>
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <ul className="ps-4">
-                                            {examTipDoLocalized.map((tip, index) => (
-                                                <li className="mb-3" key={index}>
-                                                    {tip}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>
-                                        <div className="fw-semibold">{t("tabConversationExam.dontsCardExam")}</div>
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <ul className="ps-4">
-                                            {examTipDontLocalized.map((tip, index) => (
-                                                <li className="mb-3" key={index}>
-                                                    {tip}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
+            <div className="my-4">
+                <div className="text-xl font-semibold">{t("tabConversationExam.tipCardExam")}</div>
+                <div className="divider divider-secondary mb-4 mt-0"></div>
+                <div className="flex w-full flex-col gap-4 px-4 lg:flex-row">
+                    <div className="w-full">
+                        <p className="mb-4 text-lg font-semibold">
+                            {t("tabConversationExam.doCardExam")}
+                        </p>
+                        <ul className="space-y-2">
+                            {examTipDoLocalized.map((tip, index) => (
+                                <li className="flex gap-x-2" key={index}>
+                                    <div className="flex gap-x-2">
+                                        <IoCheckmark className="h-6 w-6 items-center text-success" />
+                                    </div>
 
-            <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
-                <Modal.Header closeButton className="fw-semibold">
-                    <Modal.Title>{t("tabConversationExam.imageFullSizeModal")}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Image src={modalImage} fluid />
-                </Modal.Body>
-            </Modal>
+                                    <div className="flex min-w-0 gap-x-4">
+                                        <div className="min-w-0 flex-auto">{tip}</div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="divider lg:divider-horizontal"></div>
+                    <div className="w-full">
+                        <p className="mb-4 text-lg font-semibold">
+                            {t("tabConversationExam.dontsCardExam")}
+                        </p>
+                        <ul className="space-y-2">
+                            {examTipDontLocalized.map((tip, index) => (
+                                <li className="flex gap-x-2" key={index}>
+                                    <div className="flex gap-x-2">
+                                        <IoCloseOutline className="h-6 w-6 items-center text-error" />
+                                    </div>
+
+                                    <div className="flex min-w-0 gap-x-4">
+                                        <div className="min-w-0 flex-auto">{tip}</div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <dialog ref={imageModalRef} className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog">
+                        <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                            <IoCloseOutline className="h-6 w-6" />
+                        </button>
+                    </form>
+                    <h3 className="text-lg font-bold">
+                        {t("tabConversationExam.imageFullSizeModal")}
+                    </h3>
+                    <div className="relative flex w-full items-center justify-center py-4">
+                        {imageLoading && ( // Show skeleton loader if image is loading
+                            <div
+                                className={`skeleton absolute h-full max-h-[600px] w-full max-w-6xl ${imageLoading ? "z-30" : ""}`}
+                            ></div>
+                        )}
+                        {modalImage && (
+                            <img
+                                src={modalImage}
+                                className={`max-h-[600px] object-contain transition-opacity duration-300 ${
+                                    imageLoading ? "opacity-0" : "opacity-100"
+                                }`}
+                                loading="lazy"
+                                onLoad={() => setImageLoading(false)} // Stop loading when image is loaded
+                                onError={() => setImageLoading(false)} // Handle errors
+                                alt="Full size"
+                            />
+                        )}
+                    </div>
+                </div>
+            </dialog>
         </>
     );
 };

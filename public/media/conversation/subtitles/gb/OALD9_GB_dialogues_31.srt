@@ -1,0 +1,28 @@
+1
+00:00:06,200 --> 00:00:07,644
+How about meeting up around eight
+
+2
+00:00:07,645 --> 00:00:09,819
+in front of the restaurant? 
+
+3
+00:00:09,820 --> 00:00:12,283
+Yes, OK. Or we could meet a bit earlier
+
+4
+00:00:12,284 --> 00:00:14,244
+and have a drink first if you like.
+
+5
+00:00:14,245 --> 00:00:16,573
+Sure. Shall we say 
+
+6
+00:00:16,574 --> 00:00:18,368
+seven o'clock in the lobby?
+
+7
+00:00:18,370 --> 00:00:19,689
+OK, see you there.
+

@@ -1,9 +1,9 @@
 import he from "he";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import { useTranslation } from "react-i18next";
+import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
+import { LiaTimesCircle } from "react-icons/lia";
 import "../../styles/memory-card.css";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
@@ -12,13 +12,15 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [flippedCards, setFlippedCards] = useState([]);
     const [matchedCards, setMatchedCards] = useState([]);
-    const [isChecking, setIsChecking] = useState(false);
-    const [feedback, setFeedback] = useState(null);
+    const [, setIsChecking] = useState(false);
+    const [, setFeedback] = useState(null);
+    const [cardFeedback, setCardFeedback] = useState({});
     const [hasStarted, setHasStarted] = useState(false);
-    const [currentMatchedPair, setCurrentMatchedPair] = useState([]);
 
     // Use the countdown timer
-    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
+        setTimeIsUp(true)
+    );
 
     const { t } = useTranslation();
 
@@ -92,7 +94,11 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
             startTimer(); // Start the timer immediately on the first card click
         }
 
-        if (flippedCards.length < 2 && !flippedCards.includes(card.id) && !matchedCards.includes(card.id)) {
+        if (
+            flippedCards.length < 2 &&
+            !flippedCards.includes(card.id) &&
+            !matchedCards.includes(card.id)
+        ) {
             setFlippedCards((prev) => [...prev, card.id]);
         }
     };
@@ -110,20 +116,32 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                 if (Math.floor(firstCard.id / 2) === Math.floor(secondCard.id / 2)) {
                     // Cards belong to the same pair, so it's a match
                     setMatchedCards((prev) => [...prev, firstCardId, secondCardId]);
-                    setCurrentMatchedPair([firstCardId, secondCardId]);
-                    setFeedback("success");
+                    setCardFeedback((prev) => ({
+                        ...prev,
+                        [firstCardId]: "correctPair",
+                        [secondCardId]: "correctPair",
+                    }));
                 } else {
                     // Cards do not belong to the same pair
-                    setFeedback("danger");
+                    setCardFeedback((prev) => ({
+                        ...prev,
+                        [firstCardId]: "incorrectPair",
+                        [secondCardId]: "incorrectPair",
+                    }));
                 }
 
                 setTimeout(() => {
                     setFlippedCards([]);
                     setIsChecking(false);
-                    setFeedback(null);
-                    setCurrentMatchedPair([]); // Clear current matched pair after feedback
+                    setCardFeedback((prev) => {
+                        // Clear feedback only for incorrect pairs
+                        const updatedFeedback = { ...prev };
+                        delete updatedFeedback[firstCardId];
+                        delete updatedFeedback[secondCardId];
+                        return updatedFeedback;
+                    });
                 }, 1000);
-            }, 1000);
+            }, 900);
         }
     }, [flippedCards, shuffledQuiz]);
 
@@ -145,57 +163,73 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
 
     return (
         <>
-            <Card.Header className="fw-semibold">
-                <div className="d-flex">
-                    <div className="me-auto">{t("exercise_page.memoryMatchHeading")}</div>
-                    {timer > 0 && (
-                        <div className="ms-auto">
+            <div className="card-body">
+                <div className="text-lg font-semibold">
+                    <div className="flex items-center">
+                        <div className="flex-1 md:flex-none">
+                            {t("exercise_page.memoryMatchHeading")}
+                        </div>
+                        <div className="ms-auto flex justify-end">
                             {t("exercise_page.timer")} {formatTime()}
                         </div>
-                    )}
+                    </div>
                 </div>
-            </Card.Header>
-            <Card.Body>
+                <div className="divider divider-secondary m-0"></div>
                 <Flipper flipKey={flippedCards.concat(matchedCards)}>
-                    <Row className="g-1 justify-content-center">
+                    <div className="grid grid-cols-4 gap-2">
                         {shuffledQuiz.map((card, index) => (
-                            <Col xs={3} md={3} key={index} className="d-flex justify-content-center">
+                            <div className="flex flex-row flex-wrap justify-center" key={index}>
                                 <Flipped flipId={card.id}>
                                     <div
                                         onClick={() => handleCardClick(card)}
                                         className={`memory-card ${
-                                            flippedCards.includes(card.id) || matchedCards.includes(card.id)
+                                            flippedCards.includes(card.id) ||
+                                            matchedCards.includes(card.id)
                                                 ? "flipped"
                                                 : ""
                                         } ${
-                                            feedback && flippedCards.includes(card.id)
-                                                ? `text-bg-${feedback} rounded-2`
-                                                : ""
-                                        }`}>
+                                            cardFeedback[card.id] === "correctPair"
+                                                ? "z-50 rounded-lg bg-success text-success-content"
+                                                : cardFeedback[card.id] === "incorrectPair"
+                                                  ? "z-50 rounded-lg bg-error text-error-content"
+                                                  : ""
+                                        }`}
+                                    >
                                         <div className="card-inner">
                                             <div className="card-front"></div>
-                                            <div className="card-back">
+                                            <div
+                                                className="card-back"
+                                                style={{ transform: "rotateY(180deg)" }}
+                                            >
                                                 {he.decode(card.text)}
-                                                {feedback === "success" && currentMatchedPair.includes(card.id) && (
-                                                    <CheckCircleFill className="feedback-icon" />
+                                                {cardFeedback[card.id] === "correctPair" && (
+                                                    <div className="absolute right-2 top-2 z-50 text-white">
+                                                        <BsCheckCircleFill className="h-6 w-6" />
+                                                    </div>
                                                 )}
-                                                {feedback === "danger" && flippedCards.includes(card.id) && (
-                                                    <XCircleFill className="feedback-icon" />
+                                                {cardFeedback[card.id] === "incorrectPair" && (
+                                                    <div className="absolute right-2 top-2 z-50 text-white">
+                                                        <BsXCircleFill className="h-6 w-6" />
+                                                    </div>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
                                 </Flipped>
-                            </Col>
+                            </div>
                         ))}
-                    </Row>
+                    </div>
                 </Flipper>
-                <div className="d-flex justify-content-end mt-3">
-                    <Button variant="danger" onClick={handleQuit}>
-                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
-                    </Button>
+
+                <div className="card-actions justify-center">
+                    <div className="my-3 flex flex-wrap justify-center gap-2">
+                        <button type="button" className="btn btn-error" onClick={handleQuit}>
+                            <LiaTimesCircle className="h-6 w-6" />
+                            {t("exercise_page.buttons.quitBtn")}
+                        </button>
+                    </div>
                 </div>
-            </Card.Body>
+            </div>
         </>
     );
 };

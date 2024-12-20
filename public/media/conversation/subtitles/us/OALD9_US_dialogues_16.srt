@@ -1,0 +1,20 @@
+1
+00:00:11,550 --> 00:00:13,529
+Excuse me, is Alice out of
+
+2
+00:00:13,530 --> 00:00:15,113
+the office today? 
+
+3
+00:00:15,120 --> 00:00:17,949
+Not to my knowledge, no.
+
+4
+00:00:17,950 --> 00:00:20,355
+Do you know where she is?
+
+5
+00:00:20,360 --> 00:00:22,969
+I have absolutely no idea, sorry.
+

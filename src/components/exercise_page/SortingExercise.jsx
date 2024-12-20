@@ -1,4 +1,11 @@
-import { DndContext, DragOverlay, PointerSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
+import {
+    DndContext,
+    DragOverlay,
+    PointerSensor,
+    closestCenter,
+    useSensor,
+    useSensors,
+} from "@dnd-kit/core";
 import {
     SortableContext,
     arrayMove,
@@ -8,15 +15,21 @@ import {
 import he from "he";
 import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { ArrowRightCircle, Check2Circle, XCircle } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
+import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
 
-const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false, timer, setTimeIsUp }) => {
-    const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+const SortingExercise = ({
+    quiz,
+    onAnswer,
+    onQuit,
+    useHorizontalStrategy = false,
+    timer,
+    setTimeIsUp,
+}) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
     const [itemsLeft, setItemsLeft] = useState([]);
     const [itemsRight, setItemsRight] = useState([]);
     const [activeId, setActiveId] = useState(null);
@@ -25,7 +38,9 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     const [shuffledQuiz, setShuffledQuiz] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
-    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+    const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
+        setTimeIsUp(true)
+    );
 
     const { t } = useTranslation();
 
@@ -68,15 +83,15 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
         if (quiz && quiz.length > 0) {
             const uniqueShuffledQuiz = filterAndShuffleQuiz(quiz); // Ensure uniqueness and shuffle
             setShuffledQuiz(uniqueShuffledQuiz);
-            setCurrentQuizIndex(0); // Reset currentQuizIndex to 0
+            setcurrentQuestionIndex(0); // Reset currentQuestionIndex to 0
         }
     }, [quiz, filterAndShuffleQuiz]);
 
     useEffect(() => {
-        if (shuffledQuiz.length > 0 && currentQuizIndex < shuffledQuiz.length) {
-            loadQuiz(shuffledQuiz[currentQuizIndex]);
+        if (shuffledQuiz.length > 0 && currentQuestionIndex < shuffledQuiz.length) {
+            loadQuiz(shuffledQuiz[currentQuestionIndex]);
         }
-    }, [shuffledQuiz, currentQuizIndex, loadQuiz]);
+    }, [shuffledQuiz, currentQuestionIndex, loadQuiz]);
 
     const handleDragStart = (event) => {
         setActiveId(event.active.id);
@@ -92,7 +107,8 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
         if (active.id !== over.id) {
             // Find the active item
             const activeItem =
-                itemsLeft.find((item) => item.id === active.id) || itemsRight.find((item) => item.id === active.id);
+                itemsLeft.find((item) => item.id === active.id) ||
+                itemsRight.find((item) => item.id === active.id);
 
             if (!activeItem) return;
 
@@ -141,8 +157,8 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     };
 
     const handleNextQuiz = () => {
-        if (currentQuizIndex < shuffledQuiz.length - 1) {
-            setCurrentQuizIndex((prevIndex) => prevIndex + 1);
+        if (currentQuestionIndex < shuffledQuiz.length - 1) {
+            setcurrentQuestionIndex((prevIndex) => prevIndex + 1);
         } else {
             onQuit();
             clearTimer();
@@ -154,119 +170,135 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
         clearTimer();
     };
 
-    const sortableStrategy = useHorizontalStrategy ? horizontalListSortingStrategy : verticalListSortingStrategy;
+    const sortableStrategy = useHorizontalStrategy
+        ? horizontalListSortingStrategy
+        : verticalListSortingStrategy;
+
+    const SortableColumn = ({
+        items,
+        heading,
+        columnPos,
+        sortableStrategy,
+        hasSubmitted,
+        buttonsDisabled,
+        t,
+    }) => (
+        <div className="w-full justify-center lg:w-4/5 xl:w-3/5">
+            <div className="text-center font-semibold">
+                {heading && (
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: he.decode(heading.text),
+                        }}
+                    />
+                )}
+            </div>
+            <div className="divider divider-accent mb-2 mt-0"></div>
+            <div className="flex flex-col items-center gap-4">
+                <SortableContext items={items} strategy={sortableStrategy}>
+                    {items.length > 0 ? (
+                        items.map((item) => (
+                            <SortableWord
+                                key={item.id}
+                                item={item}
+                                isCorrect={hasSubmitted ? item.columnPos === columnPos : null}
+                                disabled={buttonsDisabled}
+                            />
+                        ))
+                    ) : (
+                        <div className="w-full p-4 text-center">
+                            <div className="rounded border p-4 text-secondary">
+                                {t("exercise_page.dropLayer")}
+                            </div>
+                        </div>
+                    )}
+                </SortableContext>
+            </div>
+        </div>
+    );
 
     return (
         <>
-            <Card.Header className="fw-semibold">
-                <div className="d-flex">
-                    <div className="me-auto">
-                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
-                    </div>
-                    {timer > 0 && (
-                        <div className="ms-auto">
-                            {t("exercise_page.timer")} {formatTime()}
+            <div className="card-body">
+                <div className="text-lg font-semibold">
+                    {timer > 0 ? (
+                        <div className="flex items-center">
+                            <div className="flex-1 md:flex-none">
+                                {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                            </div>
+                            <div className="ms-auto flex justify-end">
+                                {t("exercise_page.timer")} {formatTime()}
+                            </div>
                         </div>
+                    ) : (
+                        <p>
+                            {t("exercise_page.questionNo")} #{currentQuestionIndex + 1}
+                        </p>
                     )}
                 </div>
-            </Card.Header>
-            <Card.Body>
-                <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}>
-                    <Row className="d-flex justify-content-center">
-                        <Col xs={6} md={6}>
-                            <Card>
-                                <Card.Header className="text-center fw-semibold">
-                                    {currentTableHeading.length > 0 && (
-                                        <span
-                                            dangerouslySetInnerHTML={{ __html: he.decode(currentTableHeading[0].text) }}
-                                        />
-                                    )}
-                                </Card.Header>
-                                <Card.Body>
-                                    <SortableContext items={itemsLeft} strategy={sortableStrategy}>
-                                        {itemsLeft.length > 0 ? (
-                                            itemsLeft.map((item) => (
-                                                <SortableWord
-                                                    key={item.id}
-                                                    item={item}
-                                                    isCorrect={hasSubmitted ? item.columnPos === 1 : null}
-                                                    disabled={buttonsDisabled}
-                                                />
-                                            ))
-                                        ) : (
-                                            <>
-                                                <div className="text-center w-100 p-4">
-                                                    <div className="p-4 border rounded text-secondary">
-                                                        {t("exercise_page.dropLayer")}
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
-                                    </SortableContext>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col xs={6} md={6}>
-                            <Card>
-                                <Card.Header className="text-center fw-semibold">
-                                    {currentTableHeading.length > 0 && (
-                                        <span
-                                            dangerouslySetInnerHTML={{ __html: he.decode(currentTableHeading[1].text) }}
-                                        />
-                                    )}
-                                </Card.Header>
-                                <Card.Body>
-                                    <SortableContext items={itemsRight} strategy={sortableStrategy}>
-                                        {itemsRight.length > 0 ? (
-                                            itemsRight.map((item) => (
-                                                <SortableWord
-                                                    key={item.id}
-                                                    item={item}
-                                                    isCorrect={hasSubmitted ? item.columnPos === 2 : null}
-                                                    disabled={buttonsDisabled}
-                                                />
-                                            ))
-                                        ) : (
-                                            <>
-                                                <div className="text-center w-100 p-4">
-                                                    <div className="p-4 border rounded text-secondary">
-                                                        {t("exercise_page.dropLayer")}
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
-                                    </SortableContext>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                    <DragOverlay>
-                        {activeId ? (
-                            <SortableWord
-                                item={itemsLeft.concat(itemsRight).find((item) => item.id === activeId)}
-                                isOverlay
+                <div className="divider divider-secondary m-0"></div>
+
+                <div className="my-3 flex flex-row justify-center gap-2 md:gap-6">
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragStart={handleDragStart}
+                        onDragEnd={handleDragEnd}
+                    >
+                        {[itemsLeft, itemsRight].map((items, index) => (
+                            <SortableColumn
+                                key={index}
+                                items={items}
+                                heading={currentTableHeading[index]}
+                                columnPos={index + 1}
+                                sortableStrategy={sortableStrategy}
+                                hasSubmitted={hasSubmitted}
+                                buttonsDisabled={buttonsDisabled}
+                                t={t}
                             />
-                        ) : null}
-                    </DragOverlay>
-                </DndContext>
-                <div className="d-flex justify-content-end mt-3">
-                    <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
-                    </Button>
-                    {currentQuizIndex < shuffledQuiz.length - 1 && (
-                        <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
-                        </Button>
-                    )}
-                    <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
-                    </Button>
+                        ))}
+
+                        <DragOverlay>
+                            {activeId ? (
+                                <SortableWord
+                                    item={itemsLeft
+                                        .concat(itemsRight)
+                                        .find((item) => item.id === activeId)}
+                                    isOverlay
+                                />
+                            ) : null}
+                        </DragOverlay>
+                    </DndContext>
                 </div>
-            </Card.Body>
+
+                <div className="card-actions justify-center">
+                    <div className="my-3 flex flex-wrap justify-center gap-2">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            disabled={buttonsDisabled}
+                            onClick={handleSubmit}
+                        >
+                            <LiaCheckCircle className="h-6 w-6" />{" "}
+                            {t("exercise_page.buttons.checkBtn")}
+                        </button>
+                        {currentQuestionIndex < shuffledQuiz.length - 1 && (
+                            <button
+                                type="button"
+                                className="btn btn-accent"
+                                onClick={handleNextQuiz}
+                            >
+                                <LiaChevronCircleRightSolid className="h-6 w-6" />{" "}
+                                {t("exercise_page.buttons.nextBtn")}
+                            </button>
+                        )}
+                        <button type="button" className="btn btn-error" onClick={handleQuit}>
+                            <LiaTimesCircle className="h-6 w-6" />{" "}
+                            {t("exercise_page.buttons.quitBtn")}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };

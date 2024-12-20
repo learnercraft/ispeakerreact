@@ -1,0 +1,24 @@
+1
+00:00:06,740 --> 00:00:08,635
+Can I get you a tea
+
+2
+00:00:08,636 --> 00:00:09,738
+or a coffee before we begin? 
+
+3
+00:00:09,740 --> 00:00:11,489
+Yes, a coffee would be nice, thank you.
+
+4
+00:00:11,490 --> 00:00:14,065
+How about something to eat?
+
+5
+00:00:14,070 --> 00:00:16,405
+I might get a piece of cake myself.
+
+6
+00:00:16,410 --> 00:00:17,869
+No, not for me, thanks.
+

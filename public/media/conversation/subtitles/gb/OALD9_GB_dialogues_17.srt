@@ -1,0 +1,20 @@
+1
+00:00:07,690 --> 00:00:11,659
+Are you likely to be in Oxford on the 15th?
+
+2
+00:00:11,660 --> 00:00:14,494
+I'm probably going to be in London on that day.
+
+3
+00:00:14,495 --> 00:00:18,067
+Will you be back by six?
+
+4
+00:00:18,070 --> 00:00:19,659
+That's unlikely - there's bound to be 
+
+5
+00:00:19,660 --> 00:00:21,577
+a lot of traffic on the way home.
+

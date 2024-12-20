@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Collapse, Form, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const defaultTimerSettings = {
     enabled: false,
@@ -24,7 +24,7 @@ const ExerciseTimer = () => {
         return defaultTimerSettings;
     });
 
-    const [collapseOpen, setCollapseOpen] = useState(timerSettings.enabled);
+    const [inputEnabled, setInputEnabled] = useState(timerSettings.enabled);
     const [tempSettings, setTempSettings] = useState(timerSettings);
     const [isValid, setIsValid] = useState(true);
     const [isModified, setIsModified] = useState(false);
@@ -41,16 +41,21 @@ const ExerciseTimer = () => {
             ...prev,
             enabled,
         }));
-        setCollapseOpen(enabled);
+        setInputEnabled(enabled);
+
+        sonnerSuccessToast(t("settingPage.changeSaved"));
     };
 
     // Validation function to check if the inputs are valid (0-10 numbers only)
     const validateInputs = (settings) => {
-        return Object.values(settings).every((value) => value !== "" && !isNaN(value) && value >= 0 && value <= 10);
+        return Object.values(settings).every(
+            (value) => value !== "" && !isNaN(value) && value >= 0 && value <= 10
+        );
     };
 
     const checkIfModified = (settings) => {
-        const savedSettings = JSON.parse(localStorage.getItem("ispeaker"))?.timerSettings || defaultTimerSettings;
+        const savedSettings =
+            JSON.parse(localStorage.getItem("ispeaker"))?.timerSettings || defaultTimerSettings;
         return JSON.stringify(settings) !== JSON.stringify(savedSettings);
     };
 
@@ -65,12 +70,15 @@ const ExerciseTimer = () => {
         }
     };
 
-    const handleApply = (e) => {
-        e.preventDefault();
-
+    const handleApply = () => {
         if (validateInputs(tempSettings)) {
-            setTimerSettings(tempSettings);
-            setIsModified(false); // Reset modified state after apply
+            setTimerSettings((prev) => ({
+                ...prev,
+                ...tempSettings, // Apply modified fields
+                enabled: prev.enabled, // Ensure the `enabled` flag is preserved
+            }));
+            setIsModified(false);
+            sonnerSuccessToast(t("settingPage.changeSaved"));
         }
     };
 
@@ -97,82 +105,83 @@ const ExerciseTimer = () => {
 
     return (
         <div className="mt-4">
-            <h4 className="mb-3">{t("settingPage.exerciseSettings.timerHeading")}</h4>
-            <Card>
-                <Card.Body>
-                    <Form.Group className="px-0 form-switch">
-                        <div className="d-flex justify-content-between">
-                            <Form.Label className="fw-semibold" htmlFor="enableTimer" role="button">
-                                {t("settingPage.exerciseSettings.timerOption")}
-                            </Form.Label>
-                            <Form.Control
-                                className="form-check-input"
-                                type="checkbox"
-                                id="enableTimer"
-                                checked={timerSettings.enabled}
-                                onChange={(e) => handleTimerToggle(e.target.checked)}
-                                style={{ width: "3rem", height: "1.5rem", marginTop: "0" }}
-                            />
-                        </div>
-                    </Form.Group>
-
-                    <p className="mb-0 small text-secondary-emphasis">
+            <div className="flex gap-x-8 gap-y-6">
+                <div className="basis-2/3 space-y-1">
+                    <label className="cursor-pointer text-base font-semibold" htmlFor="enableTimer">
+                        {t("settingPage.exerciseSettings.timerOption")}
+                    </label>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                         {t("settingPage.exerciseSettings.timerDescription")}
                     </p>
-                    <Collapse in={collapseOpen}>
-                        <div>
-                            <Form onSubmit={handleApply}>
-                                <Row className="my-3 g-2">
-                                    {Object.keys(exerciseNames).map((exercise) => (
-                                        <Col key={exercise} md={4}>
-                                            <Form.Group controlId={exercise}>
-                                                <Form.Label className="fw-semibold">
-                                                    {exerciseNames[exercise]}
-                                                </Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={tempSettings[exercise]}
-                                                    onChange={(e) => handleInputChange(e, exercise)}
-                                                    maxLength={2}
-                                                    isInvalid={
-                                                        tempSettings[exercise] === "" ||
-                                                        tempSettings[exercise] < 0 ||
-                                                        tempSettings[exercise] > 10
-                                                    }
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    {t("settingPage.exerciseSettings.textboxError")}
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-                                    ))}
-                                </Row>
+                </div>
+                <div className="flex basis-1/3 justify-end">
+                    <input
+                        type="checkbox"
+                        className="toggle"
+                        id="enableTimer"
+                        checked={timerSettings.enabled}
+                        onChange={(e) => handleTimerToggle(e.target.checked)}
+                    />
+                </div>
+            </div>
 
-                                <p className="mb-4 small text-secondary-emphasis">
-                                    {t("settingPage.exerciseSettings.hint")}
-                                </p>
-                                <div className="d-flex justify-content-end">
-                                    <Button
-                                        type="submit"
-                                        variant="primary"
-                                        className="w-25 me-2"
-                                        onClick={handleApply}
-                                        disabled={!isValid || !isModified}>
-                                        {t("settingPage.exerciseSettings.applyBtn")}
-                                    </Button>
-                                    <Button
-                                        variant="secondary"
-                                        className="w-25"
-                                        onClick={handleCancel}
-                                        disabled={!isModified}>
-                                        {t("settingPage.exerciseSettings.cancelBtn")}
-                                    </Button>
+            <div className="my-4 flex flex-row flex-wrap justify-center gap-4 px-8">
+                {Object.keys(exerciseNames).map((exercise) => (
+                    <div key={exercise} className="basis-full md:basis-1/3 lg:basis-1/4">
+                        <label className="form-control w-full max-w-xs">
+                            <div className="label">
+                                <span>{exerciseNames[exercise]}</span>
+                            </div>
+
+                            <input
+                                type="text"
+                                value={tempSettings[exercise]}
+                                maxLength={2}
+                                onChange={(e) => handleInputChange(e, exercise)}
+                                className={`input input-bordered w-full max-w-xs ${
+                                    tempSettings[exercise] === "" ||
+                                    tempSettings[exercise] < 0 ||
+                                    tempSettings[exercise] > 10
+                                        ? "input-error"
+                                        : ""
+                                }`}
+                                disabled={!inputEnabled}
+                            />
+
+                            {tempSettings[exercise] === "" ||
+                            tempSettings[exercise] < 0 ||
+                            tempSettings[exercise] > 10 ? (
+                                <div className="label">
+                                    <span className="label-text text-error">
+                                        {t("settingPage.exerciseSettings.textboxError")}
+                                    </span>
                                 </div>
-                            </Form>
-                        </div>
-                    </Collapse>
-                </Card.Body>
-            </Card>
+                            ) : null}
+                        </label>
+                    </div>
+                ))}
+            </div>
+
+            <p className="px-8 text-sm">{t("settingPage.exerciseSettings.hint")}</p>
+
+            <div className="my-6 flex flex-wrap justify-center gap-2 px-8">
+                <button
+                    type="button"
+                    className="btn btn-primary btn-wide"
+                    onClick={handleApply}
+                    disabled={!isValid || !isModified}
+                >
+                    {t("settingPage.exerciseSettings.applyBtn")}
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-secondary btn-wide"
+                    onClick={handleCancel}
+                    disabled={!isModified}
+                >
+                    {t("settingPage.exerciseSettings.cancelBtn")}
+                </button>
+            </div>
         </div>
     );
 };

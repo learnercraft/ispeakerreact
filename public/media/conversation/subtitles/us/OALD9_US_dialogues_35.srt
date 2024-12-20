@@ -1,0 +1,24 @@
+1
+00:00:12,520 --> 00:00:15,508
+I'm going to an outdoor concert tonight.
+
+2
+00:00:15,510 --> 00:00:18,813
+I wonder what'll happen if it rains.
+
+3
+00:00:18,820 --> 00:00:21,619
+Hmm, they'll probably cancel it. 
+
+4
+00:00:21,620 --> 00:00:25,495
+But then how will everybody know?
+
+5
+00:00:25,500 --> 00:00:28,070
+I don't know. I guess they'll
+
+6
+00:00:28,071 --> 00:00:29,605
+put something on the website.
+

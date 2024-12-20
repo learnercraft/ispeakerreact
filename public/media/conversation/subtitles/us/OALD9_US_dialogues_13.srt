@@ -1,0 +1,28 @@
+1
+00:00:06,530 --> 00:00:08,195
+I think we should sell the app
+
+2
+00:00:08,196 --> 00:00:10,377
+at a low cost to maximize sales.
+
+3
+00:00:10,380 --> 00:00:12,437
+I don't know. If it's cheap, people
+
+4
+00:00:12,438 --> 00:00:14,169
+will think it's poor quality.
+
+5
+00:00:14,170 --> 00:00:16,374
+I see your point, but people won't
+
+6
+00:00:16,375 --> 00:00:18,599
+pay much for an app these days.
+
+7
+00:00:18,600 --> 00:00:20,804
+Well, actually, I'm not sure that's true. 
+

@@ -1,0 +1,36 @@
+1
+00:00:08,400 --> 00:00:10,134
+I'd like to talk to the manager, please.
+
+2
+00:00:10,135 --> 00:00:11,904
+I'd like to make a complaint.
+
+3
+00:00:11,910 --> 00:00:13,835
+I'm afraid she's out all day.
+
+4
+00:00:13,840 --> 00:00:15,765
+Would you like to make an appointment
+
+5
+00:00:15,766 --> 00:00:16,728
+for tomorrow? 
+
+6
+00:00:16,730 --> 00:00:18,649
+I'm sorry, that's not good enough. 
+
+7
+00:00:18,650 --> 00:00:20,896
+I'm leaving town this afternoon.
+
+8
+00:00:20,900 --> 00:00:23,027
+I'm so sorry, can I take your number
+
+9
+00:00:23,028 --> 00:00:25,389
+and ask her to call you in the morning? 
+

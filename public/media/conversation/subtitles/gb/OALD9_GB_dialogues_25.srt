@@ -1,0 +1,24 @@
+1
+00:00:07,890 --> 00:00:10,066
+Hi, I haven't seen you for ages!
+
+2
+00:00:10,070 --> 00:00:11,947
+Oh, hi, Sarah. This is Simon - 
+
+3
+00:00:11,950 --> 00:00:14,126
+I don't know if you've met?
+
+4
+00:00:14,130 --> 00:00:15,377
+Simon - this is Sarah. 
+
+5
+00:00:15,378 --> 00:00:17,561
+No, I don't think we've met. Hi Simon. 
+
+6
+00:00:17,562 --> 00:00:19,427
+Hi Sarah, nice to meet you.
+
