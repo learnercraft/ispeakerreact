@@ -102,13 +102,13 @@ export default defineConfig(({ mode }) => {
                 workbox: {
                     runtimeCaching: [
                         {
-                            urlPattern: /\.(?:js|css|json|png|jpg|jpeg|svg|ico|woff2)$/, // Cache everything except audio
+                            urlPattern: /\.(?:js|css|json|png|jpg|jpeg|svg|ico|woff2)$/,
                             handler: "CacheFirst",
                             options: {
                                 cacheName: "app-dynamic-cache",
                                 expiration: {
                                     maxEntries: 100,
-                                    //maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 1 week
+                                    maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 1 week
                                 },
                             },
                         },
