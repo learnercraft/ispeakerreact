@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { LuExternalLink } from "react-icons/lu";
 import { isElectron } from "../../utils/isElectron";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 // Utility function to open external links
 const openExternal = (url) => {
@@ -31,6 +32,12 @@ const LanguageSwitcher = () => {
     const handleLanguageChange = (lng) => {
         i18n.changeLanguage(lng);
         document.documentElement.setAttribute("lang", lng); // Update HTML lang attribute
+
+        const ispeakerSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        ispeakerSettings.language = lng;
+        localStorage.setItem("ispeaker", JSON.stringify(ispeakerSettings));
+
+        sonnerSuccessToast(t("settingPage.changeSaved"));
     };
 
     const currentLanguage =
