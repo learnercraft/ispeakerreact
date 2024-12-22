@@ -7,7 +7,9 @@ i18n.use(HttpApi) // Load translations via HTTP (use with i18next-http-backend)
     .use(LanguageDetector) // Detect user language
     .use(initReactI18next) // Pass the i18n instance to react-i18next.
     .init({
-        lng: "en",
+        lng: localStorage.getItem("ispeaker")
+            ? JSON.parse(localStorage.getItem("ispeaker")).language
+            : "en",
         fallbackLng: {
             "en-US": ["en"],
             "en-GB": ["en"],
