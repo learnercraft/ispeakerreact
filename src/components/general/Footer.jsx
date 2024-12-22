@@ -1,4 +1,17 @@
 import LogoLightOrDark from "./LogoLightOrDark";
+import { isElectron } from "../../utils/isElectron";
+
+const openExternal = (url) => {
+    if (isElectron()) {
+        window.electron.openExternal(url);
+    } else {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.click();
+    }
+};
 
 const Footer = () => {
     return (
@@ -7,22 +20,28 @@ const Footer = () => {
                 <LogoLightOrDark width="100" height="100" />
                 <p>
                     Created by{" "}
-                    <a
-                        className="link after:content-['_↗']"
-                        href="https://yell0wsuit.page"
+                    <button
+                        type="button"
+                        className="link-hover link after:content-['_↗']"
+                        onClick={() => openExternal("https://yell0wsuit.page")}
                         target="_blank"
                     >
                         yell0wsuit
-                    </a>
+                    </button>
                     <br />
                     Maintained by the community and contributors.{" "}
-                    <a
-                        className="link after:content-['_↗']"
-                        href="https://github.com/yllst-testing-labs/ispeakerreact/graphs/contributors"
+                    <button
+                        type="button"
+                        className="link-hover link after:content-['_↗']"
+                        onClick={() =>
+                            openExternal(
+                                "https://github.com/yllst-testing-labs/ispeakerreact/graphs/contributors"
+                            )
+                        }
                         target="_blank"
                     >
                         See contributors
-                    </a>
+                    </button>
                 </p>
                 <p>
                     Licensed under the Apache License, Version 2.0
@@ -32,13 +51,14 @@ const Footer = () => {
             </aside>
             <nav>
                 <h6 className="footer-title">More English learning materials</h6>
-                <a
+                <button
+                    type="button"
                     className="link-hover link after:content-['_↗']"
-                    href="https://yell0wsuit.github.io/docugrammar/"
+                    onClick={() => openExternal("https://yell0wsuit.github.io/docugrammar/")}
                     target="_blank"
                 >
                     DocuGrammar
-                </a>
+                </button>
                 <p className="text-xs text-stone-700 dark:text-stone-400">
                     A collection of grammar references in web format, powered by Docusaurus.
                 </p>

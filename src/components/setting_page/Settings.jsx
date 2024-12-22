@@ -7,6 +7,7 @@ import TopNavBar from "../general/TopNavBar";
 import AppearanceSettings from "./Appearance";
 import AppInfo from "./AppInfo";
 import ExerciseTimer from "./ExerciseTimer";
+import LanguageSwitcher from "./LanguageSwitcher";
 import LogSettings from "./LogSettings";
 import ResetSettings from "./ResetSettings";
 import VideoDownloadMenu from "./VideoDownloadMenu";
@@ -56,6 +57,8 @@ const SettingsPage = () => {
                                             <div className="divider"></div>
                                         </>
                                     )}
+                                    <LanguageSwitcher />
+                                    <div className="divider"></div>
                                     <ExerciseTimer />
                                     <div className="divider"></div>
                                     <AppearanceSettings />

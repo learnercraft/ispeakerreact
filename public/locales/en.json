@@ -910,6 +910,9 @@
         "openGitHubAlertLink": "Open GitHub",
         "changeSaved": "Changes saved",
         "noDataToDelete": "No data to delete",
+        "languageSettings": {
+            "languageOption": "Language"
+        },
         "exerciseSettings": {
             "timerHeading": "Exercise timer",
             "timerOption": "Enable timer",
