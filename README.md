@@ -1,6 +1,8 @@
 <p align="center">
-  <img width="300" height="300" src="./public/images/logos/ispeakerreact-logo-color.svg" />
+  <img src="./public/images/homepage_screenshot.webp" />
 </p>
+
+[![Crowdin](https://badges.crowdin.net/ispeakerreact/localized.svg)](https://crowdin.com/project/ispeakerreact)
 
 # iSpeakerReact
 
