@@ -51,19 +51,12 @@ export function ThemeProvider({
         };
     }, [theme]);
 
-    // Method to reset the theme
-    const resetTheme = () => {
-        localStorage.removeItem(storageKey); // Remove the theme from localStorage
-        setTheme(defaultTheme); // Reset to the default theme
-    };
-
     const value = {
         theme,
         setTheme: (newTheme) => {
             localStorage.setItem(storageKey, newTheme);
             setTheme(newTheme);
         },
-        resetTheme, // Add resetTheme to the context value
     };
 
     return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 // Emoji SVGs import
 import UKFlagEmoji from "../../emojiSvg/emoji_u1f1ec_1f1e7.svg";
@@ -24,6 +25,7 @@ const AccentDropdown = ({ onAccentChange }) => {
     const handleAccentChange = (value) => {
         setSelectedAccent(value);
         onAccentChange(value);
+        sonnerSuccessToast(t("settingPage.changeSaved"));
     };
 
     return (

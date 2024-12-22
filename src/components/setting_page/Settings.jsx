@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../ui/Container";
 import { isElectron } from "../../utils/isElectron";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
 import TopNavBar from "../general/TopNavBar";
 import AppearanceSettings from "./Appearance";
 import AppInfo from "./AppInfo";
@@ -15,20 +14,12 @@ import VideoDownloadSubPage from "./VideoDownloadSubPage";
 
 const SettingsPage = () => {
     const { t } = useTranslation();
-    const { resetTheme } = useTheme();
 
     useEffect(() => {
         document.title = `${t("navigation.settings")} | iSpeakerReact v${__APP_VERSION__}`;
     }, [t]);
 
-    const [resetFlag, setResetFlag] = useState(false); // Boolean flag to force remount
     const [currentPage, setCurrentPage] = useState("settings");
-
-    const handleReset = () => {
-        // Change the key to remount the CachingSettings component
-        setResetFlag((prevFlag) => !prevFlag);
-        resetTheme();
-    };
 
     const handleVideoDownloadMenuPage = () => {
         setCurrentPage("video-download");
@@ -43,7 +34,7 @@ const SettingsPage = () => {
             <TopNavBar />
             <Container>
                 <div className="my-8 flex justify-center">
-                    <div className="w-full md:w-2/3 lg:w-1/2" key={resetFlag}>
+                    <div className="w-full md:w-2/3 lg:w-1/2">
                         {currentPage === "settings" && (
                             <>
                                 <h1 className="text-3xl font-semibold md:text-4xl">
@@ -77,7 +68,7 @@ const SettingsPage = () => {
                                         </>
                                     )}
                                     <div className="divider"></div>
-                                    <ResetSettings onReset={handleReset} />
+                                    <ResetSettings />
                                 </div>
                             </>
                         )}

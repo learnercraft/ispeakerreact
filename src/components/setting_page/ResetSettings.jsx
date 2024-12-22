@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { isElectron } from "../../utils/isElectron";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
-const ResetSettings = ({ onReset }) => {
+const ResetSettings = () => {
     const { t } = useTranslation();
 
     const [isResettingLocalStorage, setIsResettingLocalStorage] = useState(false);
@@ -44,7 +44,7 @@ const ResetSettings = ({ onReset }) => {
                 localStorage.clear();
                 setIsResettingLocalStorage(false);
                 localStorageModal.current?.close();
-                onReset();
+                window.location.reload();
                 sonnerSuccessToast(t("settingPage.changeSaved"));
             };
             deleteRequest.onerror = () => setIsResettingLocalStorage(false);
