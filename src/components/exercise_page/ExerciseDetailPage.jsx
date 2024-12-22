@@ -64,12 +64,15 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     const handleExerciseData = useCallback(
         (exerciseDetails, data, exerciseKey) => {
             const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
+            const fixedTimers = {
+                memory_match: 4,
+                snap: 2,
+            };
             const timerValue =
-                exerciseKey === "memory_match"
-                    ? savedSettings?.timerSettings?.memory_match || 4 // Use a default value for memory match
-                    : (savedSettings?.timerSettings?.enabled === true &&
-                          savedSettings?.timerSettings?.[exerciseKey]) ||
-                      0; // For other exercises
+                fixedTimers[exerciseKey] ??
+                ((savedSettings?.timerSettings?.enabled === true &&
+                    savedSettings?.timerSettings?.[exerciseKey]) ||
+                    0);
 
             setTimer(timerValue);
 
@@ -363,7 +366,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                             </button>
 
                             <div className="collapse collapse-arrow hidden bg-base-200 md:grid dark:bg-slate-700">
-                                <input type="checkbox" />
+                                <input type="checkbox" defaultChecked />
                                 <button
                                     type="button"
                                     className="collapse-title text-start font-semibold"

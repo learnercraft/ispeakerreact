@@ -276,16 +276,19 @@
             "snap": {
                 "reading-phonetics": [
                     "Does the phonetic transcription match the word? Select “Yes” if the two match, or “No” if not.",
+                    "Can you complete the game before the timer runs out?",
                     "When you want to stop, select “Quit” to see your score in this session."
                 ],
                 "homophones": [
                     "Look at the two words. Are they pronounced the same or different?",
                     "Select “Yes” if you think the pronunciation is the same, and “No” if you think it's different.",
+                    "Can you complete the game before the timer runs out?",
                     "When you want to stop, select “Quit” to see your score in this session."
                 ],
                 "random": [
                     "Look at the two words. Do they match or not? Either the pronunciation should be the same, or the phonetic transcription should match the word.",
                     "Select “Yes” if they match, or “No” if not.",
+                    "Can you complete the game before the timer runs out?",
                     "When you want to stop, select “Quit” to see your score in this session."
                 ]
             },

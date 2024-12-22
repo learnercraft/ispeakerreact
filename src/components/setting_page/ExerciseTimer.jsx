@@ -10,7 +10,6 @@ const defaultTimerSettings = {
     sound_n_spelling: 5,
     sorting: 5,
     odd_one_out: 5,
-    snap: 5,
 };
 
 const ExerciseTimer = () => {
@@ -100,7 +99,6 @@ const ExerciseTimer = () => {
         sound_n_spelling: t("exercise_page.soundSpellingHeading"),
         sorting: t("exercise_page.sortingHeading"),
         odd_one_out: t("exercise_page.oddOneOutHeading"),
-        snap: t("exercise_page.snapHeading"),
     };
 
     return (
