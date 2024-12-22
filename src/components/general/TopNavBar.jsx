@@ -10,6 +10,19 @@ import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
 import { useTheme } from "../../utils/ThemeContext/useTheme";
+import { isElectron } from "../../utils/isElectron";
+
+const openExternal = (url) => {
+    if (isElectron()) {
+        window.electron.openExternal(url);
+    } else {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.click();
+    }
+};
 
 const TopNavBar = () => {
     const { t } = useTranslation();
@@ -129,19 +142,19 @@ const TopNavBar = () => {
 
             {/* GitHub Link */}
             <div className="navbar-end">
-                <a
+                <button
+                    type="button"
                     className="btn btn-ghost no-animation flex items-center"
-                    href="https://github.com/yllst-testing-labs/ispeakerreact"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub repository"
+                    onClick={() =>
+                        openExternal("https://github.com/yllst-testing-labs/ispeakerreact/")
+                    }
                 >
                     <FaGithub size="1.5em" />
                     <span className="ml-1 hidden items-center space-x-1 md:inline-flex">
                         <span>GitHub</span>
                         <FiExternalLink />
                     </span>
-                </a>
+                </button>
             </div>
         </nav>
     );
