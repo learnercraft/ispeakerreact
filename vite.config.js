@@ -28,93 +28,93 @@ export default defineConfig(({ mode }) => {
         plugins: [
             react(),
             visualizer(),
-            VitePWA({
-                registerType: "autoUpdate",
-                manifest: {
-                    name: "iSpeakerReact",
-                    short_name: "iSpeakerReact",
-                    theme_color: "#fcfcfc",
-                    description:
-                        "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
-                    icons: [
-                        {
-                            src: `${base}images/icons/ios/192.png`,
-                            sizes: "192x192",
-                            type: "image/png",
-                        },
-                        {
-                            src: `${base}images/icons/ios/512.png`,
-                            sizes: "512x512",
-                            type: "image/png",
-                        },
-                    ],
-                    screenshots: [
-                        {
-                            src: `${base}images/screenshots/screenshot-00.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-01.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-02.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-03.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-04.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-05.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-06.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                        {
-                            src: `${base}images/screenshots/screenshot-07.webp`,
-                            sizes: "1920x1080",
-                            type: "image/webp",
-                            form_factor: "wide",
-                        },
-                    ],
-                },
-                workbox: {
-                    runtimeCaching: [
-                        {
-                            urlPattern: /\.(?:js|css|json|png|jpg|jpeg|svg|ico|woff2)$/,
-                            handler: "CacheFirst",
-                            options: {
-                                cacheName: "app-dynamic-cache",
-                                expiration: {
-                                    maxEntries: 100,
-                                    maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 1 week
+            !isElectron &&
+                VitePWA({
+                    registerType: "autoUpdate",
+                    manifest: {
+                        name: "iSpeakerReact",
+                        short_name: "iSpeakerReact",
+                        theme_color: "#fcfcfc",
+                        description:
+                            "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
+                        icons: [
+                            {
+                                src: `${base}images/icons/ios/192.png`,
+                                sizes: "192x192",
+                                type: "image/png",
+                            },
+                            {
+                                src: `${base}images/icons/ios/512.png`,
+                                sizes: "512x512",
+                                type: "image/png",
+                            },
+                        ],
+                        screenshots: [
+                            {
+                                src: `${base}images/screenshots/screenshot-00.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-01.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-02.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-03.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-04.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-05.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-06.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                            {
+                                src: `${base}images/screenshots/screenshot-07.webp`,
+                                sizes: "1920x1080",
+                                type: "image/webp",
+                                form_factor: "wide",
+                            },
+                        ],
+                    },
+                    workbox: {
+                        runtimeCaching: [
+                            {
+                                urlPattern: /\.(?:js|css|json|png|jpg|jpeg|svg|ico|woff2)$/,
+                                handler: "CacheFirst",
+                                options: {
+                                    cacheName: `app-dynamic-cache-v${packageJson.version}`,
+                                    expiration: {
+                                        maxEntries: 100,
+                                    },
                                 },
                             },
-                        },
-                    ],
-                },
-            }),
+                        ],
+                    },
+                }),
         ],
         define: {
             __APP_VERSION__: JSON.stringify(packageJson.version), // Inject version
