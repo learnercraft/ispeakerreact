@@ -3,7 +3,7 @@
     "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "3.0.8",
+    "version": "3.0.9",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
@@ -18,7 +18,7 @@
         "vitebuildcli": "vite build --mode electron",
         "makecli": "electron-forge make",
         "appx": "vite build --mode electron && electron-forge package && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
-        "appxarm": "vite build --mode electron && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml"
+        "appxarm": "vite build --mode electron && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml"
     },
     "dependencies": {
         "@dnd-kit/core": "^6.3.1",

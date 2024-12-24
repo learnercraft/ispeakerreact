@@ -137,7 +137,7 @@ const ResetSettings = () => {
                         {t("settingPage.resetSettings.resetModalHeading")}
                     </h3>
                     <p className="py-4">
-                        {t("settingPage.resetSettings.deleteRecordingDataModalMessage")}
+                        {t("settingPage.resetSettings.resetSettingsDataModalMessage")}
                     </p>
                     <div className="modal-action">
                         <button
