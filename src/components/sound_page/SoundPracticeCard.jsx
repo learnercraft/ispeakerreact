@@ -49,7 +49,7 @@ const SoundCardItem = ({
                         >
                             <img src={imgPhonemeThumbSrc} alt="Phoneme Thumbnail" />
                         </button>
-                        <span dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}></span>
+                        <span lang="en" dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}></span>
                         <div className="flex space-x-4">
                             <BsRecordCircleFill
                                 aria-label="record icon"

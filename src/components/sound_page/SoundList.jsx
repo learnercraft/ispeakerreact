@@ -34,8 +34,8 @@ const SoundCard = ({
             )}
             <div className="card card-bordered flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
                 <div className="card-body flex-grow items-center text-center">
-                    <h2 className="card-title">{he.decode(sound.phoneme)}</h2>
-                    <p>{sound.example_word}</p>
+                    <h2 className="card-title" lang="en">{he.decode(sound.phoneme)}</h2>
+                    <p lang="en">{sound.example_word}</p>
                 </div>
                 <div className="card-actions px-6">
                     <button

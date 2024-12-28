@@ -61,7 +61,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
                 isDragging && !disabled ? "opacity-50" : ""
             } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
         >
-            {he.decode(word?.text || item?.value)}
+            <span lang="en">{he.decode(word?.text || item?.value)}</span>
             {renderTrueFalseIcon()}
         </button>
     ) : (
@@ -71,7 +71,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
                 item ? "" : "lg:w-4/5 xl:w-3/4"
             } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
         >
-            <p className="text-center font-bold">
+            <p className="text-center font-bold" lang="en">
                 {he.decode(word?.text || item?.value)} {renderTrueFalseIcon()}
             </p>
         </button>

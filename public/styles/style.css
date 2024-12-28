@@ -1,6 +1,6 @@
 @font-face {
     font-family: Inter;
-    src: url(../fonts/InterVariable.woff2);
+    src: url("../fonts/InterVariable.woff2");
     font-style: normal;
     font-weight: 300 900;
     font-display: swap;
@@ -8,15 +8,40 @@
 
 @font-face {
     font-family: Inter;
-    src: url(../fonts/InterVariable-Italic.woff2);
+    src: url("../fonts/InterVariable-Italic.woff2");
     font-style: italic;
+    font-weight: 300 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans SC";
+    src: url("../fonts/NotoSansSC-VariableFont_wght.woff2");
+    font-style: normal;
     font-weight: 300 900;
     font-display: swap;
 }
 
 *,
 html {
-    font-family: Inter, system-ui;
+    font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
     font-variation-settings: "opsz" 15;
     font-feature-settings: "cv02", "cv03", "cv04", "cv05", "cv08", "cv10", "cv11";
+}
+
+/* Specific font for Chinese text */
+:lang(zh) {
+    font-family: "Noto Sans SC", system-ui, sans-serif;
 }

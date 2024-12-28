@@ -187,6 +187,7 @@ const SortingExercise = ({
             <div className="text-center font-semibold">
                 {heading && (
                     <span
+                        lang="en"
                         dangerouslySetInnerHTML={{
                             __html: he.decode(heading.text),
                         }}

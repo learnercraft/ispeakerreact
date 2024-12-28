@@ -119,8 +119,8 @@ const AppInfo = () => {
                     />
                 </div>
                 <div className="h-full">
-                    <h4 className="text-xl font-semibold">iSpeakerReact</h4>
-                    <p className="mb-2 text-slate-600 dark:text-slate-400">
+                    <h4 lang="en" className="text-xl font-semibold">iSpeakerReact</h4>
+                    <p lang="en" className="mb-2 text-slate-600 dark:text-slate-400">
                         Version {currentVersion}
                     </p>
                     {window.electron.isUwp() ? (
