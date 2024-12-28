@@ -1,0 +1,1009 @@
+{
+    "navigation": {
+        "home": "首页",
+        "sounds": "语音",
+        "exercises": "练习",
+        "conversations": "对话",
+        "exams": "考试",
+        "settings": "设置"
+    },
+    "homepage": {
+        "soundDescription": "观看视频并练习发音。",
+        "exerciseDescription": "通过多种练习类型来练习倾听声音和句子。",
+        "conversationDescription": "提升你在不同情境下的对话技巧。",
+        "examDescription": "为不同类型的口语考试做好准备。",
+        "settingDescription": "练习计时器、外观等更多功能。",
+        "openBtn": "打开"
+    },
+    "accent": {
+        "accentSettings": "口音",
+        "accentAmerican": "美式英语",
+        "accentBritish": "英式英语"
+    },
+    "alert": {
+        "alertOnlineVideo": "想离线观看视频吗？前往“设置”页面下载。",
+        "alertAppNoInternet": "没有网络连接。请检查你的网络后重试。",
+        "appNewVersionGitHub": "发现新版本。请前往项目的 GitHub 页面了解更多信息。",
+        "appVersionLatest": "你已经在使用最新版本。",
+        "appUpdateError": "检查更新时出错。请重试。"
+    },
+    "toast": {
+        "recordingExceeded": "已达到录音时长上限。录音已停止。",
+        "recordingSuccess": "录音保存成功。",
+        "recordingFailed": "录音失败。原因： ",
+        "playbackError": "播放时出错。原因： ",
+        "textSaveSuccess": "文本保存成功。",
+        "textSaveFailed": "保存文本时出错。原因：",
+        "textClearSuccess": "文本已成功清除。",
+        "textClearFailed": "清除文本时出错。原因：",
+        "audioPlayFailed": "因网络问题无法播放音频。请检查网络并重新加载页面。",
+        "loadingError": "加载数据时出错。请尝试刷新页面。",
+        "reviewUpdated": "评论更新成功。"
+    },
+    "buttonConversationExam": {
+        "watchBtn": "观看",
+        "listenBtn": "聆听",
+        "practiceBtn": "练习",
+        "reviewBtn": "复习",
+        "saveBtn": "保存文本",
+        "clearBtn": "清除文本",
+        "recordBtn": "录音",
+        "stopRecordBtn": "停止录音",
+        "playBtn": "播放录音",
+        "stopPlayBtn": "停止播放",
+        "conversationBackBtn": "返回对话列表",
+        "examBackBtn": "返回考试列表"
+    },
+    "tabConversationExam": {
+        "taskCard": "任务",
+        "watchCard": "观看视频",
+        "studyCard": "学习",
+        "studyExpandBtn": "转写和关键语言",
+        "imageFullSizeModal": "查看全尺寸",
+        "practiceConversationText": [
+            "练习写出你自己的对话。",
+            "你可以使用本话题中的一些语言。",
+            "记得经常保存你的文本！"
+        ],
+        "practiceConversationBox": "输入你的对话：",
+        "practiceExamTextbox": "你的笔记：",
+        "recordSectionText": "使用你在上方写的脚本来录音。然后听听自己的发音表现。",
+        "tipCardExam": "提示",
+        "doCardExam": "须知",
+        "dontsCardExam": "禁忌"
+    },
+    "sound_page": {
+        "consonants": "辅音",
+        "vowels_dipthongs": "元音和双元音",
+        "practiceBtn": "练习",
+        "reviewGood": "好",
+        "reviewNeutral": "一般",
+        "reviewBad": "差",
+        "soundTop": "语音",
+        "exampleWords": "包含此语音的单词",
+        "backBtn": "返回语音列表",
+        "closeBtn": "关闭",
+        "watchCard": "观看",
+        "practiceCard": "练习",
+        "reviewCard": "复习",
+        "clipModalTitle": "发音示例",
+        "recordInstructions": "观看发音视频，并使用 <0>{{icon}}</0> 按钮录制自己的发音。",
+        "reviewInstructions": "你是如何发音 {{phoneme}} 这个音的？"
+    },
+    "exercise_page": {
+        "exerciseSubheading": "选择一个练习开始吧。",
+        "modalInfoHeader": "练习信息",
+        "dictationHeading": "听写",
+        "matchUpHeading": "配对",
+        "reorderingHeading": "重排",
+        "soundSpellingHeading": "语音与拼写",
+        "sortingHeading": "分类",
+        "oddOneOutHeading": "找出不同",
+        "snapHeading": "抢答!",
+        "memoryMatchHeading": "记忆配对",
+        "randomExercise": "随机",
+        "wordExercise": "单词",
+        "missingWordExercise": "缺失单词",
+        "sentenceExercise": "句子",
+        "similarSoundExercise": "相似音",
+        "readingPhoneticsExercise": "阅读音标",
+        "comprehensionExercise": "听力理解",
+        "wordStressExercise": "单词重读",
+        "rhymingWordExercise": "押韵单词",
+        "syllablesExercise": "音节",
+        "homophonesExercise": "同音异形词",
+        "questionNo": "题目",
+        "timer": "计时：",
+        "dropLayer": "拖放到这里…",
+        "dragThisItem": "拖动此项",
+        "snapCorrect": "正确",
+        "snapIncorrect": "错误",
+        "buttons": {
+            "checkBtn": "检查",
+            "nextBtn": "下一题",
+            "quitBtn": "退出",
+            "restartBtn": "重新开始测验",
+            "backBtn": "返回练习列表",
+            "instructionBtn": "查看说明",
+            "collapseBtn": "收起说明",
+            "expandBtn": "展开说明",
+            "playAudioBtn": "播放音频"
+        },
+        "exerciseInfo": {
+            "dictationWord": "通过单词听写来测试你的听力和拼写",
+            "dictationMissingWord": "聆听完整句子并写出缺失的单词",
+            "dictationSentence": "通过句子听写来测试你的听力和拼写",
+            "dictationRandom": "单词和句子听写的混合练习",
+            "matchUpSimilarSound": "将所写的单词与听到的单词进行匹配",
+            "matchUpReadingPhonetics": "测试你对音标的掌握，将音标与单词进行匹配",
+            "matchUpComprehension": "将单词与它出现的句子匹配",
+            "matchUpRandom": "多种配对类型的混合",
+            "reorderingWord": "重排字母形成你听到的单词",
+            "reorderingSentence": "重排单词形成你听到的句子",
+            "reorderingRandom": "单词和句子重排的混合练习",
+            "soundSpellingInfo": "听音并选择正确的拼写",
+            "soundSpellingRandom": "语音与拼写题目的混合练习",
+            "sortingSimilarSound": "把具有相同发音的单词分到一组",
+            "sortingWordStress": "把单词按照重读模式进行分组",
+            "sortingSyllable": "把单词按照相同的音节数量进行分组",
+            "sortingRandom": "各种分类练习的混合",
+            "oddOneOutWordStress": "找出重读模式与其他不同的单词",
+            "oddOneOutRhymingWord": "找出结尾发音与其他不同的单词",
+            "oddOneOutSyllable": "找出音节数与其他不同的单词",
+            "oddOneOutRandom": "找出与其他单词在重读模式、结尾音或音节数上不同的那个单词",
+            "snapReadingPhonetics": "该音标是否与单词相匹配？",
+            "snapHomophones": "这两个单词的发音相同还是不同？",
+            "snapRandom": "同音词和音标匹配题的混合练习",
+            "memoryMatchRhymingWord": "找出结尾发音相同的单词",
+            "memoryMatchHomophones": "找出发音相同但拼写不同的单词",
+            "memoryMatchRandom": "同音词和押韵配对的混合题"
+        },
+        "exerciseInstruction": {
+            "dictation": {
+                "words": [
+                    "聆听并写下你听到的单词。你可以多次聆听该单词。",
+                    "在点击“下一题”前，请先检查你的答案。",
+                    "你必须正确拼写该单词！不区分大小写，不使用任何标点符号。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "missing-words": [
+                    "聆听完整句子，然后在文本框中写下缺失的单词。你可以多次聆听该句子。",
+                    "在点击“下一题”前，请先检查你的答案。",
+                    "你必须正确拼写该单词！不区分大小写，不使用任何标点符号。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "sentences": [
+                    "聆听并写下你所听到的句子。你可以多次聆听该句子。",
+                    "在点击“下一题”前，请先检查你的答案。",
+                    "你必须正确拼写所有单词！所有单词不区分大小写，不使用任何标点符号。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "聆听单词或句子，并写下你听到的单词、缺失的单词，或完整的句子。你可以多次聆听。",
+                    "在点击“下一题”前，请先检查你的答案。",
+                    "你必须正确拼写所有内容！所有单词不区分大小写，不使用任何标点符号。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "matchup": {
+                "similar-sounds": [
+                    "这里有一组包含相似发音的单词。",
+                    "聆听每个单词，并将文字形式与发音形式相匹配。你可以多次聆听这些单词。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "reading-phonetics": [
+                    "测试你对国际音标的掌握程度！",
+                    "聆听每个单词，并将其与正确的音标对应。你可以多次聆听这些单词。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "comprehension": [
+                    "通过点击扬声器图标来聆听句子，并留意你在此看到的单词。",
+                    "将每个单词与其在句子中出现的位置进行匹配。你可以多次聆听这些句子。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "将单词或音标重新排列，使它们与正确的说话者或发音对应。",
+                    "你将听到一个单词或一个句子。哪个音标与该单词相匹配，或者该句子包含哪个单词？",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "reordering": {
+                "words": [
+                    "聆听这个单词，并将字母重新排列为正确的顺序。你可以多次聆听该单词。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "sentences": [
+                    "聆听这个句子，并将其中的单词重新排列为正确的顺序。你可以多次聆听该句子。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "聆听这个单词或句子，并将字母或单词重新排列为正确顺序。你可以多次聆听。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "sound_n_spelling": {
+                "sound": [
+                    "聆听这个单词，并选择能代表音 {{ipaSound}} 的正确拼写。",
+                    "你可以多次聆听该单词。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "聆听这个单词，并选择正确的缺失字母或字母组合。你可以多次聆听该单词。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "sorting": {
+                "similar-sounds": [
+                    "根据每个单词包含的发音，将这些单词移动到正确的列中。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "word-stress": [
+                    "查看各列顶部显示的单词重读模式。较大的圆点代表主要重音，圆点数量代表单词的音节数。",
+                    "根据单词的音节数和主要重音的位置，将它们移动到正确的列中。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "syllables": [
+                    "列顶部的数字代表单词的音节数量。",
+                    "将单词放入对应的列中，依据它们的音节数量。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "根据列顶部给出的分类，将这些单词拖放到正确的列中。",
+                    "这些分类可能涉及单词的发音、重读模式或音节数。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "odd_one_out": {
+                "word-stress": [
+                    "从这组单词中选出重读模式与其他单词不同的那个。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "rhyming": [
+                    "哪个单词的结尾发音与其他三个不同？",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "syllables": [
+                    "哪个单词的音节数与其他三个不同？",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "从组内选出与其他单词不同的那个单词。",
+                    "这个与众不同的单词可能在重读方式、结尾发音或音节数量上与其他单词不同。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "snap": {
+                "reading-phonetics": [
+                    "该音标与单词是否匹配？如果匹配就选“是”，否则选“否”。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "homophones": [
+                    "看看这两个单词。它们的发音相同还是不同？",
+                    "如果你认为它们发音相同就选“是”，否则选“否”。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ],
+                "random": [
+                    "看看这两个单词。它们是否匹配？要么发音相同，要么该音标与单词相对应。",
+                    "如果匹配就选“是”，不匹配就选“否”。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。",
+                    "当你想停止时，选择“退出”即可查看本次的得分。"
+                ]
+            },
+            "memory_match": {
+                "rhyming": [
+                    "同时翻两张卡片，找出结尾发音相同的配对，例如“you”和“shoe”。",
+                    "你能在计时结束前完成吗？"
+                ],
+                "homophones": [
+                    "同时翻两张卡片，找出发音相同但拼写不同的单词配对，例如“here”和“hear”。",
+                    "你能在计时结束前完成吗？"
+                ],
+                "random": [
+                    "同时翻两张卡片，找出要么发音相同、要么结尾音相同的单词配对。",
+                    "你能在计时结束前完成吗？"
+                ]
+            }
+        },
+        "encouragementMsg": {
+            "level0": "让我们开始吧！",
+            "level1": "继续练习！每一步都是进步！",
+            "level2": "坚持下去！你正在学习并进步！",
+            "level3": "不错！再多努力，你会更好！",
+            "level4": "干得好！继续努力，你做得很棒！",
+            "level5": "太棒了！你进展非常顺利！",
+            "level6": "完美！你完全掌握了！"
+        },
+        "result": {
+            "cardHeading": "结果",
+            "correctAnswer": "正确答案：",
+            "matchUpFinished": "你已经翻开了所有卡片！恭喜你！",
+            "timeUp": "时间到！",
+            "notAnswered": "你还没有回答任何问题。尝试重新开始测验，或选择另一种练习类型。",
+            "answerResult": "你答对了 {{score}} / {{totalAnswered}} 道题。",
+            "answerBottom": "再次尝试此练习以获得更多练习机会和不同题目，或选择另一种练习类型。",
+            "tryAgainBottom": "再次尝试此练习，获得更多练习机会和不同题目。"
+        }
+    },
+    "conversationPage": {
+        "selectType": "选择一个对话类型开始吧",
+        "topicHeading": "话题：",
+        "conversationModalInfo": "对话信息",
+        "expandInfoBtn": "查看对话信息",
+        "discussionAndOpinion": {
+            "heading": "讨论与观点",
+            "agreeingTitle": "表示同意",
+            "agreeingInfo": "当你赞同他人观点时，可以通过多种方式表示支持。",
+            "askingForOpinionsTitle": "询问意见",
+            "askingForOpinionsInfo": "当你想知道对方的想法，或想让更多人参与讨论时，你可以询问他们的意见。",
+            "concedingAPointTitle": "让步",
+            "concedingAPointInfo": "当你想表示对方的论点至少在某种程度上说服了你时，你可以选择让步。",
+            "dealingWithQuestionsTitle": "应对提问",
+            "dealingWithQuestionsInfo": "当你面向一群人时，需要能够处理他们提出的问题。",
+            "disagreeingTitle": "表示不同意",
+            "disagreeingInfo": "有多种礼貌方式可以表达你认为对方观点不正确。",
+            "expressingPreferencesTitle": "表达偏好",
+            "expressingPreferencesInfo": "当你被要求做出选择时，可以通过多种方式表达偏好。",
+            "givingReasonsTitle": "给出理由",
+            "givingReasonsInfo": "你可以通过多种方式来解释并证明你的选择和决定。",
+            "interruptingSomebodyTitle": "打断别人",
+            "interruptingSomebodyInfo": "当别人在说话时，或者有人在小组里说得太多，而你需要插话时，你可以通过多种礼貌方式进行打断。",
+            "agreeingCheckbox": "表达同意",
+            "agreeingReview": "我可以用多种方式表达同意。",
+            "askingForOpinionsCheckbox": "询问意见",
+            "askingForOpinionsReview": "我可以用多种方式询问对方的意见。",
+            "concedingAPointCheckbox": "让步",
+            "concedingAPointReview": "我可以用多种方式让步。",
+            "dealingWithQuestionsCheckbox": "应对提问",
+            "dealingWithQuestionsReview": "我可以用多种方式回应他人的问题。",
+            "disagreeingCheckbox": "表达不同意",
+            "disagreeingReview": "我可以用多种方式表达不同意。",
+            "expressingPreferencesCheckbox": "表达偏好",
+            "expressingPreferencesReview": "我可以用多种方式表达偏好。",
+            "givingReasonsCheckbox": "给出理由并作出解释",
+            "givingReasonsReview": "我可以用多种方式给出理由，并为自己的选择做解释。",
+            "interruptingSomebodyCheckbox": "打断别人",
+            "interruptingSomebodyReview": "我可以用多种方式礼貌地打断别人。"
+        },
+        "doubtGuessingAndCertainty": {
+            "heading": "疑问、推测与确定性",
+            "askingForClarificationTitle": "请求澄清",
+            "askingForClarificationInfo": "当你收到某些信息或被要求做某事时，你可以通过多种方式确认自己是否理解正确。",
+            "askingForClarificationCheckbox1": "请求澄清",
+            "askingForClarificationCheckbox2": "提供澄清",
+            "askingForClarificationReview1": "我可以用多种方式请求对方进一步说明。",
+            "askingForClarificationReview2": "我可以用多种方式为他人提供澄清。",
+            "correctingYourselfTitle": "自我更正",
+            "correctingYourselfInfo": "当你说出的话与你本意不符时，可以通过多种方式更正自己。",
+            "correctingYourselfCheckbox": "自我更正",
+            "correctingYourselfReview": "我可以用多种方式更正自己。",
+            "expressingCertaintyTitle": "表达确定性",
+            "expressingCertaintyInfo": "当你说明某事已经发生或即将发生时，可以通过不同方式表达你有多确定或不确定。",
+            "expressingCertaintyCheckbox": "表达不确定",
+            "expressingCertaintyReview1": "我可以用多种方式表达确定。",
+            "expressingCertaintyReview2": "我可以用多种方式表达不确定。",
+            "expressingIgnoranceTitle": "表达不知道",
+            "expressingIgnoranceInfo": "有多种方式告诉别人你没有他们所需的信息。",
+            "expressingIgnoranceCheckbox": "表示自己不知道某事",
+            "expressingIgnoranceReview": "我可以用多种方式表示自己不知道。",
+            "expressingLikelihoodTitle": "表达可能性",
+            "expressingLikelihoodInfo": "当你在谈论可能发生的情况时，你可以表达你认为它发生的可能性有多大。",
+            "expressingLikelihoodCheckbox1": "表示事情很有可能发生",
+            "expressingLikelihoodCheckbox2": "表示事情不太可能发生",
+            "expressingLikelihoodReview1": "我可以用多种方式表达事情很有可能发生。",
+            "expressingLikelihoodReview2": "我可以用多种方式表达事情不太可能发生。",
+            "speculatingTitle": "推测",
+            "speculatingInfo": "当你不知道所有细节或事实时，可以用多种方式说出自己的推测或猜想。",
+            "speculatingCheckbox": "推测",
+            "speculatingReview": "我可以用多种方式进行推测。"
+        },
+        "feelingsAndEmotions": {
+            "heading": "情感与情绪",
+            "apologizingTitle": "道歉",
+            "apologizingInfo": "当你给他人带来问题或不便时，可以通过多种方式礼貌地道歉。",
+            "apologizingCheckbox1": "道歉",
+            "apologizingCheckbox2": "回应道歉",
+            "apologizingReview1": "我可以用多种方式道歉。",
+            "apologizingReview2": "我可以用多种方式回应他人的道歉。",
+            "congratulatingSomebodyTitle": "祝贺某人",
+            "congratulatingSomebodyInfo": "当别人告诉你他们的家庭近况或取得好成绩时，你可以对他们表示祝贺。",
+            "congratulatingSomebodyCheckbox1": "祝贺某人",
+            "congratulatingSomebodyCheckbox2": "回应祝贺",
+            "congratulatingSomebodyReview1": "我可以用多种方式祝贺他人。",
+            "congratulatingSomebodyReview2": "我可以用多种方式回应别人的祝贺。",
+            "expressingSympathyTitle": "表达同情",
+            "expressingSympathyInfo": "如果有人生病或发生了不好的事情，你可以表达你的难过和同情。",
+            "expressingSympathyCheckbox": "表达同情",
+            "expressingSympathyReview": "我可以用多种方式表达同情。",
+            "makingComplaintsTitle": "提出抱怨",
+            "makingComplaintsInfo": "当你购买的商品质量不好或服务水准不够时，你可以通过多种方式表达你的不满。",
+            "makingComplaintsCheckbox": "提出抱怨",
+            "makingComplaintsReview": "我可以用多种方式提出抱怨。",
+            "thankingSomebodyTitle": "感谢他人",
+            "thankingSomebodyInfo": "当别人给了你某些东西或者为你做了什么，你可以用比“谢谢”更丰富的方式来表达谢意。",
+            "thankingSomebodyCheckbox1": "感谢某人做了某事",
+            "thankingSomebodyCheckbox2": "回应对方的感谢",
+            "thankingSomebodyReview1": "我可以用多种方式感谢他人为我做的事情。",
+            "thankingSomebodyReview2": "我可以用多种方式回应他人的感谢。",
+            "wishingSomebodyLuckTitle": "祝某人好运",
+            "wishingSomebodyLuckInfo": "如果有人要去做一件相对困难的事，你可以祝他好运。",
+            "wishingSomebodyLuckCheckbox1": "祝某人好运",
+            "wishingSomebodyLuckCheckbox2": "回应他人的好运祝福",
+            "wishingSomebodyLuckReview1": "我可以用多种方式祝某人好运。",
+            "wishingSomebodyLuckReview2": "我可以用多种方式回应他人的好运祝福。"
+        },
+        "openingsAndEndings": {
+            "heading": "开场与结束",
+            "endingConversationsTitle": "结束对话",
+            "endingConversationsInfo": "当你要结束与他人的谈话时，你可以通过多种方式结束对话。",
+            "introducingSomebodyTitle": "介绍某人",
+            "introducingSomebodyInfo": "根据场合的正式程度不同，你可以用不同方式将两个人相互介绍。",
+            "invitingSomebodyToSomethingTitle": "邀请某人参加某事",
+            "invitingSomebodyToSomethingInfo": "你可以通过多种方式发出邀请或回应对方的邀请。",
+            "leavingPhoneMessagesTitle": "留言（电话）",
+            "leavingPhoneMessagesInfo": "如果你拨打的电话对方无法接听，你可能需要留言。",
+            "openingConversationsTitle": "开始对话",
+            "openingConversationsInfo": "当你第一次与某人交谈时，你需要知道一些可能的开场方式；如果是对一群人说话，也需要知道如何吸引他们的注意。",
+            "wrappingUpDiscussionsTitle": "结束讨论",
+            "wrappingUpDiscussionsInfo": "在正式会议或研讨会上，你也许需要结束这一阶段。这里有一些礼貌的方式让大家停止讨论。",
+            "endingConversationsCheckbox": "结束对话",
+            "endingConversationsReview": "我可以用多种方式结束对话。",
+            "introducingSomebodyCheckbox1": "介绍某人",
+            "introducingSomebodyCheckbox2": "回应他人的介绍",
+            "introducingSomebodyReview1": "我可以用多种方式介绍某人。",
+            "introducingSomebodyReview2": "我可以用多种方式回应他人的介绍。",
+            "invitingSomebodyToSomethingCheckbox1": "邀请某人做某事",
+            "invitingSomebodyToSomethingCheckbox2": "回应某项邀请",
+            "invitingSomebodyToSomethingReview1": "我可以用多种方式邀请他人。",
+            "invitingSomebodyToSomethingReview2": "我可以用多种方式回应他人的邀请。",
+            "leavingPhoneMessagesCheckbox": "留言（电话）",
+            "leavingPhoneMessagesReview": "我可以用多种方式在电话里留言。",
+            "openingConversationsCheckbox": "开始对话",
+            "openingConversationsReview": "我可以用多种方式开始对话。",
+            "wrappingUpDiscussionsCheckbox": "结束讨论",
+            "wrappingUpDiscussionsReview": "我可以用多种方式结束讨论。"
+        },
+        "permissionAndObligation": {
+            "heading": "许可与义务",
+            "askingAboutObligationTitle": "询问义务",
+            "askingAboutObligationInfo": "当你不确定自己在某种场合下的义务或责任时，你可以通过多种方式询问。",
+            "askingAboutObligationCheckbox": "询问义务",
+            "askingAboutObligationReview": "我可以用多种方式询问义务。",
+            "askingForPermissionTitle": "请求许可",
+            "askingForPermissionInfo": "如果你需要征求他人的许可或请求某个帮助，礼貌地提出请求更容易得到对方的接受。",
+            "askingForPermissionCheckbox1": "请求许可或帮忙",
+            "askingForPermissionCheckbox2": "给予许可",
+            "askingForPermissionReview1": "我可以用多种方式请求许可或帮忙。",
+            "askingForPermissionReview2": "我可以用多种方式给予许可。",
+            "forbiddingSomethingTitle": "禁止某事",
+            "forbiddingSomethingInfo": "你可以通过多种礼貌方式请求别人不要做某事。",
+            "forbiddingSomethingCheckbox": "禁止某人做某事",
+            "forbiddingSomethingReview": "我可以用多种方式禁止某人做某事。",
+            "givingOrdersTitle": "发出指令",
+            "givingOrdersInfo": "有多种礼貌方式告诉某人去做某事。",
+            "givingOrdersCheckbox": "告诉某人去做某事",
+            "givingOrdersReview": "我可以用多种方式告诉某人去做某事。",
+            "makingRequestsTitle": "提出请求",
+            "makingRequestsInfo": "无论是在商店、餐馆，还是在他人家中，你都可以使用礼貌的提问方式来获得你所需要的东西。",
+            "makingRequestsCheckbox1": "提出请求",
+            "makingRequestsCheckbox2": "回应请求",
+            "makingRequestsReview1": "我可以用多种方式提出请求。",
+            "makingRequestsReview2": "我可以用多种方式回应请求。"
+        },
+        "suggestionsAndAdvice": {
+            "heading": "建议与劝告",
+            "askingForHelpTitle": "寻求帮助",
+            "askingForHelpInfo": "如果你需要帮助，礼貌地提出请求更容易得到对方的支持。",
+            "askingForHelpCheckbox1": "请求帮助",
+            "askingForHelpCheckbox2": "回应他人的帮助请求",
+            "askingForHelpReview1": "我可以用多种方式请求帮助。",
+            "askingForHelpReview2": "我可以用多种方式回应他人的帮助请求。",
+            "askingForInformationTitle": "询问信息",
+            "askingForInformationInfo": "当你想了解一些事情时，用更加委婉的方式提出问题会更礼貌。",
+            "askingForInformationCheckbox": "询问信息",
+            "askingForInformationReview": "我可以用多种方式询问信息。",
+            "givingSomebodyAdviceTitle": "给他人建议",
+            "givingSomebodyAdviceInfo": "你可以用多种礼貌、委婉的方式告诉别人你认为他们应该怎么做。",
+            "givingSomebodyAdviceCheckbox1": "给他人建议",
+            "givingSomebodyAdviceCheckbox2": "回应建议",
+            "givingSomebodyAdviceReview1": "我可以用多种方式给他人提出建议。",
+            "givingSomebodyAdviceReview2": "我可以用多种方式回应他人的建议。",
+            "makingRecommendationsTitle": "提出推荐",
+            "makingRecommendationsInfo": "当你在做选择时，你可以请他人给出他们的想法。",
+            "makingRecommendationsCheckbox1": "请求推荐",
+            "makingRecommendationsCheckbox2": "提出推荐",
+            "makingRecommendationsReview1": "我可以用多种方式请求他人推荐。",
+            "makingRecommendationsReview2": "我可以用多种方式提出推荐。",
+            "makingSuggestionsTitle": "提出建议",
+            "makingSuggestionsInfo": "当你被要求提出建议时，可以用多种方式表明你的想法。",
+            "makingSuggestionsCheckbox": "提出建议",
+            "makingSuggestionsReview": "我可以用多种方式提出建议。",
+            "offeringHelpTitle": "主动提供帮助",
+            "offeringHelpInfo": "你可以通过多种方式提出或接受帮助。",
+            "offeringHelpCheckbox1": "主动提出做某事",
+            "offeringHelpCheckbox2": "拒绝他人的帮助提议",
+            "offeringHelpReview1": "我可以用多种方式主动提出帮助。",
+            "offeringHelpReview2": "我可以用多种方式回应他人的帮助提议。",
+            "offeringSomebodySomethingTitle": "向某人提供某样东西",
+            "offeringSomebodySomethingInfo": "特别是当你是主人时，你可能想以礼貌的方式向客人提供一些东西。",
+            "offeringSomebodySomethingCheckbox1": "提供某物给他人",
+            "offeringSomebodySomethingCheckbox2": "回应他人提供的物品",
+            "offeringSomebodySomethingReview1": "我可以用多种方式为他人提供某样东西。",
+            "offeringSomebodySomethingReview2": "我可以用多种方式回应他人为我提供的东西。",
+            "warningSomebodyOfDangerTitle": "提醒他人注意危险",
+            "warningSomebodyOfDangerInfo": "你可能需要告诉别人他们正处于危险之中，或建议他们不要做危险的事情。",
+            "warningSomebodyOfDangerCheckbox": "提醒他人危险",
+            "warningSomebodyOfDangerReview": "我可以用多种方式提醒他人注意危险。"
+        }
+    },
+    "examPage": {
+        "selectType": "选择一个考试任务开始吧。",
+        "taskInfo": "任务信息",
+        "examModalInfo": "考试信息",
+        "expandInfoBtn": "查看考试信息",
+        "groupTask": {
+            "heading": "小组任务",
+            "discussingOpinions": {
+                "title": "讨论观点",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "- 剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency、商务英语证书",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "在某些考试中，你和搭档需要讨论一些内容，比如考官给你看的图片。你可能不需要详细描述这些图片，而是对图中所展示的情境进行解读并发表看法。要确保你积极参与对话，也要让搭档有机会参与。",
+                    "这种类型的任务通常出现在以下考试：剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency、商务英语证书；Trinity ISE、GESE"
+                ],
+                "taskQuestion": [
+                    "看看这些图片，然后讨论下面的问题。"
+                ],
+                "taskList": [
+                    "骑自行车有哪些好处和坏处？",
+                    "在这些图片中，哪种情景对骑车人来说似乎更危险？"
+                ],
+                "skillCheckbox1": "表达与回应观点的方式",
+                "skillCheckbox2": "让对方参与对话的方式",
+                "skillCheckbox3": "衔接观点的短语",
+                "skillCheckbox4": "当你不知道某个词时的应对方式",
+                "listenHeading1": "询问某人的观点",
+                "listenHeading2": "表达观点",
+                "listenHeading3": "回应他人的观点",
+                "listenHeading4": "邀请对方回应",
+                "listenHeading5": "句子重读",
+                "practiceQuestion1": [
+                    "看看这张图片，然后与你的搭档讨论，人们为什么会选择每种餐食。"
+                ],
+                "practiceQuestion2": [
+                    "看看这些图片，然后与你的搭档讨论，哪种方式更适合环游世界并了解其他国家的情况。"
+                ],
+                "tipDos": [
+                    "倾听对方所说并作出回应。",
+                    "使用像 “Let’s see now” 之类的表达来争取思考时间。",
+                    "使用附加疑问句或类似方式（如 “isn’t it?”）让对方参与对话。",
+                    "讨论每一个问题。",
+                    "将你的评论与图片联系起来。",
+                    "在题外进行适度延伸讨论。",
+                    "表达个人观点，并与自己的生活经历相结合。"
+                ],
+                "tipDonts": [
+                    "不要说一些你明知对方无法理解的内容。",
+                    "不要只用一个字来回答问题。",
+                    "不要将话题完全转移到与任务无关的内容上。"
+                ],
+                "review1": "我能清晰且多样地表达自己的观点。",
+                "review2": "我能邀请他人回应或表达他们的观点。",
+                "review3": "我能用多种方式回应他人的观点。"
+            },
+            "negotiating": {
+                "title": "协商讨论",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency、商务英语证书"
+                ],
+                "description": [
+                    "在很多情况下，你需要和别人讨论各种可能性并尝试达成一致。在一些考试中，你需要就特定建议达成一个共同的解决方案。",
+                    "这种类型的任务通常出现在以下考试：剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency、商务英语证书"
+                ],
+                "taskQuestion": [
+                    "看看这些图片，思考哪几张最能推广苏格兰成为面向国际游客的旅游目的地。",
+                    "与搭档讨论并决定，哪张图片最适合放在旅游手册封面上。"
+                ],
+                "skillCheckbox1": "组织讨论的方式",
+                "skillCheckbox2": "表达个人观点的方式",
+                "skillCheckbox3": "表达其他可能性的方式",
+                "skillCheckbox4": "表示同意或让步的方式",
+                "skillCheckbox5": "提出建议的方式",
+                "listenHeading1": "请求推荐",
+                "listenHeading2": "提出推荐",
+                "listenHeading3": "提出建议",
+                "listenHeading4": "询问某人的观点",
+                "listenHeading5": "表达不同意见",
+                "listenHeading6": "做出让步",
+                "listenHeading7": "表达个人观点",
+                "practiceQuestion1": [
+                    "看看这些图片，思考它们所代表的不同学习方式。讨论并决定哪一种是最有效的学习方式。"
+                ],
+                "practiceQuestion2": [
+                    "看看这些图片，思考人们购物的不同方式。与搭档讨论并决定，哪种方式在 21 世纪更适合购物。"
+                ],
+                "tipDos": [
+                    "倾听对方的发言并作出回应。",
+                    "使用类似 “personally” 的词来表明你是在给出个人观点，而非陈述事实。",
+                    "表示你理解并认可对方的建议。",
+                    "尽量达成一个双方都能接受的决定。"
+                ],
+                "tipDonts": [
+                    "不要离任务要求太远。",
+                    "不要一上来就同意第一个想法，而不考虑其他选项。",
+                    "不要在没有认真听取对方意见的情况下，坚持自己的想法。",
+                    "不要在一个选项上花太多时间讨论，以至于没有时间讨论其他选项。",
+                    "不要过分看重结果——你需要展示的是英语能力，而不是决策能力！"
+                ],
+                "review1": "我能在恰当时机开启讨论、轮流发言并结束对话。",
+                "review2": "我能用多种方式提出建议。",
+                "review3": "我能礼貌地表达不同意见。",
+                "review4": "我能清晰地表达个人观点，并给出理由。"
+            }
+        },
+        "individualTask": {
+            "heading": "个人任务",
+            "describingPicture": {
+                "title": "描述图片",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "- TOEIC",
+                    "- 剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency"
+                ],
+                "description": [
+                    "在某些考试中，你需要描述自己在图片或照片中所看到的内容。你也可以对照片所呈现的情境或其引发的更广泛问题进行推测。",
+                    "这种类型的任务通常出现在以下考试：TOEIC；剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency"
+                ],
+                "taskQuestion": [
+                    "描述这张照片。你认为正在发生什么？对此你有什么看法？"
+                ],
+                "skillCheckbox1": "描述图片中所见内容的方式",
+                "skillCheckbox2": "推测图片中可能真实情况的方式",
+                "skillCheckbox3": "讨论图片所展示理念的方式",
+                "listenHeading1": "描述图片",
+                "listenHeading2": "推测",
+                "listenHeading3": "表达个人观点",
+                "practiceQuestion": [
+                    "描述这张照片。你认为正在发生什么？对此你有什么看法？"
+                ],
+                "tipDos": [
+                    "在开口说话前，先花几秒钟思考。",
+                    "说明你在图片的哪一部分进行描述。",
+                    "对图片或照片中可能真实存在的情况进行推测。",
+                    "如果合适的话，描述你认为在图片或照片拍摄之前或之后可能发生的情景。",
+                    "如果照片或图片中有人物，说明你认为他们彼此之间是什么关系。",
+                    "使用现在进行时来说出图片中正在发生的事情。",
+                    "如果你需要比较两张图片或照片，可以想想如何进行对比。",
+                    "尝试猜测考官可能就这张图片或照片会问什么问题。",
+                    "谈谈你对图片或照片所呈现理念的看法。",
+                    "如果你不知道某个具体单词，可以试着换种说法。"
+                ],
+                "tipDonts": [
+                    "不要将讨论脱离于图片或照片所呈现的主题。",
+                    "若图片或照片情境不明确，不要过于肯定它究竟发生了什么或没发生什么。",
+                    "如果你并不确定图片或照片里正发生什么，不用太担心；就说说你认为可能正在发生的事情即可。"
+                ],
+                "review1": "我能详细描述图片中我所看到的内容。",
+                "review2": "我能对图片中可能真实存在的情况进行推测。",
+                "review3": "我能对图片所代表的内容发表看法。"
+            },
+            "personalInformation": {
+                "title": "介绍个人信息",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "- IELTS",
+                    "- TOEIC",
+                    "- 剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "在某些场合，你需要谈论与自己相关的个人信息。你也可能被要求介绍个人经历以及将来想做的事。",
+                    "这种类型的任务通常出现在以下考试：IELTS；TOEIC；剑桥英语考评：B2 First、C1 Advanced、C2 Proficiency；Trinity ISE、GESE"
+                ],
+                "taskQuestion": [
+                    "回答考官关于你自己、当前情况以及未来计划的问题。"
+                ],
+                "skillCheckbox1": "获取个人信息的方式",
+                "skillCheckbox2": "介绍个人基本信息的方式",
+                "skillCheckbox3": "当别人向你提供个人信息时如何回应的方式",
+                "skillCheckbox4": "如何谈论你未来想做什么的方式",
+                "skillCheckbox5": "如何谈论你的个人经历",
+                "listenHeading1": "询问个人信息",
+                "listenHeading2": "介绍个人信息",
+                "listenHeading3": "谈论未来计划",
+                "practiceQuestion": [
+                    "回答视频里相同的问题，并以自己的真实信息进行回答。"
+                ],
+                "tipDos": [
+                    "使用你确信正确的语言。",
+                    "如果忘了一个词，可以想办法换种表达方式。",
+                    "如果犯了错误，及时更正后继续。",
+                    "尝试使用更多时态和词汇。",
+                    "与考官保持目光接触。",
+                    "如果不确定某个问题的意思，可以让考官解释。",
+                    "录音或与朋友、家人一起练习回答可能的问题。",
+                    "说话要清晰。",
+                    "尽量放松，尽量自然。"
+                ],
+                "tipDonts": [
+                    "不要只给一个词的回答。尽量多提供一些细节。",
+                    "不要说得过快。",
+                    "不要逐字背诵已准备好的答案。"
+                ],
+                "review1": "我能谈论自己。",
+                "review2": "我能询问他人相关信息。",
+                "review3": "我能谈论未来的计划。"
+            },
+            "topicTalking": {
+                "title": "围绕话题进行陈述",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "- IELTS",
+                    "- TOEIC",
+                    "- TOEFL",
+                    "- 剑桥英语考评：C1 Advanced、C2 Proficiency、商务英语证书",
+                    "- Trinity GESE"
+                ],
+                "description": [
+                    "在一些考试中，你需要在短时间内根据考场给定的话题进行陈述。你可能有几分钟时间准备并记下要点。你或许会被要求在同一类别里选出“最重要”、“最好”或者“最有用”的事物，接着描述它并解释为什么做出这样的选择。",
+                    "这种类型的任务通常出现在以下考试：IELTS；TOEIC；TOEFL；剑桥英语考评：C1 Advanced、C2 Proficiency、商务英语证书；Trinity GESE"
+                ],
+                "taskQuestion": [
+                    "描述一个你有时会去的地方，它对你来说非常重要。你应说："
+                ],
+                "taskList": [
+                    "它位于何处，你多久去一次，以及为什么去那里。",
+                    "那里是怎样的环境。",
+                    "为什么它对你来说如此重要。"
+                ],
+                "skillCheckbox1": "描述事物的方式",
+                "skillCheckbox2": "给出理由并解释的方式",
+                "skillCheckbox3": "自我更正或使用替代表达的方式",
+                "skillCheckbox4": "表达个人偏好的方式",
+                "listenHeading1": "表达偏好",
+                "listenHeading2": "给出理由并证明选择",
+                "listenHeading3": "自我更正",
+                "listenHeading4": "使用副词来强化观点",
+                "listenHeading5": "通过调整句子结构改变重点",
+                "practiceQuestion1": [
+                    "描述一位朋友。你应该说："
+                ],
+                "practiceQuestion1List": [
+                    "你们认识了多久。",
+                    "你们是如何认识的。",
+                    "你们通常一起做什么。",
+                    "你最喜欢他/她哪一点。"
+                ],
+                "practiceQuestion2": [
+                    "描述你的教育经历。你应该说："
+                ],
+                "practiceQuestion2List": [
+                    "你曾/正在就读什么样的学校。",
+                    "你最喜欢的科目是什么。",
+                    "你最喜欢的老师是谁。",
+                    "你对自己国家的教育体系有何看法。"
+                ],
+                "tipDos": [
+                    "写下简短的提示词，用作提纲。",
+                    "尽量使用更丰富的词汇。",
+                    "尽量利用完整的答题时间。",
+                    "如果忘了某个词，可以尝试用另一种表达方式。",
+                    "如果说错了，及时自我更正并继续。",
+                    "与考官保持目光接触。",
+                    "尽量多用描述性形容词，而不仅仅是 “nice”“good” 或 “interesting”。"
+                ],
+                "tipDonts": [
+                    "不要花太多时间去想最完美的话题。",
+                    "不要在做笔记时写出完整句子。",
+                    "不要说得太快。",
+                    "不要只是照着笔记给考官读，或背诵准备好的演讲稿。",
+                    "如果你忘词了，不要就此停止。"
+                ],
+                "review1": "我能做清晰且详细的描述。",
+                "review2": "我具备较广的词汇量，并能选择不同的词避免频繁重复。",
+                "review3": "当我不知道一个特定单词时，我可以换一种说法。",
+                "review4": "如果我意识到自己犯了错误，我可以进行自我更正。"
+            }
+        },
+        "realLifeTask": {
+            "heading": "真实情境任务",
+            "presentation": {
+                "title": "做简报/演讲",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "- 剑桥英语考评：商务英语证书",
+                    "- Trinity ISE, GESE"
+                ],
+                "description": [
+                    "在某些考试中，你需要进行演讲或简报。你需要合理安排演讲结构，能引出不同要点，并确保各部分之间平滑衔接。你也可以使用可视化辅助工具来支持你的观点。",
+                    "这种类型的任务通常出现在以下考试：剑桥英语考评：商务英语证书；Trinity ISE, GESE"
+                ],
+                "taskQuestion": [
+                    "你受一家电力公司委托，为其进行用户调研。",
+                    "这家公司发现，越来越多的客户在前十四天内取消合同，或者提出投诉。",
+                    "请借助一些可视化工具，展示你的调查结果。"
+                ],
+                "skillCheckbox1": "如何开场介绍一场演讲",
+                "skillCheckbox2": "解释演讲结构的方式",
+                "skillCheckbox3": "引入每个要点的方式",
+                "skillCheckbox4": "如何在演讲中转换话题",
+                "skillCheckbox5": "如何结束演讲",
+                "skillCheckbox6": "在演讲中引用图表或数据的方式",
+                "listenHeading1": "开场介绍",
+                "listenHeading2": "解释结构",
+                "listenHeading3": "引入要点",
+                "listenHeading4": "澄清说明",
+                "listenHeading5": "转换话题",
+                "listenHeading6": "总结结束",
+                "listenHeading7": "应对提问",
+                "practiceQuestion": [
+                    "写一份你熟知领域的演讲稿。"
+                ],
+                "tipDos": [
+                    "思考你演讲的目的。",
+                    "考虑听众，以及他们对该话题的已有认知程度。",
+                    "以开场、主体和结尾来结构化你的演讲。",
+                    "在卡片上用英文做些笔记，演讲时可以参考。",
+                    "以一个总结和邀请大家提问的方式结束。",
+                    "先自己练习，然后请一位或多位朋友听你演讲。"
+                ],
+                "tipDonts": [
+                    "不要在每张幻灯片放过多信息。",
+                    "不要试图在有限时间里囊括太多内容。",
+                    "不要把整篇演讲稿逐字逐句地读出来。"
+                ],
+                "review1": "我能以多种方式开场介绍演讲。",
+                "review2": "我能以多种方式解释演讲结构。",
+                "review3": "我能以多种方式引入演讲中的要点。",
+                "review4": "我能以多种方式在演讲中引用图表或数据。",
+                "review5": "我能以多种方式结束演讲。"
+            },
+            "jobInterview": {
+                "title": "求职面试",
+                "tooltip": [
+                    "可能出现在以下考试：",
+                    "剑桥英语考评：C1 Advanced、商务英语证书"
+                ],
+                "description": [
+                    "在考试中，你可能要模拟参加一场求职面试。你需要能够描述自己的个人特质与技能，并谈论工作经历以及未来的期望。",
+                    "这种类型的任务通常出现在以下考试：剑桥英语考评：C1 Advanced、商务英语证书"
+                ],
+                "taskQuestion": [
+                    "你向一家电视公司应聘。",
+                    "回答面试官关于你的资历、工作经历以及为什么想要这份工作的提问。"
+                ],
+                "skillCheckbox1": "面试官可能会用到的表达",
+                "skillCheckbox2": "你在面试中可能被问到的问题",
+                "skillCheckbox3": "如何谈论自己的工作经历",
+                "skillCheckbox4": "如何谈论自己的个人特质与抱负",
+                "skillCheckbox5": "如何解释你为何想要这份工作",
+                "listenHeading1": "在面试中提出问题",
+                "listenHeading2": "谈论你为什么想要某份工作",
+                "listenHeading3": "谈论自己的技能和工作经历",
+                "listenHeading4": "谈论未来的期望",
+                "listenHeading5": "询问雇主问题",
+                "practiceQuestion": [
+                    "模拟一次求职面试，谈谈你自己的技能和经历。"
+                ],
+                "tipDos": [
+                    "在可能的情况下，与对方保持目光接触。",
+                    "仔细倾听每个问题，如果有不明白的地方可要求澄清。",
+                    "准备一些问题来询问面试官。",
+                    "展示你对这家公司的了解。",
+                    "可以录音或和朋友、家人一起练习回答一些可能的问题。"
+                ],
+                "tipDonts": [
+                    "不要对前雇主做负面评价。",
+                    "不要觉得谈论自己的成就和优点会让你尴尬。",
+                    "如果需要停下来思考一下再回答，不必太紧张。"
+                ],
+                "review1": "我能从多方面谈及我的工作经历。",
+                "review2": "我能从多方面谈及我的个人特质和技能。",
+                "review3": "我能谈及自己未来的期望。",
+                "review4": "我能说出不同的理由来解释为什么想要某份工作。"
+            }
+        }
+    },
+    "settingPage": {
+        "heading": "iSpeakerReact 设置",
+        "version": "版本",
+        "checkUpdateBtn": "检查更新",
+        "checkUpdateMSBtn": "在 Microsoft Store 中检查更新",
+        "openGitHubAlertLink": "打开 GitHub",
+        "changeSaved": "变更已保存",
+        "noDataToDelete": "没有可删除的数据",
+        "languageSettings": {
+            "languageOption": "语言"
+        },
+        "exerciseSettings": {
+            "timerHeading": "练习计时器",
+            "timerOption": "启用计时器",
+            "timerDescription": "在限定时间内尽可能多地完成练习，提升挑战性。",
+            "hint": "将值设为 0 可在特定练习中禁用计时功能。",
+            "textboxError": "请输入 0 到 10 之间的数值。",
+            "applyBtn": "应用",
+            "cancelBtn": "取消"
+        },
+        "appearanceSettings": {
+            "appearanceHeading": "外观",
+            "themeOption": "主题",
+            "themeLight": "浅色",
+            "themeDark": "深色",
+            "themeAuto": "跟随系统主题",
+            "themeToggleBtn": "切换主题",
+            "themeAutoOptionToggle": "自动",
+            "themeToggleOption": "显示“切换主题”按钮"
+        },
+        "cacheSettings": {
+            "cacheHeading": "缓存",
+            "menuCacheOption": "缓存菜单文件以加快加载",
+            "cacheMenuError": "下载菜单文件失败。",
+            "cacheJSONFileError": "下载或缓存文件时出错。"
+        },
+        "videoDownloadSettings": {
+            "videoDownloadHeading": "视频下载",
+            "videoDownloadOption": "下载视频文件…",
+            "videoPageHeading": "下载视频以供离线观看",
+            "backToSettingsBtn": "返回设置",
+            "instructionCardHeading": "操作说明",
+            "steps": [
+                "<1>步骤 {{number}}</1>：点击“下载”链接，下载想离线观看的视频文件。",
+                "<1>步骤 {{number}}</1>：点击“打开下载文件夹”按钮，将已下载的文件移动到该文件夹。",
+                "<1>步骤 {{number}}</1>：点击“刷新下载状态”按钮，刷新文件的下载状态。",
+                "<1>步骤 {{number}}</1>：点击“验证”按钮，等待验证过程完成。"
+            ],
+            "warningHeading": "警告！",
+            "warningBody": "请勿手动解压、重命名文件或修改压缩包内容，否则验证过程将无法成功。",
+            "openDownloadBtn": "打开下载文件夹",
+            "refreshDownloadStateBtn": "刷新下载状态",
+            "downloadTable": {
+                "nameHeading": "名称",
+                "fileSizeTotalHeading": "文件总大小",
+                "linkHeading": "下载链接",
+                "downloadStatusHeading": "是否已下载",
+                "actionHeading": "操作",
+                "verifyBtn": "验证",
+                "downloadLink": "下载",
+                "examVideos": "考试视频",
+                "conversationVideosUK": "对话视频（英式英语）",
+                "conversationVideosUS": "对话视频（美式英语）",
+                "soundVideosUK": "发音视频（英式英语）",
+                "soundVideosUS": "发音视频（美式英语）"
+            },
+            "verifyModalHeading": "验证已下载的文件",
+            "verifyTitle": "你即将验证：",
+            "verifyFooter": "确认继续？",
+            "nextBtn": "下一步",
+            "inProgressModalHeading": "验证进行中",
+            "verifySuccess": "验证成功",
+            "verifySuccessMessage": "文件夹中的所有已解压文件都已验证通过：",
+            "verifyFailed": "验证失败",
+            "verifyFailedMessage": "文件可能已损坏或丢失。请尝试重新下载该文件。"
+        },
+        "logSettings": {
+            "logSettingsHeading": "日志设置",
+            "logSettingsDescription": "日志文件可协助排查应用崩溃、录音错误或其他异常问题。",
+            "numOfLogsOption": "日志数量",
+            "numOfLogsNumLog": "条日志",
+            "numOfLogsUnlimited": "不限制",
+            "deleteOldLogsOption": "删除超过",
+            "deleteOldLogNumDay": "天的日志",
+            "deleteOldLogNever": "永不",
+            "openLogBtn": "打开日志文件夹"
+        },
+        "resetSettings": {
+            "resetHeading": "重置设置",
+            "resetSettingsData": "重置设置与复习数据",
+            "resetSettingsDataModalMessage": "确定要重置设置和复习数据吗？此操作无法撤销。",
+            "deleteRecordingData": "删除已保存的文本和录音",
+            "deleteRecordingDataModalMessage": "确定要删除已保存的文本和录音吗？此操作无法撤销。",
+            "resetModalHeading": "请确认…",
+            "resetConfirmBtn": "确认"
+        }
+    }
+}
