@@ -170,7 +170,7 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 {isDropped && droppedOn === feedback?.value ? (
                     buttonText
                 ) : (
-                    <span>{feedback?.value}</span> // Show Yes/No only if item hasn't been dropped
+                    <span lang="en">{feedback?.value}</span> // Show Yes/No only if item hasn't been dropped
                 )}
             </button>
         );
@@ -198,10 +198,10 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 <div className="divider divider-secondary m-0"></div>
                 {/* Present Word and Phonetic Transcription */}
                 <div className="my-4 grid grid-rows-2 justify-center gap-2 text-center">
-                    <p className="text-xl font-semibold">
+                    <p lang="en" className="text-xl font-semibold">
                         {he.decode(currentQuiz?.data?.[0]?.value || "")}
                     </p>
-                    <p className="text-xl font-semibold">
+                    <p lang="en" className="text-xl font-semibold">
                         {he.decode(currentQuiz?.data?.[1]?.value || "")}
                     </p>
                 </div>

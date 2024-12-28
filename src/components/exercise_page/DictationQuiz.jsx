@@ -165,7 +165,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
         return currentWords.map((word, index) => {
             if (word.value) {
                 return (
-                    <span className="mx-2" key={index}>
+                    <span lang="en" className="mx-2" key={index}>
                         {word.value}
                     </span>
                 );
@@ -179,7 +179,10 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         key={index}
                         className={`my-2 inline-block ${hasValueAndTextbox ? "w-48" : "w-full lg:w-3/4"}`}
                     >
-                        <label className="input input-bordered flex items-center gap-0 md:gap-2">
+                        <label
+                            lang="en"
+                            className="input input-bordered flex items-center gap-0 md:gap-2"
+                        >
                             <input
                                 type="text"
                                 value={answer}
@@ -262,7 +265,9 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                             <IoInformationCircleOutline className="h-6 w-6" />
                             <div className="w-4/5 lg:w-auto">
                                 <h3>{t("exercise_page.result.correctAnswer")}</h3>
-                                <p className="text-xl font-bold italic">{validationMessage}</p>
+                                <p className="text-xl font-bold italic" lang="en">
+                                    {validationMessage}
+                                </p>
                             </div>
                         </div>
                     </div>

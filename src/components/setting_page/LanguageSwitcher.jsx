@@ -17,7 +17,10 @@ const openExternal = (url) => {
 };
 
 // Supported languages
-const supportedLanguages = [{ code: "en", label: "English", emoji: "uk" }];
+const supportedLanguages = [
+    { code: "en", label: "English", emoji: "uk" },
+    { code: "zh", label: "中文", emoji: "cn" },
+];
 {
     /*
         The label should be in the native language (e.g., Japanese as 日本語).
@@ -65,7 +68,7 @@ const LanguageSwitcher = () => {
                         className="menu dropdown-content z-[300] w-52 rounded-box border-slate-50 bg-base-100 p-2 shadow-md"
                     >
                         {supportedLanguages.map((lang) => (
-                            <li key={lang.code}>
+                            <li lang={lang.code} key={lang.code}>
                                 <button
                                     type="button"
                                     className={`btn btn-ghost btn-sm btn-block justify-start ${
@@ -82,7 +85,7 @@ const LanguageSwitcher = () => {
                                 </button>
                             </li>
                         ))}
-                        <li>
+                        <li lang="en">
                             <button
                                 type="button"
                                 className="btn btn-ghost btn-sm btn-block justify-start"

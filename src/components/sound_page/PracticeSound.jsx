@@ -221,7 +221,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             <div className="flex flex-wrap gap-5 lg:flex-nowrap">
                 <div className="w-full lg:w-1/4">
                     <h3 className="mb-2 text-2xl font-semibold">
-                        {t("sound_page.soundTop")} {he.decode(sound.phoneme)}
+                        {t("sound_page.soundTop")} <span lang="en">{he.decode(sound.phoneme)}</span>
                     </h3>
                     <p className="mb-4">
                         {t("accent.accentSettings")}:{" "}
@@ -236,6 +236,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                             {["initial", "medial", "final"].map((position) => (
                                 <p
                                     className="mb-2 italic"
+                                    lang="en"
                                     key={position}
                                     dangerouslySetInnerHTML={{
                                         __html: he.decode(accentData[position]),

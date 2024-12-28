@@ -118,7 +118,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
                     <div className="collapse-content">
                         <div className="dialog-section">
                             {dialog.map((line, index) => (
-                                <p key={index} className="mb-2">
+                                <p lang="en" key={index} className="mb-2">
                                     <strong>{line.speaker}:</strong>{" "}
                                     <span
                                         dangerouslySetInnerHTML={{

@@ -99,8 +99,8 @@ const ResetSettings = () => {
                         {t("settingPage.resetSettings.resetHeading")}
                     </p>
                 </div>
-                <div className="flex flex-grow basis-1/2 justify-end">
-                    <div>
+                <div className="flex flex-grow basis-1/2 flex-col justify-end">
+                    <>
                         <button
                             type="button"
                             className="btn btn-error"
@@ -126,7 +126,7 @@ const ResetSettings = () => {
                                 {t("settingPage.resetSettings.deleteRecordingData")}
                             </button>
                         )}
-                    </div>
+                    </>
                 </div>
             </div>
 
