@@ -201,7 +201,7 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                                                 className="card-back"
                                                 style={{ transform: "rotateY(180deg)" }}
                                             >
-                                                {he.decode(card.text)}
+                                                <span lang="en">{he.decode(card.text)}</span>
                                                 {cardFeedback[card.id] === "correctPair" && (
                                                     <div className="absolute right-2 top-2 z-50 text-white">
                                                         <BsCheckCircleFill className="h-6 w-6" />

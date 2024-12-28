@@ -103,16 +103,32 @@ export default defineConfig(({ mode }) => {
                     workbox: {
                         runtimeCaching: [
                             {
-                                urlPattern: /\.(?:js|css|json|png|jpg|jpeg|svg|ico|woff2)$/,
+                                // Files that need caching permanently
+                                urlPattern: /\.(?:woff2|ttf|jpg|jpeg|webp)$/,
                                 handler: "CacheFirst",
                                 options: {
-                                    cacheName: `app-dynamic-cache-v${packageJson.version}`,
+                                    cacheName: "permanent-cache",
+                                    expiration: {
+                                        maxEntries: 50,
+                                        maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+                                    },
+                                },
+                            },
+                            {
+                                // Cache other assets dynamically with versioning
+                                urlPattern: /\.(?:js|css|json|png|svg|ico)$/,
+                                handler: "CacheFirst",
+                                options: {
+                                    cacheName: `dynamic-cache-v${packageJson.version}`,
                                     expiration: {
                                         maxEntries: 100,
+                                        maxAgeSeconds: 604800, // 1 week
                                     },
                                 },
                             },
                         ],
+                        // Exclude index.html from caching
+                        navigateFallbackDenylist: [/index\.html$/],
                     },
                 }),
         ],

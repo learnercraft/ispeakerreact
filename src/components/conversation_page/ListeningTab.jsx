@@ -135,6 +135,7 @@ const ListeningTab = ({ sentences }) => {
                                             <div className="flex min-w-0 gap-x-4">
                                                 <div className="min-w-0 flex-auto">
                                                     <p
+                                                        lang="en"
                                                         className="italic"
                                                         dangerouslySetInnerHTML={{
                                                             __html: sentenceObj.sentence,

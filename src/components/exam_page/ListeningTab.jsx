@@ -124,6 +124,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                                     const uniqueIndex = `${topicIndex}-${sentenceIndex}`;
                                     return (
                                         <li
+                                            lang="en"
                                             role="button"
                                             className={`flex justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
                                             key={uniqueIndex}

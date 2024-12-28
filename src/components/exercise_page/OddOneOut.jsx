@@ -117,7 +117,7 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                                 }`}
                                 onClick={() => handleOptionClick(index)}
                             >
-                                {he.decode(option.value)}
+                                <span lang="en">{he.decode(option.value)}</span>
                                 {submitted ? (
                                     submitted && option.answer === "true" ? (
                                         <BsCheckCircleFill />

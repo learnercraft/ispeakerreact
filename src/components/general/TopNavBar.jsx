@@ -123,7 +123,9 @@ const TopNavBar = () => {
                         height="60"
                         className="h-12 w-12"
                     />
-                    <span className="hidden md:block">iSpeakerReact</span>
+                    <span lang="en" className="hidden md:block">
+                        iSpeakerReact
+                    </span>
                 </NavLink>
             </div>
 
@@ -151,7 +153,7 @@ const TopNavBar = () => {
                 >
                     <FaGithub size="1.5em" />
                     <span className="ml-1 hidden items-center space-x-1 md:inline-flex">
-                        <span>GitHub</span>
+                        <span lang="en">GitHub</span>
                         <FiExternalLink />
                     </span>
                 </button>

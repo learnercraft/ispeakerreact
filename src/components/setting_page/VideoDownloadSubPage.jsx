@@ -81,10 +81,10 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                     <ul>
                         <li>
                             <a className="link" onClick={onGoBack}>
-                                Settings
+                                {t("navigation.settings")}
                             </a>
                         </li>
-                        <li>Video downloads</li>
+                        <li>{t("settingPage.videoDownloadSettings.videoDownloadHeading")}</li>
                     </ul>
                 </div>
             </div>

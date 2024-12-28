@@ -196,6 +196,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                     </div>
 
                     <div
+                        lang="en"
                         className={`flex items-center gap-2 rounded-lg px-6 py-3 text-xl ${
                             selectedOption
                                 ? selectedOption.isCorrect
@@ -231,7 +232,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                                     }
                                     disabled={!!selectedOption && !isSelected}
                                 >
-                                    {option.value}
+                                    <span lang="en">{option.value}</span>
                                 </button>
                             );
                         })}
