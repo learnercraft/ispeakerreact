@@ -88,7 +88,7 @@
         "reviewCard": "Review",
         "clipModalTitle": "Pronunciation clip",
         "recordInstructions": "Watch pronunciation clips, and use the <0>{{icon}}</0> button to record your own sound.",
-        "reviewInstructions": "How do you pronounce the sound {{phoneme}}?"
+        "reviewInstructions": "How do you pronounce the sound <0>{{phoneme}}</0>?"
     },
     "exercise_page": {
         "exerciseSubheading": "Select an exercise to get started.",
@@ -118,6 +118,8 @@
         "dragThisItem": "Drag this",
         "snapCorrect": "Correct",
         "snapIncorrect": "Incorrect",
+        "snapYes": "Yes",
+        "snapNo": "No",
         "buttons": {
             "checkBtn": "Check",
             "nextBtn": "Next",
