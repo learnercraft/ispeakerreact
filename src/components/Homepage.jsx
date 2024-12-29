@@ -63,9 +63,13 @@ function Homepage() {
                 <div className="mb-4 p-6">
                     <div className="flex items-center justify-center space-x-4">
                         <LogoLightOrDark width="64" height="64" />
-                        <h1 className="text-3xl font-bold md:text-4xl">iSpeakerReact</h1>
+                        <h1 lang="en" className="text-3xl font-bold md:text-4xl">
+                            iSpeakerReact
+                        </h1>
                     </div>
-                    <p className="mt-2 text-center">v{__APP_VERSION__}</p>
+                    <p lang="en" className="mt-2 text-center">
+                        v{__APP_VERSION__}
+                    </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-5">
                     {cardsInfo.map((card, idx) => (

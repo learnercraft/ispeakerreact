@@ -1,5 +1,5 @@
 import he from "he";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import {
     BsEmojiFrown,
     BsEmojiFrownFill,
@@ -31,7 +31,12 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
         <div className="card card-bordered flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
             <div className="card-body">
                 <p className="mb-2 text-center">
-                    {t("sound_page.reviewInstructions", { phoneme: he.decode(sound.phoneme) })}
+                    <Trans
+                        i18nKey="sound_page.reviewInstructions"
+                        values={{ phoneme: he.decode(sound.phoneme) }}
+                    >
+                        <span lang="en">{he.decode(sound.phoneme)}</span>?
+                    </Trans>
                 </p>
                 <div className="flex flex-row items-center justify-center space-x-4">
                     <a
