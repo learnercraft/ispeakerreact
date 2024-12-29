@@ -159,6 +159,14 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 </>
             );
 
+        // Translate "Yes" and "No" strings
+        const translatedValue =
+            feedback?.value === "Yes"
+                ? t("exercise_page.snapYes")
+                : feedback?.value === "No"
+                  ? t("exercise_page.snapNo")
+                  : feedback?.value;
+
         return (
             <button
                 type="button"
@@ -170,7 +178,7 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 {isDropped && droppedOn === feedback?.value ? (
                     buttonText
                 ) : (
-                    <span lang="en">{feedback?.value}</span> // Show Yes/No only if item hasn't been dropped
+                    <span>{translatedValue}</span> // Show Yes/No only if item hasn't been dropped
                 )}
             </button>
         );
