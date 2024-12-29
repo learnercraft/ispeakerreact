@@ -101,6 +101,8 @@ export default defineConfig(({ mode }) => {
                         ],
                     },
                     workbox: {
+                        // Exclude index.html from caching
+                        globIgnores: ["**/index.html"],
                         runtimeCaching: [
                             {
                                 // Files that need caching permanently
@@ -127,8 +129,6 @@ export default defineConfig(({ mode }) => {
                                 },
                             },
                         ],
-                        // Exclude index.html from caching
-                        navigateFallbackDenylist: [/index\.html$/],
                     },
                 }),
         ],
