@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import { playRecording } from "../../../utils/databaseOperations";
 import { isElectron } from "../../../utils/isElectron";
+import { sonnerErrorToast } from "../../../utils/sonnerCustomToast";
 
 export function usePlaybackFunction(
     getRecordingKey,
@@ -53,7 +53,7 @@ export function usePlaybackFunction(
                     }
                 } catch (error) {
                     console.error("Failed to resume AudioContext:", error);
-                    toast.error(`Error resuming audio playback: ${error.message}`);
+                    sonnerErrorToast(`Error resuming audio playback: ${error.message}`);
                 }
             } else {
                 // AudioContext is already running
@@ -80,7 +80,7 @@ export function usePlaybackFunction(
             (error) => {
                 console.error("Error during playback:", error);
                 isElectron() && window.electron.log("error", `Error during playback: ${error}`);
-                toast.error(`${t("toast.playbackError")} ${error.message}`);
+                sonnerErrorToast(`${t("toast.playbackError")} ${error.message}`);
                 setIsRecordingPlaying(false);
                 setActivePlaybackCard(null);
                 setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
@@ -112,7 +112,7 @@ export function usePlaybackFunction(
             (error) => {
                 console.error("Error during playback:", error);
                 isElectron() && window.electron.log("error", `Error during playback: ${error}`);
-                toast.error(`${t("toast.playbackError")} ${error.message}`);
+                sonnerErrorToast(`${t("toast.playbackError")} ${error.message}`);
                 setIsRecordingPlaying(false);
                 setActivePlaybackCard(null);
                 setPlayingRecordings((prev) => ({ ...prev, [key]: false }));
