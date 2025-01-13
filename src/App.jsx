@@ -1,14 +1,15 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 import LoadingOverlay from "./components/general/LoadingOverlay";
 import NotFound from "./components/general/NotFound";
 import Homepage from "./components/Homepage";
 import { isElectron } from "./utils/isElectron";
 import { ThemeProvider } from "./utils/ThemeContext/ThemeProvider";
-import { Toaster } from "sonner";
 import { useTheme } from "./utils/ThemeContext/useTheme";
 
 const SoundList = lazy(() => import("./components/sound_page/SoundList"));
+const WordList = lazy(() => import("./components/word_page/WordList"));
 const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu"));
 const ExamPage = lazy(() => import("./components/exam_page/ExamPage"));
 const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"));
@@ -46,6 +47,14 @@ const AppContent = () => {
                         element={
                             <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
                                 <SoundList />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/words"
+                        element={
+                            <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
+                                <WordList />
                             </Suspense>
                         }
                     />

@@ -35,26 +35,19 @@ export function openDatabase() {
         request.onupgradeneeded = function (event) {
             const db = event.target.result;
 
-            // Create the recording_data store if it doesn't already exist
-            if (!db.objectStoreNames.contains("recording_data")) {
-                db.createObjectStore("recording_data", { keyPath: "id" });
-            }
-
-            // Create the conversation_data store if it doesn't already exist
-            if (!db.objectStoreNames.contains("conversation_data")) {
-                db.createObjectStore("conversation_data", { keyPath: "id" });
-            }
-
-            // Create the exam_data store if it doesn't already exist
-            if (!db.objectStoreNames.contains("exam_data")) {
-                db.createObjectStore("exam_data", { keyPath: "id" });
-            }
+            // Create required object stores if they don't exist
+            const storeNames = ["recording_data", "conversation_data", "exam_data"];
+            storeNames.forEach((storeName) => {
+                if (!db.objectStoreNames.contains(storeName)) {
+                    db.createObjectStore(storeName, { keyPath: "id" });
+                }
+            });
         };
     });
 }
 
 // Save recording to either Electron or IndexedDB
-export async function saveRecording(blob, key) {
+export async function saveRecording(blob, key, mimeType) {
     const arrayBuffer = await blobToArrayBuffer(blob);
 
     if (isElectron()) {
@@ -74,7 +67,7 @@ export async function saveRecording(blob, key) {
             const transaction = db.transaction(["recording_data"], "readwrite");
             const store = transaction.objectStore("recording_data");
 
-            const request = store.put({ id: key, recording: arrayBuffer });
+            const request = store.put({ id: key, recording: arrayBuffer, mimeType: mimeType });
 
             return new Promise((resolve, reject) => {
                 request.onsuccess = () => {

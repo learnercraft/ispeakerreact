@@ -1,7 +1,9 @@
 {
     "navigation": {
         "home": "Home",
+        "practice": "Practice",
         "sounds": "Sounds",
+        "words": "Words",
         "exercises": "Exercises",
         "conversations": "Conversations",
         "exams": "Exams",
@@ -9,6 +11,7 @@
     },
     "homepage": {
         "soundDescription": "Watch videos and practice pronouncing sounds.",
+        "wordDescription": "Practice pronouncing common words from the Oxford 3000™ and Oxford 5000™ list.",
         "exerciseDescription": "Practice listening to sounds and sentences in various exercise types.",
         "conversationDescription": "Improve your conversation skills for different situations.",
         "examDescription": "Prepare yourself for different types of speaking exams.",
@@ -29,16 +32,17 @@
     },
     "toast": {
         "recordingExceeded": "Duration limit reached. Recording has stopped.",
-        "recordingSuccess": "Recording saved successfully.",
-        "recordingFailed": "Recording failed. Reason: ",
-        "playbackError": "Error during playback. Reason: ",
+        "recordingSuccess": "Recording saved successfully",
+        "recordingFailed": "Recording failed. Reason:",
+        "playbackError": "Error during playback. Reason:",
         "textSaveSuccess": "Text saved successfully.",
-        "textSaveFailed": "Error saving text. Reason: ",
+        "textSaveFailed": "Error saving text. Reason:",
         "textClearSuccess": "Text cleared successfully.",
-        "textClearFailed": "Error clearing text. Reason: ",
+        "textClearFailed": "Error clearing text. Reason:",
         "audioPlayFailed": "Unable to play audio due to a network issue. Please check your connection and reload the page.",
         "loadingError": "Error while loading the data. Please try refreshing the page.",
-        "reviewUpdated": "Review updated successfully."
+        "reviewUpdated": "Review updated successfully",
+        "noRecording": "Please record first before reviewing"
     },
     "buttonConversationExam": {
         "watchBtn": "Watch",
@@ -89,6 +93,33 @@
         "clipModalTitle": "Pronunciation clip",
         "recordInstructions": "Watch pronunciation clips, and use the <0>{{icon}}</0> button to record your own sound.",
         "reviewInstructions": "How do you pronounce the sound <0>{{phoneme}}</0>?"
+    },
+    "wordPage": {
+        "oxford3000Description": "3000 most important English words for basic understanding and conversation",
+        "oxford5000Description": "Expanded core word list for advanced learners of English",
+        "loadingText": "Loading word list…",
+        "searchBox": "Search a word…",
+        "allLevelSelectBox": "All levels",
+        "noResultText": "No words found",
+        "firstPageBtn": "First",
+        "prevPageBtn": "Prev",
+        "nextPageBtn": "Next",
+        "lastPageBtn": "Last",
+        "backBtn": "Back to word list",
+        "wordPronunInfoHeader": "Information",
+        "wordPronunInfoBody": [
+            "This is the word’s transcription in the IPA (International Phonetic Alphabet).",
+            "The transcription is broken into syllables to help practice reading the word effectively.",
+            "The syllable with the “P” badge indicates the primary stress, which is the strongest stress.",
+            "The syllable with the “S” badge represents the secondary stress, which is slightly weaker than the primary stress.",
+            "Syllables without these badges are unstressed."
+        ],
+        "slowModeOption": "Slow mode",
+        "primaryBadge": "P",
+        "secondaryBadge": "S",
+        "pauseRecordingBtn": "Pause recording",
+        "ratePronunciation": "Rate your pronunciation:",
+        "feedbackBtn": "Give feedback"
     },
     "exercise_page": {
         "exerciseSubheading": "Select an exercise to get started.",
@@ -331,7 +362,7 @@
     },
     "conversationPage": {
         "selectType": "Select a conversation type to get started",
-        "topicHeading": "Topic: ",
+        "topicHeading": "Topic:",
         "conversationModalInfo": "Conversation info",
         "expandInfoBtn": "See conversation info",
         "discussionAndOpinion": {
@@ -976,7 +1007,7 @@
             "nextBtn": "Next",
             "inProgressModalHeading": "Verification in progress",
             "verifySuccess": "Verification success",
-            "verifySuccessMessage": "All extracted files are verified in the folder: ",
+            "verifySuccessMessage": "All extracted files are verified in the folder:",
             "verifyFailed": "Verification failed",
             "verifyFailedMessage": "It seems like either the files are corrupted or missing. Please try downloading the file again."
         },
