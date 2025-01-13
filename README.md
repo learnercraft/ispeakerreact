@@ -2,8 +2,6 @@
   <img src="./public/images/homepage_screenshot.webp" />
 </p>
 
-[![Crowdin](https://badges.crowdin.net/ispeakerreact/localized.svg)](https://crowdin.com/project/ispeakerreact)
-
 # iSpeakerReact
 
 *Formerly Oxford iSpeaker on this repo, a modified version of the official tool of the same name.*
