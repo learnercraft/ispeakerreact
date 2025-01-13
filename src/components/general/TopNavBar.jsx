@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { BsCardChecklist, BsChatText } from "react-icons/bs";
+import { BsAlphabet, BsCardChecklist, BsChatText } from "react-icons/bs";
+import { CgMenuLeft } from "react-icons/cg";
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
 import { IoHomeOutline, IoMicOutline } from "react-icons/io5";
 import { LiaToolsSolid } from "react-icons/lia";
 import { PiExam } from "react-icons/pi";
 
 import { useTranslation } from "react-i18next";
-import { CgMenuLeft } from "react-icons/cg";
-import { FaGithub } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTheme } from "../../utils/ThemeContext/useTheme";
 import { isElectron } from "../../utils/isElectron";
 
@@ -27,6 +27,7 @@ const openExternal = (url) => {
 const TopNavBar = () => {
     const { t } = useTranslation();
     const { theme } = useTheme();
+    const location = useLocation();
     const [, setCurrentTheme] = useState(theme);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -44,7 +45,6 @@ const TopNavBar = () => {
             }
         };
 
-        // Initial check and listener
         updateTheme();
         if (theme === "auto") {
             mediaQuery.addEventListener("change", updateTheme);
@@ -62,27 +62,52 @@ const TopNavBar = () => {
     const navbarClass = isDarkMode ? "bg-slate-600/50" : "bg-lime-300/75";
 
     const menuItems = [
-        { to: "/", icon: <IoHomeOutline className="h-6 w-6" />, label: t("navigation.home") },
         {
-            to: "/sounds",
+            to: "/",
+            icon: <IoHomeOutline className="h-6 w-6" />,
+            label: t("navigation.home"),
+            childMenu: null,
+        },
+        {
+            to: null,
             icon: <IoMicOutline className="h-6 w-6" />,
-            label: t("navigation.sounds"),
+            label: t("navigation.practice"),
+            childMenu: [
+                {
+                    to: "/sounds",
+                    icon: <IoMicOutline className="h-6 w-6" />,
+                    label: t("navigation.sounds"),
+                },
+                {
+                    to: "/words",
+                    icon: <BsAlphabet className="h-6 w-6" />,
+                    label: t("navigation.words"),
+                },
+            ],
         },
         {
             to: "/exercises",
             icon: <BsCardChecklist className="h-6 w-6" />,
             label: t("navigation.exercises"),
+            childMenu: null,
         },
         {
             to: "/conversations",
             icon: <BsChatText className="h-6 w-6" />,
             label: t("navigation.conversations"),
+            childMenu: null,
         },
-        { to: "/exams", icon: <PiExam className="h-6 w-6" />, label: t("navigation.exams") },
+        {
+            to: "/exams",
+            icon: <PiExam className="h-6 w-6" />,
+            label: t("navigation.exams"),
+            childMenu: null,
+        },
         {
             to: "/settings",
             icon: <LiaToolsSolid className="h-6 w-6" />,
             label: t("navigation.settings"),
+            childMenu: null,
         },
     ];
 
@@ -100,13 +125,23 @@ const TopNavBar = () => {
                     <div className="drawer-side">
                         <label htmlFor="mobile-menu" className="drawer-overlay"></label>
                         <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base text-base-content">
-                            {menuItems.map((item) => (
-                                <li key={item.to}>
-                                    <NavLink to={item.to} aria-label={item.label}>
-                                        {item.icon} {item.label}
-                                    </NavLink>
-                                </li>
-                            ))}
+                            {menuItems.map((item) =>
+                                item.childMenu ? (
+                                    item.childMenu.map((child) => (
+                                        <li key={child.to}>
+                                            <NavLink to={child.to} aria-label={child.label}>
+                                                {child.icon} {child.label}
+                                            </NavLink>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <li key={item.to}>
+                                        <NavLink to={item.to} aria-label={item.label}>
+                                            {item.icon} {item.label}
+                                        </NavLink>
+                                    </li>
+                                )
+                            )}
                         </ul>
                     </div>
                 </div>
@@ -132,13 +167,48 @@ const TopNavBar = () => {
             {/* Desktop Navigation */}
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 lg:text-base">
-                    {menuItems.map((item) => (
-                        <li key={item.to}>
-                            <NavLink to={item.to} aria-label={item.label}>
-                                {item.icon} {item.label}
-                            </NavLink>
-                        </li>
-                    ))}
+                    {menuItems.map((item) => {
+                        const isActive =
+                            item.childMenu?.some((child) => location.pathname === child.to) ||
+                            location.pathname === item.to;
+
+                        return item.childMenu ? (
+                            <li key={item.label} className="dropdown dropdown-bottom">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className={`flex items-center space-x-1 ${
+                                        isActive ? "active" : ""
+                                    }`}
+                                    aria-label={item.label}
+                                >
+                                    {item.icon} {item.label}
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu dropdown-content w-52 rounded-box bg-base-100 p-2 shadow"
+                                >
+                                    {item.childMenu.map((child) => (
+                                        <li key={child.to}>
+                                            <NavLink to={child.to} aria-label={child.label}>
+                                                {child.icon} {child.label}
+                                            </NavLink>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ) : (
+                            <li key={item.to}>
+                                <NavLink
+                                    to={item.to}
+                                    aria-label={item.label}
+                                    className={({ isActive }) => (isActive ? "active" : "")}
+                                >
+                                    {item.icon} {item.label}
+                                </NavLink>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
 

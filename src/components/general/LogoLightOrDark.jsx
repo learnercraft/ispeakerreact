@@ -25,7 +25,7 @@ const LogoLightOrDark = ({ width, height }) => {
         return () => {
             mediaQuery.removeEventListener("change", updateTheme);
         };
-    }, [theme]);
+    }, [theme, isDarkMode]);
 
     const logoSrc = isDarkMode
         ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`

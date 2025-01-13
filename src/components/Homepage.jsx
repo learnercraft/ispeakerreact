@@ -27,6 +27,12 @@ function Homepage() {
             path: "sounds",
         },
         {
+            title: `${t("navigation.words")}`,
+            description: `${t("homepage.wordDescription")}`,
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/word_menu_icon.svg`,
+            path: "words",
+        },
+        {
             title: `${t("navigation.exercises")}`,
             description: `${t("homepage.exerciseDescription")}`,
             icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/exercise_menu_icon.svg`,
