@@ -255,7 +255,7 @@ jobs:
 
             - name: Create GitHub release
               id: create_release
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@c43d7637b9b9ce3e953168c325d27253a5d48d8e
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -272,7 +272,7 @@ jobs:
                   for artifact in ./release/iSpeakerReact-*; do
                     if [ -d "$artifact" ]; then
                       find "$artifact" -type f -print0 | while IFS= read -r -d '' file; do
-                        if [[ "$file" == *"RELEASES"* ]]; then
+                        if [[ "$file" == *"RELEASES"* || "$file" == *.nupkg ]]; then
                           echo "Skipping $file"
                           continue
                         fi
