@@ -102,11 +102,11 @@ export default defineConfig(({ mode }) => {
                     },
                     workbox: {
                         // Exclude index.html from caching
-                        globIgnores: ["**/index.html"],
+                        // globIgnores: ["**/index.html"],
                         runtimeCaching: [
                             {
                                 // Files that need caching permanently
-                                urlPattern: /\.(?:woff2|ttf|jpg|jpeg|webp)$/,
+                                urlPattern: /\.(?:woff2|ttf|jpg|jpeg|webp|svg|ico|png)$/,
                                 handler: "CacheFirst",
                                 options: {
                                     cacheName: "permanent-cache",
@@ -118,13 +118,13 @@ export default defineConfig(({ mode }) => {
                             },
                             {
                                 // Cache other assets dynamically with versioning
-                                urlPattern: /\.(?:js|css|json|png|svg|ico)$/,
+                                urlPattern: /\.(?:js|css|json|html)$/,
                                 handler: "CacheFirst",
                                 options: {
                                     cacheName: `dynamic-cache-v${packageJson.version}`,
                                     expiration: {
                                         maxEntries: 100,
-                                        maxAgeSeconds: 604800, // 1 week
+                                        maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
                                     },
                                 },
                             },
