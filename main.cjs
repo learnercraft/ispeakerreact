@@ -318,8 +318,13 @@ function createWindow() {
 expressApp.get("/video/:folderName/:fileName", (req, res) => {
     const { folderName, fileName } = req.params;
     const documentsPath = getSaveFolder();
-    const videoFolder = path.join(documentsPath, "video_files", folderName);
-    const videoFilePath = path.join(videoFolder, fileName);
+    const videoFolder = path.resolve(documentsPath, "video_files", folderName);
+    const videoFilePath = path.resolve(videoFolder, fileName);
+
+    if (!videoFilePath.startsWith(videoFolder)) {
+        res.status(403).send("Access denied.");
+        return;
+    }
 
     if (fs.existsSync(videoFilePath)) {
         const stat = fs.statSync(videoFilePath);
