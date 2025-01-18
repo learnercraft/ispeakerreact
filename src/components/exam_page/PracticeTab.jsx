@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
 import { IoCheckmark, IoCloseOutline } from "react-icons/io5";
-
-import { useTranslation } from "react-i18next";
 import {
     checkRecordingExists,
     openDatabase,
@@ -256,7 +255,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
 
                     return (
                         <div
-                            className="card card-bordered flex dark:border-slate-600"
+                            className="card card-bordered shadow-sm flex dark:border-slate-600"
                             key={taskIndex}
                         >
                             <div className="card-body p-4">
@@ -287,7 +286,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                         <p key={index}>{paragraph}</p>
                                     ))}
                                     {examLocalizedListItems.length > 0 && (
-                                        <ul>
+                                        <ul className="list-inside list-disc ms-2">
                                             {examLocalizedListItems.map((item, index) => (
                                                 <li key={index}>{item}</li>
                                             ))}
