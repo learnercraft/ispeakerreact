@@ -8,7 +8,6 @@ const JS7z = require("./libraries/js7z/js7z.cjs");
 const crypto = require("crypto");
 
 const express = require("express");
-const RateLimit = require("express-rate-limit");
 const DEFAULT_PORT = 8998;
 const MIN_PORT = 1024; // Minimum valid port number
 const MAX_PORT = 65535; // Maximum valid port number
@@ -131,7 +130,8 @@ let currentLogSettings = {
 
 // Configure electron-log to use the log directory
 applog.transports.file.fileName = generateLogFileName();
-applog.transports.file.resolvePathFn = () => path.join(logDirectory, applog.transports.file.fileName);
+applog.transports.file.resolvePathFn = () =>
+    path.join(logDirectory, applog.transports.file.fileName);
 applog.transports.file.maxSize = currentLogSettings.maxLogSize;
 applog.transports.console.level = currentLogSettings.logLevel;
 
@@ -315,14 +315,14 @@ function createWindow() {
     applog.info(`App started. Version ${version}`);
 }
 
-// Set up rate limiter: maximum of 100 requests per 15 minutes
-const limiter = RateLimit({
+// Set up rate limiter: maximum of 2000 requests per 15 minutes
+/*const limiter = RateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // max 100 requests per windowMs
-});
+    max: 2000,
+});*/
 
 // Set up the express server to serve video files
-expressApp.get("/video/:folderName/:fileName", limiter, (req, res) => {
+expressApp.get("/video/:folderName/:fileName", (req, res) => {
     const { folderName, fileName } = req.params;
     const documentsPath = getSaveFolder();
     const videoFolder = path.resolve(documentsPath, "video_files", folderName);
@@ -540,7 +540,10 @@ async function fileVerification(event, zipContents, extractedFolder) {
 
     if (!missingOrCorruptedFiles) {
         // If no missing or corrupted files, finish the verification
-        event.sender.send("verification-success", `All extracted files are verified for ${extractedFolder}`);
+        event.sender.send(
+            "verification-success",
+            `All extracted files are verified for ${extractedFolder}`
+        );
         applog.log(`All extracted files are verified for ${extractedFolder}`);
         return;
     }
@@ -597,7 +600,10 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
                     } else {
                         console.error(`7-Zip exited with error code: ${exitCode}`);
                         applog.error(`7-Zip exited with error code: ${exitCode}`);
-                        event.sender.send("verification-error", `7-Zip exited with error code: ${exitCode}`);
+                        event.sender.send(
+                            "verification-error",
+                            `7-Zip exited with error code: ${exitCode}`
+                        );
                     }
                 },
             });
@@ -652,7 +658,10 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
                     applog.error(`Failed to delete ZIP file: ${err.message}`);
                 }
 
-                event.sender.send("verification-success", `Successfully verified and extracted ${zipFile}`);
+                event.sender.send(
+                    "verification-success",
+                    `Successfully verified and extracted ${zipFile}`
+                );
                 applog.log(`Successfully verified and extracted ${zipFile}`);
             };
         } catch (err) {

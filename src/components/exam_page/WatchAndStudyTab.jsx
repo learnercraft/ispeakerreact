@@ -128,7 +128,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
 
     return (
         <>
-            <div className="mb-4">
+            <div>
                 <div className="text-xl font-semibold">{t("tabConversationExam.taskCard")}</div>
                 <div className="divider divider-secondary mb-4 mt-0"></div>
 
@@ -154,7 +154,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                         <p key={index}>{paragraph}</p>
                     ))}
                     {examTaskList && (
-                        <ul className="list-inside list-disc">
+                        <ul className="ms-2 list-inside list-disc">
                             {examTaskList.map((item, index) => (
                                 <li className="my-1" key={index}>
                                     {item}

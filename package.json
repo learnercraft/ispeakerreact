@@ -3,7 +3,7 @@
     "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "3.2.3",
+    "version": "3.2.4",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
@@ -30,6 +30,7 @@
         "electron-log": "^5.2.4",
         "electron-squirrel-startup": "^1.0.1",
         "express": "^4.21.2",
+        "express-rate-limit": "^7.5.0",
         "he": "^1.2.0",
         "i18next": "^24.2.1",
         "i18next-browser-languagedetector": "^8.0.2",
@@ -46,8 +47,8 @@
         "react-loading-skeleton": "^3.5.0",
         "react-router-dom": "^7.1.1",
         "sonner": "^1.7.1",
-        "wavesurfer.js": "^7.8.15",
-        "express-rate-limit": "^7.5.0"
+        "vidstack": "^1.12.12",
+        "wavesurfer.js": "^7.8.15"
     },
     "devDependencies": {
         "@electron-forge/cli": "^7.6.0",
