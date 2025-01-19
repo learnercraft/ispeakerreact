@@ -2,9 +2,15 @@
   <img src="./public/images/homepage_screenshot.webp" />
 </p>
 
-# iSpeakerReact
+<p align="center">
+  <a href="https://hosted.weblate.org/engage/ispeakerreact/">
+    <img src="https://hosted.weblate.org/widget/ispeakerreact/svg-badge.svg" alt="Translation status" />
+  </a>
+</p>
 
-*Formerly Oxford iSpeaker on this repo, a modified version of the official tool of the same name.*
+Currently, the app is now available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/yllst-testing-labs/ispeakerreact/issues/18).
+
+# iSpeakerReact
 
 **Introducing iSpeakerReact**: A modern reimagining, open-source alternative to Oxford iSpeaker
 
@@ -38,6 +44,10 @@ The offline portable version (or "Slim edition" on the Microsoft Store) includes
 - **Sounds**
 
   Learning to read phonetic transcriptions in the dictionary is a great way to ensure correct pronunciation. The Sounds section helps you practice pronouncing the International Phonetic Alphabet (IPA) used in English dictionaries. Begin with a video that demonstrates how each sound is pronounced, then use shorter clips to practice. You can also record* your pronunciation for later review and assessment.
+
+- **Words**
+
+  Practice pronunciation with common words from the Oxford 3000™ and Oxford 5000™ lists. Each word is broken down into syllables with highlighted primary and secondary stress. Features include playback, recording, and reviewing your pronunciation with smiley ratings to track progress.
 
 - **Exercises**
 
