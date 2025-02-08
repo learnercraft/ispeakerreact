@@ -105,6 +105,7 @@ export default defineConfig(({ mode }) => {
                         dir: "auto",
                         orientation: "any",
                         categories: ["education"],
+                        prefer_related_applications: false,
                     },
                     workbox: {
                         // Exclude index.html from caching
