@@ -34,9 +34,11 @@ export default defineConfig(({ mode }) => {
                     manifest: {
                         name: "iSpeakerReact",
                         short_name: "iSpeakerReact",
-                        theme_color: "#fcfcfc",
+                        theme_color: "#fdfdf5",
+                        background_color: "#2a303c",
                         description:
                             "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
+                        lang: "en",
                         icons: [
                             {
                                 src: `${base}images/icons/ios/192.png`,
@@ -99,6 +101,10 @@ export default defineConfig(({ mode }) => {
                                 form_factor: "wide",
                             },
                         ],
+                        id: "page.yell0wsuit.ispeakerreact",
+                        dir: "auto",
+                        orientation: "any",
+                        categories: ["education"],
                     },
                     workbox: {
                         // Exclude index.html from caching
