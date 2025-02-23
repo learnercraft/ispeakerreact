@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { IoWarningOutline } from "react-icons/io5";
 import { Trans, useTranslation } from "react-i18next";
-import VideoDownloadTable from "./VideoDownloadTable";
 import { BsArrowLeft } from "react-icons/bs";
+import { IoWarningOutline } from "react-icons/io5";
+import VideoDownloadTable from "./VideoDownloadTable";
 
 const VideoDownloadSubPage = ({ onGoBack }) => {
     const { t } = useTranslation();
@@ -36,30 +36,33 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             const downloadedFiles = await window.electron.ipcRenderer.invoke("check-downloads");
             console.log("Downloaded files in folder:", downloadedFiles);
 
-            const fileStatus = {};
+            // Initialize fileStatus as an array to hold individual statuses
+            const newFileStatus = [];
 
             for (const item of zipFileData) {
-                const extractedFolderExists = await window.electron.ipcRenderer.invoke(
-                    "check-extracted-folder",
-                    item.zipFile.replace(".7z", ""),
-                    item.zipContents
-                );
-
-                if (extractedFolderExists) {
-                    fileStatus[item.zipFile] = true;
-                    console.log(`Extracted folder exists for ${item.zipFile}`);
-                } else {
-                    const isDownloadedFile = downloadedFiles.includes(item.zipFile);
-                    console.log(
-                        `Checking if ${item.zipFile} is in downloaded files:`,
-                        isDownloadedFile
+                let extractedFolderExists;
+                try {
+                    extractedFolderExists = await window.electron.ipcRenderer.invoke(
+                        "check-extracted-folder",
+                        item.zipFile.replace(".7z", ""),
+                        item.zipContents
                     );
-                    fileStatus[item.zipFile] = isDownloadedFile;
+                } catch (error) {
+                    console.error(`Error checking extracted folder for ${item.zipFile}:`, error);
+                    extractedFolderExists = false; // Default to false if there's an error
                 }
+
+                const isDownloadedFile = downloadedFiles.includes(item.zipFile);
+                newFileStatus.push({
+                    zipFile: item.zipFile,
+                    isDownloaded: isDownloadedFile,
+                    hasExtractedFolder: extractedFolderExists,
+                });
             }
 
-            console.log("File status for all files:", fileStatus);
-            setIsDownloaded(fileStatus);
+            // Update the state with an array of statuses instead of a single object
+            setIsDownloaded(newFileStatus);
+            console.log(newFileStatus);
         } catch (error) {
             console.error("Error checking downloaded or extracted files:", error);
         }
@@ -132,7 +135,7 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 </button>
             </div>
 
-            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} />
+            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} t={t} />
         </div>
     );
 };
