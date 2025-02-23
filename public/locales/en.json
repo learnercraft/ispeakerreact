@@ -994,6 +994,7 @@
                 "downloadStatusHeading": "Downloaded?",
                 "actionHeading": "Action",
                 "verifyBtn": "Verify",
+                "extractBtn": "Extract",
                 "downloadLink": "Download",
                 "examVideos": "Exam videos",
                 "conversationVideosUK": "Conversation videos (British English)",
@@ -1006,10 +1007,19 @@
             "verifyFooter": "Proceed?",
             "nextBtn": "Next",
             "inProgressModalHeading": "Verification in progress",
+            "verifyinProgressMsg": "Verifying extracted files…",
             "verifySuccess": "Verification success",
             "verifySuccessMessage": "All extracted files are verified in the folder:",
             "verifyFailed": "Verification failed",
-            "verifyFailedMessage": "It seems like either the files are corrupted or missing. Please try downloading the file again."
+            "verifyFailedMessage": "It seems like either the files are corrupted or missing. Please try downloading the file again.",
+            "electronVerifyMessage": {
+                "extractedSuccessMsg": "All extracted files are verified for",
+                "zipSuccessMsg": "Successfully verified and extracted",
+                "zipFileVerifying": "Verifying ZIP file",
+                "zipExtractingMsg": "Extracting ZIP file",
+                "zipErrorMsg": "Error extracting",
+                "zipHashMismatchMsg": "Hash mismatch for <0>{{param}}</0>. It seems like the zip file was either corrupted or tampered."
+            }
         },
         "logSettings": {
             "logSettingsHeading": "Log settings",

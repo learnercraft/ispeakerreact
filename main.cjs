@@ -238,6 +238,7 @@ function createWindow() {
     mainWindow.once("ready-to-show", () => {
         setTimeout(() => {
             splashWindow.close();
+            mainWindow.maximize();
             mainWindow.show();
         }, 2000);
     });
@@ -540,11 +541,12 @@ async function fileVerification(event, zipContents, extractedFolder) {
 
     if (!missingOrCorruptedFiles) {
         // If no missing or corrupted files, finish the verification
-        event.sender.send(
-            "verification-success",
-            `All extracted files are verified for ${extractedFolder}`
-        );
-        applog.log(`All extracted files are verified for ${extractedFolder}`);
+        event.sender.send("verification-success", {
+            messageKey:
+                "settingPage.videoDownloadSettings.electronVerifyMessage.extractedSuccessMsg",
+            param: extractedFolder,
+        });
+        applog.log(`All extracted files are verified for "${extractedFolder}"`);
         return;
     }
 }
@@ -561,7 +563,7 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
     if (fs.existsSync(extractedFolder)) {
         console.log(`Extracted folder already exists: ${extractedFolder}`);
         applog.log(`Extracted folder already exists: ${extractedFolder}`);
-        event.sender.send("progress-text", "Verifying existing extracted files...");
+        event.sender.send("progress-text", "settingPage.videoDownloadSettings.verifyinProgressMsg");
         await fileVerification(event, zipContents, extractedFolder);
     }
 
@@ -616,28 +618,39 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
             const emExtractedFolder = `/mnt/${zipFile.replace(".7z", "")}`;
 
             // Step 1: Verifying ZIP file hash
-            event.sender.send("progress-text", "Verifying ZIP file");
+            event.sender.send(
+                "progress-text",
+                "settingPage.videoDownloadSettings.electronVerifyMessage.zipFileVerifying"
+            );
             const fileHash = await calculateFileHash(zipFilePath);
             if (fileHash !== zipHash) {
                 applog.error(
                     `Hash mismatch for ${zipFile}. It seems like the zip file was either corrupted or tampered.`
                 );
-                event.sender.send(
-                    "verification-error",
-                    `Hash mismatch for ${zipFile}. It seems like the zip file was either corrupted or tampered.`
-                );
+                event.sender.send("verification-error", {
+                    messageKey:
+                        "settingPage.videoDownloadSettings.electronVerifyMessage.zipHashMismatchMsg",
+                    param: zipFile,
+                });
                 return;
             }
             event.sender.send("progress-text", "ZIP file verified");
 
             // Step 2: Extracting ZIP file
-            event.sender.send("progress-text", "Extracting ZIP file");
+            event.sender.send(
+                "progress-text",
+                "settingPage.videoDownloadSettings.electronVerifyMessage.zipExtractingMsg"
+            );
             js7z.callMain(["x", emZipFilePath, `-o${emExtractedFolder}`]);
 
             js7z.onExit = async (exitCode) => {
                 if (exitCode !== 0) {
                     applog.error(`Error extracting ${zipFile}`);
-                    event.sender.send("verification-error", `Error extracting ${zipFile}`);
+                    event.sender.send("verification-error", {
+                        messageKey:
+                            "settingPage.videoDownloadSettings.electronVerifyMessage.zipErrorMsg",
+                        param: zipFile,
+                    });
                     return;
                 }
 
@@ -645,7 +658,10 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
                 applog.log(`Extraction successful for ${zipFile}`);
 
                 // Step 3: Verifying extracted files
-                event.sender.send("progress-text", "Verifying extracted files...");
+                event.sender.send(
+                    "progress-text",
+                    "settingPage.videoDownloadSettings.verifyinProgressMsg"
+                );
                 await fileVerification(event, zipContents, extractedFolder);
 
                 // Clean up the ZIP file after successful extraction and verification
@@ -658,15 +674,20 @@ ipcMain.on("verify-and-extract", async (event, zipFileData) => {
                     applog.error(`Failed to delete ZIP file: ${err.message}`);
                 }
 
-                event.sender.send(
-                    "verification-success",
-                    `Successfully verified and extracted ${zipFile}`
-                );
+                event.sender.send("verification-success", {
+                    messageKey:
+                        "settingPage.videoDownloadSettings.electronVerifyMessage.zipSuccessMsg",
+                    param: zipFile,
+                });
                 applog.log(`Successfully verified and extracted ${zipFile}`);
             };
         } catch (err) {
             console.error(`Error processing ${zipFile}: ${err.message}`);
-            event.sender.send("verification-error", `Error processing ${zipFile}: ${err.message}`);
+            event.sender.send("verification-error", {
+                messageKey: "settingPage.videoDownloadSettings.electronVerifyMessage.zipErrorMsg",
+                param: zipFile,
+                errorMessage: err.message,
+            });
         }
     } else {
         //event.sender.send("verification-error", `ZIP file does not exist: ${zipFilePath}`);
