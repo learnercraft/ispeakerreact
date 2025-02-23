@@ -208,7 +208,7 @@ const SortingExercise = ({
                         ))
                     ) : (
                         <div className="w-full p-4 text-center">
-                            <div className="rounded border p-4 text-secondary">
+                            <div className="rounded-xs border p-4 text-secondary">
                                 {t("exercise_page.dropLayer")}
                             </div>
                         </div>

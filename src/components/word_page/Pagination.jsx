@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
     const goToPage = (page) => {
         if (page >= 1 && page <= totalPages) {
             onPageChange(page);
@@ -12,7 +12,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
             <button
                 type="button"
                 className="btn btn-outline btn-sm"
-                onClick={() => goToPage(1)}
+                onClick={() => {
+                    goToPage(1);
+                    scrollTo();
+                }}
                 disabled={currentPage === 1}
             >
                 « {t("wordPage.firstPageBtn")}
@@ -20,7 +23,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
             <button
                 type="button"
                 className="btn btn-outline btn-sm"
-                onClick={() => goToPage(currentPage - 1)}
+                onClick={() => {
+                    goToPage(currentPage - 1);
+                    scrollTo();
+                }}
                 disabled={currentPage === 1}
             >
                 ‹ {t("wordPage.prevPageBtn")}
@@ -33,7 +39,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
                     <button
                         key={page}
                         className={`btn btn-sm ${currentPage === page ? "btn-primary" : "btn-outline"}`}
-                        onClick={() => goToPage(page)}
+                        onClick={() => {
+                            goToPage(page);
+                            scrollTo();
+                        }}
                     >
                         {page}
                     </button>
@@ -41,7 +50,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
             <button
                 type="button"
                 className="btn btn-outline btn-sm"
-                onClick={() => goToPage(currentPage + 1)}
+                onClick={() => {
+                    goToPage(currentPage + 1);
+                    scrollTo();
+                }}
                 disabled={currentPage === totalPages}
             >
                 {t("wordPage.nextPageBtn")} ›
@@ -49,7 +61,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t }) => {
             <button
                 type="button"
                 className="btn btn-outline btn-sm"
-                onClick={() => goToPage(totalPages)}
+                onClick={() => {
+                    goToPage(totalPages);
+                    scrollTo();
+                }}
                 disabled={currentPage === totalPages}
             >
                 {t("wordPage.lastPageBtn")} »
@@ -63,6 +78,7 @@ Pagination.propTypes = {
     totalPages: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
+    scrollTo: PropTypes.func,
 };
 
 export default Pagination;

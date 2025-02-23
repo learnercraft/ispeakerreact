@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { useScrollTo } from "../../utils/useScrollTo";
 import AccentDropdown from "../general/AccentDropdown";
 import TopNavBar from "../general/TopNavBar";
 import Pagination from "./Pagination";
@@ -10,6 +11,7 @@ import WordDetails from "./WordDetails";
 
 const PronunciationPractice = () => {
     const { t } = useTranslation();
+    const { ref: scrollRef, scrollTo } = useScrollTo();
 
     const [activeTab, setActiveTab] = useState("oxford3000");
     const [words, setWords] = useState([]);
@@ -135,48 +137,44 @@ const PronunciationPractice = () => {
                 {viewState === "list" && (
                     <>
                         {/* Tabs for switching data */}
-                        <div className="sticky top-[calc(5rem)] z-10 bg-base-100 py-8">
+                        <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
                             <div className="flex justify-center">
-                                <ul className="menu menu-horizontal w-auto rounded-box bg-base-200 dark:bg-slate-600">
-                                    <li>
-                                        <button
-                                            type="button"
-                                            onClick={() => setActiveTab("oxford3000")}
-                                            className={`md:text-base ${
-                                                activeTab === "oxford3000"
-                                                    ? "active font-semibold"
-                                                    : ""
-                                            }`}
+                                <div role="tablist" className="tabs tabs-box">
+                                    <a
+                                        role="tab"
+                                        onClick={() => setActiveTab("oxford3000")}
+                                        className={`md:text-base tab ${
+                                            activeTab === "oxford3000"
+                                                ? "tab-active font-semibold"
+                                                : ""
+                                        }`}
+                                    >
+                                        Oxford 3000
+                                        <div
+                                            className="tooltip tooltip-secondary font-normal"
+                                            data-tip={t("wordPage.oxford3000Description")}
                                         >
-                                            Oxford 3000
-                                            <div
-                                                className="tooltip tooltip-secondary font-normal"
-                                                data-tip={t("wordPage.oxford3000Description")}
-                                            >
-                                                <IoInformationCircleOutline className="h-6 w-6" />
-                                            </div>
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            type="button"
-                                            onClick={() => setActiveTab("oxford5000")}
-                                            className={`md:text-base ${
-                                                activeTab === "oxford5000"
-                                                    ? "active font-semibold"
-                                                    : ""
-                                            }`}
+                                            <IoInformationCircleOutline className="ms-1 h-5 w-5 cursor-pointer" />
+                                        </div>
+                                    </a>
+                                    <a
+                                        role="tab"
+                                        className={`md:text-base tab ${
+                                            activeTab === "oxford5000"
+                                                ? "tab-active font-semibold"
+                                                : ""
+                                        }`}
+                                        onClick={() => setActiveTab("oxford5000")}
+                                    >
+                                        Oxford 5000
+                                        <div
+                                            className="tooltip tooltip-left tooltip-secondary md:tooltip-top font-normal"
+                                            data-tip={t("wordPage.oxford5000Description")}
                                         >
-                                            Oxford 5000
-                                            <div
-                                                className="tooltip tooltip-left tooltip-secondary font-normal md:tooltip-top"
-                                                data-tip={t("wordPage.oxford5000Description")}
-                                            >
-                                                <IoInformationCircleOutline className="h-6 w-6" />
-                                            </div>
-                                        </button>
-                                    </li>
-                                </ul>
+                                            <IoInformationCircleOutline className="ms-1 h-5 w-5 cursor-pointer" />
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                             <div className="mt-6 flex flex-wrap items-center justify-center space-x-4">
                                 <input
@@ -202,12 +200,15 @@ const PronunciationPractice = () => {
                         </div>
 
                         {filteredWords.length > 0 && !loading && (
-                            <Pagination
-                                t={t}
-                                currentPage={currentPage}
-                                totalPages={totalPages}
-                                onPageChange={setCurrentPage}
-                            />
+                            <div ref={scrollRef}>
+                                <Pagination
+                                    t={t}
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    onPageChange={setCurrentPage}
+                                    scrollTo={scrollTo}
+                                />
+                            </div>
                         )}
 
                         {/* Content Area */}
@@ -236,10 +237,10 @@ const PronunciationPractice = () => {
                                                         {wordReviewText}
                                                     </span>
                                                 )}
-                                                <div className="card card-bordered flex h-auto w-36 justify-between break-words pb-6 shadow-md md:w-48 dark:border-slate-600">
-                                                    <div className="card-body flex-grow items-center text-center">
+                                                <div className="card card-lg card-border flex h-auto w-36 justify-between pb-6 break-words shadow-md md:w-48 dark:border-slate-600">
+                                                    <div className="card-body grow items-center text-center">
                                                         <h2
-                                                            className="card-title hyphens-auto break-words"
+                                                            className="card-title break-words hyphens-auto"
                                                             lang="en"
                                                         >
                                                             {wordAccent}
@@ -262,7 +263,10 @@ const PronunciationPractice = () => {
                                                     <div className="card-actions px-6">
                                                         <button
                                                             className="btn btn-primary w-full"
-                                                            onClick={() => handlePractice(word)}
+                                                            onClick={() => {
+                                                                handlePractice(word);
+                                                                scrollTo();
+                                                            }}
                                                         >
                                                             {t("sound_page.practiceBtn")}
                                                         </button>
@@ -287,6 +291,7 @@ const PronunciationPractice = () => {
                                 currentPage={currentPage}
                                 totalPages={totalPages}
                                 onPageChange={setCurrentPage}
+                                scrollTo={scrollTo}
                             />
                         )}
                     </>
@@ -300,6 +305,7 @@ const PronunciationPractice = () => {
                         accent={accent}
                         onAccentChange={handleAccentChange}
                         onReviewUpdate={updateReviewData}
+                        scrollTo={scrollTo}
                     />
                 )}
             </Container>

@@ -93,7 +93,7 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 {t("settingPage.videoDownloadSettings.videoPageHeading")}
             </h4>
 
-            <div className="card card-bordered my-4">
+            <div className="card card-lg card-border my-4">
                 <div className="card-body">
                     <div className="card-title font-semibold">
                         {t("settingPage.videoDownloadSettings.instructionCardHeading")}

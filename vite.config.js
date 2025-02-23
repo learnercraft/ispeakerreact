@@ -1,9 +1,9 @@
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import packageJson from "./package.json";
-
-import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => {
         plugins: [
             react(),
             visualizer(),
+            tailwindcss(),
             !isElectron &&
                 VitePWA({
                     registerType: "autoUpdate",

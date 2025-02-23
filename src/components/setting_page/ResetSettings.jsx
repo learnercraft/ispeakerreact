@@ -99,7 +99,7 @@ const ResetSettings = () => {
                         {t("settingPage.resetSettings.resetHeading")}
                     </p>
                 </div>
-                <div className="flex flex-grow basis-1/2 flex-col justify-end">
+                <div className="flex grow basis-1/2 flex-col justify-end">
                     <>
                         <button
                             type="button"
