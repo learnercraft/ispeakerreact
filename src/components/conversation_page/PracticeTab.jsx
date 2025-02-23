@@ -217,20 +217,18 @@ const PracticeTab = ({ accent, conversationId }) => {
                 )
             )}
 
-            <label className="form-control my-4">
-                <div className="label">
-                    <span className="label-text">
-                        {t("tabConversationExam.practiceConversationBox")}
-                    </span>
-                </div>
+            <fieldset className="fieldset my-4">
+                <legend className="fieldset-legend text-sm">
+                    {t("tabConversationExam.practiceConversationBox")}
+                </legend>
                 <textarea
-                    className="textarea textarea-bordered text-base"
+                    className="textarea w-full text-base"
                     ref={textAreaRef}
                     value={textValue}
                     onChange={(e) => setTextValue(e.target.value)}
                     onInput={autoExpand}
                 ></textarea>
-            </label>
+            </fieldset>
 
             <div className="flex flex-wrap justify-center gap-2">
                 <button

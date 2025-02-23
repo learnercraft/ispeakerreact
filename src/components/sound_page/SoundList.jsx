@@ -7,6 +7,7 @@ import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
+import { useScrollTo } from "../../utils/useScrollTo";
 
 const PracticeSound = lazy(() => import("./PracticeSound"));
 
@@ -32,9 +33,11 @@ const SoundCard = ({
                     {reviewText}
                 </span>
             )}
-            <div className="card card-bordered flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
-                <div className="card-body flex-grow items-center text-center">
-                    <h2 className="card-title" lang="en">{he.decode(sound.phoneme)}</h2>
+            <div className="card card-lg card-border flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
+                <div className="card-body grow items-center text-center">
+                    <h2 className="card-title" lang="en">
+                        {he.decode(sound.phoneme)}
+                    </h2>
                     <p lang="en">{sound.example_word}</p>
                 </div>
                 <div className="card-actions px-6">
@@ -55,6 +58,8 @@ const SoundCard = ({
 
 const SoundList = () => {
     const { t } = useTranslation();
+    const { ref: scrollRef, scrollTo } = useScrollTo();
+
     const [selectedSound, setSelectedSound] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
@@ -175,39 +180,44 @@ const SoundList = () => {
                                 <LoadingOverlay />
                             ) : (
                                 <>
-                                    <div className="sticky top-[calc(5rem)] z-10 bg-base-100 py-8">
+                                    <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
                                         <div className="flex justify-center">
-                                            <ul className="menu menu-horizontal w-auto rounded-box bg-base-200 dark:bg-slate-600">
-                                                <li>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setActiveTab("tab1")}
-                                                        className={`md:text-base ${
-                                                            activeTab === "tab1"
-                                                                ? "active font-semibold"
-                                                                : ""
-                                                        }`}
-                                                    >
-                                                        {t("sound_page.consonants")}
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setActiveTab("tab2")}
-                                                        className={`md:text-base ${
-                                                            activeTab === "tab2"
-                                                                ? "active font-semibold"
-                                                                : ""
-                                                        }`}
-                                                    >
-                                                        {t("sound_page.vowels_dipthongs")}
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                            <div role="tablist" className="tabs tabs-box">
+                                                <a
+                                                    role="tab"
+                                                    onClick={() => {
+                                                        setActiveTab("tab1");
+                                                        scrollTo();
+                                                    }}
+                                                    className={`tab md:text-base ${
+                                                        activeTab === "tab1"
+                                                            ? "tab-active font-semibold"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    {t("sound_page.consonants")}
+                                                </a>
+                                                <a
+                                                    role="tab"
+                                                    className={`tab md:text-base ${
+                                                        activeTab === "tab2"
+                                                            ? "tab-active font-semibold"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() => {
+                                                        setActiveTab("tab2");
+                                                        scrollTo();
+                                                    }}
+                                                >
+                                                    {t("sound_page.vowels_dipthongs")}
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="my-4 flex flex-wrap place-items-center justify-center gap-5">
+                                    <div
+                                        ref={scrollRef}
+                                        className="my-4 flex flex-wrap place-items-center justify-center gap-5"
+                                    >
                                         {filteredSounds.map((sound, index) => (
                                             <SoundCard
                                                 key={index}

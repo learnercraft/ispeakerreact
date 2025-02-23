@@ -110,7 +110,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
             case 5:
                 return "checkbox-error";
             case 6:
-                return "border-fuchsia-600 [--chkbg:theme(colors.fuchsia.600)] checked:bg-fuchsia-600";
+                return "border-fuchsia-600 bg-fuchsia-600 checked:text-white checked:bg-fuchsia-600";
             default:
                 return "";
         }
@@ -130,7 +130,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
         <>
             <div>
                 <div className="text-xl font-semibold">{t("tabConversationExam.taskCard")}</div>
-                <div className="divider divider-secondary mb-4 mt-0"></div>
+                <div className="divider divider-secondary mt-0 mb-4"></div>
 
                 <div className="flex flex-row flex-wrap justify-center gap-4">
                     {taskData.images.map((image, index) => (
@@ -141,7 +141,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                                     src={`${
                                         import.meta.env.BASE_URL
                                     }images/ispeaker/exam_images/webp/${image}.webp`}
-                                    className="h-full w-full object-cover"
+                                    className="h-full w-full cursor-pointer object-cover"
                                     onClick={() => handleImageClick(image)}
                                 />
                             </div>
@@ -170,9 +170,9 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                     <div className="text-xl font-semibold">
                         {t("tabConversationExam.watchCard")}
                     </div>
-                    <div className="divider divider-secondary mb-4 mt-0"></div>
+                    <div className="divider divider-secondary mt-0 mb-4"></div>
 
-                    <div className="top-[calc(14rem)] bg-base-100 md:sticky md:z-10">
+                    <div className="bg-base-100 top-[calc(14rem)] md:sticky md:z-10">
                         <div className="aspect-video">
                             <div className="relative h-full w-full">
                                 {isElectron() &&
@@ -232,8 +232,8 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                     <div className="text-xl font-semibold">
                         {t("tabConversationExam.studyCard")}
                     </div>
-                    <div className="divider divider-secondary mb-4 mt-0"></div>
-                    <div className="collapse collapse-arrow bg-base-200 dark:bg-slate-700">
+                    <div className="divider divider-secondary mt-0 mb-4"></div>
+                    <div className="collapse-arrow bg-base-200 collapse dark:bg-slate-700">
                         <input type="checkbox" />
                         <button type="button" className="collapse-title text-start font-semibold">
                             {t("tabConversationExam.studyExpandBtn")}
@@ -291,7 +291,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
             <dialog ref={imageModalRef} className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <form method="dialog">
-                        <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                        <button className="btn btn-circle btn-ghost btn-sm absolute top-2 right-2">
                             <IoCloseOutline className="h-6 w-6" />
                         </button>
                     </form>

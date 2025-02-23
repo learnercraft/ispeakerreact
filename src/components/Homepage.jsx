@@ -73,7 +73,7 @@ function Homepage() {
                             iSpeakerReact
                         </h1>
                     </div>
-                    <p lang="en" className="mt-2 text-center">
+                    <p lang="en" className="mt-2 text-center text-sm">
                         v{__APP_VERSION__}
                     </p>
                 </div>
@@ -81,7 +81,7 @@ function Homepage() {
                     {cardsInfo.map((card, idx) => (
                         <div
                             key={idx}
-                            className="card card-bordered flex h-auto w-full flex-col justify-between pb-6 shadow-md sm:w-1/2 lg:w-1/4 dark:border-slate-600"
+                            className="card card-lg card-border flex h-auto w-full flex-col justify-between pb-6 shadow-md sm:w-1/2 lg:w-1/4 dark:border-slate-600"
                         >
                             <figure className="px-10 pt-10">
                                 <img
@@ -90,7 +90,7 @@ function Homepage() {
                                     src={card.icon}
                                 />
                             </figure>
-                            <div className="card-body flex-grow items-center text-center">
+                            <div className="card-body grow items-center text-center">
                                 <h2 className="card-title">{card.title}</h2>
                                 <p>{card.description}</p>
                             </div>

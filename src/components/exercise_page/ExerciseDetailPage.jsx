@@ -405,7 +405,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         </div>
 
                         <div className="w-full md:w-2/3">
-                            <div className="card card-bordered shadow-md dark:border-slate-600">
+                            <div className="card card-lg card-border shadow-md dark:border-slate-600">
                                 {timeIsUp || quizCompleted || onMatchFinished ? (
                                     <>
                                         <div className="card-body">
@@ -461,7 +461,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                             {timeIsUp || quizCompleted || currentExerciseType == "memory_match" ? (
                                 ""
                             ) : (
-                                <div className="card card-bordered mt-4 shadow-md dark:border-slate-600">
+                                <div className="card card-lg card-border mt-4 shadow-md dark:border-slate-600">
                                     <div className="card-body">
                                         <div className="card-title font-semibold">
                                             {t("sound_page.reviewCard")}

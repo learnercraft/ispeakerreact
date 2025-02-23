@@ -29,10 +29,11 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@main
               with:
-                  node-version: "21"
+                  node-version: 22
+                  cache: 'npm'
 
             - name: Install Dependencies
-              run: npm ci --force
+              run: npm ci
 
             - name: Build Vite App
               run: npm run vitebuildcli
@@ -82,15 +83,8 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@main
               with:
-                  node-version: "21"
-
-            - name: Cache Node.js dependencies
-              uses: actions/cache@main
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.OS }}-node-
+                  node-version: 22
+                  cache: 'npm'
 
             - name: Set up Python (macOS only)
               if: matrix.os == 'macos-latest'

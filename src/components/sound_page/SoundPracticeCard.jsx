@@ -20,14 +20,14 @@ const SoundCardItem = ({
         !isRecordingAvailable(id) ||
         activeRecordingCard !== null;
 
-    const recordIconClasses = `me-2${
+    const recordIconClasses = `cursor-pointer me-2${
         activeRecordingCard === id
             ? " text-success"
             : isRecordingDisabled
               ? " pointer-events-none opacity-25"
               : ""
     }`;
-    const playIconClasses = `me-2${
+    const playIconClasses = `cursor-pointer me-2${
         isRecordingPlaying && activePlaybackCard !== id
             ? " pointer-events-none opacity-25"
             : isRecordingPlayingActive(id)
@@ -39,9 +39,9 @@ const SoundCardItem = ({
 
     return (
         <div className="flex flex-wrap">
-            <div className="card card-bordered mb-2 w-full dark:border-slate-600">
+            <div className="card card-lg card-border mb-2 w-full dark:border-slate-600">
                 <div className="card-body">
-                    <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+                    <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0 md:space-x-4">
                         <button
                             type="button"
                             className="btn btn-ghost"
@@ -49,7 +49,10 @@ const SoundCardItem = ({
                         >
                             <img src={imgPhonemeThumbSrc} alt="Phoneme Thumbnail" />
                         </button>
-                        <span lang="en" dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}></span>
+                        <span
+                            lang="en"
+                            dangerouslySetInnerHTML={{ __html: he.decode(textContent) }}
+                        ></span>
                         <div className="flex space-x-4">
                             <BsRecordCircleFill
                                 aria-label="record icon"

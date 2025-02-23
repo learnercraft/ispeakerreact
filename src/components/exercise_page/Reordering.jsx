@@ -299,7 +299,7 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                     </button>
                 </div>
 
-                <div className="my-3 flex flex-grow flex-row flex-wrap justify-center gap-2">
+                <div className="my-3 flex grow flex-row flex-wrap justify-center gap-2">
                     <DndContext
                         sensors={sensors}
                         collisionDetection={closestCenter}

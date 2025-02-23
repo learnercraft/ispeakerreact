@@ -45,20 +45,19 @@ const AccentDropdown = ({ onAccentChange }) => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu dropdown-content z-[300] w-52 rounded-box border bg-base-100 p-2 shadow-md dark:border-slate-600"
+                        className="menu dropdown-content rounded-box bg-base-100 border-base-200 z-300 w-60 border p-2 shadow-md dark:border-slate-600"
                     >
                         {selectedAccentOptions.map((item) => (
                             <li key={item.value}>
-                                <button
-                                    type="button"
+                                <a
                                     className={`${
-                                        selectedAccent === item.value ? "btn-active" : ""
-                                    } btn btn-ghost btn-sm btn-block justify-start`}
+                                        selectedAccent === item.value ? "menu-active" : ""
+                                    } justify-start`}
                                     onClick={() => handleAccentChange(item.value)}
                                 >
                                     <img src={item.emoji} className="inline-block h-6 w-6" />{" "}
                                     {item.name}
-                                </button>
+                                </a>
                             </li>
                         ))}
                     </ul>

@@ -1,25 +1,21 @@
+@import "tailwindcss";
+
 .memory-card {
-    @apply h-32 w-28 cursor-pointer;
-    perspective: 1000px;
+    @apply h-32 w-28 cursor-pointer perspective-distant;
 }
 
 .card-inner {
-    @apply duration-500 relative h-full w-full transition-transform ease-in-out;
-    transform-style: preserve-3d;
+    @apply relative h-full w-full transition-transform duration-500 ease-in-out transform-3d;
 }
 
+/* Flip the card */
 .memory-card.flipped .card-inner {
-    transform: rotateY(180deg); /* Flip the card */
+    @apply rotate-y-180;
 }
 
 .card-front,
 .card-back {
-    backface-visibility: hidden; /* Prevents showing the reverse side */
-}
-
-.card-front,
-.card-back {
-    @apply absolute flex h-full w-full select-none items-center justify-center rounded-md border border-gray-300 text-base font-bold;
+    @apply absolute flex h-full w-full items-center justify-center rounded-md border border-gray-300 text-base font-bold backface-hidden select-none;
 }
 
 /* Style for the front side */
@@ -30,5 +26,5 @@
 
 /* Style for the back side */
 .card-back {
-    @apply z-0 transform text-center text-sm md:text-base break-all;
+    @apply z-0 transform text-center text-sm break-all md:text-base;
 }

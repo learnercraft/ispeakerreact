@@ -57,7 +57,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
             style={style}
             {...attributes}
             {...listeners}
-            className={`btn no-animation h-[unset] break-all transition-none ${btnVariant} text-lg ${item ? "min-w-full" : ""} ${
+            className={`btn btn-lg no-animation break-all transition-none ${btnVariant} text-lg ${item ? "min-w-full" : ""} ${
                 isDragging && !disabled ? "opacity-50" : ""
             } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
         >
@@ -67,7 +67,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
     ) : (
         <button
             type="button"
-            className={`btn no-animation h-[unset] w-full justify-center break-all text-lg transition-none ${
+            className={`btn btn-lg no-animation w-full justify-center text-lg break-all transition-none ${
                 item ? "" : "lg:w-4/5 xl:w-3/4"
             } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
         >

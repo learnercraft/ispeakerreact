@@ -53,7 +53,7 @@ const LanguageSwitcher = () => {
                     {t("settingPage.languageSettings.languageOption")}
                 </p>
             </div>
-            <div className="flex flex-grow basis-1/2 justify-end">
+            <div className="flex grow basis-1/2 justify-end">
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn">
                         <img
@@ -65,14 +65,14 @@ const LanguageSwitcher = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu dropdown-content z-[300] w-52 rounded-box border-slate-50 bg-base-100 p-2 shadow-md"
+                        className="menu dropdown-content rounded-box bg-base-100 z-300 w-52 border-slate-50 p-2 shadow-md"
                     >
                         {supportedLanguages.map((lang) => (
                             <li lang={lang.code} key={lang.code}>
-                                <button
+                                <a
                                     type="button"
-                                    className={`btn btn-ghost btn-sm btn-block justify-start ${
-                                        i18n.language === lang.code ? "btn-active" : ""
+                                    className={`justify-start ${
+                                        i18n.language === lang.code ? "menu-active" : ""
                                     }`}
                                     onClick={() => handleLanguageChange(lang.code)}
                                 >
@@ -82,13 +82,13 @@ const LanguageSwitcher = () => {
                                         className="h-5 w-5"
                                     />
                                     {lang.label}
-                                </button>
+                                </a>
                             </li>
                         ))}
                         <li lang="en">
-                            <button
+                            <a
                                 type="button"
-                                className="btn btn-ghost btn-sm btn-block justify-start"
+                                className="justify-start"
                                 onClick={() =>
                                     openExternal(
                                         "https://github.com/yllst-testing-labs/ispeakerreact/issues/18"
@@ -97,7 +97,7 @@ const LanguageSwitcher = () => {
                             >
                                 Help us translate
                                 <LuExternalLink className="h-5 w-5" />
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </div>

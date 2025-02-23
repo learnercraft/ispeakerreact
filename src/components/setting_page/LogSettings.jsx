@@ -142,7 +142,7 @@ const LogSettings = () => {
                         {t("settingPage.logSettings.logSettingsDescription")}
                     </p>
                 </div>
-                <div className="flex flex-grow basis-1/2 justify-end">
+                <div className="flex grow basis-1/2 justify-end">
                     <div>
                         <p className="mb-2 text-base">
                             {t("settingPage.logSettings.numOfLogsOption")}
@@ -153,7 +153,7 @@ const LogSettings = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                                className="menu dropdown-content z-1 w-52 rounded-box bg-base-100 p-2 shadow-2xs"
                             >
                                 {maxLogOptions.map((option) => (
                                     <button
@@ -180,7 +180,7 @@ const LogSettings = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                                className="menu dropdown-content z-1 w-52 rounded-box bg-base-100 p-2 shadow-2xs"
                             >
                                 {deleteLogsOptions.map((option) => (
                                     <button

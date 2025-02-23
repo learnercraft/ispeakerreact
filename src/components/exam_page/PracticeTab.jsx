@@ -255,21 +255,21 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
 
                     return (
                         <div
-                            className="card card-bordered shadow-sm flex dark:border-slate-600"
+                            className="card card-lg card-border flex shadow-2xs dark:border-slate-600"
                             key={taskIndex}
                         >
                             <div className="card-body p-4">
                                 <div className="text-xl font-semibold">
                                     {t("tabConversationExam.taskCard")} {taskIndex + 1}
                                 </div>
-                                <div className="divider divider-secondary mb-4 mt-0"></div>
+                                <div className="divider divider-secondary mt-0 mb-4"></div>
                                 {task.images.length > 0 && (
                                     <div className="mb-3 flex flex-row flex-wrap justify-center gap-4">
                                         {task.images.map((image, index) => (
                                             <div className="flex w-full md:w-[30%]" key={index}>
                                                 <div className="aspect-w-16 aspect-h-9">
                                                     <img
-                                                        className="h-full w-full object-cover"
+                                                        className="h-full w-full cursor-pointer object-cover"
                                                         role="button"
                                                         src={`${
                                                             import.meta.env.BASE_URL
@@ -286,7 +286,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                         <p key={index}>{paragraph}</p>
                                     ))}
                                     {examLocalizedListItems.length > 0 && (
-                                        <ul className="list-inside list-disc ms-2">
+                                        <ul className="ms-2 list-inside list-disc">
                                             {examLocalizedListItems.map((item, index) => (
                                                 <li key={index}>{item}</li>
                                             ))}
@@ -294,16 +294,14 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                     )}
                                 </div>
 
-                                <label className="form-control mb-4">
-                                    <div className="label">
-                                        <span className="label-text">
-                                            {t("tabConversationExam.practiceExamTextbox")}
-                                        </span>
-                                    </div>
+                                <fieldset className="fieldset my-4">
+                                    <legend className="fieldset-legend text-sm">
+                                        {t("tabConversationExam.practiceExamTextbox")}
+                                    </legend>
                                     <textarea
                                         key={taskIndex}
                                         id={taskIndex}
-                                        className="textarea textarea-bordered text-base"
+                                        className="textarea w-full text-base"
                                         ref={(el) => (textAreaRefs.current[taskIndex] = el)}
                                         value={textValues[taskIndex]}
                                         onChange={(e) =>
@@ -315,7 +313,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                         }
                                         onInput={autoExpand}
                                     ></textarea>
-                                </label>
+                                </fieldset>
 
                                 <div className="flex flex-wrap justify-center gap-2">
                                     <button
@@ -400,7 +398,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
 
             <div className="my-4">
                 <div className="text-xl font-semibold">{t("tabConversationExam.tipCardExam")}</div>
-                <div className="divider divider-secondary mb-4 mt-0"></div>
+                <div className="divider divider-secondary mt-0 mb-4"></div>
                 <div className="flex w-full flex-col gap-4 px-4 lg:flex-row">
                     <div className="w-full">
                         <p className="mb-4 text-lg font-semibold">
@@ -410,7 +408,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                             {examTipDoLocalized.map((tip, index) => (
                                 <li className="flex gap-x-2" key={index}>
                                     <div className="flex gap-x-2">
-                                        <IoCheckmark className="h-6 w-6 items-center text-success" />
+                                        <IoCheckmark className="text-success h-6 w-6 items-center" />
                                     </div>
 
                                     <div className="flex min-w-0 gap-x-4">
@@ -429,7 +427,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                             {examTipDontLocalized.map((tip, index) => (
                                 <li className="flex gap-x-2" key={index}>
                                     <div className="flex gap-x-2">
-                                        <IoCloseOutline className="h-6 w-6 items-center text-error" />
+                                        <IoCloseOutline className="text-error h-6 w-6 items-center" />
                                     </div>
 
                                     <div className="flex min-w-0 gap-x-4">
@@ -445,7 +443,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
             <dialog ref={imageModalRef} className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <form method="dialog">
-                        <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                        <button className="btn btn-circle btn-ghost btn-sm absolute top-2 right-2">
                             <IoCloseOutline className="h-6 w-6" />
                         </button>
                     </form>

@@ -259,7 +259,7 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         </p>
                     )}
                 </div>
-                <div className="divider divider-secondary mb-3 mt-0"></div>
+                <div className="divider divider-secondary mt-0 mb-3"></div>
                 <div className="my-3 flex items-center justify-center gap-4">
                     {/* Audio Buttons Column */}
                     <div className="flex w-auto justify-end lg:w-2/5 2xl:w-1/3">
@@ -269,7 +269,7 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                                     <button
                                         type="button"
                                         title={t("exercise_page.buttons.playAudioBtn")}
-                                        className="btn btn-circle btn-success"
+                                        className="btn btn-lg btn-circle btn-success"
                                         onClick={() => handleAudioPlay(audio.src, index)}
                                         disabled={isLoading[index]}
                                     >

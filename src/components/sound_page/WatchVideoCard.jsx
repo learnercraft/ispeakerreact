@@ -41,7 +41,7 @@ const WatchVideoCard = ({ t, videoUrl, iframeLoadingStates, handleIframeLoad }) 
     const videoColorScheme = isDarkMode ? "dark" : "light";
 
     return (
-        <div className="card card-bordered mb-6 w-full shadow-md dark:border-slate-600">
+        <div className="card card-lg card-border mb-6 w-full shadow-md dark:border-slate-600">
             <div className="card-body">
                 <div className={`${iframeLoadingStates.modalIframe ? "overflow-hidden" : ""}`}>
                     <div className="aspect-video">

@@ -110,7 +110,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                 {subtopics.map((subtopic, topicIndex) => (
                     <div
                         key={topicIndex}
-                        className="card card-bordered w-full shadow-md md:w-2/5 lg:w-[30%] dark:border-slate-600"
+                        className="card card-lg card-border w-full shadow-md md:w-2/5 lg:w-[30%] dark:border-slate-600"
                     >
                         <div className="card-body px-4 md:px-8">
                             <div className="card-title font-semibold">{t(subtopic.title)}</div>
@@ -126,7 +126,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                                         <li
                                             lang="en"
                                             role="button"
-                                            className={`flex justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
+                                            className={`flex cursor-pointer justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
                                             key={uniqueIndex}
                                             onClick={() =>
                                                 handlePlayPause(uniqueIndex, sentenceObj.audioSrc)
