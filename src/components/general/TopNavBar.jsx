@@ -113,7 +113,7 @@ const TopNavBar = () => {
 
     return (
         <nav
-            className={`navbar sticky top-0 z-[300] w-full flex-none backdrop-blur-md backdrop-brightness-125 backdrop-saturate-200 ${navbarClass}`}
+            className={`navbar sticky top-0 z-300 w-full flex-none backdrop-blur-md backdrop-brightness-125 backdrop-saturate-200 ${navbarClass}`}
         >
             <div className="navbar md:navbar-start">
                 {/* Mobile Drawer */}
@@ -124,19 +124,31 @@ const TopNavBar = () => {
                     <input type="checkbox" id="mobile-menu" className="drawer-toggle hidden" />
                     <div className="drawer-side">
                         <label htmlFor="mobile-menu" className="drawer-overlay"></label>
-                        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base text-base-content">
+                        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 text-base">
                             {menuItems.map((item) =>
                                 item.childMenu ? (
                                     item.childMenu.map((child) => (
                                         <li key={child.to}>
-                                            <NavLink to={child.to} aria-label={child.label}>
+                                            <NavLink
+                                                to={child.to}
+                                                aria-label={child.label}
+                                                className={({ isActive }) =>
+                                                    isActive ? "menu-active" : ""
+                                                }
+                                            >
                                                 {child.icon} {child.label}
                                             </NavLink>
                                         </li>
                                     ))
                                 ) : (
                                     <li key={item.to}>
-                                        <NavLink to={item.to} aria-label={item.label}>
+                                        <NavLink
+                                            to={item.to}
+                                            aria-label={item.label}
+                                            className={({ isActive }) =>
+                                                isActive ? "menu-active" : ""
+                                            }
+                                        >
                                             {item.icon} {item.label}
                                         </NavLink>
                                     </li>
@@ -173,12 +185,15 @@ const TopNavBar = () => {
                             location.pathname === item.to;
 
                         return item.childMenu ? (
-                            <li key={item.label} className="dropdown dropdown-bottom">
+                            <li
+                                key={item.label}
+                                className="dropdown dropdown-bottom cursor-pointer"
+                            >
                                 <div
                                     tabIndex={0}
                                     role="button"
                                     className={`flex items-center space-x-1 ${
-                                        isActive ? "active" : ""
+                                        isActive ? "menu-active" : ""
                                     }`}
                                     aria-label={item.label}
                                 >
@@ -186,11 +201,17 @@ const TopNavBar = () => {
                                 </div>
                                 <ul
                                     tabIndex={0}
-                                    className="menu dropdown-content w-52 rounded-box bg-base-100 p-2 shadow"
+                                    className="menu border-base-200 dropdown-content rounded-box bg-base-100 w-52 border p-2 shadow-sm"
                                 >
                                     {item.childMenu.map((child) => (
                                         <li key={child.to}>
-                                            <NavLink to={child.to} aria-label={child.label}>
+                                            <NavLink
+                                                to={child.to}
+                                                aria-label={child.label}
+                                                className={({ isActive }) =>
+                                                    isActive ? "menu-active" : ""
+                                                }
+                                            >
                                                 {child.icon} {child.label}
                                             </NavLink>
                                         </li>
@@ -202,7 +223,7 @@ const TopNavBar = () => {
                                 <NavLink
                                     to={item.to}
                                     aria-label={item.label}
-                                    className={({ isActive }) => (isActive ? "active" : "")}
+                                    className={({ isActive }) => (isActive ? "menu-active" : "")}
                                 >
                                     {item.icon} {item.label}
                                 </NavLink>
@@ -222,7 +243,7 @@ const TopNavBar = () => {
                     }
                 >
                     <FaGithub size="1.5em" />
-                    <span className="ml-1 hidden items-center space-x-1 md:inline-flex">
+                    <span className="ms-1 hidden items-center space-x-1 md:inline-flex">
                         <span lang="en">GitHub</span>
                         <FiExternalLink />
                     </span>

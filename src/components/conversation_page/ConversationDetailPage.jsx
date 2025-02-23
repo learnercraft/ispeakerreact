@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
 import { isElectron } from "../../utils/isElectron";
+import { useScrollTo } from "../../utils/useScrollTo";
 import LoadingOverlay from "../general/LoadingOverlay";
 import ListeningTab from "./ListeningTab";
 import PracticeTab from "./PracticeTab";
@@ -11,6 +12,7 @@ import WatchAndStudyTab from "./WatchAndStudyTab";
 
 const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     const { t } = useTranslation();
+    const { ref: scrollRef, scrollTo } = useScrollTo();
 
     const [activeTab, setActiveTab] = useState("watchStudyTab");
     const [loading, setLoading] = useState(true);
@@ -94,7 +96,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
 
     return (
         <>
-            <h3 className="mb-2 mt-4 text-2xl font-semibold">
+            <h3 className="mt-4 mb-2 text-2xl font-semibold">
                 {t("conversationPage.topicHeading")} {t(title)}
             </h3>
             <p>
@@ -109,65 +111,72 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                 <LoadingOverlay />
             ) : (
                 <>
-                    <div className="sticky top-[calc(5rem)] z-10 bg-base-100 py-8">
+                    <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
                         <div className="flex justify-center">
-                            <ul className="menu menu-horizontal w-auto justify-center rounded-box bg-base-200 dark:bg-slate-600">
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveTab("watchStudyTab")}
-                                        className={`md:text-base ${
-                                            activeTab === "watchStudyTab"
-                                                ? "active font-semibold"
-                                                : ""
-                                        }`}
-                                    >
-                                        <MdOutlineOndemandVideo className="h-6 w-6" />{" "}
-                                        {t("buttonConversationExam.watchBtn")}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveTab("listenTab")}
-                                        className={`md:text-base ${
-                                            activeTab === "listenTab" ? "active font-semibold" : ""
-                                        }`}
-                                    >
-                                        <MdHeadphones className="h-6 w-6" />{" "}
-                                        {t("buttonConversationExam.listenBtn")}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveTab("practiceTab")}
-                                        className={`md:text-base ${
-                                            activeTab === "practiceTab"
-                                                ? "active font-semibold"
-                                                : ""
-                                        }`}
-                                    >
-                                        <MdKeyboardVoice className="h-6 w-6" />{" "}
-                                        {t("buttonConversationExam.practiceBtn")}
-                                    </button>
-                                </li>
-                                <li>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveTab("reviewTab")}
-                                        className={`md:text-base ${
-                                            activeTab === "reviewTab" ? "active font-semibold" : ""
-                                        }`}
-                                    >
-                                        <MdChecklist className="h-6 w-6" />{" "}
-                                        {t("buttonConversationExam.reviewBtn")}
-                                    </button>
-                                </li>
-                            </ul>
+                            <div role="tablist" className="tabs tabs-box">
+                                <a
+                                    role="tab"
+                                    onClick={() => {
+                                        setActiveTab("watchStudyTab");
+                                        scrollTo();
+                                    }}
+                                    className={`tab md:text-base ${
+                                        activeTab === "watchStudyTab"
+                                            ? "tab-active font-semibold"
+                                            : ""
+                                    }`}
+                                >
+                                    <MdOutlineOndemandVideo className="me-1 h-6 w-6" />
+                                    {t("buttonConversationExam.watchBtn")}
+                                </a>
+                                <a
+                                    role="tab"
+                                    onClick={() => {
+                                        setActiveTab("listenTab");
+                                        scrollTo();
+                                    }}
+                                    className={`tab md:text-base ${
+                                        activeTab === "listenTab" ? "tab-active font-semibold" : ""
+                                    }`}
+                                >
+                                    <MdHeadphones className="me-1 h-6 w-6" />
+                                    {t("buttonConversationExam.listenBtn")}
+                                </a>
+                                <a
+                                    role="tab"
+                                    onClick={() => {
+                                        setActiveTab("practiceTab");
+                                        scrollTo();
+                                    }}
+                                    className={`tab md:text-base ${
+                                        activeTab === "practiceTab"
+                                            ? "tab-active font-semibold"
+                                            : ""
+                                    }`}
+                                >
+                                    <MdKeyboardVoice className="me-1 h-6 w-6" />
+                                    {t("buttonConversationExam.practiceBtn")}
+                                </a>
+                                <a
+                                    role="tab"
+                                    onClick={() => {
+                                        setActiveTab("reviewTab");
+                                        scrollTo();
+                                    }}
+                                    className={`tab md:text-base ${
+                                        activeTab === "reviewTab" ? "tab-active font-semibold" : ""
+                                    }`}
+                                >
+                                    <MdChecklist className="me-1 h-6 w-6" />
+                                    {t("buttonConversationExam.reviewBtn")}
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div className="card card-bordered mb-6 w-full shadow-md dark:border-slate-600">
+                    <div
+                        ref={scrollRef}
+                        className="card card-lg card-border mb-6 w-full shadow-md dark:border-slate-600"
+                    >
                         <div className="card-body">
                             {activeTab === "watchStudyTab" && (
                                 <WatchAndStudyTab
@@ -177,15 +186,23 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                                     skillCheckmark={
                                         accentData.watch_and_study.study.skill_checkmark
                                     }
+                                    scrollTo={scrollTo}
                                 />
                             )}
 
                             {activeTab === "listenTab" && (
-                                <ListeningTab sentences={accentData.listen.subtopics} />
+                                <ListeningTab
+                                    sentences={accentData.listen.subtopics}
+                                    scrollTo={scrollTo}
+                                />
                             )}
 
                             {activeTab === "practiceTab" && (
-                                <PracticeTab accent={accent} conversationId={id} />
+                                <PracticeTab
+                                    accent={accent}
+                                    conversationId={id}
+                                    scrollTo={scrollTo}
+                                />
                             )}
 
                             {activeTab === "reviewTab" && (
@@ -193,6 +210,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                                     reviews={accentData.reviews}
                                     accent={accent}
                                     conversationId={id}
+                                    scrollTo={scrollTo}
                                 />
                             )}
                         </div>

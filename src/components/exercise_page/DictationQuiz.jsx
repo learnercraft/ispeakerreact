@@ -181,7 +181,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                     >
                         <label
                             lang="en"
-                            className="input input-bordered flex items-center gap-0 md:gap-2"
+                            className="input items-center gap-0 md:gap-2"
                         >
                             <input
                                 type="text"
@@ -201,9 +201,9 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                             {showValidation && (
                                 <>
                                     {isCorrect ? (
-                                        <AiOutlineCheckCircle className="h-6 w-6 text-primary" />
+                                        <AiOutlineCheckCircle className="text-primary h-6 w-6" />
                                     ) : (
-                                        <AiOutlineCloseCircle className="h-6 w-6 text-error" />
+                                        <AiOutlineCloseCircle className="text-error h-6 w-6" />
                                     )}
                                 </>
                             )}

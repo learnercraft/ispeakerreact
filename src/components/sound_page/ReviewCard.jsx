@@ -28,7 +28,7 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
     };
 
     return (
-        <div className="card card-bordered flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
+        <div className="card card-lg card-border flex h-auto flex-col justify-between pb-6 shadow-md dark:border-slate-600">
             <div className="card-body">
                 <p className="mb-2 text-center">
                     <Trans
@@ -49,13 +49,13 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
                             <BsEmojiSmileFill
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("good")}`}
+                                className={`cursor-pointer ${emojiStyle("good")}`}
                             />
                         ) : (
                             <BsEmojiSmile
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("good")}`}
+                                className={`cursor-pointer ${emojiStyle("good")}`}
                             />
                         )}
                     </a>
@@ -69,13 +69,13 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
                             <BsEmojiNeutralFill
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("neutral")}`}
+                                className={`cursor-pointer ${emojiStyle("neutral")}`}
                             />
                         ) : (
                             <BsEmojiNeutral
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("neutral")}`}
+                                className={`cursor-pointer ${emojiStyle("neutral")}`}
                             />
                         )}
                     </a>
@@ -89,13 +89,13 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
                             <BsEmojiFrownFill
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("bad")}`}
+                                className={`cursor-pointer ${emojiStyle("bad")}`}
                             />
                         ) : (
                             <BsEmojiFrown
                                 size={52}
                                 role="button"
-                                className={`${emojiStyle("bad")}`}
+                                className={`cursor-pointer ${emojiStyle("bad")}`}
                             />
                         )}
                     </a>

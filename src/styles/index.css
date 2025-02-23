@@ -1,6 +1,99 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+    themes:
+        dim --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(99.19% 0.0105 106.59);
+    --color-base-200: oklch(95.1% 0.0203 118.94);
+    --color-base-300: oklch(92.2% 0.0305 123.31);
+    --color-base-content: oklch(0% 0 0);
+    --color-primary: oklch(47.31% 0.1359 134.26);
+    --color-primary-content: oklch(100% 0 0);
+    --color-secondary: oklch(83.66% 0.1165 66.29);
+    --color-secondary-content: oklch(0% 0 0);
+    --color-accent: oklch(46.23% 0.1623 305.49);
+    --color-accent-content: oklch(100% 0 0);
+    --color-neutral: rgb(56, 102, 100);
+    --color-neutral-content: oklch(100% 0 0);
+    --color-info: oklch(50.97% 0.1024 253.22);
+    --color-info-content: oklch(100% 0 0);
+    --color-success: oklch(52.73% 0.1371 150.07);
+    --color-success-content: oklch(100% 0 0);
+    --color-warning: oklch(83.69% 0.1644 84.43);
+    --color-warning-content: oklch(0% 0 0);
+    --color-error: oklch(50.6% 0.1927 27.7);
+    --color-error-content: oklch(100% 0 0);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 1;
+}
+
+@custom-variant dark (&:where([data-theme=dim], [data-theme=dim] *));
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
 
 :where([data-sonner-toast]) :where([data-title]) {
     @apply text-base; /* For success toasts */

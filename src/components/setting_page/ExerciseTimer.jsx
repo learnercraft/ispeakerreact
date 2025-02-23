@@ -126,10 +126,10 @@ const ExerciseTimer = () => {
             <div className="my-4 flex flex-row flex-wrap justify-center gap-4 px-8">
                 {Object.keys(exerciseNames).map((exercise) => (
                     <div key={exercise} className="basis-full md:basis-1/3 lg:basis-1/4">
-                        <label className="form-control w-full max-w-xs">
-                            <div className="label">
+                        <fieldset className="fieldset w-full max-w-xs">
+                            <legend className="fieldset-legend text-sm font-normal">
                                 <span>{exerciseNames[exercise]}</span>
-                            </div>
+                            </legend>
 
                             <input
                                 type="text"
@@ -149,13 +149,11 @@ const ExerciseTimer = () => {
                             {tempSettings[exercise] === "" ||
                             tempSettings[exercise] < 0 ||
                             tempSettings[exercise] > 10 ? (
-                                <div className="label">
-                                    <span className="label-text text-error">
-                                        {t("settingPage.exerciseSettings.textboxError")}
-                                    </span>
-                                </div>
+                                <p className="fieldset-label text-error text-sm">
+                                    {t("settingPage.exerciseSettings.textboxError")}
+                                </p>
                             ) : null}
-                        </label>
+                        </fieldset>
                     </div>
                 ))}
             </div>
