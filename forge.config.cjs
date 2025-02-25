@@ -16,7 +16,7 @@ module.exports = {
             ProductName: "iSpeakerReact",
         },
         prune: true,
-        icon: "./dist/appicon",
+        icon: path.join(__dirname, "dist", "appicon"),
         ignore: [
             "^/\\.github$", // Ignore the .github directory
             "^/venv$", // Ignore the venv directory
@@ -39,19 +39,25 @@ module.exports = {
         },
         {
             name: "@electron-forge/maker-dmg",
-            config: {},
+            config: {
+                options: {
+                    icon: path.join(__dirname, "dist", "appicon.icns"),
+                },
+            },
         },
         {
             name: "@electron-forge/maker-deb",
             config: {
                 options: {
-                    productName: "iSpeakerReact",
+                    icon: path.join(__dirname, "dist", "appicon.png"),
                 },
             },
         },
         {
             name: "@electron-forge/maker-rpm",
-            config: {},
+            options: {
+                icon: path.join(__dirname, "dist", "appicon.png"),
+            },
         },
         {
             name: "@electron-forge/maker-squirrel",
