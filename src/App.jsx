@@ -78,7 +78,7 @@ const clearCacheForNewVersion = async () => {
         }
 
         // If we are near the rate limit, stop further checks
-        if (rateLimitRemaining < 60 && rateLimitReset) {
+        if (rateLimitRemaining < 50 && rateLimitReset) {
             console.warn(
                 `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
             );
