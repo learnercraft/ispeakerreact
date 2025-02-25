@@ -12,7 +12,16 @@ const AppInfo = () => {
     const [alertVariant, setAlertVariant] = useState("success");
     const [currentVersion] = useState(__APP_VERSION__);
 
+    const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
+
     const checkForUpdates = async () => {
+        // Prevent running in either development mode or Electron version
+        if (process.env.NODE_ENV === "development") {
+            console.warn("Dev mode detected, skipping version check.");
+            setAlertMessage(t("Dev mode detected, skipping version check."));
+            setAlertVisible(true);
+            return;
+        }
         setIsLoading(true);
 
         if (!navigator.onLine) {
@@ -24,6 +33,19 @@ const AppInfo = () => {
         }
 
         try {
+            const now = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+            const savedResetTime = localStorage.getItem(RATE_LIMIT_KEY);
+            const resetTime = new Date(parseInt(savedResetTime, 10) * 1000).toLocaleString();
+
+            // If a reset time is stored and it's in the future, skip API request
+            if (savedResetTime && now < parseInt(savedResetTime, 10)) {
+                console.warn("Skipping version check due to rate limiting.");
+                setAlertMessage(t("alert.rateLimited", { time: resetTime }));
+                setAlertVariant("alert-warning");
+                setAlertVisible(true);
+                return;
+            }
+
             const response = await fetch(
                 "https://api.github.com/repos/yllst-testing-labs/ispeakerreact/contents/package.json",
                 {
@@ -49,6 +71,32 @@ const AppInfo = () => {
                 throw new Error(
                     "The html_url is invalid or does not match the expected repository."
                 );
+            }
+
+            // Get rate limit headers
+            const rateLimitRemaining = parseInt(
+                response.headers.get("x-ratelimit-remaining") || "0",
+                10
+            );
+            const rateLimitReset = parseInt(response.headers.get("x-ratelimit-reset") || "0", 10);
+
+            // If GitHub sends a reset time, store it before proceeding
+            if (rateLimitReset) {
+                localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
+            }
+
+            // If we are near the rate limit, stop further checks
+            if (rateLimitRemaining < 60 && rateLimitReset) {
+                console.warn(
+                    `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
+                );
+                const resetTimeFirst = new Date(
+                    parseInt(rateLimitReset + 5 * 3600, 10) * 1000
+                ).toLocaleString();
+                setAlertMessage(t("alert.rateLimited", { time: resetTimeFirst }));
+                setAlertVariant("alert-warning");
+                setAlertVisible(true);
+                return;
             }
 
             // GitHub returns the content in base64 encoding, so we need to decode it
@@ -119,7 +167,9 @@ const AppInfo = () => {
                     />
                 </div>
                 <div className="h-full">
-                    <h4 lang="en" className="text-xl font-semibold">iSpeakerReact</h4>
+                    <h4 lang="en" className="text-xl font-semibold">
+                        iSpeakerReact
+                    </h4>
                     <p lang="en" className="mb-2 text-slate-600 dark:text-slate-400">
                         Version {currentVersion}
                     </p>
