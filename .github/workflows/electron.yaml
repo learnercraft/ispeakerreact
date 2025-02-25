@@ -91,7 +91,6 @@ jobs:
               uses: actions/setup-python@main
               with:
                   python-version: "3.13"
-                  cache: 'pip'
 
             - name: Cache Electron build (all platforms)
               uses: actions/cache@main
