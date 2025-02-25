@@ -3,7 +3,7 @@
     "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "3.2.6",
+    "version": "3.2.7",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
@@ -83,7 +83,7 @@
         "prettier-plugin-tailwindcss": "^0.6.11",
         "rollup-plugin-visualizer": "^5.14.0",
         "tailwindcss": "^4.0.8",
-        "vite": "^6.1.1",
+        "vite": "^6.2.0",
         "vite-plugin-pwa": "^0.21.1",
         "wait-on": "^8.0.2"
     },

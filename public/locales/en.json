@@ -28,7 +28,8 @@
         "alertAppNoInternet": "No Internet connection. Please check your connection and try again.",
         "appNewVersionGitHub": "A new update is found. Go to the project's GitHub page for more information.",
         "appVersionLatest": "You are already using the latest version.",
-        "appUpdateError": "Error checking for updates. Please try again."
+        "appUpdateError": "Error checking for updates. Please try again.",
+        "rateLimited": "Cannot check for new version due to rate limiting. Please try again after {{time}}."
     },
     "toast": {
         "recordingExceeded": "Duration limit reached. Recording has stopped.",

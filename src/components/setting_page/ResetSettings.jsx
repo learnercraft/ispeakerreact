@@ -41,7 +41,11 @@ const ResetSettings = () => {
         checkAndCloseDatabase("CacheDatabase").then(() => {
             const deleteRequest = window.indexedDB.deleteDatabase("CacheDatabase");
             deleteRequest.onsuccess = () => {
-                localStorage.clear();
+                Object.keys(localStorage).forEach((key) => {
+                    if (key !== "github_ratelimit_timestamp") {
+                        localStorage.removeItem(key);
+                    }
+                });
                 setIsResettingLocalStorage(false);
                 localStorageModal.current?.close();
                 window.location.reload();
