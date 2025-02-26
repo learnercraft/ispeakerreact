@@ -35,6 +35,7 @@ const baseUrl = isElectron()
 const currentVersion = __APP_VERSION__;
 
 const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
+const RATE_LIMIT_THRESHOLD = 50;
 
 const clearCacheForNewVersion = async () => {
     // Prevent running in either development mode or Electron version
@@ -72,16 +73,12 @@ const clearCacheForNewVersion = async () => {
         );
         const rateLimitReset = parseInt(response.headers.get("x-ratelimit-reset") || "0", 10);
 
-        // If GitHub sends a reset time, store it before proceeding
-        if (rateLimitReset) {
-            localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
-        }
-
         // If we are near the rate limit, stop further checks
-        if (rateLimitRemaining < 50 && rateLimitReset) {
+        if (rateLimitRemaining < RATE_LIMIT_THRESHOLD && rateLimitReset) {
             console.warn(
                 `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
             );
+            localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
             return;
         }
 
@@ -96,7 +93,8 @@ const clearCacheForNewVersion = async () => {
             console.log(
                 `New version found: ${latestVersion}. Clearing cache and refreshing page...`
             );
-            alert(`New version found: ${latestVersion}. Refreshing in 3 seconds...`);
+
+            alert(`New version found: v${latestVersion}. Press OK to refresh.`);
 
             caches.keys().then((names) => {
                 names.forEach((name) => {
@@ -108,7 +106,7 @@ const clearCacheForNewVersion = async () => {
 
             setTimeout(() => {
                 window.location.reload();
-            }, "3000");
+            }, "1000");
         }
     } catch (error) {
         console.error("Failed to fetch version:", error);
