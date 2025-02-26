@@ -13,6 +13,7 @@ const AppInfo = () => {
     const [currentVersion] = useState(__APP_VERSION__);
 
     const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
+    const RATE_LIMIT_THRESHOLD = 50;
 
     const checkForUpdates = async () => {
         // Prevent running in either development mode or Electron version
@@ -80,19 +81,15 @@ const AppInfo = () => {
             );
             const rateLimitReset = parseInt(response.headers.get("x-ratelimit-reset") || "0", 10);
 
-            // If GitHub sends a reset time, store it before proceeding
-            if (rateLimitReset) {
-                localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
-            }
-
             // If we are near the rate limit, stop further checks
-            if (rateLimitRemaining < 50 && rateLimitReset) {
+            if (rateLimitRemaining < RATE_LIMIT_THRESHOLD && rateLimitReset) {
                 console.warn(
                     `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
                 );
                 const resetTimeFirst = new Date(
                     parseInt(rateLimitReset + 5 * 3600, 10) * 1000
                 ).toLocaleString();
+                localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
                 setAlertMessage(t("alert.rateLimited", { time: resetTimeFirst }));
                 setAlertVariant("alert-warning");
                 setAlertVisible(true);
