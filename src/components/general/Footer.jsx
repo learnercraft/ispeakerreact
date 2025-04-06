@@ -5,11 +5,7 @@ const openExternal = (url) => {
     if (isElectron()) {
         window.electron.openExternal(url);
     } else {
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.click();
+        window.open(url, "_blank", "noopener,noreferrer");
     }
 };
 

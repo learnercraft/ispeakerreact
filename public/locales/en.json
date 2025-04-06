@@ -31,6 +31,13 @@
         "appUpdateError": "Error checking for updates. Please try again.",
         "rateLimited": "Cannot check for new version due to rate limiting. Please try again after {{time}}."
     },
+    "appCrash": {
+        "appCrashedTitle": "App crashed!",
+        "appCrashedDesc": "Please copy the error below and report it in a GitHub issue.",
+        "copyBtn": "Copy error log",
+        "openGitHubBtn": "Open GitHub issue",
+        "refreshBtn": "Refresh page"
+    },
     "toast": {
         "recordingExceeded": "Duration limit reached. Recording has stopped.",
         "recordingSuccess": "Recording saved successfully",
@@ -43,7 +50,8 @@
         "audioPlayFailed": "Unable to play audio due to a network issue. Please check your connection and reload the page.",
         "loadingError": "Error while loading the data. Please try refreshing the page.",
         "reviewUpdated": "Review updated successfully",
-        "noRecording": "Please record first before reviewing"
+        "noRecording": "Please record first before reviewing",
+        "appCrashCopySuccess": "Error log copied to clipboard"
     },
     "buttonConversationExam": {
         "watchBtn": "Watch",
