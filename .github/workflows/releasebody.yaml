@@ -30,7 +30,8 @@ jobs:
               run: |
                   python scripts/gh_releases_body.py > release_body.md
 
-            - name: Update release
+            - name: Update release (from trigger)
+              if: github.event_name == 'release'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   RELEASE_ID: ${{ github.event.release.id }}
@@ -38,7 +39,22 @@ jobs:
                   curl -X PATCH \
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Accept: application/vnd.github.v3+json" \
-                    https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID \
+                    "https://api.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID" \
+                    -d @- << EOF
+                  {
+                    "body": $(cat release_body.md | jq -R -s '.')
+                  }
+                  EOF
+
+            - name: Update release (manual or latest)
+              if: github.event_name != 'release'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  curl -X PATCH \
+                    -H "Authorization: token $GITHUB_TOKEN" \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    "https://api.github.com/repos/${{ github.repository }}/releases/latest" \
                     -d @- << EOF
                   {
                     "body": $(cat release_body.md | jq -R -s '.')
