@@ -432,6 +432,11 @@ ipcMain.handle("play-recording", async (event, key) => {
 ipcMain.handle("check-downloads", () => {
     const saveFolder = getSaveFolder();
     const videoFolder = path.join(saveFolder, "video_files");
+    // Ensure the directory exists
+    if (!fs.existsSync(videoFolder)) {
+        fs.mkdirSync(videoFolder, { recursive: true });
+    }
+
     const files = fs.readdirSync(videoFolder);
     // Return the list of zip files in the download folder
     return files.filter((file) => file.endsWith(".7z"));

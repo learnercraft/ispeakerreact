@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
+import { isElectron } from "../../utils/isElectron";
 import VideoDownloadTable from "./VideoDownloadTable";
 
 const VideoDownloadSubPage = ({ onGoBack }) => {
@@ -25,6 +26,7 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 setZipFileData(data); // Set the JSON data into the state
             } catch (error) {
                 console.error("Error reading JSON file:", error); // Handle any error
+                isElectron() && window.electron.log("error", `Error reading JSON file: ${error}`);
             }
         };
 
@@ -35,6 +37,8 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
         try {
             const downloadedFiles = await window.electron.ipcRenderer.invoke("check-downloads");
             console.log("Downloaded files in folder:", downloadedFiles);
+            isElectron() &&
+                window.electron.log("log", `Downloaded files in folder: ${downloadedFiles}`);
 
             // Initialize fileStatus as an array to hold individual statuses
             const newFileStatus = [];
@@ -49,6 +53,11 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                     );
                 } catch (error) {
                     console.error(`Error checking extracted folder for ${item.zipFile}:`, error);
+                    isElectron() &&
+                        window.electron.log(
+                            "error",
+                            `Error checking extracted folder for ${item.zipFile}: ${error}`
+                        );
                     extractedFolderExists = false; // Default to false if there's an error
                 }
 
@@ -65,6 +74,11 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             console.log(newFileStatus);
         } catch (error) {
             console.error("Error checking downloaded or extracted files:", error);
+            isElectron() &&
+                window.electron.log(
+                    "error",
+                    `Error checking downloaded or extracted files: ${error}`
+                );
         }
     }, [zipFileData]);
 
