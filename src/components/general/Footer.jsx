@@ -15,7 +15,10 @@ const openExternal = (url) => {
 
 const Footer = () => {
     return (
-        <footer lang="en" className="footer bg-base-200 p-6 pb-20 text-base-content md:p-10">
+        <footer
+            lang="en"
+            className="footer sm:footer-horizontal bg-base-200 text-base-content p-6 pb-20 md:p-10"
+        >
             <aside>
                 <LogoLightOrDark width="100" height="100" />
                 <p>

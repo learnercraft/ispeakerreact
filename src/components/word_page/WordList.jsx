@@ -143,7 +143,7 @@ const PronunciationPractice = () => {
                                     <a
                                         role="tab"
                                         onClick={() => setActiveTab("oxford3000")}
-                                        className={`md:text-base tab ${
+                                        className={`tab md:text-base ${
                                             activeTab === "oxford3000"
                                                 ? "tab-active font-semibold"
                                                 : ""
@@ -159,7 +159,7 @@ const PronunciationPractice = () => {
                                     </a>
                                     <a
                                         role="tab"
-                                        className={`md:text-base tab ${
+                                        className={`tab md:text-base ${
                                             activeTab === "oxford5000"
                                                 ? "tab-active font-semibold"
                                                 : ""
@@ -252,7 +252,7 @@ const PronunciationPractice = () => {
                                                             {word.level.map((wordLevel, id) => (
                                                                 <span
                                                                     key={id}
-                                                                    className="badge badge-outline font-semibold"
+                                                                    className="badge badge-neutral font-semibold"
                                                                     lang="en"
                                                                 >
                                                                     {wordLevel.toUpperCase()}
