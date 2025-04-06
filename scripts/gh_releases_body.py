@@ -1,28 +1,65 @@
 import requests
 import os
+import json
+import sys
 
-# Get info from the environment
+# Get environment variables with fallbacks
 repo = os.environ.get("GITHUB_REPOSITORY", "yllst-testing-labs/ispeakerreact")
 release_id = os.environ.get("RELEASE_ID")
 
 # Define the GitHub API URL and headers
-url = f"https://api.github.com/repos/{repo}/releases/{release_id}"
+if release_id:
+    url = f"https://api.github.com/repos/{repo}/releases/{release_id}"
+else:
+    # Fallback to latest release if no specific release ID is provided
+    url = f"https://api.github.com/repos/{repo}/releases/latest"
+
 token = os.environ.get("GITHUB_TOKEN")
 headers = {
-    "User-Agent": "yllst-testing-labs-release-updater-action",
-    "Authorization": f"token {token}",
+    "User-Agent": "release-updater-action",
     "Accept": "application/vnd.github.v3+json",
 }
 
+# Add authorization header if token is available
+if token:
+    headers["Authorization"] = f"token {token}"
+
 # Fetch the release data
-response = requests.get(url, headers=headers)
-release_data = response.json()
+try:
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()  # Raise exception for 4XX/5XX responses
+    release_data = response.json()
+
+    # Debug: Print the keys in the response
+    print(f"DEBUG: Response keys: {list(release_data.keys())}", file=sys.stderr)
+
+except requests.exceptions.RequestException as e:
+    print(f"ERROR: Failed to fetch release data: {e}", file=sys.stderr)
+    print(f"Response status code: {response.status_code}", file=sys.stderr)
+    print(f"Response content: {response.text}", file=sys.stderr)
+    sys.exit(1)
 
 # Extract necessary details
-tag = release_data["tag_name"]
-name = release_data["name"]
-assets = release_data["assets"]
-changelog_url = f"https://github.com/{repo}/compare/{tag.split('-')[0]}...{tag}"
+try:
+    tag = release_data.get("tag_name")
+    if not tag:
+        print(f"ERROR: No tag_name in response data", file=sys.stderr)
+        sys.exit(1)
+
+    name = release_data.get("name", tag)
+    assets = release_data.get("assets", [])
+
+    if not assets:
+        print("WARNING: No assets found in the release", file=sys.stderr)
+
+    # For the changelog URL, handle possible tag format variations
+    base_tag = tag.split("-")[0] if "-" in tag else tag
+    changelog_url = f"https://github.com/{repo}/compare/{base_tag}...{tag}"
+
+except KeyError as e:
+    print(f"ERROR: Missing required field in response data: {e}", file=sys.stderr)
+    print(f"Full response: {json.dumps(release_data, indent=2)}", file=sys.stderr)
+    sys.exit(1)
 
 # Organize assets by platform
 windows_downloads = []
