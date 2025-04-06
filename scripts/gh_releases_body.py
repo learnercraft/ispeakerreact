@@ -4,15 +4,15 @@ import json
 import sys
 
 # Get environment variables with fallbacks
-repo = os.environ.get("GITHUB_REPOSITORY", "yllst-testing-labs/ispeakerreact")
-release_id = os.environ.get("RELEASE_ID")
+repo = "yllst-testing-labs/ispeakerreact"
+# release_id = os.environ.get("RELEASE_ID")
 
 # Define the GitHub API URL and headers
-if release_id:
-    url = f"https://api.github.com/repos/{repo}/releases/{release_id}"
-else:
-    # Fallback to latest release if no specific release ID is provided
-    url = f"https://api.github.com/repos/{repo}/releases/latest"
+# if release_id:
+# url = f"https://api.github.com/repos/{repo}/releases/{release_id}"
+# else:
+# Fallback to latest release if no specific release ID is provided
+url = f"https://api.github.com/repos/{repo}/releases/latest"
 
 token = os.environ.get("GITHUB_TOKEN")
 headers = {
