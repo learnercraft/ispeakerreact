@@ -38,8 +38,12 @@ const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
 const RATE_LIMIT_THRESHOLD = 50;
 
 const clearCacheForNewVersion = async () => {
+    // Normalize URL
+    const baseUrl = import.meta.env.BASE_URL.replace(/\/+$/, ""); // Remove trailing slash
+    const currentUrl = window.location.href;
+
     // Prevent running in either development mode or Electron version
-    if (process.env.NODE_ENV === "development" || isElectron()) {
+    if (process.env.NODE_ENV === "development" || isElectron() || !currentUrl.startsWith(baseUrl)) {
         console.warn("Dev mode or Electron version detected, skipping version check.");
         return;
     }
