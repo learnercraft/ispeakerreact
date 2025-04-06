@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import LoadingOverlay from "./components/general/LoadingOverlay";
 import NotFound from "./components/general/NotFound";
 import Homepage from "./components/Homepage";
+import ErrorBoundary from "./ErrorBoundary";
 import { isElectron } from "./utils/isElectron";
 import { ThemeProvider } from "./utils/ThemeContext/ThemeProvider";
 import { useTheme } from "./utils/ThemeContext/useTheme";
@@ -196,9 +197,11 @@ const AppContent = () => {
 };
 
 const App = () => (
-    <ThemeProvider>
-        <AppContent />
-    </ThemeProvider>
+    <ErrorBoundary>
+        <ThemeProvider>
+            <AppContent />
+        </ThemeProvider>
+    </ErrorBoundary>
 );
 
 export default App;
