@@ -161,7 +161,11 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                         </h1>
 
                         {word.level.map((wordLevel, id) => (
-                            <span key={id} className="badge badge-outline font-semibold" lang="en">
+                            <span
+                                key={id}
+                                className="badge badge-neutral font-semibold"
+                                lang="en"
+                            >
                                 {wordLevel.toUpperCase()}
                             </span>
                         ))}
