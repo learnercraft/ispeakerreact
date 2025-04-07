@@ -15,6 +15,7 @@ const ConversationMenu = lazy(() => import("./components/conversation_page/Conve
 const ExamPage = lazy(() => import("./components/exam_page/ExamPage"));
 const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"));
 const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
+const DownloadPage = lazy(() => import("./components/download_page/DownloadPage"));
 
 const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
 
@@ -180,6 +181,14 @@ const AppContent = () => {
                         element={
                             <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
                                 <SettingsPage />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/download"
+                        element={
+                            <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
+                                <DownloadPage />
                             </Suspense>
                         }
                     />
