@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Container from "../ui/Container";
+import { isElectron } from "../utils/isElectron";
 import Footer from "./general/Footer";
 import LogoLightOrDark from "./general/LogoLightOrDark";
 import TopNavBar from "./general/TopNavBar";
@@ -56,6 +57,13 @@ function Homepage() {
             icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/settings_menu_icon.svg`,
             path: "settings",
         },
+        {
+            title: `${t("navigation.download")}`,
+            description: `${t("homepage.downloadDescription")}`,
+            icon: `${import.meta.env.BASE_URL}images/ispeaker/menu/download_menu_icon.svg`,
+            path: "download",
+            hideForElectron: true,
+        },
     ];
 
     useEffect(() => {
@@ -78,34 +86,36 @@ function Homepage() {
                     </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-5">
-                    {cardsInfo.map((card, idx) => (
-                        <div
-                            key={idx}
-                            className="card card-lg card-border flex h-auto w-full flex-col justify-between pb-6 shadow-md sm:w-1/2 lg:w-1/4 dark:border-slate-600"
-                        >
-                            <figure className="px-10 pt-10">
-                                <img
-                                    alt={`${card.title} section icon`}
-                                    className="w-24"
-                                    src={card.icon}
-                                />
-                            </figure>
-                            <div className="card-body grow items-center text-center">
-                                <h2 className="card-title">{card.title}</h2>
-                                <p>{card.description}</p>
+                    {cardsInfo
+                        .filter((card) => !(isElectron() && card.hideForElectron))
+                        .map((card, idx) => (
+                            <div
+                                key={idx}
+                                className="card card-lg card-border flex h-auto w-full flex-col justify-between pb-6 shadow-md sm:w-1/2 md:w-1/3 lg:w-1/4 dark:border-slate-600"
+                            >
+                                <figure className="px-10 pt-10">
+                                    <img
+                                        alt={`${card.title} section icon`}
+                                        className="w-24"
+                                        src={card.icon}
+                                    />
+                                </figure>
+                                <div className="card-body grow items-center text-center">
+                                    <h2 className="card-title">{card.title}</h2>
+                                    <p>{card.description}</p>
+                                </div>
+                                <div className="card-actions px-6">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary w-full"
+                                        onClick={() => handleNavigate(card.path)}
+                                        aria-label={`Open the ${card.title} section`}
+                                    >
+                                        {t("homepage.openBtn")}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="card-actions px-6">
-                                <button
-                                    type="button"
-                                    className="btn btn-primary w-full"
-                                    onClick={() => handleNavigate(card.path)}
-                                    aria-label={`Open the ${card.title} section`}
-                                >
-                                    {t("homepage.openBtn")}
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             </Container>
             <Footer />

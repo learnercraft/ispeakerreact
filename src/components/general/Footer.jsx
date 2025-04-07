@@ -21,7 +21,7 @@ const Footer = () => {
                     Created by{" "}
                     <button
                         type="button"
-                        className="link-hover link after:content-['_↗']"
+                        className="link after:content-['_↗']"
                         onClick={() => openExternal("https://yell0wsuit.page")}
                         target="_blank"
                     >
@@ -31,7 +31,7 @@ const Footer = () => {
                     Maintained by the community and contributors.{" "}
                     <button
                         type="button"
-                        className="link-hover link after:content-['_↗']"
+                        className="link after:content-['_↗']"
                         onClick={() =>
                             openExternal(
                                 "https://github.com/yllst-testing-labs/ispeakerreact/graphs/contributors"
@@ -52,7 +52,7 @@ const Footer = () => {
                 <h6 className="footer-title">More English learning materials</h6>
                 <button
                     type="button"
-                    className="link-hover link after:content-['_↗']"
+                    className="link after:content-['_↗']"
                     onClick={() => openExternal("https://yell0wsuit.github.io/docugrammar/")}
                     target="_blank"
                 >
