@@ -3,7 +3,7 @@
     "author": "yell0wsuit",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "3.2.13",
+    "version": "3.2.14",
     "type": "module",
     "main": "main.cjs",
     "license": "Apache-2.0",
@@ -17,8 +17,8 @@
         "make": "vite build --mode electron && electron-forge make",
         "vitebuildcli": "vite build --mode electron",
         "makecli": "electron-forge make",
-        "appx": "vite build --mode electron && electron-forge package && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
-        "appxarm": "vite build --mode electron && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml"
+        "appx": "vite build --mode electron && electron-forge package && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-x64  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
+        "appxarm": "vite build --mode electron && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-arm64  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml"
     },
     "dependencies": {
         "@dnd-kit/core": "^6.3.1",
@@ -71,7 +71,7 @@
         "autoprefixer": "^10.4.21",
         "concurrently": "^9.1.2",
         "cross-env": "^7.0.3",
-        "daisyui": "^5.0.12",
+        "daisyui": "^5.0.13",
         "electron": "^35.1.4",
         "eslint": "^9.24.0",
         "eslint-plugin-react": "^7.37.5",

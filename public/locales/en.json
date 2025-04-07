@@ -7,15 +7,17 @@
         "exercises": "Exercises",
         "conversations": "Conversations",
         "exams": "Exams",
-        "settings": "Settings"
+        "settings": "Settings",
+        "download": "Download"
     },
     "homepage": {
-        "soundDescription": "Watch videos and practice pronouncing sounds.",
-        "wordDescription": "Practice pronouncing common words from the Oxford 3000™ and Oxford 5000™ list.",
-        "exerciseDescription": "Practice listening to sounds and sentences in various exercise types.",
-        "conversationDescription": "Improve your conversation skills for different situations.",
-        "examDescription": "Prepare yourself for different types of speaking exams.",
-        "settingDescription": "Exercise timer, appearance, and more.",
+        "soundDescription": "Watch videos and practice pronouncing sounds",
+        "wordDescription": "Practice pronouncing common words from the Oxford 3000™ and Oxford 5000™ list",
+        "exerciseDescription": "Practice listening to sounds and sentences in various exercise types",
+        "conversationDescription": "Improve your conversation skills for different situations",
+        "examDescription": "Prepare yourself for different types of speaking exams",
+        "settingDescription": "Exercise timer, appearance, and more",
+        "downloadDescription": "Download the iSpeakerReact app for offline use",
         "openBtn": "Open"
     },
     "accent": {
@@ -1050,5 +1052,25 @@
             "resetModalHeading": "Confirm…",
             "resetConfirmBtn": "Confirm"
         }
+    },
+    "downloadPage": {
+        "titleMain": "Download iSpeakerReact for offline use",
+        "descriptionMain": "Study everywhere, anytime even when you are not connected to the Internet.",
+        "downloadBtn": "Download on GitHub",
+        "availablePlatformText": "Available for",
+        "featureMain": "Features",
+        "featureOfflineText": "Fully offline",
+        "featureOfflineDesc": "All audio and learning resources are packaged inside the app. No internet? No problem. Listening tasks load instantly without buffering.",
+        "featureVideoDownloadText": "Optional video download",
+        "featureVideoDownloadDesc": "Choose which video files to download. Save storage space while still accessing only the content you want offline.",
+        "featureSameContentText": "Same content as online version",
+        "featureSameContentDesc": "The offline version includes all the same functions, exercises, and content as the online app—so you won’t miss a thing. You can also manually check for updates anytime in the settings.",
+        "faq": "Frequently asked questions",
+        "faqSystemReqTitle": "What are the system requirements?",
+        "faqSystemReqAnswer": "If your device can run the latest version of a modern browser (e.g. Google Chrome, Microsoft Edge, or Mozilla Firefox) smoothly, it should work just fine. You'll also need at least 2GB of free storage for the offline version.",
+        "faqCheckUpdatesTitle": "How do I check for updates?",
+        "faqCheckUpdatesAnswer": "By going to the Settings section, you can click on the “Check for updates” button. A notification will tell you if there’s a new version or not. We plan to add automatic updates in the future — if you know coding, you can help! In the meantime, download the latest version from GitHub and replace all files with the new version.",
+        "faqIsFreeTitle": "Is this app free?",
+        "faqIsFreeAnswer": "Yes, it is completely free to use. It’s also open-source, meaning you can view and contribute to the code. If you know coding, feel free to open a pull request!"
     }
 }

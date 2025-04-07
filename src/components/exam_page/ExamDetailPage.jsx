@@ -124,7 +124,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
 
             <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
                 <div className="flex justify-center">
-                    <div role="tablist" className="tabs tabs-box">
+                    <div role="tablist" className="tabs tabs-box justify-center">
                         <a
                             role="tab"
                             onClick={() => {
