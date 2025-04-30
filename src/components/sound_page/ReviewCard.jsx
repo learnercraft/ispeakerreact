@@ -1,5 +1,5 @@
-import he from "he";
-import { Trans, useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import {
     BsEmojiFrown,
     BsEmojiFrownFill,
@@ -8,16 +8,53 @@ import {
     BsEmojiSmile,
     BsEmojiSmileFill,
 } from "react-icons/bs";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
-import { useReview } from "./hooks/useReview";
+import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast";
+import { Trans } from "react-i18next";
+import he from "he";
+import { checkRecordingExists } from "../../utils/databaseOperations";
 
-const ReviewCard = ({ sound, accent, index, soundsData }) => {
-    const { t } = useTranslation();
+const ReviewCard = ({ sound, accent, t, onReviewUpdate }) => {
+    const [review, setReview] = useState(null);
+    const [hasRecording, setHasRecording] = useState(false);
 
-    // Integrate the useReview hook
-    const { review, handleReviewClick } = useReview(sound, accent, index, soundsData);
+    // Load review from localStorage on mount
+    useEffect(() => {
+        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const soundReview = storedData.soundReview?.[accent]?.[`${sound.type}${sound.id}`] || null;
+        setReview(soundReview);
+    }, [accent, sound]);
 
-    // Local function for emoji styling
+    // Check if recording exists
+    useEffect(() => {
+        const checkRecording = async () => {
+            const recordingKey = `${sound.type === "consonants" ? "constant" : sound.type === "vowels" ? "vowel" : "dipthong"}-${accent}-${sound.id}-0`;
+            const exists = await checkRecordingExists(recordingKey);
+            setHasRecording(exists);
+        };
+        checkRecording();
+    }, [accent, sound]);
+
+    const handleReviewClick = (type) => {
+        if (!hasRecording) {
+            sonnerWarningToast(t("toast.noRecording"));
+            return;
+        }
+
+        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        storedData.soundReview = storedData.soundReview || {};
+        storedData.soundReview[accent] = storedData.soundReview[accent] || {};
+        storedData.soundReview[accent][`${sound.type}${sound.id}`] = type;
+
+        localStorage.setItem("ispeaker", JSON.stringify(storedData));
+        setReview(type);
+
+        sonnerSuccessToast(t("toast.reviewUpdated"));
+
+        if (onReviewUpdate) {
+            onReviewUpdate();
+        }
+    };
+
     const emojiStyle = (reviewType) => {
         const styles = {
             good: "text-success",
@@ -40,69 +77,53 @@ const ReviewCard = ({ sound, accent, index, soundsData }) => {
                 </p>
                 <div className="flex flex-row items-center justify-center space-x-4">
                     <a
-                        onClick={() => {
-                            handleReviewClick("good");
-                            sonnerSuccessToast(t("toast.reviewUpdated"));
-                        }}
+                        onClick={() => handleReviewClick("good")}
+                        className="cursor-pointer"
+                        role="button"
                     >
                         {review === "good" ? (
-                            <BsEmojiSmileFill
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("good")}`}
-                            />
+                            <BsEmojiSmileFill size={52} className={emojiStyle("good")} />
                         ) : (
-                            <BsEmojiSmile
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("good")}`}
-                            />
+                            <BsEmojiSmile size={52} className={emojiStyle("good")} />
                         )}
                     </a>
                     <a
-                        onClick={() => {
-                            handleReviewClick("neutral");
-                            sonnerSuccessToast(t("toast.reviewUpdated"));
-                        }}
+                        onClick={() => handleReviewClick("neutral")}
+                        className="cursor-pointer"
+                        role="button"
                     >
                         {review === "neutral" ? (
-                            <BsEmojiNeutralFill
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("neutral")}`}
-                            />
+                            <BsEmojiNeutralFill size={52} className={emojiStyle("neutral")} />
                         ) : (
-                            <BsEmojiNeutral
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("neutral")}`}
-                            />
+                            <BsEmojiNeutral size={52} className={emojiStyle("neutral")} />
                         )}
                     </a>
                     <a
-                        onClick={() => {
-                            handleReviewClick("bad");
-                            sonnerSuccessToast(t("toast.reviewUpdated"));
-                        }}
+                        onClick={() => handleReviewClick("bad")}
+                        className="cursor-pointer"
+                        role="button"
                     >
                         {review === "bad" ? (
-                            <BsEmojiFrownFill
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("bad")}`}
-                            />
+                            <BsEmojiFrownFill size={52} className={emojiStyle("bad")} />
                         ) : (
-                            <BsEmojiFrown
-                                size={52}
-                                role="button"
-                                className={`cursor-pointer ${emojiStyle("bad")}`}
-                            />
+                            <BsEmojiFrown size={52} className={emojiStyle("bad")} />
                         )}
                     </a>
                 </div>
             </div>
         </div>
     );
+};
+
+ReviewCard.propTypes = {
+    sound: PropTypes.shape({
+        phoneme: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        type: PropTypes.oneOf(["consonants", "vowels", "diphthongs"]).isRequired,
+    }).isRequired,
+    accent: PropTypes.oneOf(["british", "american"]).isRequired,
+    t: PropTypes.func.isRequired,
+    onReviewUpdate: PropTypes.func,
 };
 
 export default ReviewCard;
