@@ -1,20 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { LuExternalLink } from "react-icons/lu";
-import { isElectron } from "../../utils/isElectron";
+import openExternal from "../../utils/openExternal";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
-
-// Utility function to open external links
-const openExternal = (url) => {
-    if (isElectron()) {
-        window.electron.openExternal(url);
-    } else {
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.click();
-    }
-};
+import { useEffect, useState } from "react";
 
 // Supported languages
 const supportedLanguages = [
@@ -29,8 +17,24 @@ const supportedLanguages = [
     */
 }
 
+const WEBLATE_API_URL =
+    "https://hosted.weblate.org/api/components/ispeakerreact/ispeakerreact-component/translations/?format=json";
+
 const LanguageSwitcher = () => {
     const { t, i18n } = useTranslation();
+    const [percentages, setPercentages] = useState({});
+
+    useEffect(() => {
+        fetch(WEBLATE_API_URL)
+            .then((res) => res.json())
+            .then((data) => {
+                const percentMap = {};
+                data.results.forEach((item) => {
+                    percentMap[item.language_code] = item.translated_percent;
+                });
+                setPercentages(percentMap);
+            });
+    }, []);
 
     const handleLanguageChange = (lng) => {
         i18n.changeLanguage(lng);
@@ -82,6 +86,11 @@ const LanguageSwitcher = () => {
                                         className="h-5 w-5"
                                     />
                                     {lang.label}
+                                    {lang.code !== "en" && percentages[lang.code] !== undefined && (
+                                        <span lang="en" className="ms-2 text-sm">
+                                            {percentages[lang.code].toFixed(1)}%
+                                        </span>
+                                    )}
                                 </a>
                             </li>
                         ))}

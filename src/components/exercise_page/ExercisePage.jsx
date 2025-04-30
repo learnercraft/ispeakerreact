@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -68,10 +69,10 @@ const ExercisePage = () => {
             <>
                 {/* Tooltip for larger screens */}
                 <div
-                    className="tooltip tooltip-secondary hidden dark:tooltip-accent sm:inline"
+                    className="tooltip tooltip-secondary dark:tooltip-accent hidden sm:inline"
                     data-tip={info}
                 >
-                    <IoInformationCircleOutline className="h-5 w-5 cursor-pointer hover:text-primary dark:hover:text-accent" />
+                    <IoInformationCircleOutline className="hover:text-primary dark:hover:text-accent h-5 w-5 cursor-pointer" />
                 </div>
 
                 {/* Modal trigger button for small screens */}
@@ -123,6 +124,29 @@ const ExercisePage = () => {
             </div>
         </div>
     );
+
+    TooltipIcon.propTypes = {
+        info: PropTypes.string.isRequired,
+        onClick: PropTypes.func.isRequired,
+    };
+
+    ExerciseCard.propTypes = {
+        heading: PropTypes.string.isRequired,
+        titles: PropTypes.arrayOf(
+            PropTypes.shape({
+                american: PropTypes.bool,
+                british: PropTypes.bool,
+                titleKey: PropTypes.string,
+                title: PropTypes.string,
+                infoKey: PropTypes.string,
+                id: PropTypes.any,
+                file: PropTypes.any,
+            })
+        ).isRequired,
+        infoKey: PropTypes.string.isRequired,
+        file: PropTypes.any,
+        onShowModal: PropTypes.func.isRequired,
+    };
 
     useEffect(() => {
         const fetchData = async () => {

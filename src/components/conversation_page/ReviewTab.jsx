@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
@@ -69,6 +70,12 @@ const ReviewTab = ({ reviews, accent, conversationId }) => {
             ))}
         </div>
     );
+};
+
+ReviewTab.propTypes = {
+    reviews: PropTypes.array.isRequired,
+    accent: PropTypes.string.isRequired,
+    conversationId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default ReviewTab;

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
+import PropTypes from "prop-types";
 
 import { useTranslation } from "react-i18next";
 import {
@@ -294,6 +295,11 @@ const PracticeTab = ({ accent, conversationId }) => {
             </div>
         </div>
     );
+};
+
+PracticeTab.propTypes = {
+    accent: PropTypes.string.isRequired,
+    conversationId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default PracticeTab;

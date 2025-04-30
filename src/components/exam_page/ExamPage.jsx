@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -74,6 +75,10 @@ const ExamPage = () => {
         );
     };
 
+    TooltipIcon.propTypes = {
+        exam_popup: PropTypes.string.isRequired,
+    };
+
     const ExamCard = ({ heading, titles }) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
@@ -93,6 +98,17 @@ const ExamPage = () => {
             </div>
         </div>
     );
+
+    ExamCard.propTypes = {
+        heading: PropTypes.string.isRequired,
+        titles: PropTypes.arrayOf(
+            PropTypes.shape({
+                title: PropTypes.string.isRequired,
+                exam_popup: PropTypes.string.isRequired,
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            })
+        ).isRequired,
+    };
 
     useEffect(() => {
         const fetchData = async () => {

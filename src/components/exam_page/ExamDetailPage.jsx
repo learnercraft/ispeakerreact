@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
@@ -21,6 +22,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
 
     const [videoUrl, setVideoUrl] = useState(null);
     const [videoLoading, setVideoLoading] = useState(true);
+    const [port, setPort] = useState(null);
 
     const examMainInfoModal = useRef(null);
 
@@ -47,19 +49,27 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
         fetchData();
     }, []);
 
+    // Fetch the dynamic port if running in Electron
+    useEffect(() => {
+        const fetchPort = async () => {
+            if (window.electron?.ipcRenderer) {
+                const dynamicPort = await window.electron.ipcRenderer.invoke("get-port");
+                setPort(dynamicPort);
+            }
+        };
+        fetchPort();
+    }, []);
+
     // Use offline file if running in Electron
     useEffect(() => {
         const fetchVideoUrl = async () => {
-            if (isElectron() && examData && examData[id]) {
+            if (isElectron() && examData && examData[id] && port) {
                 const videoFileName = examData[id].watch_and_study.offlineFile;
                 const folderName = "iSpeakerReact_ExamVideos";
-
-                const videoStreamUrl = `http://localhost:8998/video/${folderName}/${videoFileName}`;
-
+                const videoStreamUrl = `http://localhost:${port}/video/${folderName}/${videoFileName}`;
                 try {
                     // Make a HEAD request to check if the local video file exists
                     const response = await fetch(videoStreamUrl, { method: "HEAD" });
-
                     if (response.ok) {
                         // If the file exists, set the video URL to the local file
                         setVideoUrl(videoStreamUrl);
@@ -72,9 +82,8 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                     // Fallback to Vimeo video link
                     setVideoUrl(examData[id].watch_and_study.videoLink);
                 }
-
                 setVideoLoading(false); // Video URL is now loaded (either local or Vimeo)
-            } else if (examData && examData[id]) {
+            } else if (examData && examData[id] && (!isElectron() || port !== null)) {
                 // This is the web case where we simply use the Vimeo link
                 setVideoUrl(examData[id].watch_and_study.videoLink);
                 setVideoLoading(false); // Video URL for web (Vimeo or other) is set
@@ -82,7 +91,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
         };
 
         fetchVideoUrl();
-    }, [examData, id]);
+    }, [examData, id, port]);
 
     // Check if data is still loading
     if (loading || videoLoading) {
@@ -248,6 +257,13 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
             </dialog>
         </>
     );
+};
+
+ExamDetailPage.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    onBack: PropTypes.func.isRequired,
+    accent: PropTypes.string.isRequired,
 };
 
 export default ExamDetailPage;

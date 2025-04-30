@@ -1,11 +1,12 @@
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import useCountdownTimer from "../../utils/useCountdownTimer";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
+import useCountdownTimer from "../../utils/useCountdownTimer";
 
 const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -298,6 +299,14 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+DictationQuiz.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    timer: PropTypes.number.isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default DictationQuiz;

@@ -1,6 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import he from "he";
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 
@@ -76,6 +77,14 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
             </p>
         </button>
     );
+};
+
+SortableWord.propTypes = {
+    word: PropTypes.object,
+    item: PropTypes.object,
+    isCorrect: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([null])]),
+    disabled: PropTypes.bool,
+    isOverlay: PropTypes.bool,
 };
 
 export default SortableWord;

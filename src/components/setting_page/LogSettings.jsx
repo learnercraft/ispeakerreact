@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { LuExternalLink } from "react-icons/lu";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const LogSettings = () => {
@@ -153,20 +154,22 @@ const LogSettings = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu dropdown-content z-1 w-52 rounded-box bg-base-100 p-2 shadow-2xs"
+                                className="menu dropdown-content rounded-box bg-base-100 z-300 w-52 border-slate-50 p-2 shadow-md"
                             >
                                 {maxLogOptions.map((option) => (
-                                    <button
-                                        type="button"
-                                        className={`btn btn-ghost btn-sm justify-start ${maxLogWritten === option.value ? "btn-active" : ""}`}
-                                        key={option.value}
-                                        onClick={() => {
-                                            setMaxLogWritten(option.value);
-                                            sonnerSuccessToast(t("settingPage.changeSaved"));
-                                        }}
-                                    >
-                                        {option.label}
-                                    </button>
+                                    <li key={option.value}>
+                                        <a
+                                            type="button"
+                                            className={`justify-start ${maxLogWritten === option.value ? "menu-active" : ""}`}
+                                            key={option.value}
+                                            onClick={() => {
+                                                setMaxLogWritten(option.value);
+                                                sonnerSuccessToast(t("settingPage.changeSaved"));
+                                            }}
+                                        >
+                                            {option.label}
+                                        </a>
+                                    </li>
                                 ))}
                             </ul>
                         </div>
@@ -180,20 +183,21 @@ const LogSettings = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu dropdown-content z-1 w-52 rounded-box bg-base-100 p-2 shadow-2xs"
+                                className="menu dropdown-content rounded-box bg-base-100 z-300 w-52 border-slate-50 p-2 shadow-md"
                             >
                                 {deleteLogsOptions.map((option) => (
-                                    <button
-                                        type="button"
-                                        className={`btn btn-ghost btn-sm justify-start ${deleteLogsOlderThan === option.value ? "btn-active" : ""}`}
-                                        key={option.value}
-                                        onClick={() => {
-                                            setDeleteLogsOlderThan(option.value);
-                                            sonnerSuccessToast(t("settingPage.changeSaved"));
-                                        }}
-                                    >
-                                        {option.label}
-                                    </button>
+                                    <li key={option.value}>
+                                        <a
+                                            type="button"
+                                            className={`justify-start ${deleteLogsOlderThan === option.value ? "menu-active" : ""}`}
+                                            onClick={() => {
+                                                setDeleteLogsOlderThan(option.value);
+                                                sonnerSuccessToast(t("settingPage.changeSaved"));
+                                            }}
+                                        >
+                                            {option.label}
+                                        </a>
+                                    </li>
                                 ))}
                             </ul>
                         </div>
@@ -204,6 +208,7 @@ const LogSettings = () => {
                             onClick={handleOpenLogFolder}
                         >
                             {t("settingPage.logSettings.openLogBtn")}
+                            <LuExternalLink className="h-5 w-5" />
                         </button>
                     </div>
                 </div>

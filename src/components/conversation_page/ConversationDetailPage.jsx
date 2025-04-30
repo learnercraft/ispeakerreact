@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline } from "react-icons/io5";
@@ -20,6 +21,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
 
     const [videoUrl, setVideoUrl] = useState(null);
     const [videoLoading, setVideoLoading] = useState(true);
+    const [port, setPort] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,15 +56,26 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
         fetchData();
     }, [id, accent]);
 
+    // Fetch the dynamic port if running in Electron
+    useEffect(() => {
+        const fetchPort = async () => {
+            if (window.electron?.ipcRenderer) {
+                const dynamicPort = await window.electron.ipcRenderer.invoke("get-port");
+                setPort(dynamicPort);
+            }
+        };
+        fetchPort();
+    }, []);
+
     // Use offline file if running in Electron
     useEffect(() => {
         const fetchVideoUrl = async () => {
-            if (isElectron() && accentData) {
+            if (isElectron() && accentData && port) {
                 const accentVideoData = accent === "british" ? "GB" : "US";
                 const videoFileName = accentData.watch_and_study.offlineFile;
                 const folderName = `iSpeakerReact_ConversationVideos_${accentVideoData}`;
 
-                const videoStreamUrl = `http://localhost:8998/video/${folderName}/${videoFileName}`;
+                const videoStreamUrl = `http://localhost:${port}/video/${folderName}/${videoFileName}`;
 
                 try {
                     const response = await fetch(videoStreamUrl, { method: "HEAD" });
@@ -77,14 +90,14 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                     setVideoUrl(accentData.watch_and_study.videoLink);
                 }
                 setVideoLoading(false);
-            } else if (accentData) {
+            } else if (accentData && (!isElectron() || port !== null)) {
                 setVideoUrl(accentData.watch_and_study.videoLink);
                 setVideoLoading(false);
             }
         };
 
         fetchVideoUrl();
-    }, [accentData, accent]);
+    }, [accentData, accent, port]);
 
     let videoSubtitle = "";
     let subtitleUrl = "";
@@ -219,6 +232,13 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             )}
         </>
     );
+};
+
+ConversationDetailPage.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    accent: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    onBack: PropTypes.func.isRequired,
 };
 
 export default ConversationDetailPage;
