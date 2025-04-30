@@ -28,7 +28,7 @@
     "alert": {
         "alertOnlineVideo": "Want to watch the video offline? Head to the “Settings” page to download it.",
         "alertAppNoInternet": "No Internet connection. Please check your connection and try again.",
-        "appNewVersionGitHub": "A new update is found. Go to the project's GitHub page for more information.",
+        "appNewVersionGitHub": "A new update is found. Go to the project’s GitHub page for more information.",
         "appVersionLatest": "You are already using the latest version.",
         "appUpdateError": "Error checking for updates. Please try again.",
         "rateLimited": "Cannot check for new version due to rate limiting. Please try again after {{time}}."
@@ -89,7 +89,8 @@
     },
     "sound_page": {
         "consonants": "Consonants",
-        "vowels_dipthongs": "Vowels and diphthongs",
+        "vowels": "Vowels",
+        "diphthongs": "Diphthongs",
         "practiceBtn": "Practice",
         "reviewGood": "good",
         "reviewNeutral": "neutral",
@@ -103,7 +104,234 @@
         "reviewCard": "Review",
         "clipModalTitle": "Pronunciation clip",
         "recordInstructions": "Watch pronunciation clips, and use the <0>{{icon}}</0> button to record your own sound.",
-        "reviewInstructions": "How do you pronounce the sound <0>{{phoneme}}</0>?"
+        "reviewInstructions": "How do you pronounce the sound <0>{{phoneme}}</0>?",
+        "tongueTwister": "Tongue twister",
+        "tongueTwisterInstructions": "Practice these tongue twisters to improve your pronunciation, fluency, and control of tricky sounds. Try to say them as fast as possible, but correctly.",
+        "soundInstructions": {
+            "howToPronounce": "How to pronounce this sound",
+            "consonant": {
+                "pPen": [
+                    "This is the voiceless bilabial plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, bring both lips together to completely block the airflow. Then, release the lips suddenly to produce a small burst of air. The vocal cords do not vibrate while making this sound."
+                ],
+                "bBad": [
+                    "This is the voiced bilabial plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, bring both lips together to stop the airflow, then release them with a slight burst of sound. The vocal cords vibrate during this sound."
+                ],
+                "tTea": [
+                    "This is the voiceless alveolar plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, place the tip of your tongue against the ridge just behind your upper front teeth (the alveolar ridge), block the airflow, then release it sharply. The vocal cords do not vibrate."
+                ],
+                "dDid": [
+                    "This is the voiced alveolar plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, place the tongue against the alveolar ridge (the ridge just behind your upper front teeth) to block airflow, then release it. The vocal cords vibrate during the sound."
+                ],
+                "kCat": [
+                    "This is the voiceless velar plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, raise the back of your tongue to touch the soft part of the roof of your mouth (the velum), block the airflow, and then release it quickly. The vocal cords do not vibrate."
+                ],
+                "gGet": [
+                    "This is the voiced velar plosive. It is a type of plosive consonant.",
+                    "To pronounce this phoneme, the back of the tongue contacts the soft palate to block airflow, then releases it. The vocal cords vibrate during this sound."
+                ],
+                "mMan": [
+                    "This is the voiced bilabial nasal. It is a type of nasal consonant.",
+                    "To pronounce this phoneme, close your lips to block the airflow through the mouth. Instead, let the air pass through your nose. The vocal cords vibrate during the sound."
+                ],
+                "nNow": [
+                    "This is the voiced alveolar nasal. It is a type of nasal consonant.",
+                    "To pronounce this phoneme, place the tip of your tongue against the alveolar ridge (just behind the upper front teeth) to block the airflow through the mouth, and let it pass through the nose. The vocal cords vibrate."
+                ],
+                "ngSing": [
+                    "This is the voiced velar nasal. It is a type of nasal consonant.",
+                    "To pronounce this phoneme, raise the back of your tongue to touch the soft palate (the velum), blocking the mouth and allowing air to flow through the nose. The vocal cords vibrate. This sound is never found at the beginning of English words."
+                ],
+                "fFall": [
+                    "This is the voiceless labiodental fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place your top teeth gently on your bottom lip and blow air through the small gap. The vocal cords do not vibrate."
+                ],
+                "vVan": [
+                    "This is the voiced labiodental fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place your top teeth on your bottom lip and let air pass through while vibrating your vocal cords."
+                ],
+                "thThin": [
+                    "This is the voiceless dental fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place the tip of your tongue lightly between your teeth and blow air out. The vocal cords do not vibrate."
+                ],
+                "thThis": [
+                    "This is the voiced dental fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place your tongue between your teeth and let the air flow through while vibrating your vocal cords."
+                ],
+                "sSee": [
+                    "This is the voiceless alveolar fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place the tip of your tongue close to the alveolar ridge (the ridge just behind your upper front teeth) without touching it. Blow air through the narrow space. The vocal cords do not vibrate."
+                ],
+                "zZoo": [
+                    "This is the voiced alveolar fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, place the tongue near the alveolar ridge (the ridge just behind your upper front teeth) and allow air to pass through while vibrating your vocal cords."
+                ],
+                "shShoe": [
+                    "This is the voiceless postalveolar fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, raise the tongue close to the area just behind the alveolar ridge (the ridge just behind your upper front teeth) without touching it, and blow air through the narrow space. The vocal cords do not vibrate."
+                ],
+                "sVision": [
+                    "This is the voiced postalveolar fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, position the tongue just behind the alveolar ridge (the ridge just behind your upper front teeth) and allow air to flow through while vibrating your vocal cords."
+                ],
+                "chChain": [
+                    "This is the voiceless postalveolar affricate. It is a type of affricate consonant.",
+                    "To pronounce this phoneme, start by blocking the airflow with the tongue at the alveolar ridge (the ridge just behind your upper front teeth), then release it into a fricative sound like /ʃ/. The vocal cords do not vibrate."
+                ],
+                "jJam": [
+                    "This is the voiced postalveolar affricate. It is a type of affricate consonant.",
+                    "To pronounce this phoneme, begin with a complete closure like /d/, then release it into a fricative like /ʒ/. The vocal cords vibrate during this sound."
+                ],
+                "lLeg": [
+                    "This is the voiced alveolar lateral approximant. It is a type of approximant consonant.",
+                    "To pronounce this phoneme, touch the tip of your tongue to the alveolar ridge (the ridge just behind your upper front teeth) and let air flow around the sides of the tongue. The vocal cords vibrate."
+                ],
+                "rRed": [
+                    "This is the voiced postalveolar approximant. It is a type of approximant consonant.",
+                    "To pronounce this phoneme, slightly curl the tongue tip toward the roof of the mouth without touching it, and allow air to flow freely. The vocal cords vibrate."
+                ],
+                "yYes": [
+                    "This is the voiced palatal approximant. It is a type of approximant consonant.",
+                    "To pronounce this phoneme, raise the middle of your tongue close to the hard palate (the roof of your mouth) and let air pass through. The vocal cords vibrate."
+                ],
+                "wWet": [
+                    "This is the voiced labio-velar approximant. It is a type of approximant consonant.",
+                    "To pronounce this phoneme, round your lips and raise the back of your tongue toward the soft palate (the roof of your mouth). Let air pass through freely while vibrating the vocal cords."
+                ],
+                "hHat": [
+                    "This is the voiceless glottal fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, allow air to pass through the open glottis (space between the vocal cords) without vibrating the cords. It is more of a breathy sound than a strong friction."
+                ],
+                "chLoch": [
+                    "This is the voiceless velar fricative. It is a type of fricative consonant.",
+                    "To pronounce this phoneme, raise the back of the tongue toward the soft palate (the roof of your mouth) and force air through the narrow gap. The vocal cords do not vibrate. This sound is common in Scottish English, Vietnamese, and some other languages."
+                ],
+                "tCity": [
+                    "This is the voiced alveolar tap or flap. It is a type of tap consonant, common in American English.",
+                    "To pronounce this phoneme, quickly tap the tip of your tongue against the alveolar ridge (the ridge just behind your upper front teeth). It is similar to a very fast /d/ sound and often occurs between two vowels."
+                ]
+            },
+            "vowel": {
+                "eeSee": [
+                    "This is the close front unrounded vowel. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, stretch the lips slightly (like a smile), raise the tongue close to the roof of the mouth (but not touching), and keep it at the front. The sound is held slightly longer than short vowels."
+                ],
+                "yHappy": [
+                    "This is the close front unrounded vowel. It is a type of short vowel sound, often found in unstressed syllables.",
+                    "To pronounce this phoneme, smile lightly and raise the front of the tongue high near the roof of the mouth without touching it. It is similar to /iː/ but shorter and more relaxed."
+                ],
+                "iSit": [
+                    "This is the near-close near-front unrounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, keep the tongue high but slightly lower than /iː/, near the front of the mouth. The lips are relaxed and unrounded."
+                ],
+                "eBed": [
+                    "This is the open-mid front unrounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, open the mouth slightly, keeping the tongue positioned mid-high and toward the front. The lips are relaxed."
+                ],
+                "aCat": [
+                    "This is the near-open front unrounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, open the mouth wider than for /e/, keep the tongue low and toward the front, and keep the lips relaxed."
+                ],
+                "aAbout": [
+                    "This is the mid-central vowel, also known as a schwa. It is the most common vowel sound in English and is always unstressed.",
+                    "To pronounce this phoneme, relax your mouth and tongue completely. Keep the tongue in the middle of the mouth and produce a quick, neutral sound."
+                ],
+                "urFur": [
+                    "This is the open-mid central vowel with r-coloring in British English. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, open your mouth slightly with the tongue in a central position and allow the sound to linger. The lips stay relaxed and unrounded. The vocal cords vibrate."
+                ],
+                "urFur_r": [
+                    "This is the r-colored mid-central vowel found in American English. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, start with the tongue in a central position and curl the tip slightly upward toward the roof of the mouth to create the “r” coloring. The vocal cords vibrate throughout."
+                ],
+                "uCup": [
+                    "This is the open-mid back unrounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, lower your tongue and keep it toward the back of the mouth. The lips are relaxed and not rounded. The vocal cords vibrate."
+                ],
+                "ooToo": [
+                    "This is the close back rounded vowel. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, round your lips and raise the back of your tongue close to the roof of the mouth. The sound is prolonged slightly."
+                ],
+                "uActual": [
+                    "This is the close back rounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, round your lips and raise the back of your tongue close to the soft palate. It is similar to /uː/ but shorter and more relaxed."
+                ],
+                "uPut": [
+                    "This is the near-close near-back rounded vowel. It is a type of short vowel sound.",
+                    "To pronounce this phoneme, round the lips slightly and raise the tongue near the back of the mouth, close to the roof but not touching. The sound is quick and soft."
+                ],
+                "awSaw": [
+                    "This is the open-mid back rounded vowel. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, round your lips and lower the back of the tongue slightly. Keep the sound steady and let the vocal cords vibrate throughout."
+                ],
+                "oGot": [
+                    "This is the open back rounded vowel. It is a type of short vowel sound, found in British English.",
+                    "To pronounce this phoneme, open your mouth wide and pull the tongue toward the back. Round your lips slightly. The sound is short and clear."
+                ],
+                "aFather": [
+                    "This is the open back unrounded vowel. It is a type of long vowel sound.",
+                    "To pronounce this phoneme, open your mouth fully and lower the tongue as far back as it comfortably goes. The lips stay relaxed and unrounded."
+                ],
+                "aEnSuite": [
+                    "This is the open back nasal vowel /ɑ̃/. It is a type of nasal vowel sound, found in French loanwords.",
+                    "To pronounce this phoneme, start with the tongue in the position for /ɑ/ (as in “father”), then lower the soft palate to allow air to pass through the nose. The lips stay relaxed and unrounded while the sound is nasalized."
+                ]
+            },
+            "diphthong": {
+                "aySay": [
+                    "This is the closing diphthong that starts with /e/ and moves to /ɪ/. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in the position for /e/, then quickly move it toward the position for /ɪ/. The lips start slightly spread and end in a more relaxed position."
+                ],
+                "oGo": [
+                    "This is the closing diphthong that starts with /ə/ and moves to /ʊ/ in British English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in a central position, then move it toward the back while rounding the lips. The sound glides smoothly from the first to the second position."
+                ],
+                "oGo_r": [
+                    "This is the closing diphthong that starts with /o/ and moves to /ʊ/ in American English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in a mid-back position, then move it toward the back while rounding the lips. The sound glides smoothly from the first to the second position."
+                ],
+                "yMy": [
+                    "This is the closing diphthong that starts with /a/ and moves to /ɪ/. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue low and toward the front, then quickly move it toward the position for /ɪ/. The lips start open and end in a more relaxed position."
+                ],
+                "owNow": [
+                    "This is the closing diphthong that starts with /a/ and moves to /ʊ/. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue low and toward the front, then move it toward the back while rounding the lips. The sound glides smoothly from the first to the second position."
+                ],
+                "oyBoy": [
+                    "This is the closing diphthong that starts with /ɔ/ and moves to /ɪ/. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in a mid-back position with rounded lips, then quickly move it toward the position for /ɪ/. The lips start rounded and end in a more relaxed position."
+                ],
+                "earNear": [
+                    "This is the centering diphthong that starts with /ɪ/ and moves to /ə/ in British English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue high and toward the front, then move it to a central position. The lips start slightly spread and end in a neutral position."
+                ],
+                "earNear_r": [
+                    "This is the r-colored diphthong that starts with /ɪ/ and moves to /r/ in American English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue high and toward the front, then curl the tip toward the roof of the mouth to create the “r” coloring. The lips start slightly spread and end in a more rounded position."
+                ],
+                "airHair": [
+                    "This is the centering diphthong that starts with /e/ and moves to /ə/ in British English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in a mid-front position, then move it to a central position. The lips start slightly spread and end in a neutral position."
+                ],
+                "airHair_r": [
+                    "This is the r-colored diphthong that starts with /e/ and moves to /r/ in American English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue in a mid-front position, then curl the tip toward the roof of the mouth to create the “r” coloring. The lips start slightly spread and end in a more rounded position."
+                ],
+                "urePure": [
+                    "This is the centering diphthong that starts with /ʊ/ and moves to /ə/ in British English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue high and toward the back with rounded lips, then move it to a central position. The lips start rounded and end in a neutral position."
+                ],
+                "urePure_r": [
+                    "This is the r-colored diphthong that starts with /ʊ/ and moves to /r/ in American English. It is a type of diphthong.",
+                    "To pronounce this phoneme, start with the tongue high and toward the back with rounded lips, then curl the tip toward the roof of the mouth to create the “r” coloring. The lips start rounded and end in a more rounded position."
+                ]
+            }
+        }
     },
     "wordPage": {
         "oxford3000Description": "3000 most important English words for basic understanding and conversation",
@@ -325,7 +553,7 @@
                 ],
                 "homophones": [
                     "Look at the two words. Are they pronounced the same or different?",
-                    "Select “Yes” if you think the pronunciation is the same, and “No” if you think it's different.",
+                    "Select “Yes” if you think the pronunciation is the same, and “No” if you think it’s different.",
                     "Can you complete the game before the timer runs out?",
                     "When you want to stop, select “Quit” to see your score in this session."
                 ],
@@ -429,8 +657,8 @@
             "expressingCertaintyReview1": "I can express certainty in a variety of ways.",
             "expressingCertaintyReview2": "I can express uncertainty in a variety of ways.",
             "expressingIgnoranceTitle": "Expressing ignorance",
-            "expressingIgnoranceInfo": "There are different ways of telling people that you haven't got the information they're asking for.",
-            "expressingIgnoranceCheckbox": "Saying that you don't know something",
+            "expressingIgnoranceInfo": "There are different ways of telling people that you haven’t got the information they’re asking for.",
+            "expressingIgnoranceCheckbox": "Saying that you don’t know something",
             "expressingIgnoranceReview": "I can say that I don’t know something in a variety of ways.",
             "expressingLikelihoodTitle": "Expressing likelihood",
             "expressingLikelihoodInfo": "When you are talking about possible situations, you can express how likely you think they are.",
@@ -439,7 +667,7 @@
             "expressingLikelihoodReview1": "I can say things are likely in a variety of ways.",
             "expressingLikelihoodReview2": "I can say things are unlikely in a variety of ways.",
             "speculatingTitle": "Speculating",
-            "speculatingInfo": "There are various ways of giving your opinion when you don't know all the details or facts about something.",
+            "speculatingInfo": "There are various ways of giving your opinion when you don’t know all the details or facts about something.",
             "speculatingCheckbox": "Speculating",
             "speculatingReview": "I can speculate in a variety of ways."
         },
@@ -466,7 +694,7 @@
             "makingComplaintsCheckbox": "Making complaints",
             "makingComplaintsReview": "I can make complaints in a variety of ways.",
             "thankingSomebodyTitle": "Thanking somebody",
-            "thankingSomebodyInfo": "When someone gives you something, or does something for you, there are different ways of saying more than just a brief 'thank you'.",
+            "thankingSomebodyInfo": "When someone gives you something, or does something for you, there are different ways of saying more than just a brief ‘thank you’.",
             "thankingSomebodyCheckbox1": "Thanking somebody for something",
             "thankingSomebodyCheckbox2": "Responding to thanks",
             "thankingSomebodyReview1": "I can thank somebody for something in a variety of ways.",
@@ -530,7 +758,7 @@
             "givingOrdersCheckbox": "Telling somebody to do something",
             "givingOrdersReview": "I can tell somebody to do something in a variety of ways.",
             "makingRequestsTitle": "Making requests",
-            "makingRequestsInfo": "Whether you are in shops or restaurants or in somebody's home, you can use polite questions to get what you want.",
+            "makingRequestsInfo": "Whether you are in shops or restaurants or in somebody’s home, you can use polite questions to get what you want.",
             "makingRequestsCheckbox1": "Making requests",
             "makingRequestsCheckbox2": "Responding to a request",
             "makingRequestsReview1": "I can make requests in a variety of ways.",
@@ -719,7 +947,7 @@
                     "Explain which part of the picture you’re talking about.",
                     "Speculate about what might be true about the picture or photograph.",
                     "If appropriate, describe what you think might have happened before or after the scene in the picture or photograph.",
-                    "Ff the photograph or picture contains people, describe what you think the relationship is between them.",
+                    "If the photograph or picture contains people, describe what you think the relationship is between them.",
                     "Use the present continuous tense to say what is happening in the picture.",
                     "If you have to look at two photographs or pictures, think about how you could compare them.",
                     "Try to guess which questions you may be asked about the photograph or picture.",
@@ -1067,7 +1295,7 @@
         "featureSameContentDesc": "The offline version includes all the same functions, exercises, and content as the online app—so you won’t miss a thing. You can also manually check for updates anytime in the settings.",
         "faq": "Frequently asked questions",
         "faqSystemReqTitle": "What are the system requirements?",
-        "faqSystemReqAnswer": "If your device can run the latest version of a modern browser (e.g. Google Chrome, Microsoft Edge, or Mozilla Firefox) smoothly, it should work just fine. You'll also need at least 2GB of free storage for the offline version.",
+        "faqSystemReqAnswer": "If your device can run the latest version of a modern browser (e.g. Google Chrome, Microsoft Edge, or Mozilla Firefox) smoothly, it should work just fine. You’ll also need at least 2GB of free storage for the offline version.",
         "faqCheckUpdatesTitle": "How do I check for updates?",
         "faqCheckUpdatesAnswer": "By going to the Settings section, you can click on the “Check for updates” button. A notification will tell you if there’s a new version or not. We plan to add automatic updates in the future — if you know coding, you can help! In the meantime, download the latest version from GitHub and replace all files with the new version.",
         "faqIsFreeTitle": "Is this app free?",

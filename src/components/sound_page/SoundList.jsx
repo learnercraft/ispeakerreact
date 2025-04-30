@@ -1,15 +1,75 @@
 import he from "he";
+import PropTypes from "prop-types";
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import { isElectron } from "../../utils/isElectron";
+import { useScrollTo } from "../../utils/useScrollTo";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import { useScrollTo } from "../../utils/useScrollTo";
 
-const PracticeSound = lazy(() => import("./PracticeSound"));
+const SoundMain = lazy(() => import("./SoundMain"));
+
+const BADGE_COLORS = {
+    good: "badge-success",
+    neutral: "badge-warning",
+    bad: "badge-error",
+};
+
+const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }) => {
+    const tabs = ["consonants", "vowels", "diphthongs"];
+
+    return (
+        <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
+            <div className="flex justify-center">
+                <div role="tablist" className="tabs tabs-box">
+                    {tabs.map((tab) => (
+                        <a
+                            key={tab}
+                            role="tab"
+                            onClick={() => {
+                                onTabChange(tab);
+                                scrollTo();
+                            }}
+                            className={`tab md:text-base ${
+                                activeTab === tab ? "tab-active font-semibold" : ""
+                            }`}
+                        >
+                            {t(`sound_page.${tab}`)}
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+TabNavigation.propTypes = {
+    activeTab: PropTypes.string.isRequired,
+    onTabChange: PropTypes.func.isRequired,
+    scrollTo: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
+};
+
+const useReviews = (selectedAccent) => {
+    const [reviews, setReviews] = useState({});
+    const [reviewsUpdateTrigger, setReviewsUpdateTrigger] = useState(0);
+
+    useEffect(() => {
+        const fetchReviews = () => {
+            const ispeakerData = JSON.parse(localStorage.getItem("ispeaker") || "{}");
+            const accentReviews = ispeakerData.soundReview?.[selectedAccent] || {};
+            setReviews(accentReviews);
+        };
+        fetchReviews();
+    }, [selectedAccent, reviewsUpdateTrigger]);
+
+    const triggerReviewsUpdate = () => setReviewsUpdateTrigger((prev) => prev + 1);
+
+    return { reviews, triggerReviewsUpdate };
+};
 
 const SoundCard = ({
     sound,
@@ -38,7 +98,11 @@ const SoundCard = ({
                     <h2 className="card-title" lang="en">
                         {he.decode(sound.phoneme)}
                     </h2>
-                    <p lang="en">{sound.example_word}</p>
+                    <p
+                        lang="en"
+                        className="italic"
+                        dangerouslySetInnerHTML={{ __html: sound.word }}
+                    />
                 </div>
                 <div className="card-actions px-6">
                     <button
@@ -56,6 +120,24 @@ const SoundCard = ({
     );
 };
 
+SoundCard.propTypes = {
+    sound: PropTypes.shape({
+        phoneme: PropTypes.string.isRequired,
+        word: PropTypes.string.isRequired,
+        british: PropTypes.bool.isRequired,
+        american: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired,
+    }).isRequired,
+    index: PropTypes.number.isRequired,
+    selectedAccent: PropTypes.string.isRequired,
+    handlePracticeClick: PropTypes.func.isRequired,
+    getBadgeColor: PropTypes.func.isRequired,
+    getReviewText: PropTypes.func.isRequired,
+    getReviewKey: PropTypes.func.isRequired,
+    reviews: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired,
+};
+
 const SoundList = () => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
@@ -63,29 +145,22 @@ const SoundList = () => {
     const [selectedSound, setSelectedSound] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const [activeTab, setActiveTab] = useState("tab1");
+    const [activeTab, setActiveTab] = useState("consonants");
 
-    const [soundsData, setSoundsData] = useState({
+    const [phonemesData, setPhonemesData] = useState({
         consonants: [],
-        vowels_n_diphthongs: [],
+        vowels: [],
+        diphthongs: [],
     });
 
-    const [reviews, setReviews] = useState({});
-    const [reviewsUpdateTrigger, setReviewsUpdateTrigger] = useState(0);
-
-    useEffect(() => {
-        const fetchReviews = () => {
-            const ispeakerData = JSON.parse(localStorage.getItem("ispeaker") || "{}");
-            const accentReviews = ispeakerData.soundReview?.[selectedAccent] || {};
-            setReviews(accentReviews);
-        };
-        fetchReviews();
-    }, [selectedAccent, reviewsUpdateTrigger]);
-
-    const triggerReviewsUpdate = () => setReviewsUpdateTrigger((prev) => prev + 1);
+    const { reviews, triggerReviewsUpdate } = useReviews(selectedAccent);
 
     const handlePracticeClick = (sound, accent, index) => {
-        setSelectedSound({ sound, accent, index });
+        setSelectedSound({
+            sound: { ...sound, type: activeTab },
+            accent,
+            index,
+        });
     };
 
     const handleGoBack = () => {
@@ -93,47 +168,25 @@ const SoundList = () => {
         triggerReviewsUpdate();
     };
 
-    const getReviewKey = (sound, index) => {
-        const type = soundsData.consonants.some((s) => s.phoneme === sound.phoneme)
-            ? "consonant"
-            : "vowel";
-        return `${type}${index + 1}`;
-    };
+    const getReviewKey = (sound, index) => `${activeTab}${index + 1}`;
 
     const getBadgeColor = (sound, index) => {
         const reviewKey = getReviewKey(sound, index);
-        const review = reviews[reviewKey];
-        return (
-            {
-                good: "badge-success",
-                neutral: "badge-warning",
-                bad: "badge-error",
-            }[review] || null
-        );
+        return BADGE_COLORS[reviews[reviewKey]] || null;
     };
 
-    const getReviewText = (review) => {
-        switch (review) {
-            case "good":
-                return t("sound_page.reviewGood");
-            case "neutral":
-                return t("sound_page.reviewNeutral");
-            case "bad":
-                return t("sound_page.reviewBad");
-            default:
-                return "";
-        }
-    };
+    const getReviewText = (review) =>
+        t(`sound_page.review${review?.charAt(0).toUpperCase() + review?.slice(1)}`);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${import.meta.env.BASE_URL}json/sounds_data.json`);
+                const response = await fetch(`${import.meta.env.BASE_URL}json/sounds_menu.json`);
                 const data = await response.json();
-                setSoundsData(data);
+                setPhonemesData(data.phonemes);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching menu data:", error);
                 alert(t("sound_page.loadError"));
             } finally {
                 setLoading(false);
@@ -148,14 +201,9 @@ const SoundList = () => {
     }, [t]);
 
     const filteredSounds = useMemo(() => {
-        const currentTabData =
-            activeTab === "tab1" ? soundsData.consonants : soundsData.vowels_n_diphthongs;
-        return currentTabData.filter(
-            (sound) =>
-                (selectedAccent === "british" && sound.b_s === "yes") ||
-                (selectedAccent === "american" && sound.a_s === "yes")
-        );
-    }, [activeTab, selectedAccent, soundsData]);
+        const currentTabData = phonemesData[activeTab] || [];
+        return currentTabData.filter((sound) => sound[selectedAccent]);
+    }, [activeTab, selectedAccent, phonemesData]);
 
     return (
         <>
@@ -164,10 +212,10 @@ const SoundList = () => {
                 <h1 className="py-6 text-3xl font-bold md:text-4xl">{t("navigation.sounds")}</h1>
                 {selectedSound ? (
                     <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
-                        <PracticeSound
+                        <SoundMain
                             sound={selectedSound.sound}
                             accent={selectedSound.accent}
-                            soundsData={soundsData}
+                            phonemesData={phonemesData}
                             index={selectedSound.index}
                             onBack={handleGoBack}
                         />
@@ -180,47 +228,19 @@ const SoundList = () => {
                                 <LoadingOverlay />
                             ) : (
                                 <>
-                                    <div className="bg-base-100 sticky top-[calc(5rem)] z-10 py-8">
-                                        <div className="flex justify-center">
-                                            <div role="tablist" className="tabs tabs-box">
-                                                <a
-                                                    role="tab"
-                                                    onClick={() => {
-                                                        setActiveTab("tab1");
-                                                        scrollTo();
-                                                    }}
-                                                    className={`tab md:text-base ${
-                                                        activeTab === "tab1"
-                                                            ? "tab-active font-semibold"
-                                                            : ""
-                                                    }`}
-                                                >
-                                                    {t("sound_page.consonants")}
-                                                </a>
-                                                <a
-                                                    role="tab"
-                                                    className={`tab md:text-base ${
-                                                        activeTab === "tab2"
-                                                            ? "tab-active font-semibold"
-                                                            : ""
-                                                    }`}
-                                                    onClick={() => {
-                                                        setActiveTab("tab2");
-                                                        scrollTo();
-                                                    }}
-                                                >
-                                                    {t("sound_page.vowels_dipthongs")}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <TabNavigation
+                                        activeTab={activeTab}
+                                        onTabChange={setActiveTab}
+                                        scrollTo={scrollTo}
+                                        t={t}
+                                    />
                                     <div
                                         ref={scrollRef}
                                         className="my-4 flex flex-wrap place-items-center justify-center gap-5"
                                     >
                                         {filteredSounds.map((sound, index) => (
                                             <SoundCard
-                                                key={index}
+                                                key={sound.id}
                                                 sound={sound}
                                                 index={index}
                                                 selectedAccent={selectedAccent}

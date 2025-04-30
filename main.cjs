@@ -63,7 +63,7 @@ async function startExpressServer() {
         } while (!isPortAvailable);
     }
 
-    expressApp.listen(port, () => {
+    return expressApp.listen(port, () => {
         applog.info(`Express server is running on http://localhost:${port}`);
     });
 }
@@ -234,7 +234,7 @@ function createWindow() {
         mainWindow.loadFile(path.join(__dirname, "./dist/index.html")); // Load the built HTML file
     }
 
-    // Show the main window only when it’s ready
+    // Show the main window only when it's ready
     mainWindow.once("ready-to-show", () => {
         setTimeout(() => {
             splashWindow.close();
@@ -467,6 +467,17 @@ ipcMain.handle("get-video-save-folder", (event) => {
     shell.openPath(videoFolder); // Open the folder
 
     return videoFolder; // Send the path back to the renderer
+});
+
+// Start the Express server and store the server instance
+let server;
+startExpressServer().then((srv) => {
+    server = srv;
+});
+
+// Handle the IPC event to get the current server port
+ipcMain.handle("get-port", () => {
+    return server?.address()?.port || DEFAULT_PORT;
 });
 
 ipcMain.handle("open-log-folder", (event) => {

@@ -74,7 +74,8 @@
     },
     "sound_page": {
         "consonants": "辅音",
-        "vowels_dipthongs": "元音和双元音",
+        "vowels": "元音",
+        "diphthongs": "双元音",
         "practiceBtn": "练习",
         "reviewGood": "好",
         "reviewNeutral": "一般",
