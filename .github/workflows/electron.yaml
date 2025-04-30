@@ -185,7 +185,7 @@ jobs:
 
             - name: Compress Artifact (Windows x64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'x64')
-              run: Compress-Archive -Path out/make-win-x64/* -DestinationPath out/make-win-x64.zip -CompressionLevel SmallestSize
+              run: Compress-Archive -Path out/make-win-x64/* -DestinationPath out/make-win-x64.zip -CompressionLevel Optimal
               shell: pwsh
 
             - name: Upload Artifacts (Windows x64)
@@ -198,7 +198,7 @@ jobs:
 
             - name: Compress Artifact (Windows arm64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'arm64')
-              run: Compress-Archive -Path out/make-win-arm64/* -DestinationPath out/make-win-arm64.zip -CompressionLevel SmallestSize
+              run: Compress-Archive -Path out/make-win-arm64/* -DestinationPath out/make-win-arm64.zip -CompressionLevel Optimal
               shell: pwsh
 
             - name: Upload Artifacts (Windows arm64)
