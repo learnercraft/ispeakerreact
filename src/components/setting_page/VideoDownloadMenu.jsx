@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 
 const VideoDownloadMenu = ({ onClick }) => {
@@ -19,6 +20,10 @@ const VideoDownloadMenu = ({ onClick }) => {
             </div>
         </div>
     );
+};
+
+VideoDownloadMenu.propTypes = {
+    onClick: PropTypes.func.isRequired,
 };
 
 export default VideoDownloadMenu;

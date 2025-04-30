@@ -1,5 +1,6 @@
 import he from "he";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
@@ -259,6 +260,14 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+SoundAndSpelling.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    timer: PropTypes.number.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default SoundAndSpelling;

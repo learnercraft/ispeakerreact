@@ -10,6 +10,7 @@ import {
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import he from "he";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
@@ -381,6 +382,14 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+Reordering.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    timer: PropTypes.number.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default Reordering;

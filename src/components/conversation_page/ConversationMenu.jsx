@@ -6,6 +6,7 @@ import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
+import PropTypes from "prop-types";
 
 const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
 
@@ -69,6 +70,11 @@ const ConversationListPage = () => {
         </>
     );
 
+    TooltipIcon.propTypes = {
+        info: PropTypes.string.isRequired,
+        onClick: PropTypes.func.isRequired,
+    };
+
     const ConversationCard = ({ heading, titles, onShowModal }) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
@@ -88,6 +94,18 @@ const ConversationListPage = () => {
             </div>
         </div>
     );
+
+    ConversationCard.propTypes = {
+        heading: PropTypes.string.isRequired,
+        titles: PropTypes.arrayOf(
+            PropTypes.shape({
+                title: PropTypes.string.isRequired,
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+                info: PropTypes.string.isRequired,
+            })
+        ).isRequired,
+        onShowModal: PropTypes.func.isRequired,
+    };
 
     useEffect(() => {
         const fetchData = async () => {

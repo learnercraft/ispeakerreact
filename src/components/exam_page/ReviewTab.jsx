@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
@@ -31,6 +32,8 @@ const ReviewTab = ({ reviews, examId, accent }) => {
         localStorage.setItem("ispeaker", JSON.stringify(savedData));
     }, [checkedReviews, examId, accent]);
 
+    console.log("reviews prop type:", typeof reviews, reviews);
+
     return (
         <div className="container-lg mx-auto">
             {reviews.map((review, index) => (
@@ -49,6 +52,12 @@ const ReviewTab = ({ reviews, examId, accent }) => {
             ))}
         </div>
     );
+};
+
+ReviewTab.propTypes = {
+    reviews: PropTypes.array.isRequired,
+    examId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    accent: PropTypes.string.isRequired,
 };
 
 export default ReviewTab;

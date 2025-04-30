@@ -30,7 +30,7 @@ jobs:
               uses: actions/setup-node@main
               with:
                   node-version: 22
-                  cache: 'npm'
+                  cache: "npm"
 
             - name: Install Dependencies
               run: npm ci
@@ -84,7 +84,7 @@ jobs:
               uses: actions/setup-node@main
               with:
                   node-version: 22
-                  cache: 'npm'
+                  cache: "npm"
 
             - name: Set up Python (macOS only)
               if: matrix.os == 'macos-latest'
@@ -152,12 +152,16 @@ jobs:
 
             - name: Build Electron app (Linux)
               if: matrix.os == 'ubuntu-latest'
-              run: | 
+              run: |
                   npx electron-forge make
                   mkdir -p out/make-linux
                   mv out/make/* out/make-linux/
               env:
                   CSC_IDENTITY_AUTO_DISCOVERY: false
+
+            - name: Compress Artifact (macOS x64)
+              if: matrix.os == 'macos-latest' && contains(matrix.arch, 'x64')
+              run: zip -r -9 out/make-mac-x64.zip out/make-mac-x64
 
             - name: Upload Artifacts (macOS x64)
               if: matrix.os == 'macos-latest' && contains(matrix.arch, 'x64')
@@ -165,7 +169,11 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-macos-x64
-                  path: out/make-mac-x64
+                  path: out/make-mac-x64.zip
+
+            - name: Compress Artifact (macOS arm64)
+              if: matrix.os == 'macos-latest' && contains(matrix.arch, 'arm64')
+              run: zip -r -9 out/make-mac-arm64.zip out/make-mac-arm64
 
             - name: Upload Artifacts (macOS arm64)
               if: matrix.os == 'macos-latest' && contains(matrix.arch, 'arm64')
@@ -173,7 +181,12 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-macos-arm64
-                  path: out/make-mac-arm64
+                  path: out/make-mac-arm64.zip
+
+            - name: Compress Artifact (Windows x64)
+              if: matrix.os == 'windows-latest' && contains(matrix.arch, 'x64')
+              run: Compress-Archive -Path out/make-win-x64/* -DestinationPath out/make-win-x64.zip -CompressionLevel SmallestSize
+              shell: pwsh
 
             - name: Upload Artifacts (Windows x64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'x64')
@@ -181,7 +194,12 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-windows-x64
-                  path: out/make-win-x64
+                  path: out/make-win-x64.zip
+
+            - name: Compress Artifact (Windows arm64)
+              if: matrix.os == 'windows-latest' && contains(matrix.arch, 'arm64')
+              run: Compress-Archive -Path out/make-win-arm64/* -DestinationPath out/make-win-arm64.zip -CompressionLevel SmallestSize
+              shell: pwsh
 
             - name: Upload Artifacts (Windows arm64)
               if: matrix.os == 'windows-latest' && contains(matrix.arch, 'arm64')
@@ -189,7 +207,11 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-windows-arm64
-                  path: out/make-win-arm64
+                  path: out/make-win-arm64.zip
+
+            - name: Compress Artifact (Linux x64)
+              if: matrix.os == 'ubuntu-latest'
+              run: zip -r -9 out/make-linux.zip out/make-linux
 
             - name: Upload Artifacts (Linux x64)
               if: matrix.os == 'ubuntu-latest'
@@ -197,7 +219,7 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: iSpeakerReact-linux-x64
-                  path: out/make-linux
+                  path: out/make-linux.zip
 
     release:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

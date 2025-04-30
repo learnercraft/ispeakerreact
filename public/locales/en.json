@@ -10,6 +10,10 @@
         "settings": "Settings",
         "download": "Download"
     },
+    "loadingOverlay": {
+        "loading": "Loading…",
+        "slowText": "This is taking longer than usual. Wait for a bit, or refresh the page."
+    },
     "homepage": {
         "soundDescription": "Watch videos and practice pronouncing sounds",
         "wordDescription": "Practice pronouncing common words from the Oxford 3000™ and Oxford 5000™ list",

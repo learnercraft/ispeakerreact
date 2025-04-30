@@ -10,15 +10,7 @@ import { PiExam } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTheme } from "../../utils/ThemeContext/useTheme";
-import { isElectron } from "../../utils/isElectron";
-
-const openExternal = (url) => {
-    if (isElectron()) {
-        window.electron.openExternal(url);
-    } else {
-        window.open(url, "_blank", "noopener,noreferrer");
-    }
-};
+import openExternal from "../../utils/openExternal";
 
 const TopNavBar = () => {
     const { t } = useTranslation();

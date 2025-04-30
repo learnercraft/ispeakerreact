@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
@@ -65,6 +66,10 @@ const AccentDropdown = ({ onAccentChange }) => {
             </div>
         </>
     );
+};
+
+AccentDropdown.propTypes = {
+    onAccentChange: PropTypes.func.isRequired,
 };
 
 export default AccentDropdown;

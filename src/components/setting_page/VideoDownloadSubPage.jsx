@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { BsArrowLeft } from "react-icons/bs";
@@ -152,6 +153,10 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} t={t} />
         </div>
     );
+};
+
+VideoDownloadSubPage.propTypes = {
+    onGoBack: PropTypes.func.isRequired,
 };
 
 export default VideoDownloadSubPage;

@@ -1,6 +1,7 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import he from "he";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
@@ -184,6 +185,17 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         );
     };
 
+    DraggableItem.propTypes = {
+        isDropped: PropTypes.bool.isRequired,
+    };
+
+    DroppableArea.propTypes = {
+        feedback: PropTypes.object.isRequired,
+        isDropped: PropTypes.bool.isRequired,
+        result: PropTypes.string,
+        droppedOn: PropTypes.string,
+    };
+
     return (
         <>
             <div className="card-body">
@@ -264,6 +276,14 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+Snap.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    timer: PropTypes.number.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default Snap;

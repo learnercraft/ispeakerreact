@@ -1,28 +1,16 @@
 import WavesurferPlayer from "@wavesurfer/react";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { VscFeedback } from "react-icons/vsc";
 import { checkRecordingExists } from "../../utils/databaseOperations";
-import { isElectron } from "../../utils/isElectron";
+import openExternal from "../../utils/openExternal";
 import { useTheme } from "../../utils/ThemeContext/useTheme";
 import RecordingWaveform from "./RecordingWaveform";
 import ReviewRecording from "./ReviewRecording";
 import { parseIPA } from "./syllableParser";
 import useWaveformTheme from "./useWaveformTheme";
-
-const openExternal = (url) => {
-    if (isElectron()) {
-        window.electron.openExternal(url);
-    } else {
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.click();
-    }
-};
 
 const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }) => {
     const { theme } = useTheme();
@@ -79,6 +67,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
     const wordPronunInfoBody = t("wordPage.wordPronunInfoBody", { returnObjects: true });
 
     const [wavesurfer, setWavesurfer] = useState(null);
+    const wordPronunInfoModalRef = useRef(null);
 
     const onReady = (ws) => {
         setWavesurfer(ws);
@@ -144,7 +133,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
 
     return (
         <>
-            <button className="btn btn-secondary my-8" onClick={handleBack}>
+            <button type="button" className="btn btn-secondary my-8" onClick={handleBack}>
                 <IoChevronBackOutline className="h-5 w-5" /> {t("wordPage.backBtn")}
             </button>
             <div
@@ -161,11 +150,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                         </h1>
 
                         {word.level.map((wordLevel, id) => (
-                            <span
-                                key={id}
-                                className="badge badge-neutral font-semibold"
-                                lang="en"
-                            >
+                            <span key={id} className="badge badge-ghost font-semibold" lang="en">
                                 {wordLevel.toUpperCase()}
                             </span>
                         ))}
@@ -214,7 +199,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                             <IoInformationCircleOutline
                                 className="h-6 w-6"
                                 onClick={() =>
-                                    document.getElementById("wordPronunInfoModal").showModal()
+                                    wordPronunInfoModalRef.current && wordPronunInfoModalRef.current.showModal()
                                 }
                             />
                         </button>
@@ -302,7 +287,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                 </div>
             </div>
 
-            <dialog id="wordPronunInfoModal" className="modal">
+            <dialog ref={wordPronunInfoModalRef} className="modal">
                 <div className="modal-box">
                     <h3 className="text-lg font-bold">{t("wordPage.wordPronunInfoHeader")}</h3>
                     <div className="py-4">
@@ -340,6 +325,7 @@ WordDetails.propTypes = {
     accent: PropTypes.string.isRequired,
     onAccentChange: PropTypes.func.isRequired,
     onReviewUpdate: PropTypes.func,
+    scrollRef: PropTypes.object,
 };
 
 export default WordDetails;

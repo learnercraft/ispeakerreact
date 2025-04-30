@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
@@ -473,6 +474,13 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
             </dialog>
         </>
     );
+};
+
+PracticeTab.propTypes = {
+    accent: PropTypes.string.isRequired,
+    examId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    taskData: PropTypes.array.isRequired,
+    tips: PropTypes.object.isRequired,
 };
 
 export default PracticeTab;
