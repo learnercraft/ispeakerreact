@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
@@ -162,6 +163,10 @@ const ListeningTab = ({ sentences }) => {
             </div>
         </>
     );
+};
+
+ListeningTab.propTypes = {
+    sentences: PropTypes.array.isRequired,
 };
 
 export default ListeningTab;

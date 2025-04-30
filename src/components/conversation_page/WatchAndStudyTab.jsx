@@ -2,6 +2,7 @@ import { MediaPlayer, MediaProvider, Track } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -175,6 +176,13 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
             </div>
         </div>
     );
+};
+
+WatchAndStudyTab.propTypes = {
+    videoUrl: PropTypes.string.isRequired,
+    subtitleUrl: PropTypes.string.isRequired,
+    dialog: PropTypes.array.isRequired,
+    skillCheckmark: PropTypes.array.isRequired,
 };
 
 export default WatchAndStudyTab;

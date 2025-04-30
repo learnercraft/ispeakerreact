@@ -15,6 +15,7 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
@@ -358,6 +359,14 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+MatchUp.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    timer: PropTypes.number.isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default MatchUp;

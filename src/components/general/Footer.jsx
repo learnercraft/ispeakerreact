@@ -1,13 +1,5 @@
+import openExternal from "../../utils/openExternal";
 import LogoLightOrDark from "./LogoLightOrDark";
-import { isElectron } from "../../utils/isElectron";
-
-const openExternal = (url) => {
-    if (isElectron()) {
-        window.electron.openExternal(url);
-    } else {
-        window.open(url, "_blank", "noopener,noreferrer");
-    }
-};
 
 const Footer = () => {
     return (

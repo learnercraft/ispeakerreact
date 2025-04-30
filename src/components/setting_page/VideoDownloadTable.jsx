@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { Trans } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
@@ -274,6 +275,12 @@ const VideoDownloadTable = ({ t, data, isDownloaded }) => {
             </dialog>
         </>
     );
+};
+
+VideoDownloadTable.propTypes = {
+    t: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired,
+    isDownloaded: PropTypes.array.isRequired,
 };
 
 export default VideoDownloadTable;

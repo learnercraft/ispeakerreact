@@ -1,5 +1,6 @@
 import he from "he";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
@@ -162,6 +163,14 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
+};
+
+OddOneOut.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onAnswer: PropTypes.func.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    timer: PropTypes.number.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default OddOneOut;

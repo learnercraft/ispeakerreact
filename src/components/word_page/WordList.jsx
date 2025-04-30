@@ -252,7 +252,7 @@ const PronunciationPractice = () => {
                                                             {word.level.map((wordLevel, id) => (
                                                                 <span
                                                                     key={id}
-                                                                    className="badge badge-neutral font-semibold"
+                                                                    className="badge badge-ghost font-semibold"
                                                                     lang="en"
                                                                 >
                                                                     {wordLevel.toUpperCase()}

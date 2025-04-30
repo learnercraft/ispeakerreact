@@ -14,6 +14,7 @@ import {
 } from "@dnd-kit/sortable";
 import he from "he";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
@@ -116,22 +117,22 @@ const SortingExercise = ({
             if (itemsLeft.some((item) => item.id === active.id)) {
                 // Moving from left to right
                 if (itemsRight.some((item) => item.id === over.id) || itemsRight.length === 0) {
-                    setItemsLeft((items) => items.filter((item) => item.id !== active.id));
-                    setItemsRight((items) => [...itemsRight, activeItem]);
+                    setItemsLeft((prev) => prev.filter((item) => item.id !== active.id));
+                    setItemsRight((prev) => [...prev, activeItem]);
                 } else {
                     const oldIndex = itemsLeft.findIndex((item) => item.id === active.id);
                     const newIndex = itemsLeft.findIndex((item) => item.id === over.id);
-                    setItemsLeft((items) => arrayMove(items, oldIndex, newIndex));
+                    setItemsLeft((prev) => arrayMove(prev, oldIndex, newIndex));
                 }
             } else if (itemsRight.some((item) => item.id === active.id)) {
                 // Moving from right to left
                 if (itemsLeft.some((item) => item.id === over.id) || itemsLeft.length === 0) {
-                    setItemsRight((items) => items.filter((item) => item.id !== active.id));
-                    setItemsLeft((items) => [...itemsLeft, activeItem]);
+                    setItemsRight((prev) => prev.filter((item) => item.id !== active.id));
+                    setItemsLeft((prev) => [...prev, activeItem]);
                 } else {
                     const oldIndex = itemsRight.findIndex((item) => item.id === active.id);
                     const newIndex = itemsRight.findIndex((item) => item.id === over.id);
-                    setItemsRight((items) => arrayMove(items, oldIndex, newIndex));
+                    setItemsRight((prev) => arrayMove(prev, oldIndex, newIndex));
                 }
             }
         }
@@ -194,7 +195,7 @@ const SortingExercise = ({
                     />
                 )}
             </div>
-            <div className="divider divider-accent mb-2 mt-0"></div>
+            <div className="divider divider-accent mt-0 mb-2"></div>
             <div className="flex flex-col items-center gap-4">
                 <SortableContext items={items} strategy={sortableStrategy}>
                     {items.length > 0 ? (
@@ -208,7 +209,7 @@ const SortingExercise = ({
                         ))
                     ) : (
                         <div className="w-full p-4 text-center">
-                            <div className="rounded-xs border p-4 text-secondary">
+                            <div className="text-secondary rounded-xs border p-4">
                                 {t("exercise_page.dropLayer")}
                             </div>
                         </div>
@@ -217,6 +218,25 @@ const SortingExercise = ({
             </div>
         </div>
     );
+
+    SortingExercise.propTypes = {
+        quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+        onAnswer: PropTypes.func.isRequired,
+        onQuit: PropTypes.func.isRequired,
+        useHorizontalStrategy: PropTypes.bool,
+        timer: PropTypes.number.isRequired,
+        setTimeIsUp: PropTypes.func.isRequired,
+    };
+
+    SortableColumn.propTypes = {
+        items: PropTypes.arrayOf(PropTypes.object).isRequired,
+        heading: PropTypes.object,
+        columnPos: PropTypes.number.isRequired,
+        sortableStrategy: PropTypes.func.isRequired,
+        hasSubmitted: PropTypes.bool.isRequired,
+        buttonsDisabled: PropTypes.bool.isRequired,
+        t: PropTypes.func.isRequired,
+    };
 
     return (
         <>

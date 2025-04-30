@@ -4,16 +4,8 @@ import { FiRefreshCw } from "react-icons/fi";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
 import { Toaster } from "sonner";
 import Container from "./ui/Container";
-import { isElectron } from "./utils/isElectron";
+import openExternal from "./utils/openExternal";
 import { sonnerSuccessToast } from "./utils/sonnerCustomToast";
-
-const handleOpenExternal = (url) => {
-    if (isElectron()) {
-        window.electron.openExternal(url);
-    } else {
-        window.open(url, "_blank", "noopener,noreferrer");
-    }
-};
 
 export default class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -76,7 +68,7 @@ ${error?.toString()}\nApp version: v${__APP_VERSION__}\n\nStack Trace:\n${errorI
                                 </button>
                                 <button
                                     onClick={() =>
-                                        handleOpenExternal(
+                                        openExternal(
                                             "https://github.com/yllst-testing-labs/ispeakerreact/issues"
                                         )
                                     }

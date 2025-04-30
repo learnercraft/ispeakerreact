@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { useTheme } from "../../utils/ThemeContext/useTheme";
-import { useState, useEffect } from "react";
 
 const LogoLightOrDark = ({ width, height }) => {
     const { theme } = useTheme();
@@ -32,6 +33,11 @@ const LogoLightOrDark = ({ width, height }) => {
         : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
 
     return <img alt="iSpeakerReact logo" src={logoSrc} width={width} height={height} />;
+};
+
+LogoLightOrDark.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
 };
 
 export default LogoLightOrDark;

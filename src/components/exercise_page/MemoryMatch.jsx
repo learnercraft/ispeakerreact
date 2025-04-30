@@ -1,4 +1,5 @@
 import he from "he";
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import { useTranslation } from "react-i18next";
@@ -67,7 +68,7 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
 
         // Step 5: Duplicate and shuffle the selected pairs to form the memory match cards
         const quizCards = ShuffleArray(
-            selectedPairs.flatMap(({ id, pair }, index) => [
+            selectedPairs.flatMap(({ id, pair }) => [
                 { ...pair[0], id: id * 2 }, // Create a unique id for each card based on the pair's unique `id`
                 { ...pair[1], id: id * 2 + 1 }, // Duplicate the matching pair with a different id
             ])
@@ -177,8 +178,8 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                 <div className="divider divider-secondary m-0"></div>
                 <Flipper flipKey={flippedCards.concat(matchedCards)}>
                     <div className="grid grid-cols-4 gap-2">
-                        {shuffledQuiz.map((card, index) => (
-                            <div className="flex flex-row flex-wrap justify-center" key={index}>
+                        {shuffledQuiz.map((card) => (
+                            <div className="flex flex-row flex-wrap justify-center" key={card.id}>
                                 <Flipped flipId={card.id}>
                                     <div
                                         onClick={() => handleCardClick(card)}
@@ -189,9 +190,9 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                                                 : ""
                                         } ${
                                             cardFeedback[card.id] === "correctPair"
-                                                ? "z-50 rounded-lg bg-success text-success-content"
+                                                ? "bg-success text-success-content z-50 rounded-lg"
                                                 : cardFeedback[card.id] === "incorrectPair"
-                                                  ? "z-50 rounded-lg bg-error text-error-content"
+                                                  ? "bg-error text-error-content z-50 rounded-lg"
                                                   : ""
                                         }`}
                                     >
@@ -203,12 +204,12 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                                             >
                                                 <span lang="en">{he.decode(card.text)}</span>
                                                 {cardFeedback[card.id] === "correctPair" && (
-                                                    <div className="absolute right-2 top-2 z-50 text-white">
+                                                    <div className="absolute top-2 right-2 z-50 text-white">
                                                         <BsCheckCircleFill className="h-6 w-6" />
                                                     </div>
                                                 )}
                                                 {cardFeedback[card.id] === "incorrectPair" && (
-                                                    <div className="absolute right-2 top-2 z-50 text-white">
+                                                    <div className="absolute top-2 right-2 z-50 text-white">
                                                         <BsXCircleFill className="h-6 w-6" />
                                                     </div>
                                                 )}
@@ -232,6 +233,14 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
             </div>
         </>
     );
+};
+
+MemoryMatch.propTypes = {
+    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+    timer: PropTypes.number.isRequired,
+    onQuit: PropTypes.func.isRequired,
+    setTimeIsUp: PropTypes.func.isRequired,
+    onMatchFinished: PropTypes.func.isRequired,
 };
 
 export default MemoryMatch;

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BsChevronLeft } from "react-icons/bs";
 import { PiArrowsCounterClockwise } from "react-icons/pi";
 import LoadingOverlay from "../general/LoadingOverlay";
+import PropTypes from "prop-types";
 
 // Emoji SVGs import
 import seedlingEmoji from "../../emojiSvg/emoji_u1f331.svg";
@@ -359,13 +360,13 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
                             <button
                                 type="button"
-                                className="btn btn-neutral block dark:btn-outline md:hidden"
+                                className="btn btn-neutral dark:btn-outline block md:hidden"
                                 onClick={() => instructionModal.current?.showModal()}
                             >
                                 {t("exercise_page.buttons.expandBtn")}
                             </button>
 
-                            <div className="collapse collapse-arrow hidden bg-base-200 md:grid dark:bg-slate-700">
+                            <div className="collapse-arrow bg-base-200 collapse hidden md:grid dark:bg-slate-700">
                                 <input type="checkbox" defaultChecked />
                                 <button
                                     type="button"
@@ -494,6 +495,15 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             )}
         </>
     );
+};
+
+ExerciseDetailPage.propTypes = {
+    heading: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    accent: PropTypes.string.isRequired,
+    file: PropTypes.string.isRequired,
+    onBack: PropTypes.func.isRequired,
 };
 
 export default ExerciseDetailPage;

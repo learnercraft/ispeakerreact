@@ -29,6 +29,10 @@ const SettingsPage = () => {
         setCurrentPage("settings");
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <TopNavBar />
