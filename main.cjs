@@ -4,7 +4,7 @@ const path = require("path");
 const net = require("net");
 const isDev = process.env.NODE_ENV === "development";
 const fs = require("fs");
-const JS7z = require("./libraries/js7z/js7z.cjs");
+const JS7z = require("js7z-tools");
 const crypto = require("crypto");
 
 const express = require("express");
@@ -522,31 +522,31 @@ async function fileVerification(event, zipContents, extractedFolder) {
     // Verify existing extracted files
     const totalFiles = zipContents[0].extractedFiles.length;
     let filesProcessed = 0;
-    let missingOrCorruptedFiles = false;
+    let fileErrors = [];
 
     for (const file of zipContents[0].extractedFiles) {
         const extractedFilePath = path.join(extractedFolder, file.name);
         if (!fs.existsSync(extractedFilePath)) {
             console.log(`File missing: ${file.name}`);
             applog.log(`File missing: ${file.name}`);
-            event.sender.send(
-                "verification-error",
-                `File missing: ${file.name}. Make sure you do not rename or accidentally delete it.`
-            );
-            missingOrCorruptedFiles = true;
-            break; // Stop further verification
+            fileErrors.push({
+                type: "missing",
+                name: file.name,
+                message: `File missing: ${file.name}. Make sure you do not rename or accidentally delete it.`,
+            });
+            continue;
         }
 
         const extractedFileHash = await calculateFileHash(extractedFilePath);
         if (extractedFileHash !== file.hash) {
             console.log(`Hash mismatch for file: ${file.name}`);
             applog.log(`Hash mismatch for file: ${file.name}`);
-            event.sender.send(
-                "verification-error",
-                `Hash mismatch for file: ${file.name}. It seems like the file was either corrupted or tampered.`
-            );
-            missingOrCorruptedFiles = true;
-            break; // Stop further verification
+            fileErrors.push({
+                type: "hash-mismatch",
+                name: file.name,
+                message: `Hash mismatch for file: ${file.name}. It seems like the file was either corrupted or tampered.`,
+            });
+            continue;
         }
 
         filesProcessed++;
@@ -555,14 +555,22 @@ async function fileVerification(event, zipContents, extractedFolder) {
         applog.log("Verifying extracted file:", file.name);
     }
 
-    if (!missingOrCorruptedFiles) {
+    if (fileErrors.length === 0) {
         // If no missing or corrupted files, finish the verification
         event.sender.send("verification-success", {
             messageKey:
                 "settingPage.videoDownloadSettings.electronVerifyMessage.extractedSuccessMsg",
             param: extractedFolder,
         });
-        applog.log(`All extracted files are verified for "${extractedFolder}"`);
+        applog.log(`All extracted files are verified for \"${extractedFolder}\"`);
+        return;
+    } else {
+        // Send all errors as an array
+        event.sender.send("verification-errors", fileErrors);
+        applog.log(
+            `Verification found errors in extracted files for \"${extractedFolder}\"`,
+            fileErrors
+        );
         return;
     }
 }

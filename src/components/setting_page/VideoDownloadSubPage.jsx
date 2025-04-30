@@ -150,7 +150,7 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 </button>
             </div>
 
-            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} t={t} />
+            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} t={t} onStatusChange={checkDownloadedFiles} />
         </div>
     );
 };

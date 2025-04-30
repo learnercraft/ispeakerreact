@@ -1255,6 +1255,8 @@
             "verifySuccessMessage": "All extracted files are verified in the folder:",
             "verifyFailed": "Verification failed",
             "verifyFailedMessage": "It seems like either the files are corrupted or missing. Please try downloading the file again.",
+            "fileMissing": "These files are missing:",
+            "hashMismatch": "These files have hash mismatch. They could be corrupted or tampered.",
             "electronVerifyMessage": {
                 "extractedSuccessMsg": "All extracted files are verified for",
                 "zipSuccessMsg": "Successfully verified and extracted",
