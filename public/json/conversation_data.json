@@ -73,31 +73,41 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I still haven’t gotten my contract from Mr. Spencer."
+
+                                "speech": "I still haven’t gotten my contract from Mr. Spencer.",
+                                "audioSrc": "ispeaker_video_23_giving_somebody_advice_us_89"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Really? That’s terrible. <span class=\"highlight-dialog-1\">If I were you</span>, I’d remind him about it. You shouldn’t work without a signed contract."
+                                "speech": "Really? That’s terrible. <span class=\"highlight-dialog-1\">If I were you</span>, I’d remind him about it. You shouldn’t work without a signed contract.",
+                                "audioSrc": "ispeaker_video_23_giving_somebody_advice_us_90"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "No, <span class=\"highlight-dialog-2\">you’re right</span>."
+                                "speech": "No, <span class=\"highlight-dialog-2\">you’re right</span>.",
+                                "audioSrc": "ispeaker_video_23_giving_somebody_advice_us_91"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I think you should</span> make an appointment to see him about it as soon as possible."
+                                "speech": "<span class=\"highlight-dialog-1\">I think you should</span> make an appointment to see him about it as soon as possible.",
+                                "audioSrc": "ispeaker_video_23_giving_somebody_advice_us_92"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">OK, I will</span>."
+                                "speech": "<span class=\"highlight-dialog-2\">OK, I will</span>.",
+                                "audioSrc": "ispeaker_video_23_giving_somebody_advice_us_93"
                             }
                         ],
                         "skill_checkmark": [
@@ -186,8 +196,12 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
@@ -293,29 +307,39 @@
                         }
                     ]
                 },
-                "reviews": [{ "text": "conversationPage.discussionAndOpinion.agreeingReview" }],
+                "reviews": [
+                    {
+                        "text": "conversationPage.discussionAndOpinion.agreeingReview"
+                    }
+                ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Our website looks a little dated, don’t you think?"
+                                "speech": "Our website looks a little dated, don’t you think?",
+                                "audioSrc": "ispeaker_video_01_agreeing_us_1"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Hmm, <span class=\"highlight-dialog-1\">absolutely</span>! We should get a web designer to take a look at it."
+                                "speech": "Hmm, <span class=\"highlight-dialog-1\">absolutely</span>! We should get a web designer to take a look at it.",
+                                "audioSrc": "ispeaker_video_01_agreeing_us_2"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I think you’re right</span>. Let’s put it on the agenda for next week."
+                                "speech": "<span class=\"highlight-dialog-1\">I think you’re right</span>. Let’s put it on the agenda for next week.",
+                                "audioSrc": "ispeaker_video_01_agreeing_us_3"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Definitely</span>, <span class=\"highlight-dialog-1\">that is a good idea</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">Definitely</span>, <span class=\"highlight-dialog-1\">that is a good idea</span>.",
+                                "audioSrc": "ispeaker_video_01_agreeing_us_4"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.discussionAndOpinion.agreeingCheckbox" }
+                            {
+                                "label": "conversationPage.discussionAndOpinion.agreeingCheckbox"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/697912242?byline=0&portrait=0&title=0",
@@ -385,29 +409,39 @@
                         }
                     ]
                 },
-                "reviews": [{ "text": "conversationPage.discussionAndOpinion.agreeingReview" }],
+                "reviews": [
+                    {
+                        "text": "conversationPage.discussionAndOpinion.agreeingReview"
+                    }
+                ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Our website looks a bit dated, don’t you think?"
+                                "speech": "Our website looks a bit dated, don’t you think?",
+                                "audioSrc": "ispeaker_video_01_agreeing_gb_1"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Absolutely</span>! We should get a web designer to take a look at it."
+                                "speech": "<span class=\"highlight-dialog-1\">Absolutely</span>! We should get a web designer to take a look at it.",
+                                "audioSrc": "ispeaker_video_01_agreeing_gb_2"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I think you’re right</span>. Let’s put it on the agenda for next week."
+                                "speech": "<span class=\"highlight-dialog-1\">I think you’re right</span>. Let’s put it on the agenda for next week.",
+                                "audioSrc": "ispeaker_video_01_agreeing_gb_3"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I’d certainly go along with that idea</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">I’d certainly go along with that idea</span>.",
+                                "audioSrc": "ispeaker_video_01_agreeing_gb_4"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.discussionAndOpinion.agreeingCheckbox" }
+                            {
+                                "label": "conversationPage.discussionAndOpinion.agreeingCheckbox"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/700329378?byline=0&portrait=0&title=0",
@@ -487,32 +521,44 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.apologizingReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.apologizingReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.apologizingReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.apologizingReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m so sorry</span>. I should have been looking where I was going. Are you alright?"
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m so sorry</span>. I should have been looking where I was going. Are you alright?",
+                                "audioSrc": "ispeaker_video_02_apologizing_us_5"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yeah, <span class=\"highlight-dialog-2\">don’t worry about it</span>."
+                                "speech": "Yeah, <span class=\"highlight-dialog-2\">don’t worry about it</span>.",
+                                "audioSrc": "ispeaker_video_02_apologizing_us_6"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "But you spilled some coffee. Can I get you another one?"
+                                "speech": "But you spilled some coffee. Can I get you another one?",
+                                "audioSrc": "ispeaker_video_02_apologizing_us_7"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, <span class=\"highlight-dialog-2\">it’s fine, really</span>."
+                                "speech": "No, <span class=\"highlight-dialog-2\">it’s fine, really</span>.",
+                                "audioSrc": "ispeaker_video_02_apologizing_us_8"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.feelingsAndEmotions.apologizingTitle" },
-                            { "label": "conversationPage.feelingsAndEmotions.apologizingCheckbox2" }
+                            {
+                                "label": "conversationPage.feelingsAndEmotions.apologizingTitle"
+                            },
+                            {
+                                "label": "conversationPage.feelingsAndEmotions.apologizingCheckbox2"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/697912279?byline=0&portrait=0&title=0",
@@ -588,32 +634,44 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.apologizingReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.apologizingReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.apologizingReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.apologizingReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I do apologize</span>, I should have been looking where I was going. Are you alright?"
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I do apologize</span>, I should have been looking where I was going. Are you alright?",
+                                "audioSrc": "ispeaker_video_02_apologizing_gb_5"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-2\">don’t worry about it</span>."
+                                "speech": "Yes, <span class=\"highlight-dialog-2\">don’t worry about it</span>.",
+                                "audioSrc": "ispeaker_video_02_apologizing_gb_6"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "But you spilt some coffee. Can I get you another one?"
+                                "speech": "But you spilt some coffee. Can I get you another one?",
+                                "audioSrc": "ispeaker_video_02_apologizing_gb_7"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, <span class=\"highlight-dialog-2\">it’s fine, really</span>."
+                                "speech": "No, <span class=\"highlight-dialog-2\">it’s fine, really</span>.",
+                                "audioSrc": "ispeaker_video_02_apologizing_gb_8"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.feelingsAndEmotions.apologizingTitle" },
-                            { "label": "conversationPage.feelingsAndEmotions.apologizingCheckbox2" }
+                            {
+                                "label": "conversationPage.feelingsAndEmotions.apologizingTitle"
+                            },
+                            {
+                                "label": "conversationPage.feelingsAndEmotions.apologizingCheckbox2"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/700329404?byline=0&portrait=0&title=0",
@@ -673,25 +731,36 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh, excuse me. <span class=\"highlight-dialog-1\">I wonder if you’d mind</span> taking a picture of us, please?"
+                                "speech": "Oh, excuse me. <span class=\"highlight-dialog-1\">I wonder if you’d mind</span> taking a picture of us, please?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_us_17"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Sure, of course</span>. Where do you want to be?"
+                                "speech": "<span class=\"highlight-dialog-2\">Sure, of course</span>. Where do you want to be?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_us_18"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Over here, I think. Do you know how to use this?"
+                                "speech": "Over here, I think. Do you know how to use this?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_us_19"
                             },
-                            { "speaker": "B", "speech": "Yeah, I think so." }
+                            {
+                                "speaker": "B",
+                                "speech": "Yeah, I think so.",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_us_20"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -755,25 +824,36 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForHelpReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh, excuse me. <span class=\"highlight-dialog-1\">I wonder if you could possibly</span> take a photo of us, please?"
+                                "speech": "Oh, excuse me. <span class=\"highlight-dialog-1\">I wonder if you could possibly</span> take a photo of us, please?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_gb_17"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Where would you like to be?"
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Where would you like to be?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_gb_18"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Just here, I think. Do you know how to use this?"
+                                "speech": "Just here, I think. Do you know how to use this?",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_gb_19"
                             },
-                            { "speaker": "B", "speech": "Yes, I think so." }
+                            {
+                                "speaker": "B",
+                                "speech": "Yes, I think so.",
+                                "audioSrc": "ispeaker_video_05_asking_for_help_gb_20"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -861,16 +941,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Do you know what time it is in Australia?"
+                                "speech": "Do you know what time it is in Australia?",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_us_57"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I’m not sure</span>. Why?"
+                                "speech": "<span class=\"highlight-dialog-1\">I’m not sure</span>. Why?",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_us_58"
                             },
-                            { "speaker": "A", "speech": "I’m supposed to call the Sydney office." },
+                            {
+                                "speaker": "A",
+                                "speech": "I’m supposed to call the Sydney office.",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_us_59"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "Well, I think it’s probably night time. <span class=\"highlight-dialog-1\">I doubt</span> they’ll be at work now."
+                                "speech": "Well, I think it’s probably night time. <span class=\"highlight-dialog-1\">I doubt</span> they’ll be at work now.",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_us_60"
                             }
                         ],
                         "skill_checkmark": [
@@ -952,19 +1039,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Do you know what time it is in New York?"
+                                "speech": "Do you know what time it is in New York?",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_gb_54"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I’m not at all sure, to be honest</span>. Why?"
+                                "speech": "<span class=\"highlight-dialog-1\">I’m not at all sure, to be honest</span>. Why?",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_gb_55"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I’m supposed to phone the New York office."
+                                "speech": "I’m supposed to phone the New York office.",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_gb_56"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, I think it’s probably very early morning, <span class=\"highlight-dialog-1\">I doubt</span> they’ll be at work right now."
+                                "speech": "Well, I think it’s probably very early morning, <span class=\"highlight-dialog-1\">I doubt</span> they’ll be at work right now.",
+                                "audioSrc": "ispeaker_video_15_expressing_certainty_gb_57"
                             }
                         ],
                         "skill_checkmark": [
@@ -1078,19 +1169,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "It says on the box, ‘Take two tablets, in the morning and in the evening’. Well, that’s confusing. <span class=\"highlight-dialog-1\">Do they mean</span> four a day?"
+                                "speech": "It says on the box, ‘Take two tablets, in the morning and in the evening’. Well, that’s confusing. <span class=\"highlight-dialog-1\">Do they mean</span> four a day?",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_us_13"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I’m <span class=\"highlight-dialog-1\">sorry, what exactly are you asking?</span>"
+                                "speech": "I’m <span class=\"highlight-dialog-1\">sorry, what exactly are you asking?</span>",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_us_14"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">I mean</span>, is it two in the morning and then two in the evening?"
+                                "speech": "<span class=\"highlight-dialog-2\">I mean</span>, is it two in the morning and then two in the evening?",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_us_15"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Ah, I see—um. You know, I don’t know exactly."
+                                "speech": "Ah, I see—um. You know, I don’t know exactly.",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_us_16"
                             }
                         ],
                         "skill_checkmark": [
@@ -1203,19 +1298,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "It says on the box, ‘Take two tablets, in the morning and in the evening’. <span class=\"highlight-dialog-1\">I’m not very clear about that</span>. <span class=\"highlight-dialog-1\">Do they mean to say</span> four a day?"
+                                "speech": "It says on the box, ‘Take two tablets, in the morning and in the evening’. <span class=\"highlight-dialog-1\">I’m not very clear about that</span>. <span class=\"highlight-dialog-1\">Do they mean to say</span> four a day?",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_gb_13"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Sorry, I don’t quite follow</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">Sorry, I don’t quite follow</span>",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_gb_14"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">I mean</span>, is it two in the morning and then two in the evening?"
+                                "speech": "<span class=\"highlight-dialog-2\">I mean</span>, is it two in the morning and then two in the evening?",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_gb_15"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Ah, I see—eh, I’m not sure, to be honest."
+                                "speech": "Ah, I see—eh, I’m not sure, to be honest.",
+                                "audioSrc": "ispeaker_video_04_asking_for_clarification_gb_16"
                             }
                         ],
                         "skill_checkmark": [
@@ -1271,26 +1370,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.makingComplaintsReview" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.makingComplaintsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’d like to talk to the manager, please. <span class=\"highlight-dialog-1\">I’d like to make a complaint</span>."
+                                "speech": "I’d like to talk to the manager, please. <span class=\"highlight-dialog-1\">I’d like to make a complaint</span>.",
+                                "audioSrc": "ispeaker_video_28_making_complaints_us_110"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I’m afraid she’s out all day. Would you like to make an appointment for tomorrow?"
+                                "speech": "I’m afraid she’s out all day. Would you like to make an appointment for tomorrow?",
+                                "audioSrc": "ispeaker_video_28_making_complaints_us_111"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I’m sorry, that’s not good enough</span>. I’m leaving town this afternoon."
+                                "speech": "<span class=\"highlight-dialog-1\">I’m sorry, that’s not good enough</span>. I’m leaving town this afternoon.",
+                                "audioSrc": "ispeaker_video_28_making_complaints_us_112"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I’m so sorry. Can I take your number and ask her to call you in the morning?"
+                                "speech": "I’m so sorry. Can I take your number and ask her to call you in the morning?",
+                                "audioSrc": "ispeaker_video_28_making_complaints_us_113"
                             }
                         ],
                         "skill_checkmark": [
@@ -1339,26 +1444,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.makingComplaintsReview" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.makingComplaintsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’d like to speak to the manager, please. <span class=\"highlight-dialog-1\">I’d like to make a complaint</span>."
+                                "speech": "I’d like to speak to the manager, please. <span class=\"highlight-dialog-1\">I’d like to make a complaint</span>.",
+                                "audioSrc": "ispeaker_video_28_making_complaints_gb_108"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I’m afraid she’s busy all day. Would you like to make an appointment for tomorrow?"
+                                "speech": "I’m afraid she’s busy all day. Would you like to make an appointment for tomorrow?",
+                                "audioSrc": "ispeaker_video_28_making_complaints_gb_109"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I’m sorry, this isn’t good enough</span>. I’m only in town today."
+                                "speech": "<span class=\"highlight-dialog-1\">I’m sorry, this isn’t good enough</span>. I’m only in town today.",
+                                "audioSrc": "ispeaker_video_28_making_complaints_gb_110"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I’m sorry, but there’s really nothing I can do."
+                                "speech": "I’m sorry, but there’s really nothing I can do.",
+                                "audioSrc": "ispeaker_video_28_making_complaints_gb_111"
                             }
                         ],
                         "skill_checkmark": [
@@ -1447,22 +1558,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.concedingAPointReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.concedingAPointReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I don’t think these clients will commit if the price is too high."
+                                "speech": "I don’t think these clients will commit if the price is too high.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_us_33"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Actally, these clients are sponsored. They aren’t paying for themselves."
+                                "speech": "Actally, these clients are sponsored. They aren’t paying for themselves.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_us_34"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I see what you mean</span>. <span class=\"highlight-dialog-1\">I didn’t know that</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I see what you mean</span>. <span class=\"highlight-dialog-1\">I didn’t know that</span>.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_us_35"
                             }
                         ],
                         "skill_checkmark": [
@@ -1547,22 +1663,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.concedingAPointReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.concedingAPointReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I don’t think these clients will pay if the price is too high."
+                                "speech": "I don’t think these clients will pay if the price is too high.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_gb_33"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, but these clients are sponsored. They aren’t paying for themselves."
+                                "speech": "Yes, but these clients are sponsored. They aren’t paying for themselves.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_gb_34"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I see what you mean</span>. <span class=\"highlight-dialog-1\">I hadn’t really appreciated that before</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I see what you mean</span>. <span class=\"highlight-dialog-1\">I hadn’t really appreciated that before</span>.",
+                                "audioSrc": "ispeaker_video_09_conceding_a_point_gb_35"
                             }
                         ],
                         "skill_checkmark": [
@@ -1627,29 +1748,43 @@
                     {
                         "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview1"
                     },
-                    { "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hi Carol! <span class=\"highlight-dialog-1\">Congratulations on</span> the promotion. I just heard this morning."
+                                "speech": "Hi Carol! <span class=\"highlight-dialog-1\">Congratulations on</span> the promotion. I just heard this morning.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_36"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, <span class=\"highlight-dialog-2\">thank you very much</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-2\">thank you very much</span>.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_37"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "When will you start in the new position?"
+                                "speech": "When will you start in the new position?",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_38"
                             },
-                            { "speaker": "B", "speech": "At the end of May, after Tony retires." },
+                            {
+                                "speaker": "B",
+                                "speech": "At the end of May, after Tony retires.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_39"
+                            },
                             {
                                 "speaker": "A",
-                                "speech": "Great. You will make a fantastic manager."
+                                "speech": "Great. You will make a fantastic manager.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_40"
                             },
-                            { "speaker": "B", "speech": "Thanks." }
+                            {
+                                "speaker": "B",
+                                "speech": "Thanks.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_us_41"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -1712,25 +1847,38 @@
                     {
                         "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview1"
                     },
-                    { "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.congratulatingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hi Sarah! <span class=\"highlight-dialog-1\">Congratulations on</span> the promotion. I just heard this morning."
+                                "speech": "Hi Sarah! <span class=\"highlight-dialog-1\">Congratulations on</span> the promotion. I just heard this morning.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_gb_36"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, <span class=\"highlight-dialog-2\">thank you very much</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-2\">thank you very much</span>.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_gb_37"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "When will you start in the new position?"
+                                "speech": "When will you start in the new position?",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_gb_38"
                             },
-                            { "speaker": "B", "speech": "At the end of May, when Tony retires." },
-                            { "speaker": "A", "speech": "Wow, that’ll be great!" }
+                            {
+                                "speaker": "B",
+                                "speech": "At the end of May, when Tony retires.",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_gb_39"
+                            },
+                            {
+                                "speaker": "A",
+                                "speech": "Wow, that’ll be great!",
+                                "audioSrc": "ispeaker_video_10_congratulating_somebody_gb_40"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -1802,15 +1950,18 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, can you tell me how to get to Eighth Street?"
+                                "speech": "Excuse me, can you tell me how to get to Eighth Street?",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_us_42"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh sure. You go straight and it’s the first on the—<span class=\"highlight-dialog-1\">actually</span>, the second on the left—<span class=\"highlight-dialog-1\">no, sorry</span>, the right! I’m bad at left and right!"
+                                "speech": "Oh sure. You go straight and it’s the first on the—<span class=\"highlight-dialog-1\">actually</span>, the second on the left—<span class=\"highlight-dialog-1\">no, sorry</span>, the right! I’m bad at left and right!",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_us_43"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Yeah, I’m the same. So it’s the second street on the right? Thanks!"
+                                "speech": "Yeah, I’m the same. So it’s the second street on the right? Thanks!",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_us_44"
                             }
                         ],
                         "skill_checkmark": [
@@ -1876,15 +2027,18 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, can you tell me the way to Green Lane?"
+                                "speech": "Excuse me, can you tell me the way to Green Lane?",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_gb_41"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, go straight on and it’s the first—<span class=\"highlight-dialog-1\">or rather</span>, the second on the left—<span class=\"highlight-dialog-1\">no, sorry</span>, right! I’m terrible at left and right!"
+                                "speech": "Yes, go straight on and it’s the first—<span class=\"highlight-dialog-1\">or rather</span>, the second on the left—<span class=\"highlight-dialog-1\">no, sorry</span>, right! I’m terrible at left and right!",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_gb_42"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh yeah, I’m the same. So it’s second on the right. Thanks!"
+                                "speech": "Oh yeah, I’m the same. So it’s second on the right. Thanks!",
+                                "audioSrc": "ispeaker_video_11_correcting_yourself_gb_43"
                             }
                         ],
                         "skill_checkmark": [
@@ -1969,26 +2123,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.dealingWithQuestionsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.dealingWithQuestionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, but can I just ask where we’re going to publicize this?"
+                                "speech": "Excuse me, but can I just ask where we’re going to publicize this?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_us_45"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">that’s something we probably need to look into</span> before our next meeting. Yes, Jo?"
+                                "speech": "Well, <span class=\"highlight-dialog-1\">that’s something we probably need to look into</span> before our next meeting. Yes, Jo?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_us_46"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I was wondering if we have a launch date yet?"
+                                "speech": "I was wondering if we have a launch date yet?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_us_47"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I’ll actually come back to that point later</span>, when we deal with the project scheduling."
+                                "speech": "<span class=\"highlight-dialog-1\">I’ll actually come back to that point later</span>, when we deal with the project scheduling.",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_us_48"
                             }
                         ],
                         "skill_checkmark": [
@@ -2069,26 +2229,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.dealingWithQuestionsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.dealingWithQuestionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, but can I just ask where we’re going to publicize this?"
+                                "speech": "Excuse me, but can I just ask where we’re going to publicize this?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_gb_44"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">that’s something we probably should look into further</span>. Yes, Jo?"
+                                "speech": "Well, <span class=\"highlight-dialog-1\">that’s something we probably should look into further</span>. Yes, Jo?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_gb_45"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I was wondering if we have a launch date yet?"
+                                "speech": "I was wondering if we have a launch date yet?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_gb_46"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Can I come back to that point later</span>, when we deal with the project scheduling?"
+                                "speech": "<span class=\"highlight-dialog-1\">Can I come back to that point later</span>, when we deal with the project scheduling?",
+                                "audioSrc": "ispeaker_video_12_dealing_with_questions_gb_47"
                             }
                         ],
                         "skill_checkmark": [
@@ -2168,29 +2334,39 @@
                         }
                     ]
                 },
-                "reviews": [{ "text": "conversationPage.discussionAndOpinion.disagreeingReview" }],
+                "reviews": [
+                    {
+                        "text": "conversationPage.discussionAndOpinion.disagreeingReview"
+                    }
+                ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I think we should sell the app at a low cost to maximize sales."
+                                "speech": "I think we should sell the app at a low cost to maximize sales.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_us_49"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I don’t know. If it’s cheap, people will think it’s poor quality."
+                                "speech": "I don’t know. If it’s cheap, people will think it’s poor quality.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_us_50"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I see your point, but</span> people won’t pay much for an app these days."
+                                "speech": "<span class=\"highlight-dialog-1\">I see your point, but</span> people won’t pay much for an app these days.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_us_51"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">actually, I’m not sure that’s true</span>."
+                                "speech": "Well, <span class=\"highlight-dialog-1\">actually, I’m not sure that’s true</span>.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_us_52"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.discussionAndOpinion.disagreeingCheckbox" }
+                            {
+                                "label": "conversationPage.discussionAndOpinion.disagreeingCheckbox"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/697912668?byline=0&portrait=0&title=0",
@@ -2260,29 +2436,39 @@
                         }
                     ]
                 },
-                "reviews": [{ "text": "conversationPage.discussionAndOpinion.disagreeingReview" }],
+                "reviews": [
+                    {
+                        "text": "conversationPage.discussionAndOpinion.disagreeingReview"
+                    }
+                ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I think we should sell the app at a low cost to maximize sales."
+                                "speech": "I think we should sell the app at a low cost to maximize sales.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_gb_48"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I can’t go along with that idea</span>. If it’s cheap, people will think it’s poor quality."
+                                "speech": "<span class=\"highlight-dialog-1\">I can’t go along with that idea</span>. If it’s cheap, people will think it’s poor quality.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_gb_49"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I take your point, but</span> people won’t pay much for an app these days."
+                                "speech": "<span class=\"highlight-dialog-1\">I take your point, but</span> people won’t pay much for an app these days.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_gb_50"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">actually, I’m not sure that’s true</span>."
+                                "speech": "Well, <span class=\"highlight-dialog-1\">actually, I’m not sure that’s true</span>.",
+                                "audioSrc": "ispeaker_video_13_disagreeing_gb_51"
                             }
                         ],
                         "skill_checkmark": [
-                            { "label": "conversationPage.discussionAndOpinion.disagreeingCheckbox" }
+                            {
+                                "label": "conversationPage.discussionAndOpinion.disagreeingCheckbox"
+                            }
                         ]
                     },
                     "videoLink": "https://player.vimeo.com/video/700329654?byline=0&portrait=0&title=0",
@@ -2329,21 +2515,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.endingConversationsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.endingConversationsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh wow, look at the time. <span class=\"highlight-dialog-1\">I’ve got to run</span>. <span class=\"highlight-dialog-1\">It has been so good talking to you</span>."
+                                "speech": "Oh wow, look at the time. <span class=\"highlight-dialog-1\">I’ve got to run</span>. <span class=\"highlight-dialog-1\">It has been so good talking to you</span>.",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_us_53"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-1\">it was nice to meet you</span>. See you later, I hope!"
+                                "speech": "Yes, <span class=\"highlight-dialog-1\">it was nice to meet you</span>. See you later, I hope!",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_us_54"
                             },
-                            { "speaker": "A", "speech": "Bye!" },
-                            { "speaker": "B", "speech": "Bye!" }
+                            {
+                                "speaker": "A",
+                                "speech": "Bye!",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_us_55"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "Bye!",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_us_56"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -2391,18 +2589,22 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.endingConversationsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.endingConversationsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Oh, is that the time? <span class=\"highlight-dialog-1\">I’d better be off</span>. <span class=\"highlight-dialog-1\">It’s been lovely talking to you</span>."
+                                "speech": "Oh, is that the time? <span class=\"highlight-dialog-1\">I’d better be off</span>. <span class=\"highlight-dialog-1\">It’s been lovely talking to you</span>.",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_gb_52"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Yes, it was nice to meet you</span>. Maybe see you later?"
+                                "speech": "<span class=\"highlight-dialog-1\">Yes, it was nice to meet you</span>. Maybe see you later?",
+                                "audioSrc": "ispeaker_video_14_ending_conversations_gb_53"
                             }
                         ],
                         "skill_checkmark": [
@@ -2451,18 +2653,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.forbiddingSomethingReview" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.forbiddingSomethingReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "B", "speech": "" },
+                            {
+                                "speaker": "B",
+                                "speech": "",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_us_77"
+                            },
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, <span class=\"highlight-dialog-1\">could I ask you not to</span> talk out here, please? We’re doing some recording in this room."
+                                "speech": "Excuse me, <span class=\"highlight-dialog-1\">could I ask you not to</span> talk out here, please? We’re doing some recording in this room.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_us_78"
                             },
-                            { "speaker": "B", "speech": "Oh sorry. We’ll go down the hall, then." },
-                            { "speaker": "A", "speech": "Thanks." }
+                            {
+                                "speaker": "B",
+                                "speech": "Oh sorry. We’ll go down the hall, then.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_us_79"
+                            },
+                            {
+                                "speaker": "A",
+                                "speech": "Thanks.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_us_80"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -2506,18 +2723,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.forbiddingSomethingReview" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.forbiddingSomethingReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "B", "speech": "" },
+                            {
+                                "speaker": "B",
+                                "speech": "",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_gb_74"
+                            },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Could I ask you not to</span> talk out here, please? We’re doing some recording in this room."
+                                "speech": "<span class=\"highlight-dialog-1\">Could I ask you not to</span> talk out here, please? We’re doing some recording in this room.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_gb_75"
                             },
-                            { "speaker": "B", "speech": "Oh I see. OK, we’ll move away, then." },
-                            { "speaker": "A", "speech": "Thanks." }
+                            {
+                                "speaker": "B",
+                                "speech": "Oh I see. OK, we’ll move away, then.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_gb_76"
+                            },
+                            {
+                                "speaker": "A",
+                                "speech": "Thanks.",
+                                "audioSrc": "ispeaker_video_20_forbidding_something_gb_77"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -2599,16 +2831,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, is Alice out of the office today?"
+                                "speech": "Excuse me, is Alice out of the office today?",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_us_61"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Not to my knowledge</span>, no."
+                                "speech": "<span class=\"highlight-dialog-1\">Not to my knowledge</span>, no.",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_us_62"
                             },
-                            { "speaker": "A", "speech": "Do you know where she is?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Do you know where she is?",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_us_63"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I have absolutely no idea, sorry</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">I have absolutely no idea, sorry</span>.",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_us_64"
                             }
                         ],
                         "skill_checkmark": [
@@ -2687,16 +2926,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, is Alice out of the office today?"
+                                "speech": "Excuse me, is Alice out of the office today?",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_gb_58"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Not to my knowledge</span>, no."
+                                "speech": "<span class=\"highlight-dialog-1\">Not to my knowledge</span>, no.",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_gb_59"
                             },
-                            { "speaker": "A", "speech": "Do you know where she is?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Do you know where she is?",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_gb_60"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I have absolutely no idea, I’m afraid</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">I have absolutely no idea, I’m afraid</span>.",
+                                "audioSrc": "ispeaker_video_16_expressing_ignorance_gb_61"
                             }
                         ],
                         "skill_checkmark": [
@@ -2741,20 +2987,28 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForInformationReview" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForInformationReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Excuse me, <span class=\"highlight-dialog-1\">I wonder if you can help me</span>. <span class=\"highlight-dialog-1\">I’m trying to find out</span> if there’s an art supplies store near here"
+                                "speech": "Excuse me, <span class=\"highlight-dialog-1\">I wonder if you can help me</span>. <span class=\"highlight-dialog-1\">I’m trying to find out</span> if there’s an art supplies store near here",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_us_21"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Art supplies? I don’t know. There’s an office supplies store down Main Street—you might find what you’re looking for there, maybe."
+                                "speech": "Art supplies? I don’t know. There’s an office supplies store down Main Street—you might find what you’re looking for there, maybe.",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_us_22"
                             },
-                            { "speaker": "A", "speech": "OK, thanks." }
+                            {
+                                "speaker": "A",
+                                "speech": "OK, thanks.",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_us_23"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -2794,20 +3048,28 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.askingForInformationReview" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.askingForInformationReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I wonder whether you can help me</span>. <span class=\"highlight-dialog-1\">I’m trying to find out</span> if there’s an artists’ materials shop near here"
+                                "speech": "<span class=\"highlight-dialog-1\">I wonder whether you can help me</span>. <span class=\"highlight-dialog-1\">I’m trying to find out</span> if there’s an artists’ materials shop near here",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_gb_21"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Artists’ materials? I really don’t know. There’s a stationer’s in the High Street—they might sell something there, I suppose"
+                                "speech": "Artists’ materials? I really don’t know. There’s a stationer’s in the High Street—they might sell something there, I suppose",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_gb_22"
                             },
-                            { "speaker": "A", "speech": "OK, thanks." }
+                            {
+                                "speaker": "A",
+                                "speech": "OK, thanks.",
+                                "audioSrc": "ispeaker_video_06_asking_for_information_gb_23"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -2879,22 +3141,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.interruptingSomebodyReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.interruptingSomebodyReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "If we don’t finish everything today, we can work on it next week and supply it the week aft---"
+                                "speech": "If we don’t finish everything today, we can work on it next week and supply it the week aft---",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_us_94"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Sorry to interrupt</span>, but I don’t think we can do that, they’re expecting it Monday."
+                                "speech": "<span class=\"highlight-dialog-1\">Sorry to interrupt</span>, but I don’t think we can do that, they’re expecting it Monday.",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_us_95"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh, of course… well, maybe we should get some extra help in that case?"
+                                "speech": "Oh, of course… well, maybe we should get some extra help in that case?",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_us_96"
                             }
                         ],
                         "skill_checkmark": [
@@ -2963,22 +3230,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.interruptingSomebodyReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.interruptingSomebodyReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "If we don’t finish everything today, we can work on it next week and supply it the week aft---"
+                                "speech": "If we don’t finish everything today, we can work on it next week and supply it the week aft---",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_gb_91"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Sorry to interrupt</span>, but I don’t think we can do that, they’re expecting it on Monday."
+                                "speech": "<span class=\"highlight-dialog-1\">Sorry to interrupt</span>, but I don’t think we can do that, they’re expecting it on Monday.",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_gb_92"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh, of course… well maybe we should get some extra help in that case?"
+                                "speech": "Oh, of course… well maybe we should get some extra help in that case?",
+                                "audioSrc": "ispeaker_video_24_interrupting_somebody_gb_93"
                             }
                         ],
                         "skill_checkmark": [
@@ -3048,24 +3320,35 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.introducingSomebodyReview1" },
-                    { "text": "conversationPage.openingsAndEndings.introducingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.introducingSomebodyReview1"
+                    },
+                    {
+                        "text": "conversationPage.openingsAndEndings.introducingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Gwen, hi! It’s been so long!" },
+                            {
+                                "speaker": "A",
+                                "speech": "Gwen, hi! It’s been so long!",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_us_100"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "Hi, Carol! <span class=\"highlight-dialog-1\">This is Simon—I don’t think you two have met?</span> <span class=\"highlight-dialog-1\">Simon, this is Carol</span>."
+                                "speech": "Hi, Carol! <span class=\"highlight-dialog-1\">This is Simon—I don’t think you two have met?</span> <span class=\"highlight-dialog-1\">Simon, this is Carol</span>.",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_us_97"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">No, I don’t think we’ve met. Hi Simon!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">No, I don’t think we’ve met. Hi Simon!</span>",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_us_98"
                             },
                             {
                                 "speaker": "C",
-                                "speech": "<span class=\"highlight-dialog-2\">Hi Carol. Nice to meet you!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">Hi Carol. Nice to meet you!</span>",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_us_99"
                             }
                         ],
                         "skill_checkmark": [
@@ -3134,24 +3417,35 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.introducingSomebodyReview1" },
-                    { "text": "conversationPage.openingsAndEndings.introducingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.introducingSomebodyReview1"
+                    },
+                    {
+                        "text": "conversationPage.openingsAndEndings.introducingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Hi. I haven’t seen you for ages!" },
+                            {
+                                "speaker": "A",
+                                "speech": "Hi. I haven’t seen you for ages!",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_gb_94"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, hi, Sarah! <span class=\"highlight-dialog-1\">This is Simon—I don’t know if you’ve met? </span> <span class=\"highlight-dialog-1\">Simon, this is Sarah</span>."
+                                "speech": "Oh, hi, Sarah! <span class=\"highlight-dialog-1\">This is Simon—I don’t know if you’ve met? </span> <span class=\"highlight-dialog-1\">Simon, this is Sarah</span>.",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_gb_95"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">No, I don’t think we’ve met. Hi Simon!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">No, I don’t think we’ve met. Hi Simon!</span>",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_gb_96"
                             },
                             {
                                 "speaker": "C",
-                                "speech": "<span class=\"highlight-dialog-2\">Hi Sarah. Nice to meet you!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">Hi Sarah. Nice to meet you!</span>",
+                                "audioSrc": "ispeaker_video_25_introducing_somebody_gb_97"
                             }
                         ],
                         "skill_checkmark": [
@@ -3245,19 +3539,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "We’re organizing a trip to Boston on Friday afternoon. <span class=\"highlight-dialog-1\">Do you want to</span> come with us?"
+                                "speech": "We’re organizing a trip to Boston on Friday afternoon. <span class=\"highlight-dialog-1\">Do you want to</span> come with us?",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_us_101"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">I’d love to</span>, but I don’t think I could make it before two o’clock. Is that too late?"
+                                "speech": "<span class=\"highlight-dialog-2\">I’d love to</span>, but I don’t think I could make it before two o’clock. Is that too late?",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_us_102"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Oh, that’s too bad - we’re meeting at twelve."
+                                "speech": "Oh, that’s too bad - we’re meeting at twelve.",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_us_103"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, OK. <span class=\"highlight-dialog-2\">Thanks anyway</span>."
+                                "speech": "Oh, OK. <span class=\"highlight-dialog-2\">Thanks anyway</span>.",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_us_104"
                             }
                         ],
                         "skill_checkmark": [
@@ -3347,19 +3645,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "We’re organizing a trip to Stratford on Wednesday afternoon. <span class=\"highlight-dialog-1\">Would you be interested in</span> coming along?"
+                                "speech": "We’re organizing a trip to Stratford on Wednesday afternoon. <span class=\"highlight-dialog-1\">Would you be interested in</span> coming along?",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_gb_100"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">I’d love to</span>, but I don’t think I could make it any sooner than two o’clock. Is that too late?"
+                                "speech": "<span class=\"highlight-dialog-2\">I’d love to</span>, but I don’t think I could make it any sooner than two o’clock. Is that too late?",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_gb_101"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I’m afraid so, we’re all meeting at one."
+                                "speech": "I’m afraid so, we’re all meeting at one.",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_gb_98"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "OK. <span class=\"highlight-dialog-2\">Thanks anyway</span>."
+                                "speech": "OK. <span class=\"highlight-dialog-2\">Thanks anyway</span>.",
+                                "audioSrc": "ispeaker_video_26_inviting_somebody_to_something_gb_99"
                             }
                         ],
                         "skill_checkmark": [
@@ -3448,16 +3750,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Do you think you’ll be in DC on the 15th?"
+                                "speech": "Do you think you’ll be in DC on the 15th?",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_us_65"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Ah, <span class=\"highlight-dialog-1\">I’m probably going to</span> be in Baltimore that day."
+                                "speech": "Ah, <span class=\"highlight-dialog-1\">I’m probably going to</span> be in Baltimore that day.",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_us_66"
                             },
-                            { "speaker": "A", "speech": "Will you be back by six?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Will you be back by six?",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_us_67"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">I wouldn’t bet on it</span> - <span class=\"highlight-dialog-1\">there’ll probably be</span> a lot of traffic on the way home."
+                                "speech": "<span class=\"highlight-dialog-2\">I wouldn’t bet on it</span> - <span class=\"highlight-dialog-1\">there’ll probably be</span> a lot of traffic on the way home.",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_us_68"
                             }
                         ],
                         "skill_checkmark": [
@@ -3542,16 +3851,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Are you likely to be in Oxford on the 15th?"
+                                "speech": "Are you likely to be in Oxford on the 15th?",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_gb_62"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I’m probably going to</span> be in London on that day."
+                                "speech": "<span class=\"highlight-dialog-1\">I’m probably going to</span> be in London on that day.",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_gb_63"
                             },
-                            { "speaker": "A", "speech": "Will you be back by six?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Will you be back by six?",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_gb_64"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">That’s unlikely</span>- <span class=\"highlight-dialog-1\">there’s bound to be</span> a lot of traffic on the way home."
+                                "speech": "<span class=\"highlight-dialog-2\">That’s unlikely</span>- <span class=\"highlight-dialog-1\">there’s bound to be</span> a lot of traffic on the way home.",
+                                "audioSrc": "ispeaker_video_17_expressing_likelihood_gb_65"
                             }
                         ],
                         "skill_checkmark": [
@@ -3608,16 +3924,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Do I have to</span> wear this visitor badge even here in the cafeteria?"
-                            },
-                            { "speaker": "B", "speech": "Yes, I think so." },
-                            {
-                                "speaker": "A",
-                                "speech": "And <span class=\"highlight-dialog-1\">am I supposed to</span> turn it in to the security desk if I run out for a sandwich?"
+                                "speech": "<span class=\"highlight-dialog-1\">Do I have to</span> wear this visitor badge even here in the cafeteria?",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_us_10"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, just turn it in at the end of the day."
+                                "speech": "Yes, I think so.",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_us_11"
+                            },
+                            {
+                                "speaker": "A",
+                                "speech": "And <span class=\"highlight-dialog-1\">am I supposed to</span> turn it in to the security desk if I run out for a sandwich?",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_us_12"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "No, just turn it in at the end of the day.",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_us_9"
                             }
                         ],
                         "skill_checkmark": [
@@ -3667,16 +3990,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Do I have to</span> wear this visitor badge even here in the canteen?"
-                            },
-                            { "speaker": "B", "speech": "Yes, I think so." },
-                            {
-                                "speaker": "A",
-                                "speech": "And <span class=\"highlight-dialog-1\">am I supposed to</span> hand it in to the security desk if I pop out for a coffee?"
+                                "speech": "<span class=\"highlight-dialog-1\">Do I have to</span> wear this visitor badge even here in the canteen?",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_gb_10"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, just hand it in at the end of the day."
+                                "speech": "Yes, I think so.",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_gb_11"
+                            },
+                            {
+                                "speaker": "A",
+                                "speech": "And <span class=\"highlight-dialog-1\">am I supposed to</span> hand it in to the security desk if I pop out for a coffee?",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_gb_12"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "No, just hand it in at the end of the day.",
+                                "audioSrc": "ispeaker_video_03_asking_about_obligation_gb_9"
                             }
                         ],
                         "skill_checkmark": [
@@ -3771,22 +4101,36 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Oh no!" },
+                            {
+                                "speaker": "A",
+                                "speech": "Oh no!",
+                                "audioSrc": "ispeaker_video_32_offering_help_us_125"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Can I help you with that?</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">Can I help you with that?</span>",
+                                "audioSrc": "ispeaker_video_32_offering_help_us_126"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">No, that’s alright</span>. I’ve got to put everything in the right order. <span class=\"highlight-dialog-2\">It’s very kind of you to offer, though</span>!"
+                                "speech": "<span class=\"highlight-dialog-2\">No, that’s alright</span>. I’ve got to put everything in the right order. <span class=\"highlight-dialog-2\">It’s very kind of you to offer, though</span>!",
+                                "audioSrc": "ispeaker_video_32_offering_help_us_127"
                             },
-                            { "speaker": "B", "speech": "You’re welcome." }
+                            {
+                                "speaker": "B",
+                                "speech": "You’re welcome.",
+                                "audioSrc": "ispeaker_video_32_offering_help_us_128"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -3879,22 +4223,36 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview1" },
-                    { "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview1"
+                    },
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.offeringHelpReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Oh no!" },
+                            {
+                                "speaker": "A",
+                                "speech": "Oh no!",
+                                "audioSrc": "ispeaker_video_32_offering_help_gb_123"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Would you like me to help you with that?</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">Would you like me to help you with that?</span>",
+                                "audioSrc": "ispeaker_video_32_offering_help_gb_124"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">That’s alright, thank you</span>. I need to put everything in the right order. <span class=\"highlight-dialog-2\">Thanks anyway</span>."
+                                "speech": "<span class=\"highlight-dialog-2\">That’s alright, thank you</span>. I need to put everything in the right order. <span class=\"highlight-dialog-2\">Thanks anyway</span>.",
+                                "audioSrc": "ispeaker_video_32_offering_help_gb_125"
                             },
-                            { "speaker": "B", "speech": "It’s OK." }
+                            {
+                                "speaker": "B",
+                                "speech": "It’s OK.",
+                                "audioSrc": "ispeaker_video_32_offering_help_gb_125"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -3994,19 +4352,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Can I get you</span> a coffee or something else to drink before we start?"
+                                "speech": "<span class=\"highlight-dialog-1\">Can I get you</span> a coffee or something else to drink before we start?",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_us_129"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-2\">a coffee would be nice</span>, thank you."
+                                "speech": "Yes, <span class=\"highlight-dialog-2\">a coffee would be nice</span>, thank you.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_us_130"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">How about</span> something to eat? I might get myself a muffin."
+                                "speech": "<span class=\"highlight-dialog-1\">How about</span> something to eat? I might get myself a muffin.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_us_131"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Er no, <span class=\"highlight-dialog-2\">not for me, thanks</span>."
+                                "speech": "Er no, <span class=\"highlight-dialog-2\">not for me, thanks</span>.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_us_132"
                             }
                         ],
                         "skill_checkmark": [
@@ -4103,19 +4465,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Can I get you</span> a tea or coffee before we begin?"
+                                "speech": "<span class=\"highlight-dialog-1\">Can I get you</span> a tea or coffee before we begin?",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_gb_126"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-2\">a coffee would be nice</span>, thank you."
+                                "speech": "Yes, <span class=\"highlight-dialog-2\">a coffee would be nice</span>, thank you.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_gb_127"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">How about</span> something to eat? I might get a piece of cake, myself."
+                                "speech": "<span class=\"highlight-dialog-1\">How about</span> something to eat? I might get a piece of cake, myself.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_gb_128"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, <span class=\"highlight-dialog-2\">not for me, thanks</span>."
+                                "speech": "No, <span class=\"highlight-dialog-2\">not for me, thanks</span>.",
+                                "audioSrc": "ispeaker_video_33_offering_somebody_something_gb_129"
                             }
                         ],
                         "skill_checkmark": [
@@ -4191,21 +4557,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.openingConversationsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.openingConversationsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Excuse me, do you mind if I join you?</span> All the tables are full."
+                                "speech": "<span class=\"highlight-dialog-1\">Excuse me, do you mind if I join you?</span> All the tables are full.",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_us_133"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, of course not! Here, let me move my bag out of the way. Are you here for the exhibition?"
+                                "speech": "No, of course not! Here, let me move my bag out of the way. Are you here for the exhibition?",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_us_134"
                             },
-                            { "speaker": "A", "speech": "Yes, are you?" },
-                            { "speaker": "B", "speech": "Yes, me too." }
+                            {
+                                "speaker": "A",
+                                "speech": "Yes, are you?",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_us_135"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "Yes, me too.",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_us_136"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -4273,21 +4651,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.openingConversationsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.openingConversationsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Excuse me, do you mind if I join you?</span> All the tables seem to be full."
+                                "speech": "<span class=\"highlight-dialog-1\">Excuse me, do you mind if I join you?</span> All the tables seem to be full.",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_gb_130"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, of course not! Here, let me move my bag out of the way. Are you here for the exhibition?"
+                                "speech": "No, of course not! Here, let me move my bag out of the way. Are you here for the exhibition?",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_gb_131"
                             },
-                            { "speaker": "A", "speech": "Yes, and you?" },
-                            { "speaker": "B", "speech": "Yes, me too." }
+                            {
+                                "speaker": "A",
+                                "speech": "Yes, and you?",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_gb_132"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "Yes, me too.",
+                                "audioSrc": "ispeaker_video_34_opening_conversations_gb_133"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -4359,28 +4749,38 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.askingForOpinionsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.askingForOpinionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’ve got to go soon. I’m picking Sarah up from the airport."
+                                "speech": "I’ve got to go soon. I’m picking Sarah up from the airport.",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_us_24"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I hate airports. Trains are so much nicer, <span class=\"highlight-dialog-1\">right?</span>"
+                                "speech": "I hate airports. Trains are so much nicer, <span class=\"highlight-dialog-1\">right?</span>",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_us_25"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "That depends on the train! Sometimes they’re dirty and crowded, <span class=\"highlight-dialog-1\">don’t you think?</span>"
+                                "speech": "That depends on the train! Sometimes they’re dirty and crowded, <span class=\"highlight-dialog-1\">don’t you think?</span>",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_us_26"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I guess so. <span class=\"highlight-dialog-1\">What do you think about</span> those new high-speed trains?"
+                                "speech": "I guess so. <span class=\"highlight-dialog-1\">What do you think about</span> those new high-speed trains?",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_us_27"
                             },
-                            { "speaker": "A", "speech": "They’re great, but they’re so expensive!" }
+                            {
+                                "speaker": "A",
+                                "speech": "They’re great, but they’re so expensive!",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_us_28"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -4448,30 +4848,37 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.askingForOpinionsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.askingForOpinionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’ve got to go soon. I’m picking up Claire from the airport."
+                                "speech": "I’ve got to go soon. I’m picking up Claire from the airport.",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_gb_24"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I hate airports. Travelling by train’s much nicer, <span class=\"highlight-dialog-1\">isn’t it?</span>"
+                                "speech": "I hate airports. Travelling by train’s much nicer, <span class=\"highlight-dialog-1\">isn’t it?</span>",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_gb_25"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Depends on the train! Sometimes they’re dirty and crowded, <span class=\"highlight-dialog-1\">aren’t they?</span>"
+                                "speech": "Depends on the train! Sometimes they’re dirty and crowded, <span class=\"highlight-dialog-1\">aren’t they?</span>",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_gb_26"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I guess so. <span class=\"highlight-dialog-1\">What do you think about</span> those new high-speed trains?"
+                                "speech": "I guess so. <span class=\"highlight-dialog-1\">What do you think about</span> those new high-speed trains?",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_gb_27"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "They’re great, but they’re terribly expensive!"
+                                "speech": "They’re great, but they’re terribly expensive!",
+                                "audioSrc": "ispeaker_video_07_asking_for_opinions_gb_28"
                             }
                         ],
                         "skill_checkmark": [
@@ -4536,23 +4943,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.givingOrdersReview" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.givingOrdersReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hi, I’m here to see the head of Human Resources."
+                                "speech": "Hi, I’m here to see the head of Human Resources.",
+                                "audioSrc": "ispeaker_video_21_giving_orders_us_81"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Could you wait here for a minute</span>, I’ll just see if she’s free"
+                                "speech": "<span class=\"highlight-dialog-1\">Could you wait here for a minute</span>, I’ll just see if she’s free",
+                                "audioSrc": "ispeaker_video_21_giving_orders_us_82"
                             },
-                            { "speaker": "A", "speech": "Sure, thanks." },
+                            {
+                                "speaker": "A",
+                                "speech": "Sure, thanks.",
+                                "audioSrc": "ispeaker_video_21_giving_orders_us_83"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "OK, she can see you now. <span class=\"highlight-dialog-1\">Go right on in</span>."
+                                "speech": "OK, she can see you now. <span class=\"highlight-dialog-1\">Go right on in</span>.",
+                                "audioSrc": "ispeaker_video_21_giving_orders_us_84"
                             }
                         ],
                         "skill_checkmark": [
@@ -4613,23 +5029,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.givingOrdersReview" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.givingOrdersReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hi, I’m here to see the head of Human Resources."
+                                "speech": "Hi, I’m here to see the head of Human Resources.",
+                                "audioSrc": "ispeaker_video_21_giving_orders_gb_78"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Could you wait here for a moment</span>, I’ll just see if she’s free"
+                                "speech": "<span class=\"highlight-dialog-1\">Could you wait here for a moment</span>, I’ll just see if she’s free",
+                                "audioSrc": "ispeaker_video_21_giving_orders_gb_79"
                             },
-                            { "speaker": "A", "speech": "OK." },
+                            {
+                                "speaker": "A",
+                                "speech": "OK.",
+                                "audioSrc": "ispeaker_video_21_giving_orders_gb_80"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "[Your visitor’s here.] OK, she can see you now. <span class=\"highlight-dialog-1\">Would you go right in, please?</span>"
+                                "speech": "[Your visitor’s here.] OK, she can see you now. <span class=\"highlight-dialog-1\">Would you go right in, please?</span>",
+                                "audioSrc": "ispeaker_video_21_giving_orders_gb_81"
                             }
                         ],
                         "skill_checkmark": [
@@ -4732,21 +5157,29 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Would it be alright</span> if I used your computer to check email?"
+                                "speech": "<span class=\"highlight-dialog-1\">Would it be alright</span> if I used your computer to check email?",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_us_29"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>, go right ahead."
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>, go right ahead.",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_us_30"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Thanks. And <span class=\"highlight-dialog-1\">would it be OK</span> to print something out? Just a page or two"
+                                "speech": "Thanks. And <span class=\"highlight-dialog-1\">would it be OK</span> to print something out? Just a page or two",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_us_31"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, that’s fine</span>. It’s only black and white though - I hope that’s alright!"
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, that’s fine</span>. It’s only black and white though - I hope that’s alright!",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_us_32"
                             },
-                            { "speaker": "A", "speech": "Thanks." }
+                            {
+                                "speaker": "A",
+                                "speech": "Thanks.",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_us_32"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -4847,19 +5280,23 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Would it be alright</span> if I used your computer to check my email?"
+                                "speech": "<span class=\"highlight-dialog-1\">Would it be alright</span> if I used your computer to check my email?",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_gb_29"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>, go right ahead."
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>, go right ahead.",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_gb_30"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Thanks. And <span class=\"highlight-dialog-1\">would it be OK</span> to print something out? Just a page or two"
+                                "speech": "Thanks. And <span class=\"highlight-dialog-1\">would it be OK</span> to print something out? Just a page or two",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_gb_31"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, that’s fine</span>. It’s only black and white, I’m afraid!"
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, that’s fine</span>. It’s only black and white, I’m afraid!",
+                                "audioSrc": "ispeaker_video_08_asking_for_permission_gb_32"
                             }
                         ],
                         "skill_checkmark": [
@@ -4919,28 +5356,38 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.leavingPhoneMessagesReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.leavingPhoneMessagesReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hello, ABC Print here. How can I help you?"
+                                "speech": "Hello, ABC Print here. How can I help you?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_us_105"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Hi, <span class=\"highlight-dialog-1\">can I please speak to</span> Adam Talbot?"
+                                "speech": "Hi, <span class=\"highlight-dialog-1\">can I please speak to</span> Adam Talbot?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_us_106"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I’m afraid he’s not in. Can I take a message?"
+                                "speech": "I’m afraid he’s not in. Can I take a message?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_us_107"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-1\">can you ask him to call me back</span>, please? It’s Jo Walker. He has my number."
+                                "speech": "Yes, <span class=\"highlight-dialog-1\">can you ask him to call me back</span>, please? It’s Jo Walker. He has my number.",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_us_108"
                             },
-                            { "speaker": "A", "speech": "OK, I’ll let him know." }
+                            {
+                                "speaker": "A",
+                                "speech": "OK, I’ll let him know.",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_us_109"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -4992,29 +5439,43 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.leavingPhoneMessagesReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.leavingPhoneMessagesReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Hello, ABC Print here. How can I help you?"
+                                "speech": "Hello, ABC Print here. How can I help you?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_102"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, <span class=\"highlight-dialog-1\">can I speak to</span> Adam Talbot, please?"
+                                "speech": "Yes, <span class=\"highlight-dialog-1\">can I speak to</span> Adam Talbot, please?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_103"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I’m afraid he’s not in. Can I take a message?"
+                                "speech": "I’m afraid he’s not in. Can I take a message?",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_104"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, er, <span class=\"highlight-dialog-1\">can you ask him to call me back</span>, please? It’s Jo Walker."
+                                "speech": "Yes, er, <span class=\"highlight-dialog-1\">can you ask him to call me back</span>, please? It’s Jo Walker.",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_105"
                             },
-                            { "speaker": "A", "speech": "OK, I’ll let him know." },
-                            { "speaker": "B", "speech": "Thank you." }
+                            {
+                                "speaker": "A",
+                                "speech": "OK, I’ll let him know.",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_106"
+                            },
+                            {
+                                "speaker": "B",
+                                "speech": "Thank you.",
+                                "audioSrc": "ispeaker_video_27_leaving_phone_messages_gb_107"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5098,24 +5559,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.expressingPreferencesReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.expressingPreferencesReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "There’s a Chinese restaurant next door, or Italian across the street."
+                                "speech": "There’s a Chinese restaurant next door, or Italian across the street.",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_us_69"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I think <span class=\"highlight-dialog-1\">I’d prefer</span> Italian, myself. What about you?"
+                                "speech": "I think <span class=\"highlight-dialog-1\">I’d prefer</span> Italian, myself. What about you?",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_us_70"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I don’t really care either way</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">I don’t really care either way</span>.",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_us_71"
                             },
-                            { "speaker": "B", "speech": "Let’s do Italian then!" }
+                            {
+                                "speaker": "B",
+                                "speech": "Let’s do Italian then!",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_us_72"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5195,24 +5665,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.expressingPreferencesReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.expressingPreferencesReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "There’s a Chinese restaurant next door, or an Italian just across the street."
+                                "speech": "There’s a Chinese restaurant next door, or an Italian just across the street.",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_gb_66"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "I think <span class=\"highlight-dialog-1\">I’d prefer</span> the Italian, myself. What about you?"
+                                "speech": "I think <span class=\"highlight-dialog-1\">I’d prefer</span> the Italian, myself. What about you?",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_gb_67"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">I don’t really mind either way</span>."
+                                "speech": "<span class=\"highlight-dialog-1\">I don’t really mind either way</span>.",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_gb_68"
                             },
-                            { "speaker": "B", "speech": "OK, the Italian then!" }
+                            {
+                                "speaker": "B",
+                                "speech": "OK, the Italian then!",
+                                "audioSrc": "ispeaker_video_18_expressing_preferences_gb_69"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5256,23 +5735,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.givingReasonsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.givingReasonsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Why don’t you get a tablet?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Why don’t you get a tablet?",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_us_85"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Well, first</span>, I use the keyboard a lot,<span class=\"highlight-dialog-1\"> and second</span>, you can’t do as much with it."
+                                "speech": "<span class=\"highlight-dialog-1\">Well, first</span>, I use the keyboard a lot,<span class=\"highlight-dialog-1\"> and second</span>, you can’t do as much with it.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_us_86"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Hmm, maybe. <span class=\"highlight-dialog-1\">But I like it just because</span> it’s so much easier to carry around."
+                                "speech": "Hmm, maybe. <span class=\"highlight-dialog-1\">But I like it just because</span> it’s so much easier to carry around.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_us_87"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, it depends on your priorities, I guess."
+                                "speech": "Well, it depends on your priorities, I guess.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_us_88"
                             }
                         ],
                         "skill_checkmark": [
@@ -5313,23 +5801,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.discussionAndOpinion.givingReasonsReview" }
+                    {
+                        "text": "conversationPage.discussionAndOpinion.givingReasonsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
-                            { "speaker": "A", "speech": "Why don’t you get a tablet?" },
+                            {
+                                "speaker": "A",
+                                "speech": "Why don’t you get a tablet?",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_gb_82"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">Well, first</span>, I use the keyboard a lot, <span class=\"highlight-dialog-1\">and second</span>, you can’t do as much on it."
+                                "speech": "<span class=\"highlight-dialog-1\">Well, first</span>, I use the keyboard a lot, <span class=\"highlight-dialog-1\">and second</span>, you can’t do as much on it.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_gb_83"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Hmm, maybe. <span class=\"highlight-dialog-1\">But I like it just because</span> it’s so much easier to carry around."
+                                "speech": "Hmm, maybe. <span class=\"highlight-dialog-1\">But I like it just because</span> it’s so much easier to carry around.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_gb_84"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Well, it depends on your priorities, I guess."
+                                "speech": "Well, it depends on your priorities, I guess.",
+                                "audioSrc": "ispeaker_video_22_giving_reasons_gb_85"
                             }
                         ],
                         "skill_checkmark": [
@@ -5418,26 +5915,32 @@
                     {
                         "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview1"
                     },
-                    { "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">Why don’t you</span> go see one of the cities on the west coast?"
+                                "speech": "<span class=\"highlight-dialog-2\">Why don’t you</span> go see one of the cities on the west coast?",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_us_114"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">What would you recommend?</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">What would you recommend?</span>",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_us_115"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Well, if you haven’t been there before, my favorite is San Francisco. <span class=\"highlight-dialog-2\">It’s great for</span> a long weekend this time of year."
+                                "speech": "Well, if you haven’t been there before, my favorite is San Francisco. <span class=\"highlight-dialog-2\">It’s great for</span> a long weekend this time of year.",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_us_116"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "San Fancisco. OK, yeah, I’ll look into that."
+                                "speech": "San Fancisco. OK, yeah, I’ll look into that.",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_us_117"
                             }
                         ],
                         "skill_checkmark": [
@@ -5525,24 +6028,33 @@
                     {
                         "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview1"
                     },
-                    { "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview2" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.makingRecommendationsReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">Why don’t you</span> visit somewhere in Central Europe?"
+                                "speech": "<span class=\"highlight-dialog-2\">Why don’t you</span> visit somewhere in Central Europe?",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_gb_112"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">What would you recommend?</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">What would you recommend?</span>",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_gb_113"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Well, if you’ve never been there before, <span class=\"highlight-dialog-2\">I’d recommend</span> Prague. It’s great for a long weekend at this time of year."
+                                "speech": "Well, if you’ve never been there before, <span class=\"highlight-dialog-2\">I’d recommend</span> Prague. It’s great for a long weekend at this time of year.",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_gb_114"
                             },
-                            { "speaker": "B", "speech": "Prague. Yeah, OK, I’ll look into that." }
+                            {
+                                "speaker": "B",
+                                "speech": "Prague. Yeah, OK, I’ll look into that.",
+                                "audioSrc": "ispeaker_video_29_making_recommendations_gb_115"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5614,21 +6126,31 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.makingRequestsReview1" },
-                    { "text": "conversationPage.permissionAndObligation.makingRequestsReview2" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.makingRequestsReview1"
+                    },
+                    {
+                        "text": "conversationPage.permissionAndObligation.makingRequestsReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Could I have</span> a glass of water, please?"
+                                "speech": "<span class=\"highlight-dialog-1\">Could I have</span> a glass of water, please?",
+                                "audioSrc": "ispeaker_video_30_making_requests_us_118"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Sorry, it’s not very cold."
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Sorry, it’s not very cold.",
+                                "audioSrc": "ispeaker_video_30_making_requests_us_119"
                             },
-                            { "speaker": "A", "speech": "That’s alright. Thank you." }
+                            {
+                                "speaker": "A",
+                                "speech": "That’s alright. Thank you.",
+                                "audioSrc": "ispeaker_video_30_making_requests_us_120"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5696,21 +6218,31 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.permissionAndObligation.makingRequestsReview1" },
-                    { "text": "conversationPage.permissionAndObligation.makingRequestsReview2" }
+                    {
+                        "text": "conversationPage.permissionAndObligation.makingRequestsReview1"
+                    },
+                    {
+                        "text": "conversationPage.permissionAndObligation.makingRequestsReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Can I have</span> a glass of water, please?"
+                                "speech": "<span class=\"highlight-dialog-1\">Can I have</span> a glass of water, please?",
+                                "audioSrc": "ispeaker_video_30_making_requests_gb_116"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Sorry, it’s not very cold."
+                                "speech": "<span class=\"highlight-dialog-2\">Yes, of course</span>. Sorry, it’s not very cold.",
+                                "audioSrc": "ispeaker_video_30_making_requests_gb_117"
                             },
-                            { "speaker": "A", "speech": "That’s alright. Thank you." }
+                            {
+                                "speaker": "A",
+                                "speech": "That’s alright. Thank you.",
+                                "audioSrc": "ispeaker_video_30_making_requests_gb_118"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -5805,23 +6337,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.doubtGuessingAndCertainty.speculatingReview" }
+                    {
+                        "text": "conversationPage.doubtGuessingAndCertainty.speculatingReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’m going to an outdoor concert tonight. I wonder what’ll happen if it rains."
+                                "speech": "I’m going to an outdoor concert tonight. I wonder what’ll happen if it rains.",
+                                "audioSrc": "ispeaker_video_35_speculating_us_137"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Hmm, <span class=\"highlight-dialog-1\">they’ll probably</span> cancel it."
+                                "speech": "Hmm, <span class=\"highlight-dialog-1\">they’ll probably</span> cancel it.",
+                                "audioSrc": "ispeaker_video_35_speculating_us_138"
                             },
-                            { "speaker": "A", "speech": "But then how will everybody know?" },
+                            {
+                                "speaker": "A",
+                                "speech": "But then how will everybody know?",
+                                "audioSrc": "ispeaker_video_35_speculating_us_139"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "I don’t know. <span class=\"highlight-dialog-1\">I guess</span> they’ll put something on the website."
+                                "speech": "I don’t know. <span class=\"highlight-dialog-1\">I guess</span> they’ll put something on the website.",
+                                "audioSrc": "ispeaker_video_35_speculating_us_140"
                             }
                         ],
                         "skill_checkmark": [
@@ -5910,23 +6451,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.doubtGuessingAndCertainty.speculatingReview" }
+                    {
+                        "text": "conversationPage.doubtGuessingAndCertainty.speculatingReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’m going to an outdoor concert tonight. I wonder what will happen if it rains."
+                                "speech": "I’m going to an outdoor concert tonight. I wonder what will happen if it rains.",
+                                "audioSrc": "ispeaker_video_35_speculating_gb_134"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "<span class=\"highlight-dialog-1\">I would imagine</span> that they’ll cancel."
+                                "speech": "<span class=\"highlight-dialog-1\">I would imagine</span> that they’ll cancel.",
+                                "audioSrc": "ispeaker_video_35_speculating_gb_135"
                             },
-                            { "speaker": "A", "speech": "But then how will everybody know?" },
+                            {
+                                "speaker": "A",
+                                "speech": "But then how will everybody know?",
+                                "audioSrc": "ispeaker_video_35_speculating_gb_136"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "I don’t know.<span class=\"highlight-dialog-1\">I would guess</span> they’ll post something on the website."
+                                "speech": "I don’t know.<span class=\"highlight-dialog-1\">I would guess</span> they’ll post something on the website.",
+                                "audioSrc": "ispeaker_video_35_speculating_gb_137"
                             }
                         ],
                         "skill_checkmark": [
@@ -5991,24 +6541,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.makingSuggestionsReview" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.makingSuggestionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">How about</span> meeting up around eight in front of the restaurant?"
+                                "speech": "<span class=\"highlight-dialog-1\">How about</span> meeting up around eight in front of the restaurant?",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_us_121"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yeah, OK. Or <span class=\"highlight-dialog-1\">we could</span> meet a little earlier and have a drink first, <span class=\"highlight-dialog-1\">if you want</span>."
+                                "speech": "Yeah, OK. Or <span class=\"highlight-dialog-1\">we could</span> meet a little earlier and have a drink first, <span class=\"highlight-dialog-1\">if you want</span>.",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_us_122"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Sure. <span class=\"highlight-dialog-1\">Should we say</span> seven o’clock in the lobby?"
+                                "speech": "Sure. <span class=\"highlight-dialog-1\">Should we say</span> seven o’clock in the lobby?",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_us_123"
                             },
-                            { "speaker": "B", "speech": "Yeah, see you there." }
+                            {
+                                "speaker": "B",
+                                "speech": "Yeah, see you there.",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_us_124"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -6068,24 +6627,33 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.suggestionsAndAdvice.makingSuggestionsReview" }
+                    {
+                        "text": "conversationPage.suggestionsAndAdvice.makingSuggestionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">How about</span> meeting up around about eight in front of the restaurant?"
+                                "speech": "<span class=\"highlight-dialog-1\">How about</span> meeting up around about eight in front of the restaurant?",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_gb_119"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, OK. Or <span class=\"highlight-dialog-1\">we could</span> meet a bit earlier and have a drink first, <span class=\"highlight-dialog-1\">if you like</span>."
+                                "speech": "Yes, OK. Or <span class=\"highlight-dialog-1\">we could</span> meet a bit earlier and have a drink first, <span class=\"highlight-dialog-1\">if you like</span>.",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_gb_120"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "Sure. <span class=\"highlight-dialog-1\">Shall we say</span> seven o’clock in the lobby?"
+                                "speech": "Sure. <span class=\"highlight-dialog-1\">Shall we say</span> seven o’clock in the lobby?",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_gb_121"
                             },
-                            { "speaker": "B", "speech": "OK, see you there." }
+                            {
+                                "speaker": "B",
+                                "speech": "OK, see you there.",
+                                "audioSrc": "ispeaker_video_31_making_suggestions_gb_122"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -6133,25 +6701,38 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.expressingSympathyReview" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.expressingSympathyReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’m afraid I’m going to have to miss the conference. My father’s not doing well."
+                                "speech": "I’m afraid I’m going to have to miss the conference. My father’s not doing well.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_us_73"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m sorry to hear that</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m sorry to hear that</span>.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_us_74"
                             },
-                            { "speaker": "A", "speech": "I hate to cancel at the last minute." },
+                            {
+                                "speaker": "A",
+                                "speech": "I hate to cancel at the last minute.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_us_75"
+                            },
                             {
                                 "speaker": "B",
-                                "speech": "No, I completely understand. Family comes first."
+                                "speech": "No, I completely understand. Family comes first.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_us_76"
                             },
-                            { "speaker": "A", "speech": "Thanks." }
+                            {
+                                "speaker": "A",
+                                "speech": "Thanks.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_us_76"
+                            }
                         ],
                         "skill_checkmark": [
                             {
@@ -6195,26 +6776,32 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.expressingSympathyReview" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.expressingSympathyReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’m afraid I’m going to have to miss the conference. My father’s not well."
+                                "speech": "I’m afraid I’m going to have to miss the conference. My father’s not well.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_gb_70"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m sorry to hear that</span>."
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I’m sorry to hear that</span>.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_gb_71"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I’m sorry, I know it’s a bit short notice."
+                                "speech": "I’m sorry, I know it’s a bit short notice.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_gb_72"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "No, please don’t worry. Family comes first."
+                                "speech": "No, please don’t worry. Family comes first.",
+                                "audioSrc": "ispeaker_video_19_expressing_sympathy_gb_73"
                             }
                         ],
                         "skill_checkmark": [
@@ -6292,23 +6879,30 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "and then you just press Control S to save."
+                                "speech": "and then you just press Control S to save.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_us_141"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "OK, I think I’ve got it now. <span class=\"highlight-dialog-1\">Thank you very much</span>. <span class=\"highlight-dialog-1\">I really appreciate your help</span> - I get so lost with some of this software."
+                                "speech": "OK, I think I’ve got it now. <span class=\"highlight-dialog-1\">Thank you very much</span>. <span class=\"highlight-dialog-1\">I really appreciate your help</span> - I get so lost with some of this software.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_us_142"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">That’s alright</span>. <span class=\"highlight-dialog-2\">It’s no problem</span>. If you need anything else, just let me know."
+                                "speech": "<span class=\"highlight-dialog-2\">That’s alright</span>. <span class=\"highlight-dialog-2\">It’s no problem</span>. If you need anything else, just let me know.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_us_143"
                             }
                         ],
                         "skill_checkmark": [
@@ -6385,23 +6979,30 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.thankingSomebodyReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "and then you just press Control S to save, and that’s it."
+                                "speech": "and then you just press Control S to save, and that’s it.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_gb_138"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "OK, I think I’ve got it now. <span class=\"highlight-dialog-1\">Thank you very much. I do appreciate your help</span> - I’m hopeless with some of this software."
+                                "speech": "OK, I think I’ve got it now. <span class=\"highlight-dialog-1\">Thank you very much. I do appreciate your help</span> - I’m hopeless with some of this software.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_gb_139"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">That’s alright. </span><span class=\"highlight-dialog-2\">No problem.</span> If you need anything else, just let me know."
+                                "speech": "<span class=\"highlight-dialog-2\">That’s alright. </span><span class=\"highlight-dialog-2\">No problem.</span> If you need anything else, just let me know.",
+                                "audioSrc": "ispeaker_video_36_thanking_somebody_gb_140"
                             }
                         ],
                         "skill_checkmark": [
@@ -6462,15 +7063,18 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Watch out!</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">Watch out!</span>",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_us_144"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh sorry!—I almost spilled coffee everywhere!"
+                                "speech": "Oh sorry!—I almost spilled coffee everywhere!",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_us_145"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "That is not a good place to stand and chat, is it?"
+                                "speech": "That is not a good place to stand and chat, is it?",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_us_146"
                             }
                         ],
                         "skill_checkmark": [
@@ -6524,15 +7128,18 @@
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-1\">Look out!</span>"
+                                "speech": "<span class=\"highlight-dialog-1\">Look out!</span>",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_gb_141"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh sorry!—I nearly spilled coffee everywhere!"
+                                "speech": "Oh sorry!—I nearly spilled coffee everywhere!",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_gb_142"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "I know, it’s not a good place to stand and talk, is it?"
+                                "speech": "I know, it’s not a good place to stand and talk, is it?",
+                                "audioSrc": "ispeaker_video_37_warning_somebody_of_danger_gb_143"
                             }
                         ],
                         "skill_checkmark": [
@@ -6590,23 +7197,30 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I have my performance evaluation this afternoon. I am dreading it."
+                                "speech": "I have my performance evaluation this afternoon. I am dreading it.",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_us_147"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, I’m sure it’ll be fine! <span class=\"highlight-dialog-1\">I’ll keep my fingers crossed for you</span>!"
+                                "speech": "Oh, I’m sure it’ll be fine! <span class=\"highlight-dialog-1\">I’ll keep my fingers crossed for you</span>!",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_us_148"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">Thanks!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">Thanks!</span>",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_us_149"
                             }
                         ],
                         "skill_checkmark": [
@@ -6663,23 +7277,30 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview1" },
-                    { "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview2" }
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview1"
+                    },
+                    {
+                        "text": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckReview2"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "I’ve got my appraisal this afternoon. I’m dreading it."
+                                "speech": "I’ve got my appraisal this afternoon. I’m dreading it.",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_gb_144"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Oh, <span class=\"highlight-dialog-1\">I hope it goes well</span>! <span class=\"highlight-dialog-1\">I’ll keep my fingers crossed for you</span>!"
+                                "speech": "Oh, <span class=\"highlight-dialog-1\">I hope it goes well</span>! <span class=\"highlight-dialog-1\">I’ll keep my fingers crossed for you</span>!",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_gb_145"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "<span class=\"highlight-dialog-2\">Thanks!</span>"
+                                "speech": "<span class=\"highlight-dialog-2\">Thanks!</span>",
+                                "audioSrc": "ispeaker_video_38_wishing_somebody_luck_gb_146"
                             }
                         ],
                         "skill_checkmark": [
@@ -6739,22 +7360,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.wrappingUpDiscussionsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.wrappingUpDiscussionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">I’m afraid time is running out</span>, so unless anyone else has anything to add Sorry, Jo, did you want to say something?"
+                                "speech": "Well, <span class=\"highlight-dialog-1\">I’m afraid time is running out</span>, so unless anyone else has anything to add Sorry, Jo, did you want to say something?",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_us_150"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, can I just remind everybody to please send me your receipts for expenses? Thanks."
+                                "speech": "Yes, can I just remind everybody to please send me your receipts for expenses? Thanks.",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_us_151"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "OK, thanks Jo. Well, <span class=\"highlight-dialog-1\">we’ll have to leave it there</span>. Have a good trip home!"
+                                "speech": "OK, thanks Jo. Well, <span class=\"highlight-dialog-1\">we’ll have to leave it there</span>. Have a good trip home!",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_us_152"
                             }
                         ],
                         "skill_checkmark": [
@@ -6807,22 +7433,27 @@
                     ]
                 },
                 "reviews": [
-                    { "text": "conversationPage.openingsAndEndings.wrappingUpDiscussionsReview" }
+                    {
+                        "text": "conversationPage.openingsAndEndings.wrappingUpDiscussionsReview"
+                    }
                 ],
                 "watch_and_study": {
                     "study": {
                         "dialog": [
                             {
                                 "speaker": "A",
-                                "speech": "Well, <span class=\"highlight-dialog-1\">I’m afraid time is running out</span>, so unless anyone has anything else to add Sorry, did you want to say something, Jo?"
+                                "speech": "Well, <span class=\"highlight-dialog-1\">I’m afraid time is running out</span>, so unless anyone has anything else to add Sorry, did you want to say something, Jo?",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_gb_147"
                             },
                             {
                                 "speaker": "B",
-                                "speech": "Yes, can I just remind everybody to send me your receipts for expenses? Thanks."
+                                "speech": "Yes, can I just remind everybody to send me your receipts for expenses? Thanks.",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_gb_148"
                             },
                             {
                                 "speaker": "A",
-                                "speech": "OK, thanks Jo. <span class=\"highlight-dialog-1\">We’ll have to leave it there</span>. Have a good trip home!"
+                                "speech": "OK, thanks Jo. <span class=\"highlight-dialog-1\">We’ll have to leave it there</span>. Have a good trip home!",
+                                "audioSrc": "ispeaker_video_39_wrapping_up_discussions_gb_149"
                             }
                         ],
                         "skill_checkmark": [
