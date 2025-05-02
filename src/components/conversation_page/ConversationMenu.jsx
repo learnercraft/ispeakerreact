@@ -1,12 +1,13 @@
+import PropTypes from "prop-types";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
-import PropTypes from "prop-types";
 
 const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
 
@@ -52,10 +53,10 @@ const ConversationListPage = () => {
         <>
             {/* Tooltip for larger screens */}
             <div
-                className="tooltip tooltip-secondary hidden dark:tooltip-accent sm:inline"
+                className="tooltip tooltip-secondary dark:tooltip-accent hidden sm:inline"
                 data-tip={info}
             >
-                <IoInformationCircleOutline className="h-5 w-5 cursor-pointer hover:text-primary dark:hover:text-accent" />
+                <IoInformationCircleOutline className="hover:text-primary dark:hover:text-accent h-5 w-5 cursor-pointer" />
             </div>
 
             {/* Modal trigger button for small screens */}
@@ -136,7 +137,11 @@ const ConversationListPage = () => {
     }, [selectedAccent]);
 
     useEffect(() => {
-        document.title = `${t("navigation.conversations")} | iSpeakerReact v${__APP_VERSION__}`;
+        if (isElectron()) {
+            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+        } else {
+            document.title = `${t("navigation.conversations")} | iSpeakerReact v${window.__APP_VERSION__}`;
+        }
     }, [t]);
 
     return (
