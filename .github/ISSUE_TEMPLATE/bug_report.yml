@@ -13,7 +13,7 @@ body:
       id: version
       attributes:
           label: iSpeakerReact version
-          description: The version of iSpeakerReact you are using. It is found in the main page of the app, window title bar, or in the App
+          description: The version of iSpeakerReact you are using. It is found in the homepage or title bar.
       validations:
           required: true
     - type: textarea
