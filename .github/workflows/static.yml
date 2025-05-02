@@ -42,7 +42,7 @@ jobs:
                   echo "Current version: $CURR_VERSION"
                   if [ "$PREV_VERSION" = "$CURR_VERSION" ]; then
                     echo "No version bump detected. Skipping workflow."
-                    exit 1
+                    exit 78
                   fi
             - name: Set up Node
               uses: actions/setup-node@v4
