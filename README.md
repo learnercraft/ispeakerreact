@@ -10,11 +10,11 @@
 
 Currently, the app is available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/yllst-testing-labs/ispeakerreact/issues/18).
 
-# iSpeakerReact
+# About iSpeakerReact
 
 **Introducing iSpeakerReact**: A modern reimagining, open-source alternative to Oxford iSpeaker
 
-Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. Based on the original Oxford iSpeaker developed by Oxford University, this new version blends the best of both worlds.
+Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. It is based on the original Oxford iSpeaker developed by Oxford University.
 
 While the official, modern, Angular-based Oxford iSpeaker has introduced significant design updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
 
@@ -28,13 +28,13 @@ For Windows, you can also download from the Microsoft Store if you want automati
 
 <p align="center">
     <a href="https://apps.microsoft.com/store/detail/9NWK49GLXGFP?launch=true&mode=mini">
-        <img width="300px" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
+        <img width="300px" src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Microsoft Store badge"/>
     </a>
 </p>
 
 The offline portable version (or "Slim edition" on the Microsoft Store) includes audio files for offline playback. You can manually download the video files in the Settings page for offline use.
 
-**==Also check out other English-learning interactive tools==**
+**Also check out other English-learning interactive tools:**
 
 - [iWriter](http://github.com/yell0wsuit/iwriter): help learners write effectively in English.
 - [Practical English Usage: Diagnostic Test](http://github.com/yell0wsuit/oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
