@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/images/homepage_screenshot.webp" />
+  <img src="./public/images/homepage_screenshot.webp" alt="iSpeakerReact homepage screenshot" />
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@ The offline portable version (or "Slim edition" on the Microsoft Store) includes
 - [iWriter](http://github.com/yell0wsuit/iwriter): help learners write effectively in English.
 - [Practical English Usage: Diagnostic Test](http://github.com/yell0wsuit/oxford-peu-diagnostics): help learners improve grammar and vocabulary skills.
 
-## Features
+# Features
 
 - **Sounds**
 
@@ -72,7 +72,7 @@ The offline portable version (or "Slim edition" on the Microsoft Store) includes
 
 *In order to use the recording functionality, please ensure that you have a microphone device, and you have allowed the app to access it.
 
-## Browser compatibility
+# Browser compatibility
 
 Work on the latest version of the following browsers:
 
@@ -80,15 +80,15 @@ Work on the latest version of the following browsers:
 - Mozilla Firefox
 - Safari (macOS, iOS, iPadOS)
 
-## Contributions
+# Contributions
 
 Please see [CONTRIBUTING.MD](./CONTRIBUTING.md) for more information.
 
-## License
+# License
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
 
-## Acknowledgements
+# Acknowledgements
 
 - [Oxford University Press](https://www.oxfordlearnersdictionaries.com/) for the original Oxford iSpeaker project.
 - [Weblate](https://weblate.org/) for providing the translation platform.
