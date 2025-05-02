@@ -623,6 +623,12 @@
         "topicHeading": "Topic:",
         "conversationModalInfo": "Conversation info",
         "expandInfoBtn": "See conversation info",
+        "rolePlay": {
+            "rolePlayTitle": "Role play",
+            "rolePlayInfo": "Take one half of the conversation and record your part. Fill in the blanks using appropriate expressions from the Listen tab.",
+            "listenAll": "Listen to the conversation with your voice."
+        },
+        "freePractice": "Free practice",
         "discussionAndOpinion": {
             "heading": "Discussion and opinion",
             "agreeingTitle": "Agreeing",
