@@ -34,7 +34,7 @@ jobs:
                   echo "Current version: $CURR_VERSION"
                   if [ "$PREV_VERSION" = "$CURR_VERSION" ]; then
                     echo "No version bump detected. Skipping workflow."
-                    exit 1
+                    exit 78
                   fi
 
             - name: Set up Node.js
@@ -79,18 +79,6 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@main
-            - name: Check if version bumped
-              id: version_check
-              run: |
-                  git fetch origin ${{ github.ref }} --depth=2
-                  PREV_VERSION=$(git show HEAD^:package.json | jq -r .version)
-                  CURR_VERSION=$(jq -r .version package.json)
-                  echo "Previous version: $PREV_VERSION"
-                  echo "Current version: $CURR_VERSION"
-                  if [ "$PREV_VERSION" = "$CURR_VERSION" ]; then
-                    echo "No version bump detected. Skipping workflow."
-                    exit 1
-                  fi
 
             - name: Download Vite Build Artifact
               uses: actions/download-artifact@main
@@ -232,18 +220,6 @@ jobs:
               uses: actions/checkout@main
               with:
                   fetch-depth: 0
-            - name: Check if version bumped
-              id: version_check
-              run: |
-                  git fetch origin ${{ github.ref }} --depth=2
-                  PREV_VERSION=$(git show HEAD^:package.json | jq -r .version)
-                  CURR_VERSION=$(jq -r .version package.json)
-                  echo "Previous version: $PREV_VERSION"
-                  echo "Current version: $CURR_VERSION"
-                  if [ "$PREV_VERSION" = "$CURR_VERSION" ]; then
-                    echo "No version bump detected. Skipping workflow."
-                    exit 1
-                  fi
 
             - name: Download all build artifacts
               uses: actions/download-artifact@main
