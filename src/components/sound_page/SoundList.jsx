@@ -197,7 +197,11 @@ const SoundList = () => {
     }, [t]);
 
     useEffect(() => {
-        document.title = `${t("navigation.sounds")} | iSpeakerReact v${__APP_VERSION__}`;
+        if (isElectron()) {
+            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+        } else {
+            document.title = `${t("navigation.sounds")} | iSpeakerReact v${window.__APP_VERSION__}`;
+        }
     }, [t]);
 
     const filteredSounds = useMemo(() => {

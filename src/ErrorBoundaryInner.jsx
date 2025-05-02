@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FiRefreshCw } from "react-icons/fi";
@@ -26,7 +27,7 @@ export default class ErrorBoundary extends React.Component {
         const { error, errorInfo } = this.state;
         const fullError = `Error log:\n
 \`\`\`
-${error?.toString()}\nApp version: v${__APP_VERSION__}\n\nStack Trace:\n${errorInfo?.componentStack}
+App version: v${window.__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorInfo?.componentStack}
 \`\`\`
 `;
 
@@ -53,9 +54,9 @@ ${error?.toString()}\nApp version: v${__APP_VERSION__}\n\nStack Trace:\n${errorI
                             <div className="card bg-base-100 card-md max-h-100 overflow-auto whitespace-pre-wrap shadow-sm lg:max-h-64">
                                 <div className="card-body">
                                     <code className="font-mono! dark:text-red-200">
-                                        {error?.toString()}
+                                        App version: v{window.__APP_VERSION__}
                                         {"\n"}
-                                        App version: v{__APP_VERSION__}
+                                        {error?.toString()}
                                         {"\n"}
                                         {errorInfo?.componentStack}
                                     </code>
@@ -69,7 +70,7 @@ ${error?.toString()}\nApp version: v${__APP_VERSION__}\n\nStack Trace:\n${errorI
                                 <button
                                     onClick={() =>
                                         openExternal(
-                                            "https://github.com/yllst-testing-labs/ispeakerreact/issues"
+                                            "https://github.com/yllst-testing-labs/ispeakerreact/issues/new?template=bug_report.yml"
                                         )
                                     }
                                     className="btn btn-info"
@@ -96,3 +97,8 @@ ${error?.toString()}\nApp version: v${__APP_VERSION__}\n\nStack Trace:\n${errorI
         return this.props.children;
     }
 }
+
+ErrorBoundary.propTypes = {
+    t: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+};
