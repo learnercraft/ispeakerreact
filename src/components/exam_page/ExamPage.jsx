@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";
 import TopNavBar from "../general/TopNavBar";
@@ -139,7 +140,11 @@ const ExamPage = () => {
     }, [selectedAccent]);
 
     useEffect(() => {
-        document.title = `${t("navigation.exams")} | iSpeakerReact v${__APP_VERSION__}`;
+        if (isElectron()) {
+            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+        } else {
+            document.title = `${t("navigation.exams")} | iSpeakerReact v${window.__APP_VERSION__}`;
+        }
     }, [t]);
 
     return (

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { isElectron } from "../../utils/isElectron";
 import { useScrollTo } from "../../utils/useScrollTo";
 import AccentDropdown from "../general/AccentDropdown";
 import TopNavBar from "../general/TopNavBar";
@@ -69,7 +70,11 @@ const PronunciationPractice = () => {
     }, [activeTab]);
 
     useEffect(() => {
-        document.title = `${t("navigation.words")} | iSpeakerReact v${__APP_VERSION__}`;
+        if (isElectron()) {
+            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+        } else {
+            document.title = `${t("navigation.words")} | iSpeakerReact v${window.__APP_VERSION__}`;
+        }
     }, [t]);
 
     // Load review data from localStorage
