@@ -214,6 +214,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                                 <PracticeTab
                                     accent={accent}
                                     conversationId={id}
+                                    dialog={accentData.watch_and_study.study.dialog}
                                     scrollTo={scrollTo}
                                 />
                             )}
