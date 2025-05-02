@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-    BsFloppy,
-    BsPlayCircle,
-    BsRecordCircle,
-    BsStopCircle,
-    BsTrash,
-    BsFillMicFill,
-} from "react-icons/bs";
+import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
 import PropTypes from "prop-types";
 
 import { useTranslation } from "react-i18next";
@@ -17,33 +10,103 @@ import {
     saveRecording,
 } from "../../utils/databaseOperations";
 import { isElectron } from "../../utils/isElectron";
-import {
-    sonnerErrorToast,
-    sonnerSuccessToast,
-    sonnerWarningToast,
-} from "../../utils/sonnerCustomToast";
+import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
     const { t } = useTranslation();
 
     // Role play state
     const [rolePlayPart, setRolePlayPart] = useState(1); // 1 or 2
-    const [userRecordings, setUserRecordings] = useState({}); // {index: blobUrl}
     const [userInputs, setUserInputs] = useState({}); // {index: {blankIndex: value}}
-    const [recordingIndex, setRecordingIndex] = useState(null); // which line is being recorded
-    const [mediaRecorder, setMediaRecorder] = useState(null);
-    const [isRecording, setIsRecording] = useState(false);
-    const [isRecordingPlaying, setIsRecordingPlaying] = useState(false);
-    const [recordingExists, setRecordingExists] = useState(false);
-    const [currentAudioSource, setCurrentAudioSource] = useState(null); // For AudioContext source node
-    const [currentAudioElement, setCurrentAudioElement] = useState(null); // For Audio element (fallback)
+    const [mediaRecorderFree, setMediaRecorderFree] = useState(null);
+    const [isRecordingFree, setIsRecordingFree] = useState(false);
     const textAreaRef = useRef(null);
 
     // Existing practice state
     const [textValue, setTextValue] = useState("");
 
     const textKey = `${accent}-${conversationId}-text`;
-    const recordingKey = `${accent}-conversation-${conversationId}`;
+
+    // Add this for roleplay recorder state:
+    const [mediaRecorderRoleplay, setMediaRecorderRoleplay] = useState(null);
+
+    // Add state for recording streams
+    const [mediaStreamFree, setMediaStreamFree] = useState(null);
+    const [mediaStreamRoleplay, setMediaStreamRoleplay] = useState(null);
+
+    // --- Centralized Playback State ---
+    const audioRef = useRef(null);
+    const sourceRef = useRef(null);
+    const [playback, setPlayback] = useState({ type: null, index: null, playing: false });
+
+    const [recordingExists, setRecordingExists] = useState(false);
+
+    // --- Non-user-turn audio playback state ---
+    const [nonUserAudioIndex, setNonUserAudioIndex] = useState(null);
+    const nonUserAudioRef = useRef(null);
+
+    function stopNonUserAudio() {
+        if (nonUserAudioRef.current) {
+            try {
+                nonUserAudioRef.current.pause();
+                nonUserAudioRef.current.currentTime = 0;
+            } catch {
+                /* ignore */
+            }
+            nonUserAudioRef.current = null;
+        }
+        setNonUserAudioIndex(null);
+    }
+
+    function stopAllPlayback() {
+        if (audioRef.current) {
+            try {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+            } catch {
+                /* ignore */
+            }
+            audioRef.current = null;
+        }
+        if (sourceRef.current) {
+            try {
+                sourceRef.current.stop();
+            } catch {
+                /* ignore */
+            }
+            sourceRef.current = null;
+        }
+        setPlayback({ type: null, index: null, playing: false });
+        stopNonUserAudio();
+    }
+
+    function playRoleplayRecording(idx, key) {
+        stopAllPlayback();
+        setPlayback({ type: "roleplay", index: idx, playing: true });
+        playRecording(
+            key,
+            (audio, audioSource) => {
+                if (audioSource) sourceRef.current = audioSource;
+                else audioRef.current = audio;
+            },
+            () => stopAllPlayback(),
+            () => stopAllPlayback()
+        );
+    }
+
+    function playFreePracticeRecording(key) {
+        stopAllPlayback();
+        setPlayback({ type: "free", index: null, playing: true });
+        playRecording(
+            key,
+            (audio, audioSource) => {
+                if (audioSource) sourceRef.current = audioSource;
+                else audioRef.current = audio;
+            },
+            () => stopAllPlayback(),
+            () => stopAllPlayback()
+        );
+    }
 
     // --- Role Play Logic ---
     // Helper: parse blanks from speech
@@ -71,43 +134,6 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
     }
 
     // --- Role Play Handlers ---
-    // Recording for a specific dialog line
-    const handleStartRecording = (index) => {
-        navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-            const mr = new window.MediaRecorder(stream);
-            let chunks = [];
-            mr.ondataavailable = (e) => chunks.push(e.data);
-            mr.onstop = () => {
-                const blob = new Blob(chunks, { type: "audio/webm" });
-                const url = URL.createObjectURL(blob);
-                setUserRecordings((prev) => ({ ...prev, [index]: url }));
-                setRecordingIndex(null);
-                setMediaRecorder(mr);
-                mr.start();
-            };
-            setRecordingIndex(index);
-            setMediaRecorder(mr);
-            mr.start();
-        });
-    };
-    const handleStopRecording = () => {
-        if (mediaRecorder) {
-            mediaRecorder.stop();
-        }
-    };
-    const handlePlayUserRecording = (index) => {
-        const url = userRecordings[index];
-        if (url) {
-            const audio = new Audio(url);
-            audio.play();
-        }
-    };
-    const handlePlayAudio = (audioSrc) => {
-        if (!audioSrc) return;
-        const url = `${import.meta.env.BASE_URL}media/conversation/mp3/roleplay/${audioSrc}.mp3`;
-        const audio = new Audio(url);
-        audio.play();
-    };
     // Input for blanks
     const handleInputChange = (lineIdx, blankIdx, value) => {
         setUserInputs((prev) => ({
@@ -135,12 +161,30 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
     }, [textKey]);
 
     useEffect(() => {
+        const checkRoleplayRecordings = async () => {
+            const existsObj = {};
+            for (let idx = 0; idx < dialog.length; idx++) {
+                // Only check for user-turn lines
+                const isUserTurn =
+                    (rolePlayPart === 1 && idx % 2 === 1) || (rolePlayPart === 2 && idx % 2 === 0);
+                if (isUserTurn) {
+                    const key = `${accent}-conversation-${conversationId}-roleplay-part${rolePlayPart}-index${idx}`;
+                    existsObj[idx] = await checkRecordingExists(key);
+                }
+            }
+            setRoleplayRecordingExists(existsObj);
+        };
+        checkRoleplayRecordings();
+    }, [rolePlayPart, accent, conversationId, dialog.length]);
+
+    useEffect(() => {
         const checkIfRecordingExists = async () => {
-            const exists = await checkRecordingExists(recordingKey);
+            const freePracticeKey = `${accent}-conversation-${conversationId}-freePractice`;
+            const exists = await checkRecordingExists(freePracticeKey);
             setRecordingExists(exists);
         };
         checkIfRecordingExists();
-    }, [recordingKey]);
+    }, [accent, conversationId]);
 
     const autoExpand = () => {
         const textArea = textAreaRef.current;
@@ -193,92 +237,175 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
             sonnerErrorToast(t("toast.textClearFailed") + error.message);
         }
     };
-    // Handle recording (existing)
-    const handleRecording = () => {
-        if (!isRecording) {
-            navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then((stream) => {
-                    const recordOptions = {
-                        audioBitsPerSecond: 128000,
-                    };
-                    const mediaRecorder = new MediaRecorder(stream, recordOptions);
-                    let audioChunks = [];
-                    mediaRecorder.start();
-                    setIsRecording(true);
-                    setMediaRecorder(mediaRecorder);
 
-                    mediaRecorder.addEventListener("dataavailable", (event) => {
-                        audioChunks.push(event.data);
-                        if (mediaRecorder.state === "inactive") {
-                            const audioBlob = new Blob(audioChunks, { type: event.data.type });
-                            saveRecording(audioBlob, recordingKey, event.data.type);
-                            sonnerSuccessToast(t("toast.recordingSuccess"));
-                            isElectron() &&
-                                window.electron.log("log", `Recording saved: ${recordingKey}`);
+    // --- Recording Logic (Reusable) ---
+    const startRecordingWithKey = (
+        recordingKey,
+        setMediaRecorderFn,
+        setIsRecordingFn,
+        setMediaStreamFn,
+        onSaved
+    ) => {
+        navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+                const recordOptions = {
+                    audioBitsPerSecond: 128000,
+                };
+                const mediaRecorder = new MediaRecorder(stream, recordOptions);
+                let audioChunks = [];
+                mediaRecorder.start();
+                setIsRecordingFn(true);
+                setMediaRecorderFn(mediaRecorder);
+                setMediaStreamFn(stream);
 
-                            setRecordingExists(true);
-                            audioChunks = [];
-                        }
-                    });
-
-                    setTimeout(
-                        () => {
-                            if (mediaRecorder.state !== "inactive") {
-                                mediaRecorder.stop();
-                                sonnerWarningToast(t("toast.recordingExceeded"));
-                                setIsRecording(false);
-                            }
-                        },
-                        15 * 60 * 1000
-                    );
-                })
-                .catch((error) => {
-                    sonnerErrorToast(t("toast.recordingFailed") + error.message);
-                    isElectron() && window.electron.log("error", `Recording failed: ${error}`);
-                });
-        } else {
-            mediaRecorder.stop();
-            setIsRecording(false);
-        }
-    };
-    // Handle playback (existing)
-    const handlePlayRecording = async () => {
-        if (isRecordingPlaying) {
-            if (currentAudioSource) {
-                currentAudioSource.stop();
-                setCurrentAudioSource(null);
-            }
-            if (currentAudioElement) {
-                currentAudioElement.pause();
-                currentAudioElement.currentTime = 0;
-                setCurrentAudioElement(null);
-            }
-            setIsRecordingPlaying(false);
-        } else {
-            playRecording(
-                recordingKey,
-                (audio, audioSource) => {
-                    setIsRecordingPlaying(true);
-                    if (audioSource) {
-                        setCurrentAudioSource(audioSource);
-                    } else {
-                        setCurrentAudioElement(audio);
+                mediaRecorder.addEventListener("dataavailable", (event) => {
+                    audioChunks.push(event.data);
+                    if (mediaRecorder.state === "inactive") {
+                        const audioBlob = new Blob(audioChunks, { type: event.data.type });
+                        saveRecording(audioBlob, recordingKey, event.data.type);
+                        sonnerSuccessToast(t("toast.recordingSuccess"));
+                        isElectron() &&
+                            window.electron.log("log", `Recording saved: ${recordingKey}`);
+                        if (onSaved) onSaved();
+                        audioChunks = [];
                     }
-                },
-                (error) => {
-                    sonnerErrorToast(t("toast.playbackError") + error.message);
-                    isElectron() && window.electron.log("error", `Error saving text: ${error}`);
-                    setIsRecordingPlaying(false);
-                },
-                () => {
-                    setIsRecordingPlaying(false);
-                    setCurrentAudioSource(null);
-                    setCurrentAudioElement(null);
-                }
+                });
+
+                setTimeout(
+                    () => {
+                        if (mediaRecorder.state !== "inactive") {
+                            mediaRecorder.stop();
+                            stream.getTracks().forEach((track) => track.stop());
+                            setIsRecordingFn(false);
+                            setMediaStreamFn(null);
+                        }
+                    },
+                    15 * 60 * 1000
+                );
+            })
+            .catch((error) => {
+                sonnerErrorToast(t("toast.recordingFailed") + error.message);
+                isElectron() && window.electron.log("error", `Recording failed: ${error}`);
+            });
+    };
+
+    // --- Free Practice Recording ---
+    const handleRecording = () => {
+        const freePracticeKey = `${accent}-conversation-${conversationId}-freePractice`;
+        if (!isRecordingFree) {
+            startRecordingWithKey(
+                freePracticeKey,
+                setMediaRecorderFree,
+                setIsRecordingFree,
+                setMediaStreamFree,
+                () => setRecordingExists(true)
             );
+        } else if (mediaRecorderFree) {
+            mediaRecorderFree.stop();
+            if (mediaStreamFree) {
+                mediaStreamFree.getTracks().forEach((track) => track.stop());
+                setMediaStreamFree(null);
+            }
+            setIsRecordingFree(false);
         }
     };
+
+    // --- Roleplay Recording ---
+    const [roleplayRecordingIndex, setRoleplayRecordingIndex] = useState(null);
+    const [roleplayIsRecording, setIsRecordingRoleplay] = useState(false);
+    const [roleplayRecordingExists, setRoleplayRecordingExists] = useState({});
+
+    const handleRoleplayStartRecording = (idx) => {
+        const key = `${accent}-conversation-${conversationId}-roleplay-part${rolePlayPart}-index${idx}`;
+        setRoleplayRecordingIndex(idx);
+        setIsRecordingRoleplay(true);
+        startRecordingWithKey(
+            key,
+            setMediaRecorderRoleplay,
+            setIsRecordingRoleplay,
+            setMediaStreamRoleplay,
+            async () => {
+                setIsRecordingRoleplay(false);
+                setRoleplayRecordingIndex(null);
+                setRoleplayRecordingExists((prev) => ({ ...prev, [idx]: true }));
+                if (mediaStreamRoleplay) {
+                    mediaStreamRoleplay.getTracks().forEach((track) => track.stop());
+                    setMediaStreamRoleplay(null);
+                }
+            }
+        );
+    };
+    const handleRoleplayStopRecording = () => {
+        if (mediaRecorderRoleplay) {
+            mediaRecorderRoleplay.stop();
+            if (mediaStreamRoleplay) {
+                mediaStreamRoleplay.getTracks().forEach((track) => track.stop());
+                setMediaStreamRoleplay(null);
+            }
+            setIsRecordingRoleplay(false);
+            setRoleplayRecordingIndex(null);
+        }
+    };
+    const handleRoleplayPlayRecording = (idx) => {
+        const key = `${accent}-conversation-${conversationId}-roleplay-part${rolePlayPart}-index${idx}`;
+        if (playback.playing && playback.type === "roleplay" && playback.index === idx) {
+            stopAllPlayback();
+            return;
+        }
+        playRoleplayRecording(idx, key);
+    };
+
+    // Play audio for audio part
+    const handlePlayAudio = (audioSrc, idx) => {
+        if (nonUserAudioIndex === idx) {
+            stopNonUserAudio();
+            return;
+        }
+        stopNonUserAudio();
+        if (!audioSrc) return;
+        const url = `${import.meta.env.BASE_URL}media/conversation/mp3/roleplay/${audioSrc}.mp3`;
+        const audio = new Audio(url);
+        nonUserAudioRef.current = audio;
+        setNonUserAudioIndex(idx);
+        audio.onended = stopNonUserAudio;
+        audio.onerror = stopNonUserAudio;
+        audio.play();
+    };
+
+    // --- Free Practice Play/Stop Button Logic ---
+    const handlePlayRecording = async () => {
+        const freePracticeKey = `${accent}-conversation-${conversationId}-freePractice`;
+        if (playback.playing && playback.type === "free") {
+            stopAllPlayback();
+        } else {
+            playFreePracticeRecording(freePracticeKey);
+        }
+    };
+
+    // --- Cleanup on unmount/part change ---
+    useEffect(() => {
+        return () => {
+            stopAllPlayback();
+            stopNonUserAudio();
+            // Cleanup recording streams
+            if (mediaStreamFree) {
+                mediaStreamFree.getTracks().forEach((track) => track.stop());
+                setMediaStreamFree(null);
+            }
+            if (mediaStreamRoleplay) {
+                mediaStreamRoleplay.getTracks().forEach((track) => track.stop());
+                setMediaStreamRoleplay(null);
+            }
+            // Stop any active recorders
+            if (mediaRecorderFree && mediaRecorderFree.state !== "inactive") {
+                mediaRecorderFree.stop();
+            }
+            if (mediaRecorderRoleplay && mediaRecorderRoleplay.state !== "inactive") {
+                mediaRecorderRoleplay.stop();
+            }
+        };
+    }, []);
 
     return (
         <>
@@ -312,8 +439,82 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
                                             {line.speaker}:
                                         </div>
                                         <div className="min-w-0 flex-1">
-                                            {/* Render speech with blanks as input only for user part */}
-                                            {blanks ? (
+                                            {isUserTurn ? (
+                                                <>
+                                                    <textarea
+                                                        className="textarea textarea-bordered min-h-[2.5rem] w-full"
+                                                        value={userInputs[idx]?.[0] || ""}
+                                                        onChange={(e) =>
+                                                            handleInputChange(
+                                                                idx,
+                                                                0,
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    />
+                                                    <div className="mt-1 flex gap-1">
+                                                        {roleplayRecordingIndex === idx &&
+                                                        roleplayIsRecording ? (
+                                                            <button
+                                                                className="btn btn-xs btn-error"
+                                                                onClick={
+                                                                    handleRoleplayStopRecording
+                                                                }
+                                                                disabled={
+                                                                    playback.playing &&
+                                                                    playback.type === "roleplay" &&
+                                                                    playback.index === idx
+                                                                }
+                                                            >
+                                                                <BsStopCircle /> Stop
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn btn-xs btn-accent"
+                                                                onClick={() =>
+                                                                    handleRoleplayStartRecording(
+                                                                        idx
+                                                                    )
+                                                                }
+                                                                disabled={
+                                                                    playback.playing &&
+                                                                    playback.type === "roleplay" &&
+                                                                    playback.index === idx
+                                                                }
+                                                            >
+                                                                <BsRecordCircle /> Record
+                                                            </button>
+                                                        )}
+                                                        {playback.playing &&
+                                                        playback.type === "roleplay" &&
+                                                        playback.index === idx ? (
+                                                            <button
+                                                                className="btn btn-xs btn-info"
+                                                                onClick={stopAllPlayback}
+                                                                disabled={
+                                                                    roleplayIsRecording ||
+                                                                    !roleplayRecordingExists[idx]
+                                                                }
+                                                            >
+                                                                <BsStopCircle /> Stop
+                                                            </button>
+                                                        ) : (
+                                                            <button
+                                                                className="btn btn-xs btn-info"
+                                                                onClick={() =>
+                                                                    handleRoleplayPlayRecording(idx)
+                                                                }
+                                                                disabled={
+                                                                    roleplayIsRecording ||
+                                                                    !roleplayRecordingExists[idx]
+                                                                }
+                                                            >
+                                                                <BsPlayCircle /> Play
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </>
+                                            ) : blanks ? (
                                                 blanks.map((b, bIdx) => (
                                                     <span key={bIdx}>
                                                         {b.before && (
@@ -323,30 +524,7 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
                                                                 }}
                                                             />
                                                         )}
-                                                        {isUserTurn ? (
-                                                            <input
-                                                                type="text"
-                                                                className="input mx-1"
-                                                                style={{
-                                                                    width: Math.max(
-                                                                        60,
-                                                                        b.blank.length * 10
-                                                                    ),
-                                                                }}
-                                                                value={
-                                                                    userInputs[idx]?.[bIdx] || ""
-                                                                }
-                                                                onChange={(e) =>
-                                                                    handleInputChange(
-                                                                        idx,
-                                                                        bIdx,
-                                                                        e.target.value
-                                                                    )
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            <span>{b.blank}</span>
-                                                        )}
+                                                        <span>{b.blank}</span>
                                                         {bIdx === blanks.length - 1 && b.after && (
                                                             <span
                                                                 dangerouslySetInnerHTML={{
@@ -365,48 +543,28 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
                                             )}
                                         </div>
                                         <div className="ms-auto flex flex-col items-end justify-end gap-1 sm:flex-row sm:items-center">
-                                            {isUserTurn ? (
-                                                <>
-                                                    {recordingIndex === idx ? (
-                                                        <button
-                                                            className="btn btn-xs btn-error"
-                                                            onClick={handleStopRecording}
-                                                        >
-                                                            <BsStopCircle /> Stop
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            className="btn btn-xs btn-accent"
-                                                            onClick={() =>
-                                                                handleStartRecording(idx)
-                                                            }
-                                                        >
-                                                            <BsFillMicFill /> Record
-                                                        </button>
-                                                    )}
-                                                    {userRecordings[idx] && (
-                                                        <button
-                                                            className="btn btn-xs btn-info"
-                                                            onClick={() =>
-                                                                handlePlayUserRecording(idx)
-                                                            }
-                                                        >
-                                                            <BsPlayCircle /> Play
-                                                        </button>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                line.audioSrc && (
-                                                    <button
-                                                        className="btn btn-xs btn-primary"
-                                                        onClick={() =>
-                                                            handlePlayAudio(line.audioSrc)
-                                                        }
-                                                    >
-                                                        <BsPlayCircle /> Play
-                                                    </button>
-                                                )
-                                            )}
+                                            {isUserTurn
+                                                ? null
+                                                : line.audioSrc &&
+                                                  (nonUserAudioIndex === idx ? (
+                                                      <button
+                                                          className="btn btn-xs btn-primary"
+                                                          onClick={() =>
+                                                              handlePlayAudio(line.audioSrc, idx)
+                                                          }
+                                                      >
+                                                          <BsStopCircle /> Stop
+                                                      </button>
+                                                  ) : (
+                                                      <button
+                                                          className="btn btn-xs btn-primary"
+                                                          onClick={() =>
+                                                              handlePlayAudio(line.audioSrc, idx)
+                                                          }
+                                                      >
+                                                          <BsPlayCircle /> Play
+                                                      </button>
+                                                  ))}
                                         </div>
                                     </div>
                                 );
@@ -469,9 +627,9 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
                                     type="button"
                                     className="btn btn-primary"
                                     onClick={handleRecording}
-                                    disabled={isRecordingPlaying}
+                                    disabled={playback.playing && playback.type === "free"}
                                 >
-                                    {isRecording ? (
+                                    {isRecordingFree ? (
                                         <>
                                             <BsStopCircle className="h-5 w-5" />{" "}
                                             {t("buttonConversationExam.stopRecordBtn")}
@@ -487,9 +645,9 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
                                     type="button"
                                     className="btn btn-accent"
                                     onClick={handlePlayRecording}
-                                    disabled={!recordingExists || isRecording}
+                                    disabled={!recordingExists || isRecordingFree}
                                 >
-                                    {isRecordingPlaying ? (
+                                    {playback.playing && playback.type === "free" ? (
                                         <>
                                             <BsStopCircle className="h-5 w-5" />{" "}
                                             {t("buttonConversationExam.stopPlayBtn")}
