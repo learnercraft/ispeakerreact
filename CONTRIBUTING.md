@@ -2,15 +2,11 @@
 
 Thank you for your interest in contributing! Please take a moment to review this guide before submitting issues, feature requests, translation or pull requests.
 
----
-
 ## 📬 Submitting issues, feature requests or translation
 
 - To report bugs or request features, please [open an issue](https://github.com/yllst-testing-labs/ispeakerreact/issues/new/choose) and choose the appropriate category.
 
 - For translation contributions, please [refer to this issue](https://github.com/yllst-testing-labs/ispeakerreact/issues/18) for more information.
-
----
 
 ## 🔀 Submitting pull requests
 

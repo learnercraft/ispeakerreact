@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="https://hosted.weblate.org/engage/ispeakerreact/">
-    <img src="https://hosted.weblate.org/widget/ispeakerreact/svg-badge.svg" alt="Translation status" />
+    <img src="https://hosted.weblate.org/widget/ispeakerreact/ispeakerreact-component/multi-blue.svg" width="600px" alt="Translation status" />
   </a>
 </p>
 
-Currently, the app is now available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/yllst-testing-labs/ispeakerreact/issues/18).
+Currently, the app is available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/yllst-testing-labs/ispeakerreact/issues/18).
 
 # iSpeakerReact
 
@@ -16,7 +16,7 @@ Currently, the app is now available in English and Simplified Chinese. You can [
 
 Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-study interactive tool designed to help learners improve their speaking and listening skills. Based on the original Oxford iSpeaker developed by Oxford University, this new version blends the best of both worlds.
 
-While the official, modern, Angular-based Oxford iSpeaker has introduced significant updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
+While the official, modern, Angular-based Oxford iSpeaker has introduced significant design updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
 
 # Use the app
 
@@ -79,3 +79,32 @@ Work on the latest version of the following browsers:
 - Chromium browsers (Microsoft Edge, Chrome, Opera, Brave, ...)
 - Mozilla Firefox
 - Safari (macOS, iOS, iPadOS)
+
+## Contributions
+
+Please see [CONTRIBUTING.MD](./CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
+
+## Acknowledgements
+
+- [Oxford University Press](https://www.oxfordlearnersdictionaries.com/) for the original Oxford iSpeaker project.
+- [Weblate](https://weblate.org/) for providing the translation platform.
+- [i18next](https://www.i18next.com/) for the internationalization framework.
+- [React](https://react.dev/) and [Vite](https://vitejs.dev/) for the frontend framework and build tool.
+- [JS7z](https://github.com/GMH-Code/JS7z) for the 7-zip library used in the offline version.
+- [Tailwind CSS](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/) for the UI design.
+- [React Icons](https://react-icons.github.io/react-icons/) for the icons.
+- [SVG Repo](https://www.svgrepo.com/) for the homepage icons.
+- [Logo.com](https://logo.com/) for the app logo.
+- [Electron](https://www.electronjs.org/) for the desktop app.
+- [dnd kit](https://dndkit.com/) for the drag-and-drop functionality.
+- [Sonner](https://sonner.emilkowal.ski/) for the toast notifications.
+- [Vidstack Player](https://vidstack.io/) for the custom video player used in the offline version.
+- [Wavesurfer.js](https://wavesurfer.xyz/) for the audio visualization.
+
+Special thanks to:
+
+- [Bootstrap](https://getbootstrap.com/) for the updated design in [version 2.0](https://github.com/yllst-testing-labs/ispeakerreact/pull/6).
