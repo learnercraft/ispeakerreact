@@ -34,7 +34,7 @@ const baseUrl = isElectron()
 
 // Clear web cache if a newer version is found
 
-const currentVersion = window.__APP_VERSION__;
+const currentVersion = __APP_VERSION__;
 
 const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
 const RATE_LIMIT_THRESHOLD = 50;

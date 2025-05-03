@@ -18,9 +18,9 @@ function Homepage() {
 
     useEffect(() => {
         if (isElectron()) {
-            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+            document.title = `iSpeakerReact v${__APP_VERSION__}`;
         } else {
-            document.title = `${t("navigation.home")} | iSpeakerReact v${window.__APP_VERSION__}`;
+            document.title = `${t("navigation.home")} | iSpeakerReact v${__APP_VERSION__}`;
         }
     }, [t]);
 
@@ -86,7 +86,7 @@ function Homepage() {
                         </h1>
                     </div>
                     <p lang="en" className="mt-2 text-center text-sm">
-                        v{window.__APP_VERSION__}
+                        v{__APP_VERSION__}
                     </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-5">

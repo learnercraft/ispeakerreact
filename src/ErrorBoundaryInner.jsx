@@ -27,7 +27,7 @@ export default class ErrorBoundary extends React.Component {
         const { error, errorInfo } = this.state;
         const fullError = `Error log:\n
 \`\`\`
-App version: v${window.__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorInfo?.componentStack}
+App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorInfo?.componentStack}
 \`\`\`
 `;
 
@@ -54,7 +54,7 @@ App version: v${window.__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n$
                             <div className="card bg-base-100 card-md max-h-100 overflow-auto whitespace-pre-wrap shadow-sm lg:max-h-64">
                                 <div className="card-body">
                                     <code className="font-mono! dark:text-red-200">
-                                        App version: v{window.__APP_VERSION__}
+                                        App version: v{__APP_VERSION__}
                                         {"\n"}
                                         {error?.toString()}
                                         {"\n"}
