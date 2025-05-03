@@ -12,7 +12,7 @@ const DownloadPage = () => {
     }, []);
 
     useEffect(() => {
-        document.title = `${t("navigation.download")} | iSpeakerReact v${window.__APP_VERSION__}`;
+        document.title = `${t("navigation.download")} | iSpeakerReact v${__APP_VERSION__}`;
     }, [t]);
 
     const features = [

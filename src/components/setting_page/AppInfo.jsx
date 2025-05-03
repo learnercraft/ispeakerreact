@@ -10,7 +10,7 @@ const AppInfo = () => {
     const [alertVisible, setAlertVisible] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [alertVariant, setAlertVariant] = useState("success");
-    const [currentVersion] = useState(window.__APP_VERSION__);
+    const [currentVersion] = useState(__APP_VERSION__);
 
     const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
     const RATE_LIMIT_THRESHOLD = 50;
