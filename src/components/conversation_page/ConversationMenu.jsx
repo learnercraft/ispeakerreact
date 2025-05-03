@@ -138,9 +138,9 @@ const ConversationListPage = () => {
 
     useEffect(() => {
         if (isElectron()) {
-            document.title = `iSpeakerReact v${window.__APP_VERSION__}`;
+            document.title = `iSpeakerReact v${__APP_VERSION__}`;
         } else {
-            document.title = `${t("navigation.conversations")} | iSpeakerReact v${window.__APP_VERSION__}`;
+            document.title = `${t("navigation.conversations")} | iSpeakerReact v${__APP_VERSION__}`;
         }
     }, [t]);
 
