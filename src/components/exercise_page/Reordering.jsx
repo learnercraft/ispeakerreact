@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
 
@@ -80,7 +81,9 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         setButtonsDisabled(false);
 
         setCurrentAudioSrc(
-            `${import.meta.env.BASE_URL}media/exercise/mp3/${shuffledPairs[0].audio}.mp3`
+            splitType === "sentence"
+                ? `${import.meta.env.BASE_URL}media/exercise/mp3/sentence/${shuffledPairs[0].audio}.mp3`
+                : `${import.meta.env.BASE_URL}media/word/mp3/${shuffledPairs[0].audio}.mp3`
         );
         setCorrectAnswer(correctAnswer);
     }, []);
@@ -172,9 +175,7 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 setIsLoading(false); // Stop loading spinner
                 setIsPlaying(false); // Reset playing state
                 console.error("Error playing audio.");
-                alert(
-                    "There was an error loading the audio file. Please check your connection or try again later."
-                );
+                sonnerErrorToast(t("toast.audioPlayFailed"));
             };
         }
     };

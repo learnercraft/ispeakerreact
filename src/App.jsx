@@ -8,6 +8,8 @@ import ErrorBoundary from "./ErrorBoundary";
 import { isElectron } from "./utils/isElectron";
 import { ThemeProvider } from "./utils/ThemeContext/ThemeProvider";
 import { useTheme } from "./utils/ThemeContext/useTheme";
+import VersionUpdateDialog from "./components/general/VersionUpdateDialog";
+import { useState, useEffect } from "react";
 
 const SoundList = lazy(() => import("./components/sound_page/SoundList"));
 const WordList = lazy(() => import("./components/word_page/WordList"));
@@ -18,6 +20,13 @@ const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
 const DownloadPage = lazy(() => import("./components/download_page/DownloadPage"));
 
 const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
+
+const PROD_BASE_URL = "https://yllst-testing-labs.github.io/ispeakerreact/";
+
+const isProdWeb =
+    !process.env.NODE_ENV === "development" &&
+    !isElectron() &&
+    window.location.href.startsWith(PROD_BASE_URL);
 
 // Ensure baseUrl does not add unnecessary slashes
 const baseUrl = isElectron()
@@ -34,96 +43,8 @@ const baseUrl = isElectron()
 
 // Clear web cache if a newer version is found
 
-const currentVersion = __APP_VERSION__;
-
-const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
-const RATE_LIMIT_THRESHOLD = 50;
-
-const clearCacheForNewVersion = async () => {
-    const PROD_BASE_URL = "https://yllst-testing-labs.github.io/ispeakerreact/";
-
-    // Prevent running in either development mode or Electron version
-    if (
-        process.env.NODE_ENV === "development" ||
-        isElectron() ||
-        !window.location.href.startsWith(PROD_BASE_URL)
-    ) {
-        console.warn("Dev mode or Electron version detected, skipping version check.");
-        return;
-    }
-
-    try {
-        const now = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-        const savedResetTime = localStorage.getItem(RATE_LIMIT_KEY);
-
-        // If a reset time is stored and it's in the future, skip API request
-        if (savedResetTime && now < parseInt(savedResetTime, 10)) {
-            console.warn("Skipping version check due to rate limiting.");
-            return;
-        }
-
-        const response = await fetch(
-            "https://api.github.com/repos/yllst-testing-labs/ispeakerreact/contents/package.json",
-            {
-                headers: {
-                    "User-Agent": "iSpeakerReact-yllst-testing-labs",
-                    Accept: "application/vnd.github.v3+json",
-                },
-            }
-        );
-
-        if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
-
-        // Get rate limit headers
-        const rateLimitRemaining = parseInt(
-            response.headers.get("x-ratelimit-remaining") || "0",
-            10
-        );
-        const rateLimitReset = parseInt(response.headers.get("x-ratelimit-reset") || "0", 10);
-
-        // If we are near the rate limit, stop further checks
-        if (rateLimitRemaining < RATE_LIMIT_THRESHOLD && rateLimitReset) {
-            console.warn(
-                `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
-            );
-            localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
-            return;
-        }
-
-        // Process package.json from GitHub API
-        const data = await response.json();
-        if (!data.content) throw new Error("No content in response");
-
-        const decodedContent = JSON.parse(atob(data.content));
-        const latestVersion = decodedContent.version;
-
-        if (latestVersion !== currentVersion) {
-            console.log(
-                `New version found: ${latestVersion}. Clearing cache and refreshing page...`
-            );
-
-            alert(`New version found: v${latestVersion}. Press OK to refresh.`);
-
-            caches.keys().then((names) => {
-                names.forEach((name) => {
-                    if (name !== "permanent-cache") {
-                        caches.delete(name);
-                    }
-                });
-            });
-
-            setTimeout(() => {
-                window.location.reload();
-            }, "1000");
-        }
-    } catch (error) {
-        console.error("Failed to fetch version:", error);
-    }
-};
-
 const AppContent = () => {
-    clearCacheForNewVersion();
-
+    const [showUpdateDialog, setShowUpdateDialog] = useState(false);
     const { theme } = useTheme();
     const toastTheme =
         theme === "dark" ||
@@ -131,8 +52,20 @@ const AppContent = () => {
             ? "dark"
             : "light";
 
+    useEffect(() => {
+        if (isProdWeb) {
+            setShowUpdateDialog(true);
+        } else {
+            console.warn("Dev mode or Electron version detected. Version check skipped.");
+        }
+    }, []);
+
     return (
         <>
+            <VersionUpdateDialog
+                open={showUpdateDialog}
+                onRefresh={() => window.location.reload()}
+            />
             <RouterComponent basename={!isElectron() ? baseUrl : ""}>
                 <Routes>
                     <Route path="/" element={<Homepage />} />

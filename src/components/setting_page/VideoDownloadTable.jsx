@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { Trans } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
+import { LuExternalLink } from "react-icons/lu";
 
 const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
     const [, setShowVerifyModal] = useState(false);
@@ -95,8 +96,8 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
             fileStatus && zip.name && (fileStatus.isDownloaded || fileStatus.hasExtractedFolder)
                 ? [{ name: zip.name }]
                 : fileStatus && fileStatus.hasExtractedFolder && zip.name
-                ? [{ name: zip.name }]
-                : [];
+                  ? [{ name: zip.name }]
+                  : [];
         setSelectedZip(zip);
         setVerifyFiles(fileToVerify);
         setShowVerifyModal(true);
@@ -110,11 +111,13 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
         const fileStatus = isDownloaded.find((status) => status.zipFile === selectedZip?.zipFile);
         // Allow verify if extracted folder exists, even if not downloaded
         const fileToVerify =
-            fileStatus && selectedZip?.name && (fileStatus.isDownloaded || fileStatus.hasExtractedFolder)
+            fileStatus &&
+            selectedZip?.name &&
+            (fileStatus.isDownloaded || fileStatus.hasExtractedFolder)
                 ? [{ name: selectedZip.name }]
                 : fileStatus && fileStatus.hasExtractedFolder && selectedZip?.name
-                ? [{ name: selectedZip.name }]
-                : [];
+                  ? [{ name: selectedZip.name }]
+                  : [];
         if (fileToVerify.length === 0) {
             setShowVerifyModal(false);
             setShowProgressModal(false);
@@ -190,13 +193,14 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
                                     </td>
                                     <td className="text-center">
                                         <a
-                                            className="link"
+                                            className="link inline-flex items-center"
                                             onClick={() => window.electron.openExternal(item.link)}
                                         >
                                             {t(
                                                 "settingPage.videoDownloadSettings.downloadTable.downloadLink"
                                             )}
                                         </a>
+                                        <LuExternalLink className="ms-1 inline-flex items-center" />
                                     </td>
                                     <td>
                                         {fileStatus ? ( // Check if fileStatus is found
@@ -215,7 +219,7 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
                                     <td className="text-center">
                                         <button
                                             type="button"
-                                            className="btn btn-accent btn-sm"
+                                            className="btn btn-accent"
                                             onClick={async () => await handleVerify(item)}
                                             disabled={
                                                 !fileStatus ||
@@ -310,7 +314,7 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
                         ) : verificationErrors.length > 0 ? (
                             <>
                                 <p>
-                                    {verificationErrors.some(err => err.type === "missing")
+                                    {verificationErrors.some((err) => err.type === "missing")
                                         ? t("settingPage.videoDownloadSettings.fileMissing")
                                         : t("settingPage.videoDownloadSettings.hashMismatch")}
                                 </p>
