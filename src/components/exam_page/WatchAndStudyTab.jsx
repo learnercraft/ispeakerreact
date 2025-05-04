@@ -49,7 +49,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
     const videoColorScheme = isDarkMode ? "dark" : "light";
 
     const handleImageClick = (imageName) => {
-        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`;
+        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/fullsize/${imageName}.webp`;
 
         // Only set loading if the image is different
         if (modalImage !== newImage) {
@@ -141,7 +141,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                                     role="button"
                                     src={`${
                                         import.meta.env.BASE_URL
-                                    }images/ispeaker/exam_images/webp/${image}.webp`}
+                                    }images/ispeaker/exam_images/thumb/${image}.webp`}
                                     className="h-full w-full cursor-pointer object-cover"
                                     onClick={() => handleImageClick(image)}
                                 />

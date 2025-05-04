@@ -1,1 +1,196 @@
-{"exerciseList":[{"heading":"exercise_page.dictationHeading","file":"exercise_dictation.json","titles":[{"titleKey":"exercise_page.wordExercise","infoKey":"exercise_page.exerciseInfo.dictationWord","id":"words"},{"titleKey":"exercise_page.missingWordExercise","infoKey":"exercise_page.exerciseInfo.dictationMissingWord","id":"missing-words"},{"titleKey":"exercise_page.sentenceExercise","infoKey":"exercise_page.exerciseInfo.dictationSentence","id":"sentences"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.dictationRandom","id":"random"}]},{"heading":"exercise_page.matchUpHeading","file":"exercise_matchup.json","titles":[{"titleKey":"exercise_page.similarSoundExercise","infoKey":"exercise_page.exerciseInfo.matchUpSimilarSound","id":"similar-sounds"},{"titleKey":"exercise_page.readingPhoneticsExercise","infoKey":"exercise_page.exerciseInfo.matchUpReadingPhonetics","id":"reading-phonetics"},{"titleKey":"exercise_page.comprehensionExercise","infoKey":"exercise_page.exerciseInfo.matchUpComprehension","id":"comprehension"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.matchUpRandom","id":"random"}]},{"heading":"exercise_page.reorderingHeading","file":"exercise_reordering.json","titles":[{"titleKey":"exercise_page.wordExercise","infoKey":"exercise_page.exerciseInfo.reorderingWord","id":"words"},{"titleKey":"exercise_page.sentenceExercise","infoKey":"exercise_page.exerciseInfo.reorderingSentence","id":"sentences"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.reorderingRandom","id":"random"}]},{"heading":"exercise_page.soundSpellingHeading","file":"exercise_sound_n_spelling.json","infoKey":"exercise_page.exerciseInfo.soundSpellingInfo","titles":[{"title":"/ iː /","id":"i-long"},{"title":"/ əʊ /","id":"ou-gb","american":false},{"title":"/ oʊ /","id":"ou-us","british":false},{"title":"/ ə /","id":"er"},{"title":"/ ɔː /","id":"o-gb","american":false},{"title":"/ ɔː(r) /","id":"or-us","british":false},{"title":"/ ɜː /","id":"er-gb","american":false},{"title":"/ ɜːr /","id":"er-us","british":false},{"title":"/ ɪə(r) /","id":"ear-gb","american":false},{"title":"/ ɪr /","id":"ear-us","british":false},{"title":"/ uː /","id":"u-long"},{"title":"/ eɪ /","id":"ay"},{"title":"/ aɪ /","id":"eye"},{"titleKey":"exercise_page.randomExercise","id":"random","infoKey":"exercise_page.exerciseInfo.soundSpellingRandom"}]},{"heading":"exercise_page.sortingHeading","file":"exercise_sorting.json","titles":[{"titleKey":"exercise_page.similarSoundExercise","infoKey":"exercise_page.exerciseInfo.sortingSimilarSound","id":"similar-sounds"},{"titleKey":"exercise_page.wordStressExercise","infoKey":"exercise_page.exerciseInfo.sortingWordStress","id":"word-stress"},{"titleKey":"exercise_page.syllablesExercise","infoKey":"exercise_page.exerciseInfo.sortingSyllable","id":"syllables"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.sortingRandom","id":"random"}]},{"heading":"exercise_page.oddOneOutHeading","file":"exercise_odd_one_out.json","titles":[{"titleKey":"exercise_page.wordStressExercise","infoKey":"exercise_page.exerciseInfo.oddOneOutWordStress","id":"word-stress"},{"titleKey":"exercise_page.rhymingWordExercise","infoKey":"exercise_page.exerciseInfo.oddOneOutRhymingWord","id":"rhyming"},{"titleKey":"exercise_page.syllablesExercise","infoKey":"exercise_page.exerciseInfo.oddOneOutSyllable","id":"syllables"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.oddOneOutRandom","id":"random"}]},{"heading":"exercise_page.snapHeading","file":"exercise_snap.json","titles":[{"titleKey":"exercise_page.readingPhoneticsExercise","infoKey":"exercise_page.exerciseInfo.snapReadingPhonetics","id":"reading-phonetics"},{"titleKey":"exercise_page.homophonesExercise","infoKey":"exercise_page.exerciseInfo.snapHomophones","id":"homophones"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.snapRandom","id":"random"}]},{"heading":"exercise_page.memoryMatchHeading","file":"exercise_memory_match.json","titles":[{"titleKey":"exercise_page.rhymingWordExercise","infoKey":"exercise_page.exerciseInfo.memoryMatchRhymingWord","id":"rhyming"},{"titleKey":"exercise_page.homophonesExercise","infoKey":"exercise_page.exerciseInfo.memoryMatchHomophones","id":"homophones"},{"titleKey":"exercise_page.randomExercise","infoKey":"exercise_page.exerciseInfo.memoryMatchRandom","id":"random"}]}]}
+{
+    "exerciseList": [
+        {
+            "heading": "exercise_page.dictationHeading",
+            "file": "exercise_dictation.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.wordExercise",
+                    "infoKey": "exercise_page.exerciseInfo.dictationWord",
+                    "id": "words"
+                },
+                {
+                    "titleKey": "exercise_page.missingWordExercise",
+                    "infoKey": "exercise_page.exerciseInfo.dictationMissingWord",
+                    "id": "missing-words"
+                },
+                {
+                    "titleKey": "exercise_page.sentenceExercise",
+                    "infoKey": "exercise_page.exerciseInfo.dictationSentence",
+                    "id": "sentences"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.dictationRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.matchUpHeading",
+            "file": "exercise_matchup.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.similarSoundExercise",
+                    "infoKey": "exercise_page.exerciseInfo.matchUpSimilarSound",
+                    "id": "similar-sounds"
+                },
+                {
+                    "titleKey": "exercise_page.readingPhoneticsExercise",
+                    "infoKey": "exercise_page.exerciseInfo.matchUpReadingPhonetics",
+                    "id": "reading-phonetics"
+                },
+                {
+                    "titleKey": "exercise_page.comprehensionExercise",
+                    "infoKey": "exercise_page.exerciseInfo.matchUpComprehension",
+                    "id": "comprehension"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.matchUpRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.reorderingHeading",
+            "file": "exercise_reordering.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.wordExercise",
+                    "infoKey": "exercise_page.exerciseInfo.reorderingWord",
+                    "id": "words"
+                },
+                {
+                    "titleKey": "exercise_page.sentenceExercise",
+                    "infoKey": "exercise_page.exerciseInfo.reorderingSentence",
+                    "id": "sentences"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.reorderingRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.soundSpellingHeading",
+            "file": "exercise_sound_n_spelling.json",
+            "infoKey": "exercise_page.exerciseInfo.soundSpellingInfo",
+            "titles": [
+                { "title": "/ iː /", "id": "i-long" },
+                { "title": "/ əʊ /", "id": "ou-gb", "american": false },
+                { "title": "/ oʊ /", "id": "ou-us", "british": false },
+                { "title": "/ ə /", "id": "er" },
+                { "title": "/ ɔː /", "id": "o-gb", "american": false },
+                { "title": "/ ɔː(r) /", "id": "or-us", "british": false },
+                { "title": "/ ɜː /", "id": "er-gb", "american": false },
+                { "title": "/ ɜːr /", "id": "er-us", "british": false },
+                { "title": "/ ɪə(r) /", "id": "ear-gb", "american": false },
+                { "title": "/ ɪr /", "id": "ear-us", "british": false },
+                { "title": "/ uː /", "id": "u-long" },
+                { "title": "/ eɪ /", "id": "ay" },
+                { "title": "/ aɪ /", "id": "eye" },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "id": "random",
+                    "infoKey": "exercise_page.exerciseInfo.soundSpellingRandom"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.sortingHeading",
+            "file": "exercise_sorting.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.similarSoundExercise",
+                    "infoKey": "exercise_page.exerciseInfo.sortingSimilarSound",
+                    "id": "similar-sounds"
+                },
+                {
+                    "titleKey": "exercise_page.wordStressExercise",
+                    "infoKey": "exercise_page.exerciseInfo.sortingWordStress",
+                    "id": "word-stress"
+                },
+                {
+                    "titleKey": "exercise_page.syllablesExercise",
+                    "infoKey": "exercise_page.exerciseInfo.sortingSyllable",
+                    "id": "syllables"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.sortingRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.oddOneOutHeading",
+            "file": "exercise_odd_one_out.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.wordStressExercise",
+                    "infoKey": "exercise_page.exerciseInfo.oddOneOutWordStress",
+                    "id": "word-stress"
+                },
+                {
+                    "titleKey": "exercise_page.rhymingWordExercise",
+                    "infoKey": "exercise_page.exerciseInfo.oddOneOutRhymingWord",
+                    "id": "rhyming"
+                },
+                {
+                    "titleKey": "exercise_page.syllablesExercise",
+                    "infoKey": "exercise_page.exerciseInfo.oddOneOutSyllable",
+                    "id": "syllables"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.oddOneOutRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.snapHeading",
+            "file": "exercise_snap.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.readingPhoneticsExercise",
+                    "infoKey": "exercise_page.exerciseInfo.snapReadingPhonetics",
+                    "id": "reading-phonetics"
+                },
+                {
+                    "titleKey": "exercise_page.homophonesExercise",
+                    "infoKey": "exercise_page.exerciseInfo.snapHomophones",
+                    "id": "homophones"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.snapRandom",
+                    "id": "random"
+                }
+            ]
+        },
+        {
+            "heading": "exercise_page.memoryMatchHeading",
+            "file": "exercise_memory_match.json",
+            "titles": [
+                {
+                    "titleKey": "exercise_page.rhymingWordExercise",
+                    "infoKey": "exercise_page.exerciseInfo.memoryMatchRhymingWord",
+                    "id": "rhyming"
+                },
+                {
+                    "titleKey": "exercise_page.homophonesExercise",
+                    "infoKey": "exercise_page.exerciseInfo.memoryMatchHomophones",
+                    "id": "homophones"
+                },
+                {
+                    "titleKey": "exercise_page.randomExercise",
+                    "infoKey": "exercise_page.exerciseInfo.memoryMatchRandom",
+                    "id": "random"
+                }
+            ]
+        }
+    ]
+}

@@ -35,7 +35,12 @@
         "appNewVersionGitHub": "A new update is found. Go to the project’s GitHub page for more information.",
         "appVersionLatest": "You are already using the latest version.",
         "appUpdateError": "Error checking for updates. Please try again.",
-        "rateLimited": "Cannot check for new version due to rate limiting. Please try again after {{time}}."
+        "rateLimited": "Cannot check for new version due to rate limiting. Please try again after {{time}}.",
+        "appNewVersionDialogTitle": "New version available",
+        "appNewVersionErrorDialogTitle": "Failed to check for updates",
+        "appNewVersionErrorReason": "Reason:",
+        "appNewVersionDialogBody": "A new version (v{{version}}) is available. Please refresh to update.",
+        "appNewVersionDialogRefreshBtn": "Refresh now"
     },
     "appCrash": {
         "appCrashedTitle": "App crashed!",
@@ -57,7 +62,8 @@
         "loadingError": "Error while loading the data. Please try refreshing the page.",
         "reviewUpdated": "Review updated successfully",
         "noRecording": "Please record first before reviewing",
-        "appCrashCopySuccess": "Error log copied to clipboard"
+        "appCrashCopySuccess": "Error log copied to clipboard",
+        "dataLoadFailed": "Error while loading the data for this section. Please check your Internet connection."
     },
     "buttonConversationExam": {
         "watchBtn": "Watch",

@@ -122,10 +122,13 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             return;
         }
 
+        // Determine the exercise type for the current question
+        const exerciseType = shuffledQuiz[currentQuestionIndex]?.type;
         const audio = new Audio();
-        const audioSrc = `${import.meta.env.BASE_URL}media/exercise/mp3/${
-            shuffledQuiz[currentQuestionIndex].audio.src
-        }.mp3`;
+        const audioSrc =
+            exerciseType === "sentence"
+                ? `${import.meta.env.BASE_URL}media/exercise/mp3/sentence/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`
+                : `${import.meta.env.BASE_URL}media/word/mp3/${shuffledQuiz[currentQuestionIndex].audio.src}.mp3`;
 
         audioRef.current = audio;
 
@@ -180,10 +183,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         key={index}
                         className={`my-2 inline-block ${hasValueAndTextbox ? "w-48" : "w-full lg:w-3/4"}`}
                     >
-                        <label
-                            lang="en"
-                            className="input items-center gap-0 md:gap-2"
-                        >
+                        <label lang="en" className="input items-center gap-0 md:gap-2">
                             <input
                                 type="text"
                                 value={answer}

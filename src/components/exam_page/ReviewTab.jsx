@@ -32,8 +32,6 @@ const ReviewTab = ({ reviews, examId, accent }) => {
         localStorage.setItem("ispeaker", JSON.stringify(savedData));
     }, [checkedReviews, examId, accent]);
 
-    console.log("reviews prop type:", typeof reviews, reviews);
-
     return (
         <div className="container-lg mx-auto">
             {reviews.map((review, index) => (

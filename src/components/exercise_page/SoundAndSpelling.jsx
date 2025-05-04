@@ -7,6 +7,7 @@ import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { ShuffleArray } from "../../utils/ShuffleArray";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 
 const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
@@ -41,9 +42,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
         // Set the question text and audio source
         setCurrentQuestionText(quizData.question[0].text);
-        setCurrentAudioSrc(
-            `${import.meta.env.BASE_URL}media/exercise/mp3/${quizData.audio.src}.mp3`
-        );
+        setCurrentAudioSrc(`${import.meta.env.BASE_URL}media/word/mp3/${quizData.audio.src}.mp3`);
 
         setButtonsDisabled(false);
         setSelectedOption(null);
@@ -117,9 +116,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 setIsLoading(false);
                 setIsPlaying(false);
                 console.error("Error playing audio.");
-                alert(
-                    "There was an error loading the audio file. Please check your connection or try again later."
-                );
+                sonnerErrorToast(t("toast.audioPlayFailed"));
             };
         }
     };
