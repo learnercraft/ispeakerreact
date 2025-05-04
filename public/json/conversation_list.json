@@ -1,1 +1,229 @@
-{"conversationList":[{"heading":"conversationPage.discussionAndOpinion.heading","titles":[{"title":"conversationPage.discussionAndOpinion.agreeingTitle","info":"conversationPage.discussionAndOpinion.agreeingInfo","id":"agreeing"},{"title":"conversationPage.discussionAndOpinion.askingForOpinionsTitle","info":"conversationPage.discussionAndOpinion.askingForOpinionsInfo","id":"opinions"},{"title":"conversationPage.discussionAndOpinion.concedingAPointTitle","info":"conversationPage.discussionAndOpinion.concedingAPointInfo","id":"conceding"},{"title":"conversationPage.discussionAndOpinion.dealingWithQuestionsTitle","info":"conversationPage.discussionAndOpinion.dealingWithQuestionsInfo","id":"deal-questions"},{"title":"conversationPage.discussionAndOpinion.disagreeingTitle","info":"conversationPage.discussionAndOpinion.disagreeingInfo","id":"disagreeing"},{"title":"conversationPage.discussionAndOpinion.expressingPreferencesTitle","info":"conversationPage.discussionAndOpinion.expressingPreferencesInfo","id":"preferences"},{"title":"conversationPage.discussionAndOpinion.givingReasonsTitle","info":"conversationPage.discussionAndOpinion.givingReasonsInfo","id":"reasons"},{"title":"conversationPage.discussionAndOpinion.interruptingSomebodyTitle","info":"conversationPage.discussionAndOpinion.interruptingSomebodyInfo","id":"interrupting"}]},{"heading":"conversationPage.doubtGuessingAndCertainty.heading","titles":[{"title":"conversationPage.doubtGuessingAndCertainty.askingForClarificationTitle","info":"conversationPage.doubtGuessingAndCertainty.askingForClarificationInfo","id":"clarification"},{"title":"conversationPage.doubtGuessingAndCertainty.correctingYourselfTitle","info":"conversationPage.doubtGuessingAndCertainty.correctingYourselfInfo","id":"correcting-yourself"},{"title":"conversationPage.doubtGuessingAndCertainty.expressingCertaintyTitle","info":"conversationPage.doubtGuessingAndCertainty.expressingCertaintyInfo","id":"certainty"},{"title":"conversationPage.doubtGuessingAndCertainty.expressingIgnoranceTitle","info":"conversationPage.doubtGuessingAndCertainty.expressingIgnoranceInfo","id":"ignorance"},{"title":"conversationPage.doubtGuessingAndCertainty.expressingLikelihoodTitle","info":"conversationPage.doubtGuessingAndCertainty.expressingLikelihoodInfo","id":"likelihood"},{"title":"conversationPage.doubtGuessingAndCertainty.speculatingTitle","info":"conversationPage.doubtGuessingAndCertainty.speculatingInfo","id":"speculating"}]},{"heading":"conversationPage.feelingsAndEmotions.heading","titles":[{"title":"conversationPage.feelingsAndEmotions.apologizingTitle","info":"conversationPage.feelingsAndEmotions.apologizingInfo","id":"apologizing"},{"title":"conversationPage.feelingsAndEmotions.congratulatingSomebodyTitle","info":"conversationPage.feelingsAndEmotions.congratulatingSomebodyInfo","id":"congratulating"},{"title":"conversationPage.feelingsAndEmotions.expressingSympathyTitle","info":"conversationPage.feelingsAndEmotions.expressingSympathyInfo","id":"sympathy"},{"title":"conversationPage.feelingsAndEmotions.makingComplaintsTitle","info":"conversationPage.feelingsAndEmotions.makingComplaintsInfo","id":"complaints"},{"title":"conversationPage.feelingsAndEmotions.thankingSomebodyTitle","info":"conversationPage.feelingsAndEmotions.thankingSomebodyInfo","id":"thanking"},{"title":"conversationPage.feelingsAndEmotions.wishingSomebodyLuckTitle","info":"conversationPage.feelingsAndEmotions.wishingSomebodyLuckInfo","id":"wishing-luck"}]},{"heading":"conversationPage.openingsAndEndings.heading","titles":[{"title":"conversationPage.openingsAndEndings.endingConversationsTitle","info":"conversationPage.openingsAndEndings.endingConversationsInfo","id":"ending"},{"title":"conversationPage.openingsAndEndings.introducingSomebodyTitle","info":"conversationPage.openingsAndEndings.introducingSomebodyInfo","id":"introducing"},{"title":"conversationPage.openingsAndEndings.invitingSomebodyToSomethingTitle","info":"conversationPage.openingsAndEndings.invitingSomebodyToSomethingInfo","id":"inviting"},{"title":"conversationPage.openingsAndEndings.leavingPhoneMessagesTitle","info":"conversationPage.openingsAndEndings.leavingPhoneMessagesInfo","id":"phonemsg"},{"title":"conversationPage.openingsAndEndings.openingConversationsTitle","info":"conversationPage.openingsAndEndings.openingConversationsInfo","id":"opening"},{"title":"conversationPage.openingsAndEndings.wrappingUpDiscussionsTitle","info":"conversationPage.openingsAndEndings.wrappingUpDiscussionsInfo","id":"wrapping-up"}]},{"heading":"conversationPage.permissionAndObligation.heading","titles":[{"title":"conversationPage.permissionAndObligation.askingAboutObligationTitle","info":"conversationPage.permissionAndObligation.askingAboutObligationInfo","id":"obligation"},{"title":"conversationPage.permissionAndObligation.askingForPermissionTitle","info":"conversationPage.permissionAndObligation.askingForPermissionInfo","id":"permission"},{"title":"conversationPage.permissionAndObligation.forbiddingSomethingTitle","info":"conversationPage.permissionAndObligation.forbiddingSomethingInfo","id":"forbidding"},{"title":"conversationPage.permissionAndObligation.givingOrdersTitle","info":"conversationPage.permissionAndObligation.givingOrdersInfo","id":"orders"},{"title":"conversationPage.permissionAndObligation.makingRequestsTitle","info":"conversationPage.permissionAndObligation.makingRequestsInfo","id":"requests"}]},{"heading":"conversationPage.suggestionsAndAdvice.heading","titles":[{"title":"conversationPage.suggestionsAndAdvice.askingForHelpTitle","info":"conversationPage.suggestionsAndAdvice.askingForHelpInfo","id":"asking-help"},{"title":"conversationPage.suggestionsAndAdvice.askingForInformationTitle","info":"conversationPage.suggestionsAndAdvice.askingForInformationInfo","id":"information"},{"title":"conversationPage.suggestionsAndAdvice.givingSomebodyAdviceTitle","info":"conversationPage.suggestionsAndAdvice.givingSomebodyAdviceInfo","id":"advice"},{"title":"conversationPage.suggestionsAndAdvice.makingRecommendationsTitle","info":"conversationPage.suggestionsAndAdvice.makingRecommendationsInfo","id":"recommendations"},{"title":"conversationPage.suggestionsAndAdvice.makingSuggestionsTitle","info":"conversationPage.suggestionsAndAdvice.makingSuggestionsInfo","id":"suggestions"},{"title":"conversationPage.suggestionsAndAdvice.offeringHelpTitle","info":"conversationPage.suggestionsAndAdvice.offeringHelpInfo","id":"offer-help"},{"title":"conversationPage.suggestionsAndAdvice.offeringSomebodySomethingTitle","info":"conversationPage.suggestionsAndAdvice.offeringSomebodySomethingInfo","id":"offer-somthing"},{"title":"conversationPage.suggestionsAndAdvice.warningSomebodyOfDangerTitle","info":"conversationPage.suggestionsAndAdvice.warningSomebodyOfDangerInfo","id":"warning"}]}]}
+{
+    "conversationList": [
+        {
+            "heading": "conversationPage.discussionAndOpinion.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.discussionAndOpinion.agreeingTitle",
+                    "info": "conversationPage.discussionAndOpinion.agreeingInfo",
+                    "id": "agreeing"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.askingForOpinionsTitle",
+                    "info": "conversationPage.discussionAndOpinion.askingForOpinionsInfo",
+                    "id": "opinions"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.concedingAPointTitle",
+                    "info": "conversationPage.discussionAndOpinion.concedingAPointInfo",
+                    "id": "conceding"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.dealingWithQuestionsTitle",
+                    "info": "conversationPage.discussionAndOpinion.dealingWithQuestionsInfo",
+                    "id": "deal-questions"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.disagreeingTitle",
+                    "info": "conversationPage.discussionAndOpinion.disagreeingInfo",
+                    "id": "disagreeing"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.expressingPreferencesTitle",
+                    "info": "conversationPage.discussionAndOpinion.expressingPreferencesInfo",
+                    "id": "preferences"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.givingReasonsTitle",
+                    "info": "conversationPage.discussionAndOpinion.givingReasonsInfo",
+                    "id": "reasons"
+                },
+                {
+                    "title": "conversationPage.discussionAndOpinion.interruptingSomebodyTitle",
+                    "info": "conversationPage.discussionAndOpinion.interruptingSomebodyInfo",
+                    "id": "interrupting"
+                }
+            ]
+        },
+        {
+            "heading": "conversationPage.doubtGuessingAndCertainty.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.askingForClarificationTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.askingForClarificationInfo",
+                    "id": "clarification"
+                },
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.correctingYourselfTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.correctingYourselfInfo",
+                    "id": "correcting-yourself"
+                },
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.expressingCertaintyTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.expressingCertaintyInfo",
+                    "id": "certainty"
+                },
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.expressingIgnoranceTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.expressingIgnoranceInfo",
+                    "id": "ignorance"
+                },
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.expressingLikelihoodTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.expressingLikelihoodInfo",
+                    "id": "likelihood"
+                },
+                {
+                    "title": "conversationPage.doubtGuessingAndCertainty.speculatingTitle",
+                    "info": "conversationPage.doubtGuessingAndCertainty.speculatingInfo",
+                    "id": "speculating"
+                }
+            ]
+        },
+        {
+            "heading": "conversationPage.feelingsAndEmotions.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.feelingsAndEmotions.apologizingTitle",
+                    "info": "conversationPage.feelingsAndEmotions.apologizingInfo",
+                    "id": "apologizing"
+                },
+                {
+                    "title": "conversationPage.feelingsAndEmotions.congratulatingSomebodyTitle",
+                    "info": "conversationPage.feelingsAndEmotions.congratulatingSomebodyInfo",
+                    "id": "congratulating"
+                },
+                {
+                    "title": "conversationPage.feelingsAndEmotions.expressingSympathyTitle",
+                    "info": "conversationPage.feelingsAndEmotions.expressingSympathyInfo",
+                    "id": "sympathy"
+                },
+                {
+                    "title": "conversationPage.feelingsAndEmotions.makingComplaintsTitle",
+                    "info": "conversationPage.feelingsAndEmotions.makingComplaintsInfo",
+                    "id": "complaints"
+                },
+                {
+                    "title": "conversationPage.feelingsAndEmotions.thankingSomebodyTitle",
+                    "info": "conversationPage.feelingsAndEmotions.thankingSomebodyInfo",
+                    "id": "thanking"
+                },
+                {
+                    "title": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckTitle",
+                    "info": "conversationPage.feelingsAndEmotions.wishingSomebodyLuckInfo",
+                    "id": "wishing-luck"
+                }
+            ]
+        },
+        {
+            "heading": "conversationPage.openingsAndEndings.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.openingsAndEndings.endingConversationsTitle",
+                    "info": "conversationPage.openingsAndEndings.endingConversationsInfo",
+                    "id": "ending"
+                },
+                {
+                    "title": "conversationPage.openingsAndEndings.introducingSomebodyTitle",
+                    "info": "conversationPage.openingsAndEndings.introducingSomebodyInfo",
+                    "id": "introducing"
+                },
+                {
+                    "title": "conversationPage.openingsAndEndings.invitingSomebodyToSomethingTitle",
+                    "info": "conversationPage.openingsAndEndings.invitingSomebodyToSomethingInfo",
+                    "id": "inviting"
+                },
+                {
+                    "title": "conversationPage.openingsAndEndings.leavingPhoneMessagesTitle",
+                    "info": "conversationPage.openingsAndEndings.leavingPhoneMessagesInfo",
+                    "id": "phonemsg"
+                },
+                {
+                    "title": "conversationPage.openingsAndEndings.openingConversationsTitle",
+                    "info": "conversationPage.openingsAndEndings.openingConversationsInfo",
+                    "id": "opening"
+                },
+                {
+                    "title": "conversationPage.openingsAndEndings.wrappingUpDiscussionsTitle",
+                    "info": "conversationPage.openingsAndEndings.wrappingUpDiscussionsInfo",
+                    "id": "wrapping-up"
+                }
+            ]
+        },
+        {
+            "heading": "conversationPage.permissionAndObligation.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.permissionAndObligation.askingAboutObligationTitle",
+                    "info": "conversationPage.permissionAndObligation.askingAboutObligationInfo",
+                    "id": "obligation"
+                },
+                {
+                    "title": "conversationPage.permissionAndObligation.askingForPermissionTitle",
+                    "info": "conversationPage.permissionAndObligation.askingForPermissionInfo",
+                    "id": "permission"
+                },
+                {
+                    "title": "conversationPage.permissionAndObligation.forbiddingSomethingTitle",
+                    "info": "conversationPage.permissionAndObligation.forbiddingSomethingInfo",
+                    "id": "forbidding"
+                },
+                {
+                    "title": "conversationPage.permissionAndObligation.givingOrdersTitle",
+                    "info": "conversationPage.permissionAndObligation.givingOrdersInfo",
+                    "id": "orders"
+                },
+                {
+                    "title": "conversationPage.permissionAndObligation.makingRequestsTitle",
+                    "info": "conversationPage.permissionAndObligation.makingRequestsInfo",
+                    "id": "requests"
+                }
+            ]
+        },
+        {
+            "heading": "conversationPage.suggestionsAndAdvice.heading",
+            "titles": [
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.askingForHelpTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.askingForHelpInfo",
+                    "id": "asking-help"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.askingForInformationTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.askingForInformationInfo",
+                    "id": "information"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.givingSomebodyAdviceInfo",
+                    "id": "advice"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.makingRecommendationsTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.makingRecommendationsInfo",
+                    "id": "recommendations"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.makingSuggestionsTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.makingSuggestionsInfo",
+                    "id": "suggestions"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.offeringHelpTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.offeringHelpInfo",
+                    "id": "offer-help"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.offeringSomebodySomethingTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.offeringSomebodySomethingInfo",
+                    "id": "offer-somthing"
+                },
+                {
+                    "title": "conversationPage.suggestionsAndAdvice.warningSomebodyOfDangerTitle",
+                    "info": "conversationPage.suggestionsAndAdvice.warningSomebodyOfDangerInfo",
+                    "id": "warning"
+                }
+            ]
+        }
+    ]
+}

@@ -101,6 +101,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                 ...selectedAccentData.quiz.map((quiz) => ({
                                     ...quiz,
                                     split: exercise.split,
+                                    type: exercise.type,
                                 }))
                             );
                         }
@@ -138,6 +139,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                         selectedAccentData.quiz.map((quiz) => ({
                             ...quiz,
                             split: exerciseDetails.split,
+                            type: exerciseDetails.type,
                         }))
                     );
                 }

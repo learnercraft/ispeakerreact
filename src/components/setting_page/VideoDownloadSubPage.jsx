@@ -11,7 +11,8 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
 
     const [, setFolderPath] = useState(null);
     const [zipFileData, setZipFileData] = useState([]);
-    const [isDownloaded, setIsDownloaded] = useState({});
+    const [isDownloaded, setIsDownloaded] = useState([]);
+    const [tableLoading, setTableLoading] = useState(true);
 
     const handleOpenFolder = async () => {
         // Send an IPC message to open the folder and get the folder path
@@ -84,12 +85,21 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
     }, [zipFileData]);
 
     useEffect(() => {
-        checkDownloadedFiles();
+        if (zipFileData.length > 0) {
+            setTableLoading(true);
+            checkDownloadedFiles().finally(() => setTableLoading(false));
+        }
     }, [zipFileData, checkDownloadedFiles]);
 
     const localizedInstructionStep = t("settingPage.videoDownloadSettings.steps", {
         returnObjects: true,
     });
+
+    const stepCount = localizedInstructionStep.length;
+    const stepKeys = Array.from(
+        { length: stepCount },
+        (_, i) => `settingPage.videoDownloadSettings.steps.${i}`
+    );
 
     return (
         <div>
@@ -111,23 +121,21 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 {t("settingPage.videoDownloadSettings.videoPageHeading")}
             </h4>
 
-            <div className="card card-lg card-border my-4">
+            <div className="card card-lg card-border my-4 shadow-xs dark:border-slate-600">
                 <div className="card-body">
                     <div className="card-title font-semibold">
                         {t("settingPage.videoDownloadSettings.instructionCardHeading")}
                     </div>
                     <div className="divider divider-secondary mt-0"></div>
-                    {localizedInstructionStep.map((step, index) => (
-                        <p key={index}>
+                    {stepKeys.map((key, index) => (
+                        <p key={key}>
                             <Trans
+                                i18nKey={key}
                                 values={{ number: index + 1 }}
                                 components={{ 1: <span className="font-bold" /> }}
-                            >
-                                {step}
-                            </Trans>
+                            />
                         </p>
                     ))}
-
                     <div className="alert alert-warning my-2">
                         <IoWarningOutline className="h-6 w-6" />
                         <div>
@@ -150,7 +158,18 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
                 </button>
             </div>
 
-            <VideoDownloadTable data={zipFileData} isDownloaded={isDownloaded} t={t} onStatusChange={checkDownloadedFiles} />
+            {tableLoading ? (
+                <div className="my-12 flex justify-center">
+                    <div className="loading loading-spinner loading-lg"></div>
+                </div>
+            ) : (
+                <VideoDownloadTable
+                    data={zipFileData}
+                    isDownloaded={isDownloaded}
+                    t={t}
+                    onStatusChange={checkDownloadedFiles}
+                />
+            )}
         </div>
     );
 };

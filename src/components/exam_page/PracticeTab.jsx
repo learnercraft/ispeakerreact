@@ -232,7 +232,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
     };
 
     const handleImageClick = (imageName) => {
-        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/jpg/${imageName}.jpg`;
+        const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/fullsize/${imageName}.webp`;
 
         // Only set loading if the image is different
         if (modalImage !== newImage) {
@@ -274,7 +274,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                                         role="button"
                                                         src={`${
                                                             import.meta.env.BASE_URL
-                                                        }images/ispeaker/exam_images/webp/${image}.webp`}
+                                                        }images/ispeaker/exam_images/thumb/${image}.webp`}
                                                         onClick={() => handleImageClick(image)}
                                                     />
                                                 </div>
