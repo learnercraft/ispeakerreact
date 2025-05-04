@@ -103,17 +103,6 @@ jobs:
               with:
                   python-version: "3.13"
 
-            - name: Cache Electron build (all platforms)
-              uses: actions/cache@main
-              with:
-                  path: |
-                      ${{ github.workspace }}/.electron
-                      ${{ github.workspace }}/.cache/electron
-                      ${{ github.workspace }}/.cache/electron-builder
-                  key: ${{ runner.os }}-electron-cache-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-electron-cache-
-
             - name: Install Python virtual environment (macOS only)
               if: matrix.os == 'macos-latest'
               run: |
