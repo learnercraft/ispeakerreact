@@ -31,7 +31,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@main
             - name: Check if version bumped
               id: version_check
               run: |
@@ -45,7 +45,7 @@ jobs:
                     exit 78
                   fi
             - name: Set up Node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@main
               with:
                   node-version: 22
                   cache: "npm"
@@ -54,12 +54,12 @@ jobs:
             - name: Build
               run: npm run build && cp ./dist/index.html ./dist/404.html
             - name: Setup Pages
-              uses: actions/configure-pages@v4
+              uses: actions/configure-pages@main
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@main
               with:
                   # Upload dist folder
                   path: "./dist"
             - name: Deploy to GitHub Pages
               id: deployment
-              uses: actions/deploy-pages@v4
+              uses: actions/deploy-pages@main
