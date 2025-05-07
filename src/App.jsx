@@ -24,7 +24,7 @@ const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
 const PROD_BASE_URL = "https://yllst-testing-labs.github.io/ispeakerreact/";
 
 const isProdWeb =
-    !process.env.NODE_ENV === "development" &&
+    import.meta.env.PROD &&
     !isElectron() &&
     window.location.href.startsWith(PROD_BASE_URL);
 
