@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const RATE_LIMIT_KEY = "github_ratelimit_timestamp";
-const RATE_LIMIT_THRESHOLD = 50;
+const RATE_LIMIT_THRESHOLD = 45;
 
 const currentVersion = __APP_VERSION__;
 
@@ -13,6 +13,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
     const [latestVersion, setLatestVersion] = useState(null);
     const [checking, setChecking] = useState(false);
     const [error, setError] = useState(null);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     useEffect(() => {
         if (!open) return;
@@ -24,6 +25,10 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                 const now = Math.floor(Date.now() / 1000);
                 const savedResetTime = localStorage.getItem(RATE_LIMIT_KEY);
                 if (savedResetTime && now < parseInt(savedResetTime, 10)) {
+                    const resetTime = new Date(parseInt(savedResetTime, 10) * 1000);
+                    setError(
+                        t("alert.rateLimitExceeded", { resetTime: resetTime.toLocaleString() })
+                    );
                     setChecking(false);
                     return;
                 }
@@ -38,7 +43,27 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                     }
                 );
 
-                if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        const rateLimitReset = parseInt(
+                            response.headers.get("x-ratelimit-reset") || "0",
+                            10
+                        );
+                        const resetTime = new Date(rateLimitReset * 1000);
+                        localStorage.setItem(
+                            RATE_LIMIT_KEY,
+                            (rateLimitReset + 5 * 3600).toString()
+                        );
+                        setError(
+                            t("alert.rateLimitExceeded", { resetTime: resetTime.toLocaleString() })
+                        );
+                    } else {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    setChecking(false);
+                    return;
+                }
+
                 const rateLimitRemaining = parseInt(
                     response.headers.get("x-ratelimit-remaining") || "0",
                     10
@@ -48,7 +73,11 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                     10
                 );
                 if (rateLimitRemaining < RATE_LIMIT_THRESHOLD && rateLimitReset) {
+                    const resetTime = new Date(rateLimitReset * 1000);
                     localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
+                    setError(
+                        t("alert.rateLimitExceeded", { resetTime: resetTime.toLocaleString() })
+                    );
                     setChecking(false);
                     return;
                 }
@@ -65,7 +94,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
             }
         };
         checkVersion();
-    }, [open]);
+    }, [open, t]);
 
     useEffect(() => {
         if (open && dialogRef.current) {
@@ -76,6 +105,8 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
     }, [open]);
 
     const handleRefresh = () => {
+        setIsRefreshing(true);
+
         // Clear all caches except permanent-cache
         caches.keys().then((names) => {
             names.forEach((name) => {
@@ -84,6 +115,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                 }
             });
         });
+
         setTimeout(() => {
             onRefresh();
         }, 1000);
@@ -110,13 +142,28 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                         </>
                     ) : (
                         <>
-                            {latestVersion && (
-                                <span>
-                                    {t("alert.appNewVersionDialogBody", { version: latestVersion })}
-                                </span>
-                            )}
-                            {latestVersion === currentVersion && !checking && (
-                                <span>{t("alert.appVersionLatest")}</span>
+                            {isRefreshing ? (
+                                <>
+                                    <p>{t("alert.appNewVersionDialogChecking")}</p>
+                                    <div className="mt-4">
+                                        <progress className="progress w-full"></progress>
+                                    </div>
+                                </>
+                            ) : (
+                                !checking &&
+                                latestVersion && (
+                                    <>
+                                        {latestVersion !== currentVersion ? (
+                                            <p>
+                                                {t("alert.appNewVersionDialogBody", {
+                                                    version: latestVersion,
+                                                })}
+                                            </p>
+                                        ) : (
+                                            <p>{t("alert.appVersionLatest")}</p>
+                                        )}
+                                    </>
+                                )
                             )}
                         </>
                     )}
@@ -134,7 +181,8 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                         </button>
                     ) : (
                         latestVersion &&
-                        latestVersion !== currentVersion && (
+                        latestVersion !== currentVersion &&
+                        !isRefreshing && (
                             <button
                                 type="button"
                                 className="btn btn-primary"
