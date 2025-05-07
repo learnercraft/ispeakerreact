@@ -14,12 +14,18 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
     const [checking, setChecking] = useState(false);
     const [error, setError] = useState(null);
     const [isRefreshing, setIsRefreshing] = useState(false);
+    const abortControllerRef = useRef(null);
 
     useEffect(() => {
         if (!open) return;
 
         setChecking(true);
         setError(null);
+
+        // Create new AbortController for this request
+        abortControllerRef.current = new AbortController();
+        const signal = abortControllerRef.current.signal;
+
         const checkVersion = async () => {
             try {
                 const now = Math.floor(Date.now() / 1000);
@@ -40,6 +46,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                             "User-Agent": "iSpeakerReact-yllst-testing-labs",
                             Accept: "application/vnd.github.v3+json",
                         },
+                        signal, // Add abort signal
                     }
                 );
 
@@ -89,16 +96,26 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                 setLatestVersion(latest);
                 setChecking(false);
 
-                // Only show dialog if versions don't match
+                // Only show dialog if versions don't match and component is still mounted
                 if (latest !== currentVersion && dialogRef.current) {
                     dialogRef.current.showModal();
                 }
             } catch (err) {
-                setError(err.message);
+                // Only set error if it's not an abort error
+                if (err.name !== "AbortError") {
+                    setError(err.message);
+                }
                 setChecking(false);
             }
         };
         checkVersion();
+
+        // Cleanup function
+        return () => {
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort();
+            }
+        };
     }, [open, t]);
 
     useEffect(() => {
@@ -107,21 +124,26 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
         }
     }, [open]);
 
-    const handleRefresh = () => {
+    const handleRefresh = async () => {
         setIsRefreshing(true);
 
-        // Clear all caches except permanent-cache
-        caches.keys().then((names) => {
-            names.forEach((name) => {
-                if (name !== "permanent-cache") {
-                    caches.delete(name);
-                }
-            });
-        });
+        try {
+            // Clear all caches except permanent-cache
+            const cacheNames = await caches.keys();
+            await Promise.all(
+                cacheNames
+                    .filter((name) => name !== "permanent-cache")
+                    .map((name) => caches.delete(name))
+            );
 
-        setTimeout(() => {
+            // Wait for cache clearing to complete
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
             onRefresh();
-        }, 1000);
+        } catch (err) {
+            setError(err.message);
+            setIsRefreshing(false);
+        }
     };
 
     return (
