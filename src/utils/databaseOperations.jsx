@@ -1,3 +1,4 @@
+import { fixWebmDuration } from "@fix-webm-duration/fix";
 import { isElectron } from "./isElectron";
 
 let db;
@@ -47,8 +48,17 @@ export function openDatabase() {
 }
 
 // Save recording to either Electron or IndexedDB
-export async function saveRecording(blob, key, mimeType) {
-    const arrayBuffer = await blobToArrayBuffer(blob);
+export async function saveRecording(blob, key, mimeType, duration) {
+    // If duration is not provided, calculate it from the blob
+    if (!duration) {
+        const audioContext = new AudioContext();
+        const arrayBuffer = await blobToArrayBuffer(blob);
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        duration = audioBuffer.duration * 1000; // Convert to milliseconds
+    }
+
+    const fixedBlob = await fixWebmDuration(blob, duration);
+    const arrayBuffer = await blobToArrayBuffer(fixedBlob);
 
     if (isElectron()) {
         // Electron environment
