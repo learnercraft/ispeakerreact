@@ -235,6 +235,7 @@ function createSplashWindow() {
         frame: false, // Remove window controls
         transparent: true, // Make the window background transparent
         alwaysOnTop: true,
+        icon: path.join(__dirname, "dist", "appicon.png"),
     });
 
     // Load the splash screen HTML
@@ -260,6 +261,7 @@ function createWindow() {
             enableRemoteModule: false,
             devTools: isDev ? true : false,
         },
+        icon: path.join(__dirname, "dist", "appicon.png"),
     });
 
     if (isDev) {
