@@ -88,6 +88,11 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                 const latest = decodedContent.version;
                 setLatestVersion(latest);
                 setChecking(false);
+
+                // Only show dialog if versions don't match
+                if (latest !== currentVersion && dialogRef.current) {
+                    dialogRef.current.showModal();
+                }
             } catch (err) {
                 setError(err.message);
                 setChecking(false);
@@ -97,9 +102,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
     }, [open, t]);
 
     useEffect(() => {
-        if (open && dialogRef.current) {
-            dialogRef.current.showModal();
-        } else if (!open && dialogRef.current) {
+        if (!open && dialogRef.current) {
             dialogRef.current.close();
         }
     }, [open]);
@@ -146,7 +149,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                                 <>
                                     <p>{t("alert.appNewVersionDialogChecking")}</p>
                                     <div className="mt-4">
-                                        <progress className="progress w-full"></progress>
+                                        <progress className="progress progress-primary w-full"></progress>
                                     </div>
                                 </>
                             ) : (
@@ -160,7 +163,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                                                 })}
                                             </p>
                                         ) : (
-                                            <p>{t("alert.appVersionLatest")}</p>
+                                            <></>
                                         )}
                                     </>
                                 )
