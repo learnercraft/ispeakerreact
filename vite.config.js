@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
                     manifest: {
                         name: "iSpeakerReact",
                         short_name: "iSpeakerReact",
-                        theme_color: "#fdfdf5",
+                        theme_color: "#2a303c",
                         background_color: "#2a303c",
                         description:
                             "An English-learning interactive tool written in React, designed to help learners practice speaking and listening.",
@@ -110,15 +110,13 @@ export default defineConfig(({ mode }) => {
                                 form_factor: "wide",
                             },
                         ],
-                        id: "page.yell0wsuit.ispeakerreact",
+                        id: "io.yllsttestinglabs.ispeakerreact",
                         dir: "auto",
                         orientation: "any",
                         categories: ["education"],
                         prefer_related_applications: false,
                     },
                     workbox: {
-                        // Exclude index.html from caching
-                        // globIgnores: ["**/index.html"],
                         runtimeCaching: [
                             {
                                 // Files that need caching permanently
@@ -139,7 +137,7 @@ export default defineConfig(({ mode }) => {
                                 options: {
                                     cacheName: `dynamic-cache-v${packageJson.version}`,
                                     expiration: {
-                                        maxEntries: 100,
+                                        maxEntries: 150,
                                         maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
                                     },
                                 },
