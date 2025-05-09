@@ -2,14 +2,9 @@
 
 ## Supported Versions
 
-| Version                                | Supported            |
-|----------------------------------------|----------------------|
-| > 3.1.x                                | ✅ Supported        |
-| 3.0.x                                  | ❌ Not supported    |
-| 2.x                                    | ❌ Not supported    |
-| < 1.1 (iSpeaker: Pronunciation Tool)   | ❌ Not supported    |
+We are committed to supporting only the latest version of the app. All users are required to be on the latest version of *iSpeakerReact* to ensure they receive critical security patches, bug fixes, and feature improvements. Older versions are not supported and may contain unpatched vulnerabilities.
 
-We strongly recommend updating to the latest version of iSpeakerReact to ensure you receive all security patches and improvements.
+The latest version of the software adheres to either the web version or the most recent release available on GitHub, with the web version being the preferred choice. Additionally, we will make effort to update the Microsoft Store and other app stores with the published version on GitHub.
 
 Users still using *iSpeaker: Pronunciation Tool* from the Microsoft Store should uninstall it from their system and switch to iSpeakerReact.
 
