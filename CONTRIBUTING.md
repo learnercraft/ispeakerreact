@@ -60,7 +60,7 @@ Thank you for your interest in contributing! Please take a moment to review this
 - Add code or commits that:
   - Are **obscure** or **unclear** in intent  
   - Are **malicious** or **unsafe**  
-  - **Executes scripts from external sources**  
+  - **Executes scripts from external sources** associated with malicious, unsafe, or illegal behavior  
   - Attempts to introduce **backdoors** or hidden functionality
 
   If we find any code that violates these rules, you will be blocked from further contributions and reported to GitHub for Terms of Use violations.
