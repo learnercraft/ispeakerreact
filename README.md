@@ -18,6 +18,16 @@ Rewritten from the ground up with React + Vite, **iSpeakerReact** is a self-stud
 
 While the official, modern, Angular-based Oxford iSpeaker has introduced significant design updates, it also streamlined or removed certain features that users found valuable (like the Exercises section). Therefore, we’ve decided to rebuild the app based on the older jQuery version, while taking inspiration from the newer Angular version to create a richer, more complete learning experience.
 
+> [!NOTE]
+> 
+> 📢 The iSpeakerReact project has moved!
+>
+>Users should update their bookmarks to point to the new URL:
+> 
+> 🔗 New URL: 👉 https://learnercraft.github.io/ispeakerreact/
+> 
+> Old URL (no longer maintained): https://yllst-testing-labs.github.io/ispeakerreact/
+
 # Use the app
 
 Visit the webiste to use the tool online: <https://learnercraft.github.io/ispeakerreact/>
