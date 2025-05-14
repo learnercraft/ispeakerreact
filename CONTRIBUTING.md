@@ -6,9 +6,9 @@ Thank you for your interest in contributing! Please take a moment to review this
 
 ## 📬 Submitting issues, feature requests, or translations
 
-- To report bugs or request features, please [open an issue](https://github.com/yllst-testing-labs/ispeakerreact/issues/new/choose) and choose the appropriate category.
+- To report bugs or request features, please [open an issue](https://github.com/learnercraft/ispeakerreact/issues/new/choose) and choose the appropriate category.
 
-- For translation contributions, please [refer to this issue](https://github.com/yllst-testing-labs/ispeakerreact/issues/18) for more information.
+- For translation contributions, please [refer to this issue](https://github.com/learnercraft/ispeakerreact/issues/18) for more information.
 
 ## 🔀 Submitting pull requests
 
