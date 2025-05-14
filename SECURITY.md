@@ -15,6 +15,6 @@ Users still using *iSpeaker: Pronunciation Tool* from the Microsoft Store should
 
 If you discover a security vulnerability, please report it privately by using GitHub's private disclosure feature:
 
-🔒 [Report via GitHub Security Advisories](https://github.com/yllst-testing-labs/ispeakerreact/security/advisories)
+🔒 [Report via GitHub Security Advisories](https://github.com/learnercraft/ispeakerreact/security/advisories)
 
 We will respond as soon as possible, typically within 48 hours.

@@ -21,7 +21,7 @@ const DownloadPage = lazy(() => import("./components/download_page/DownloadPage"
 
 const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
 
-const PROD_BASE_URL = "https://yllst-testing-labs.github.io/ispeakerreact/";
+const PROD_BASE_URL = "https://learnercraft.github.io/ispeakerreact/";
 
 const isProdWeb =
     import.meta.env.PROD &&

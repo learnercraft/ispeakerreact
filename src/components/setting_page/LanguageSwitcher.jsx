@@ -100,7 +100,7 @@ const LanguageSwitcher = () => {
                                 className="justify-start"
                                 onClick={() =>
                                     openExternal(
-                                        "https://github.com/yllst-testing-labs/ispeakerreact/issues/18"
+                                        "https://github.com/learnercraft/ispeakerreact/issues/18"
                                     )
                                 }
                             >

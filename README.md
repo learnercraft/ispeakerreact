@@ -8,7 +8,7 @@
   </a>
 </p>
 
-Currently, the app is available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/yllst-testing-labs/ispeakerreact/issues/18).
+Currently, the app is available in English and Simplified Chinese. You can [help us translate into more languages](https://github.com/learnercraft/ispeakerreact/issues/18).
 
 # About iSpeakerReact
 
@@ -20,9 +20,9 @@ While the official, modern, Angular-based Oxford iSpeaker has introduced signifi
 
 # Use the app
 
-Visit the webiste to use the tool online: <https://yllst-testing-labs.github.io/ispeakerreact/>
+Visit the webiste to use the tool online: <https://learnercraft.github.io/ispeakerreact/>
 
-Or download the offline portable version: <https://github.com/yllst-testing-labs/ispeakerreact/releases/latest>
+Or download the offline portable version: <https://github.com/learnercraft/ispeakerreact/releases/latest>
 
 For Windows, you can also download from the Microsoft Store if you want automatic updates:
 
@@ -107,4 +107,4 @@ This project is licensed under the Apache License 2.0. See the [LICENSE](./LICEN
 
 Special thanks to:
 
-- [Bootstrap](https://getbootstrap.com/) for the updated design in [version 2.0](https://github.com/yllst-testing-labs/ispeakerreact/pull/6).
+- [Bootstrap](https://getbootstrap.com/) for the updated design in [version 2.0](https://github.com/learnercraft/ispeakerreact/pull/6).

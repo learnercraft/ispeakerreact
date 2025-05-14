@@ -227,7 +227,7 @@ const TopNavBar = () => {
                     type="button"
                     className="btn btn-ghost no-animation flex items-center"
                     onClick={() =>
-                        openExternal("https://github.com/yllst-testing-labs/ispeakerreact/")
+                        openExternal("https://github.com/learnercraft/ispeakerreact/")
                     }
                 >
                     <FaGithub size="1.5em" />
