@@ -70,7 +70,7 @@ App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorI
                                 <button
                                     onClick={() =>
                                         openExternal(
-                                            "https://github.com/yllst-testing-labs/ispeakerreact/issues/new?template=bug_report.yml"
+                                            "https://github.com/learnercraft/ispeakerreact/issues/new?template=bug_report.yml"
                                         )
                                     }
                                     className="btn btn-info"

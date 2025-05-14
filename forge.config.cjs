@@ -9,10 +9,10 @@ module.exports = {
         executableName: "ispeakerreact",
         appCopyright:
             "Licensed under the Apache License, Version 2.0. Video and audio materials © Oxford University Press. All rights reserved.",
-        appBundleId: "io.yllsttestinglabs.ispeakerreact",
+        appBundleId: "page.learnercraft.ispeakerreact",
         appCategoryType: "public.app-category.education",
         win32metadata: {
-            CompanyName: "Yllst Testing Labs",
+            CompanyName: "LearnerCraft Labs",
             ProductName: "iSpeakerReact",
         },
         prune: true,

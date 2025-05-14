@@ -48,11 +48,11 @@ const AppInfo = () => {
             }
 
             const response = await fetch(
-                "https://api.github.com/repos/yllst-testing-labs/ispeakerreact/contents/package.json",
+                "https://api.github.com/repos/learnercraft/ispeakerreact/contents/package.json",
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        "User-Agent": "iSpeakerReact-yllst-testing-labs",
+                        "User-Agent": "iSpeakerReact-learnercraft",
                         Accept: "application/vnd.github.v3+json",
                     },
                 }
@@ -63,7 +63,7 @@ const AppInfo = () => {
             // Check if html_url contains the expected URL
             if (
                 !data.html_url ||
-                !data.html_url.startsWith("https://github.com/yllst-testing-labs/ispeakerreact/")
+                !data.html_url.startsWith("https://github.com/learnercraft/ispeakerreact/")
             ) {
                 window.electron.log(
                     "error",
@@ -122,7 +122,7 @@ const AppInfo = () => {
 
     const openGithubPage = () => {
         window.electron.openExternal(
-            "https://github.com/yllst-testing-labs/ispeakerreact/releases/latest"
+            "https://github.com/learnercraft/ispeakerreact/releases/latest"
         );
     };
 

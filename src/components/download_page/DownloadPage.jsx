@@ -70,7 +70,7 @@ const DownloadPage = () => {
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <a
-                                    href="https://github.com/yllst-testing-labs/ispeakerreact/releases/latest"
+                                    href="https://github.com/learnercraft/ispeakerreact/releases/latest"
                                     className="btn btn-primary btn-lg"
                                     target="_blank"
                                 >

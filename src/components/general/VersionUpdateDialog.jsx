@@ -40,10 +40,10 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                 }
 
                 const response = await fetch(
-                    "https://api.github.com/repos/yllst-testing-labs/ispeakerreact/contents/package.json",
+                    "https://api.github.com/repos/learnercraft/ispeakerreact/contents/package.json",
                     {
                         headers: {
-                            "User-Agent": "iSpeakerReact-yllst-testing-labs",
+                            "User-Agent": "iSpeakerReact-learnercraft",
                             Accept: "application/vnd.github.v3+json",
                         },
                         signal, // Add abort signal

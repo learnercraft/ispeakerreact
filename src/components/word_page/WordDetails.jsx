@@ -277,7 +277,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                             className="btn btn-info my-4"
                             onClick={() =>
                                 openExternal(
-                                    "https://github.com/yllst-testing-labs/ispeakerreact/discussions/34"
+                                    "https://github.com/learnercraft/ispeakerreact/discussions/34"
                                 )
                             }
                         >

@@ -26,7 +26,7 @@ const Footer = () => {
                         className="link after:content-['_↗']"
                         onClick={() =>
                             openExternal(
-                                "https://github.com/yllst-testing-labs/ispeakerreact/graphs/contributors"
+                                "https://github.com/learnercraft/ispeakerreact/graphs/contributors"
                             )
                         }
                         target="_blank"

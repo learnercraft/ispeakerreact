@@ -4,7 +4,7 @@ import json
 import sys
 
 # Get environment variables with fallbacks
-repo = "yllst-testing-labs/ispeakerreact"
+repo = "learnercraft/ispeakerreact"
 # release_id = os.environ.get("RELEASE_ID")
 
 # Define the GitHub API URL and headers
