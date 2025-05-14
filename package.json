@@ -3,7 +3,7 @@
     "author": "LearnerCraft Labs",
     "description": "An English-learning interactive tool written in React, designed to help learners practice speaking and listening",
     "private": true,
-    "version": "3.4.6",
+    "version": "3.4.7",
     "type": "module",
     "main": "main.js",
     "license": "Apache-2.0",
