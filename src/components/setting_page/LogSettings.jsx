@@ -189,7 +189,7 @@ const LogSettings = () => {
                             {t("settingPage.logSettings.deleteOldLogsOption")}
                         </p>
                         <div className="dropdown mb-6">
-                            <div tabIndex={0} role="button" className="btn btn-wide justify-start">
+                            <div tabIndex={0} role="button" className="btn btn-wide">
                                 {getLabel(deleteLogsOptions, deleteLogsOlderThan)}
                             </div>
                             <ul
@@ -215,7 +215,7 @@ const LogSettings = () => {
 
                         <button
                             type="button"
-                            className="btn btn-wide justify-start"
+                            className="btn btn-wide"
                             onClick={handleOpenLogFolder}
                         >
                             {t("settingPage.logSettings.openLogBtn")}
