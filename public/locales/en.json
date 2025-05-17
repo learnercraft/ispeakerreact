@@ -65,7 +65,14 @@
         "reviewUpdated": "Review updated successfully",
         "noRecording": "Please record first before reviewing",
         "appCrashCopySuccess": "Error log copied to clipboard",
-        "dataLoadFailed": "Error while loading the data for this section. Please check your Internet connection."
+        "dataLoadFailed": "Error while loading the data for this section. Please check your Internet connection.",
+        "folderChangeError": "Error changing the data folder. Reason:",
+        "folderRestricted": "Cannot use a system or restricted folder",
+        "folderNoWrite": "No write permission for this folder",
+        "folderNotDir": "Selected path is not a directory",
+        "folderChanged": "Data folder changed successfully",
+        "folderChangeUnknownError": "Unknown error",
+        "folderMoveError": "Error moving the data folder. Reason:"
     },
     "buttonConversationExam": {
         "watchBtn": "Watch",
@@ -1293,6 +1300,21 @@
             "deleteRecordingDataModalMessage": "Are you sure you want to delete saved texts and recordings? This action cannot be undone.",
             "resetModalHeading": "Confirm…",
             "resetConfirmBtn": "Confirm"
+        },
+        "saveFolderSettings": {
+            "saveFolderHeading": "Data location",
+            "saveFolderDescription": "The folder where the app stores its data. The data includes the downloaded video files, log files, and user recordings.",
+            "saveFolderOption": "Change folder",
+            "saveFolderResetBtn": "Reset to default",
+            "saveFolderChooseBtn": "Choose folder",
+            "saveFolderMovingTitle": "Moving files…",
+            "saveFolderCurrentFolder": "Current folder:",
+            "saveFolderMovingPhase": "{{phase, capitalize}}",
+            "saveFolderCopyPhase": "Copying files:",
+            "saveFolderDeletePhase": "Deleting files:",
+            "saveFolderMovingFiles": "files moved",
+            "saveFolderMovingBtn": "Please wait…",
+            "saveFolderMovingWarning": "Do not close the app while the files are being moved."
         }
     },
     "downloadPage": {
