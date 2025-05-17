@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
+import { LuExternalLink } from "react-icons/lu";
 import { isElectron } from "../../utils/isElectron";
 import VideoDownloadTable from "./VideoDownloadTable";
 
@@ -151,6 +152,7 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             <div className="my-4 flex justify-center gap-2">
                 <button type="button" className="btn btn-primary" onClick={handleOpenFolder}>
                     {t("settingPage.videoDownloadSettings.openDownloadBtn")}
+                    <LuExternalLink className="h-5 w-5" />
                 </button>
 
                 <button type="button" className="btn btn-secondary" onClick={checkDownloadedFiles}>
