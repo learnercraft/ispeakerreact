@@ -9,7 +9,7 @@ import ExerciseTimer from "./ExerciseTimer";
 import LanguageSwitcher from "./LanguageSwitcher";
 import LogSettings from "./LogSettings";
 import ResetSettings from "./ResetSettings";
-import SavedRecordingLocationMenu from "./savedRecordingLocationMenu";
+import SavedRecordingLocationMenu from "./SavedRecordingLocationMenu";
 import SaveFolderSettings from "./SaveFolderSettings";
 import VideoDownloadMenu from "./VideoDownloadMenu";
 import VideoDownloadSubPage from "./VideoDownloadSubPage";
