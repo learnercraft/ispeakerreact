@@ -1,7 +1,21 @@
+:root {
+    --font-sans:
+        "Inter", system-ui, -apple-system, Roboto, "Segoe UI", "Helvetica Neue", "Noto Sans",
+        Oxygen, Ubuntu, Cantarell, "Open Sans", Arial, sans-serif;
+    font-family: var(--font-sans);
+    --video-font-family: var(--font-sans, --font-serif, --font-mono);
+}
+
+/* Force Sonner toast to use Inter first */
+[data-sonner-toast],
+.sonner-toast,
+:where([data-sonner-toast]) :where([data-title]) :where([data-description]) {
+    font-family: var(--font-sans) !important;
+}
+
 @import "tailwindcss";
 @plugin "daisyui" {
-    themes:
-        dim --prefersdark;
+    themes: dim --prefersdark;
 }
 
 @plugin "daisyui/theme" {
@@ -48,7 +62,7 @@
     --size-field: 0.25rem;
     --border: 1px;
     --depth: 0;
-  }
+}
 
 @custom-variant dark (&:where([data-theme=dim], [data-theme=dim] *));
 
