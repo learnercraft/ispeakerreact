@@ -26,11 +26,16 @@ const SaveFolderSettings = () => {
         const handler = (_event, data) => {
             setMoveProgress(data);
             setMoveDialogOpen(true);
+            if (data.phase === "delete-done") {
+                setMoveDialogOpen(false);
+                setMoveProgress(null);
+                sonnerSuccessToast(t("toast.folderChanged"));
+            }
         };
         window.electron.ipcRenderer.on("move-folder-progress", handler);
         return () =>
             window.electron.ipcRenderer.removeAllListeners("move-folder-progress", handler);
-    }, []);
+    }, [t]);
 
     const handleChooseFolder = async () => {
         setLoading(true);
@@ -55,7 +60,6 @@ const SaveFolderSettings = () => {
                 if (result.success) {
                     setCustomFolder(selected);
                     setCurrentFolder(result.newPath || selected);
-                    sonnerSuccessToast(t("toast.folderChanged"));
                 } else {
                     let msg = t(`toast.${result.error}`);
                     if (result.reason) {
@@ -81,7 +85,6 @@ const SaveFolderSettings = () => {
             setMoveProgress(null);
             setCustomFolder(null);
             setCurrentFolder(result.newPath || "");
-            sonnerSuccessToast(t("toast.folderChanged"));
         } finally {
             setLoading(false);
         }
