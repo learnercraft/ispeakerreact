@@ -6,24 +6,7 @@ import path from "node:path";
 import process from "node:process";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
 import { generateLogFileName, writeUserSettings } from "./logOperations.js";
-
-// Helper: Windows system folder deny-list
-const isDeniedSystemFolder = (folderPath) => {
-    const denyList = [
-        process.env.SystemDrive + "\\", // e.g., C:\
-        process.env.SystemRoot, // e.g., C:\Windows
-        path.join(process.env.SystemDrive, "Program Files"),
-        path.join(process.env.SystemDrive, "Program Files (x86)"),
-        path.join(process.env.SystemDrive, "Users"),
-        app.getPath("userData"),
-        app.getPath("exe"),
-        app.getPath("appData"),
-    ].filter(Boolean);
-    const normalized = path.resolve(folderPath).toLowerCase();
-    return denyList.some(
-        (sysPath) => sysPath && normalized === path.resolve(sysPath).toLowerCase()
-    );
-};
+import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 
 // Helper: Recursively collect all files in a directory
 const getAllFiles = async (dir, base = dir) => {
@@ -126,7 +109,8 @@ const setCustomSaveFolderIPC = () => {
                         reason: "toast.folderNotDir",
                     };
                 }
-                if (process.platform === "win32" && isDeniedSystemFolder(folderPath)) {
+
+                if (isDeniedSystemFolder(folderPath)) {
                     console.log("Folder is restricted:", folderPath);
                     applog.error("Folder is restricted:", folderPath);
                     return {
@@ -135,7 +119,12 @@ const setCustomSaveFolderIPC = () => {
                         reason: "toast.folderRestricted",
                     };
                 }
-                const testFile = path.join(folderPath, `.__ispeakerreact_test_${Date.now()}`);
+
+                const testFile = path.join(
+                    folderPath,
+                    `.__ispeakerreact_test_${process.pid}_${Date.now()}`
+                );
+
                 try {
                     await fsPromises.writeFile(testFile, "test");
                     await fsPromises.unlink(testFile);
