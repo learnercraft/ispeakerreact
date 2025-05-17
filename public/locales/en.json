@@ -1315,6 +1315,10 @@
             "saveFolderMovingFiles": "files moved",
             "saveFolderMovingBtn": "Please wait…",
             "saveFolderMovingWarning": "Do not close the app while the files are being moved."
+        },
+        "savedRecordingLocationSettings": {
+            "savedRecordingLocationHeading": "Saved recording location",
+            "savedRecordingLocationBtn": "Open recording folder"
         }
     },
     "downloadPage": {
