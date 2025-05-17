@@ -1,14 +1,14 @@
 /* global setImmediate */ // for eslint because setImmediate is node global
 import cors from "cors";
 import crypto from "crypto";
-import { app, BrowserWindow, ipcMain, Menu, shell } from "electron";
+import { app, BrowserWindow, dialog, ipcMain, Menu, shell } from "electron";
 import applog from "electron-log";
 import express from "express";
 import fs from "fs";
-import * as fsPromises from "node:fs/promises";
 import JS7z from "js7z-tools";
 import net from "net";
 import { Buffer } from "node:buffer";
+import * as fsPromises from "node:fs/promises";
 import process from "node:process";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -28,9 +28,40 @@ let electronSquirrelStartup = false;
 try {
     electronSquirrelStartup = (await import("electron-squirrel-startup")).default;
 } catch (e) {
-    console.log(e);
+    console.log("Error importing electron-squirrel-startup:", e);
+    applog.error("Error importing electron-squirrel-startup:", e);
 }
 if (electronSquirrelStartup) app.quit();
+
+// Helper to get the path for storing user settings (cross-platform, persistent)
+const getUserSettingsPath = () => {
+    return path.join(app.getPath("userData"), "ispeakerreact_user_settings.json");
+};
+
+// Read user settings JSON (returns {} if not found or error)
+const readUserSettings = async () => {
+    const settingsPath = getUserSettingsPath();
+    try {
+        const data = await fsPromises.readFile(settingsPath, "utf-8");
+        return JSON.parse(data);
+    } catch {
+        return {};
+    }
+};
+
+let currentLogSettings = {
+    numOfLogs: 10,
+    keepForDays: 0,
+    logLevel: "info",
+    logFormat: "{h}:{i}:{s} {text}",
+    maxLogSize: 5 * 1024 * 1024,
+};
+
+// After defining currentLogSettings, load from user settings if present
+const userSettings = await readUserSettings();
+if (userSettings.logSettings) {
+    currentLogSettings = { ...currentLogSettings, ...userSettings.logSettings };
+}
 
 // Create Express server
 const expressApp = express();
@@ -83,17 +114,28 @@ async function startExpressServer() {
     });
 }
 
-const getSaveFolder = async () => {
-    const documentsPath = app.getPath("documents");
-    const saveFolder = path.join(documentsPath, "iSpeakerReact");
+// Write user settings JSON
+const writeUserSettings = async (settings) => {
+    const settingsPath = getUserSettingsPath();
+    await fsPromises.writeFile(settingsPath, JSON.stringify(settings, null, 2));
+};
 
+const getSaveFolder = async () => {
+    // Try to get custom folder from user settings
+    const userSettings = await readUserSettings();
+    let saveFolder;
+    if (userSettings.customSaveFolder) {
+        saveFolder = userSettings.customSaveFolder;
+    } else {
+        const documentsPath = app.getPath("documents");
+        saveFolder = path.join(documentsPath, "iSpeakerReact");
+    }
     // Ensure the directory exists
     try {
         await fsPromises.access(saveFolder);
     } catch {
         await fsPromises.mkdir(saveFolder, { recursive: true });
     }
-
     return saveFolder;
 };
 
@@ -110,8 +152,6 @@ const getLogFolder = async () => {
     return saveFolder;
 };
 
-const logDirectory = await getLogFolder();
-
 // Function to generate the log file name with date-time appended
 const generateLogFileName = () => {
     const date = new Date();
@@ -124,42 +164,28 @@ const generateLogFileName = () => {
     return `ispeakerreact-log_${year}-${month}-${day}_${hours}-${minutes}-${seconds}.log`;
 };
 
-ipcMain.handle("get-log-folder", async () => {
-    const logFolderPath = path.join(await getSaveFolder(), "logs");
-    try {
-        try {
-            await fsPromises.access(logFolderPath);
-        } catch {
-            await fsPromises.mkdir(logFolderPath);
-        }
-        return logFolderPath;
-    } catch (error) {
-        console.error("Error getting log folder path:", error);
-        applog.error("Error getting log folder path:", error);
-        return null;
-    }
-});
-
-// Default values
-let currentLogSettings = {
-    numOfLogs: 10,
-    keepForDays: 0,
-    logLevel: "info", // Default log level
-    logFormat: "{h}:{i}:{s} {text}", // Default log format
-    maxLogSize: 5 * 1024 * 1024, // Default max log size (5 MB)
-};
+// Global variable to hold the current log folder path
+let currentLogFolder = await getLogFolder();
 
 // Configure electron-log to use the log directory
 applog.transports.file.fileName = generateLogFileName();
 applog.transports.file.resolvePathFn = () =>
-    path.join(logDirectory, applog.transports.file.fileName);
+    path.join(currentLogFolder, applog.transports.file.fileName);
 applog.transports.file.maxSize = currentLogSettings.maxLogSize;
 applog.transports.console.level = currentLogSettings.logLevel;
 
+// Clean up logs on startup according to current settings
+manageLogFiles();
+
 // Handle updated log settings from the renderer
-ipcMain.on("update-log-settings", (event, newSettings) => {
+ipcMain.on("update-log-settings", async (event, newSettings) => {
     currentLogSettings = newSettings;
     applog.info("Log settings updated:", currentLogSettings);
+
+    // Save to user settings file
+    const userSettings = await readUserSettings();
+    userSettings.logSettings = currentLogSettings;
+    await writeUserSettings(userSettings);
 
     manageLogFiles();
 });
@@ -172,15 +198,23 @@ async function manageLogFiles() {
         applog.info("Log settings:", currentLogSettings);
 
         // Get all log files
-        const logFiles = (await fsPromises.readdir(logDirectory)).map(async (file) => {
-            const filePath = path.join(logDirectory, file);
-            const stats = await fsPromises.stat(filePath);
-            return {
-                path: filePath,
-                birthtime: stats.birthtime, // Creation time of the log file
-            };
-        });
-        const logFilesResolved = await Promise.all(logFiles);
+        const logFiles = await fsPromises.readdir(currentLogFolder);
+        const logFilesResolved = [];
+        for (const file of logFiles) {
+            const filePath = path.join(currentLogFolder, file);
+            try {
+                const stats = await fsPromises.stat(filePath);
+                logFilesResolved.push({
+                    path: filePath,
+                    birthtime: stats.birthtime,
+                });
+            } catch (err) {
+                if (err.code !== "ENOENT") {
+                    applog.error(`Error stating log file: ${filePath}`, err);
+                }
+                // If ENOENT, just skip this file
+            }
+        }
 
         // Sort log files by creation time (oldest first)
         logFilesResolved.sort((a, b) => a.birthtime - b.birthtime);
@@ -518,11 +552,10 @@ ipcMain.handle("get-port", () => {
     return server?.address()?.port || DEFAULT_PORT;
 });
 
-ipcMain.handle("open-log-folder", () => {
+ipcMain.handle("open-log-folder", async () => {
     // Open the folder in the file manager
-    shell.openPath(logDirectory); // Open the folder
-
-    return logDirectory; // Send the path back to the renderer
+    shell.openPath(currentLogFolder); // Open the folder
+    return currentLogFolder; // Send the path back to the renderer
 });
 
 // Function to calculate the SHA-256 hash of a file
@@ -849,3 +882,214 @@ app.whenReady()
         // Catch any errors thrown in the app.whenReady() promise itself
         applog.error("Error in app.whenReady():", error);
     });
+
+// IPC: Get current save folder (resolved)
+ipcMain.handle("get-save-folder", async () => {
+    return await getSaveFolder();
+});
+
+// IPC: Get current custom save folder (raw, may be undefined)
+ipcMain.handle("get-custom-save-folder", async () => {
+    const userSettings = await readUserSettings();
+    return userSettings.customSaveFolder || null;
+});
+
+// Helper: Windows system folder deny-list
+const isDeniedSystemFolder = (folderPath) => {
+    const denyList = [
+        process.env.SystemDrive + "\\", // e.g., C:\
+        process.env.SystemRoot, // e.g., C:\Windows
+        path.join(process.env.SystemDrive, "Program Files"),
+        path.join(process.env.SystemDrive, "Program Files (x86)"),
+        path.join(process.env.SystemDrive, "Users"),
+        app.getPath("userData"),
+        app.getPath("exe"),
+        app.getPath("appData"),
+    ].filter(Boolean);
+    const normalized = path.resolve(folderPath).toLowerCase();
+    return denyList.some(
+        (sysPath) => sysPath && normalized === path.resolve(sysPath).toLowerCase()
+    );
+};
+
+// Helper: Recursively collect all files in a directory
+async function getAllFiles(dir, base = dir) {
+    let files = [];
+    const entries = await fsPromises.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            files = files.concat(await getAllFiles(fullPath, base));
+        } else {
+            files.push({
+                abs: fullPath,
+                rel: path.relative(base, fullPath),
+            });
+        }
+    }
+    return files;
+}
+
+// Helper: Recursively remove empty directories
+async function removeEmptyDirs(dir) {
+    let isEmpty = true;
+    const entries = await fsPromises.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            const childEmpty = await removeEmptyDirs(fullPath);
+            if (childEmpty) {
+                await fsPromises.rmdir(fullPath).catch(() => {});
+            } else {
+                isEmpty = false;
+            }
+        } else {
+            isEmpty = false;
+        }
+    }
+    return isEmpty;
+}
+
+// Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
+async function moveFolderContents(src, dest, event) {
+    // Recursively collect all files for accurate progress
+    const files = await getAllFiles(src);
+    const total = files.length;
+    let moved = 0;
+    // 1. Copy all files
+    for (const file of files) {
+        const srcPath = file.abs;
+        const destPath = path.join(dest, file.rel);
+        await fsPromises.mkdir(path.dirname(destPath), { recursive: true });
+        await fsPromises.copyFile(srcPath, destPath);
+        moved++;
+        if (event)
+            event.sender.send("move-folder-progress", {
+                moved,
+                total,
+                phase: "copy",
+                name: file.rel,
+            });
+    }
+    // 2. Delete all originals (files only)
+    for (const file of files) {
+        const srcPath = file.abs;
+        await fsPromises.rm(srcPath, { force: true });
+        if (event)
+            event.sender.send("move-folder-progress", {
+                moved,
+                total,
+                phase: "delete",
+                name: file.rel,
+            });
+    }
+    // 3. Remove empty directories in src
+    await removeEmptyDirs(src);
+}
+
+// IPC: Set custom save folder with validation and move contents
+ipcMain.handle("set-custom-save-folder", async (event, folderPath) => {
+    const oldSaveFolder = await getSaveFolder();
+    let newSaveFolder;
+    if (!folderPath) {
+        // Reset to default
+        const userSettings = await readUserSettings();
+        delete userSettings.customSaveFolder;
+        await writeUserSettings(userSettings);
+        newSaveFolder = path.join(app.getPath("documents"), "iSpeakerReact");
+        console.log("Reset to default save folder:", newSaveFolder);
+        applog.info("Reset to default save folder:", newSaveFolder);
+    } else {
+        try {
+            await fsPromises.access(folderPath);
+            const stat = await fsPromises.stat(folderPath);
+            if (!stat.isDirectory()) {
+                console.log("Folder is not a directory:", folderPath);
+                applog.error("Folder is not a directory:", folderPath);
+                return { success: false, error: "folderChangeError", reason: "toast.folderNotDir" };
+            }
+            if (process.platform === "win32" && isDeniedSystemFolder(folderPath)) {
+                console.log("Folder is restricted:", folderPath);
+                applog.error("Folder is restricted:", folderPath);
+                return {
+                    success: false,
+                    error: "folderChangeError",
+                    reason: "toast.folderRestricted",
+                };
+            }
+            const testFile = path.join(folderPath, `.__ispeakerreact_test_${Date.now()}`);
+            try {
+                await fsPromises.writeFile(testFile, "test");
+                await fsPromises.unlink(testFile);
+            } catch {
+                console.log("Folder is not writable:", folderPath);
+                applog.error("Folder is not writable:", folderPath);
+                return {
+                    success: false,
+                    error: "folderChangeError",
+                    reason: "toast.folderNoWrite",
+                };
+            }
+            // All good, save
+            const userSettings = await readUserSettings();
+            userSettings.customSaveFolder = folderPath;
+            await writeUserSettings(userSettings);
+            newSaveFolder = folderPath;
+            console.log("New save folder:", newSaveFolder);
+            applog.info("New save folder:", newSaveFolder);
+        } catch (err) {
+            console.log("Error setting custom save folder:", err);
+            applog.error("Error setting custom save folder:", err);
+            return {
+                success: false,
+                error: "folderChangeError",
+                reason: err.message || "Unknown error",
+            };
+        }
+    }
+    // Move contents if needed
+    try {
+        if (
+            oldSaveFolder !== newSaveFolder &&
+            fs.existsSync(oldSaveFolder) &&
+            fs.existsSync(newSaveFolder) &&
+            !oldSaveFolder.startsWith(newSaveFolder) &&
+            !newSaveFolder.startsWith(oldSaveFolder)
+        ) {
+            await moveFolderContents(oldSaveFolder, newSaveFolder, event);
+        }
+        // Update log directory and file name to new save folder
+        currentLogFolder = path.join(newSaveFolder, "logs");
+        try {
+            await fsPromises.mkdir(currentLogFolder, { recursive: true });
+        } catch (e) {
+            console.log("Failed to create new log directory:", e);
+            applog.warn("Failed to create new log directory:", e);
+        }
+        applog.transports.file.fileName = generateLogFileName();
+        applog.transports.file.resolvePathFn = () =>
+            path.join(currentLogFolder, applog.transports.file.fileName);
+        applog.info("New log directory:", currentLogFolder);
+        console.log("New log directory:", currentLogFolder);
+        return { success: true, newPath: newSaveFolder };
+    } catch (moveErr) {
+        console.log("Failed to move folder contents:", moveErr);
+        applog.error("Failed to move folder contents:", moveErr);
+        return {
+            success: false,
+            error: "folderMoveError",
+            reason: moveErr.message || "Unknown move error",
+        };
+    }
+});
+
+// IPC: Show open dialog for folder selection
+ipcMain.handle("show-open-dialog", async (event, options) => {
+    const win = BrowserWindow.getFocusedWindow();
+    const result = await dialog.showOpenDialog(win, options);
+    return result.filePaths;
+});
+
+ipcMain.handle("get-log-settings", async () => {
+    return currentLogSettings;
+});

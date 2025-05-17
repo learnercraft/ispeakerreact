@@ -5,7 +5,6 @@ import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const LogSettings = () => {
     const { t } = useTranslation();
-
     const [, setFolderPath] = useState(null);
 
     const maxLogOptions = useMemo(
@@ -65,29 +64,39 @@ const LogSettings = () => {
         [t]
     );
 
-    // State initialization using the initial values from localStorage or defaults
-    const getInitialSettings = () => {
-        const storedSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
-        const electronSettings = storedSettings.electronSettings || {
-            numOfLogs: 10,
-            keepForDays: 0,
+    // Fetch initial settings from Electron main process
+    const [maxLogWritten, setMaxLogWritten] = useState("unlimited");
+    const [deleteLogsOlderThan, setDeleteLogsOlderThan] = useState("never");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let isMounted = true;
+        async function fetchLogSettings() {
+            try {
+                const settings = await window.electron.ipcRenderer.invoke("get-log-settings");
+                if (!isMounted) return;
+                // Find the corresponding options based on stored values
+                const initialMaxLog =
+                    maxLogOptions.find((option) => option.numOfLogs === settings.numOfLogs)
+                        ?.value || "unlimited";
+                const initialDeleteLog =
+                    deleteLogsOptions.find((option) => option.keepForDays === settings.keepForDays)
+                        ?.value || "never";
+                setMaxLogWritten(initialMaxLog);
+                setDeleteLogsOlderThan(initialDeleteLog);
+            } catch {
+                // fallback to defaults
+                setMaxLogWritten("unlimited");
+                setDeleteLogsOlderThan("never");
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchLogSettings();
+        return () => {
+            isMounted = false;
         };
-
-        // Find the corresponding options based on stored values
-        const initialMaxLog =
-            maxLogOptions.find((option) => option.numOfLogs === electronSettings.numOfLogs)
-                ?.value || "unlimited";
-
-        const initialDeleteLog =
-            deleteLogsOptions.find((option) => option.keepForDays === electronSettings.keepForDays)
-                ?.value || "never";
-
-        return { initialMaxLog, initialDeleteLog };
-    };
-
-    const { initialMaxLog, initialDeleteLog } = getInitialSettings();
-    const [maxLogWritten, setMaxLogWritten] = useState(initialMaxLog);
-    const [deleteLogsOlderThan, setDeleteLogsOlderThan] = useState(initialDeleteLog);
+    }, [maxLogOptions, deleteLogsOptions]);
 
     // Memoize the function so that it doesn't change on every render
     const handleApplySettings = useCallback(
@@ -104,21 +113,12 @@ const LogSettings = () => {
                 keepForDays: selectedDeleteLogOption.keepForDays,
             };
 
-            // Save the settings into localStorage under 'ispeaker'
-            const settings = JSON.parse(localStorage.getItem("ispeaker")) || {};
-            settings.electronSettings = electronSettings;
-            localStorage.setItem("ispeaker", JSON.stringify(settings));
-
-            console.log("Log settings applied:", electronSettings);
+            // Send the settings to Electron main process
             window.electron.ipcRenderer.send("update-log-settings", electronSettings);
+            sonnerSuccessToast(t("settingPage.changeSaved"));
         },
-        [maxLogOptions, deleteLogsOptions]
+        [maxLogOptions, deleteLogsOptions, t]
     );
-
-    // Automatically apply settings when maxLogWritten or deleteLogsOlderThan changes
-    useEffect(() => {
-        handleApplySettings(maxLogWritten, deleteLogsOlderThan);
-    }, [maxLogWritten, deleteLogsOlderThan, handleApplySettings]);
 
     // Helper function to get the label based on the current value
     const getLabel = (options, value) => {
@@ -132,9 +132,17 @@ const LogSettings = () => {
         setFolderPath(logFolder); // Save the folder path in state
     };
 
+    if (loading) {
+        return (
+            <div>
+                <span className="loading loading-spinner loading-md"></span>
+            </div>
+        );
+    }
+
     return (
         <>
-            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 md:flex-nowrap">
+            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 xl:flex-nowrap">
                 <div className="space-y-1">
                     <p className="text-base font-semibold">
                         {t("settingPage.logSettings.logSettingsHeading")}
@@ -143,7 +151,7 @@ const LogSettings = () => {
                         {t("settingPage.logSettings.logSettingsDescription")}
                     </p>
                 </div>
-                <div className="flex grow basis-1/2 justify-end">
+                <div className="flex grow basis-1/2 justify-center md:justify-end">
                     <div>
                         <p className="mb-2 text-base">
                             {t("settingPage.logSettings.numOfLogsOption")}
@@ -164,7 +172,10 @@ const LogSettings = () => {
                                             key={option.value}
                                             onClick={() => {
                                                 setMaxLogWritten(option.value);
-                                                sonnerSuccessToast(t("settingPage.changeSaved"));
+                                                handleApplySettings(
+                                                    option.value,
+                                                    deleteLogsOlderThan
+                                                );
                                             }}
                                         >
                                             {option.label}
@@ -192,7 +203,7 @@ const LogSettings = () => {
                                             className={`justify-start ${deleteLogsOlderThan === option.value ? "menu-active" : ""}`}
                                             onClick={() => {
                                                 setDeleteLogsOlderThan(option.value);
-                                                sonnerSuccessToast(t("settingPage.changeSaved"));
+                                                handleApplySettings(maxLogWritten, option.value);
                                             }}
                                         >
                                             {option.label}
