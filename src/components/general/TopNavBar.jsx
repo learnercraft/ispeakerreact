@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BsAlphabet, BsCardChecklist, BsChatText } from "react-icons/bs";
 import { CgMenuLeft } from "react-icons/cg";
 import { FaGithub } from "react-icons/fa";
@@ -9,45 +8,20 @@ import { PiExam } from "react-icons/pi";
 
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
+import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
 import openExternal from "../../utils/openExternal";
 
 const TopNavBar = () => {
     const { t } = useTranslation();
-    const { theme } = useTheme();
+    const { autoDetectedTheme } = useAutoDetectTheme();
     const location = useLocation();
-    const [, setCurrentTheme] = useState(theme);
-    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const logoSrc =
+        autoDetectedTheme === "dark"
+            ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
+            : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
 
-        const updateTheme = () => {
-            if (theme === "auto") {
-                const systemPrefersDark = mediaQuery.matches;
-                setCurrentTheme(systemPrefersDark ? "dark" : "light");
-                setIsDarkMode(systemPrefersDark);
-            } else {
-                setCurrentTheme(theme);
-                setIsDarkMode(theme === "dark");
-            }
-        };
-
-        updateTheme();
-        if (theme === "auto") {
-            mediaQuery.addEventListener("change", updateTheme);
-        }
-
-        return () => {
-            mediaQuery.removeEventListener("change", updateTheme);
-        };
-    }, [theme]);
-
-    const logoSrc = isDarkMode
-        ? `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background-darkmode.svg`
-        : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
-
-    const navbarClass = isDarkMode ? "bg-slate-600/50" : "bg-lime-300/75";
+    const navbarClass = autoDetectedTheme === "dark" ? "bg-slate-600/50" : "bg-lime-300/75";
 
     const menuItems = [
         {
@@ -226,9 +200,7 @@ const TopNavBar = () => {
                 <button
                     type="button"
                     className="btn btn-ghost no-animation flex items-center"
-                    onClick={() =>
-                        openExternal("https://github.com/learnercraft/ispeakerreact/")
-                    }
+                    onClick={() => openExternal("https://github.com/learnercraft/ispeakerreact/")}
                 >
                     <FaGithub size="1.5em" />
                     <span className="ms-1 hidden items-center space-x-1 md:inline-flex">
