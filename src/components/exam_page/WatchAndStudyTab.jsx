@@ -3,11 +3,11 @@ import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/l
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
 import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { isElectron } from "../../utils/isElectron";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
+import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) => {
     const { t } = useTranslation();
@@ -17,36 +17,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
     const imageModalRef = useRef(null);
     const [iframeLoading, setiFrameLoading] = useState(true);
 
-    const { theme } = useTheme();
-    const [, setCurrentTheme] = useState(theme);
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-        const updateTheme = () => {
-            if (theme === "auto") {
-                const systemPrefersDark = mediaQuery.matches;
-                setCurrentTheme(systemPrefersDark ? "dark" : "light");
-                setIsDarkMode(systemPrefersDark);
-            } else {
-                setCurrentTheme(theme);
-                setIsDarkMode(theme === "dark");
-            }
-        };
-
-        // Initial check and listener
-        updateTheme();
-        if (theme === "auto") {
-            mediaQuery.addEventListener("change", updateTheme);
-        }
-
-        return () => {
-            mediaQuery.removeEventListener("change", updateTheme);
-        };
-    }, [theme]);
-
-    const videoColorScheme = isDarkMode ? "dark" : "light";
+    const { autoDetectedTheme } = useAutoDetectTheme();
 
     const handleImageClick = (imageName) => {
         const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/fullsize/${imageName}.webp`;
@@ -183,7 +154,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={videoColorScheme}
+                                            colorScheme={autoDetectedTheme}
                                         />
                                         <Track
                                             src={subtitleUrl}

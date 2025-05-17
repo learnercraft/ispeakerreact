@@ -6,11 +6,13 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { isElectron } from "../../utils/isElectron";
+import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
     const [iframeLoading, setIframeLoading] = useState(true);
     const [localVideoUrl, setLocalVideoUrl] = useState(null);
     const [useOnlineVideo, setUseOnlineVideo] = useState(false);
+    const { autoDetectedTheme } = useAutoDetectTheme();
 
     useEffect(() => {
         const checkLocalVideo = async () => {
@@ -81,7 +83,7 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme="light"
+                                            colorScheme={autoDetectedTheme}
                                         />
                                     </MediaPlayer>
                                 ) : (

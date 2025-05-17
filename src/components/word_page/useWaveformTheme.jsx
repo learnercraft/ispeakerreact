@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const useWaveformTheme = (
-    theme,
     waveformLight,
     waveformDark,
     progressLight,
@@ -9,6 +9,7 @@ const useWaveformTheme = (
     cursorLight,
     cursorDark
 ) => {
+    const { autoDetectedTheme } = useAutoDetectTheme();
     const [colors, setColors] = useState({
         waveformColor: waveformLight,
         progressColor: progressLight,
@@ -16,29 +17,20 @@ const useWaveformTheme = (
     });
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-        const updateColors = () => {
-            const systemPrefersDark = mediaQuery.matches;
-            const isDarkMode = theme === "auto" ? systemPrefersDark : theme === "dark";
-
-            setColors({
-                waveformColor: isDarkMode ? waveformDark : waveformLight,
-                progressColor: isDarkMode ? progressDark : progressLight,
-                cursorColor: isDarkMode ? cursorDark : cursorLight,
-            });
-        };
-
-        updateColors();
-
-        if (theme === "auto") {
-            mediaQuery.addEventListener("change", updateColors);
-        }
-
-        return () => {
-            mediaQuery.removeEventListener("change", updateColors);
-        };
-    }, [theme, waveformLight, waveformDark, progressLight, progressDark, cursorLight, cursorDark]);
+        setColors({
+            waveformColor: autoDetectedTheme === "dark" ? waveformDark : waveformLight,
+            progressColor: autoDetectedTheme === "dark" ? progressDark : progressLight,
+            cursorColor: autoDetectedTheme === "dark" ? cursorDark : cursorLight,
+        });
+    }, [
+        autoDetectedTheme,
+        waveformLight,
+        waveformDark,
+        progressLight,
+        progressDark,
+        cursorLight,
+        cursorDark,
+    ]);
 
     return colors;
 };
