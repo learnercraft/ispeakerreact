@@ -9,6 +9,7 @@ import ExerciseTimer from "./ExerciseTimer";
 import LanguageSwitcher from "./LanguageSwitcher";
 import LogSettings from "./LogSettings";
 import ResetSettings from "./ResetSettings";
+import SaveFolderSettings from "./SaveFolderSettings";
 import VideoDownloadMenu from "./VideoDownloadMenu";
 import VideoDownloadSubPage from "./VideoDownloadSubPage";
 
@@ -67,6 +68,12 @@ const SettingsPage = () => {
                                             <VideoDownloadMenu
                                                 onClick={handleVideoDownloadMenuPage}
                                             />
+                                        </>
+                                    )}
+                                    {isElectron() && (
+                                        <>
+                                            <div className="divider"></div>
+                                            <SaveFolderSettings />
                                         </>
                                     )}
                                     {isElectron() && (
