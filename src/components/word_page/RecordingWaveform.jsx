@@ -11,7 +11,6 @@ import {
 } from "../../utils/databaseOperations";
 import { isElectron } from "../../utils/isElectron";
 import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
 import useWaveformTheme from "./useWaveformTheme";
 
 const getSupportedMimeType = () => {
@@ -36,8 +35,6 @@ const RecordingWaveform = ({
     isAudioLoading = false,
     t,
 }) => {
-    const { theme } = useTheme();
-
     const waveformRef = useRef(null);
     const [recording, setRecording] = useState(false);
     const [recordedUrl, setRecordedUrl] = useState(null);
@@ -55,7 +52,6 @@ const RecordingWaveform = ({
     const cursorDark = "hsl(82 84.5% 67.1%)"; // Dark mode progress color
 
     const { waveformColor, progressColor, cursorColor } = useWaveformTheme(
-        theme,
         waveformLight,
         waveformDark,
         progressLight,

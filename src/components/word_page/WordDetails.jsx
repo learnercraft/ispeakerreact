@@ -1,20 +1,17 @@
 import WavesurferPlayer from "@wavesurfer/react";
 import PropTypes from "prop-types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { VscFeedback } from "react-icons/vsc";
 import { checkRecordingExists } from "../../utils/databaseOperations";
 import openExternal from "../../utils/openExternal";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
 import RecordingWaveform from "./RecordingWaveform";
 import ReviewRecording from "./ReviewRecording";
 import { parseIPA } from "./syllableParser";
 import useWaveformTheme from "./useWaveformTheme";
 
 const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }) => {
-    const { theme } = useTheme();
-
     const [activeSyllable, setActiveSyllable] = useState(-1);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isAudioLoading, setIsAudioLoading] = useState(true); // State to track loading
@@ -33,7 +30,6 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
     const cursorDark = "hsl(258.3 89.5% 66.3%)"; // Dark mode progress color
 
     const { waveformColor, progressColor, cursorColor } = useWaveformTheme(
-        theme,
         waveformLight,
         waveformDark,
         progressLight,
@@ -199,7 +195,8 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                             <IoInformationCircleOutline
                                 className="h-6 w-6"
                                 onClick={() =>
-                                    wordPronunInfoModalRef.current && wordPronunInfoModalRef.current.showModal()
+                                    wordPronunInfoModalRef.current &&
+                                    wordPronunInfoModalRef.current.showModal()
                                 }
                             />
                         </button>
