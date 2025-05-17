@@ -142,8 +142,8 @@ const LogSettings = () => {
 
     return (
         <>
-            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 xl:flex-nowrap">
-                <div className="space-y-1">
+            <div className="flex flex-wrap gap-x-8 gap-y-6 md:flex-nowrap">
+                <div className="basis-full space-y-1 md:basis-1/2">
                     <p className="text-base font-semibold">
                         {t("settingPage.logSettings.logSettingsHeading")}
                     </p>

@@ -65,15 +65,15 @@ const SettingsPage = () => {
                                     {isElectron() && (
                                         <>
                                             <div className="divider"></div>
-                                            <VideoDownloadMenu
-                                                onClick={handleVideoDownloadMenuPage}
-                                            />
+                                            <SaveFolderSettings />
                                         </>
                                     )}
                                     {isElectron() && (
                                         <>
                                             <div className="divider"></div>
-                                            <SaveFolderSettings />
+                                            <VideoDownloadMenu
+                                                onClick={handleVideoDownloadMenuPage}
+                                            />
                                         </>
                                     )}
                                     {isElectron() && (
