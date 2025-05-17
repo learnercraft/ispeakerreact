@@ -12,6 +12,7 @@ import ResetSettings from "./ResetSettings";
 import SaveFolderSettings from "./SaveFolderSettings";
 import VideoDownloadMenu from "./VideoDownloadMenu";
 import VideoDownloadSubPage from "./VideoDownloadSubPage";
+import SavedRecordingLocationMenu from "./savedRecordingLocationMenu";
 
 const SettingsPage = () => {
     const { t } = useTranslation();
@@ -66,6 +67,12 @@ const SettingsPage = () => {
                                         <>
                                             <div className="divider"></div>
                                             <SaveFolderSettings />
+                                        </>
+                                    )}
+                                    {isElectron() && (
+                                        <>
+                                            <div className="divider"></div>
+                                            <SavedRecordingLocationMenu />
                                         </>
                                     )}
                                     {isElectron() && (
