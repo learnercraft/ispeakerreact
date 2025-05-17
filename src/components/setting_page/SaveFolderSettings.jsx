@@ -91,7 +91,7 @@ const SaveFolderSettings = () => {
 
     return (
         <>
-            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 xl:flex-nowrap">
+            <div className="flex flex-row flex-wrap gap-x-8 gap-y-6 md:flex-nowrap">
                 <div className="space-y-1">
                     <p className="text-base font-semibold">
                         {t("settingPage.saveFolderSettings.saveFolderHeading")}
@@ -154,8 +154,7 @@ const SaveFolderSettings = () => {
                                                               ? "saveFolderDeletePhase"
                                                               : "saveFolderMovingPhase"
                                                     }`
-                                                )}
-                                                {" "}
+                                                )}{" "}
                                                 <span lang="en" className="font-mono! break-all">
                                                     {moveProgress.name}
                                                 </span>
