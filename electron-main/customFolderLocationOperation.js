@@ -81,6 +81,12 @@ const moveFolderContents = async (src, dest, event) => {
     }
     // 3. Remove empty directories in src
     await removeEmptyDirs(src);
+    if (event)
+        event.sender.send("move-folder-progress", {
+            moved,
+            total,
+            phase: "delete-done",
+        });
 };
 
 // IPC: Set custom save folder with validation and move contents
