@@ -197,8 +197,14 @@ ipcMain.handle("open-log-folder", async () => {
 ipcMain.handle("open-recording-folder", async () => {
     // Open the folder in the file manager
     const recordingFolder = await getSaveFolder(readUserSettings);
-    await shell.openPath(path.join(recordingFolder, "saved_recordings")); // Open the folder
-    return recordingFolder; // Send the path back to the renderer
+    const recordingFolderPath = path.join(recordingFolder, "saved_recordings");
+    try {
+        await fsPromises.access(recordingFolderPath);
+    } catch {
+        await fsPromises.mkdir(recordingFolderPath, { recursive: true });
+    }
+    await shell.openPath(recordingFolderPath); // Open the folder
+    return recordingFolderPath; // Send the path back to the renderer
 });
 
 // IPC event to verify and extract a zip file
