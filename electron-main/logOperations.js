@@ -2,7 +2,7 @@ import { ipcMain } from "electron";
 import applog from "electron-log";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { getLogFolder, readUserSettings, settingsConf } from "./filePath.js";
+import { getLogFolder, getLogFolderSync, readUserSettings, settingsConf } from "./filePath.js";
 
 const defaultLogSettings = {
     numOfLogs: 10,
@@ -39,13 +39,12 @@ const generateLogFileName = () => {
     return `ispeakerreact-log_${year}-${month}-${day}_${hours}-${minutes}-${seconds}.log`;
 };
 
-// Global variable to hold the current log folder path
-let currentLogFolder = await getLogFolder(readUserSettings);
-
 // Configure electron-log to use the log directory
 applog.transports.file.fileName = generateLogFileName();
-applog.transports.file.resolvePathFn = () =>
-    path.join(currentLogFolder, applog.transports.file.fileName);
+applog.transports.file.resolvePathFn = () => {
+    const logFolder = getLogFolderSync();
+    return path.join(logFolder, applog.transports.file.fileName);
+};
 applog.transports.file.maxSize = currentLogSettings.maxLogSize;
 applog.transports.console.level = currentLogSettings.logLevel;
 
@@ -67,11 +66,14 @@ const manageLogFiles = async () => {
 
         applog.info("Log settings:", currentLogSettings);
 
+        // Get the current log folder dynamically
+        const logFolder = await getLogFolder(readUserSettings);
+
         // Get all log files
-        const logFiles = await fsPromises.readdir(currentLogFolder);
+        const logFiles = await fsPromises.readdir(logFolder);
         const logFilesResolved = [];
         for (const file of logFiles) {
-            const filePath = path.join(currentLogFolder, file);
+            const filePath = path.join(logFolder, file);
             try {
                 const stats = await fsPromises.stat(filePath);
                 logFilesResolved.push({

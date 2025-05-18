@@ -4,7 +4,7 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { getSaveFolder, settingsConf } from "./filePath.js";
+import { getSaveFolder, settingsConf, getDataSubfolder } from "./filePath.js";
 import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 import { generateLogFileName } from "./logOperations.js";
 
@@ -143,7 +143,20 @@ const setCustomSaveFolderIPC = () => {
                 }
                 // All good, save
                 settingsConf.set("customSaveFolder", folderPath);
-                newSaveFolder = folderPath;
+                // Use the data subfolder for all operations
+                newSaveFolder = getDataSubfolder(folderPath);
+                // Ensure the data subfolder exists
+                try {
+                    await fsPromises.mkdir(newSaveFolder, { recursive: true });
+                } catch (e) {
+                    console.log("Failed to create data subfolder:", e);
+                    applog.error("Failed to create data subfolder:", e);
+                    return {
+                        success: false,
+                        error: "folderChangeError",
+                        reason: e.message || "Unknown error",
+                    };
+                }
                 console.log("New save folder:", newSaveFolder);
                 applog.info("New save folder:", newSaveFolder);
             } catch (err) {
@@ -194,4 +207,3 @@ const setCustomSaveFolderIPC = () => {
 };
 
 export { setCustomSaveFolderIPC };
-

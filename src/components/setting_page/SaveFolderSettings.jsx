@@ -167,7 +167,7 @@ const SaveFolderSettings = () => {
                                                 value={moveProgress.moved}
                                                 max={moveProgress.total}
                                             ></progress>
-                                            <div className="mt-2 text-xs text-zinc-500">
+                                            <div className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
                                                 {moveProgress.moved} / {moveProgress.total}{" "}
                                                 {t(
                                                     "settingPage.saveFolderSettings.saveFolderMovingFiles"
