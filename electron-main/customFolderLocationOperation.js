@@ -4,9 +4,9 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { getSaveFolder, readUserSettings } from "./filePath.js";
-import { generateLogFileName, writeUserSettings } from "./logOperations.js";
+import { getSaveFolder, settingsConf } from "./filePath.js";
 import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
+import { generateLogFileName } from "./logOperations.js";
 
 // Helper: Recursively collect all files in a directory
 const getAllFiles = async (dir, base = dir) => {
@@ -92,13 +92,11 @@ const moveFolderContents = async (src, dest, event) => {
 // IPC: Set custom save folder with validation and move contents
 const setCustomSaveFolderIPC = () => {
     ipcMain.handle("set-custom-save-folder", async (event, folderPath) => {
-        const oldSaveFolder = await getSaveFolder(readUserSettings);
+        const oldSaveFolder = await getSaveFolder();
         let newSaveFolder;
         if (!folderPath) {
             // Reset to default
-            const userSettings = await readUserSettings();
-            delete userSettings.customSaveFolder;
-            await writeUserSettings(userSettings);
+            settingsConf.delete("customSaveFolder");
             newSaveFolder = path.join(app.getPath("documents"), "iSpeakerReact");
             console.log("Reset to default save folder:", newSaveFolder);
             applog.info("Reset to default save folder:", newSaveFolder);
@@ -144,9 +142,7 @@ const setCustomSaveFolderIPC = () => {
                     };
                 }
                 // All good, save
-                const userSettings = await readUserSettings();
-                userSettings.customSaveFolder = folderPath;
-                await writeUserSettings(userSettings);
+                settingsConf.set("customSaveFolder", folderPath);
                 newSaveFolder = folderPath;
                 console.log("New save folder:", newSaveFolder);
                 applog.info("New save folder:", newSaveFolder);
@@ -198,3 +194,4 @@ const setCustomSaveFolderIPC = () => {
 };
 
 export { setCustomSaveFolderIPC };
+

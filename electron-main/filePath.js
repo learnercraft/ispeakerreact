@@ -1,24 +1,16 @@
 import { app } from "electron";
+import { Conf } from "electron-conf/main";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 
-// Helper to get the path for storing user settings (cross-platform, persistent)
-const getUserSettingsPath = () => {
-    return path.join(app.getPath("userData"), "ispeakerreact_user_settings.json");
-};
+// Singleton instance for settings
+const settingsConf = new Conf({ name: "ispeakerreact_config" });
 
-// Read user settings JSON (returns {} if not found or error)
 const readUserSettings = async () => {
-    const settingsPath = getUserSettingsPath();
-    try {
-        const data = await fsPromises.readFile(settingsPath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return {};
-    }
+    return settingsConf.store || {};
 };
 
-const getSaveFolder = async (readUserSettings) => {
+const getSaveFolder = async () => {
     // Try to get custom folder from user settings
     const userSettings = await readUserSettings();
     let saveFolder;
@@ -37,8 +29,8 @@ const getSaveFolder = async (readUserSettings) => {
     return saveFolder;
 };
 
-const getLogFolder = async (readUserSettings) => {
-    const saveFolder = path.join(await getSaveFolder(readUserSettings), "logs");
+const getLogFolder = async () => {
+    const saveFolder = path.join(await getSaveFolder(), "logs");
     // Ensure the directory exists
     try {
         await fsPromises.access(saveFolder);
@@ -48,4 +40,4 @@ const getLogFolder = async (readUserSettings) => {
     return saveFolder;
 };
 
-export { getLogFolder, getSaveFolder, getUserSettingsPath, readUserSettings };
+export { getLogFolder, getSaveFolder, readUserSettings, settingsConf };

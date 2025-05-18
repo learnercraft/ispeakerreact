@@ -2,7 +2,7 @@ import { ipcMain } from "electron";
 import applog from "electron-log";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { getLogFolder, getUserSettingsPath, readUserSettings } from "./filePath.js";
+import { getLogFolder, readUserSettings, settingsConf } from "./filePath.js";
 
 const defaultLogSettings = {
     numOfLogs: 10,
@@ -14,9 +14,9 @@ const defaultLogSettings = {
 
 let currentLogSettings = { ...defaultLogSettings };
 
-const userSettings = await readUserSettings();
-if (userSettings.logSettings) {
-    currentLogSettings = { ...currentLogSettings, ...userSettings.logSettings };
+const userLogSettings = settingsConf.get("logSettings");
+if (userLogSettings) {
+    currentLogSettings = { ...currentLogSettings, ...userLogSettings };
 }
 
 const getCurrentLogSettings = () => {
@@ -25,12 +25,6 @@ const getCurrentLogSettings = () => {
 
 const setCurrentLogSettings = (newSettings) => {
     currentLogSettings = { ...currentLogSettings, ...newSettings };
-};
-
-// Write user settings JSON
-const writeUserSettings = async (settings) => {
-    const settingsPath = getUserSettingsPath();
-    await fsPromises.writeFile(settingsPath, JSON.stringify(settings, null, 2));
 };
 
 // Function to generate the log file name with date-time appended
@@ -61,9 +55,7 @@ ipcMain.on("update-log-settings", async (event, newSettings) => {
     applog.info("Log settings updated:", currentLogSettings);
 
     // Save to user settings file
-    const userSettings = await readUserSettings();
-    userSettings.logSettings = currentLogSettings;
-    await writeUserSettings(userSettings);
+    settingsConf.set("logSettings", currentLogSettings);
 
     manageLogFiles();
 });
@@ -134,10 +126,4 @@ const manageLogFiles = async () => {
     }
 };
 
-export {
-    generateLogFileName,
-    getCurrentLogSettings,
-    manageLogFiles,
-    setCurrentLogSettings,
-    writeUserSettings,
-};
+export { generateLogFileName, getCurrentLogSettings, manageLogFiles, setCurrentLogSettings };
