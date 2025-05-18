@@ -15,16 +15,31 @@ const getSaveFolder = async () => {
     const userSettings = await readUserSettings();
     let saveFolder;
     if (userSettings.customSaveFolder) {
-        saveFolder = userSettings.customSaveFolder;
+        // For custom folder, use a subfolder 'ispeakerreact_data'
+        const baseFolder = userSettings.customSaveFolder;
+        // Ensure the base directory exists
+        try {
+            await fsPromises.access(baseFolder);
+        } catch {
+            await fsPromises.mkdir(baseFolder, { recursive: true });
+        }
+        saveFolder = path.join(baseFolder, "ispeakerreact_data");
+        // Ensure the 'ispeakerreact_data' subfolder exists
+        try {
+            await fsPromises.access(saveFolder);
+        } catch {
+            await fsPromises.mkdir(saveFolder, { recursive: true });
+        }
     } else {
+        // For default, just use Documents/iSpeakerReact
         const documentsPath = app.getPath("documents");
         saveFolder = path.join(documentsPath, "iSpeakerReact");
-    }
-    // Ensure the directory exists
-    try {
-        await fsPromises.access(saveFolder);
-    } catch {
-        await fsPromises.mkdir(saveFolder, { recursive: true });
+        // Ensure the directory exists
+        try {
+            await fsPromises.access(saveFolder);
+        } catch {
+            await fsPromises.mkdir(saveFolder, { recursive: true });
+        }
     }
     return saveFolder;
 };
@@ -40,4 +55,30 @@ const getLogFolder = async () => {
     return saveFolder;
 };
 
-export { getLogFolder, getSaveFolder, readUserSettings, settingsConf };
+// Helper to get the data subfolder path
+const getDataSubfolder = (baseFolder) => {
+    return path.join(baseFolder, "ispeakerreact_data");
+};
+
+// Synchronous version to get the log folder path
+const getLogFolderSync = () => {
+    let saveFolder;
+    const userSettings = settingsConf.store || {};
+    if (userSettings.customSaveFolder) {
+        // For custom folder, use the data subfolder
+        saveFolder = path.join(userSettings.customSaveFolder, "ispeakerreact_data");
+    } else {
+        const documentsPath = app.getPath("documents");
+        saveFolder = path.join(documentsPath, "iSpeakerReact");
+    }
+    return path.join(saveFolder, "logs");
+};
+
+export {
+    getDataSubfolder,
+    getLogFolder,
+    getLogFolderSync,
+    getSaveFolder,
+    readUserSettings,
+    settingsConf,
+};
