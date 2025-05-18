@@ -4,7 +4,7 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { getSaveFolder, settingsConf, getDataSubfolder } from "./filePath.js";
+import { getSaveFolder, settingsConf, getDataSubfolder, deleteEmptyDataSubfolder } from "./filePath.js";
 import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 import { generateLogFileName } from "./logOperations.js";
 
@@ -94,8 +94,13 @@ const setCustomSaveFolderIPC = () => {
     ipcMain.handle("set-custom-save-folder", async (event, folderPath) => {
         const oldSaveFolder = await getSaveFolder();
         let newSaveFolder;
+        let prevCustomFolder = null;
         if (!folderPath) {
             // Reset to default
+            const userSettings = settingsConf.store || {};
+            if (userSettings.customSaveFolder) {
+                prevCustomFolder = userSettings.customSaveFolder;
+            }
             settingsConf.delete("customSaveFolder");
             newSaveFolder = path.join(app.getPath("documents"), "iSpeakerReact");
             console.log("Reset to default save folder:", newSaveFolder);
@@ -193,6 +198,10 @@ const setCustomSaveFolderIPC = () => {
                 path.join(currentLogFolder, applog.transports.file.fileName);
             applog.info("New log directory:", currentLogFolder);
             console.log("New log directory:", currentLogFolder);
+            // Only delete the empty ispeakerreact_data subfolder after all operations are finished
+            if (prevCustomFolder) {
+                await deleteEmptyDataSubfolder(prevCustomFolder);
+            }
             return { success: true, newPath: newSaveFolder };
         } catch (moveErr) {
             console.log("Failed to move folder contents:", moveErr);
