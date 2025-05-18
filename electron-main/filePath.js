@@ -74,6 +74,21 @@ const getLogFolderSync = () => {
     return path.join(saveFolder, "logs");
 };
 
+// Helper to delete the empty ispeakerreact_data subfolder
+const deleteEmptyDataSubfolder = async (baseFolder) => {
+    const dataFolder = path.join(baseFolder, "ispeakerreact_data");
+    try {
+        const files = await fsPromises.readdir(dataFolder);
+        if (files.length === 0) {
+            await fsPromises.rmdir(dataFolder);
+            return true;
+        }
+    } catch {
+        // Folder does not exist or other error, ignore
+    }
+    return false;
+};
+
 export {
     getDataSubfolder,
     getLogFolder,
@@ -81,4 +96,5 @@ export {
     getSaveFolder,
     readUserSettings,
     settingsConf,
+    deleteEmptyDataSubfolder,
 };
