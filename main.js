@@ -306,7 +306,7 @@ ipcMain.handle("get-log-settings", async () => {
 
 // DEBUG: Trace undefined logs
 const origConsoleLog = console.log;
-console.log = function (...args) {
+console.log =  (...args) => {
     if (args.length === 1 && args[0] === undefined) {
         origConsoleLog.call(console, "console.log(undefined) called! Stack trace:");
         origConsoleLog.call(console, new Error().stack);

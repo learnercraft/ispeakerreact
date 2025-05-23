@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../ui/Container";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import TopNavBar from "../general/TopNavBar";
 import AppearanceSettings from "./Appearance";
 import AppInfo from "./AppInfo";

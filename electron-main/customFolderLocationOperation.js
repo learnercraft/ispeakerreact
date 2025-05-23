@@ -1,10 +1,15 @@
 import { app, ipcMain } from "electron";
 import applog from "electron-log";
 import fs from "node:fs";
-import fsPromises from "node:fs/promises";
+import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { getSaveFolder, settingsConf, getDataSubfolder, deleteEmptyDataSubfolder } from "./filePath.js";
+import {
+    getSaveFolder,
+    settingsConf,
+    getDataSubfolder,
+    deleteEmptyDataSubfolder,
+} from "./filePath.js";
 import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 import { generateLogFileName } from "./logOperations.js";
 
@@ -24,26 +29,6 @@ const getAllFiles = async (dir, base = dir) => {
         }
     }
     return files;
-};
-
-// Helper: Recursively remove empty directories
-const removeEmptyDirs = async (dir) => {
-    let isEmpty = true;
-    const entries = await fsPromises.readdir(dir, { withFileTypes: true });
-    for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-            const childEmpty = await removeEmptyDirs(fullPath);
-            if (childEmpty) {
-                await fsPromises.rmdir(fullPath).catch(() => {});
-            } else {
-                isEmpty = false;
-            }
-        } else {
-            isEmpty = false;
-        }
-    }
-    return isEmpty;
 };
 
 // Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
@@ -68,9 +53,11 @@ const moveFolderContents = async (src, dest, event) => {
             });
     }
     // 2. Delete all originals (files only)
+    moved = 0;
     for (const file of files) {
         const srcPath = file.abs;
         await fsPromises.rm(srcPath, { force: true });
+        moved++;
         if (event)
             event.sender.send("move-folder-progress", {
                 moved,
@@ -79,13 +66,44 @@ const moveFolderContents = async (src, dest, event) => {
                 name: file.rel,
             });
     }
-    // 3. Remove empty directories in src
-    await removeEmptyDirs(src);
+    // 3. Remove empty directories in src (track progress for dirs)
+    // We'll collect all directories and send progress for each
+    const collectDirs = async (dir) => {
+        let dirs = [dir];
+        const entries = await fsPromises.readdir(dir, { withFileTypes: true });
+        for (const entry of entries) {
+            if (entry.isDirectory()) {
+                const fullPath = path.join(dir, entry.name);
+                dirs = dirs.concat(await collectDirs(fullPath));
+            }
+        }
+        return dirs;
+    };
+    const allDirs = await collectDirs(src);
+    let dirDeleted = 0;
+    for (const dirPath of allDirs.reverse()) {
+        // delete from deepest
+        try {
+            await fsPromises.rmdir(dirPath);
+            dirDeleted++;
+            if (event) {
+                event.sender.send("move-folder-progress", {
+                    moved: dirDeleted,
+                    total: allDirs.length,
+                    phase: "delete-dir",
+                    name: path.relative(src, dirPath) || ".",
+                });
+            }
+        } catch {
+            // Intentionally ignore errors if directory is not empty or already removed
+        }
+    }
     if (event)
         event.sender.send("move-folder-progress", {
-            moved,
+            moved: total,
             total,
             phase: "delete-done",
+            name: null,
         });
 };
 

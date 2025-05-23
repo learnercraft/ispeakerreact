@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 import { useScrollTo } from "../../utils/useScrollTo";
 import LoadingOverlay from "../general/LoadingOverlay";

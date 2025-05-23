@@ -23,7 +23,7 @@ i18n.use(HttpApi) // Load translations via HTTP (use with i18next-http-backend)
         },
         interpolation: {
             escapeValue: false, // React already escapes values
-            format: function (value, format) {
+            format: (value, format) => {
                 if (format === "capitalize") {
                     if (typeof value !== "string") return value;
                     return value.charAt(0).toUpperCase() + value.slice(1);

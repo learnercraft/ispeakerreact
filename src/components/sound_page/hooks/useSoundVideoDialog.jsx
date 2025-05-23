@@ -3,7 +3,7 @@ import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/l
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { useAutoDetectTheme } from "../../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../../utils/ThemeContext/useAutoDetectTheme";
 import { SoundVideoDialogContext } from "./useSoundVideoDialogContext";
 
 export const SoundVideoDialogProvider = ({ children, t }) => {

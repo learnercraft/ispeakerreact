@@ -9,8 +9,12 @@ import {
     playRecording,
     saveRecording,
 } from "../../utils/databaseOperations";
-import { isElectron } from "../../utils/isElectron";
-import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import isElectron from "../../utils/isElectron";
+import {
+    sonnerErrorToast,
+    sonnerSuccessToast,
+    sonnerWarningToast,
+} from "../../utils/sonnerCustomToast";
 
 const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
     const { t } = useTranslation();
@@ -151,7 +155,7 @@ const PracticeTab = ({ accent, conversationId, dialog = [] }) => {
             const store = transaction.objectStore("conversation_data");
             const request = store.get(textKey);
 
-            request.onsuccess = function () {
+            request.onsuccess = () => {
                 if (request.result && request.result.text) {
                     setTextValue(request.result.text);
                 }

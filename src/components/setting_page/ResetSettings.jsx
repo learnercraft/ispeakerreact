@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const ResetSettings = () => {

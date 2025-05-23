@@ -4,7 +4,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
 import { LuExternalLink } from "react-icons/lu";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import VideoDownloadTable from "./VideoDownloadTable";
 
 const VideoDownloadSubPage = ({ onGoBack }) => {
