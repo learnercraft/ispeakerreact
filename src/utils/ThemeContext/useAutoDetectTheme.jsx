@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "./useTheme";
 
-export function useAutoDetectTheme() {
+const useAutoDetectTheme = () => {
     const { theme } = useTheme();
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [autoDetectedTheme, setAutoDetectedTheme] = useState(theme);
@@ -30,4 +30,6 @@ export function useAutoDetectTheme() {
     }, [theme]);
 
     return { isDarkMode, autoDetectedTheme };
-}
+};
+
+export default useAutoDetectTheme;

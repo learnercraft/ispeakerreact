@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 import applog from "electron-log";
-import fsPromises from "node:fs/promises";
+import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getLogFolder, getLogFolderSync, readUserSettings, settingsConf } from "./filePath.js";
 

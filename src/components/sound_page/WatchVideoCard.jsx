@@ -5,8 +5,8 @@ import "@vidstack/react/player/styles/default/theme.css";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { isElectron } from "../../utils/isElectron";
-import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
+import isElectron from "../../utils/isElectron";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
     const [iframeLoading, setIframeLoading] = useState(true);

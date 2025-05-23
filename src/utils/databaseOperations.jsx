@@ -1,20 +1,20 @@
 import { fixWebmDuration } from "@fix-webm-duration/fix";
-import { isElectron } from "./isElectron";
+import isElectron from "./isElectron";
 
 let db;
 
 // Helper function to convert Blob to ArrayBuffer
-async function blobToArrayBuffer(blob) {
+const blobToArrayBuffer = (blob) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
         reader.readAsArrayBuffer(blob);
     });
-}
+};
 
 // Open IndexedDB database
-export function openDatabase() {
+const openDatabase = () => {
     return new Promise((resolve, reject) => {
         if (db) {
             resolve(db);
@@ -23,17 +23,17 @@ export function openDatabase() {
 
         const request = window.indexedDB.open("iSpeaker_data", 1);
 
-        request.onerror = function (event) {
+        request.onerror = (event) => {
             console.error("Database error: ", event.target.error);
             reject(event.target.error);
         };
 
-        request.onsuccess = function (event) {
+        request.onsuccess = (event) => {
             db = event.target.result;
             resolve(db);
         };
 
-        request.onupgradeneeded = function (event) {
+        request.onupgradeneeded = (event) => {
             const db = event.target.result;
 
             // Create required object stores if they don't exist
@@ -45,10 +45,10 @@ export function openDatabase() {
             });
         };
     });
-}
+};
 
 // Save recording to either Electron or IndexedDB
-export async function saveRecording(blob, key, mimeType, duration) {
+const saveRecording = async (blob, key, mimeType, duration) => {
     // If duration is not provided, calculate it from the blob
     if (!duration) {
         const audioContext = new AudioContext();
@@ -93,10 +93,10 @@ export async function saveRecording(blob, key, mimeType, duration) {
             console.error("Error saving recording to IndexedDB:", error);
         }
     }
-}
+};
 
 // Check if recording exists
-export async function checkRecordingExists(key) {
+const checkRecordingExists = async (key) => {
     if (isElectron()) {
         return window.electron.checkRecordingExists(key);
     } else {
@@ -120,10 +120,10 @@ export async function checkRecordingExists(key) {
             return false;
         }
     }
-}
+};
 
 // Play recording from either Electron or IndexedDB
-export async function playRecording(key, onSuccess, onError, onEnded) {
+const playRecording = async (key, onSuccess, onError, onEnded) => {
     if (isElectron()) {
         try {
             // Get the audio data as an ArrayBuffer from the main process
@@ -171,7 +171,7 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
             const store = transaction.objectStore("recording_data");
             const request = store.get(key);
 
-            request.onsuccess = async function () {
+            request.onsuccess = async () => {
                 const { recording, mimeType } = request.result;
 
                 try {
@@ -218,4 +218,6 @@ export async function playRecording(key, onSuccess, onError, onEnded) {
             if (onError) onError(error);
         }
     }
-}
+};
+
+export { checkRecordingExists, openDatabase, playRecording, saveRecording };

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoWarningOutline } from "react-icons/io5";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 
 const SaveFolderSettings = () => {

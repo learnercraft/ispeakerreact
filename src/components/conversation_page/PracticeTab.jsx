@@ -9,7 +9,7 @@ import {
     playRecording,
     saveRecording,
 } from "../../utils/databaseOperations";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,
@@ -40,7 +40,7 @@ const PracticeTab = ({ accent, conversationId }) => {
             const store = transaction.objectStore("conversation_data");
             const request = store.get(textKey);
 
-            request.onsuccess = function () {
+            request.onsuccess = () => {
                 if (request.result && request.result.text) {
                     setTextValue(request.result.text);
                 }

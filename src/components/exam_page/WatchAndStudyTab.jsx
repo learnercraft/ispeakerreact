@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
-import { isElectron } from "../../utils/isElectron";
-import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
+import isElectron from "../../utils/isElectron";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) => {
     const { t } = useTranslation();
