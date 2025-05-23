@@ -1,11 +1,19 @@
-export function isElectron() {
+const isElectron = () => {
     // Renderer process
-    if (typeof window !== "undefined" && typeof window.process === "object" && window.process.type === "renderer") {
+    if (
+        typeof window !== "undefined" &&
+        typeof window.process === "object" &&
+        window.process.type === "renderer"
+    ) {
         return true;
     }
 
     // Main process
-    if (typeof process !== "undefined" && typeof process.versions === "object" && !!process.versions.electron) {
+    if (
+        typeof process !== "undefined" &&
+        typeof process.versions === "object" &&
+        !!process.versions.electron
+    ) {
         return true;
     }
 
@@ -19,4 +27,6 @@ export function isElectron() {
     }
 
     return false;
-}
+};
+
+export default isElectron;

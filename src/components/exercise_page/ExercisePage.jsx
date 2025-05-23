@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
 import AccentDropdown from "../general/AccentDropdown";
 import LoadingOverlay from "../general/LoadingOverlay";

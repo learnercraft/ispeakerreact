@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const LogoLightOrDark = ({ width, height }) => {
     const { autoDetectedTheme } = useAutoDetectTheme();

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import ThemeProviderContext from "./ThemeProviderContext";
 
-export function ThemeProvider({
+const ThemeProvider = ({
     children,
     defaultTheme = "auto",
     storageKey = "ispeakerreact-ui-theme",
-}) {
+}) => {
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem(storageKey) || defaultTheme;
     });
@@ -60,4 +60,6 @@ export function ThemeProvider({
     };
 
     return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
-}
+};
+
+export default ThemeProvider;

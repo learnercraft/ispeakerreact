@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import { useScrollTo } from "../../utils/useScrollTo";
 import AccentDropdown from "../general/AccentDropdown";
 import TopNavBar from "../general/TopNavBar";

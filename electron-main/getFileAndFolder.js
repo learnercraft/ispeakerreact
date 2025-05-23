@@ -1,5 +1,5 @@
 import { ipcMain, shell } from "electron";
-import fsPromises from "node:fs/promises";
+import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
 

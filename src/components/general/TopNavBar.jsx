@@ -8,7 +8,7 @@ import { PiExam } from "react-icons/pi";
 
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
-import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
 import openExternal from "../../utils/openExternal";
 
 const TopNavBar = () => {
