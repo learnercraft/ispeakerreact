@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAutoDetectTheme } from "../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
 
 const useWaveformTheme = (
     waveformLight,

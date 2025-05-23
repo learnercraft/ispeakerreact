@@ -9,7 +9,7 @@ import {
     playRecording,
     saveRecording,
 } from "../../utils/databaseOperations";
-import { isElectron } from "../../utils/isElectron";
+import isElectron from "../../utils/isElectron";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,

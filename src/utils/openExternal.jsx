@@ -1,4 +1,4 @@
-import { isElectron } from "./isElectron";
+import isElectron from "./isElectron";
 
 const openExternal = (url) => {
     if (isElectron()) {

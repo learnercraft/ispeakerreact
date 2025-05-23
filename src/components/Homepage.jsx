@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Container from "../ui/Container";
-import { isElectron } from "../utils/isElectron";
+import isElectron from "../utils/isElectron";
 import Footer from "./general/Footer";
 import LogoLightOrDark from "./general/LogoLightOrDark";
 import TopNavBar from "./general/TopNavBar";
 
-function Homepage() {
+const Homepage = () => {
     const { t } = useTranslation();
 
     const navigate = useNavigate();
@@ -125,6 +125,6 @@ function Homepage() {
             <Footer />
         </>
     );
-}
+};
 
 export default Homepage;
