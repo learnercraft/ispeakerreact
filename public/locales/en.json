@@ -1309,10 +1309,10 @@
             "saveFolderChooseBtn": "Choose folder",
             "saveFolderMovingTitle": "Moving files…",
             "saveFolderCurrentFolder": "Current folder:",
-            "saveFolderMovingPhase": "{{phase, capitalize}}",
+            "saveFolderDeleteEmptyDirPhase": "Deleting empty directories:",
             "saveFolderCopyPhase": "Copying files:",
             "saveFolderDeletePhase": "Deleting files:",
-            "saveFolderMovingFiles": "files moved",
+            "saveFolderMovingFiles": "files processed",
             "saveFolderMovingBtn": "Please wait…",
             "saveFolderMovingWarning": "Do not close the app while the files are being moved."
         },
