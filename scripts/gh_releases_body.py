@@ -31,7 +31,7 @@ try:
     release_data = response.json()
 
     # Debug: Print the keys in the response
-    print(f"DEBUG: Response keys: {list(release_data.keys())}", file=sys.stderr)
+    #print(f"DEBUG: Response keys: {list(release_data.keys())}", file=sys.stderr)
 
 except requests.exceptions.RequestException as e:
     print(f"ERROR: Failed to fetch release data: {e}", file=sys.stderr)
@@ -66,55 +66,40 @@ windows_downloads = []
 macos_downloads = []
 linux_downloads = []
 
-# First, collect all Windows downloads
 for asset in assets:
     asset_name = asset["name"]
     download_url = asset["browser_download_url"]
-    if "win32" in asset_name:
-        is_portable = "Setup.exe" not in asset_name
-        is_arm64 = "arm64" in asset_name
-
-        # Create tuple for sorting: (is_portable, is_arm64, label, url)
-        if is_portable:
-            label = "Portable version"
-            if is_arm64:
-                label += " for Windows ARM"
-            windows_downloads.append((True, is_arm64, label, download_url))
-        else:
-            label = "Installer version"
-            if is_arm64:
-                label += " for Windows ARM"
-            windows_downloads.append((False, is_arm64, label, download_url))
-    elif asset_name.endswith(".dmg"):
-        if "arm64" in asset_name:
-            label = "For Mac with Apple Silicon chip"
-        else:
-            label = "For Mac with Intel chip"
-        macos_downloads.append(f"- [{label}]({download_url})")
-    elif (
-        asset_name.endswith(".zip")
-        or asset_name.endswith(".deb")
-        or asset_name.endswith(".rpm")
-    ):
-        linux_downloads.append(f"- [{asset_name}]({download_url})")
-
-# Sort Windows downloads: portable first, then x64 before arm64
-windows_downloads.sort(key=lambda x: (not x[0], x[1]))
-windows_formatted = [f"- [{item[2]}]({item[3]})" for item in windows_downloads]
+    # Windows
+    if asset_name.startswith("iSpeakerReact-win32-x64") and asset_name.endswith(".zip"):
+        windows_downloads.append(f"- [Windows x64 ZIP]({download_url})")
+    elif asset_name.startswith("iSpeakerReact-win32-arm64") and asset_name.endswith(".zip"):
+        windows_downloads.append(f"- [Windows ARM64 ZIP]({download_url})")
+    # macOS
+    elif asset_name.startswith("iSpeakerReact-darwin-x64") and asset_name.endswith(".zip"):
+        macos_downloads.append(f"- [macOS Intel (x64) ZIP]({download_url})")
+    elif asset_name.startswith("iSpeakerReact-darwin-arm64") and asset_name.endswith(".zip"):
+        macos_downloads.append(f"- [macOS Apple Silicon (arm64) ZIP]({download_url})")
+    # Linux
+    elif asset_name.startswith("iSpeakerReact-linux-x64") and asset_name.endswith(".zip"):
+        linux_downloads.append(f"- [Linux x64 ZIP]({download_url})")
+    elif asset_name.endswith(".deb"):
+        linux_downloads.append(f"- [DEB package]({download_url})")
+    elif asset_name.endswith(".rpm"):
+        linux_downloads.append(f"- [RPM package]({download_url})")
 
 # Build markdown
 markdown = f"""## Download
 
 ### Windows
-{"\n".join(windows_formatted)}
+{chr(10).join(windows_downloads)}
 
 This app requires Windows 10 or later.
 
 ### macOS
-{"\n".join(macos_downloads)}
+{chr(10).join(macos_downloads)}
 
 ### Linux
-{"\n".join(linux_downloads)}
+{chr(10).join(linux_downloads)}
 
 There is no AppImage version for this app yet.
 
