@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BsPauseFill, BsPlayFill, BsRecordFill, BsStopFill } from "react-icons/bs";
+import {
+    BsPauseCircle,
+    BsPlayCircle,
+    BsRecordCircle,
+    BsStopCircle,
+    BsClipboard2Check,
+} from "react-icons/bs";
 import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record";
 import {
@@ -12,6 +18,7 @@ import {
 import isElectron from "../../utils/isElectron";
 import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
 import useWaveformTheme from "./useWaveformTheme";
+import PronunciationChecker from "./PronunciationChecker";
 
 const getSupportedMimeType = () => {
     const mimeTypes = ["audio/webm", "audio/ogg", "audio/wav", "audio/mpeg", "audio/mp4"];
@@ -33,6 +40,7 @@ const RecordingWaveform = ({
     onActivityChange = null,
     onRecordingSaved = null,
     isAudioLoading = false,
+    displayPronunciation,
     t,
 }) => {
     const waveformRef = useRef(null);
@@ -43,6 +51,7 @@ const RecordingWaveform = ({
     const [isPlaying, setIsPlaying] = useState(false);
     const [, setRecordingTime] = useState(0);
     const recordingInterval = useRef(null);
+    const [pronunciationLoading, setPronunciationLoading] = useState(false);
 
     const waveformLight = "hsl(224.3 76.3% 48%)"; // Light mode waveform color
     const waveformDark = "hsl(213.1 93.9% 67.8%)"; // Dark mode waveform color
@@ -253,45 +262,56 @@ const RecordingWaveform = ({
                 ></div>
             </div>
 
-            <div className="flex w-full place-items-center justify-center space-x-4">
+            <div className="flex w-full flex-wrap place-items-center justify-center gap-4 md:gap-2">
                 <button
                     type="button"
                     id="record"
-                    title={
-                        recording
-                            ? t("buttonConversationExam.stopRecordBtn")
-                            : t("buttonConversationExam.recordBtn")
-                    }
-                    className="btn btn-circle btn-accent"
+                    className="btn btn-accent"
                     onClick={handleRecordClick}
-                    disabled={disableControls || isPlaying || isAudioLoading}
+                    disabled={
+                        disableControls || isPlaying || isAudioLoading || pronunciationLoading
+                    }
                 >
                     {recording ? (
-                        <BsStopFill className="h-6 w-6" />
+                        <>
+                            <BsStopCircle className="h-5 w-5" />{" "}
+                            {t("buttonConversationExam.stopRecordBtn")}
+                        </>
                     ) : (
-                        <BsRecordFill className="h-6 w-6" />
+                        <>
+                            <BsRecordCircle className="h-5 w-5" />{" "}
+                            {t("buttonConversationExam.recordBtn")}
+                        </>
                     )}
                 </button>
 
                 <button
                     type="button"
                     id="play"
-                    className="btn btn-circle btn-primary"
+                    className="btn btn-primary"
                     onClick={handlePlayPause}
                     disabled={!recordedUrl || disableControls || isAudioLoading}
-                    title={
-                        wavesurfer?.isPlaying()
-                            ? t("wordPage.pauseRecordingBtn")
-                            : t("buttonConversationExam.playBtn")
-                    }
                 >
                     {wavesurfer?.isPlaying() ? (
-                        <BsPauseFill className="h-6 w-6" />
+                        <>
+                            <BsPauseCircle className="h-5 w-5" /> {t("wordPage.pauseRecordingBtn")}
+                        </>
                     ) : (
-                        <BsPlayFill className="h-6 w-6" />
+                        <>
+                            <BsPlayCircle className="h-5 w-5" />{" "}
+                            {t("buttonConversationExam.playBtn")}
+                        </>
                     )}
                 </button>
             </div>
+
+            <PronunciationChecker
+                disabled={!recordedUrl || disableControls || isAudioLoading}
+                icon={<BsClipboard2Check className="h-5 w-5" />}
+                wordKey={wordKey}
+                displayPronunciation={displayPronunciation}
+                onLoadingChange={setPronunciationLoading}
+            />
 
             {/*recordedUrl && (
                 <a
@@ -314,6 +334,7 @@ RecordingWaveform.propTypes = {
     t: PropTypes.func.isRequired,
     onRecordingSaved: PropTypes.func,
     isAudioLoading: PropTypes.bool,
+    displayPronunciation: PropTypes.string,
 };
 
 export default RecordingWaveform;
