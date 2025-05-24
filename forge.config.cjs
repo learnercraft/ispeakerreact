@@ -60,14 +60,14 @@ module.exports = {
                 icon: path.join(__dirname, "dist", "appicon.png"),
             },
         },
-        {
+        /*{
             name: "@electron-forge/maker-squirrel",
             config: (arch) => ({
                 setupIcon: path.join(__dirname, "dist", "appicon.ico"),
                 iconUrl: path.join(__dirname, "dist", "appicon.ico"),
                 setupExe: `iSpeakerReact-win32-${arch}-Setup.exe`,
             }),
-        },
+        },*/
     ],
     plugins: [
         {
