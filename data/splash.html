@@ -48,7 +48,7 @@
             document.addEventListener("DOMContentLoaded", async () => {
                 let storedTheme;
                 storedTheme = await window.electron.ipcRenderer.invoke(
-                    "get-conf",
+                    "get-theme",
                     "ispeakerreact-ui-theme"
                 );
                 if (storedTheme === "dark") storedTheme = "dim";
