@@ -28,7 +28,6 @@ const createSplashWindow = (rootDir, ipcMain, conf) => {
 
     // For splash screen
     ipcMain.handle("get-conf", (event, key) => {
-        console.log("get-conf", key);
         return conf.get(key);
     });
 
