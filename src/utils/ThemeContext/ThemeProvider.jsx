@@ -1,16 +1,43 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import isElectron from "../isElectron";
 import ThemeProviderContext from "./ThemeProviderContext";
+
+let conf;
+if (isElectron()) {
+    // Use dynamic import for electron-conf
+    import("electron-conf/renderer").then(({ Conf }) => {
+        conf = new Conf();
+    });
+}
 
 const ThemeProvider = ({
     children,
     defaultTheme = "auto",
     storageKey = "ispeakerreact-ui-theme",
 }) => {
-    const [theme, setTheme] = useState(() => {
-        return localStorage.getItem(storageKey) || defaultTheme;
-    });
+    const [theme, setTheme] = useState(defaultTheme);
+    const [loaded, setLoaded] = useState(false);
+
+    // Load theme from storage on mount
+    useEffect(() => {
+        if (isElectron()) {
+            import("electron-conf/renderer").then(({ Conf }) => {
+                if (!conf) conf = new Conf();
+                conf.get(storageKey).then((storedTheme) => {
+                    setTheme(storedTheme || defaultTheme);
+                    setLoaded(true);
+                });
+            });
+        } else {
+            const storedTheme = localStorage.getItem(storageKey);
+            setTheme(storedTheme || defaultTheme);
+            setLoaded(true);
+        }
+    }, [defaultTheme, storageKey]);
 
     useEffect(() => {
+        if (!loaded) return;
         const root = window.document.documentElement;
 
         // Function to update the theme
@@ -49,17 +76,33 @@ const ThemeProvider = ({
         return () => {
             mediaQuery.removeEventListener("change", handleChange);
         };
-    }, [theme]);
+    }, [theme, loaded]);
 
     const value = {
         theme,
-        setTheme: (newTheme) => {
-            localStorage.setItem(storageKey, newTheme);
+        setTheme: async (newTheme) => {
+            if (isElectron()) {
+                import("electron-conf/renderer").then(({ Conf }) => {
+                    if (!conf) conf = new Conf();
+                    conf.set(storageKey, newTheme);
+                });
+            } else {
+                localStorage.setItem(storageKey, newTheme);
+            }
             setTheme(newTheme);
         },
     };
 
+    // Don't render children until theme is loaded
+    if (!loaded) return null;
+
     return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
+};
+
+ThemeProvider.propTypes = {
+    children: PropTypes.node,
+    defaultTheme: PropTypes.string,
+    storageKey: PropTypes.string,
 };
 
 export default ThemeProvider;

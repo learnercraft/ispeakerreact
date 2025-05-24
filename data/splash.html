@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-theme="light">
     <head>
         <meta charset="UTF-8" />
         <title>iSpeakerReact</title>
@@ -16,7 +16,7 @@
         </style>
     </head>
     <body>
-        <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div>
             <img
                 class="img-fluid"
                 src="../dist/images/icons/windows11/Wide310x150Logo.scale-400.png"
@@ -25,50 +25,68 @@
             />
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const htmlEl = document.documentElement;
-                const bodyElement = document.body;
-                const splashImage = document.getElementById("splash");
+            const htmlEl = document.documentElement;
+            const bodyElement = document.body;
+            const splashImage = document.getElementById("splash");
 
-                let storedTheme = localStorage.getItem("theme");
-                if (storedTheme === null) {
-                    storedTheme = htmlEl.getAttribute("data-bs-theme") || "light";
-                    localStorage.setItem("theme", storedTheme);
-                }
+            const splashImageDark = "../dist/images/icons/logo-splash-dark.png";
+            const splashImageLight = "../dist/images/icons/windows11/Wide310x150Logo.scale-400.png";
+            const bodyElementDark = "#222";
+            const bodyElementLight = "#f2f2f2";
 
-                function getPreferredTheme() {
-                    return (
-                        storedTheme ||
-                        (window.matchMedia("(prefers-color-scheme: dark)").matches
-                            ? "dark"
-                            : "light")
-                    );
-                }
+            const darkElement = () => {
+                htmlEl.setAttribute("data-theme", "dim");
+                splashImage.src = splashImageDark;
+                bodyElement.style.backgroundColor = bodyElementDark;
+            };
+            const lightElement = () => {
+                htmlEl.setAttribute("data-theme", "light");
+                splashImage.src = splashImageLight;
+                bodyElement.style.backgroundColor = bodyElementLight;
+            };
 
-                function setTheme(theme) {
-                    if (
-                        theme === "auto" &&
-                        window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ) {
-                        htmlEl.setAttribute("data-bs-theme", "dark");
-                        splashImage.src = "../dist/images/icons/logo-splash-dark.png";
-                    } else {
-                        htmlEl.setAttribute("data-bs-theme", theme);
-                        if (theme === "dark") {
-                            splashImage.src = "../dist/images/icons/logo-splash-dark.png";
-                        } else {
-                            splashImage.src =
-                                "../dist/images/icons/windows11/Wide310x150Logo.scale-400.png";
-                            bodyElement.style.backgroundColor = "#f2f2f2";
-                        }
+            document.addEventListener("DOMContentLoaded", async () => {
+                let storedTheme;
+                storedTheme = await window.electron.ipcRenderer.invoke(
+                    "get-conf",
+                    "ispeakerreact-ui-theme"
+                );
+                console.log("storedTheme", storedTheme);
+                if (storedTheme === "dark") storedTheme = "dim";
+
+                const applyTheme = (theme) => {
+                    switch (theme) {
+                        case "dim":
+                        case "dark":
+                            darkElement();
+                            break;
+                        case "light":
+                            lightElement();
+                            break;
+                        default:
+                            // auto or not set: follow system preference
+                            switch (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                                case true:
+                                    darkElement();
+                                    break;
+                                case false:
+                                    lightElement();
+                                    break;
+                            }
+                            break;
                     }
+                };
+
+                applyTheme(storedTheme);
+
+                // Listen for system theme changes only if theme is not explicitly set
+                if (!storedTheme || storedTheme === "auto") {
+                    window
+                        .matchMedia("(prefers-color-scheme: dark)")
+                        .addEventListener("change", () => {
+                            applyTheme(storedTheme);
+                        });
                 }
-
-                setTheme(getPreferredTheme());
-
-                window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-                    setTheme(getPreferredTheme());
-                });
             });
         </script>
     </body>
