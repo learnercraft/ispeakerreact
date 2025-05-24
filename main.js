@@ -257,32 +257,39 @@ app.on("activate", () => {
     }
 });
 
-app.whenReady()
-    .then(() => {
-        // 1. Show splash window immediately
-        createSplashWindow(__dirname, ipcMain, conf);
+const gotTheLock = app.requestSingleInstanceLock();
 
-        // 2. Start heavy work in parallel after splash is shown
-        setImmediate(() => {
-            // Create main window (can be shown after splash)
-            createWindow(__dirname, (srv) => {
-                server = srv;
-            });
+if (!gotTheLock) {
+    app.quit();
+    process.exit(0);
+} else {
+    app.whenReady()
+        .then(() => {
+            // 1. Show splash window immediately
+            createSplashWindow(__dirname, ipcMain, conf);
 
-            // Wait for log settings and manage logs in background
-            ipcMain.once("update-log-settings", (event, settings) => {
-                setCurrentLogSettings(settings);
-                applog.info("Log settings received from renderer:", settings);
-                manageLogFiles().then(() => {
-                    applog.info("Log files managed successfully.");
+            // 2. Start heavy work in parallel after splash is shown
+            setImmediate(() => {
+                // Create main window (can be shown after splash)
+                createWindow(__dirname, (srv) => {
+                    server = srv;
+                });
+
+                // Wait for log settings and manage logs in background
+                ipcMain.once("update-log-settings", (event, settings) => {
+                    setCurrentLogSettings(settings);
+                    applog.info("Log settings received from renderer:", settings);
+                    manageLogFiles().then(() => {
+                        applog.info("Log files managed successfully.");
+                    });
                 });
             });
+        })
+        .catch((error) => {
+            // Catch any errors thrown in the app.whenReady() promise itself
+            applog.error("Error in app.whenReady():", error);
         });
-    })
-    .catch((error) => {
-        // Catch any errors thrown in the app.whenReady() promise itself
-        applog.error("Error in app.whenReady():", error);
-    });
+}
 
 /* Custom save folder operations */
 
