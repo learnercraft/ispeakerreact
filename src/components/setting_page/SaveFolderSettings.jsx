@@ -11,7 +11,11 @@ const SaveFolderSettings = () => {
     const [loading, setLoading] = useState(false);
     const [moveDialogOpen, setMoveDialogOpen] = useState(false);
     const [moveProgress, setMoveProgress] = useState(null);
+    const [venvDeleteStatus, setVenvDeleteStatus] = useState(null);
     const moveDialogRef = useRef(null);
+    const confirmRef = useRef(null);
+    const [confirmAction, setConfirmAction] = useState(null);
+    const [processStarting, setProcessStarting] = useState(false);
 
     useEffect(() => {
         if (!isElectron()) return;
@@ -24,23 +28,36 @@ const SaveFolderSettings = () => {
     useEffect(() => {
         if (!isElectron()) return;
         const handler = (_event, data) => {
+            setProcessStarting(false);
             setMoveProgress(data);
             setMoveDialogOpen(true);
             if (data.phase === "delete-done") {
                 setMoveDialogOpen(false);
                 setMoveProgress(null);
+                setVenvDeleteStatus(null);
                 sonnerSuccessToast(t("toast.folderChanged"));
             }
         };
         window.electron.ipcRenderer.on("move-folder-progress", handler);
-        return () =>
-            window.electron.ipcRenderer.removeAllListeners("move-folder-progress", handler);
+        return () => window.electron.ipcRenderer.removeAllListeners("move-folder-progress");
     }, [t]);
+
+    useEffect(() => {
+        if (!isElectron()) return;
+        const handler = (_event, data) => {
+            setProcessStarting(false);
+            setVenvDeleteStatus(data);
+        };
+        window.electron.ipcRenderer.on("venv-delete-status", handler);
+        return () => window.electron.ipcRenderer.removeAllListeners("venv-delete-status");
+    }, []);
 
     const handleChooseFolder = async () => {
         setLoading(true);
         setMoveDialogOpen(false);
         setMoveProgress(null);
+        setVenvDeleteStatus(null);
+        setProcessStarting(true);
         try {
             // Open folder dialog via Electron
             const folderPaths = await window.electron.ipcRenderer.invoke("show-open-dialog", {
@@ -77,6 +94,8 @@ const SaveFolderSettings = () => {
         setLoading(true);
         setMoveDialogOpen(false);
         setMoveProgress(null);
+        setVenvDeleteStatus(null);
+        setProcessStarting(true);
         try {
             setMoveDialogOpen(true);
             setMoveProgress({ moved: 0, total: 1, phase: "copy", name: "" });
@@ -88,6 +107,31 @@ const SaveFolderSettings = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const openChooseDialog = () => {
+        setConfirmAction("choose");
+        confirmRef.current.showModal();
+    };
+
+    const openResetDialog = () => {
+        setConfirmAction("reset");
+        confirmRef.current.showModal();
+    };
+
+    const handleConfirm = () => {
+        if (confirmAction === "choose") {
+            handleChooseFolder();
+        } else if (confirmAction === "reset") {
+            handleResetDefault();
+        }
+        confirmRef.current.close();
+        setConfirmAction(null);
+    };
+
+    const handleCancel = () => {
+        confirmRef.current.close();
+        setConfirmAction(null);
     };
 
     if (!isElectron()) return null;
@@ -116,7 +160,7 @@ const SaveFolderSettings = () => {
                     <button
                         type="button"
                         className="btn btn-block"
-                        onClick={handleChooseFolder}
+                        onClick={openChooseDialog}
                         disabled={loading}
                     >
                         {loading ? (
@@ -129,7 +173,7 @@ const SaveFolderSettings = () => {
                         <button
                             type="button"
                             className="btn btn-secondary btn-block"
-                            onClick={handleResetDefault}
+                            onClick={openResetDialog}
                             disabled={loading}
                         >
                             {t("settingPage.saveFolderSettings.saveFolderResetBtn")}
@@ -137,6 +181,30 @@ const SaveFolderSettings = () => {
                     )}
                 </div>
             </div>
+            <dialog ref={confirmRef} className="modal">
+                <div className="modal-box">
+                    <h3 className="text-lg font-bold">
+                        {t("settingPage.saveFolderSettings.saveFolderConfirmTitle")}
+                    </h3>
+                    <div className="py-4">
+                        {t("settingPage.saveFolderSettings.saveFolderConfirmDescription", {
+                            returnObjects: true,
+                        }).map((desc, index) => (
+                            <p className="mb-2" key={index}>
+                                {desc}
+                            </p>
+                        ))}
+                    </div>
+                    <div className="modal-action">
+                        <button type="button" className="btn btn-primary" onClick={handleConfirm}>
+                            {t("settingPage.saveFolderSettings.saveFolderConfirmBtn")}
+                        </button>
+                        <button type="button" className="btn" onClick={handleCancel}>
+                            {t("settingPage.saveFolderSettings.saveFolderConfirmCancelBtn")}
+                        </button>
+                    </div>
+                </div>
+            </dialog>
             {moveDialogOpen && (
                 <dialog open ref={moveDialogRef} className="modal modal-open">
                     <div className="modal-box min-h-[350px] w-10/12 max-w-2xl">
@@ -144,43 +212,42 @@ const SaveFolderSettings = () => {
                             {t("settingPage.saveFolderSettings.saveFolderMovingTitle")}
                         </h3>
                         <div className="py-4">
-                            {moveProgress ? (
-                                <>
-                                    {moveProgress.name ? (
-                                        <>
-                                            <div className="mb-2">
-                                                {t(
-                                                    `settingPage.saveFolderSettings.${
-                                                        moveProgress.phase === "copy"
-                                                            ? "saveFolderCopyPhase"
-                                                            : moveProgress.phase === "delete"
-                                                              ? "saveFolderDeletePhase"
-                                                              : "saveFolderDeleteEmptyDirPhase"
-                                                    }`
-                                                )}{" "}
-                                                <span lang="en" className="font-mono! break-all">
-                                                    {moveProgress.name}
-                                                </span>
-                                            </div>
-                                            <progress
-                                                className="progress progress-primary w-full"
-                                                value={moveProgress.moved}
-                                                max={moveProgress.total}
-                                            ></progress>
-                                            <div className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                                                {moveProgress.moved} / {moveProgress.total}{" "}
-                                                {t(
-                                                    "settingPage.saveFolderSettings.saveFolderMovingFiles"
-                                                )}
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <span className="loading loading-spinner loading-md"></span>
-                                    )}
-                                </>
-                            ) : (
+                            {processStarting ? (
                                 <span className="loading loading-spinner loading-md"></span>
-                            )}
+                            ) : venvDeleteStatus && venvDeleteStatus.status === "deleting" ? (
+                                <>
+                                    <div className="mb-2">
+                                        {t("settingPage.saveFolderSettings.saveFolderDeleteVenv")}
+                                    </div>
+                                    <progress className="progress progress-primary w-full"></progress>
+                                </>
+                            ) : moveProgress ? (
+                                <>
+                                    <div className="mb-2">
+                                        {t(
+                                            `settingPage.saveFolderSettings.${
+                                                moveProgress.phase === "copy"
+                                                    ? "saveFolderCopyPhase"
+                                                    : moveProgress.phase === "delete"
+                                                      ? "saveFolderDeletePhase"
+                                                      : "saveFolderDeleteEmptyDirPhase"
+                                            }`
+                                        )}{" "}
+                                        <span lang="en" className="font-mono! break-all">
+                                            {moveProgress.name}
+                                        </span>
+                                    </div>
+                                    <progress
+                                        className="progress progress-primary w-full"
+                                        value={moveProgress.moved}
+                                        max={moveProgress.total}
+                                    ></progress>
+                                    <div className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                                        {moveProgress.moved} / {moveProgress.total}{" "}
+                                        {t("settingPage.saveFolderSettings.saveFolderMovingFiles")}
+                                    </div>
+                                </>
+                            ) : null}
                             <div role="alert" className="alert alert-warning mt-6">
                                 <IoWarningOutline className="h-6 w-6" />
                                 <div>

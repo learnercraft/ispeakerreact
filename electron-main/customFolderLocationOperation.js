@@ -44,6 +44,29 @@ const shouldMoveContents = (src, dest) => {
     );
 };
 
+// Helper: Delete pronunciation-venv in oldSaveFolder before moving
+const deletePronunciationVenv = async (oldSaveFolder, event) => {
+    const oldVenvPath = path.join(oldSaveFolder, "pronunciation-venv");
+    if (fs.existsSync(oldVenvPath)) {
+        event.sender.send("venv-delete-status", { status: "deleting", path: oldVenvPath });
+        try {
+            await fsPromises.rm(oldVenvPath, { recursive: true, force: true });
+            console.log("Deleted old pronunciation-venv at:", oldVenvPath);
+            applog.info("Deleted old pronunciation-venv at:", oldVenvPath);
+            event.sender.send("venv-delete-status", { status: "deleted", path: oldVenvPath });
+        } catch (venvErr) {
+            // Log but do not block move if venv doesn't exist or can't be deleted
+            console.log("Could not delete old pronunciation-venv:", venvErr.message);
+            applog.warn("Could not delete old pronunciation-venv:", venvErr.message);
+            event.sender.send("venv-delete-status", {
+                status: "error",
+                path: oldVenvPath,
+                error: venvErr.message,
+            });
+        }
+    }
+};
+
 // Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
 const moveFolderContents = async (src, dest, event) => {
     // Recursively collect all files for accurate progress
@@ -164,6 +187,7 @@ const setCustomSaveFolderIPC = () => {
                     newSaveFolder
                 );
                 try {
+                    await deletePronunciationVenv(prevDataSubfolder, event);
                     await moveFolderContents(prevDataSubfolder, newSaveFolder, event);
                 } catch (moveBackErr) {
                     console.log("Failed to move contents back to default folder:", moveBackErr);
@@ -247,6 +271,7 @@ const setCustomSaveFolderIPC = () => {
         // Move contents if needed
         try {
             if (shouldMoveContents(oldSaveFolder, newSaveFolder)) {
+                await deletePronunciationVenv(oldSaveFolder, event);
                 await moveFolderContents(oldSaveFolder, newSaveFolder, event);
             }
             // Update log directory and file name to new save folder
