@@ -136,7 +136,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                 ref={scrollRef}
                 className="card card-lg card-border p-6 shadow-md dark:border-slate-600"
             >
-                <div className="card-body flex justify-center text-center">
+                <div className="card-body flex justify-center">
                     <div className="mb-4 flex flex-row items-center justify-center gap-2">
                         <h1 className="text-2xl font-bold" lang="en">
                             {displayName}{" "}
@@ -259,6 +259,7 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef })
                         t={t}
                         onRecordingSaved={() => setIsRecordingExists(true)}
                         isAudioLoading={isAudioLoading}
+                        displayPronunciation={displayPronunciation}
                     />
 
                     <ReviewRecording

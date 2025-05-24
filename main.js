@@ -16,6 +16,7 @@ import { expressApp } from "./electron-main/expressServer.js";
 import { getLogFolder, getSaveFolder, readUserSettings } from "./electron-main/filePath.js";
 import {
     getCustomSaveFolderIPC,
+    getFfmpegWasmPathIPC,
     getSaveFolderIPC,
     getVideoFileDataIPC,
     getVideoSaveFolderIPC,
@@ -25,8 +26,21 @@ import {
     manageLogFiles,
     setCurrentLogSettings,
 } from "./electron-main/logOperations.js";
+import {
+    cancelProcess,
+    checkPythonInstalled,
+    downloadModel,
+    installDependencies,
+    killCurrentPythonProcess,
+    resetGlobalCancel,
+    setupPronunciationInstallStatusIPC,
+} from "./electron-main/pronunciationOperations.js";
 import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations.js";
 import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
+import {
+    setupPronunciationCheckerIPC,
+    setupGetRecordingBlobIPC,
+} from "./electron-main/pronunciationCheckerIPC.js";
 
 const DEFAULT_PORT = 8998;
 
@@ -291,6 +305,8 @@ if (!gotTheLock) {
         });
 }
 
+getFfmpegWasmPathIPC(__dirname);
+
 /* Custom save folder operations */
 
 // IPC: Get current save folder (resolved)
@@ -324,3 +340,48 @@ console.log = (...args) => {
     }
     origConsoleLog.apply(console, args);
 };
+
+/* Pronunciation checker operations */
+
+ipcMain.handle("check-python-installed", async () => {
+    try {
+        const result = await checkPythonInstalled();
+        if (result.found) {
+            applog.info("Python found:", result.version);
+        } else {
+            applog.error("Python not found. Stderr:", result.stderr);
+        }
+        return result;
+    } catch (err) {
+        applog.error("Error checking Python installation:", err);
+        return { found: false, version: null, stderr: String(err) };
+    }
+});
+
+installDependencies();
+
+downloadModel();
+
+cancelProcess();
+
+// Setup pronunciation install status IPC
+setupPronunciationInstallStatusIPC();
+
+// Before starting a new workflow, reset the global cancel flag
+ipcMain.handle("pronunciation-reset-cancel-flag", async () => {
+    resetGlobalCancel();
+});
+
+/* End pronunciation checker operations */
+
+ipcMain.handle("get-recording-path", async (_event, wordKey) => {
+    const saveFolder = await getSaveFolder(readUserSettings);
+    return path.join(saveFolder, "saved_recordings", `${wordKey}.wav`);
+});
+
+setupPronunciationCheckerIPC();
+setupGetRecordingBlobIPC();
+
+app.on("before-quit", async () => {
+    await killCurrentPythonProcess();
+});

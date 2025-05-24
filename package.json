@@ -21,6 +21,8 @@
         "appxarm": "vite build --mode electron && node scripts/minify-dist-jsons.js && electron-forge package --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-arm64  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml"
     },
     "dependencies": {
+        "@ffmpeg/ffmpeg": "^0.12.15",
+        "@ffmpeg/util": "^0.12.2",
         "@fix-webm-duration/fix": "^1.0.1",
         "cors": "^2.8.5",
         "electron-conf": "^1.3.0",
@@ -28,6 +30,7 @@
         "electron-squirrel-startup": "^1.0.1",
         "express": "^5.1.0",
         "express-rate-limit": "^7.5.0",
+        "fkill": "^9.0.0",
         "js7z-tools": "^2.4.1",
         "masonry-layout": "^4.2.2",
         "mime": "^4.0.7"
