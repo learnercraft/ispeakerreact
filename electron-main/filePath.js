@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import { Conf } from "electron-conf/main";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
@@ -88,6 +88,15 @@ const deleteEmptyDataSubfolder = async (baseFolder) => {
     }
     return false;
 };
+
+// Add IPC handlers for theme
+ipcMain.handle("get-theme", async () => {
+    return settingsConf.get("ispeakerreact-ui-theme") || "auto";
+});
+ipcMain.handle("set-theme", async (event, newTheme) => {
+    settingsConf.set("ispeakerreact-ui-theme", newTheme);
+    return true;
+});
 
 export {
     getDataSubfolder,

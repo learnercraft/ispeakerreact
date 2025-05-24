@@ -2,6 +2,7 @@ import { ipcMain, shell } from "electron";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
+import fs from "node:fs";
 
 const getVideoFileDataIPC = (rootDir) => {
     ipcMain.handle("get-video-file-data", async () => {
@@ -50,4 +51,23 @@ const getCustomSaveFolderIPC = () => {
     });
 };
 
-export { getCustomSaveFolderIPC, getSaveFolderIPC, getVideoFileDataIPC, getVideoSaveFolderIPC };
+// IPC: Get ffmpeg wasm absolute path
+const getFfmpegWasmPathIPC = (rootDir) => {
+    ipcMain.handle("get-ffmpeg-wasm-path", async () => {
+        // Adjust the path as needed if you move the file elsewhere
+        return path.resolve(rootDir, "data", "ffmpeg");
+    });
+};
+
+// IPC: Read file as buffer for ffmpeg
+ipcMain.handle("read-file-buffer", async (event, filePath) => {
+    return fs.readFileSync(filePath); // returns Buffer, serialized as Uint8Array
+});
+
+export {
+    getCustomSaveFolderIPC,
+    getFfmpegWasmPathIPC,
+    getSaveFolderIPC,
+    getVideoFileDataIPC,
+    getVideoSaveFolderIPC,
+};

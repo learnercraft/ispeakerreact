@@ -3,15 +3,13 @@ import applog from "electron-log";
 import path from "node:path";
 import process from "node:process";
 import { startExpressServer } from "./expressServer.js";
-import pkg from "../package.json" with { type: "json" };
 
-const { version } = pkg;
 const isDev = process.env.NODE_ENV === "development";
 
 let mainWindow;
 let splashWindow;
 
-const createSplashWindow = (rootDir) => {
+const createSplashWindow = (rootDir, ipcMain, conf) => {
     splashWindow = new BrowserWindow({
         width: 854,
         height: 413,
@@ -19,6 +17,18 @@ const createSplashWindow = (rootDir) => {
         transparent: true, // Make the window background transparent
         alwaysOnTop: true,
         icon: path.join(rootDir, "dist", "appicon.png"),
+        webPreferences: {
+            preload: path.join(rootDir, "preload.cjs"),
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            devTools: isDev ? true : false,
+        },
+    });
+
+    // For splash screen
+    ipcMain.handle("get-conf", (event, key) => {
+        return conf.get(key);
     });
 
     // Load the splash screen HTML
@@ -38,7 +48,7 @@ const createWindow = (rootDir, onServerReady) => {
         height: 720,
         show: false,
         webPreferences: {
-            preload: path.join(rootDir, "preload.cjs"), // Point to your preload.js file
+            preload: path.join(rootDir, "preload.cjs"),
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
@@ -137,7 +147,7 @@ const createWindow = (rootDir, onServerReady) => {
         }
     });
 
-    applog.info(`App started. Version ${version}`);
+    applog.info(`App started. Version ${app.getVersion()}`);
 };
 
 export { createSplashWindow, createWindow };

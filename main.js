@@ -9,11 +9,14 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
+import { Conf } from "electron-conf/main";
 import { createSplashWindow, createWindow } from "./electron-main/createWindow.js";
+import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
 import { expressApp } from "./electron-main/expressServer.js";
-import { getSaveFolder, readUserSettings, getLogFolder } from "./electron-main/filePath.js";
+import { getLogFolder, getSaveFolder, readUserSettings } from "./electron-main/filePath.js";
 import {
     getCustomSaveFolderIPC,
+    getFfmpegWasmPathIPC,
     getSaveFolderIPC,
     getVideoFileDataIPC,
     getVideoSaveFolderIPC,
@@ -23,9 +26,21 @@ import {
     manageLogFiles,
     setCurrentLogSettings,
 } from "./electron-main/logOperations.js";
-import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
+import {
+    cancelProcess,
+    checkPythonInstalled,
+    downloadModel,
+    installDependencies,
+    killCurrentPythonProcess,
+    resetGlobalCancel,
+    setupPronunciationInstallStatusIPC,
+} from "./electron-main/pronunciationOperations.js";
 import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations.js";
-import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
+import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
+import {
+    setupPronunciationCheckerIPC,
+    setupGetRecordingBlobIPC,
+} from "./electron-main/pronunciationCheckerIPC.js";
 
 const DEFAULT_PORT = 8998;
 
@@ -45,6 +60,9 @@ if (electronSquirrelStartup) app.quit();
 
 // Log operations
 manageLogFiles();
+
+const conf = new Conf();
+conf.registerRendererListener();
 
 let mainWindow;
 
@@ -253,32 +271,41 @@ app.on("activate", () => {
     }
 });
 
-app.whenReady()
-    .then(() => {
-        // 1. Show splash window immediately
-        createSplashWindow(__dirname);
+const gotTheLock = app.requestSingleInstanceLock();
 
-        // 2. Start heavy work in parallel after splash is shown
-        setImmediate(() => {
-            // Create main window (can be shown after splash)
-            createWindow(__dirname, (srv) => {
-                server = srv;
-            });
+if (!gotTheLock) {
+    app.quit();
+    process.exit(0);
+} else {
+    app.whenReady()
+        .then(() => {
+            // 1. Show splash window immediately
+            createSplashWindow(__dirname, ipcMain, conf);
 
-            // Wait for log settings and manage logs in background
-            ipcMain.once("update-log-settings", (event, settings) => {
-                setCurrentLogSettings(settings);
-                applog.info("Log settings received from renderer:", settings);
-                manageLogFiles().then(() => {
-                    applog.info("Log files managed successfully.");
+            // 2. Start heavy work in parallel after splash is shown
+            setImmediate(() => {
+                // Create main window (can be shown after splash)
+                createWindow(__dirname, (srv) => {
+                    server = srv;
+                });
+
+                // Wait for log settings and manage logs in background
+                ipcMain.once("update-log-settings", (event, settings) => {
+                    setCurrentLogSettings(settings);
+                    applog.info("Log settings received from renderer:", settings);
+                    manageLogFiles().then(() => {
+                        applog.info("Log files managed successfully.");
+                    });
                 });
             });
+        })
+        .catch((error) => {
+            // Catch any errors thrown in the app.whenReady() promise itself
+            applog.error("Error in app.whenReady():", error);
         });
-    })
-    .catch((error) => {
-        // Catch any errors thrown in the app.whenReady() promise itself
-        applog.error("Error in app.whenReady():", error);
-    });
+}
+
+getFfmpegWasmPathIPC(__dirname);
 
 /* Custom save folder operations */
 
@@ -306,10 +333,55 @@ ipcMain.handle("get-log-settings", async () => {
 
 // DEBUG: Trace undefined logs
 const origConsoleLog = console.log;
-console.log =  (...args) => {
+console.log = (...args) => {
     if (args.length === 1 && args[0] === undefined) {
         origConsoleLog.call(console, "console.log(undefined) called! Stack trace:");
         origConsoleLog.call(console, new Error().stack);
     }
     origConsoleLog.apply(console, args);
 };
+
+/* Pronunciation checker operations */
+
+ipcMain.handle("check-python-installed", async () => {
+    try {
+        const result = await checkPythonInstalled();
+        if (result.found) {
+            applog.info("Python found:", result.version);
+        } else {
+            applog.error("Python not found. Stderr:", result.stderr);
+        }
+        return result;
+    } catch (err) {
+        applog.error("Error checking Python installation:", err);
+        return { found: false, version: null, stderr: String(err) };
+    }
+});
+
+installDependencies();
+
+downloadModel();
+
+cancelProcess();
+
+// Setup pronunciation install status IPC
+setupPronunciationInstallStatusIPC();
+
+// Before starting a new workflow, reset the global cancel flag
+ipcMain.handle("pronunciation-reset-cancel-flag", async () => {
+    resetGlobalCancel();
+});
+
+/* End pronunciation checker operations */
+
+ipcMain.handle("get-recording-path", async (_event, wordKey) => {
+    const saveFolder = await getSaveFolder(readUserSettings);
+    return path.join(saveFolder, "saved_recordings", `${wordKey}.wav`);
+});
+
+setupPronunciationCheckerIPC();
+setupGetRecordingBlobIPC();
+
+app.on("before-quit", async () => {
+    await killCurrentPythonProcess();
+});
