@@ -9,9 +9,11 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
+import { Conf } from "electron-conf/main";
 import { createSplashWindow, createWindow } from "./electron-main/createWindow.js";
+import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
 import { expressApp } from "./electron-main/expressServer.js";
-import { getSaveFolder, readUserSettings, getLogFolder } from "./electron-main/filePath.js";
+import { getLogFolder, getSaveFolder, readUserSettings } from "./electron-main/filePath.js";
 import {
     getCustomSaveFolderIPC,
     getSaveFolderIPC,
@@ -23,9 +25,8 @@ import {
     manageLogFiles,
     setCurrentLogSettings,
 } from "./electron-main/logOperations.js";
-import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
 import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations.js";
-import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
+import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
 
 const DEFAULT_PORT = 8998;
 
@@ -45,6 +46,9 @@ if (electronSquirrelStartup) app.quit();
 
 // Log operations
 manageLogFiles();
+
+const conf = new Conf();
+conf.registerRendererListener();
 
 let mainWindow;
 
@@ -256,7 +260,7 @@ app.on("activate", () => {
 app.whenReady()
     .then(() => {
         // 1. Show splash window immediately
-        createSplashWindow(__dirname);
+        createSplashWindow(__dirname, ipcMain, conf);
 
         // 2. Start heavy work in parallel after splash is shown
         setImmediate(() => {
@@ -306,7 +310,7 @@ ipcMain.handle("get-log-settings", async () => {
 
 // DEBUG: Trace undefined logs
 const origConsoleLog = console.log;
-console.log =  (...args) => {
+console.log = (...args) => {
     if (args.length === 1 && args[0] === undefined) {
         origConsoleLog.call(console, "console.log(undefined) called! Stack trace:");
         origConsoleLog.call(console, new Error().stack);
