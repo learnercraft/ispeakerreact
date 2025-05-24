@@ -3,14 +3,6 @@ import { useEffect, useState } from "react";
 import isElectron from "../isElectron";
 import ThemeProviderContext from "./ThemeProviderContext";
 
-let conf;
-if (isElectron()) {
-    // Use dynamic import for electron-conf
-    import("electron-conf/renderer").then(({ Conf }) => {
-        conf = new Conf();
-    });
-}
-
 const ThemeProvider = ({
     children,
     defaultTheme = "auto",
@@ -22,12 +14,9 @@ const ThemeProvider = ({
     // Load theme from storage on mount
     useEffect(() => {
         if (isElectron()) {
-            import("electron-conf/renderer").then(({ Conf }) => {
-                if (!conf) conf = new Conf();
-                conf.get(storageKey).then((storedTheme) => {
-                    setTheme(storedTheme || defaultTheme);
-                    setLoaded(true);
-                });
+            window.electron.ipcRenderer.invoke("get-theme", storageKey).then((storedTheme) => {
+                setTheme(storedTheme || defaultTheme);
+                setLoaded(true);
             });
         } else {
             const storedTheme = localStorage.getItem(storageKey);
@@ -82,10 +71,7 @@ const ThemeProvider = ({
         theme,
         setTheme: async (newTheme) => {
             if (isElectron()) {
-                import("electron-conf/renderer").then(({ Conf }) => {
-                    if (!conf) conf = new Conf();
-                    conf.set(storageKey, newTheme);
-                });
+                await window.electron.ipcRenderer.invoke("set-theme", newTheme);
             } else {
                 localStorage.setItem(storageKey, newTheme);
             }
