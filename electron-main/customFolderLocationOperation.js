@@ -1,4 +1,4 @@
-import { app, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import applog from "electron-log";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
@@ -29,6 +29,19 @@ const getAllFiles = async (dir, base = dir) => {
         }
     }
     return files;
+};
+
+// Helper: Determine if folder contents should be moved
+const shouldMoveContents = (src, dest) => {
+    return (
+        src &&
+        dest &&
+        src !== dest &&
+        fs.existsSync(src) &&
+        fs.existsSync(dest) &&
+        !src.startsWith(dest) &&
+        !dest.startsWith(src)
+    );
 };
 
 // Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
@@ -120,9 +133,48 @@ const setCustomSaveFolderIPC = () => {
                 prevCustomFolder = userSettings.customSaveFolder;
             }
             settingsConf.delete("customSaveFolder");
-            newSaveFolder = path.join(app.getPath("documents"), "iSpeakerReact");
-            console.log("Reset to default save folder:", newSaveFolder);
+            // Use getSaveFolder to get the default save folder
+            newSaveFolder = await getSaveFolder();
             applog.info("Reset to default save folder:", newSaveFolder);
+            // Move contents back from previous custom folder's data subfolder if it exists
+            let prevDataSubfolder = null;
+            if (prevCustomFolder) {
+                prevDataSubfolder = getDataSubfolder(prevCustomFolder);
+            }
+            // Ensure the destination exists before checking shouldMoveContents
+            try {
+                await fsPromises.mkdir(newSaveFolder, { recursive: true });
+            } catch (e) {
+                console.log("Failed to create default save folder:", e);
+                applog.error("Failed to create default save folder:", e);
+                return {
+                    success: false,
+                    error: "folderChangeError",
+                    reason: e.message || "Unknown error",
+                };
+            }
+            applog.info("[DEBUG] prevDataSubfolder:", prevDataSubfolder);
+            applog.info("[DEBUG] newSaveFolder:", newSaveFolder);
+            const shouldMove = shouldMoveContents(prevDataSubfolder, newSaveFolder);
+            applog.info("[DEBUG] shouldMoveContents:", shouldMove);
+            if (shouldMove) {
+                applog.info(
+                    "[DEBUG] Calling moveFolderContents with:",
+                    prevDataSubfolder,
+                    newSaveFolder
+                );
+                try {
+                    await moveFolderContents(prevDataSubfolder, newSaveFolder, event);
+                } catch (moveBackErr) {
+                    console.log("Failed to move contents back to default folder:", moveBackErr);
+                    applog.error("Failed to move contents back to default folder:", moveBackErr);
+                    return {
+                        success: false,
+                        error: "folderMoveError",
+                        reason: moveBackErr.message || "Unknown move error",
+                    };
+                }
+            }
         } else {
             try {
                 await fsPromises.access(folderPath);
@@ -194,13 +246,7 @@ const setCustomSaveFolderIPC = () => {
         }
         // Move contents if needed
         try {
-            if (
-                oldSaveFolder !== newSaveFolder &&
-                fs.existsSync(oldSaveFolder) &&
-                fs.existsSync(newSaveFolder) &&
-                !oldSaveFolder.startsWith(newSaveFolder) &&
-                !newSaveFolder.startsWith(oldSaveFolder)
-            ) {
+            if (shouldMoveContents(oldSaveFolder, newSaveFolder)) {
                 await moveFolderContents(oldSaveFolder, newSaveFolder, event);
             }
             // Update log directory and file name to new save folder
@@ -216,7 +262,7 @@ const setCustomSaveFolderIPC = () => {
                 path.join(currentLogFolder, applog.transports.file.fileName);
             applog.info("New log directory:", currentLogFolder);
             console.log("New log directory:", currentLogFolder);
-            // Only delete the empty ispeakerreact_data subfolder after all operations are finished
+            // Only delete the empty ispeakerreact_data subfolder, never the parent custom folder
             if (prevCustomFolder) {
                 await deleteEmptyDataSubfolder(prevCustomFolder);
             }
