@@ -1,4 +1,4 @@
-import LogoLightOrDark from "./LogoLightOrDark";
+import LogoLightOrDark from "./LogoLightOrDark.js";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { FiRefreshCw } from "react-icons/fi";
