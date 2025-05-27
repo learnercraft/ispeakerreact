@@ -1,4 +1,4 @@
-import { ipcMain } from "electron";
+import { ipcMain, IpcMainEvent } from "electron";
 import applog, { LevelOption } from "electron-log";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
@@ -23,7 +23,7 @@ const getCurrentLogSettings = () => {
     return currentLogSettings;
 };
 
-const setCurrentLogSettings = (newSettings: any) => {
+const setCurrentLogSettings = (newSettings: Record<string, unknown>) => {
     currentLogSettings = { ...currentLogSettings, ...newSettings };
 };
 
@@ -49,15 +49,18 @@ applog.transports.file.maxSize = currentLogSettings.maxLogSize;
 applog.transports.console.level = currentLogSettings.logLevel as LevelOption;
 
 // Handle updated log settings from the renderer
-ipcMain.on("update-log-settings", async (event: any, newSettings: any) => {
-    setCurrentLogSettings(newSettings);
-    applog.info("Log settings updated:", currentLogSettings);
+ipcMain.on(
+    "update-log-settings",
+    async (event: IpcMainEvent, newSettings: Record<string, unknown>) => {
+        setCurrentLogSettings(newSettings);
+        applog.info("Log settings updated:", currentLogSettings);
 
-    // Save to user settings file
-    settingsConf.set("logSettings", currentLogSettings);
+        // Save to user settings file
+        settingsConf.set("logSettings", currentLogSettings);
 
-    manageLogFiles();
-});
+        manageLogFiles();
+    }
+);
 
 // Function to check and manage log files based on the currentLogSettings
 const manageLogFiles = async () => {
@@ -80,9 +83,10 @@ const manageLogFiles = async () => {
                     path: filePath,
                     birthtime: stats.birthtime,
                 });
-            } catch (err: any) {
+            } catch (err) {
+                const errorMsg = err instanceof Error ? err.message : String(err);
                 // If ENOENT, just skip this file
-                if (err.code !== "ENOENT") {
+                if (errorMsg !== "ENOENT") {
                     applog.error(`Error stating log file: ${filePath}`, err);
                 }
             }
@@ -98,8 +102,9 @@ const manageLogFiles = async () => {
                 try {
                     await fsPromises.unlink(file.path);
                     applog.info(`Deleted log file: ${file.path}`);
-                } catch (err: any) {
-                    if (err.code !== "ENOENT") {
+                } catch (err) {
+                    const errorMsg = err instanceof Error ? err.message : String(err);
+                    if (errorMsg !== "ENOENT") {
                         applog.error(`Error deleting log file: ${file.path}`, err);
                     }
                 }
@@ -116,16 +121,18 @@ const manageLogFiles = async () => {
                     try {
                         await fsPromises.unlink(file.path);
                         applog.info(`Deleted old log file: ${file.path}`);
-                    } catch (err: any) {
-                        if (err.code !== "ENOENT") {
+                    } catch (err) {
+                        const errorMsg = err instanceof Error ? err.message : String(err);
+                        if (errorMsg !== "ENOENT") {
                             applog.error(`Error deleting old log file: ${file.path}`, err);
                         }
                     }
                 }
             }
         }
-    } catch (error: any) {
-        applog.error("Error managing log files:", error);
+    } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        applog.error("Error managing log files:", errorMsg);
     }
 };
 
