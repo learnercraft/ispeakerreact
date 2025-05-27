@@ -8,8 +8,8 @@ import { PiExam } from "react-icons/pi";
 
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
-import openExternal from "../../utils/openExternal";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
+import openExternal from "../../utils/openExternal.js";
 
 const TopNavBar = () => {
     const { t } = useTranslation();
@@ -83,7 +83,7 @@ const TopNavBar = () => {
                     <label htmlFor="mobile-menu" className="btn btn-ghost drawer-button">
                         <CgMenuLeft size="1.5em" />
                     </label>
-                    <input type="checkbox" id="mobile-menu" className="drawer-toggle hidden" />
+                    <input type="checkbox" id="mobile-menu" className="drawer-toggle hidden" aria-label="Open mobile menu" />
                     <div className="drawer-side">
                         <label htmlFor="mobile-menu" className="drawer-overlay"></label>
                         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 text-base">
@@ -154,9 +154,8 @@ const TopNavBar = () => {
                                 <div
                                     tabIndex={0}
                                     role="button"
-                                    className={`flex items-center space-x-1 ${
-                                        isActive ? "menu-active" : ""
-                                    }`}
+                                    className={`flex items-center space-x-1 ${isActive ? "menu-active" : ""
+                                        }`}
                                     aria-label={item.label}
                                 >
                                     {item.icon} {item.label}
