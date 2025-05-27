@@ -28,6 +28,8 @@ const AccentDropdown = ({ onAccentChange }: { onAccentChange: (value: string) =>
         sonnerSuccessToast(t("settingPage.changeSaved"));
     };
 
+    const selectedAccentOption = selectedAccentOptions.find((item) => item.value === selectedAccent);
+
     return (
         <>
             <div className="flex items-center space-x-4">
@@ -35,14 +37,11 @@ const AccentDropdown = ({ onAccentChange }: { onAccentChange: (value: string) =>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-accent m-1">
                         <img
-                            src={
-                                selectedAccentOptions.find((item) => item.value === selectedAccent)
-                                    ?.emoji
-                            }
+                            src={selectedAccentOption?.emoji}
                             className="inline-block h-6 w-6"
-                            title={selectedAccentOptions.find((item) => item.value === selectedAccent)?.name}
+                            title={selectedAccentOption?.name}
                         />
-                        {selectedAccentOptions.find((item) => item.value === selectedAccent)?.name}
+                        {selectedAccentOption?.name}
                     </div>
                     <ul
                         tabIndex={0}
