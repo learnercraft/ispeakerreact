@@ -1,14 +1,13 @@
-import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
 // Emoji SVGs import
 import UKFlagEmoji from "../../emojiSvg/emoji_u1f1ec_1f1e7.svg";
 import USFlagEmoji from "../../emojiSvg/emoji_u1f1fa_1f1f8.svg";
 
-const AccentDropdown = ({ onAccentChange }) => {
+const AccentDropdown = ({ onAccentChange }: { onAccentChange: (value: string) => void }) => {
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
     const { t } = useTranslation();
 
@@ -18,12 +17,12 @@ const AccentDropdown = ({ onAccentChange }) => {
     ];
 
     useEffect(() => {
-        const currentSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const currentSettings = JSON.parse(localStorage.getItem("ispeaker") || "{}") || {};
         const updatedSettings = { ...currentSettings, selectedAccent: selectedAccent };
         localStorage.setItem("ispeaker", JSON.stringify(updatedSettings));
     }, [selectedAccent]);
 
-    const handleAccentChange = (value) => {
+    const handleAccentChange = (value: string) => {
         setSelectedAccent(value);
         onAccentChange(value);
         sonnerSuccessToast(t("settingPage.changeSaved"));
@@ -38,11 +37,12 @@ const AccentDropdown = ({ onAccentChange }) => {
                         <img
                             src={
                                 selectedAccentOptions.find((item) => item.value === selectedAccent)
-                                    .emoji
+                                    ?.emoji
                             }
                             className="inline-block h-6 w-6"
+                            title={selectedAccentOptions.find((item) => item.value === selectedAccent)?.name}
                         />
-                        {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
+                        {selectedAccentOptions.find((item) => item.value === selectedAccent)?.name}
                     </div>
                     <ul
                         tabIndex={0}
@@ -51,12 +51,11 @@ const AccentDropdown = ({ onAccentChange }) => {
                         {selectedAccentOptions.map((item) => (
                             <li key={item.value}>
                                 <a
-                                    className={`${
-                                        selectedAccent === item.value ? "menu-active" : ""
-                                    } justify-start`}
+                                    className={`${selectedAccent === item.value ? "menu-active" : ""
+                                        } justify-start`}
                                     onClick={() => handleAccentChange(item.value)}
                                 >
-                                    <img src={item.emoji} className="inline-block h-6 w-6" />{" "}
+                                    <img src={item.emoji} className="inline-block h-6 w-6" alt={item.name} />{" "}
                                     {item.name}
                                 </a>
                             </li>
@@ -66,10 +65,6 @@ const AccentDropdown = ({ onAccentChange }) => {
             </div>
         </>
     );
-};
-
-AccentDropdown.propTypes = {
-    onAccentChange: PropTypes.func.isRequired,
 };
 
 export default AccentDropdown;
