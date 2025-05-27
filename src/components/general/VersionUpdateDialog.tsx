@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -7,14 +6,14 @@ const RATE_LIMIT_THRESHOLD = 45;
 
 const currentVersion = __APP_VERSION__;
 
-const VersionUpdateDialog = ({ open, onRefresh }) => {
+const VersionUpdateDialog = ({ open, onRefresh }: { open: boolean; onRefresh: () => void }) => {
     const { t } = useTranslation();
-    const dialogRef = useRef(null);
-    const [latestVersion, setLatestVersion] = useState(null);
+    const dialogRef = useRef<HTMLDialogElement | null>(null);
+    const [latestVersion, setLatestVersion] = useState<string | null>(null);
     const [checking, setChecking] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const [isRefreshing, setIsRefreshing] = useState(false);
-    const abortControllerRef = useRef(null);
+    const abortControllerRef = useRef<AbortController | null>(null);
 
     useEffect(() => {
         if (!open) return;
@@ -98,11 +97,13 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
 
                 // Only show dialog if versions don't match and component is still mounted
                 if (latest !== currentVersion && dialogRef.current) {
-                    dialogRef.current.showModal();
+                    if (typeof dialogRef.current.showModal === 'function') {
+                        dialogRef.current.showModal();
+                    }
                 }
             } catch (err) {
                 // Only set error if it's not an abort error
-                if (err.name !== "AbortError") {
+                if (err instanceof Error && err.name !== "AbortError") {
                     setError(err.message);
                 }
                 setChecking(false);
@@ -120,7 +121,9 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
 
     useEffect(() => {
         if (!open && dialogRef.current) {
-            dialogRef.current.close();
+            if (typeof dialogRef.current.close === 'function') {
+                dialogRef.current.close();
+            }
         }
     }, [open]);
 
@@ -141,7 +144,11 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
 
             onRefresh();
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError(String(err));
+            }
             setIsRefreshing(false);
         }
     };
@@ -161,7 +168,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                         <>
                             <p className="text-error">{t("alert.appUpdateError")}</p>
                             <p className="mt-2 text-sm">
-                                {t("alert.appNewVersionErrorReason")}{" "}
+                                {t("alert.appNewVersionErrorReason")} {" "}
                                 <span className="italic">{error}</span>
                             </p>
                         </>
@@ -199,7 +206,7 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
                             type="button"
                             className="btn"
                             onClick={() => {
-                                if (dialogRef.current) dialogRef.current.close();
+                                if (dialogRef.current && typeof dialogRef.current.close === 'function') dialogRef.current.close();
                             }}
                         >
                             {t("sound_page.closeBtn")}
@@ -221,11 +228,6 @@ const VersionUpdateDialog = ({ open, onRefresh }) => {
             </div>
         </dialog>
     );
-};
-
-VersionUpdateDialog.propTypes = {
-    open: PropTypes.bool.isRequired,
-    onRefresh: PropTypes.func.isRequired,
 };
 
 export default VersionUpdateDialog;
