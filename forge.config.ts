@@ -1,8 +1,9 @@
-const { FusesPlugin } = require("@electron-forge/plugin-fuses");
-const { FuseV1Options, FuseVersion } = require("@electron/fuses");
-const path = require("path");
+import { FusesPlugin } from "@electron-forge/plugin-fuses";
+import type { ForgeConfig } from "@electron-forge/shared-types";
+import { FuseV1Options, FuseVersion } from "@electron/fuses";
+import path from "node:path";
 
-module.exports = {
+const config: ForgeConfig = {
     packagerConfig: {
         asar: true,
         name: "iSpeakerReact",
@@ -30,6 +31,7 @@ module.exports = {
             "^/public$",
             "^/src$",
             "^/netlify.toml$",
+            "^/\\.ts*$", // Ignore typescript
         ],
     },
     rebuildConfig: {},
@@ -37,15 +39,8 @@ module.exports = {
         {
             name: "@electron-forge/maker-zip",
             platforms: ["linux", "win32", "darwin"],
+            config: {},
         },
-        /*{
-            name: "@electron-forge/maker-dmg",
-            config: {
-                options: {
-                    icon: path.join(__dirname, "dist", "appicon.icns"),
-                },
-            },
-        },*/
         {
             name: "@electron-forge/maker-deb",
             config: {
@@ -56,8 +51,11 @@ module.exports = {
         },
         {
             name: "@electron-forge/maker-rpm",
-            options: {
-                icon: path.join(__dirname, "dist", "appicon.png"),
+            platforms: ["linux"],
+            config: {
+                options: {
+                    icon: path.join(__dirname, "dist", "appicon.png"),
+                },
             },
         },
         /*{
@@ -87,3 +85,5 @@ module.exports = {
         }),
     ],
 };
+
+export default config;
