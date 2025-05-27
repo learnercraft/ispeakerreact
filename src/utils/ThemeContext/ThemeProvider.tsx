@@ -1,12 +1,15 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import isElectron from "../isElectron";
-import ThemeProviderContext from "./ThemeProviderContext";
+import isElectron from "../isElectron.js";
+import ThemeProviderContext from "./ThemeProviderContext.jsx";
 
 const ThemeProvider = ({
     children,
     defaultTheme = "auto",
     storageKey = "ispeakerreact-ui-theme",
+}: {
+    children: React.ReactNode;
+    defaultTheme: string;
+    storageKey: string;
 }) => {
     const [theme, setTheme] = useState(defaultTheme);
     const [loaded, setLoaded] = useState(false);
@@ -14,7 +17,7 @@ const ThemeProvider = ({
     // Load theme from storage on mount
     useEffect(() => {
         if (isElectron()) {
-            window.electron.ipcRenderer.invoke("get-theme", storageKey).then((storedTheme) => {
+            window.Electron.ipcRenderer.invoke("get-theme", storageKey).then((storedTheme) => {
                 setTheme(storedTheme || defaultTheme);
                 setLoaded(true);
             });
@@ -69,9 +72,9 @@ const ThemeProvider = ({
 
     const value = {
         theme,
-        setTheme: async (newTheme) => {
+        setTheme: async (newTheme: string) => {
             if (isElectron()) {
-                await window.electron.ipcRenderer.invoke("set-theme", newTheme);
+                await window.Electron.ipcRenderer.invoke("set-theme", newTheme);
             } else {
                 localStorage.setItem(storageKey, newTheme);
             }
@@ -83,12 +86,6 @@ const ThemeProvider = ({
     if (!loaded) return null;
 
     return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
-};
-
-ThemeProvider.propTypes = {
-    children: PropTypes.node,
-    defaultTheme: PropTypes.string,
-    storageKey: PropTypes.string,
 };
 
 export default ThemeProvider;

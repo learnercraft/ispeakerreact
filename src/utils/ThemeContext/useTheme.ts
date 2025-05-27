@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import ThemeProviderContext from "./ThemeProviderContext";
+import ThemeProviderContext from "./ThemeProviderContext.jsx";
 
-export const useTheme = () => {
+const useTheme = () => {
     const context = useContext(ThemeProviderContext);
 
     if (!context) {
@@ -10,3 +10,5 @@ export const useTheme = () => {
 
     return context;
 };
+
+export default useTheme;

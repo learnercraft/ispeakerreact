@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTheme } from "./useTheme";
+import useTheme from "./useTheme.js";
 
 const useAutoDetectTheme = () => {
     const { theme } = useTheme();
