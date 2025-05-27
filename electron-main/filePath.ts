@@ -6,7 +6,7 @@ import path from "node:path";
 // Singleton instance for settings
 const settingsConf = new Conf({ name: "ispeakerreact_config" });
 
-const readUserSettings = async (): Promise<Record<string, any>> => {
+const readUserSettings = async (): Promise<Record<string, unknown>> => {
     return settingsConf.store || {};
 };
 
