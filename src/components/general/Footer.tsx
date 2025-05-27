@@ -1,5 +1,5 @@
-import openExternal from "../../utils/openExternal";
-import LogoLightOrDark from "./LogoLightOrDark";
+import openExternal from "../../utils/openExternal.js";
+import LogoLightOrDark from "./LogoLightOrDark.js";
 
 const Footer = () => {
     return (
@@ -8,14 +8,13 @@ const Footer = () => {
             className="footer sm:footer-horizontal bg-base-200 text-base-content p-6 pb-20 md:p-10"
         >
             <aside>
-                <LogoLightOrDark width="100" height="100" />
+                <LogoLightOrDark width={100} height={100} />
                 <p>
                     Created by{" "}
                     <button
                         type="button"
                         className="link after:content-['_↗']"
                         onClick={() => openExternal("https://yell0wsuit.page")}
-                        target="_blank"
                     >
                         yell0wsuit
                     </button>
@@ -29,7 +28,6 @@ const Footer = () => {
                                 "https://github.com/learnercraft/ispeakerreact/graphs/contributors"
                             )
                         }
-                        target="_blank"
                     >
                         See contributors
                     </button>
@@ -46,7 +44,6 @@ const Footer = () => {
                     type="button"
                     className="link after:content-['_↗']"
                     onClick={() => openExternal("https://yell0wsuit.github.io/docugrammar/")}
-                    target="_blank"
                 >
                     DocuGrammar
                 </button>
