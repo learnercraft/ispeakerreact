@@ -1,5 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
+import process from "node:process";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -111,7 +112,7 @@ export default defineConfig(({ mode }) => {
                             },
                         ],
                         id: "io.yllsttestinglabs.ispeakerreact",
-                        dir: "auto",
+                        dir: "ltr",
                         orientation: "any",
                         categories: ["education"],
                         prefer_related_applications: false,
