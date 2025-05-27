@@ -1,14 +1,14 @@
-import { ipcMain } from "electron";
+import { ipcMain, IpcMainInvokeEvent } from "electron";
 import applog from "electron-log";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import {
+    deleteEmptyDataSubfolder,
+    getDataSubfolder,
     getSaveFolder,
     settingsConf,
-    getDataSubfolder,
-    deleteEmptyDataSubfolder,
 } from "./filePath.js";
 import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 import { generateLogFileName } from "./logOperations.js";
@@ -45,7 +45,7 @@ const shouldMoveContents = (src: string, dest: string): boolean => {
 };
 
 // Helper: Delete pronunciation-venv in oldSaveFolder before moving
-const deletePronunciationVenv = async (oldSaveFolder: string, event: any) => {
+const deletePronunciationVenv = async (oldSaveFolder: string, event: IpcMainInvokeEvent) => {
     const oldVenvPath = path.join(oldSaveFolder, "pronunciation-venv");
     if (fs.existsSync(oldVenvPath)) {
         event.sender.send("venv-delete-status", { status: "deleting", path: oldVenvPath });
@@ -54,21 +54,22 @@ const deletePronunciationVenv = async (oldSaveFolder: string, event: any) => {
             console.log("Deleted old pronunciation-venv at:", oldVenvPath);
             applog.info("Deleted old pronunciation-venv at:", oldVenvPath);
             event.sender.send("venv-delete-status", { status: "deleted", path: oldVenvPath });
-        } catch (venvErr: any) {
+        } catch (venvErr) {
+            const errorMsg = venvErr instanceof Error ? venvErr.message : String(venvErr);
             // Log but do not block move if venv doesn't exist or can't be deleted
-            console.log("Could not delete old pronunciation-venv:", venvErr.message);
-            applog.warn("Could not delete old pronunciation-venv:", venvErr.message);
+            console.log("Could not delete old pronunciation-venv:", errorMsg);
+            applog.warn("Could not delete old pronunciation-venv:", errorMsg);
             event.sender.send("venv-delete-status", {
                 status: "error",
                 path: oldVenvPath,
-                error: venvErr.message,
+                error: errorMsg,
             });
         }
     }
 };
 
 // Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
-const moveFolderContents = async (src: string, dest: string, event: any) => {
+const moveFolderContents = async (src: string, dest: string, event: IpcMainInvokeEvent) => {
     // Recursively collect all files for accurate progress
     const files = await getAllFiles(src);
     const total = files.length;
@@ -167,13 +168,14 @@ const setCustomSaveFolderIPC = () => {
             // Ensure the destination exists before checking shouldMoveContents
             try {
                 await fsPromises.mkdir(newSaveFolder, { recursive: true });
-            } catch (e: any) {
-                console.log("Failed to create default save folder:", e);
-                applog.error("Failed to create default save folder:", e);
+            } catch (e) {
+                const errorMsg = e instanceof Error ? e.message : String(e);
+                console.log("Failed to create default save folder:", errorMsg);
+                applog.error("Failed to create default save folder:", errorMsg);
                 return {
                     success: false,
                     error: "folderChangeError",
-                    reason: e.message || "Unknown error",
+                    reason: errorMsg,
                 };
             }
             applog.info("[DEBUG] prevDataSubfolder:", prevDataSubfolder);
@@ -193,13 +195,15 @@ const setCustomSaveFolderIPC = () => {
                         await deletePronunciationVenv(prevDataSubfolder, event);
                         await moveFolderContents(prevDataSubfolder, newSaveFolder, event);
                     }
-                } catch (moveBackErr: any) {
-                    console.log("Failed to move contents back to default folder:", moveBackErr);
-                    applog.error("Failed to move contents back to default folder:", moveBackErr);
+                } catch (moveBackErr) {
+                    const errorMsg =
+                        moveBackErr instanceof Error ? moveBackErr.message : String(moveBackErr);
+                    console.log("Failed to move contents back to default folder:", errorMsg);
+                    applog.error("Failed to move contents back to default folder:", errorMsg);
                     return {
                         success: false,
                         error: "folderMoveError",
-                        reason: moveBackErr.message || "Unknown move error",
+                        reason: errorMsg,
                     };
                 }
             }
@@ -251,24 +255,26 @@ const setCustomSaveFolderIPC = () => {
                 // Ensure the data subfolder exists
                 try {
                     await fsPromises.mkdir(newSaveFolder, { recursive: true });
-                } catch (e: any) {
-                    console.log("Failed to create data subfolder:", e);
-                    applog.error("Failed to create data subfolder:", e);
+                } catch (e) {
+                    const errorMsg = e instanceof Error ? e.message : String(e);
+                    console.log("Failed to create data subfolder:", errorMsg);
+                    applog.error("Failed to create data subfolder:", errorMsg);
                     return {
                         success: false,
                         error: "folderChangeError",
-                        reason: e.message || "Unknown error",
+                        reason: errorMsg,
                     };
                 }
                 console.log("New save folder:", newSaveFolder);
                 applog.info("New save folder:", newSaveFolder);
-            } catch (err: any) {
-                console.log("Error setting custom save folder:", err);
-                applog.error("Error setting custom save folder:", err);
+            } catch (err) {
+                const errorMsg = err instanceof Error ? err.message : String(err);
+                console.log("Error setting custom save folder:", errorMsg);
+                applog.error("Error setting custom save folder:", errorMsg);
                 return {
                     success: false,
                     error: "folderChangeError",
-                    reason: err.message || "Unknown error",
+                    reason: errorMsg,
                 };
             }
         }
@@ -282,9 +288,10 @@ const setCustomSaveFolderIPC = () => {
             const currentLogFolder = path.join(newSaveFolder, "logs");
             try {
                 await fsPromises.mkdir(currentLogFolder, { recursive: true });
-            } catch (e: any) {
-                console.log("Failed to create new log directory:", e);
-                applog.warn("Failed to create new log directory:", e);
+            } catch (e) {
+                const errorMsg = e instanceof Error ? e.message : String(e);
+                console.log("Failed to create new log directory:", errorMsg);
+                applog.warn("Failed to create new log directory:", errorMsg);
             }
             applog.transports.file.fileName = generateLogFileName();
             applog.transports.file.resolvePathFn = () =>
@@ -296,13 +303,14 @@ const setCustomSaveFolderIPC = () => {
                 await deleteEmptyDataSubfolder(prevCustomFolder);
             }
             return { success: true, newPath: newSaveFolder };
-        } catch (moveErr: any) {
-            console.log("Failed to move folder contents:", moveErr);
-            applog.error("Failed to move folder contents:", moveErr);
+        } catch (moveErr) {
+            const errorMsg = moveErr instanceof Error ? moveErr.message : String(moveErr);
+            console.log("Failed to move folder contents:", errorMsg);
+            applog.error("Failed to move folder contents:", errorMsg);
             return {
                 success: false,
                 error: "folderMoveError",
-                reason: moveErr.message || "Unknown move error",
+                reason: errorMsg,
             };
         }
     });
