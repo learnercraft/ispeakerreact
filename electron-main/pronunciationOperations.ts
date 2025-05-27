@@ -5,9 +5,9 @@ import { spawn } from "node:child_process";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { getSaveFolder, readUserSettings, settingsConf } from "./filePath.js";
+import { getSaveFolder, settingsConf } from "./filePath.js";
 
-let currentPythonProcess = null;
+let currentPythonProcess: any = null;
 let pendingCancel = false;
 let isGloballyCancelled = false;
 
@@ -18,7 +18,7 @@ const checkPythonInstalled = async () => {
     let log = "";
     return new Promise((resolve) => {
         // Try python3 first
-        const tryPython = (cmd, cb) => {
+        const tryPython = (cmd: string, cb: (err: any, stdout: string, stderr: string) => void) => {
             const proc = spawn(cmd, ["--version"], { shell: true });
             let stdout = "";
             let stderr = "";
@@ -65,24 +65,28 @@ const checkPythonInstalled = async () => {
     });
 };
 
-const startProcess = (cmd, args, onExit) => {
+const startProcess = (cmd: string, args: string[], onExit: (err: any) => void) => {
     const proc = spawn(cmd, args, { shell: true });
     currentPythonProcess = proc;
     if (pendingCancel) {
         // Wait 0.5s, then kill the process
         setTimeout(() => {
-            fkill(proc.pid, { force: true, tree: true })
-                .then(() => {
-                    console.log("[Cancel] Process killed after short delay due to pending cancel.");
-                })
-                .catch((err) => {
-                    if (err.message && err.message.includes("Process doesn't exist")) {
-                        // Already dead, ignore
-                    } else {
-                        console.error("[Cancel] Error killing process after delay:", err);
-                    }
-                });
-            proc._wasCancelledImmediately = true; // Mark for downstream logic
+            if (typeof proc.pid !== "undefined") {
+                fkill(proc.pid, { force: true, tree: true })
+                    .then(() => {
+                        console.log(
+                            "[Cancel] Process killed after short delay due to pending cancel."
+                        );
+                    })
+                    .catch((err: any) => {
+                        if (err.message && err.message.includes("Process doesn't exist")) {
+                            // Already dead, ignore
+                        } else {
+                            console.error("[Cancel] Error killing process after delay:", err);
+                        }
+                    });
+            }
+            (proc as any)._wasCancelledImmediately = true; // Mark for downstream logic
         }, 500); // 0.5 second delay
         pendingCancel = false;
     }
@@ -108,7 +112,7 @@ const resetGlobalCancel = () => {
 
 // --- VENV HELPERS ---
 const getVenvDir = async () => {
-    const saveFolder = await getSaveFolder(readUserSettings);
+    const saveFolder = await getSaveFolder();
     return path.join(saveFolder, "pronunciation-venv");
 };
 
@@ -167,18 +171,18 @@ const ensureVenvExists = async () => {
         let systemPython = "python";
         // Try to use python3 if available
         try {
-            await new Promise((resolve, reject) => {
+            await new Promise<void>((resolve, reject) => {
                 const proc = spawn("python3", ["--version"], { shell: true });
                 proc.on("close", (code) => {
                     if (code === 0) resolve();
-                    else reject();
+                    else reject(void 0);
                 });
             });
             systemPython = "python3";
         } catch {
             // fallback to python
         }
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             const proc = spawn(systemPython, ["-m", "venv", venvDir], { shell: true });
             proc.on("close", (code) => {
                 if (code === 0) resolve();
@@ -206,10 +210,10 @@ const installDependencies = () => {
             try {
                 await upgradeVenvPip();
                 log += "Upgraded pip to latest version.\n";
-            } catch (err) {
+            } catch (err: any) {
                 log += `Failed to upgrade pip: ${err.message}\n`;
             }
-        } catch (err) {
+        } catch (err: any) {
             log += `Failed to create virtual environment: ${err.message}\n`;
             event.sender.send("pronunciation-dep-progress", {
                 name: "all",
@@ -220,7 +224,7 @@ const installDependencies = () => {
         }
         return new Promise((resolve) => {
             const pipArgs = ["install", ...dependencies, "-U"];
-            const pipProcess = startProcess(venvPip, pipArgs, (err) => {
+            const pipProcess = startProcess(venvPip, pipArgs, (err: any) => {
                 const status = err ? "error" : "success";
                 event.sender.send("pronunciation-dep-progress", {
                     name: "all",
@@ -250,7 +254,11 @@ const installDependencies = () => {
 };
 
 // Extracted model download logic
-const downloadModelToDir = async (modelDir, modelName, onProgress) => {
+const downloadModelToDir = async (
+    modelDir: string,
+    modelName: string,
+    onProgress: (msg: any) => void
+) => {
     if (isGloballyCancelled) {
         if (onProgress) onProgress({ status: "cancelled", message: "Cancelled before start" });
         return { status: "cancelled", message: "Cancelled before start" };
@@ -266,7 +274,7 @@ const downloadModelToDir = async (modelDir, modelName, onProgress) => {
     try {
         await ensureVenvExists();
         venvPython = await getVenvPythonPath();
-    } catch (err) {
+    } catch (err: any) {
         if (onProgress)
             onProgress({
                 status: "error",
@@ -376,7 +384,7 @@ else:
     )
     sys.exit(1)
 `;
-    const saveFolder = await getSaveFolder(readUserSettings);
+    const saveFolder = await getSaveFolder();
     const tempPyPath = path.join(saveFolder, "download_model_temp.py");
     await fsPromises.writeFile(tempPyPath, pyCode, "utf-8");
     // Emit 'downloading' status before launching Python process
@@ -405,20 +413,20 @@ else:
             }
         });
         // If process was cancelled immediately, resolve and do not proceed
-        if (py._wasCancelledImmediately) {
+        if ((py as any)._wasCancelledImmediately) {
             if (onProgress)
                 onProgress({ status: "cancelled", message: "Process cancelled before start" });
             resolve({ status: "cancelled", message: "Process cancelled before start" });
             return;
         }
-        let lastStatus = null;
+        let lastStatus: any = null;
         let hadError = false;
         py.stdout.on("data", (data) => {
             const str = data.toString();
             // Always forward raw output to renderer for logging
             if (onProgress) onProgress({ status: "log", message: str });
             // Try to parse JSON lines as before
-            str.split(/\r?\n/).forEach((line) => {
+            str.split(/\r?\n/).forEach((line: string) => {
                 if (line.trim()) {
                     try {
                         const msg = JSON.parse(line);
@@ -464,19 +472,23 @@ else:
 
 const downloadModel = () => {
     ipcMain.handle("pronunciation-download-model", async (event, modelName) => {
-        const saveFolder = await getSaveFolder(readUserSettings);
+        const saveFolder = await getSaveFolder();
         // Replace / with _ for folder name
         const safeModelFolder = modelName.replace(/\//g, "_");
         const modelDir = path.join(saveFolder, "phoneme-model", safeModelFolder);
         // Forward progress to renderer
-        const finalStatus = await downloadModelToDir(modelDir, modelName, (msg) => {
+        const finalStatus = await downloadModelToDir(modelDir, modelName, (msg: any) => {
             event.sender.send("pronunciation-model-progress", msg);
         });
         // After successful download, update user settings with modelName
         console.log(
             `[PronunciationOperations] finalStatus: ${JSON.stringify(finalStatus, null, 2)}`
         );
-        if (finalStatus && (finalStatus.status === "success" || finalStatus.status === "found")) {
+        if (
+            finalStatus &&
+            typeof (finalStatus as any).status === "string" &&
+            ((finalStatus as any).status === "success" || (finalStatus as any).status === "found")
+        ) {
             settingsConf.set("modelName", modelName);
             console.log(`[PronunciationOperations] modelName updated to ${modelName}`);
             console.log(`[PronunciationOperations] settingsConf: ${settingsConf.get("modelName")}`);
@@ -497,7 +509,7 @@ const cancelProcess = () => {
             try {
                 await fkill(currentPythonProcess.pid, { force: true, tree: true });
                 console.log("[Cancel] Python process tree killed with fkill.");
-            } catch (err) {
+            } catch (err: any) {
                 console.error("[Cancel] Error killing Python process tree:", err);
             }
             currentPythonProcess = null;
@@ -519,7 +531,7 @@ const killCurrentPythonProcess = async () => {
         try {
             await fkill(currentPythonProcess.pid, { force: true, tree: true });
             console.log("[Cleanup] Python process tree killed on app quit.");
-        } catch (err) {
+        } catch (err: any) {
             console.error("[Cleanup] Error killing Python process tree on app quit:", err);
         }
         currentPythonProcess = null;
@@ -560,7 +572,7 @@ const setupPronunciationInstallStatusIPC = () => {
 };
 
 // Helper to migrate old flat status to new structured format
-const migrateOldStatusToStructured = (status) => {
+const migrateOldStatusToStructured = (status: any) => {
     if (!status) return null;
     // Try to extract python info
     const python = {
@@ -592,10 +604,10 @@ export {
     cancelProcess,
     checkPythonInstalled,
     downloadModel,
+    ensureVenvExists,
+    getVenvPythonPath,
     installDependencies,
     killCurrentPythonProcess,
     resetGlobalCancel,
     setupPronunciationInstallStatusIPC,
-    ensureVenvExists,
-    getVenvPythonPath,
 };
