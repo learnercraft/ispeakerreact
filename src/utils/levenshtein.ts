@@ -1,4 +1,4 @@
-const levenshtein = (a, b) => {
+const levenshtein = (a: string, b: string) => {
     const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
     for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
     for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
@@ -18,7 +18,7 @@ const levenshtein = (a, b) => {
     return matrix[a.length][b.length];
 };
 
-const getCharacterDiff = (a, b) => {
+const getCharacterDiff = (a: string, b: string) => {
     // Simple character diff using dynamic programming
     const m = a.length,
         n = b.length;
@@ -33,8 +33,8 @@ const getCharacterDiff = (a, b) => {
     }
     // Backtrack to get the diff
     let i = m,
-        j = n,
-        res = [];
+        j = n;
+    const res: { char: string; type: string }[] = [];
     while (i > 0 || j > 0) {
         if (i > 0 && j > 0 && a[i - 1] === b[j - 1]) {
             res.unshift({ char: a[i - 1], type: "same" });
@@ -55,32 +55,31 @@ const getCharacterDiff = (a, b) => {
     return res;
 };
 
-const alignPhonemes = (modelPhoneme, officialPhoneme) => {
+const alignPhonemes = (modelPhoneme: string, officialPhoneme: string) => {
     // Tokenize the official phoneme string
     const officialTokens = officialPhoneme.trim().split(/\s+/);
 
     // Remove all spaces from model output for easier matching
-    let modelStr = modelPhoneme.replace(/\s+/g, "");
+    const modelStr = modelPhoneme.replace(/\s+/g, "");
     let idx = 0;
-    const aligned = [];
+    const aligned: string[] = [];
 
     for (const token of officialTokens) {
         // Try to match the next segment of modelStr to the current official token
-        if (modelStr.substr(idx, token.length) === token) {
+        if (modelStr.substring(idx, idx + token.length) === token) {
             aligned.push(token);
             idx += token.length;
         } else {
             // If not matching, try to find the best match (fallback: take the next N chars)
-            aligned.push(modelStr.substr(idx, token.length));
+            aligned.push(modelStr.substring(idx, idx + token.length));
             idx += token.length;
         }
     }
     // If there are leftovers in modelStr, add them as extra tokens
     if (idx < modelStr.length) {
-        aligned.push(modelStr.substr(idx));
+        aligned.push(modelStr.substring(idx));
     }
     return aligned.join(" ");
 };
 
 export { alignPhonemes, getCharacterDiff, levenshtein };
-
