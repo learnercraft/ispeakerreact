@@ -1,20 +1,20 @@
 import { fixWebmDuration } from "@fix-webm-duration/fix";
-import isElectron from "./isElectron";
+import isElectron from "./isElectron.js";
 
-let db;
+let db: IDBDatabase | null = null;
 
 // Helper function to convert Blob to ArrayBuffer
-const blobToArrayBuffer = (blob) => {
+const blobToArrayBuffer = (blob: Blob): Promise<ArrayBuffer> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
+        reader.onloadend = () => resolve(reader.result as ArrayBuffer);
         reader.onerror = (error) => reject(error);
         reader.readAsArrayBuffer(blob);
     });
 };
 
 // Open IndexedDB database
-const openDatabase = () => {
+const openDatabase = (): Promise<IDBDatabase> => {
     return new Promise((resolve, reject) => {
         if (db) {
             resolve(db);
@@ -23,18 +23,18 @@ const openDatabase = () => {
 
         const request = window.indexedDB.open("iSpeaker_data", 1);
 
-        request.onerror = (event) => {
-            console.error("Database error: ", event.target.error);
-            reject(event.target.error);
+        request.onerror = (event: Event) => {
+            console.error("Database error: ", (event.target as IDBRequest).error);
+            reject((event.target as IDBRequest).error);
         };
 
-        request.onsuccess = (event) => {
-            db = event.target.result;
+        request.onsuccess = (event: Event) => {
+            db = (event.target as IDBRequest).result as IDBDatabase;
             resolve(db);
         };
 
-        request.onupgradeneeded = (event) => {
-            const db = event.target.result;
+        request.onupgradeneeded = (event: Event) => {
+            const db = (event.target as IDBRequest).result as IDBDatabase;
 
             // Create required object stores if they don't exist
             const storeNames = ["recording_data", "conversation_data", "exam_data"];
@@ -48,12 +48,17 @@ const openDatabase = () => {
 };
 
 // Save recording to either Electron or IndexedDB
-const saveRecording = async (blob, key, mimeType, duration) => {
+const saveRecording = async (
+    blob: Blob,
+    key: string,
+    mimeType: string,
+    duration?: number
+): Promise<void> => {
     // If duration is not provided, calculate it from the blob
     if (!duration) {
         const audioContext = new AudioContext();
         const arrayBuffer = await blobToArrayBuffer(blob);
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer as ArrayBuffer);
         duration = audioBuffer.duration * 1000; // Convert to milliseconds
     }
 
@@ -63,7 +68,7 @@ const saveRecording = async (blob, key, mimeType, duration) => {
     if (isElectron()) {
         // Electron environment
         try {
-            await window.electron.saveRecording(key, arrayBuffer);
+            await window.electron.saveRecording(key, arrayBuffer as ArrayBuffer);
             console.log("Recording saved successfully via Electron API");
         } catch (error) {
             console.error("Error saving recording in Electron:", error);
@@ -79,12 +84,12 @@ const saveRecording = async (blob, key, mimeType, duration) => {
 
             const request = store.put({ id: key, recording: arrayBuffer, mimeType: mimeType });
 
-            return new Promise((resolve, reject) => {
+            return new Promise<void>((resolve, reject) => {
                 request.onsuccess = () => {
                     console.log("Recording saved successfully to IndexedDB");
                     resolve();
                 };
-                request.onerror = (error) => {
+                request.onerror = (error: Event) => {
                     console.error("Error saving recording:", error);
                     reject(error);
                 };
@@ -96,41 +101,46 @@ const saveRecording = async (blob, key, mimeType, duration) => {
 };
 
 // Check if recording exists
-const checkRecordingExists = async (key) => {
+const checkRecordingExists = async (key: string): Promise<boolean> => {
     if (isElectron()) {
-        return window.electron.checkRecordingExists(key);
+        return window.electron.checkRecordingExists(key) as Promise<boolean>;
     } else {
-        try {
-            const db = await openDatabase();
-            if (!db) return false;
+        const db = await openDatabase();
+        if (!db) return false;
 
-            const transaction = db.transaction(["recording_data"]);
-            const store = transaction.objectStore("recording_data");
-            const request = store.get(key);
+        return new Promise<boolean>((resolve) => {
+            try {
+                const transaction = db.transaction(["recording_data"]);
+                const store = transaction.objectStore("recording_data");
+                const request = store.get(key);
 
-            return new Promise((resolve, reject) => {
                 request.onsuccess = () => {
                     if (request.result) resolve(true);
                     else resolve(false);
                 };
-                request.onerror = (error) => reject(error);
-            });
-        } catch (error) {
-            console.error("Error checking recording existence in IndexedDB:", error);
-            return false;
-        }
+                request.onerror = () => resolve(false);
+            } catch {
+                console.error("Error checking recording existence in IndexedDB.");
+                resolve(false);
+            }
+        });
     }
 };
 
 // Play recording from either Electron or IndexedDB
-const playRecording = async (key, onSuccess, onError, onEnded) => {
+const playRecording = async (
+    key: string,
+    onSuccess?: (audio: HTMLAudioElement | null, source: AudioBufferSourceNode | null) => void,
+    onError?: (error: unknown) => void,
+    onEnded?: () => void
+): Promise<void> => {
     if (isElectron()) {
         try {
             // Get the audio data as an ArrayBuffer from the main process
             const arrayBuffer = await window.electron.playRecording(key);
 
             // Create a Blob from the ArrayBuffer
-            const audioBlob = new Blob([arrayBuffer], { type: "audio/wav" });
+            const audioBlob = new Blob([arrayBuffer as ArrayBuffer], { type: "audio/wav" });
 
             // Create a Blob URL
             const blobUrl = URL.createObjectURL(audioBlob);
@@ -172,17 +182,22 @@ const playRecording = async (key, onSuccess, onError, onEnded) => {
             const request = store.get(key);
 
             request.onsuccess = async () => {
-                const { recording, mimeType } = request.result;
+                const result = request.result;
+                if (!result) {
+                    if (onError) onError(new Error("Recording not found"));
+                    return;
+                }
+                const { recording, mimeType } = result;
 
                 try {
                     // Use AudioContext for playback
                     const audioContext = new AudioContext();
-                    const buffer = await audioContext.decodeAudioData(recording);
+                    const buffer = await audioContext.decodeAudioData(recording as ArrayBuffer);
                     const source = audioContext.createBufferSource();
                     source.buffer = buffer;
                     source.connect(audioContext.destination);
 
-                    source.onended = onEnded;
+                    source.onended = onEnded || null;
                     source.start();
 
                     if (onSuccess) onSuccess(null, source);
@@ -190,12 +205,12 @@ const playRecording = async (key, onSuccess, onError, onEnded) => {
                     console.error("Error decoding audio data:", decodeError);
 
                     // Fallback to Blob URL
-                    const audioBlob = new Blob([recording], { type: mimeType });
+                    const audioBlob = new Blob([recording as ArrayBuffer], { type: mimeType });
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
 
-                    audio.onended = onEnded;
-                    audio.onerror = onError;
+                    audio.onended = onEnded || null;
+                    audio.onerror = onError || null;
 
                     audio
                         .play()
@@ -209,7 +224,7 @@ const playRecording = async (key, onSuccess, onError, onEnded) => {
                 }
             };
 
-            request.onerror = (error) => {
+            request.onerror = (error: Event) => {
                 console.error("Error retrieving recording from IndexedDB:", error);
                 if (onError) onError(error);
             };
