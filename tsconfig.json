@@ -1,16 +1,17 @@
 {
+    "$schema": "https://json.schemastore.org/tsconfig",
     "compilerOptions": {
-        "target": "ES2024",
-        "module": "ESNext",
+        "target": "ESNext",
+        "module": "NodeNext",
         "lib": ["DOM", "ESNext"],
         "jsx": "react-jsx",
-        "moduleResolution": "Node16",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "dist",
+        "outDir": "production/dist",
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
