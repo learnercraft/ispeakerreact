@@ -14,8 +14,8 @@ import isDeniedSystemFolder from "./isDeniedSystemFolder.js";
 import { generateLogFileName } from "./logOperations.js";
 
 // Helper: Recursively collect all files in a directory
-const getAllFiles = async (dir, base = dir) => {
-    let files = [];
+const getAllFiles = async (dir: string, base = dir): Promise<{ abs: string; rel: string }[]> => {
+    let files: { abs: string; rel: string }[] = [];
     const entries = await fsPromises.readdir(dir, { withFileTypes: true });
     for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
@@ -32,10 +32,10 @@ const getAllFiles = async (dir, base = dir) => {
 };
 
 // Helper: Determine if folder contents should be moved
-const shouldMoveContents = (src, dest) => {
+const shouldMoveContents = (src: string, dest: string): boolean => {
     return (
-        src &&
-        dest &&
+        Boolean(src) &&
+        Boolean(dest) &&
         src !== dest &&
         fs.existsSync(src) &&
         fs.existsSync(dest) &&
@@ -45,7 +45,7 @@ const shouldMoveContents = (src, dest) => {
 };
 
 // Helper: Delete pronunciation-venv in oldSaveFolder before moving
-const deletePronunciationVenv = async (oldSaveFolder, event) => {
+const deletePronunciationVenv = async (oldSaveFolder: string, event: any) => {
     const oldVenvPath = path.join(oldSaveFolder, "pronunciation-venv");
     if (fs.existsSync(oldVenvPath)) {
         event.sender.send("venv-delete-status", { status: "deleting", path: oldVenvPath });
@@ -54,7 +54,7 @@ const deletePronunciationVenv = async (oldSaveFolder, event) => {
             console.log("Deleted old pronunciation-venv at:", oldVenvPath);
             applog.info("Deleted old pronunciation-venv at:", oldVenvPath);
             event.sender.send("venv-delete-status", { status: "deleted", path: oldVenvPath });
-        } catch (venvErr) {
+        } catch (venvErr: any) {
             // Log but do not block move if venv doesn't exist or can't be deleted
             console.log("Could not delete old pronunciation-venv:", venvErr.message);
             applog.warn("Could not delete old pronunciation-venv:", venvErr.message);
@@ -68,7 +68,7 @@ const deletePronunciationVenv = async (oldSaveFolder, event) => {
 };
 
 // Helper: Move all contents from one folder to another (copy then delete, robust for cross-device)
-const moveFolderContents = async (src, dest, event) => {
+const moveFolderContents = async (src: string, dest: string, event: any) => {
     // Recursively collect all files for accurate progress
     const files = await getAllFiles(src);
     const total = files.length;
@@ -104,7 +104,7 @@ const moveFolderContents = async (src, dest, event) => {
     }
     // 3. Remove empty directories in src (track progress for dirs)
     // We'll collect all directories and send progress for each
-    const collectDirs = async (dir) => {
+    const collectDirs = async (dir: string): Promise<string[]> => {
         let dirs = [dir];
         const entries = await fsPromises.readdir(dir, { withFileTypes: true });
         for (const entry of entries) {
@@ -147,27 +147,27 @@ const moveFolderContents = async (src, dest, event) => {
 const setCustomSaveFolderIPC = () => {
     ipcMain.handle("set-custom-save-folder", async (event, folderPath) => {
         const oldSaveFolder = await getSaveFolder();
-        let newSaveFolder;
-        let prevCustomFolder = null;
+        let newSaveFolder: string;
+        let prevCustomFolder: string | null = null;
         if (!folderPath) {
             // Reset to default
             const userSettings = settingsConf.store || {};
             if (userSettings.customSaveFolder) {
-                prevCustomFolder = userSettings.customSaveFolder;
+                prevCustomFolder = userSettings.customSaveFolder as string;
             }
             settingsConf.delete("customSaveFolder");
             // Use getSaveFolder to get the default save folder
             newSaveFolder = await getSaveFolder();
             applog.info("Reset to default save folder:", newSaveFolder);
             // Move contents back from previous custom folder's data subfolder if it exists
-            let prevDataSubfolder = null;
+            let prevDataSubfolder: string | null = null;
             if (prevCustomFolder) {
                 prevDataSubfolder = getDataSubfolder(prevCustomFolder);
             }
             // Ensure the destination exists before checking shouldMoveContents
             try {
                 await fsPromises.mkdir(newSaveFolder, { recursive: true });
-            } catch (e) {
+            } catch (e: any) {
                 console.log("Failed to create default save folder:", e);
                 applog.error("Failed to create default save folder:", e);
                 return {
@@ -178,7 +178,9 @@ const setCustomSaveFolderIPC = () => {
             }
             applog.info("[DEBUG] prevDataSubfolder:", prevDataSubfolder);
             applog.info("[DEBUG] newSaveFolder:", newSaveFolder);
-            const shouldMove = shouldMoveContents(prevDataSubfolder, newSaveFolder);
+            const shouldMove = prevDataSubfolder
+                ? shouldMoveContents(prevDataSubfolder, newSaveFolder)
+                : false;
             applog.info("[DEBUG] shouldMoveContents:", shouldMove);
             if (shouldMove) {
                 applog.info(
@@ -187,9 +189,11 @@ const setCustomSaveFolderIPC = () => {
                     newSaveFolder
                 );
                 try {
-                    await deletePronunciationVenv(prevDataSubfolder, event);
-                    await moveFolderContents(prevDataSubfolder, newSaveFolder, event);
-                } catch (moveBackErr) {
+                    if (prevDataSubfolder) {
+                        await deletePronunciationVenv(prevDataSubfolder, event);
+                        await moveFolderContents(prevDataSubfolder, newSaveFolder, event);
+                    }
+                } catch (moveBackErr: any) {
                     console.log("Failed to move contents back to default folder:", moveBackErr);
                     applog.error("Failed to move contents back to default folder:", moveBackErr);
                     return {
@@ -247,7 +251,7 @@ const setCustomSaveFolderIPC = () => {
                 // Ensure the data subfolder exists
                 try {
                     await fsPromises.mkdir(newSaveFolder, { recursive: true });
-                } catch (e) {
+                } catch (e: any) {
                     console.log("Failed to create data subfolder:", e);
                     applog.error("Failed to create data subfolder:", e);
                     return {
@@ -258,7 +262,7 @@ const setCustomSaveFolderIPC = () => {
                 }
                 console.log("New save folder:", newSaveFolder);
                 applog.info("New save folder:", newSaveFolder);
-            } catch (err) {
+            } catch (err: any) {
                 console.log("Error setting custom save folder:", err);
                 applog.error("Error setting custom save folder:", err);
                 return {
@@ -278,7 +282,7 @@ const setCustomSaveFolderIPC = () => {
             const currentLogFolder = path.join(newSaveFolder, "logs");
             try {
                 await fsPromises.mkdir(currentLogFolder, { recursive: true });
-            } catch (e) {
+            } catch (e: any) {
                 console.log("Failed to create new log directory:", e);
                 applog.warn("Failed to create new log directory:", e);
             }
@@ -292,7 +296,7 @@ const setCustomSaveFolderIPC = () => {
                 await deleteEmptyDataSubfolder(prevCustomFolder);
             }
             return { success: true, newPath: newSaveFolder };
-        } catch (moveErr) {
+        } catch (moveErr: any) {
             console.log("Failed to move folder contents:", moveErr);
             applog.error("Failed to move folder contents:", moveErr);
             return {
