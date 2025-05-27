@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
 
-const LogoLightOrDark = ({ width, height }) => {
+const LogoLightOrDark = ({ width, height }: { width: number; height: number }) => {
     const { autoDetectedTheme } = useAutoDetectTheme();
 
     const logoSrc =
@@ -10,11 +9,6 @@ const LogoLightOrDark = ({ width, height }) => {
             : `${import.meta.env.BASE_URL}images/logos/ispeakerreact-no-background.svg`;
 
     return <img alt="iSpeakerReact logo" src={logoSrc} width={width} height={height} />;
-};
-
-LogoLightOrDark.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
 };
 
 export default LogoLightOrDark;
