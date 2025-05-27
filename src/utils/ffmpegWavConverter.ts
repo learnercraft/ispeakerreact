@@ -1,11 +1,11 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
-import isElectron from "./isElectron";
+import isElectron from "./isElectron.js";
 
-let ffmpeg = null;
-let ffmpegLoading = null;
+let ffmpeg: FFmpeg | null = null;
+let ffmpegLoading: Promise<void> | null = null;
 
-const getFFmpeg = async () => {
+const getFFmpeg = async (): Promise<FFmpeg> => {
     if (!ffmpeg) {
         ffmpeg = new FFmpeg();
         ffmpegLoading = (async () => {
@@ -27,7 +27,7 @@ const getFFmpeg = async () => {
     return ffmpeg;
 };
 
-const convertToWav = async (inputBlob) => {
+const convertToWav = async (inputBlob: Blob): Promise<Blob> => {
     const ffmpeg = await getFFmpeg();
     await ffmpeg.writeFile("input", await fetchFile(inputBlob));
     await ffmpeg.exec([
@@ -44,7 +44,9 @@ const convertToWav = async (inputBlob) => {
         "output.wav",
     ]);
     const data = await ffmpeg.readFile("output.wav");
-    const wavBlob = new Blob([data.buffer], { type: "audio/wav" });
+    const wavBlob = new Blob([data instanceof Uint8Array ? data : new Uint8Array([])], {
+        type: "audio/wav",
+    });
     await ffmpeg.deleteFile("input");
     await ffmpeg.deleteFile("output.wav");
     return wavBlob;
