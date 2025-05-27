@@ -11,9 +11,10 @@ const isDeniedSystemFolder = (folderPath: string) => {
     try {
         // Resolve symlinks for robust security
         absoluteInput = fs.realpathSync.native(path.resolve(folderPath));
-    } catch (err: any) {
-        console.warn("Error getting realpath:", err.message);
-        applog.error("Error getting realpath:", err.message);
+    } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        console.warn("Error getting realpath:", errorMsg);
+        applog.error("Error getting realpath:", errorMsg);
         // If we can't resolve the path, deny access for safety
         return true;
     }
@@ -86,9 +87,10 @@ const isDeniedSystemFolder = (folderPath: string) => {
                     }
                 }
             }
-        } catch (err: any) {
-            console.warn("Error getting users directory:", err.message);
-            applog.error("Error getting users directory:", err.message);
+        } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            console.warn("Error getting users directory:", errorMsg);
+            applog.error("Error getting users directory:", errorMsg);
         }
     } else {
         // Linux and other Unix-like - using path.sep for consistency
@@ -133,9 +135,10 @@ const isDeniedSystemFolder = (folderPath: string) => {
                     }
                 }
             }
-        } catch (err: any) {
-            console.warn("Error getting home directory:", err.message);
-            applog.error("Error getting home directory:", err.message);
+        } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            console.warn("Error getting home directory:", errorMsg);
+            applog.error("Error getting home directory:", errorMsg);
         }
     }
 
@@ -150,9 +153,10 @@ const isDeniedSystemFolder = (folderPath: string) => {
             app.getPath("crashDumps"),
         ];
         denyList = [...denyList, ...appPaths];
-    } catch (err: any) {
-        console.warn("Error getting app paths:", err.message);
-        applog.error("Error getting app paths:", err.message);
+    } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        console.warn("Error getting app paths:", errorMsg);
+        applog.error("Error getting app paths:", errorMsg);
     }
 
     // De-duplicate and filter out any undefined or empty values
@@ -167,7 +171,10 @@ const isDeniedSystemFolder = (folderPath: string) => {
         let formatted;
         try {
             formatted = fs.realpathSync.native(path.resolve(p));
-        } catch (err: any) {
+        } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            console.warn("Error formatting path:", errorMsg);
+            applog.error("Error formatting path:", errorMsg);
             formatted = path.resolve(p);
         }
         if (!isCaseSensitive) formatted = formatted.toLowerCase();
