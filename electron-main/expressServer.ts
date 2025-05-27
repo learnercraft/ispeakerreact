@@ -1,6 +1,7 @@
+import { ipcMain } from "electron";
 import applog from "electron-log";
 import express from "express";
-import net from "net";
+import net, { AddressInfo } from "net";
 
 const DEFAULT_PORT = 8998;
 const MIN_PORT = 1024; // Minimum valid port number
@@ -35,6 +36,11 @@ const checkPortAvailability = (port: number) => {
         });
 
         server.listen(port);
+
+        // IPC event to get the current server port
+        ipcMain.handle("get-port", () => {
+            return (server.address() as AddressInfo)?.port || DEFAULT_PORT;
+        });
     });
 };
 
