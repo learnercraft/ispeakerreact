@@ -16,7 +16,7 @@ const checkDownloads = () => {
 
         const files = await fsPromises.readdir(videoFolder);
         // Return the list of zip files in the download folder
-        const zipFiles = files.filter((file: string) => file.endsWith(".7z"));
+        const zipFiles = files.filter((file) => file.endsWith(".7z"));
         return zipFiles.length === 0 ? "no zip files downloaded" : zipFiles;
     });
 };
@@ -33,9 +33,11 @@ const checkExtractedFolder = () => {
             const extractedFiles = await fsPromises.readdir(extractedFolder);
 
             // Check if all expected files are present in the extracted folder
-            const allFilesExtracted = zipContents[0].extractedFiles.every((file: any) => {
-                return extractedFiles.includes(file.name);
-            });
+            const allFilesExtracted = zipContents[0].extractedFiles.every(
+                (file: { name: string }) => {
+                    return extractedFiles.includes(file.name);
+                }
+            );
 
             event.sender.send("progress-update", 0);
 
