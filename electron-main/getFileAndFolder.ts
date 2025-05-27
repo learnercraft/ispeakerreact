@@ -1,10 +1,10 @@
 import { ipcMain, shell } from "electron";
+import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
-import fs from "node:fs";
 
-const getVideoFileDataIPC = (rootDir) => {
+const getVideoFileDataIPC = (rootDir: string) => {
     ipcMain.handle("get-video-file-data", async () => {
         const jsonPath = path.join(rootDir, "dist", "json", "videoFilesInfo.json");
         try {
@@ -19,7 +19,7 @@ const getVideoFileDataIPC = (rootDir) => {
 
 const getVideoSaveFolderIPC = () => {
     ipcMain.handle("get-video-save-folder", async () => {
-        const saveFolder = await getSaveFolder(readUserSettings);
+        const saveFolder = await getSaveFolder();
         const videoFolder = path.join(saveFolder, "video_files");
 
         // Ensure the directory exists
@@ -39,7 +39,7 @@ const getVideoSaveFolderIPC = () => {
 // IPC: Get current save folder (resolved)
 const getSaveFolderIPC = () => {
     ipcMain.handle("get-save-folder", async () => {
-        return await getSaveFolder(readUserSettings);
+        return await getSaveFolder();
     });
 };
 
@@ -52,7 +52,7 @@ const getCustomSaveFolderIPC = () => {
 };
 
 // IPC: Get ffmpeg wasm absolute path
-const getFfmpegWasmPathIPC = (rootDir) => {
+const getFfmpegWasmPathIPC = (rootDir: string) => {
     ipcMain.handle("get-ffmpeg-wasm-path", async () => {
         // Adjust the path as needed if you move the file elsewhere
         return path.resolve(rootDir, "data", "ffmpeg");
