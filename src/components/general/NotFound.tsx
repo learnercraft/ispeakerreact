@@ -1,5 +1,5 @@
-import Container from "../../ui/Container";
-import TopNavBar from "./TopNavBar";
+import Container from "../../ui/Container.js";
+import TopNavBar from "./TopNavBar.js";
 
 const NotFound = () => {
     return (
@@ -15,6 +15,7 @@ const NotFound = () => {
                     <img
                         className="mx-auto my-4 block object-contain"
                         src={`${import.meta.env.BASE_URL}images/undraw_by_the_road_re_vvs7.svg`}
+                        alt="By the road - Undraw illustration"
                     />
                 </div>
             </Container>
