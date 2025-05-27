@@ -15,7 +15,10 @@ export default tseslint.config(
         files: ["**/*.{js,jsx,ts,tsx}"],
         languageOptions: {
             ecmaVersion: "latest",
-            globals: globals.browser,
+            globals: {
+                ...globals.browser,
+                __APP_VERSION__: "readonly",
+            },
             parserOptions: {
                 ecmaVersion: "latest",
                 ecmaFeatures: { jsx: true },
