@@ -1,11 +1,11 @@
-import { ipcMain } from "electron";
+import { ipcMain, IpcMainEvent } from "electron";
 import applog from "electron-log";
 import JS7z from "js7z-tools";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
-import { getSaveFolder } from "./filePath";
+import { getSaveFolder } from "./filePath.js";
 
 // Function to calculate the SHA-256 hash of a file
 const calculateFileHash = (filePath: string) => {
@@ -18,11 +18,15 @@ const calculateFileHash = (filePath: string) => {
     });
 };
 
-const fileVerification = async (event: any, zipContents: any, extractedFolder: string) => {
+const fileVerification = async (
+    event: IpcMainEvent,
+    zipContents: { extractedFiles: { name: string; hash: string }[] }[],
+    extractedFolder: string
+) => {
     // Verify existing extracted files
     const totalFiles = zipContents[0].extractedFiles.length;
     let filesProcessed = 0;
-    let fileErrors = [];
+    const fileErrors: { type: string; name: string; message: string }[] = [];
 
     for (const file of zipContents[0].extractedFiles) {
         const extractedFilePath = path.join(extractedFolder, file.name);
@@ -199,9 +203,10 @@ const verifyAndExtractIPC = () => {
                     await fsPromises.unlink(zipFilePath);
                     console.log(`Deleted ZIP file: ${zipFilePath}`);
                     applog.log(`Extraction successful for ${zipFile}`);
-                } catch (err: any) {
-                    console.error(`Failed to delete ZIP file: ${err.message}`);
-                    applog.error(`Failed to delete ZIP file: ${err.message}`);
+                } catch (err) {
+                    const errorMsg = err instanceof Error ? err.message : String(err);
+                    console.error(`Failed to delete ZIP file: ${errorMsg}`);
+                    applog.error(`Failed to delete ZIP file: ${errorMsg}`);
                 }
 
                 event.sender.send("verification-success", {
@@ -210,13 +215,14 @@ const verifyAndExtractIPC = () => {
                     param: zipFile,
                 });
                 applog.log(`Successfully verified and extracted ${zipFile}`);
-            } catch (err: any) {
-                console.error(`Error processing ${zipFile}: ${err.message}`);
+            } catch (err) {
+                const errorMsg = err instanceof Error ? err.message : String(err);
+                console.error(`Error processing ${zipFile}: ${errorMsg}`);
                 event.sender.send("verification-error", {
                     messageKey:
                         "settingPage.videoDownloadSettings.electronVerifyMessage.zipErrorMsg",
                     param: zipFile,
-                    errorMessage: err.message,
+                    errorMessage: errorMsg,
                 });
             }
         } else {
