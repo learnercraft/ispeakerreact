@@ -7,7 +7,7 @@ import path from "node:path";
 import process from "node:process";
 import { getSaveFolder, settingsConf } from "./filePath.js";
 
-let currentPythonProcess: any = null;
+let currentPythonProcess: ReturnType<typeof spawn> | null = null;
 let pendingCancel = false;
 let isGloballyCancelled = false;
 
@@ -18,7 +18,10 @@ const checkPythonInstalled = async () => {
     let log = "";
     return new Promise((resolve) => {
         // Try python3 first
-        const tryPython = (cmd: string, cb: (err: any, stdout: string, stderr: string) => void) => {
+        const tryPython = (
+            cmd: string,
+            cb: (err: number | null, stdout: string, stderr: string) => void
+        ) => {
             const proc = spawn(cmd, ["--version"], { shell: true });
             let stdout = "";
             let stderr = "";
@@ -65,7 +68,11 @@ const checkPythonInstalled = async () => {
     });
 };
 
-const startProcess = (cmd: string, args: string[], onExit: (err: any) => void) => {
+const startProcess = (
+    cmd: string,
+    args: string[],
+    onExit: (err: { code: number } | null) => void
+): ReturnType<typeof spawn> => {
     const proc = spawn(cmd, args, { shell: true });
     currentPythonProcess = proc;
     if (pendingCancel) {
@@ -78,20 +85,26 @@ const startProcess = (cmd: string, args: string[], onExit: (err: any) => void) =
                             "[Cancel] Process killed after short delay due to pending cancel."
                         );
                     })
-                    .catch((err: any) => {
-                        if (err.message && err.message.includes("Process doesn't exist")) {
+                    .catch((err: unknown) => {
+                        if (
+                            err &&
+                            typeof err === "object" &&
+                            "message" in err &&
+                            typeof (err as { message: string }).message === "string" &&
+                            (err as { message: string }).message.includes("Process doesn't exist")
+                        ) {
                             // Already dead, ignore
                         } else {
                             console.error("[Cancel] Error killing process after delay:", err);
                         }
                     });
             }
-            (proc as any)._wasCancelledImmediately = true; // Mark for downstream logic
+            (proc as { _wasCancelledImmediately?: boolean })._wasCancelledImmediately = true; // Mark for downstream logic
         }, 500); // 0.5 second delay
         pendingCancel = false;
     }
     proc.on("close", (code) => {
-        onExit && onExit(code !== 0 ? { code } : null);
+        if (onExit) onExit(code !== 0 ? { code: code ?? -1 } : null);
     });
     return proc;
 };
@@ -160,7 +173,7 @@ const upgradeVenvPip = async () => {
 
 const ensureVenvExists = async () => {
     const venvDir = await getVenvDir();
-    let venvPython = await getVenvPythonPath();
+    const venvPython = await getVenvPythonPath();
     try {
         await fsPromises.access(venvPython);
         // Already exists
@@ -210,11 +223,11 @@ const installDependencies = () => {
             try {
                 await upgradeVenvPip();
                 log += "Upgraded pip to latest version.\n";
-            } catch (err: any) {
-                log += `Failed to upgrade pip: ${err.message}\n`;
+            } catch (err) {
+                log += `Failed to upgrade pip: ${(err as Error).message}\n`;
             }
-        } catch (err: any) {
-            log += `Failed to create virtual environment: ${err.message}\n`;
+        } catch (err) {
+            log += `Failed to create virtual environment: ${(err as Error).message}\n`;
             event.sender.send("pronunciation-dep-progress", {
                 name: "all",
                 status: "error",
@@ -224,7 +237,7 @@ const installDependencies = () => {
         }
         return new Promise((resolve) => {
             const pipArgs = ["install", ...dependencies, "-U"];
-            const pipProcess = startProcess(venvPip, pipArgs, (err: any) => {
+            const pipProcess = startProcess(venvPip, pipArgs, (err) => {
                 const status = err ? "error" : "success";
                 event.sender.send("pronunciation-dep-progress", {
                     name: "all",
@@ -233,22 +246,26 @@ const installDependencies = () => {
                 });
                 resolve({ deps: [{ name: "all", status }], log });
             });
-            pipProcess.stdout.on("data", (data) => {
-                log += data.toString();
-                event.sender.send("pronunciation-dep-progress", {
-                    name: "all",
-                    status: "pending",
-                    log: log.trim(),
+            if (pipProcess.stdout) {
+                pipProcess.stdout.on("data", (data) => {
+                    log += data.toString();
+                    event.sender.send("pronunciation-dep-progress", {
+                        name: "all",
+                        status: "pending",
+                        log: log.trim(),
+                    });
                 });
-            });
-            pipProcess.stderr.on("data", (data) => {
-                log += data.toString();
-                event.sender.send("pronunciation-dep-progress", {
-                    name: "all",
-                    status: "pending",
-                    log: log.trim(),
+            }
+            if (pipProcess.stderr) {
+                pipProcess.stderr.on("data", (data) => {
+                    log += data.toString();
+                    event.sender.send("pronunciation-dep-progress", {
+                        name: "all",
+                        status: "pending",
+                        log: log.trim(),
+                    });
                 });
-            });
+            }
         });
     });
 };
@@ -257,7 +274,7 @@ const installDependencies = () => {
 const downloadModelToDir = async (
     modelDir: string,
     modelName: string,
-    onProgress: (msg: any) => void
+    onProgress: ((msg: Record<string, unknown>) => void) | undefined
 ) => {
     if (isGloballyCancelled) {
         if (onProgress) onProgress({ status: "cancelled", message: "Cancelled before start" });
@@ -274,13 +291,16 @@ const downloadModelToDir = async (
     try {
         await ensureVenvExists();
         venvPython = await getVenvPythonPath();
-    } catch (err: any) {
+    } catch (err) {
         if (onProgress)
             onProgress({
                 status: "error",
-                message: `Failed to create virtual environment: ${err.message}`,
+                message: `Failed to create virtual environment: ${(err as Error).message}`,
             });
-        return { status: "error", message: `Failed to create virtual environment: ${err.message}` };
+        return {
+            status: "error",
+            message: `Failed to create virtual environment: ${(err as Error).message}`,
+        };
     }
     // Write Python code to temp file in save folder
     const pyCode = `
@@ -413,40 +433,44 @@ else:
             }
         });
         // If process was cancelled immediately, resolve and do not proceed
-        if ((py as any)._wasCancelledImmediately) {
+        if ((py as { _wasCancelledImmediately?: boolean })._wasCancelledImmediately) {
             if (onProgress)
                 onProgress({ status: "cancelled", message: "Process cancelled before start" });
             resolve({ status: "cancelled", message: "Process cancelled before start" });
             return;
         }
-        let lastStatus: any = null;
+        let lastStatus: Record<string, unknown> | null = null;
         let hadError = false;
-        py.stdout.on("data", (data) => {
-            const str = data.toString();
-            // Always forward raw output to renderer for logging
-            if (onProgress) onProgress({ status: "log", message: str });
-            // Try to parse JSON lines as before
-            str.split(/\r?\n/).forEach((line: string) => {
-                if (line.trim()) {
-                    try {
-                        const msg = JSON.parse(line);
-                        lastStatus = msg;
-                        if (msg.status === "error") {
-                            hadError = true;
-                            if (onProgress) onProgress(msg);
-                        } else {
-                            if (onProgress) onProgress(msg);
+        if (py.stdout) {
+            py.stdout.on("data", (data) => {
+                const str = data.toString();
+                // Always forward raw output to renderer for logging
+                if (onProgress) onProgress({ status: "log", message: str });
+                // Try to parse JSON lines as before
+                str.split(/\r?\n/).forEach((line: string) => {
+                    if (line.trim()) {
+                        try {
+                            const msg = JSON.parse(line);
+                            lastStatus = msg;
+                            if (msg.status === "error") {
+                                hadError = true;
+                                if (onProgress) onProgress(msg);
+                            } else {
+                                if (onProgress) onProgress(msg);
+                            }
+                        } catch {
+                            // Ignore parse errors for non-JSON lines
                         }
-                    } catch {
-                        // Ignore parse errors for non-JSON lines
                     }
-                }
+                });
             });
-        });
-        py.stderr.on("data", (data) => {
-            // Only log stderr, do not send error status unless process exits with error
-            if (onProgress) onProgress({ status: "log", message: data.toString() });
-        });
+        }
+        if (py.stderr) {
+            py.stderr.on("data", (data) => {
+                // Only log stderr, do not send error status unless process exits with error
+                if (onProgress) onProgress({ status: "log", message: data.toString() });
+            });
+        }
         py.on("exit", (code) => {
             currentPythonProcess = null;
             fsPromises.unlink(tempPyPath).catch(() => {
@@ -471,23 +495,28 @@ else:
 };
 
 const downloadModel = () => {
-    ipcMain.handle("pronunciation-download-model", async (event, modelName) => {
+    ipcMain.handle("pronunciation-download-model", async (event, modelName: string) => {
         const saveFolder = await getSaveFolder();
         // Replace / with _ for folder name
         const safeModelFolder = modelName.replace(/\//g, "_");
         const modelDir = path.join(saveFolder, "phoneme-model", safeModelFolder);
         // Forward progress to renderer
-        const finalStatus = await downloadModelToDir(modelDir, modelName, (msg: any) => {
-            event.sender.send("pronunciation-model-progress", msg);
-        });
+        const finalStatus = await downloadModelToDir(
+            modelDir,
+            modelName,
+            (msg: Record<string, unknown>) => {
+                event.sender.send("pronunciation-model-progress", msg);
+            }
+        );
         // After successful download, update user settings with modelName
         console.log(
             `[PronunciationOperations] finalStatus: ${JSON.stringify(finalStatus, null, 2)}`
         );
         if (
             finalStatus &&
-            typeof (finalStatus as any).status === "string" &&
-            ((finalStatus as any).status === "success" || (finalStatus as any).status === "found")
+            typeof (finalStatus as { status?: string }).status === "string" &&
+            ((finalStatus as { status?: string }).status === "success" ||
+                (finalStatus as { status?: string }).status === "found")
         ) {
             settingsConf.set("modelName", modelName);
             console.log(`[PronunciationOperations] modelName updated to ${modelName}`);
@@ -507,9 +536,13 @@ const cancelProcess = () => {
         );
         if (currentPythonProcess) {
             try {
-                await fkill(currentPythonProcess.pid, { force: true, tree: true });
-                console.log("[Cancel] Python process tree killed with fkill.");
-            } catch (err: any) {
+                if (typeof currentPythonProcess.pid === "number") {
+                    await fkill(currentPythonProcess.pid, { force: true, tree: true });
+                    console.log("[Cancel] Python process tree killed with fkill.");
+                } else {
+                    console.log("[Cancel] No valid pid to kill.");
+                }
+            } catch (err) {
                 console.error("[Cancel] Error killing Python process tree:", err);
             }
             currentPythonProcess = null;
@@ -529,9 +562,13 @@ const cancelProcess = () => {
 const killCurrentPythonProcess = async () => {
     if (currentPythonProcess) {
         try {
-            await fkill(currentPythonProcess.pid, { force: true, tree: true });
-            console.log("[Cleanup] Python process tree killed on app quit.");
-        } catch (err: any) {
+            if (typeof currentPythonProcess.pid === "number") {
+                await fkill(currentPythonProcess.pid, { force: true, tree: true });
+                console.log("[Cleanup] Python process tree killed on app quit.");
+            } else {
+                console.log("[Cleanup] No valid pid to kill.");
+            }
+        } catch (err) {
             console.error("[Cleanup] Error killing Python process tree on app quit:", err);
         }
         currentPythonProcess = null;
@@ -572,30 +609,31 @@ const setupPronunciationInstallStatusIPC = () => {
 };
 
 // Helper to migrate old flat status to new structured format
-const migrateOldStatusToStructured = (status: any) => {
-    if (!status) return null;
+const migrateOldStatusToStructured = (status: unknown) => {
+    if (!status || typeof status !== "object" || status === null) return null;
+    const s = status as Record<string, unknown>;
     // Try to extract python info
     const python = {
-        found: status.found,
-        version: status.version,
+        found: s.found,
+        version: s.version,
     };
     // Dependencies: if array, use as is; if single dep, wrap in array
-    let dependencies = status.deps;
+    let dependencies = s.deps;
     if (!Array.isArray(dependencies)) {
         dependencies = dependencies ? [dependencies] : [];
     }
     // Model info
     const model = {
-        status: status.modelStatus || status.status,
-        message: status.modelMessage || status.message,
-        log: status.modelLog || "",
+        status: s.modelStatus || s.status,
+        message: s.modelMessage || s.message,
+        log: s.modelLog || "",
     };
     return {
         python,
         dependencies,
         model,
-        stderr: status.stderr || "",
-        log: status.log || "",
+        stderr: s.stderr || "",
+        log: s.log || "",
         timestamp: Date.now(),
     };
 };
