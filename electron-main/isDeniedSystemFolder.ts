@@ -4,17 +4,20 @@ import path from "node:path";
 import process from "node:process";
 import fs from "node:fs";
 
-const isDeniedSystemFolder = (folderPath) => {
+const isDeniedSystemFolder = (folderPath: string) => {
     // Normalize and resolve the path to prevent path traversal attacks
     // This converts to absolute path and resolves ".." and "." segments
-    let absoluteInput;
+    let absoluteInput: string | undefined;
     try {
         // Resolve symlinks for robust security
         absoluteInput = fs.realpathSync.native(path.resolve(folderPath));
-    } catch (err) {
+    } catch (err: any) {
         console.warn("Error getting realpath:", err.message);
         applog.error("Error getting realpath:", err.message);
+        // If we can't resolve the path, deny access for safety
+        return true;
     }
+
     const platform = process.platform;
     const isCaseSensitive = platform !== "win32";
     // Handle potential trailing slashes inconsistencies
@@ -83,7 +86,7 @@ const isDeniedSystemFolder = (folderPath) => {
                     }
                 }
             }
-        } catch (err) {
+        } catch (err: any) {
             console.warn("Error getting users directory:", err.message);
             applog.error("Error getting users directory:", err.message);
         }
@@ -130,7 +133,7 @@ const isDeniedSystemFolder = (folderPath) => {
                     }
                 }
             }
-        } catch (err) {
+        } catch (err: any) {
             console.warn("Error getting home directory:", err.message);
             applog.error("Error getting home directory:", err.message);
         }
@@ -147,7 +150,7 @@ const isDeniedSystemFolder = (folderPath) => {
             app.getPath("crashDumps"),
         ];
         denyList = [...denyList, ...appPaths];
-    } catch (err) {
+    } catch (err: any) {
         console.warn("Error getting app paths:", err.message);
         applog.error("Error getting app paths:", err.message);
     }
@@ -164,7 +167,7 @@ const isDeniedSystemFolder = (folderPath) => {
         let formatted;
         try {
             formatted = fs.realpathSync.native(path.resolve(p));
-        } catch {
+        } catch (err: any) {
             formatted = path.resolve(p);
         }
         if (!isCaseSensitive) formatted = formatted.toLowerCase();
