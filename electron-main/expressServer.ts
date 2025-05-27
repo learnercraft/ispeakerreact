@@ -14,11 +14,11 @@ const getRandomPort = () => {
 };
 
 // Function to check if a port is available
-const checkPortAvailability = (port) => {
+const checkPortAvailability = (port: number) => {
     return new Promise((resolve, reject) => {
         const server = net.createServer();
 
-        server.once("error", (err) => {
+        server.once("error", (err: any) => {
             if (err.code === "EADDRINUSE" || err.code === "ECONNREFUSED") {
                 resolve(false); // Port is in use
                 applog.log("Port is in use. Error:", err.code);
