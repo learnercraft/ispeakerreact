@@ -27,6 +27,10 @@ import {
     setCurrentLogSettings,
 } from "./electron-main/logOperations";
 import {
+    setupGetRecordingBlobIPC,
+    setupPronunciationCheckerIPC,
+} from "./electron-main/pronunciationCheckerIPC";
+import {
     cancelProcess,
     checkPythonInstalled,
     downloadModel,
@@ -37,10 +41,6 @@ import {
 } from "./electron-main/pronunciationOperations";
 import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations";
 import { verifyAndExtractIPC } from "./electron-main/zipOperation";
-import {
-    setupPronunciationCheckerIPC,
-    setupGetRecordingBlobIPC,
-} from "./electron-main/pronunciationCheckerIPC";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -252,9 +252,7 @@ app.on("window-all-closed", () => {
 // Recreate the window on macOS when the dock icon is clicked.
 app.on("activate", () => {
     if (mainWindow === null) {
-        createWindow(__dirname, (srv: any) => {
-            srv;
-        });
+        createWindow(__dirname);
     }
 });
 
@@ -272,9 +270,7 @@ if (!gotTheLock) {
             // 2. Start heavy work in parallel after splash is shown
             setImmediate(() => {
                 // Create main window (can be shown after splash)
-                createWindow(__dirname, (srv: any) => {
-                    srv;
-                });
+                createWindow(__dirname);
 
                 // Wait for log settings and manage logs in background
                 ipcMain.once("update-log-settings", (event, settings) => {

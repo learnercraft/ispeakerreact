@@ -1,50 +1,35 @@
 import { ipcMain } from "electron";
 import applog from "electron-log";
 import express from "express";
-import net, { AddressInfo } from "net";
+import net from "net";
 
 const DEFAULT_PORT = 8998;
 const MIN_PORT = 1024; // Minimum valid port number
 const MAX_PORT = 65535; // Maximum valid port number
 
-// Create Express server
 const expressApp = express();
-// Function to generate a random port number within the range
-const getRandomPort = () => {
-    return Math.floor(Math.random() * (MAX_PORT - MIN_PORT + 1)) + MIN_PORT;
-};
+let currentPort: number | null = null;
+let httpServer: any = null;
 
-const server = net.createServer();
+const getRandomPort = () => Math.floor(Math.random() * (MAX_PORT - MIN_PORT + 1)) + MIN_PORT;
 
-// Function to check if a port is available
 const checkPortAvailability = (port: number) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
+        const server = net.createServer();
         server.once("error", (err: any) => {
             if (err.code === "EADDRINUSE" || err.code === "ECONNREFUSED") {
-                resolve(false); // Port is in use
-                applog.log("Port is in use. Error:", err.code);
+                resolve(false);
             } else {
-                reject(err); // Some other error occurred
-                applog.log("Another error related to the Express server. Error:", err.code);
+                reject(err);
             }
         });
-
         server.once("listening", () => {
-            server.close(() => {
-                resolve(true); // Port is available
-            });
+            server.close(() => resolve(true));
         });
-
         server.listen(port);
-
-        // IPC event to get the current server port
-        ipcMain.handle("get-port", () => {
-            return (server.address() as AddressInfo)?.port || DEFAULT_PORT;
-        });
     });
 };
 
-// Function to start the Express server with the default port first, then randomize if necessary
 const startExpressServer = async () => {
     let port = DEFAULT_PORT;
     let isPortAvailable = await checkPortAvailability(port);
@@ -57,9 +42,16 @@ const startExpressServer = async () => {
         } while (!isPortAvailable);
     }
 
-    return expressApp.listen(port, () => {
+    httpServer = expressApp.listen(port, () => {
+        currentPort = port;
         applog.info(`Express server is running on http://localhost:${port}`);
     });
+    return httpServer;
 };
 
-export { expressApp, server, startExpressServer };
+const getExpressPort = () => currentPort;
+
+// IPC handler for renderer to get port
+ipcMain.handle("get-port", () => getExpressPort());
+
+export { expressApp, getExpressPort, startExpressServer };

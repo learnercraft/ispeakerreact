@@ -41,7 +41,7 @@ const createSplashWindow = (rootDir: string, ipcMain: any, conf: any) => {
     });
 };
 
-const createWindow = (rootDir: string, onServerReady: (srv: any) => void) => {
+const createWindow = (rootDir: string) => {
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 720,
@@ -72,9 +72,7 @@ const createWindow = (rootDir: string, onServerReady: (srv: any) => void) => {
                 mainWindow.show();
             }
             // Start Express server in the background after main window is shown
-            startExpressServer().then((srv: any) => {
-                if (onServerReady) onServerReady(srv);
-            });
+            startExpressServer();
         }, 500);
     });
 
