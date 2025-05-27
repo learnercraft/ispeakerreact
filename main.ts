@@ -1,6 +1,8 @@
 /* global setImmediate */ // for eslint because setImmediate is node global
 import cors from "cors";
+import type { IpcMainEvent } from "electron";
 import { app, BrowserWindow, dialog, ipcMain, shell } from "electron";
+import type { LogFunctions, LogLevel } from "electron-log";
 import applog from "electron-log";
 import { Buffer } from "node:buffer";
 import fs from "node:fs";
@@ -10,26 +12,26 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 import { Conf } from "electron-conf/main";
-import { createSplashWindow, createWindow } from "./electron-main/createWindow";
-import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation";
-import { expressApp } from "./electron-main/expressServer";
-import { getLogFolder, getSaveFolder } from "./electron-main/filePath";
+import { createSplashWindow, createWindow } from "./electron-main/createWindow.js";
+import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
+import { expressApp } from "./electron-main/expressServer.js";
+import { getLogFolder, getSaveFolder } from "./electron-main/filePath.js";
 import {
     getCustomSaveFolderIPC,
     getFfmpegWasmPathIPC,
     getSaveFolderIPC,
     getVideoFileDataIPC,
     getVideoSaveFolderIPC,
-} from "./electron-main/getFileAndFolder";
+} from "./electron-main/getFileAndFolder.js";
 import {
     getCurrentLogSettings,
     manageLogFiles,
     setCurrentLogSettings,
-} from "./electron-main/logOperations";
+} from "./electron-main/logOperations.js";
 import {
     setupGetRecordingBlobIPC,
     setupPronunciationCheckerIPC,
-} from "./electron-main/pronunciationCheckerIPC";
+} from "./electron-main/pronunciationCheckerIPC.js";
 import {
     cancelProcess,
     checkPythonInstalled,
@@ -38,9 +40,9 @@ import {
     killCurrentPythonProcess,
     resetGlobalCancel,
     setupPronunciationInstallStatusIPC,
-} from "./electron-main/pronunciationOperations";
-import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations";
-import { verifyAndExtractIPC } from "./electron-main/zipOperation";
+} from "./electron-main/pronunciationOperations.js";
+import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations.js";
+import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -216,12 +218,17 @@ ipcMain.handle("open-recording-folder", async () => {
 verifyAndExtractIPC();
 
 // Listen for logging messages from the renderer process
-ipcMain.on("renderer-log", (event, logMessage) => {
-    const { level, message } = logMessage;
-    if (typeof level === "string" && typeof applog[level as keyof typeof applog] === "function") {
-        (applog as any)[level](`Renderer log: ${message}`);
+ipcMain.on(
+    "renderer-log",
+    (event: IpcMainEvent, logMessage: { level: LogLevel; message: string }) => {
+        const { level, message } = logMessage;
+        // Only allow valid log levels
+        const logFn = (applog as LogFunctions)[level];
+        if (typeof logFn === "function") {
+            logFn(`Renderer log: ${message}`);
+        }
     }
-});
+);
 
 // Handle uncaught exceptions globally and quit the app
 process.on("uncaughtException", (error) => {
@@ -237,10 +244,13 @@ process.on("unhandledRejection", (reason, promise) => {
     app.quit(); // Quit the app on an unhandled promise rejection
 });
 
-app.on("renderer-process-crashed", (event: any, killed: any) => {
-    applog.error("Renderer process crashed", { event, killed });
-    app.quit();
-});
+app.on(
+    "render-process-gone",
+    (event: Electron.Event, details: Electron.RenderProcessGoneDetails) => {
+        applog.error("Renderer process crashed", { event, details });
+        app.quit();
+    }
+);
 
 // Quit when all windows are closed, except on macOS.
 app.on("window-all-closed", () => {
