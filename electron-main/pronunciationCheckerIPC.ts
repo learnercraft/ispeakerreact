@@ -1,21 +1,22 @@
 import { spawn } from "child_process";
 import { ipcMain } from "electron";
-import applog from "electron-log";
+import applog, { LevelOption } from "electron-log";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
 import { getCurrentLogSettings } from "./logOperations.js";
 import { getVenvPythonPath, ensureVenvExists } from "./pronunciationOperations.js";
 
-const startProcess = (cmd, args) => {
+const startProcess = (cmd: string, args: string[], callback: (err: any) => void) => {
     const proc = spawn(cmd, args, { shell: true });
+    proc.on("error", callback);
     return proc;
 };
 
 // IPC handler to check pronunciation
 const setupPronunciationCheckerIPC = () => {
     ipcMain.handle("pronunciation-check", async (event, audioPath, modelName) => {
-        const saveFolder = await getSaveFolder(readUserSettings);
+        const saveFolder = await getSaveFolder();
         // If modelName is not provided, read from user settings
         if (!modelName) {
             const userSettings = await readUserSettings();
@@ -34,7 +35,7 @@ const setupPronunciationCheckerIPC = () => {
 
         // Configure electron-log with current settings
         applog.transports.file.maxSize = logSettings.maxLogSize;
-        applog.transports.console.level = logSettings.logLevel;
+        applog.transports.console.level = logSettings.logLevel as LevelOption;
 
         applog.info(`[PronunciationChecker] audioPath: ${audioPath}`);
         applog.info(`[PronunciationChecker] modelDir: ${modelDir}`);
@@ -137,13 +138,13 @@ if __name__ == "__main__":
         try {
             await ensureVenvExists();
             venvPython = await getVenvPythonPath();
-        } catch (err) {
+        } catch (err: any) {
             applog.error(`[PronunciationChecker] Failed to create or find venv: ${err.message}`);
             return { status: "error", message: `Failed to create or find venv: ${err.message}` };
         }
         applog.info(`[PronunciationChecker] About to run: ${venvPython} -u ${tempPyPath}`);
         return new Promise((resolve) => {
-            const py = startProcess(venvPython, ["-u", tempPyPath], (err) => {
+            const py = startProcess(venvPython, ["-u", tempPyPath], (err: any) => {
                 fsPromises.unlink(tempPyPath).catch(() => {
                     applog.warn(
                         "[PronunciationChecker] Failed to delete temp pronunciation checker file"
@@ -155,7 +156,7 @@ if __name__ == "__main__":
                     );
                 }
             });
-            let lastJson = null;
+            let lastJson: any = null;
             py.stdout.on("data", (data) => {
                 const lines = data.toString().split(/\r?\n/);
                 for (const line of lines) {
@@ -223,12 +224,12 @@ if __name__ == "__main__":
 // IPC handler to get the recording blob for a given key
 const setupGetRecordingBlobIPC = () => {
     ipcMain.handle("get-recording-blob", async (_event, key) => {
-        const saveFolder = await getSaveFolder(readUserSettings);
+        const saveFolder = await getSaveFolder();
         const filePath = path.join(saveFolder, "saved_recordings", `${key}.wav`);
         try {
             const data = await fsPromises.readFile(filePath);
             return data.buffer; // ArrayBuffer for renderer
-        } catch (err) {
+        } catch (err: any) {
             throw new Error(`Failed to read recording: ${err.message}`);
         }
     });
