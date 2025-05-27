@@ -14,11 +14,11 @@ const getRandomPort = () => {
     return Math.floor(Math.random() * (MAX_PORT - MIN_PORT + 1)) + MIN_PORT;
 };
 
+const server = net.createServer();
+
 // Function to check if a port is available
 const checkPortAvailability = (port: number) => {
     return new Promise((resolve, reject) => {
-        const server = net.createServer();
-
         server.once("error", (err: any) => {
             if (err.code === "EADDRINUSE" || err.code === "ECONNREFUSED") {
                 resolve(false); // Port is in use
@@ -62,4 +62,4 @@ const startExpressServer = async () => {
     });
 };
 
-export { expressApp, startExpressServer };
+export { expressApp, server, startExpressServer };

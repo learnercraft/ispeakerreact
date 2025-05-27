@@ -72,7 +72,7 @@ const createWindow = (rootDir: string, onServerReady: (srv: any) => void) => {
                 mainWindow.show();
             }
             // Start Express server in the background after main window is shown
-            startExpressServer().then((srv) => {
+            startExpressServer().then((srv: any) => {
                 if (onServerReady) onServerReady(srv);
             });
         }, 500);
