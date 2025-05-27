@@ -5,9 +5,9 @@ import * as fsPromises from "node:fs/promises";
 import path from "node:path";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
 import { getCurrentLogSettings } from "./logOperations.js";
-import { getVenvPythonPath, ensureVenvExists } from "./pronunciationOperations.js";
+import { ensureVenvExists, getVenvPythonPath } from "./pronunciationOperations.js";
 
-const startProcess = (cmd: string, args: string[], callback: (err: any) => void) => {
+const startProcess = (cmd: string, args: string[], callback: (err: Error) => void) => {
     const proc = spawn(cmd, args, { shell: true });
     proc.on("error", callback);
     return proc;
@@ -134,17 +134,18 @@ if __name__ == "__main__":
         const tempPyPath = path.join(saveFolder, "pronunciation_checker_temp.py");
         await fsPromises.writeFile(tempPyPath, pyCode, "utf-8");
         applog.info(`[PronunciationChecker] tempPyPath: ${tempPyPath}`);
-        let venvPython;
+        let venvPython: string;
         try {
             await ensureVenvExists();
             venvPython = await getVenvPythonPath();
-        } catch (err: any) {
-            applog.error(`[PronunciationChecker] Failed to create or find venv: ${err.message}`);
-            return { status: "error", message: `Failed to create or find venv: ${err.message}` };
+        } catch (err: unknown) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            applog.error(`[PronunciationChecker] Failed to create or find venv: ${errorMsg}`);
+            return { status: "error", message: `Failed to create or find venv: ${errorMsg}` };
         }
         applog.info(`[PronunciationChecker] About to run: ${venvPython} -u ${tempPyPath}`);
         return new Promise((resolve) => {
-            const py = startProcess(venvPython, ["-u", tempPyPath], (err: any) => {
+            const py = startProcess(venvPython, ["-u", tempPyPath], (err: Error) => {
                 fsPromises.unlink(tempPyPath).catch(() => {
                     applog.warn(
                         "[PronunciationChecker] Failed to delete temp pronunciation checker file"
@@ -152,11 +153,11 @@ if __name__ == "__main__":
                 });
                 if (err) {
                     applog.error(
-                        `[PronunciationChecker] Python process exited with code: ${err.code}`
+                        `[PronunciationChecker] Python process exited with code: ${(err as Error).message}`
                     );
                 }
             });
-            let lastJson: any = null;
+            let lastJson: Record<string, unknown> | null = null;
             py.stdout.on("data", (data) => {
                 const lines = data.toString().split(/\r?\n/);
                 for (const line of lines) {
@@ -229,8 +230,9 @@ const setupGetRecordingBlobIPC = () => {
         try {
             const data = await fsPromises.readFile(filePath);
             return data.buffer; // ArrayBuffer for renderer
-        } catch (err: any) {
-            throw new Error(`Failed to read recording: ${err.message}`);
+        } catch (err: unknown) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            throw new Error(`Failed to read recording: ${errorMsg}`);
         }
     });
 };
