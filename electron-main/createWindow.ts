@@ -6,10 +6,10 @@ import { startExpressServer } from "./expressServer.js";
 
 const isDev = process.env.NODE_ENV === "development";
 
-let mainWindow;
-let splashWindow;
+let mainWindow: BrowserWindow | null;
+let splashWindow: BrowserWindow | null;
 
-const createSplashWindow = (rootDir, ipcMain, conf) => {
+const createSplashWindow = (rootDir: string, ipcMain: any, conf: any) => {
     splashWindow = new BrowserWindow({
         width: 854,
         height: 413,
@@ -21,13 +21,12 @@ const createSplashWindow = (rootDir, ipcMain, conf) => {
             preload: path.join(rootDir, "preload.cjs"),
             nodeIntegration: false,
             contextIsolation: true,
-            enableRemoteModule: false,
             devTools: isDev ? true : false,
         },
     });
 
     // For splash screen
-    ipcMain.handle("get-conf", (event, key) => {
+    ipcMain.handle("get-conf", (key: string) => {
         return conf.get(key);
     });
 
@@ -42,7 +41,7 @@ const createSplashWindow = (rootDir, ipcMain, conf) => {
     });
 };
 
-const createWindow = (rootDir, onServerReady) => {
+const createWindow = (rootDir: string, onServerReady: (srv: any) => void) => {
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 720,
@@ -51,7 +50,6 @@ const createWindow = (rootDir, onServerReady) => {
             preload: path.join(rootDir, "preload.cjs"),
             nodeIntegration: false,
             contextIsolation: true,
-            enableRemoteModule: false,
             devTools: isDev ? true : false,
         },
         icon: path.join(rootDir, "dist", "appicon.png"),
@@ -66,10 +64,13 @@ const createWindow = (rootDir, onServerReady) => {
     // Show the main window only when it's ready
     mainWindow.once("ready-to-show", () => {
         setTimeout(() => {
-            splashWindow.close();
-            mainWindow.maximize();
-            mainWindow.show();
-
+            if (splashWindow) {
+                splashWindow.close();
+            }
+            if (mainWindow) {
+                mainWindow.maximize();
+                mainWindow.show();
+            }
             // Start Express server in the background after main window is shown
             startExpressServer().then((srv) => {
                 if (onServerReady) onServerReady(srv);
@@ -82,11 +83,15 @@ const createWindow = (rootDir, onServerReady) => {
     });
 
     mainWindow.on("enter-full-screen", () => {
-        mainWindow.setMenuBarVisibility(false);
+        if (mainWindow) {
+            mainWindow.setMenuBarVisibility(false);
+        }
     });
 
     mainWindow.on("leave-full-screen", () => {
-        mainWindow.setMenuBarVisibility(true);
+        if (mainWindow) {
+            mainWindow.setMenuBarVisibility(true);
+        }
     });
 
     const menu = Menu.buildFromTemplate([
@@ -116,8 +121,8 @@ const createWindow = (rootDir, onServerReady) => {
                 { role: "zoomOut" },
                 { type: "separator" },
                 { role: "togglefullscreen" },
-                isDev ? { role: "toggleDevTools" } : null,
-            ].filter(Boolean),
+                ...(isDev ? [{ role: "toggleDevTools" as const }] : []),
+            ],
         },
         {
             label: "Window",
