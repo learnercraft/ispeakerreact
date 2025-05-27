@@ -1,24 +1,35 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FiRefreshCw } from "react-icons/fi";
 import { HiOutlineClipboardCopy } from "react-icons/hi";
 import { Toaster } from "sonner";
-import Container from "./ui/Container";
-import openExternal from "./utils/openExternal";
-import { sonnerSuccessToast } from "./utils/sonnerCustomToast";
+import Container from "./ui/Container.js";
+import openExternal from "./utils/openExternal.js";
+import { sonnerSuccessToast } from "./utils/sonnerCustomToast.js";
 
-export default class ErrorBoundary extends React.Component {
-    constructor(props) {
+// Define the props and state types
+export interface ErrorBoundaryProps {
+    t: (key: string) => string;
+    children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+    hasError: boolean;
+    error: Error | null;
+    errorInfo: React.ErrorInfo | null;
+}
+
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = { hasError: false, error: null, errorInfo: null };
     }
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError(error: Error) {
         return { hasError: true, error };
     }
 
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
         console.error("React Error Boundary caught an error:", error, errorInfo);
         this.setState({ errorInfo });
     }
@@ -68,6 +79,7 @@ App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorI
                                     {t("appCrash.copyBtn")}
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={() =>
                                         openExternal(
                                             "https://github.com/learnercraft/ispeakerreact/issues/new?template=bug_report.yml"
@@ -78,7 +90,7 @@ App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorI
                                     <FaGithub className="h-5 w-5" />
                                     {t("appCrash.openGitHubBtn")}
                                 </button>
-                                <button onClick={this.handleRefresh} className="btn btn-secondary">
+                                <button type="button" onClick={this.handleRefresh} className="btn btn-secondary">
                                     <FiRefreshCw className="h-5 w-5" />
                                     {t("appCrash.refreshBtn")}
                                 </button>
@@ -88,7 +100,7 @@ App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorI
                     <Toaster
                         className="flex justify-center"
                         position="bottom-center"
-                        duration="7000"
+                        duration={7000}
                     />
                 </Container>
             );
@@ -97,8 +109,3 @@ App version: v${__APP_VERSION__}\n${error?.toString()}\n\nStack Trace:\n${errorI
         return this.props.children;
     }
 }
-
-ErrorBoundary.propTypes = {
-    t: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-};
