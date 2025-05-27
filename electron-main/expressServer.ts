@@ -1,7 +1,8 @@
 import { ipcMain } from "electron";
 import applog from "electron-log";
 import express from "express";
-import net from "net";
+import { Server } from "node:http";
+import net from "node:net";
 
 const DEFAULT_PORT = 8998;
 const MIN_PORT = 1024; // Minimum valid port number
@@ -9,14 +10,14 @@ const MAX_PORT = 65535; // Maximum valid port number
 
 const expressApp = express();
 let currentPort: number | null = null;
-let httpServer: any = null;
+let httpServer: Server | null = null;
 
 const getRandomPort = () => Math.floor(Math.random() * (MAX_PORT - MIN_PORT + 1)) + MIN_PORT;
 
 const checkPortAvailability = (port: number) => {
     return new Promise<boolean>((resolve, reject) => {
         const server = net.createServer();
-        server.once("error", (err: any) => {
+        server.once("error", (err: NodeJS.ErrnoException) => {
             if (err.code === "EADDRINUSE" || err.code === "ECONNREFUSED") {
                 resolve(false);
             } else {
@@ -55,3 +56,4 @@ const getExpressPort = () => currentPort;
 ipcMain.handle("get-port", () => getExpressPort());
 
 export { expressApp, getExpressPort, startExpressServer };
+
