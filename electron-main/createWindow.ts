@@ -1,4 +1,5 @@
-import { app, BrowserWindow, Menu, shell } from "electron";
+import { app, BrowserWindow, IpcMain, IpcMainInvokeEvent, Menu, shell } from "electron";
+import { Conf } from "electron-conf";
 import applog from "electron-log";
 import path from "node:path";
 import process from "node:process";
@@ -9,7 +10,11 @@ const isDev = process.env.NODE_ENV === "development";
 let mainWindow: BrowserWindow | null;
 let splashWindow: BrowserWindow | null;
 
-const createSplashWindow = (rootDir: string, ipcMain: any, conf: any) => {
+const createSplashWindow = (
+    rootDir: string,
+    ipcMain: IpcMain,
+    conf: Conf<Record<string, unknown>>
+) => {
     splashWindow = new BrowserWindow({
         width: 854,
         height: 413,
@@ -26,7 +31,7 @@ const createSplashWindow = (rootDir: string, ipcMain: any, conf: any) => {
     });
 
     // For splash screen
-    ipcMain.handle("get-conf", (key: string) => {
+    ipcMain.handle("get-conf", (event: IpcMainInvokeEvent, key: string) => {
         return conf.get(key);
     });
 
