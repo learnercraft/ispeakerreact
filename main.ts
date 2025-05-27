@@ -10,22 +10,22 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 import { Conf } from "electron-conf/main";
-import { createSplashWindow, createWindow } from "./electron-main/createWindow.js";
-import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation.js";
-import { expressApp } from "./electron-main/expressServer.js";
-import { getLogFolder, getSaveFolder, readUserSettings } from "./electron-main/filePath.js";
+import { createSplashWindow, createWindow } from "./electron-main/createWindow";
+import { setCustomSaveFolderIPC } from "./electron-main/customFolderLocationOperation";
+import { expressApp } from "./electron-main/expressServer";
+import { getLogFolder, getSaveFolder } from "./electron-main/filePath";
 import {
     getCustomSaveFolderIPC,
     getFfmpegWasmPathIPC,
     getSaveFolderIPC,
     getVideoFileDataIPC,
     getVideoSaveFolderIPC,
-} from "./electron-main/getFileAndFolder.js";
+} from "./electron-main/getFileAndFolder";
 import {
     getCurrentLogSettings,
     manageLogFiles,
     setCurrentLogSettings,
-} from "./electron-main/logOperations.js";
+} from "./electron-main/logOperations";
 import {
     cancelProcess,
     checkPythonInstalled,
@@ -34,17 +34,13 @@ import {
     killCurrentPythonProcess,
     resetGlobalCancel,
     setupPronunciationInstallStatusIPC,
-} from "./electron-main/pronunciationOperations.js";
-import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations.js";
-import { verifyAndExtractIPC } from "./electron-main/zipOperation.js";
+} from "./electron-main/pronunciationOperations";
+import { checkDownloads, checkExtractedFolder } from "./electron-main/videoFileOperations";
+import { verifyAndExtractIPC } from "./electron-main/zipOperation";
 import {
     setupPronunciationCheckerIPC,
     setupGetRecordingBlobIPC,
-} from "./electron-main/pronunciationCheckerIPC.js";
-
-const DEFAULT_PORT = 8998;
-
-let server; // Declare server at the top so it's in scope for all uses
+} from "./electron-main/pronunciationCheckerIPC";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -78,7 +74,7 @@ expressApp.use(cors({ origin: "http://localhost:5173" }));
 // Set up the express server to serve video files
 expressApp.get("/video/:folderName/:fileName", async (req, res) => {
     const { folderName, fileName } = req.params;
-    const documentsPath = await getSaveFolder(readUserSettings);
+    const documentsPath = await getSaveFolder();
     const videoFolder = path.resolve(documentsPath, "video_files", folderName);
     const videoFilePath = path.resolve(videoFolder, fileName);
 
@@ -130,7 +126,7 @@ ipcMain.handle("open-external-link", async (event, url) => {
 
 // Handle saving a recording
 ipcMain.handle("save-recording", async (event, key, arrayBuffer) => {
-    const saveFolder = await getSaveFolder(readUserSettings);
+    const saveFolder = await getSaveFolder();
     const recordingFolder = path.join(saveFolder, "saved_recordings");
     const filePath = path.join(recordingFolder, `${key}.wav`);
 
@@ -155,7 +151,7 @@ ipcMain.handle("save-recording", async (event, key, arrayBuffer) => {
 
 // Handle checking if a recording exists
 ipcMain.handle("check-recording-exists", async (event, key) => {
-    const saveFolder = await getSaveFolder(readUserSettings);
+    const saveFolder = await getSaveFolder();
     const filePath = path.join(saveFolder, "saved_recordings", `${key}.wav`);
 
     try {
@@ -168,11 +164,7 @@ ipcMain.handle("check-recording-exists", async (event, key) => {
 
 // Handle playing a recording (this can be improved for streaming)
 ipcMain.handle("play-recording", async (event, key) => {
-    const filePath = path.join(
-        await getSaveFolder(readUserSettings),
-        "saved_recordings",
-        `${key}.wav`
-    );
+    const filePath = path.join(await getSaveFolder(), "saved_recordings", `${key}.wav`);
 
     // Check if the file exists
     try {
@@ -200,21 +192,16 @@ checkExtractedFolder();
 
 /* End video file operations */
 
-// IPC event to get the current server port
-ipcMain.handle("get-port", () => {
-    return server?.address()?.port || DEFAULT_PORT;
-});
-
 ipcMain.handle("open-log-folder", async () => {
     // Open the folder in the file manager
-    const logFolder = await getLogFolder(readUserSettings);
+    const logFolder = await getLogFolder();
     await shell.openPath(logFolder); // Open the folder
     return logFolder; // Send the path back to the renderer
 });
 
 ipcMain.handle("open-recording-folder", async () => {
     // Open the folder in the file manager
-    const recordingFolder = await getSaveFolder(readUserSettings);
+    const recordingFolder = await getSaveFolder();
     const recordingFolderPath = path.join(recordingFolder, "saved_recordings");
     try {
         await fsPromises.access(recordingFolderPath);
@@ -231,8 +218,8 @@ verifyAndExtractIPC();
 // Listen for logging messages from the renderer process
 ipcMain.on("renderer-log", (event, logMessage) => {
     const { level, message } = logMessage;
-    if (applog[level]) {
-        applog[level](`Renderer log: ${message}`);
+    if (typeof level === "string" && typeof applog[level as keyof typeof applog] === "function") {
+        (applog as any)[level](`Renderer log: ${message}`);
     }
 });
 
@@ -250,7 +237,7 @@ process.on("unhandledRejection", (reason, promise) => {
     app.quit(); // Quit the app on an unhandled promise rejection
 });
 
-app.on("renderer-process-crashed", (event, webContents, killed) => {
+app.on("renderer-process-crashed", (event: any, killed: any) => {
     applog.error("Renderer process crashed", { event, killed });
     app.quit();
 });
@@ -265,8 +252,8 @@ app.on("window-all-closed", () => {
 // Recreate the window on macOS when the dock icon is clicked.
 app.on("activate", () => {
     if (mainWindow === null) {
-        createWindow(__dirname, (srv) => {
-            server = srv;
+        createWindow(__dirname, (srv: any) => {
+            srv;
         });
     }
 });
@@ -285,8 +272,8 @@ if (!gotTheLock) {
             // 2. Start heavy work in parallel after splash is shown
             setImmediate(() => {
                 // Create main window (can be shown after splash)
-                createWindow(__dirname, (srv) => {
-                    server = srv;
+                createWindow(__dirname, (srv: any) => {
+                    srv;
                 });
 
                 // Wait for log settings and manage logs in background
@@ -323,8 +310,11 @@ setCustomSaveFolderIPC();
 // IPC: Show open dialog for folder selection
 ipcMain.handle("show-open-dialog", async (event, options) => {
     const win = BrowserWindow.getFocusedWindow();
-    const result = await dialog.showOpenDialog(win, options);
-    return result.filePaths;
+    if (!win) {
+        throw new Error("No focused window found");
+    }
+    const filePaths = dialog.showOpenDialog(win, options);
+    return filePaths;
 });
 
 ipcMain.handle("get-log-settings", async () => {
@@ -345,7 +335,11 @@ console.log = (...args) => {
 
 ipcMain.handle("check-python-installed", async () => {
     try {
-        const result = await checkPythonInstalled();
+        const result = (await checkPythonInstalled()) as {
+            found: boolean;
+            version: string | null;
+            stderr: string | null;
+        };
         if (result.found) {
             applog.info("Python found:", result.version);
         } else {
@@ -375,7 +369,7 @@ ipcMain.handle("pronunciation-reset-cancel-flag", async () => {
 /* End pronunciation checker operations */
 
 ipcMain.handle("get-recording-path", async (_event, wordKey) => {
-    const saveFolder = await getSaveFolder(readUserSettings);
+    const saveFolder = await getSaveFolder();
     return path.join(saveFolder, "saved_recordings", `${wordKey}.wav`);
 });
 
