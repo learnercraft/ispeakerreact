@@ -1,8 +1,8 @@
 import { ipcMain } from "electron";
-import applog from "electron-log";
+import applog, { LevelOption } from "electron-log";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
-import { getLogFolder, getLogFolderSync, readUserSettings, settingsConf } from "./filePath.js";
+import { getLogFolder, getLogFolderSync, settingsConf } from "./filePath.js";
 
 const defaultLogSettings = {
     numOfLogs: 10,
@@ -23,7 +23,7 @@ const getCurrentLogSettings = () => {
     return currentLogSettings;
 };
 
-const setCurrentLogSettings = (newSettings) => {
+const setCurrentLogSettings = (newSettings: any) => {
     currentLogSettings = { ...currentLogSettings, ...newSettings };
 };
 
@@ -46,10 +46,10 @@ applog.transports.file.resolvePathFn = () => {
     return path.join(logFolder, applog.transports.file.fileName);
 };
 applog.transports.file.maxSize = currentLogSettings.maxLogSize;
-applog.transports.console.level = currentLogSettings.logLevel;
+applog.transports.console.level = currentLogSettings.logLevel as LevelOption;
 
 // Handle updated log settings from the renderer
-ipcMain.on("update-log-settings", async (event, newSettings) => {
+ipcMain.on("update-log-settings", async (event: any, newSettings: any) => {
     setCurrentLogSettings(newSettings);
     applog.info("Log settings updated:", currentLogSettings);
 
@@ -67,7 +67,7 @@ const manageLogFiles = async () => {
         applog.info("Log settings:", currentLogSettings);
 
         // Get the current log folder dynamically
-        const logFolder = await getLogFolder(readUserSettings);
+        const logFolder = await getLogFolder();
 
         // Get all log files
         const logFiles = await fsPromises.readdir(logFolder);
@@ -80,16 +80,16 @@ const manageLogFiles = async () => {
                     path: filePath,
                     birthtime: stats.birthtime,
                 });
-            } catch (err) {
+            } catch (err: any) {
+                // If ENOENT, just skip this file
                 if (err.code !== "ENOENT") {
                     applog.error(`Error stating log file: ${filePath}`, err);
                 }
-                // If ENOENT, just skip this file
             }
         }
 
         // Sort log files by creation time (oldest first)
-        logFilesResolved.sort((a, b) => a.birthtime - b.birthtime);
+        logFilesResolved.sort((a, b) => a.birthtime.getTime() - b.birthtime.getTime());
 
         // Remove logs if they exceed the specified limit (excluding 0 for unlimited)
         if (numOfLogs > 0 && logFilesResolved.length > numOfLogs) {
@@ -98,7 +98,7 @@ const manageLogFiles = async () => {
                 try {
                     await fsPromises.unlink(file.path);
                     applog.info(`Deleted log file: ${file.path}`);
-                } catch (err) {
+                } catch (err: any) {
                     if (err.code !== "ENOENT") {
                         applog.error(`Error deleting log file: ${file.path}`, err);
                     }
@@ -110,12 +110,13 @@ const manageLogFiles = async () => {
         if (keepForDays > 0) {
             const now = new Date();
             for (const file of logFilesResolved) {
-                const ageInDays = (now - new Date(file.birthtime)) / (1000 * 60 * 60 * 24);
+                const ageInDays =
+                    (now.getTime() - new Date(file.birthtime).getTime()) / (1000 * 60 * 60 * 24);
                 if (ageInDays > keepForDays) {
                     try {
                         await fsPromises.unlink(file.path);
                         applog.info(`Deleted old log file: ${file.path}`);
-                    } catch (err) {
+                    } catch (err: any) {
                         if (err.code !== "ENOENT") {
                             applog.error(`Error deleting old log file: ${file.path}`, err);
                         }
@@ -123,7 +124,7 @@ const manageLogFiles = async () => {
                 }
             }
         }
-    } catch (error) {
+    } catch (error: any) {
         applog.error("Error managing log files:", error);
     }
 };
