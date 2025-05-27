@@ -6,17 +6,17 @@ import path from "node:path";
 // Singleton instance for settings
 const settingsConf = new Conf({ name: "ispeakerreact_config" });
 
-const readUserSettings = async () => {
+const readUserSettings = async (): Promise<Record<string, any>> => {
     return settingsConf.store || {};
 };
 
-const getSaveFolder = async () => {
+const getSaveFolder = async (): Promise<string> => {
     // Try to get custom folder from user settings
     const userSettings = await readUserSettings();
-    let saveFolder;
-    if (userSettings.customSaveFolder) {
+    let saveFolder: string;
+    if (userSettings.customSaveFolder && typeof userSettings.customSaveFolder === "string") {
         // For custom folder, use a subfolder 'ispeakerreact_data'
-        const baseFolder = userSettings.customSaveFolder;
+        const baseFolder: string = userSettings.customSaveFolder;
         // Ensure the base directory exists
         try {
             await fsPromises.access(baseFolder);
@@ -44,7 +44,7 @@ const getSaveFolder = async () => {
     return saveFolder;
 };
 
-const getLogFolder = async () => {
+const getLogFolder = async (): Promise<string> => {
     const saveFolder = path.join(await getSaveFolder(), "logs");
     // Ensure the directory exists
     try {
@@ -56,15 +56,15 @@ const getLogFolder = async () => {
 };
 
 // Helper to get the data subfolder path
-const getDataSubfolder = (baseFolder) => {
+const getDataSubfolder = (baseFolder: string): string => {
     return path.join(baseFolder, "ispeakerreact_data");
 };
 
 // Synchronous version to get the log folder path
-const getLogFolderSync = () => {
-    let saveFolder;
+const getLogFolderSync = (): string => {
+    let saveFolder: string;
     const userSettings = settingsConf.store || {};
-    if (userSettings.customSaveFolder) {
+    if (userSettings.customSaveFolder && typeof userSettings.customSaveFolder === "string") {
         // For custom folder, use the data subfolder
         saveFolder = path.join(userSettings.customSaveFolder, "ispeakerreact_data");
     } else {
@@ -75,7 +75,7 @@ const getLogFolderSync = () => {
 };
 
 // Helper to delete the empty ispeakerreact_data subfolder
-const deleteEmptyDataSubfolder = async (baseFolder) => {
+const deleteEmptyDataSubfolder = async (baseFolder: string): Promise<boolean> => {
     const dataFolder = path.join(baseFolder, "ispeakerreact_data");
     try {
         const files = await fsPromises.readdir(dataFolder);
