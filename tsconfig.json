@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "NodeNext",
+        "target": "ES2024",
+        "module": "ESNext",
         "lib": ["DOM", "ESNext"],
         "jsx": "react-jsx",
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "Node16",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "strict": true,
