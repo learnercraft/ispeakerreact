@@ -1,6 +1,6 @@
-import isElectron from "./isElectron";
+import isElectron from "./isElectron.js";
 
-const openExternal = (url) => {
+const openExternal = (url: string) => {
     if (isElectron()) {
         window.electron.openExternal(url);
     } else {
