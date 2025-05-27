@@ -104,6 +104,7 @@ const verifyAndExtractIPC = () => {
             console.log(`Starting verification for ${zipFile}`);
             applog.log(`Starting verification for ${zipFile}`);
             try {
+                // @ts-expect-error - JS7z is not typed
                 const js7z = await JS7z({
                     print: (text: string) => {
                         console.log(`7-Zip output: ${text}`);
