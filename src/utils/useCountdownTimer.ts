@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const useCountdownTimer = (initialTime, onTimerEnd) => {
+const useCountdownTimer = (initialTime: number, onTimerEnd: () => void) => {
     const [remainingTime, setRemainingTime] = useState(initialTime * 60); // Track remaining time in state (seconds)
-    const intervalIdRef = useRef(null); // Ref to store the interval ID
+    const intervalIdRef = useRef<ReturnType<typeof setInterval> | null>(null); // Ref to store the interval ID
     const [isActive, setIsActive] = useState(false); // Control timer activation
 
     // Clear the timer when needed
@@ -28,8 +28,10 @@ const useCountdownTimer = (initialTime, onTimerEnd) => {
             intervalIdRef.current = setInterval(() => {
                 setRemainingTime((prevTime) => {
                     if (prevTime <= 1) {
-                        clearInterval(intervalIdRef.current);
-                        intervalIdRef.current = null;
+                        if (intervalIdRef.current !== null) {
+                            clearInterval(intervalIdRef.current);
+                            intervalIdRef.current = null;
+                        }
                         return 0;
                     }
                     return prevTime - 1;
