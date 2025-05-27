@@ -1,7 +1,7 @@
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline, IoWarningOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-export const sonnerSuccessToast = (message) => {
+const sonnerSuccessToast = (message: string) => {
     toast.custom(() => (
         <div className="alert alert-success shadow-lg" role="alert">
             <IoCheckmarkCircleOutline className="h-6 w-6" />
@@ -10,7 +10,7 @@ export const sonnerSuccessToast = (message) => {
     ));
 };
 
-export const sonnerWarningToast = (message) => {
+const sonnerWarningToast = (message: string) => {
     toast.custom(() => (
         <div className="alert alert-warning shadow-lg" role="alert">
             <IoWarningOutline className="h-6 w-6" />
@@ -19,7 +19,7 @@ export const sonnerWarningToast = (message) => {
     ));
 };
 
-export const sonnerErrorToast = (message) => {
+const sonnerErrorToast = (message: string) => {
     toast.custom(() => (
         <div className="alert alert-error shadow-lg" role="alert">
             <IoAlertCircleOutline className="h-6 w-6" />
@@ -27,3 +27,5 @@ export const sonnerErrorToast = (message) => {
         </div>
     ));
 };
+
+export { sonnerErrorToast, sonnerSuccessToast, sonnerWarningToast };
