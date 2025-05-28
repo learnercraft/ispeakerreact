@@ -1,16 +1,52 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { MdMic, MdOutlineOndemandVideo, MdPlayArrow, MdStop } from "react-icons/md";
-import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations";
-import isElectron from "../../utils/isElectron";
+import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations.js";
+import isElectron from "../../utils/isElectron.js";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,
     sonnerWarningToast,
-} from "../../utils/sonnerCustomToast";
-import { useSoundVideoDialog } from "./hooks/useSoundVideoDialogContext";
+} from "../../utils/sonnerCustomToast.js";
+import { useSoundVideoDialog } from "./hooks/useSoundVideoDialogContext.js";
 
 const MAX_RECORDING_DURATION_MS = 2 * 60 * 1000; // 2 minutes
+
+export type AccentType = "british" | "american";
+export type SoundType = "constant" | "vowel" | "dipthong";
+
+// Define a more specific type for the translation function
+type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
+
+interface SoundPracticeCardProps {
+    textContent: string;
+    videoUrl: string;
+    offlineVideo: string;
+    accent: AccentType;
+    t: TranslationFunction;
+    phoneme: string;
+    phonemeId: number;
+    index: number;
+    type: SoundType;
+    shouldShowPhoneme?: boolean;
+}
+
+// Define the dialog state type based on usage in handleShow
+interface SoundVideoDialogState {
+    videoUrl: string | null;
+    title: string;
+    phoneme: string;
+    isLocalVideo: boolean;
+    onIframeLoad: () => void;
+    iframeLoading: boolean;
+    showOnlineVideoAlert: boolean;
+    t: TranslationFunction;
+}
+
+interface SoundVideoDialogContextType {
+    showDialog: (state: SoundVideoDialogState) => void;
+    isAnyCardActive: boolean;
+    setCardActive: (cardId: string, isActive: boolean) => void;
+}
 
 const SoundPracticeCard = ({
     textContent,
@@ -23,22 +59,22 @@ const SoundPracticeCard = ({
     index,
     type,
     shouldShowPhoneme = true,
-}) => {
-    const [localVideoUrl, setLocalVideoUrl] = useState(null);
+}: SoundPracticeCardProps) => {
+    const [localVideoUrl, setLocalVideoUrl] = useState<string | null>(null);
     const [useOnlineVideo, setUseOnlineVideo] = useState(false);
-    const [iframeLoadingStates, setIframeLoadingStates] = useState({
+    const [iframeLoadingStates, setIframeLoadingStates] = useState<{ modalIframe: boolean }>({
         modalIframe: true,
     });
     const [isRecording, setIsRecording] = useState(false);
     const [hasRecording, setHasRecording] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
-    const recordingStartTimeRef = useRef(null);
-    const [currentAudioSource, setCurrentAudioSource] = useState(null);
-    const [currentAudioElement, setCurrentAudioElement] = useState(null);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const audioChunksRef = useRef<Blob[]>([]);
+    const recordingStartTimeRef = useRef<number | null>(null);
+    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(null);
+    const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null);
 
-    const { showDialog, isAnyCardActive, setCardActive } = useSoundVideoDialog();
+    const { showDialog, isAnyCardActive, setCardActive } = useSoundVideoDialog() as SoundVideoDialogContextType;
 
     const recordingKey = `${type}-${accent}-${phonemeId}-${index}`;
     const cardId = `${type}-${accent}-${phonemeId}-${index}`;
@@ -73,7 +109,7 @@ const SoundPracticeCard = ({
             audioChunksRef.current = [];
             recordingStartTimeRef.current = Date.now();
 
-            mediaRecorder.ondataavailable = (event) => {
+            mediaRecorder.ondataavailable = (event: BlobEvent) => {
                 audioChunksRef.current.push(event.data);
             };
 
@@ -98,11 +134,13 @@ const SoundPracticeCard = ({
                 }
             }, MAX_RECORDING_DURATION_MS);
         } catch (error) {
-            console.error("Error starting recording:", error);
+            // error is unknown, so cast to Error for message
+            const err = error instanceof Error ? error : new Error(String(error));
+            console.error("Error starting recording:", err);
             if (isElectron()) {
-                window.electron.log("error", `Error accessing the microphone: ${error}`);
+                window.electron.log("error", `Error accessing the microphone: ${err}`);
             }
-            sonnerErrorToast(`${t("toast.recordingFailed")} ${error.message}`);
+            sonnerErrorToast(`${t("toast.recordingFailed")} ${err.message}`);
             setIsRecording(false);
             setCardActive(cardId, false);
         }
@@ -110,7 +148,7 @@ const SoundPracticeCard = ({
 
     const stopRecording = () => {
         if (mediaRecorderRef.current && isRecording) {
-            const recordingDuration = Date.now() - recordingStartTimeRef.current;
+            const recordingDuration = Date.now() - (recordingStartTimeRef.current ?? 0);
             if (recordingDuration > MAX_RECORDING_DURATION_MS) {
                 sonnerWarningToast(t("toast.recordingExceeded"));
             }
@@ -141,15 +179,16 @@ const SoundPracticeCard = ({
         setCardActive(cardId, true);
         await playRecording(
             recordingKey,
-            (audio, audioSource) => {
+            (audio: HTMLAudioElement | null, audioSource: AudioBufferSourceNode | null) => {
                 if (audioSource) {
                     setCurrentAudioSource(audioSource);
-                } else {
+                } else if (audio) {
                     setCurrentAudioElement(audio);
                 }
             },
             (error) => {
-                console.error("Error playing recording:", error);
+                const err = error instanceof Error ? error : new Error(String(error));
+                console.error("Error playing recording:", err);
                 sonnerErrorToast(t("toast.playbackFailed"));
                 setIsPlaying(false);
                 setCardActive(cardId, false);
@@ -168,7 +207,7 @@ const SoundPracticeCard = ({
             ? `${import.meta.env.BASE_URL}images/ispeaker/sound_images/sounds_american.webp`
             : `${import.meta.env.BASE_URL}images/ispeaker/sound_images/sounds_british.webp`;
 
-    const handleIframeLoad = (iframeKey) => {
+    const handleIframeLoad = (iframeKey: string) => {
         setIframeLoadingStates((prevStates) => ({
             ...prevStates,
             [iframeKey]: false,
@@ -180,7 +219,7 @@ const SoundPracticeCard = ({
             videoUrl: isElectron() && !useOnlineVideo ? localVideoUrl : videoUrl,
             title: textContent.split(" - ")[0],
             phoneme,
-            isLocalVideo: localVideoUrl && !useOnlineVideo,
+            isLocalVideo: !!localVideoUrl && !useOnlineVideo,
             onIframeLoad: () => handleIframeLoad("modalIframe"),
             iframeLoading: iframeLoadingStates.modalIframe,
             showOnlineVideoAlert: isElectron() && useOnlineVideo,
@@ -234,8 +273,10 @@ const SoundPracticeCard = ({
             }
 
             // Cleanup any active media streams
-            if (mediaRecorderRef.current?.stream) {
-                mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+            // stream is not a standard property on MediaRecorder, so use type assertion
+            const recorder = mediaRecorderRef.current as MediaRecorder & { stream?: MediaStream };
+            if (recorder && recorder.stream) {
+                recorder.stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
             }
         };
     }, [currentAudioSource, currentAudioElement]);
@@ -268,6 +309,8 @@ const SoundPracticeCard = ({
                     </div>
                     <div className="flex items-center space-x-2">
                         <button
+                            type="button"
+                            title={t("sound_page.watchVideo")}
                             className="btn btn-primary btn-circle"
                             onClick={handleShow}
                             disabled={isAnyCardActive || isRecording || isPlaying}
@@ -275,6 +318,8 @@ const SoundPracticeCard = ({
                             <MdOutlineOndemandVideo className="h-6 w-6" />
                         </button>
                         <button
+                            type="button"
+                            title={t("sound_page.record")}
                             className={`btn btn-circle ${isRecording ? "btn-error" : "btn-primary"}`}
                             onClick={isRecording ? stopRecording : startRecording}
                             disabled={(!isRecording && isAnyCardActive) || isPlaying}
@@ -286,6 +331,8 @@ const SoundPracticeCard = ({
                             )}
                         </button>
                         <button
+                            type="button"
+                            title={t("sound_page.playRecording")}
                             className="btn btn-primary btn-circle"
                             onClick={handlePlayRecording}
                             disabled={
@@ -303,19 +350,6 @@ const SoundPracticeCard = ({
             </div>
         </div>
     );
-};
-
-SoundPracticeCard.propTypes = {
-    textContent: PropTypes.string.isRequired,
-    videoUrl: PropTypes.string.isRequired,
-    offlineVideo: PropTypes.string.isRequired,
-    accent: PropTypes.oneOf(["british", "american"]).isRequired,
-    t: PropTypes.func.isRequired,
-    phoneme: PropTypes.string.isRequired,
-    phonemeId: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(["constant", "vowel", "dipthong"]).isRequired,
-    shouldShowPhoneme: PropTypes.bool,
 };
 
 export default SoundPracticeCard;
