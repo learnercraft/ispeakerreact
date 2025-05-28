@@ -1,4 +1,4 @@
-export const parseIPA = (ipa) => {
+const parseIPA = (ipa: string) => {
     const syllables = [];
     let current = "";
     let primary = false;
@@ -26,3 +26,5 @@ export const parseIPA = (ipa) => {
 
     return syllables;
 };
+
+export default parseIPA;
