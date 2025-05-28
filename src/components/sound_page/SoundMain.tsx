@@ -168,9 +168,12 @@ const SoundMain = ({ sound, accent, onBack }: PracticeSoundProps) => {
                 </div>
 
                 <div ref={scrollRef} className="my-4">
-                    {activeTab === "watchTab" && (
+                    {activeTab === "watchTab" && accentData && accentData.mainOnlineVideo && accentData.mainOfflineVideo && (
                         <WatchVideoCard
-                            videoData={accentData}
+                            videoData={{
+                                mainOnlineVideo: accentData.mainOnlineVideo,
+                                mainOfflineVideo: accentData.mainOfflineVideo,
+                            }}
                             accent={accent}
                             t={t}
                             phoneme={{
@@ -189,53 +192,52 @@ const SoundMain = ({ sound, accent, onBack }: PracticeSoundProps) => {
                             <div className="space-y-4">
                                 {accentData && (
                                     <>
-                                        {["main", "initial", "medial", "final"].map(
-                                            (position, index) => {
-                                                const isMain = position === "main";
-                                                const videoUrl = isMain
-                                                    ? accentData.mainOnlineVideo
-                                                    : accentData.practiceOnlineVideos[index];
-                                                const offlineVideo = isMain
-                                                    ? accentData.mainOfflineVideo
-                                                    : accentData.practiceOfflineVideos[index];
-                                                const textContent = isMain
-                                                    ? sound.phoneme
-                                                    : ((accentData as unknown) as Record<string, string>)[position];
-                                                const cardIndex = isMain ? 0 : index;
-                                                const type =
-                                                    sound.type === "consonants"
-                                                        ? "constant"
-                                                        : sound.type === "vowels"
-                                                            ? "vowel"
-                                                            : "dipthong";
-
-                                                return (
-                                                    (isMain || ((accentData as unknown) as Record<string, string>)[position]) && (
-                                                        <SoundPracticeCard
-                                                            key={position}
-                                                            textContent={textContent}
-                                                            videoUrl={videoUrl}
-                                                            offlineVideo={offlineVideo}
-                                                            accent={accent}
-                                                            t={t}
-                                                            phoneme={sound.phoneme}
-                                                            phonemeId={sound.id}
-                                                            index={cardIndex}
-                                                            type={type}
-                                                            shouldShowPhoneme={
-                                                                isMain
-                                                                    ? (soundData as { shouldShowPhoneme?: boolean })?.shouldShowPhoneme !== false
-                                                                    : undefined
-                                                            }
-                                                        />
-                                                    )
-                                                );
-                                            }
-                                        )}
+                                        {(["main", "initial", "medial", "final"] as const).map((position, index) => {
+                                            const isMain = position === "main";
+                                            const videoUrl = isMain
+                                                ? accentData.mainOnlineVideo
+                                                : accentData.practiceOnlineVideos[index] ?? "";
+                                            const offlineVideo = isMain
+                                                ? accentData.mainOfflineVideo
+                                                : accentData.practiceOfflineVideos[index] ?? "";
+                                            const textContent = isMain
+                                                ? sound.phoneme
+                                                : typeof accentData[position as keyof AccentData] === "string"
+                                                    ? accentData[position as keyof AccentData] as string
+                                                    : "";
+                                            const cardIndex = isMain ? 0 : index;
+                                            const type =
+                                                sound.type === "consonants"
+                                                    ? "constant"
+                                                    : sound.type === "vowels"
+                                                        ? "vowel"
+                                                        : "dipthong";
+                                            return (
+                                                (isMain || accentData[position as keyof AccentData]) && (
+                                                    <SoundPracticeCard
+                                                        key={position}
+                                                        textContent={textContent}
+                                                        videoUrl={videoUrl}
+                                                        offlineVideo={offlineVideo}
+                                                        accent={accent}
+                                                        t={t}
+                                                        phoneme={sound.phoneme}
+                                                        phonemeId={sound.id}
+                                                        index={cardIndex}
+                                                        type={type}
+                                                        shouldShowPhoneme={
+                                                            isMain
+                                                                ? (soundData as { shouldShowPhoneme?: boolean })?.shouldShowPhoneme !== false
+                                                                : undefined
+                                                        }
+                                                    />
+                                                )
+                                            );
+                                        })}
                                     </>
                                 )}
                                 <TongueTwister
-                                    tongueTwisters={accentData?.tongueTwister}
+                                    tongueTwisters={accentData?.tongueTwister ?? []}
                                     t={t}
                                     sound={sound}
                                     accent={accent}
