@@ -1,22 +1,69 @@
 import he from "he";
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdChecklist, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
-import { useScrollTo } from "../../utils/useScrollTo";
-import LoadingOverlay from "../general/LoadingOverlay";
-import { SoundVideoDialogProvider } from "./hooks/useSoundVideoDialog";
-import ReviewCard from "./ReviewCard";
-import SoundPracticeCard from "./SoundPracticeCard";
-import TongueTwister from "./TongueTwister";
-import WatchVideoCard from "./WatchVideoCard";
+import useScrollTo from "../../utils/useScrollTo.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import { SoundVideoDialogProvider } from "./hooks/useSoundVideoDialog.js";
+import ReviewCard from "./ReviewCard.js";
+import SoundPracticeCard from "./SoundPracticeCard.js";
+import TongueTwister from "./TongueTwister.js";
+import WatchVideoCard from "./WatchVideoCard.js";
 
-const PracticeSound = ({ sound, accent, onBack }) => {
+// Types for the sound data structure
+export type AccentType = "british" | "american";
+export type SoundType = "consonants" | "vowels" | "diphthongs";
+
+export interface SoundMenuItem {
+    phoneme: string;
+    id: number;
+    type: SoundType;
+    key: string;
+}
+
+export interface TongueTwister {
+    text?: string;
+    title?: string;
+    lines?: string[];
+}
+
+export interface AccentData {
+    initial: string;
+    medial: string;
+    final: string;
+    mainOnlineVideo: string;
+    mainOfflineVideo: string;
+    practiceOnlineVideos: (string | null)[];
+    practiceOfflineVideos: (string | null)[];
+    tongueTwister?: TongueTwister[];
+}
+
+export interface SoundData {
+    phoneme: string;
+    info: string[];
+    id: number;
+    british: AccentData[] | null;
+    american: AccentData[] | null;
+}
+
+export interface SoundsData {
+    consonants: SoundData[];
+    vowels: SoundData[];
+    diphthongs: SoundData[];
+}
+
+interface PracticeSoundProps {
+    sound: SoundMenuItem;
+    accent: AccentType;
+    onBack: () => void;
+}
+
+const SoundMain = ({ sound, accent, onBack }: PracticeSoundProps) => {
     const { t } = useTranslation();
-    const [soundsData, setSoundsData] = useState(null);
+    const [soundsData, setSoundsData] = useState<SoundsData | null>(null);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState("watchTab");
+    const [activeTab, setActiveTab] = useState<string>("watchTab");
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
     // Fetch sounds data
@@ -37,8 +84,8 @@ const PracticeSound = ({ sound, accent, onBack }) => {
     }, []);
 
     // Find the sound data using the type and phoneme from sounds_menu.json
-    const soundData = soundsData?.[sound.type]?.find((item) => item.id === sound.id);
-    const accentData = soundData?.[accent]?.[0];
+    const soundData = (soundsData?.[sound.type] as SoundData[] | undefined)?.find((item) => item.id === sound.id);
+    const accentData = (soundData?.[accent] as AccentData[] | null)?.[0];
 
     const handleReviewUpdate = () => {
         // This function is intentionally empty as the review update is handled by the ReviewCard component
@@ -57,8 +104,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                     {t("sound_page.soundTop")} <span lang="en">{he.decode(sound.phoneme)}</span>
                 </h3>
                 <p className="mb-4">
-                    {t("accent.accentSettings")}:{" "}
-                    {accent === "american" ? t("accent.accentAmerican") : t("accent.accentBritish")}
+                    {t("accent.accentSettings")}: {accent === "american" ? t("accent.accentAmerican") : t("accent.accentBritish")}
                 </p>
                 <div className="divider divider-secondary"></div>
                 {accentData && (
@@ -70,7 +116,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                 lang="en"
                                 key={position}
                                 dangerouslySetInnerHTML={{
-                                    __html: he.decode(accentData[position]),
+                                    __html: he.decode(((accentData as unknown) as Record<string, string>)[position]),
                                 }}
                             ></p>
                         ))}
@@ -90,9 +136,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                     setActiveTab("watchTab");
                                     scrollTo();
                                 }}
-                                className={`tab md:text-base ${
-                                    activeTab === "watchTab" ? "tab-active font-semibold" : ""
-                                }`}
+                                className={`tab md:text-base ${activeTab === "watchTab" ? "tab-active font-semibold" : ""}`}
                             >
                                 <MdOutlineOndemandVideo className="me-1 h-6 w-6" />
                                 {t("buttonConversationExam.watchBtn")}
@@ -103,9 +147,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                     setActiveTab("practieTab");
                                     scrollTo();
                                 }}
-                                className={`tab md:text-base ${
-                                    activeTab === "practieTab" ? "tab-active font-semibold" : ""
-                                }`}
+                                className={`tab md:text-base ${activeTab === "practieTab" ? "tab-active font-semibold" : ""}`}
                             >
                                 <MdKeyboardVoice className="me-1 h-6 w-6" />
                                 {t("buttonConversationExam.practiceBtn")}
@@ -116,9 +158,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                     setActiveTab("reviewTab");
                                     scrollTo();
                                 }}
-                                className={`tab md:text-base ${
-                                    activeTab === "reviewTab" ? "tab-active font-semibold" : ""
-                                }`}
+                                className={`tab md:text-base ${activeTab === "reviewTab" ? "tab-active font-semibold" : ""}`}
                             >
                                 <MdChecklist className="me-1 h-6 w-6" />
                                 {t("buttonConversationExam.reviewBtn")}
@@ -138,8 +178,8 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                     sound.type === "consonants"
                                         ? "consonant"
                                         : sound.type === "vowels"
-                                          ? "vowel"
-                                          : "diphthong",
+                                            ? "vowel"
+                                            : "diphthong",
                                 key: sound.key,
                             }}
                         />
@@ -160,17 +200,17 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                                     : accentData.practiceOfflineVideos[index];
                                                 const textContent = isMain
                                                     ? sound.phoneme
-                                                    : accentData[position];
+                                                    : ((accentData as unknown) as Record<string, string>)[position];
                                                 const cardIndex = isMain ? 0 : index;
                                                 const type =
                                                     sound.type === "consonants"
                                                         ? "constant"
                                                         : sound.type === "vowels"
-                                                          ? "vowel"
-                                                          : "dipthong";
+                                                            ? "vowel"
+                                                            : "dipthong";
 
                                                 return (
-                                                    (isMain || accentData[position]) && (
+                                                    (isMain || ((accentData as unknown) as Record<string, string>)[position]) && (
                                                         <SoundPracticeCard
                                                             key={position}
                                                             textContent={textContent}
@@ -184,8 +224,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                                             type={type}
                                                             shouldShowPhoneme={
                                                                 isMain
-                                                                    ? soundData?.shouldShowPhoneme !==
-                                                                      false
+                                                                    ? (soundData as { shouldShowPhoneme?: boolean })?.shouldShowPhoneme !== false
                                                                     : undefined
                                                             }
                                                         />
@@ -196,7 +235,7 @@ const PracticeSound = ({ sound, accent, onBack }) => {
                                     </>
                                 )}
                                 <TongueTwister
-                                    tongueTwisters={accentData.tongueTwister}
+                                    tongueTwisters={accentData?.tongueTwister}
                                     t={t}
                                     sound={sound}
                                     accent={accent}
@@ -218,15 +257,4 @@ const PracticeSound = ({ sound, accent, onBack }) => {
     );
 };
 
-PracticeSound.propTypes = {
-    sound: PropTypes.shape({
-        phoneme: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-        type: PropTypes.oneOf(["consonants", "vowels", "diphthongs"]).isRequired,
-        key: PropTypes.string.isRequired,
-    }).isRequired,
-    accent: PropTypes.oneOf(["british", "american"]).isRequired,
-    onBack: PropTypes.func.isRequired,
-};
-
-export default PracticeSound;
+export default SoundMain;
