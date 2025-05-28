@@ -30,13 +30,6 @@ interface WatchVideoCardProps {
     phoneme: Phoneme;
 }
 
-// The colorScheme prop for DefaultVideoLayout accepts: 'default' | 'light' | 'dark' | 'system' | undefined
-// We'll map our theme string to this type
-const mapThemeToColorScheme = (theme: string): "default" | "light" | "dark" | "system" | undefined => {
-    if (theme === "dark" || theme === "light" || theme === "system" || theme === "default") return theme;
-    return undefined;
-};
-
 const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) => {
     const [iframeLoading, setIframeLoading] = useState<boolean>(true);
     const [localVideoUrl, setLocalVideoUrl] = useState<string | null>(null);
@@ -115,7 +108,7 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) 
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={mapThemeToColorScheme(autoDetectedTheme)}
+                                            colorScheme={autoDetectedTheme as "default" | "light" | "dark" | "system"}
                                         />
                                     </MediaPlayer>
                                 ) : (
