@@ -2,16 +2,45 @@ import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import isElectron from "../../utils/isElectron";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
+import isElectron from "../../utils/isElectron.js";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
+import type { AccentType } from "./SoundMain.js";
 
-const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
-    const [iframeLoading, setIframeLoading] = useState(true);
-    const [localVideoUrl, setLocalVideoUrl] = useState(null);
-    const [useOnlineVideo, setUseOnlineVideo] = useState(false);
+// Type for the translation function (from SoundPracticeCard)
+type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
+
+// Type for videoData (from AccentData)
+interface VideoData {
+    mainOfflineVideo: string;
+    mainOnlineVideo: string;
+}
+
+// Type for phoneme prop
+interface Phoneme {
+    type: "consonant" | "vowel" | "diphthong";
+    key: string;
+}
+
+interface WatchVideoCardProps {
+    videoData: VideoData;
+    accent: AccentType;
+    t: TranslationFunction;
+    phoneme: Phoneme;
+}
+
+// The colorScheme prop for DefaultVideoLayout accepts: 'default' | 'light' | 'dark' | 'system' | undefined
+// We'll map our theme string to this type
+const mapThemeToColorScheme = (theme: string): "default" | "light" | "dark" | "system" | undefined => {
+    if (theme === "dark" || theme === "light" || theme === "system" || theme === "default") return theme;
+    return undefined;
+};
+
+const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) => {
+    const [iframeLoading, setIframeLoading] = useState<boolean>(true);
+    const [localVideoUrl, setLocalVideoUrl] = useState<string | null>(null);
+    const [useOnlineVideo, setUseOnlineVideo] = useState<boolean>(false);
     const { autoDetectedTheme } = useAutoDetectTheme();
 
     useEffect(() => {
@@ -53,7 +82,7 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
     const videoUrl = isElectron() && !useOnlineVideo ? localVideoUrl : videoData?.mainOnlineVideo;
 
     // Get the pronunciation instructions based on the phoneme type
-    const getPronunciationInstructions = () => {
+    const getPronunciationInstructions = (): string[] | null => {
         if (!phoneme) return null;
 
         const phonemeType = phoneme.type; // 'consonant', 'vowel', or 'diphthong'
@@ -62,7 +91,10 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
         const instructions = t(`sound_page.soundInstructions.${phonemeType}.${phonemeKey}`, {
             returnObjects: true,
         });
-        return instructions;
+        // t may return string or string[]
+        if (Array.isArray(instructions)) return instructions as string[];
+        if (typeof instructions === "string") return [instructions];
+        return null;
     };
 
     const pronunciationInstructions = getPronunciationInstructions();
@@ -83,7 +115,7 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={autoDetectedTheme}
+                                            colorScheme={mapThemeToColorScheme(autoDetectedTheme)}
                                         />
                                     </MediaPlayer>
                                 ) : (
@@ -92,13 +124,12 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
                                             <div className="skeleton absolute inset-0 h-full w-full"></div>
                                         )}
                                         <iframe
-                                            src={videoUrl}
+                                            src={videoUrl ?? undefined}
                                             title="Phoneme Video"
                                             allowFullScreen
                                             onLoad={handleIframeLoad}
-                                            className={`h-full w-full transition-opacity duration-300 ${
-                                                iframeLoading ? "opacity-0" : "opacity-100"
-                                            }`}
+                                            className={`h-full w-full transition-opacity duration-300 ${iframeLoading ? "opacity-0" : "opacity-100"
+                                                }`}
                                         ></iframe>
                                     </>
                                 )}
@@ -124,7 +155,7 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
                         </h3>
                         <div className="divider divider-secondary m-0"></div>
                         <div className="space-y-4">
-                            {pronunciationInstructions.map((instruction, index) => (
+                            {pronunciationInstructions.map((instruction: string, index: number) => (
                                 <p key={index} className="text-base">
                                     {instruction}
                                 </p>
@@ -135,19 +166,6 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }) => {
             )}
         </>
     );
-};
-
-WatchVideoCard.propTypes = {
-    videoData: PropTypes.shape({
-        mainOfflineVideo: PropTypes.string,
-        mainOnlineVideo: PropTypes.string,
-    }),
-    accent: PropTypes.oneOf(["british", "american"]).isRequired,
-    t: PropTypes.func.isRequired,
-    phoneme: PropTypes.shape({
-        type: PropTypes.oneOf(["consonant", "vowel", "diphthong"]).isRequired,
-        key: PropTypes.string.isRequired,
-    }),
 };
 
 export default WatchVideoCard;
