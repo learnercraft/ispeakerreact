@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import {
     BsEmojiFrown,
@@ -8,20 +7,50 @@ import {
     BsEmojiSmile,
     BsEmojiSmileFill,
 } from "react-icons/bs";
-import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast";
+import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
 import { Trans } from "react-i18next";
 import he from "he";
-import { checkRecordingExists } from "../../utils/databaseOperations";
+import { checkRecordingExists } from "../../utils/databaseOperations.js";
 
-const ReviewCard = ({ sound, accent, t, onReviewUpdate }) => {
-    const [review, setReview] = useState(null);
+// Define types for props
+interface Sound {
+    phoneme: string;
+    id: number;
+    type: "consonants" | "vowels" | "diphthongs";
+}
+
+interface ReviewCardProps {
+    sound: Sound;
+    accent: "british" | "american";
+    t: (key: string, options?: Record<string, unknown>) => string;
+    onReviewUpdate?: () => void;
+}
+
+type ReviewType = "good" | "neutral" | "bad" | null;
+
+const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
+    const [review, setReview] = useState<ReviewType>(null);
     const [hasRecording, setHasRecording] = useState(false);
 
     // Load review from localStorage on mount
     useEffect(() => {
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
-        const soundReview = storedData.soundReview?.[accent]?.[`${sound.type}${sound.id}`] || null;
-        setReview(soundReview);
+        const storedString = localStorage.getItem("ispeaker");
+        let storedData: Record<string, unknown> = {};
+        if (storedString) {
+            try {
+                storedData = JSON.parse(storedString);
+            } catch {
+                storedData = {};
+            }
+        }
+        const soundReview =
+            (storedData.soundReview &&
+                typeof storedData.soundReview === "object" &&
+                (storedData.soundReview as Record<string, unknown>)[accent] &&
+                typeof (storedData.soundReview as Record<string, unknown>)[accent] === "object" &&
+                ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[`${sound.type}${sound.id}`]) ||
+            null;
+        setReview((soundReview as ReviewType) ?? null);
     }, [accent, sound]);
 
     // Check if recording exists
@@ -34,16 +63,28 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }) => {
         checkRecording();
     }, [accent, sound]);
 
-    const handleReviewClick = (type) => {
+    const handleReviewClick = (type: Exclude<ReviewType, null>) => {
         if (!hasRecording) {
             sonnerWarningToast(t("toast.noRecording"));
             return;
         }
 
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
-        storedData.soundReview = storedData.soundReview || {};
-        storedData.soundReview[accent] = storedData.soundReview[accent] || {};
-        storedData.soundReview[accent][`${sound.type}${sound.id}`] = type;
+        const storedString = localStorage.getItem("ispeaker");
+        let storedData: Record<string, unknown> = {};
+        if (storedString) {
+            try {
+                storedData = JSON.parse(storedString);
+            } catch {
+                storedData = {};
+            }
+        }
+        if (!storedData.soundReview || typeof storedData.soundReview !== "object") {
+            storedData.soundReview = {};
+        }
+        if (!(storedData.soundReview as Record<string, unknown>)[accent] || typeof (storedData.soundReview as Record<string, unknown>)[accent] !== "object") {
+            (storedData.soundReview as Record<string, unknown>)[accent] = {};
+        }
+        ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[`${sound.type}${sound.id}`] = type;
 
         localStorage.setItem("ispeaker", JSON.stringify(storedData));
         setReview(type);
@@ -55,8 +96,8 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }) => {
         }
     };
 
-    const emojiStyle = (reviewType) => {
-        const styles = {
+    const emojiStyle = (reviewType: Exclude<ReviewType, null>): string => {
+        const styles: Record<Exclude<ReviewType, null>, string> = {
             good: "text-success",
             neutral: "text-warning",
             bad: "text-error",
@@ -113,17 +154,6 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }) => {
             </div>
         </div>
     );
-};
-
-ReviewCard.propTypes = {
-    sound: PropTypes.shape({
-        phoneme: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-        type: PropTypes.oneOf(["consonants", "vowels", "diphthongs"]).isRequired,
-    }).isRequired,
-    accent: PropTypes.oneOf(["british", "american"]).isRequired,
-    t: PropTypes.func.isRequired,
-    onReviewUpdate: PropTypes.func,
 };
 
 export default ReviewCard;
