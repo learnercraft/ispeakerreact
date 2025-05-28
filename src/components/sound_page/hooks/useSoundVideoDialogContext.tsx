@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
+import type { SoundVideoDialogContextType } from "./useSoundVideoDialog.jsx";
 
-export const SoundVideoDialogContext = createContext(null);
+export const SoundVideoDialogContext = createContext<SoundVideoDialogContextType | null>(null);
 
 export const useSoundVideoDialog = () => {
     const context = useContext(SoundVideoDialogContext);

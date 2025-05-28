@@ -1,13 +1,43 @@
-import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import { MediaPlayer, MediaProvider, type MediaPlayerInstance } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
-import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import useAutoDetectTheme from "../../../utils/ThemeContext/useAutoDetectTheme";
-import { SoundVideoDialogContext } from "./useSoundVideoDialogContext";
+import useAutoDetectTheme from "../../../utils/ThemeContext/useAutoDetectTheme.js";
+import { SoundVideoDialogContext } from "./useSoundVideoDialogContext.js";
 
-export const SoundVideoDialogProvider = ({ children, t }) => {
-    const [dialogState, setDialogState] = useState({
+// Types from SoundPracticeCard.tsx
+export type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
+
+export interface SoundVideoDialogState {
+    isOpen: boolean;
+    videoUrl: string | null;
+    title: string;
+    phoneme: string;
+    isLocalVideo: boolean;
+    onIframeLoad: (() => void) | null;
+    iframeLoading: boolean;
+    showOnlineVideoAlert: boolean;
+    t: TranslationFunction | null;
+}
+
+export interface SoundVideoDialogContextType {
+    showDialog: (state: Omit<SoundVideoDialogState, 'isOpen' | 'iframeLoading'>) => void;
+    closeDialog: () => void;
+    handleIframeLoad: () => void;
+    dialogState: SoundVideoDialogState;
+    activeCard: string | null;
+    isAnyCardActive: boolean;
+    setCardActive: (cardId: string, isActive: boolean) => void;
+    t: TranslationFunction;
+}
+
+interface SoundVideoDialogProviderProps {
+    children: ReactNode;
+    t: TranslationFunction;
+}
+
+export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProviderProps) => {
+    const [dialogState, setDialogState] = useState<SoundVideoDialogState>({
         isOpen: false,
         videoUrl: null,
         title: "",
@@ -19,14 +49,14 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
         t: null,
     });
 
-    const [activeCard, setActiveCard] = useState(null);
-    const [isAnyCardActive, setIsAnyCardActive] = useState(false);
+    const [activeCard, setActiveCard] = useState<string | null>(null);
+    const [isAnyCardActive, setIsAnyCardActive] = useState<boolean>(false);
 
-    const dialogRef = useRef(null);
-    const mediaPlayerRef = useRef(null);
+    const dialogRef = useRef<HTMLDialogElement | null>(null);
+    const mediaPlayerRef = useRef<MediaPlayerInstance | null>(null);
     const { autoDetectedTheme } = useAutoDetectTheme();
 
-    const showDialog = (state) => {
+    const showDialog = (state: Omit<SoundVideoDialogState, 'isOpen' | 'iframeLoading'>) => {
         setDialogState({ ...state, isOpen: true, iframeLoading: true });
         dialogRef.current?.showModal();
     };
@@ -40,7 +70,7 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
         setDialogState((prev) => ({ ...prev, iframeLoading: false }));
     };
 
-    const setCardActive = (cardId, isActive) => {
+    const setCardActive = (cardId: string, isActive: boolean) => {
         setActiveCard(isActive ? cardId : null);
         setIsAnyCardActive(isActive);
     };
@@ -62,7 +92,7 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
             <dialog className="modal" ref={dialogRef}>
                 <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="pb-4 text-lg">
-                        <span className="font-bold">{t("sound_page.clipModalTitle")}</span>:{" "}
+                        <span className="font-bold">{t("sound_page.clipModalTitle")}</span>: {" "}
                         <span
                             lang="en"
                             className="italic"
@@ -74,14 +104,14 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
                             <div className="relative h-full w-full">
                                 {dialogState.isOpen && dialogState.isLocalVideo ? (
                                     <MediaPlayer
-                                        src={dialogState.videoUrl}
+                                        src={dialogState.videoUrl ?? undefined}
                                         className="h-full w-full"
                                         ref={mediaPlayerRef}
                                     >
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={autoDetectedTheme}
+                                            colorScheme={autoDetectedTheme as "default" | "light" | "dark" | "system"}
                                         />
                                     </MediaPlayer>
                                 ) : dialogState.isOpen && dialogState.videoUrl ? (
@@ -94,11 +124,10 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
                                             title={`${dialogState.phoneme} - ${dialogState.title}`}
                                             allowFullScreen
                                             onLoad={handleIframeLoad}
-                                            className={`h-full w-full transition-opacity duration-300 ${
-                                                dialogState.iframeLoading
+                                            className={`h-full w-full transition-opacity duration-300 ${dialogState.iframeLoading
                                                     ? "opacity-0"
                                                     : "opacity-100"
-                                            }`}
+                                                }`}
                                         />
                                     </>
                                 ) : null}
@@ -122,9 +151,4 @@ export const SoundVideoDialogProvider = ({ children, t }) => {
             </dialog>
         </SoundVideoDialogContext.Provider>
     );
-};
-
-SoundVideoDialogProvider.propTypes = {
-    children: PropTypes.node.isRequired,
-    t: PropTypes.func.isRequired,
 };
