@@ -1,24 +1,49 @@
 import he from "he";
-import PropTypes from "prop-types";
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Container from "../../ui/Container";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import isElectron from "../../utils/isElectron";
-import { useScrollTo } from "../../utils/useScrollTo";
-import AccentDropdown from "../general/AccentDropdown";
-import LoadingOverlay from "../general/LoadingOverlay";
-import TopNavBar from "../general/TopNavBar";
+import Container from "../../ui/Container.js";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import isElectron from "../../utils/isElectron.js";
+import useScrollTo from "../../utils/useScrollTo.js";
+import AccentDropdown from "../general/AccentDropdown.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import TopNavBar from "../general/TopNavBar.js";
+// Import types from SoundMain
+import type { AccentType, SoundMenuItem, SoundType } from "./SoundMain.js";
 
-const SoundMain = lazy(() => import("./SoundMain"));
+// Type definitions
+type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
 
-const BADGE_COLORS = {
+interface TabNavigationProps {
+    activeTab: string;
+    onTabChange: (tab: string) => void;
+    scrollTo: () => void;
+    t: TranslationFunction;
+}
+
+interface SoundCardProps {
+    sound: SoundMenuItem;
+    index: number;
+    selectedAccent: AccentType;
+    handlePracticeClick: (sound: SoundMenuItem, accent: AccentType, index: number) => void;
+    getBadgeColor: (sound: SoundMenuItem, index: number) => string | null;
+    getReviewText: (review: string | undefined) => string;
+    getReviewKey: (sound: SoundMenuItem, index: number) => string;
+    reviews: Record<string, string>;
+    t: TranslationFunction;
+}
+
+type PhonemesData = Record<SoundType, SoundMenuItem[]>;
+
+const SoundMain = lazy(() => import("./SoundMain.js"));
+
+const BADGE_COLORS: Record<string, string> = {
     good: "badge-success",
     neutral: "badge-warning",
     bad: "badge-error",
 };
 
-const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }) => {
+const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }: TabNavigationProps) => {
     const tabs = ["consonants", "vowels", "diphthongs"];
 
     return (
@@ -33,9 +58,8 @@ const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }) => {
                                 onTabChange(tab);
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${
-                                activeTab === tab ? "tab-active font-semibold" : ""
-                            }`}
+                            className={`tab md:text-base ${activeTab === tab ? "tab-active font-semibold" : ""
+                                }`}
                         >
                             {t(`sound_page.${tab}`)}
                         </a>
@@ -46,15 +70,8 @@ const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }) => {
     );
 };
 
-TabNavigation.propTypes = {
-    activeTab: PropTypes.string.isRequired,
-    onTabChange: PropTypes.func.isRequired,
-    scrollTo: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
-};
-
-const useReviews = (selectedAccent) => {
-    const [reviews, setReviews] = useState({});
+const useReviews = (selectedAccent: AccentType) => {
+    const [reviews, setReviews] = useState<Record<string, string>>({});
     const [reviewsUpdateTrigger, setReviewsUpdateTrigger] = useState(0);
 
     useEffect(() => {
@@ -81,7 +98,7 @@ const SoundCard = ({
     getReviewKey,
     reviews,
     t,
-}) => {
+}: SoundCardProps) => {
     const badgeColor = getBadgeColor(sound, index);
     const reviewKey = getReviewKey(sound, index);
     const reviewText = badgeColor ? getReviewText(reviews[reviewKey]) : null;
@@ -101,7 +118,7 @@ const SoundCard = ({
                     <p
                         lang="en"
                         className="italic"
-                        dangerouslySetInnerHTML={{ __html: sound.word }}
+                        dangerouslySetInnerHTML={{ __html: sound.key }}
                     />
                 </div>
                 <div className="card-actions px-6">
@@ -120,34 +137,20 @@ const SoundCard = ({
     );
 };
 
-SoundCard.propTypes = {
-    sound: PropTypes.shape({
-        phoneme: PropTypes.string.isRequired,
-        word: PropTypes.string.isRequired,
-        british: PropTypes.bool.isRequired,
-        american: PropTypes.bool.isRequired,
-        id: PropTypes.number.isRequired,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    selectedAccent: PropTypes.string.isRequired,
-    handlePracticeClick: PropTypes.func.isRequired,
-    getBadgeColor: PropTypes.func.isRequired,
-    getReviewText: PropTypes.func.isRequired,
-    getReviewKey: PropTypes.func.isRequired,
-    reviews: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
-};
-
 const SoundList = () => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
-    const [selectedSound, setSelectedSound] = useState(null);
+    const [selectedSound, setSelectedSound] = useState<{
+        sound: SoundMenuItem;
+        accent: AccentType;
+        index: number;
+    } | null>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const [activeTab, setActiveTab] = useState("consonants");
+    const [selectedAccent, setSelectedAccent] = AccentLocalStorage() as [AccentType, (accent: AccentType) => void];
+    const [activeTab, setActiveTab] = useState<SoundType>("consonants");
 
-    const [phonemesData, setPhonemesData] = useState({
+    const [phonemesData, setPhonemesData] = useState<PhonemesData>({
         consonants: [],
         vowels: [],
         diphthongs: [],
@@ -155,7 +158,7 @@ const SoundList = () => {
 
     const { reviews, triggerReviewsUpdate } = useReviews(selectedAccent);
 
-    const handlePracticeClick = (sound, accent, index) => {
+    const handlePracticeClick = (sound: SoundMenuItem, accent: AccentType, index: number) => {
         setSelectedSound({
             sound: { ...sound, type: activeTab },
             accent,
@@ -168,15 +171,15 @@ const SoundList = () => {
         triggerReviewsUpdate();
     };
 
-    const getReviewKey = (sound, index) => `${activeTab}${index + 1}`;
+    const getReviewKey = (sound: SoundMenuItem, index: number) => `${activeTab}${index + 1}`;
 
-    const getBadgeColor = (sound, index) => {
+    const getBadgeColor = (sound: SoundMenuItem, index: number): string | null => {
         const reviewKey = getReviewKey(sound, index);
         return BADGE_COLORS[reviews[reviewKey]] || null;
     };
 
-    const getReviewText = (review) =>
-        t(`sound_page.review${review?.charAt(0).toUpperCase() + review?.slice(1)}`);
+    const getReviewText = (review: string | undefined) =>
+        review ? t(`sound_page.review${review.charAt(0).toUpperCase() + review.slice(1)}`) : "";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -206,7 +209,9 @@ const SoundList = () => {
 
     const filteredSounds = useMemo(() => {
         const currentTabData = phonemesData[activeTab] || [];
-        return currentTabData.filter((sound) => sound[selectedAccent]);
+        return currentTabData.filter((sound) => {
+            return Object.prototype.hasOwnProperty.call(sound, selectedAccent) && Boolean((sound as unknown as Record<string, unknown>)[selectedAccent]);
+        });
     }, [activeTab, selectedAccent, phonemesData]);
 
     return (
@@ -219,14 +224,12 @@ const SoundList = () => {
                         <SoundMain
                             sound={selectedSound.sound}
                             accent={selectedSound.accent}
-                            phonemesData={phonemesData}
-                            index={selectedSound.index}
                             onBack={handleGoBack}
                         />
                     </Suspense>
                 ) : (
                     <>
-                        <AccentDropdown onAccentChange={setSelectedAccent} />
+                        <AccentDropdown onAccentChange={setSelectedAccent as unknown as (value: string) => void} />
                         <div>
                             {loading ? (
                                 <LoadingOverlay />
@@ -234,7 +237,7 @@ const SoundList = () => {
                                 <>
                                     <TabNavigation
                                         activeTab={activeTab}
-                                        onTabChange={setActiveTab}
+                                        onTabChange={(tab: string) => setActiveTab(tab as SoundType)}
                                         scrollTo={scrollTo}
                                         t={t}
                                     />
