@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import Container from "../ui/Container";
-import isElectron from "../utils/isElectron";
-import Footer from "./general/Footer";
-import LogoLightOrDark from "./general/LogoLightOrDark";
-import TopNavBar from "./general/TopNavBar";
+import Container from "../ui/Container.js";
+import isElectron from "../utils/isElectron.js";
+import Footer from "./general/Footer.js";
+import LogoLightOrDark from "./general/LogoLightOrDark.js";
+import TopNavBar from "./general/TopNavBar.js";
 
 const Homepage = () => {
     const { t } = useTranslation();
 
     const navigate = useNavigate();
 
-    const handleNavigate = (path) => {
+    const handleNavigate = (path: string) => {
         navigate(path);
     };
 
@@ -80,7 +80,7 @@ const Homepage = () => {
             <Container>
                 <div className="mb-4 p-6">
                     <div className="flex items-center justify-center space-x-4">
-                        <LogoLightOrDark width="64" height="64" />
+                        <LogoLightOrDark width={64} height={64} />
                         <h1 lang="en" className="text-3xl font-bold md:text-4xl">
                             iSpeakerReact
                         </h1>
