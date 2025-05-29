@@ -1,45 +1,43 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
-import LoadingOverlay from "./components/general/LoadingOverlay";
-import NotFound from "./components/general/NotFound";
-import Homepage from "./components/Homepage";
-import ErrorBoundary from "./ErrorBoundary";
-import isElectron from "./utils/isElectron";
-import ThemeProvider from "./utils/ThemeContext/ThemeProvider";
-import { useTheme } from "./utils/ThemeContext/useTheme";
-import VersionUpdateDialog from "./components/general/VersionUpdateDialog";
+import LoadingOverlay from "./components/general/LoadingOverlay.js";
+import NotFound from "./components/general/NotFound.js";
+import Homepage from "./components/Homepage.jsx";
+import ErrorBoundary from "./ErrorBoundary.jsx";
+import isElectron from "./utils/isElectron.js";
+import ThemeProvider from "./utils/ThemeContext/ThemeProvider.js";
+import useTheme from "./utils/ThemeContext/useTheme.js";
+import VersionUpdateDialog from "./components/general/VersionUpdateDialog.jsx";
 import { useState, useEffect } from "react";
 
-const SoundList = lazy(() => import("./components/sound_page/SoundList"));
-const WordList = lazy(() => import("./components/word_page/WordList"));
-const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu"));
-const ExamPage = lazy(() => import("./components/exam_page/ExamPage"));
-const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage"));
-const SettingsPage = lazy(() => import("./components/setting_page/Settings"));
-const DownloadPage = lazy(() => import("./components/download_page/DownloadPage"));
+const SoundList = lazy(() => import("./components/sound_page/SoundList.jsx"));
+const WordList = lazy(() => import("./components/word_page/WordList.jsx"));
+const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu.jsx"));
+const ExamPage = lazy(() => import("./components/exam_page/ExamPage.jsx"));
+const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage.jsx"));
+const SettingsPage = lazy(() => import("./components/setting_page/Settings.jsx"));
+const DownloadPage = lazy(() => import("./components/download_page/DownloadPage.jsx"));
 
 const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
 
 const PROD_BASE_URL = "https://learnercraft.github.io/ispeakerreact";
 
 const isProdWeb =
-    import.meta.env.PROD &&
-    !isElectron() &&
-    window.location.href.startsWith(PROD_BASE_URL);
+    import.meta.env.PROD && !isElectron() && window.location.href.startsWith(PROD_BASE_URL);
 
 // Ensure baseUrl does not add unnecessary slashes
 const baseUrl = isElectron()
     ? ""
     : (() => {
-          switch (import.meta.env.BASE_URL) {
-              case "/":
-              case "./":
-                  return ""; // Use no basename for "/" or "./"
-              default:
-                  return import.meta.env.BASE_URL;
-          }
-      })();
+        switch (import.meta.env.BASE_URL) {
+            case "/":
+            case "./":
+                return ""; // Use no basename for "/" or "./"
+            default:
+                return import.meta.env.BASE_URL;
+        }
+    })();
 
 // Clear web cache if a newer version is found
 
@@ -48,7 +46,7 @@ const AppContent = () => {
     const { theme } = useTheme();
     const toastTheme =
         theme === "dark" ||
-        (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+            (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches)
             ? "dark"
             : "light";
 
@@ -131,7 +129,7 @@ const AppContent = () => {
             <Toaster
                 className="flex justify-center"
                 position="bottom-center"
-                duration="7000"
+                duration={7000}
                 theme={toastTheme}
             />
         </>
@@ -140,7 +138,7 @@ const AppContent = () => {
 
 const App = () => (
     <ErrorBoundary>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="auto" storageKey="vite-ui-theme">
             <AppContent />
         </ThemeProvider>
     </ErrorBoundary>
