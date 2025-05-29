@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useTranslation, Trans } from "react-i18next";
-import Container from "../../ui/Container";
-import Footer from "../general/Footer";
-import TopNavBar from "../general/TopNavBar";
+import Container from "../../ui/Container.js";
+import Footer from "../general/Footer.js";
+import TopNavBar from "../general/TopNavBar.js";
 
 const DownloadPage = () => {
     const { t } = useTranslation();
@@ -79,6 +79,7 @@ const DownloadPage = () => {
                                     href="https://github.com/learnercraft/ispeakerreact/releases/latest"
                                     className="btn btn-primary btn-lg shadow-lg transition-transform duration-200 hover:scale-105"
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     {t("downloadPage.downloadBtn")}
                                 </a>
@@ -105,8 +106,10 @@ const DownloadPage = () => {
                                 <a
                                     href="https://apps.microsoft.com/detail/9nwk49glxgfp?mode=direct"
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     <img
+                                        alt="Microsoft Store icon"
                                         src={`${import.meta.env.BASE_URL}images/logos/ms-store-badge.svg`}
                                         width="200"
                                         className="transition-transform duration-200 hover:scale-105"
@@ -139,10 +142,10 @@ const DownloadPage = () => {
                                 <Trans
                                     i18nKey="downloadPage.featurePronunciationCheckerDescNote"
                                     components={[
-                                        <button
+                                        <a
                                             key="python-link"
                                             type="button"
-                                            className="link font-semibold underline link-info"
+                                            className="link link-info font-semibold underline"
                                             onClick={() =>
                                                 window.open(
                                                     "https://www.python.org/downloads/",
@@ -166,24 +169,24 @@ const DownloadPage = () => {
                                     <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-slate-300">
                                         {t("downloadPage.featureMain")}
                                     </p>
-                                    <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none dark:text-slate-400">
+                                    <div className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none dark:text-slate-400">
                                         {features.map((feature) => (
                                             <div
                                                 key={feature.name}
                                                 className="card bg-base-200/60 relative mb-2 p-4 shadow-sm transition-shadow duration-200 hover:shadow-lg"
                                             >
-                                                <dt className="inline font-semibold text-gray-900 dark:text-slate-300">
+                                                <div className="inline font-semibold text-gray-900 dark:text-slate-300">
                                                     {feature.name}
                                                     {feature.desktopOnly && (
                                                         <span className="badge badge-primary badge-sm ml-2">
                                                             {t("downloadPage.desktopOnly")}
                                                         </span>
                                                     )}
-                                                </dt>{" "}
-                                                <dd className="inline">{feature.description}</dd>
+                                                </div>{" "}
+                                                <div className="inline">{feature.description}</div>
                                             </div>
                                         ))}
-                                    </dl>
+                                    </div>
                                 </div>
                             </div>
                             {/* Screenshot on the right, vertically centered */}
@@ -212,7 +215,11 @@ const DownloadPage = () => {
                                 key={idx}
                                 className="collapse-arrow join-item border-base-300 collapse border dark:border-slate-600"
                             >
-                                <input type="checkbox" name="faq-accordion" />
+                                <input
+                                    type="checkbox"
+                                    name="faq-accordion"
+                                    title={t(`downloadPage.${item.questionKey}`)}
+                                />
                                 <div className="collapse-title text-lg font-semibold">
                                     {t(`downloadPage.${item.questionKey}`)}
                                 </div>
