@@ -1,7 +1,15 @@
-import PropTypes from "prop-types";
+import { FC } from "react";
 
-const Pagination = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
-    const goToPage = (page) => {
+interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+    t: (key: string) => string;
+    scrollTo: (options?: unknown) => void;
+}
+
+const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
+    const goToPage = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             onPageChange(page);
         }
@@ -37,6 +45,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
                 )
                 .map((page) => (
                     <button
+                        type="button"
                         key={page}
                         className={`btn btn-sm ${currentPage === page ? "btn-primary" : "btn-outline"}`}
                         onClick={() => {
@@ -71,14 +80,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
             </button>
         </div>
     );
-};
-
-Pagination.propTypes = {
-    currentPage: PropTypes.number.isRequired,
-    totalPages: PropTypes.number.isRequired,
-    onPageChange: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired,
-    scrollTo: PropTypes.func,
 };
 
 export default Pagination;
