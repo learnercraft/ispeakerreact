@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container.js";
@@ -9,6 +9,7 @@ import AccentDropdown from "../general/AccentDropdown.js";
 import TopNavBar from "../general/TopNavBar.js";
 import Pagination from "./Pagination.js";
 import WordDetails from "./WordDetails.js";
+import { AccentType } from "../sound_page/SoundPracticeCard.js";
 
 // Define the Word interface based on WordDetails propTypes
 export interface Word {
@@ -49,11 +50,12 @@ const PronunciationPractice = () => {
     const [selectedWord, setSelectedWord] = useState<Word | null>(null);
 
     // Derived data
-    const filteredWords = words.filter((word) =>
-        (word.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            word.nameUS?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            !searchQuery) &&
-        (selectedLevel ? word.level.includes(selectedLevel) : true)
+    const filteredWords = words.filter(
+        (word) =>
+            (word.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                word.nameUS?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                !searchQuery) &&
+            (selectedLevel ? word.level.includes(selectedLevel) : true)
     );
 
     // Derived pagination values
@@ -167,10 +169,11 @@ const PronunciationPractice = () => {
                                     <a
                                         role="tab"
                                         onClick={() => setActiveTab("oxford3000")}
-                                        className={`tab md:text-base ${activeTab === "oxford3000"
-                                            ? "tab-active font-semibold"
-                                            : ""
-                                            }`}
+                                        className={`tab md:text-base ${
+                                            activeTab === "oxford3000"
+                                                ? "tab-active font-semibold"
+                                                : ""
+                                        }`}
                                     >
                                         Oxford 3000
                                         <div
@@ -182,10 +185,11 @@ const PronunciationPractice = () => {
                                     </a>
                                     <a
                                         role="tab"
-                                        className={`tab md:text-base ${activeTab === "oxford5000"
-                                            ? "tab-active font-semibold"
-                                            : ""
-                                            }`}
+                                        className={`tab md:text-base ${
+                                            activeTab === "oxford5000"
+                                                ? "tab-active font-semibold"
+                                                : ""
+                                        }`}
                                         onClick={() => setActiveTab("oxford5000")}
                                     >
                                         Oxford 5000
@@ -223,7 +227,7 @@ const PronunciationPractice = () => {
                         </div>
 
                         {filteredWords.length > 0 && !loading && (
-                            <div ref={scrollRef}>
+                            <div ref={scrollRef as RefObject<HTMLDivElement>}>
                                 <Pagination
                                     t={t}
                                     currentPage={currentPage}
@@ -325,9 +329,9 @@ const PronunciationPractice = () => {
                         word={selectedWord}
                         handleBack={handleBack}
                         t={t}
-                        accent={accent}
+                        accent={accent as AccentType}
                         onReviewUpdate={updateReviewData}
-                        scrollRef={scrollRef}
+                        scrollRef={scrollRef as RefObject<HTMLDivElement>}
                     />
                 )}
             </Container>

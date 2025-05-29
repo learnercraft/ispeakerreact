@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 const useScrollTo = () => {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement | null>(null);
     const padding = 300; // extra padding
 
     const scrollTo = (options = { behavior: "smooth" }) => {

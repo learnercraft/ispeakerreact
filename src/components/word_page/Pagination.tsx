@@ -5,10 +5,16 @@ interface PaginationProps {
     totalPages: number;
     onPageChange: (page: number) => void;
     t: (key: string) => string;
-    scrollTo: (options?: unknown) => void;
+    scrollTo: (options?: { behavior: string }) => void;
 }
 
-const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange, t, scrollTo }) => {
+const Pagination: FC<PaginationProps> = ({
+    currentPage,
+    totalPages,
+    onPageChange,
+    t,
+    scrollTo,
+}) => {
     const goToPage = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             onPageChange(page);
