@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+    BsClipboard2Check,
     BsPauseCircle,
     BsPlayCircle,
     BsRecordCircle,
     BsStopCircle,
-    BsClipboard2Check,
 } from "react-icons/bs";
 import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record";
@@ -14,11 +13,24 @@ import {
     openDatabase,
     playRecording,
     saveRecording,
-} from "../../utils/databaseOperations";
-import isElectron from "../../utils/isElectron";
-import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
-import useWaveformTheme from "./useWaveformTheme";
-import PronunciationChecker from "./PronunciationChecker";
+} from "../../utils/databaseOperations.js";
+import isElectron from "../../utils/isElectron.js";
+import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
+import PronunciationChecker from "./PronunciationChecker.js";
+import useWaveformTheme from "./useWaveformTheme.js";
+
+type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
+
+interface RecordingWaveformProps {
+    wordKey: string;
+    maxDuration: number;
+    disableControls?: boolean;
+    onActivityChange?: (isActive: boolean) => void;
+    onRecordingSaved?: () => void;
+    isAudioLoading?: boolean;
+    displayPronunciation?: string;
+    t: TranslationFunction;
+}
 
 const getSupportedMimeType = () => {
     const mimeTypes = ["audio/webm", "audio/ogg", "audio/wav", "audio/mpeg", "audio/mp4"];
@@ -37,21 +49,21 @@ const RecordingWaveform = ({
     wordKey,
     maxDuration,
     disableControls = false,
-    onActivityChange = null,
-    onRecordingSaved = null,
+    onActivityChange = undefined,
+    onRecordingSaved = undefined,
     isAudioLoading = false,
     displayPronunciation,
     t,
-}) => {
-    const waveformRef = useRef(null);
-    const [recording, setRecording] = useState(false);
-    const [recordedUrl, setRecordedUrl] = useState(null);
-    const [wavesurfer, setWaveSurfer] = useState(null);
-    const [recordPlugin, setRecordPlugin] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [, setRecordingTime] = useState(0);
-    const recordingInterval = useRef(null);
-    const [pronunciationLoading, setPronunciationLoading] = useState(false);
+}: RecordingWaveformProps) => {
+    const waveformRef = useRef<HTMLDivElement | null>(null);
+    const [recording, setRecording] = useState<boolean>(false);
+    const [recordedUrl, setRecordedUrl] = useState<string | null>(null);
+    const [wavesurfer, setWaveSurfer] = useState<WaveSurfer | null>(null);
+    const [recordPlugin, setRecordPlugin] = useState<RecordPlugin | null>(null);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [, setRecordingTime] = useState<number>(0);
+    const recordingInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+    const [pronunciationLoading, setPronunciationLoading] = useState<boolean>(false);
 
     const waveformLight = "hsl(224.3 76.3% 48%)"; // Light mode waveform color
     const waveformDark = "hsl(213.1 93.9% 67.8%)"; // Dark mode waveform color
@@ -70,7 +82,7 @@ const RecordingWaveform = ({
     );
 
     const notifyActivityChange = useCallback(
-        (isActive) => {
+        (isActive: boolean) => {
             if (onActivityChange) {
                 onActivityChange(isActive);
             }
@@ -80,7 +92,7 @@ const RecordingWaveform = ({
 
     useEffect(() => {
         const wavesurferInstance = WaveSurfer.create({
-            container: waveformRef.current,
+            container: waveformRef.current as HTMLElement,
             waveColor: waveformColor,
             progressColor: progressColor,
             cursorColor: cursorColor,
@@ -105,7 +117,7 @@ const RecordingWaveform = ({
 
         wavesurferInstance.registerPlugin(recordPluginInstance);
 
-        recordPluginInstance.on("record-end", async (blob) => {
+        recordPluginInstance.on("record-end", async (blob: Blob) => {
             const recordedUrl = URL.createObjectURL(blob);
             setRecordedUrl(recordedUrl);
             setTimeout(() => {
@@ -120,10 +132,10 @@ const RecordingWaveform = ({
                     onRecordingSaved(); // Notify the parent
                 }
                 notifyActivityChange(false);
-                sonnerSuccessToast(t("toast.recordingSuccess"));
-            } catch (error) {
-                console.error("Error saving recording:", error);
-                sonnerErrorToast(`${t("toast.recordingFailed")} ${error.message}`);
+                sonnerSuccessToast(String(t("toast.recordingSuccess")));
+            } catch (error: unknown) {
+                const err = error instanceof Error ? error : new Error(String(error));
+                sonnerErrorToast(`${String(t("toast.recordingFailed"))} ${err.message}`);
             }
         });
 
@@ -142,9 +154,9 @@ const RecordingWaveform = ({
                                 audio.currentTime = 0;
                             }
                         },
-                        (error) => {
-                            console.error("Playback error:", error);
-                            sonnerErrorToast(`${t("toast.playbackError")} ${error.message}`);
+                        (error: unknown) => {
+                            const err = error instanceof Error ? error : new Error(String(error));
+                            sonnerErrorToast(`${String(t("toast.playbackError"))} ${err.message}`);
                         },
                         () => {
                             // console.log("Playback finished");
@@ -190,7 +202,7 @@ const RecordingWaveform = ({
         });
 
         return () => {
-            if (recordingInterval) clearInterval(recordingInterval.current);
+            if (recordingInterval.current) clearInterval(recordingInterval.current);
 
             if (wavesurferInstance) {
                 wavesurferInstance.unAll();
@@ -213,7 +225,7 @@ const RecordingWaveform = ({
             if (recording) {
                 recordPlugin.stopRecording(); // Stop recording
                 setRecording(false);
-                clearInterval(recordingInterval.current); // Clear the interval
+                if (recordingInterval.current) clearInterval(recordingInterval.current); // Clear the interval
             } else {
                 if (wavesurfer) {
                     wavesurfer.empty(); // Clear waveform for live input
@@ -231,7 +243,7 @@ const RecordingWaveform = ({
                             console.log("Max recording duration reached. Stopping...");
                             recordPlugin.stopRecording();
                             setRecording(false);
-                            clearInterval(recordingInterval.current);
+                            if (recordingInterval.current) clearInterval(recordingInterval.current);
                             setRecordingTime(0);
                             return prevTime;
                         }
@@ -246,9 +258,9 @@ const RecordingWaveform = ({
         if (wavesurfer) {
             try {
                 wavesurfer.playPause();
-            } catch (error) {
-                console.error("Playback error:", error);
-                sonnerErrorToast(`${t("toast.playbackError")} ${error.message}`);
+            } catch (error: unknown) {
+                const err = error instanceof Error ? error : new Error(String(error));
+                sonnerErrorToast(`${String(t("toast.playbackError"))} ${err.message}`);
             }
         }
     };
@@ -324,17 +336,6 @@ const RecordingWaveform = ({
             )*/}
         </div>
     );
-};
-
-RecordingWaveform.propTypes = {
-    wordKey: PropTypes.string.isRequired,
-    maxDuration: PropTypes.number.isRequired,
-    disableControls: PropTypes.bool,
-    onActivityChange: PropTypes.func,
-    t: PropTypes.func.isRequired,
-    onRecordingSaved: PropTypes.func,
-    isAudioLoading: PropTypes.bool,
-    displayPronunciation: PropTypes.string,
 };
 
 export default RecordingWaveform;
