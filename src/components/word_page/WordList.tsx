@@ -1,23 +1,39 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import Container from "../../ui/Container";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import isElectron from "../../utils/isElectron";
-import { useScrollTo } from "../../utils/useScrollTo";
-import AccentDropdown from "../general/AccentDropdown";
-import TopNavBar from "../general/TopNavBar";
-import Pagination from "./Pagination";
-import WordDetails from "./WordDetails";
+import Container from "../../ui/Container.js";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import isElectron from "../../utils/isElectron.js";
+import useScrollTo from "../../utils/useScrollTo.js";
+import AccentDropdown from "../general/AccentDropdown.js";
+import TopNavBar from "../general/TopNavBar.js";
+import Pagination from "./Pagination.js";
+import WordDetails from "./WordDetails.js";
+
+// Define the Word interface based on WordDetails propTypes
+export interface Word {
+    fileName: string;
+    fileNameUS?: string;
+    level: string[];
+    name: string;
+    nameUS?: string;
+    pos: string[];
+    pronunciation: string;
+    pronunciationUS?: string;
+    wordId: number;
+}
+
+type ReviewType = "good" | "neutral" | "bad" | null;
+type ReviewData = Record<string, Record<string, ReviewType>>;
 
 const PronunciationPractice = () => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
-    const [activeTab, setActiveTab] = useState("oxford3000");
-    const [words, setWords] = useState([]);
-    const [reviewData, setReviewData] = useState({});
-    const [accent, setAccent] = AccentLocalStorage();
+    const [activeTab, setActiveTab] = useState<"oxford3000" | "oxford5000">("oxford3000");
+    const [words, setWords] = useState<Word[]>([]);
+    const [reviewData, setReviewData] = useState<ReviewData>({});
+    const [accent, setAccent] = AccentLocalStorage() as [string, (a: string) => void];
     const [loading, setLoading] = useState(false);
 
     // Search and filter state
@@ -29,16 +45,15 @@ const PronunciationPractice = () => {
     const itemsPerPage = 18;
 
     // View state
-    const [viewState, setViewState] = useState("list");
-    const [selectedWord, setSelectedWord] = useState(null);
+    const [viewState, setViewState] = useState<"list" | "details">("list");
+    const [selectedWord, setSelectedWord] = useState<Word | null>(null);
 
     // Derived data
-    const filteredWords = words.filter(
-        (word) =>
-            (word.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                word.nameUS?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                !searchQuery) &&
-            (selectedLevel ? word.level.includes(selectedLevel) : true)
+    const filteredWords = words.filter((word) =>
+        (word.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            word.nameUS?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            !searchQuery) &&
+        (selectedLevel ? word.level.includes(selectedLevel) : true)
     );
 
     // Derived pagination values
@@ -56,7 +71,7 @@ const PronunciationPractice = () => {
                         ? `${import.meta.env.BASE_URL}json/oxford-3000.json`
                         : `${import.meta.env.BASE_URL}json/oxford-5000.json`
                 );
-                const data = await response.json();
+                const data: Word[] = await response.json();
                 setWords(data);
             } catch (error) {
                 console.error("Error fetching word data:", error);
@@ -87,7 +102,7 @@ const PronunciationPractice = () => {
         setCurrentPage(1);
     }, [searchQuery, selectedLevel]);
 
-    const handlePractice = (word) => {
+    const handlePractice = (word: Word) => {
         setSelectedWord(word);
         setViewState("details");
     };
@@ -98,11 +113,14 @@ const PronunciationPractice = () => {
         setViewState("list");
     };
 
-    const handleAccentChange = (newAccent) => {
-        setAccent(newAccent); // Update the accent
+    const handleAccentChange = (newAccent: string) => {
+        // Only allow valid accents
+        if (newAccent === "american" || newAccent === "british") {
+            setAccent(newAccent);
+        }
     };
 
-    const getBadgeClass = (review) => {
+    const getBadgeClass = (review: ReviewType) => {
         switch (review) {
             case "good":
                 return "badge badge-success";
@@ -115,7 +133,7 @@ const PronunciationPractice = () => {
         }
     };
 
-    const getReviewText = (review) => {
+    const getReviewText = (review: ReviewType) => {
         switch (review) {
             case "good":
                 return t("sound_page.reviewGood");
@@ -129,7 +147,8 @@ const PronunciationPractice = () => {
     };
 
     const updateReviewData = () => {
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const stored = localStorage.getItem("ispeaker");
+        const storedData = stored ? JSON.parse(stored) : {};
         setReviewData(storedData.wordReview || {});
     };
 
@@ -148,11 +167,10 @@ const PronunciationPractice = () => {
                                     <a
                                         role="tab"
                                         onClick={() => setActiveTab("oxford3000")}
-                                        className={`tab md:text-base ${
-                                            activeTab === "oxford3000"
-                                                ? "tab-active font-semibold"
-                                                : ""
-                                        }`}
+                                        className={`tab md:text-base ${activeTab === "oxford3000"
+                                            ? "tab-active font-semibold"
+                                            : ""
+                                            }`}
                                     >
                                         Oxford 3000
                                         <div
@@ -164,11 +182,10 @@ const PronunciationPractice = () => {
                                     </a>
                                     <a
                                         role="tab"
-                                        className={`tab md:text-base ${
-                                            activeTab === "oxford5000"
-                                                ? "tab-active font-semibold"
-                                                : ""
-                                        }`}
+                                        className={`tab md:text-base ${activeTab === "oxford5000"
+                                            ? "tab-active font-semibold"
+                                            : ""
+                                            }`}
                                         onClick={() => setActiveTab("oxford5000")}
                                     >
                                         Oxford 5000
@@ -193,6 +210,7 @@ const PronunciationPractice = () => {
                                     value={selectedLevel}
                                     onChange={(e) => setSelectedLevel(e.target.value)}
                                     className="select select-bordered w-1/2 max-w-xs basis-1/3"
+                                    title={t("wordPage.allLevelSelectBox")}
                                 >
                                     <option value="">{t("wordPage.allLevelSelectBox")}</option>
                                     <option value="a1">A1</option>
@@ -308,9 +326,8 @@ const PronunciationPractice = () => {
                         handleBack={handleBack}
                         t={t}
                         accent={accent}
-                        onAccentChange={handleAccentChange}
                         onReviewUpdate={updateReviewData}
-                        scrollTo={scrollTo}
+                        scrollRef={scrollRef}
                     />
                 )}
             </Container>
