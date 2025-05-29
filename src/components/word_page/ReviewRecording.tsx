@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import {
     BsEmojiFrown,
     BsEmojiFrownFill,
@@ -7,26 +6,46 @@ import {
     BsEmojiSmile,
     BsEmojiSmileFill,
 } from "react-icons/bs";
-import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast";
+import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
 import { useState, useEffect } from "react";
 
-const ReviewRecording = ({ wordName, accent, isRecordingExists, t, onReviewUpdate }) => {
-    const [review, setReview] = useState(null);
+type AccentType = "american" | "british";
+type ReviewType = "good" | "neutral" | "bad" | null;
+type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
+
+interface ReviewRecordingProps {
+    wordName: string;
+    accent: AccentType;
+    isRecordingExists: boolean;
+    t: TranslationFunction;
+    onReviewUpdate?: () => void;
+}
+
+const ReviewRecording = ({
+    wordName,
+    accent,
+    isRecordingExists,
+    t,
+    onReviewUpdate,
+}: ReviewRecordingProps) => {
+    const [review, setReview] = useState<ReviewType>(null);
 
     // Load review from localStorage on mount
     useEffect(() => {
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
-        const wordReview = storedData.wordReview?.[accent]?.[wordName] || null;
-        setReview(wordReview);
+        const storedRaw = localStorage.getItem("ispeaker");
+        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
+        const wordReview = storedData.wordReview?.[accent]?.[wordName] ?? null;
+        setReview(wordReview as ReviewType);
     }, [accent, wordName]);
 
-    const handleReviewClick = (type) => {
+    const handleReviewClick = (type: Exclude<ReviewType, null>) => {
         if (!isRecordingExists) {
-            sonnerWarningToast(t("toast.noRecording"));
+            sonnerWarningToast(String(t("toast.noRecording")));
             return;
         }
 
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const storedRaw = localStorage.getItem("ispeaker");
+        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
         storedData.wordReview = storedData.wordReview || {};
         storedData.wordReview[accent] = storedData.wordReview[accent] || {};
         storedData.wordReview[accent][wordName] = type;
@@ -34,13 +53,13 @@ const ReviewRecording = ({ wordName, accent, isRecordingExists, t, onReviewUpdat
         localStorage.setItem("ispeaker", JSON.stringify(storedData));
         setReview(type);
 
-        sonnerSuccessToast(t("toast.reviewUpdated"));
+        sonnerSuccessToast(String(t("toast.reviewUpdated")));
 
-        onReviewUpdate();
+        if (onReviewUpdate) onReviewUpdate();
     };
 
-    const emojiStyle = (reviewType) => {
-        const styles = {
+    const emojiStyle = (reviewType: Exclude<ReviewType, null>) => {
+        const styles: Record<Exclude<ReviewType, null>, string> = {
             good: "text-success",
             neutral: "text-warning",
             bad: "text-error",
@@ -50,7 +69,7 @@ const ReviewRecording = ({ wordName, accent, isRecordingExists, t, onReviewUpdat
 
     return (
         <div className="my-4">
-            <p className="mb-2 text-center">{t("wordPage.ratePronunciation")}</p>
+            <p className="mb-2 text-center">{String(t("wordPage.ratePronunciation"))}</p>
             <div className="flex flex-row items-center justify-center space-x-4">
                 <button type="button" onClick={() => handleReviewClick("good")}>
                     {review === "good" ? (
@@ -100,14 +119,6 @@ const ReviewRecording = ({ wordName, accent, isRecordingExists, t, onReviewUpdat
             </div>
         </div>
     );
-};
-
-ReviewRecording.propTypes = {
-    wordName: PropTypes.string.isRequired,
-    accent: PropTypes.string.isRequired,
-    isRecordingExists: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
-    onReviewUpdate: PropTypes.func,
 };
 
 export default ReviewRecording;
