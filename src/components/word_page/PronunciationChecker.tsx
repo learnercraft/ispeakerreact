@@ -1,18 +1,17 @@
-import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import convertToWav from "../../utils/ffmpegWavConverter";
-import isElectron from "../../utils/isElectron";
-import openExternal from "../../utils/openExternal";
-import { getPronunciationInstallState } from "../setting_page/pronunciationStepUtils";
+import convertToWav from "../../utils/ffmpegWavConverter.js";
+import isElectron from "../../utils/isElectron.js";
+import openExternal from "../../utils/openExternal.js";
+import { getPronunciationInstallState } from "../setting_page/pronunciationStepUtils.js";
 import {
     arePhonemesClose,
-    charLevenshtein,
     formatToOfficialSpacing,
-    normalizeIPAString,
     isLearnerSubstitution,
-} from "./ipaUtils";
-import { parseIPA } from "./syllableParser";
+    normalizeIPAString,
+    phonemeLevenshtein,
+} from "./ipaUtils.js";
+import parseIPA from "./syllableParser.js";
 
 // Add CSS animation for radial progress
 // https://github.com/saadeghi/daisyui/discussions/3206
@@ -35,31 +34,46 @@ const radialProgressStyle = `
 }
 `;
 
+interface PronunciationCheckerProps {
+    icon?: ReactNode;
+    disabled?: boolean;
+    wordKey: string;
+    displayPronunciation?: string;
+    modelName?: string;
+    onLoadingChange?: (loading: boolean) => void;
+}
+
 const PronunciationChecker = ({
     icon,
-    disabled,
+    disabled = false,
     wordKey,
     displayPronunciation,
     modelName,
     onLoadingChange,
-}) => {
+}: PronunciationCheckerProps) => {
     const { t } = useTranslation();
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState<string | null>(null);
     const [showResult, setShowResult] = useState(false);
-    const notInstalledDialogRef = useRef();
-    const webDialogRef = useRef();
+    const notInstalledDialogRef = useRef<HTMLDialogElement | null>(null);
+    const webDialogRef = useRef<HTMLDialogElement | null>(null);
     const [loading, setLoading] = useState(false);
     const [progress, setProgress] = useState("");
-    const [errorDetails, setErrorDetails] = useState("");
+    const [errorDetails, setErrorDetails] = useState<string | null>(null);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [showFailedInstall, setShowFailedInstall] = useState(false);
-    let accuracyScore = null;
+    let accuracyScore: number | null = null;
 
     useEffect(() => {
         if (!isElectron()) return;
-        const handler = (_event, msg) => {
-            if (msg && msg.status === "progress") {
-                setProgress(msg.message);
+        const handler = (_event: unknown, msg: unknown) => {
+            if (
+                msg &&
+                typeof msg === "object" &&
+                "status" in msg &&
+                (msg as { status?: string }).status === "progress" &&
+                "message" in msg
+            ) {
+                setProgress((msg as { message: string }).message);
             }
         };
         window.electron?.ipcRenderer?.on("pronunciation-model-progress", handler);
@@ -85,7 +99,7 @@ const PronunciationChecker = ({
             return;
         }
         // Fetch install status on demand
-        let installStatus = null;
+        let installStatus: unknown = null;
         if (window.electron?.ipcRenderer) {
             installStatus = await window.electron.ipcRenderer.invoke(
                 "get-pronunciation-install-status"
@@ -107,11 +121,11 @@ const PronunciationChecker = ({
         }
         setLoading(true);
         setProgress("");
-        setErrorDetails("");
+        setErrorDetails(null);
         try {
             // 1. Get the original recording blob from Electron
             const originalBlobArrayBuffer = await window.electron.getRecordingBlob(wordKey);
-            const originalBlob = new Blob([originalBlobArrayBuffer]);
+            const originalBlob = new Blob([originalBlobArrayBuffer as BlobPart]);
 
             // 2. Convert to real WAV
             const realWavBlob = await convertToWav(originalBlob);
@@ -127,30 +141,56 @@ const PronunciationChecker = ({
             );
 
             // 5. Run the Python process with the new WAV and selected model
-            const response = await window.electron.ipcRenderer.invoke(
+            const response: unknown = await window.electron.ipcRenderer.invoke(
                 "pronunciation-check",
                 audioPath,
                 modelName
             );
 
-            if (response && response.status === "success") {
-                const phonemes = response.phonemes;
+            if (
+                response &&
+                typeof response === "object" &&
+                "status" in response &&
+                (response as { status?: string }).status === "success"
+            ) {
+                const phonemes = (response as { phonemes?: string }).phonemes;
                 const readablePhonemes = phonemes ? JSON.parse(`"${phonemes}"`) : null;
                 setResult(readablePhonemes);
             } else {
-                setResult(`Error: ${response?.message || "Unknown error"}`);
-                setErrorDetails(response?.traceback || response?.message || "Unknown error");
+                setResult(
+                    `Error: ${
+                        (response && typeof response === "object" && "message" in response
+                            ? (response as { message?: string }).message
+                            : undefined) || "Unknown error"
+                    }`
+                );
+                setErrorDetails(
+                    (response && typeof response === "object" && "traceback" in response
+                        ? (response as { traceback?: string }).traceback
+                        : undefined) ||
+                        (response && typeof response === "object" && "message" in response
+                            ? (response as { message?: string }).message
+                            : undefined) ||
+                        "Unknown error"
+                );
                 window.electron.log(
                     "error",
-                    `Pronunciation check error. Traceback: ${response?.traceback || "Unknown error"}`
+                    `Pronunciation check error. Traceback: ${
+                        (response && typeof response === "object" && "traceback" in response
+                            ? (response as { traceback?: string }).traceback
+                            : undefined) || "Unknown error"
+                    }`
                 );
             }
         } catch (err) {
-            setResult(`Error: ${err.message || err}`);
-            setErrorDetails(err.stack || err.message || JSON.stringify(err));
+            const error = err as Error;
+            setResult(`Error: ${error.message || String(err)}`);
+            setErrorDetails(error.stack || error.message || JSON.stringify(err));
             window.electron.log(
                 "error",
-                `Pronunciation check error. Stack trace: ${err.stack || err.message || JSON.stringify(err)}`
+                `Pronunciation check error. Stack trace: ${
+                    error.stack || error.message || JSON.stringify(err)
+                }`
             );
         } finally {
             setShowResult(true);
@@ -158,23 +198,23 @@ const PronunciationChecker = ({
         }
     };
 
-    const parsedPhonemes = parseIPA(displayPronunciation);
+    const parsedPhonemes = parseIPA(displayPronunciation || "");
     const phoneme = parsedPhonemes.map((syl) => syl.text).join(" ");
     // Remove all spaces for comparison
-    const normalizedResultNoSpaces = normalizeIPAString(result).replace(/ /g, "");
+    const normalizedResultNoSpaces = normalizeIPAString(result || "").replace(/ /g, "");
     const normalizedPhonemeNoSpaces = normalizeIPAString(phoneme).replace(/ /g, "");
     // Character-based Levenshtein with fuzzy matching
-    const phonemeLevenshtein =
+    const characterLevenshtein =
         result && phoneme
-            ? charLevenshtein(normalizedResultNoSpaces, normalizedPhonemeNoSpaces)
+            ? phonemeLevenshtein(normalizedResultNoSpaces, normalizedPhonemeNoSpaces)
             : null;
-    const isClose = phonemeLevenshtein !== null && phonemeLevenshtein <= 1;
+    const isClose = characterLevenshtein !== null && characterLevenshtein <= 1;
 
     // Display logic: format and highlight aligned model output
     let alignedResult = result;
     let diff = null;
     let rendered = null;
-    const resultTooFarOff = phonemeLevenshtein !== null && phonemeLevenshtein > 5;
+    const resultTooFarOff = characterLevenshtein !== null && characterLevenshtein > 5;
 
     if (resultTooFarOff) {
         rendered = <p className="text-accent">{t("wordPage.pronunciationChecker.cannotHear")}</p>;
@@ -300,7 +340,10 @@ const PronunciationChecker = ({
                 charCount === currentBoundary - (syllableBoundaries[spaceIdx - 1] || 0)
             ) {
                 rendered.push(
-                    <span key={`extra-separator`} className="mx-1 text-xs text-gray-600 dark:text-slate-400">
+                    <span
+                        key={`extra-separator`}
+                        className="mx-1 text-xs text-gray-600 dark:text-slate-400"
+                    >
                         |{/* separator for extra phonemes */}
                     </span>
                 );
@@ -407,11 +450,14 @@ const PronunciationChecker = ({
                                                                   ? "text-warning"
                                                                   : "text-error"
                                                         }`}
-                                                        style={{
-                                                            "--value": "var(--_value)",
-                                                            "--size": "5rem",
-                                                            "--target-value": accuracyScore,
-                                                        }}
+                                                        style={
+                                                            {
+                                                                "--value": "var(--_value)",
+                                                                "--size": "5rem",
+                                                                "--target-value": accuracyScore,
+                                                            } as React.CSSProperties &
+                                                                Record<string, string | number>
+                                                        }
                                                         aria-valuenow={accuracyScore}
                                                         role="progressbar"
                                                     >
@@ -475,19 +521,19 @@ const PronunciationChecker = ({
                                                     </span>
                                                 </li>
                                             </ul>
-                                            {phonemeLevenshtein === 0 && (
+                                            {characterLevenshtein === 0 && (
                                                 <p className="text-success">
                                                     {t(
                                                         "wordPage.pronunciationChecker.perfectResult"
                                                     )}
                                                 </p>
                                             )}
-                                            {isClose && phonemeLevenshtein !== 0 && (
+                                            {isClose && characterLevenshtein !== 0 && (
                                                 <p className="text-success">
                                                     {t("wordPage.pronunciationChecker.closeResult")}
                                                 </p>
                                             )}
-                                            {!isClose && phonemeLevenshtein !== 0 && (
+                                            {!isClose && characterLevenshtein !== 0 && (
                                                 <p className="text-accent">
                                                     {t(
                                                         "wordPage.pronunciationChecker.notSoCloseResult"
@@ -523,7 +569,7 @@ const PronunciationChecker = ({
                     <div className="modal-action">
                         <button
                             className="btn btn-primary"
-                            onClick={() => notInstalledDialogRef.current.close()}
+                            onClick={() => notInstalledDialogRef.current?.close()}
                         >
                             {t("wordPage.pronunciationChecker.okBtn")}
                         </button>
@@ -556,7 +602,7 @@ const PronunciationChecker = ({
                     <div className="modal-action">
                         <button
                             className="btn btn-primary"
-                            onClick={() => webDialogRef.current.close()}
+                            onClick={() => webDialogRef.current?.close()}
                         >
                             {t("wordPage.pronunciationChecker.okBtn")}
                         </button>
@@ -591,15 +637,6 @@ const PronunciationChecker = ({
             </dialog>
         </>
     );
-};
-
-PronunciationChecker.propTypes = {
-    icon: PropTypes.node,
-    disabled: PropTypes.bool,
-    wordKey: PropTypes.string.isRequired,
-    displayPronunciation: PropTypes.string,
-    modelName: PropTypes.string.isRequired,
-    onLoadingChange: PropTypes.func,
 };
 
 export default PronunciationChecker;
