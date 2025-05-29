@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
+
+interface WaveformThemeColors {
+    waveformColor: string;
+    progressColor: string;
+    cursorColor: string;
+}
 
 const useWaveformTheme = (
-    waveformLight,
-    waveformDark,
-    progressLight,
-    progressDark,
-    cursorLight,
-    cursorDark
-) => {
+    waveformLight: string,
+    waveformDark: string,
+    progressLight: string,
+    progressDark: string,
+    cursorLight: string,
+    cursorDark: string
+): WaveformThemeColors => {
     const { autoDetectedTheme } = useAutoDetectTheme();
-    const [colors, setColors] = useState({
+    const [colors, setColors] = useState<WaveformThemeColors>({
         waveformColor: waveformLight,
         progressColor: progressLight,
         cursorColor: cursorLight,
