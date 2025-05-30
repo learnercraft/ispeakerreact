@@ -2,24 +2,52 @@ import { MediaPlayer, MediaProvider, Track } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
-import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
-import isElectron from "../../utils/isElectron";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
+import isElectron from "../../utils/isElectron.js";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
 
-const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) => {
+interface DialogLine {
+    speaker: string;
+    speech: string;
+}
+
+interface SkillCheckmark {
+    label: string;
+}
+
+interface TaskData {
+    para: string;
+    listItems: string[];
+    images: string[];
+}
+
+interface WatchAndStudyTabProps {
+    videoUrl: string;
+    subtitleUrl: string;
+    taskData: TaskData;
+    dialog: DialogLine[];
+    skills: SkillCheckmark[];
+}
+
+const WatchAndStudyTab = ({
+    videoUrl,
+    subtitleUrl,
+    taskData,
+    dialog,
+    skills,
+}: WatchAndStudyTabProps) => {
     const { t } = useTranslation();
 
-    const [modalImage, setModalImage] = useState("");
-    const [imageLoading, setImageLoading] = useState(false);
-    const imageModalRef = useRef(null);
-    const [iframeLoading, setiFrameLoading] = useState(true);
+    const [modalImage, setModalImage] = useState<string>("");
+    const [imageLoading, setImageLoading] = useState<boolean>(false);
+    const imageModalRef = useRef<HTMLDialogElement | null>(null);
+    const [iframeLoading, setiFrameLoading] = useState<boolean>(true);
 
     const { autoDetectedTheme } = useAutoDetectTheme();
 
-    const handleImageClick = (imageName) => {
+    const handleImageClick = (imageName: string) => {
         const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/fullsize/${imageName}.webp`;
 
         // Only set loading if the image is different
@@ -34,7 +62,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
     const handleIframeLoad = () => setiFrameLoading(false);
 
     // State for highlighting the dialog
-    const [highlightState, setHighlightState] = useState({
+    const [highlightState, setHighlightState] = useState<Record<number, boolean>>({
         1: false,
         2: false,
         3: false,
@@ -43,14 +71,14 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
         6: false,
     });
 
-    const handleCheckboxChange = (index) => {
+    const handleCheckboxChange = (index: number) => {
         setHighlightState((prevState) => ({
             ...prevState,
             [index]: !prevState[index],
         }));
     };
 
-    const getHighlightClass = (index) => {
+    const getHighlightClass = (index: number) => {
         switch (index) {
             case 1:
                 return "font-semibold bg-primary text-primary-content";
@@ -69,7 +97,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
         }
     };
 
-    const getCheckboxHighlightClass = (index) => {
+    const getCheckboxHighlightClass = (index: number) => {
         switch (index) {
             case 1:
                 return "checkbox-primary";
@@ -88,15 +116,17 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
         }
     };
 
-    const highlightDialog = (speech) => {
-        return speech.replace(/highlight-dialog-(\d+)/g, (match, p1) => {
-            const className = getHighlightClass(parseInt(p1, 10));
-            return highlightState[p1] ? `${className} ${match}` : `${match}`;
+    const highlightDialog = (speech: string) => {
+        return speech.replace(/highlight-dialog-(\d+)/g, (match: string, p1: string) => {
+            const idx = parseInt(p1, 10);
+            const className = getHighlightClass(idx);
+            return highlightState[idx] ? `${className} ${match}` : `${match}`;
         });
     };
 
-    const examTaskQuestion = t(taskData.para, { returnObjects: true });
-    const examTaskList = taskData.listItems && t(taskData.listItems, { returnObjects: true });
+    const examTaskQuestion = t(taskData.para, { returnObjects: true }) as string[];
+    const examTaskList =
+        taskData.listItems && (t(taskData.listItems, { returnObjects: true }) as string[]);
 
     return (
         <>
@@ -109,6 +139,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                         <div className="flex w-full md:w-[30%]" key={index}>
                             <div className="aspect-w-16 aspect-h-9">
                                 <img
+                                    alt={`Thumbnail ${index + 1}`}
                                     role="button"
                                     src={`${
                                         import.meta.env.BASE_URL
@@ -154,7 +185,13 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={autoDetectedTheme}
+                                            colorScheme={
+                                                autoDetectedTheme as
+                                                    | "default"
+                                                    | "light"
+                                                    | "dark"
+                                                    | "system"
+                                            }
                                         />
                                         <Track
                                             src={subtitleUrl}
@@ -206,7 +243,11 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
                     </div>
                     <div className="divider divider-secondary mt-0 mb-4"></div>
                     <div className="collapse-arrow bg-base-200 collapse dark:bg-slate-700">
-                        <input type="checkbox" />
+                        <input
+                            type="checkbox"
+                            title={t("tabConversationExam.studyExpandBtn")}
+                            aria-label={t("tabConversationExam.studyExpandBtn")}
+                        />
                         <button type="button" className="collapse-title text-start font-semibold">
                             {t("tabConversationExam.studyExpandBtn")}
                         </button>
@@ -293,14 +334,6 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, taskData, dialog, skills }) =
             </dialog>
         </>
     );
-};
-
-WatchAndStudyTab.propTypes = {
-    videoUrl: PropTypes.string.isRequired,
-    subtitleUrl: PropTypes.string.isRequired,
-    taskData: PropTypes.object.isRequired,
-    dialog: PropTypes.array.isRequired,
-    skills: PropTypes.array.isRequired,
 };
 
 export default WatchAndStudyTab;
