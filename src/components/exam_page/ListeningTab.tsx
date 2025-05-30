@@ -1,19 +1,38 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 
-const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
+interface Sentence {
+    audioSrc: string;
+    sentence: string;
+}
+
+interface SubtopicBre {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface SubtopicAme {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface ListeningTabProps {
+    subtopicsBre: SubtopicBre[];
+    subtopicsAme: SubtopicAme[];
+    currentAccent: string;
+}
+const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }: ListeningTabProps) => {
     const { t } = useTranslation();
 
-    const [playingIndex, setPlayingIndex] = useState(null);
-    const [currentAudio, setCurrentAudio] = useState(null);
-    const [loadingIndex, setLoadingIndex] = useState(null);
+    const [playingIndex, setPlayingIndex] = useState<string | null>(null);
+    const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
+    const [loadingIndex, setLoadingIndex] = useState<string | null>(null);
 
     const subtopics = currentAccent === "american" ? subtopicsAme : subtopicsBre;
 
-    const handlePlayPause = (index, audioSrc) => {
+    const handlePlayPause = (index: string, audioSrc: string) => {
         if (loadingIndex === index) {
             // Cancel the loading process if clicked again
             if (abortController.current) {
@@ -91,7 +110,7 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
         }
     };
 
-    const abortController = useRef(null);
+    const abortController = useRef<AbortController | null>(null);
 
     useEffect(() => {
         return () => {
@@ -117,16 +136,13 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                             <div className="card-title font-semibold">{t(subtopic.title)}</div>
                             <div className="divider divider-secondary m-0"></div>
 
-                            <ul
-                                role="list"
-                                className="divide-y divide-gray-300 dark:divide-gray-600"
-                            >
+                            <div className="divide-y divide-gray-300 dark:divide-gray-600">
                                 {subtopic.sentences.map((sentenceObj, sentenceIndex) => {
                                     const uniqueIndex = `${topicIndex}-${sentenceIndex}`;
                                     return (
-                                        <li
+                                        <button
                                             lang="en"
-                                            role="button"
+                                            type="button"
                                             className={`flex cursor-pointer justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
                                             key={uniqueIndex}
                                             onClick={() =>
@@ -138,12 +154,6 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                                                     loadingIndex !== uniqueIndex) ||
                                                 (playingIndex !== null &&
                                                     playingIndex !== uniqueIndex)
-                                            }
-                                            type="button"
-                                            aria-pressed={playingIndex === uniqueIndex}
-                                            aria-disabled={
-                                                loadingIndex !== null &&
-                                                loadingIndex !== uniqueIndex
                                             }
                                         >
                                             <div className="flex min-w-0 gap-x-4">
@@ -165,22 +175,16 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }) => {
                                                     <IoVolumeHighOutline className="h-6 w-6" />
                                                 )}
                                             </div>
-                                        </li>
+                                        </button>
                                     );
                                 })}
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
         </>
     );
-};
-
-ListeningTab.propTypes = {
-    subtopicsBre: PropTypes.array.isRequired,
-    subtopicsAme: PropTypes.array.isRequired,
-    currentAccent: PropTypes.string.isRequired,
 };
 
 export default ListeningTab;
