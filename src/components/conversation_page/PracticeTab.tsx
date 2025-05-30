@@ -1,32 +1,38 @@
 import { useEffect, useRef, useState } from "react";
 import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
-import PropTypes from "prop-types";
-
 import { useTranslation } from "react-i18next";
 import {
     checkRecordingExists,
     openDatabase,
     playRecording,
     saveRecording,
-} from "../../utils/databaseOperations";
-import isElectron from "../../utils/isElectron";
+} from "../../utils/databaseOperations.js";
+import isElectron from "../../utils/isElectron.js";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,
     sonnerWarningToast,
-} from "../../utils/sonnerCustomToast";
+} from "../../utils/sonnerCustomToast.js";
 
-const PracticeTab = ({ accent, conversationId }) => {
+// Define props interface
+interface PracticeTabProps {
+    accent: string;
+    conversationId: string | number;
+}
+
+const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
     const { t } = useTranslation();
 
-    const [textValue, setTextValue] = useState("");
-    const [isRecording, setIsRecording] = useState(false);
-    const [mediaRecorder, setMediaRecorder] = useState(null);
-    const [isRecordingPlaying, setIsRecordingPlaying] = useState(false);
-    const [recordingExists, setRecordingExists] = useState(false);
-    const [currentAudioSource, setCurrentAudioSource] = useState(null); // For AudioContext source node
-    const [currentAudioElement, setCurrentAudioElement] = useState(null); // For Audio element (fallback)
-    const textAreaRef = useRef(null);
+    const [textValue, setTextValue] = useState<string>("");
+    const [isRecording, setIsRecording] = useState<boolean>(false);
+    const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const [isRecordingPlaying, setIsRecordingPlaying] = useState<boolean>(false);
+    const [recordingExists, setRecordingExists] = useState<boolean>(false);
+    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(
+        null
+    ); // For AudioContext source node
+    const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null); // For Audio element (fallback)
+    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const textKey = `${accent}-${conversationId}-text`;
     const recordingKey = `${accent}-conversation-${conversationId}`;
@@ -83,9 +89,11 @@ const PracticeTab = ({ accent, conversationId }) => {
             request.onsuccess = () => {
                 sonnerSuccessToast(t("toast.textSaveSuccess"));
             };
-            request.onerror = (error) => {
+            request.onerror = (error: Event) => {
                 isElectron() && window.electron.log("error", `Error saving text: ${error}`);
-                sonnerErrorToast(t("toast.textSaveFailed") + error.message);
+                sonnerErrorToast(
+                    t("toast.textSaveFailed") + (error instanceof Error ? error.message : "")
+                );
             };
         } catch (error) {
             console.error("Error saving text: ", error);
@@ -105,14 +113,18 @@ const PracticeTab = ({ accent, conversationId }) => {
                 setTextValue("");
                 sonnerSuccessToast(t("toast.textClearSuccess"));
             };
-            request.onerror = (error) => {
-                sonnerErrorToast(t("toast.textClearFailed") + error.message);
+            request.onerror = (error: Event) => {
+                sonnerErrorToast(
+                    t("toast.textClearFailed") + (error instanceof Error ? error.message : "")
+                );
                 isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
             isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
-            sonnerErrorToast(t("toast.textClearFailed") + error.message);
+            sonnerErrorToast(
+                t("toast.textClearFailed") + (error instanceof Error ? error.message : "")
+            );
         }
     };
 
@@ -127,20 +139,20 @@ const PracticeTab = ({ accent, conversationId }) => {
                         audioBitsPerSecond: 128000,
                     };
                     const mediaRecorder = new MediaRecorder(stream, recordOptions);
-                    let audioChunks = [];
+                    let audioChunks: Blob[] = [];
                     mediaRecorder.start();
                     setIsRecording(true);
                     setMediaRecorder(mediaRecorder);
 
-                    mediaRecorder.addEventListener("dataavailable", (event) => {
+                    mediaRecorder.addEventListener("dataavailable", (event: BlobEvent) => {
                         audioChunks.push(event.data);
                         if (mediaRecorder.state === "inactive") {
                             const audioBlob = new Blob(audioChunks, { type: event.data.type });
                             saveRecording(audioBlob, recordingKey, event.data.type);
                             sonnerSuccessToast(t("toast.recordingSuccess"));
-                            isElectron() &&
+                            if (isElectron()) {
                                 window.electron.log("log", `Recording saved: ${recordingKey}`);
-
+                            }
                             setRecordingExists(true);
                             audioChunks = [];
                         }
@@ -158,13 +170,14 @@ const PracticeTab = ({ accent, conversationId }) => {
                         15 * 60 * 1000
                     );
                 })
-                .catch((error) => {
+                .catch((error: Error) => {
                     sonnerErrorToast(t("toast.recordingFailed") + error.message);
                     isElectron() && window.electron.log("error", `Recording failed: ${error}`);
                 });
         } else {
-            // Stop recording
-            mediaRecorder.stop();
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+            }
             setIsRecording(false);
         }
     };
@@ -185,7 +198,7 @@ const PracticeTab = ({ accent, conversationId }) => {
         } else {
             playRecording(
                 recordingKey,
-                (audio, audioSource) => {
+                (audio: HTMLAudioElement | null, audioSource: AudioBufferSourceNode | null) => {
                     setIsRecordingPlaying(true);
                     if (audioSource) {
                         setCurrentAudioSource(audioSource);
@@ -193,10 +206,11 @@ const PracticeTab = ({ accent, conversationId }) => {
                         setCurrentAudioElement(audio);
                     }
                 },
-                (error) => {
-                    sonnerErrorToast(t("toast.playbackError") + error.message);
+                (error: unknown) => {
+                    sonnerErrorToast(
+                        t("toast.playbackError") + (error instanceof Error ? error.message : "")
+                    );
                     isElectron() && window.electron.log("error", `Error saving text: ${error}`);
-
                     setIsRecordingPlaying(false);
                 },
                 () => {
@@ -210,13 +224,19 @@ const PracticeTab = ({ accent, conversationId }) => {
 
     return (
         <div className="container-lg mx-auto">
-            {t("tabConversationExam.practiceConversationText", { returnObjects: true }).map(
-                (text, index) => (
-                    <p className="mb-2" key={index}>
-                        {text}
-                    </p>
-                )
-            )}
+            {Array.isArray(
+                t("tabConversationExam.practiceConversationText", { returnObjects: true })
+            )
+                ? (
+                      t("tabConversationExam.practiceConversationText", {
+                          returnObjects: true,
+                      }) as string[]
+                  ).map((text, index) => (
+                      <p className="mb-2" key={index}>
+                          {text}
+                      </p>
+                  ))
+                : null}
 
             <fieldset className="fieldset my-4">
                 <legend className="fieldset-legend text-sm">
@@ -228,6 +248,8 @@ const PracticeTab = ({ accent, conversationId }) => {
                     value={textValue}
                     onChange={(e) => setTextValue(e.target.value)}
                     onInput={autoExpand}
+                    placeholder={t("tabConversationExam.practiceConversationPlaceholder")}
+                    title={t("tabConversationExam.practiceConversationBox")}
                 ></textarea>
             </fieldset>
 
@@ -295,11 +317,6 @@ const PracticeTab = ({ accent, conversationId }) => {
             </div>
         </div>
     );
-};
-
-PracticeTab.propTypes = {
-    accent: PropTypes.string.isRequired,
-    conversationId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default PracticeTab;
