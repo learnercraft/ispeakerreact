@@ -9,7 +9,7 @@ const SavedRecordingLocationMenu = () => {
     const handleOpenRecordingFolder = async () => {
         // Send an IPC message to open the folder and get the folder path
         const recordingFolder = await window.electron.ipcRenderer.invoke("open-recording-folder");
-        setFolderPath(recordingFolder); // Save the folder path in state
+        setFolderPath(recordingFolder as string); // Save the folder path in state
     };
 
     return (
