@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { LuExternalLink } from "react-icons/lu";
-import openExternal from "../../utils/openExternal";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import openExternal from "../../utils/openExternal.js";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
 // Supported languages
 const supportedLanguages = [
@@ -19,11 +19,13 @@ const supportedLanguages = [
 const LanguageSwitcher = () => {
     const { t, i18n } = useTranslation();
 
-    const handleLanguageChange = (lng) => {
+    const handleLanguageChange = (lng: string) => {
         i18n.changeLanguage(lng);
         document.documentElement.setAttribute("lang", lng); // Update HTML lang attribute
 
-        const ispeakerSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const ispeakerSettings = JSON.parse(localStorage.getItem("ispeaker") || "{}") as {
+            language: string;
+        };
         ispeakerSettings.language = lng;
         localStorage.setItem("ispeaker", JSON.stringify(ispeakerSettings));
 
