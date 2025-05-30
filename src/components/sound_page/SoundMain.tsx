@@ -20,6 +20,7 @@ export interface SoundMenuItem {
     id: number;
     type: SoundType;
     key: string;
+    word: string
 }
 
 export interface TongueTwister {

@@ -118,7 +118,7 @@ const SoundCard = ({
                     <p
                         lang="en"
                         className="italic"
-                        dangerouslySetInnerHTML={{ __html: sound.key }}
+                        dangerouslySetInnerHTML={{ __html: sound.word }}
                     />
                 </div>
                 <div className="card-actions px-6">
