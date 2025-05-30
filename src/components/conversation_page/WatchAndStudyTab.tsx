@@ -2,24 +2,44 @@ import { MediaPlayer, MediaProvider, Track } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import isElectron from "../../utils/isElectron";
-import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme";
+import isElectron from "../../utils/isElectron.js";
+import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
 
-const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => {
+interface DialogLine {
+    speaker: string;
+    speech: string;
+}
+
+interface SkillCheckmark {
+    label: string;
+}
+
+interface WatchAndStudyTabProps {
+    videoUrl: string;
+    subtitleUrl: string;
+    dialog: DialogLine[];
+    skillCheckmark: SkillCheckmark[];
+}
+
+const WatchAndStudyTab = ({
+    videoUrl,
+    subtitleUrl,
+    dialog,
+    skillCheckmark,
+}: WatchAndStudyTabProps) => {
     const { t } = useTranslation();
-    const [highlightState, setHighlightState] = useState({});
+    const [highlightState, setHighlightState] = useState<Record<string | number, boolean>>({});
     const [iframeLoading, setiFrameLoading] = useState(true);
 
     const { autoDetectedTheme } = useAutoDetectTheme();
 
-    const handleIframeLoad = () => setiFrameLoading(false);
+    const handleIframeLoad = (): void => setiFrameLoading(false);
 
     // Handle checkbox change
-    const handleCheckboxChange = (index) => {
+    const handleCheckboxChange = (index: number): void => {
         setHighlightState((prevState) => ({
             ...prevState,
             [index]: !prevState[index],
@@ -39,7 +59,13 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
                                     <MediaProvider />
                                     <DefaultVideoLayout
                                         icons={defaultLayoutIcons}
-                                        colorScheme={autoDetectedTheme}
+                                        colorScheme={
+                                            autoDetectedTheme as
+                                                | "light"
+                                                | "dark"
+                                                | "default"
+                                                | "system"
+                                        }
                                     />
                                     <Track
                                         src={subtitleUrl}
@@ -83,20 +109,24 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
                 <div className="text-xl font-semibold">{t("tabConversationExam.studyCard")}</div>
                 <div className="divider divider-secondary mt-0 mb-4"></div>
                 <div className="collapse-arrow bg-base-200 collapse dark:bg-slate-700">
-                    <input type="checkbox" />
+                    <input
+                        id="study-expand-checkbox"
+                        type="checkbox"
+                        title="Expand study section"
+                    />
                     <button type="button" className="collapse-title text-start font-semibold">
                         {t("tabConversationExam.studyExpandBtn")}
                     </button>
                     <div className="collapse-content">
                         <div className="dialog-section">
-                            {dialog.map((line, index) => (
+                            {dialog.map((line: DialogLine, index: number) => (
                                 <p lang="en" key={index} className="mb-2">
                                     <strong>{line.speaker}:</strong>{" "}
                                     <span
                                         dangerouslySetInnerHTML={{
                                             __html: line.speech.replace(
                                                 /highlight-dialog-(\d+)/g,
-                                                (match, p1) =>
+                                                (match: string, p1: string) =>
                                                     highlightState[p1]
                                                         ? `${p1 === "1" ? "bg-primary text-primary-content font-semibold" : "bg-secondary text-secondary-content font-semibold"}`
                                                         : ""
@@ -108,7 +138,7 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
                         </div>
                         <div className="divider"></div>
                         <div className="px-3">
-                            {skillCheckmark.map((skill, index) => (
+                            {skillCheckmark.map((skill: SkillCheckmark, index: number) => (
                                 <div key={index} className="mb-2">
                                     <label
                                         htmlFor={`skilllabel-${index}`}
@@ -147,13 +177,6 @@ const WatchAndStudyTab = ({ videoUrl, subtitleUrl, dialog, skillCheckmark }) => 
             </div>
         </div>
     );
-};
-
-WatchAndStudyTab.propTypes = {
-    videoUrl: PropTypes.string.isRequired,
-    subtitleUrl: PropTypes.string.isRequired,
-    dialog: PropTypes.array.isRequired,
-    skillCheckmark: PropTypes.array.isRequired,
 };
 
 export default WatchAndStudyTab;
