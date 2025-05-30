@@ -90,14 +90,14 @@ const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
                 sonnerSuccessToast(t("toast.textSaveSuccess"));
             };
             request.onerror = (error: Event) => {
-                isElectron() && window.electron.log("error", `Error saving text: ${error}`);
+                if (isElectron()) window.electron.log("error", `Error saving text: ${error}`);
                 sonnerErrorToast(
                     t("toast.textSaveFailed") + (error instanceof Error ? error.message : "")
                 );
             };
         } catch (error) {
             console.error("Error saving text: ", error);
-            isElectron() && window.electron.log("error", `Error saving text: ${error}`);
+            if (isElectron()) window.electron.log("error", `Error saving text: ${error}`);
         }
     };
 
@@ -117,11 +117,11 @@ const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
                 sonnerErrorToast(
                     t("toast.textClearFailed") + (error instanceof Error ? error.message : "")
                 );
-                isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
+                if (isElectron()) window.electron.log("error", `Error clearing text: ${error}`);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
-            isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
+            if (isElectron()) window.electron.log("error", `Error clearing text: ${error}`);
             sonnerErrorToast(
                 t("toast.textClearFailed") + (error instanceof Error ? error.message : "")
             );
@@ -172,7 +172,7 @@ const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
                 })
                 .catch((error: Error) => {
                     sonnerErrorToast(t("toast.recordingFailed") + error.message);
-                    isElectron() && window.electron.log("error", `Recording failed: ${error}`);
+                    if (isElectron()) window.electron.log("error", `Recording failed: ${error}`);
                 });
         } else {
             if (mediaRecorder) {
@@ -210,7 +210,7 @@ const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
                     sonnerErrorToast(
                         t("toast.playbackError") + (error instanceof Error ? error.message : "")
                     );
-                    isElectron() && window.electron.log("error", `Error saving text: ${error}`);
+                    if (isElectron()) window.electron.log("error", `Error saving text: ${error}`);
                     setIsRecordingPlaying(false);
                 },
                 () => {
