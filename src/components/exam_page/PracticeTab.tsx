@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
@@ -8,27 +7,45 @@ import {
     openDatabase,
     playRecording,
     saveRecording,
-} from "../../utils/databaseOperations";
-import isElectron from "../../utils/isElectron";
+} from "../../utils/databaseOperations.js";
+import isElectron from "../../utils/isElectron.js";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,
     sonnerWarningToast,
-} from "../../utils/sonnerCustomToast";
+} from "../../utils/sonnerCustomToast.js";
 
-const PracticeTab = ({ accent, examId, taskData, tips }) => {
+interface TaskData {
+    para: string;
+    listItems: string[];
+    images: string[];
+}
+
+interface Tips {
+    dos: string[];
+    donts: string[];
+}
+
+interface PracticeTabProps {
+    accent: string;
+    examId: string | number;
+    taskData: TaskData[];
+    tips: Tips;
+}
+
+const PracticeTab = ({ accent, examId, taskData, tips }: PracticeTabProps) => {
     const { t } = useTranslation();
 
     const [textValues, setTextValues] = useState(() => taskData.map(() => ""));
     const [isRecording, setIsRecording] = useState(false);
     const [isRecordingPlaying, setIsRecordingPlaying] = useState(false);
-    const [mediaRecorder, setMediaRecorder] = useState(null);
+    const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
     const [recordingExists, setRecordingExists] = useState(() => taskData.map(() => false));
-    const [currentAudioSource, setCurrentAudioSource] = useState(null);
-    const [currentAudioElement, setCurrentAudioElement] = useState(null);
-    const [activeTaskIndex, setActiveTaskIndex] = useState(null);
-    const textAreaRefs = useRef([]);
-    const imageModalRef = useRef(null);
+    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(null);
+    const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null);
+    const [activeTaskIndex, setActiveTaskIndex] = useState<number | null>(null);
+    const textAreaRefs = useRef<HTMLTextAreaElement[]>([]);
+    const imageModalRef = useRef<HTMLDialogElement | null>(null);
 
     const [imageLoading, setImageLoading] = useState(false);
     const [modalImage, setModalImage] = useState("");
@@ -71,16 +88,17 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
     }, [accent, examId, taskData]);
 
     // Auto-expand textarea
-    const autoExpand = (e) => {
-        const textArea = textAreaRefs.current[e.target.id];
+    const autoExpand = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        const target = e.target as HTMLTextAreaElement;
+        const textArea = textAreaRefs.current[Number(target.id)];
         if (textArea) {
-            textArea.style.height = "auto"; // Reset height to calculate new height
-            textArea.style.height = `${textArea.scrollHeight}px`; // Set height to the new calculated height
+            textArea.style.height = "auto";
+            textArea.style.height = `${textArea.scrollHeight}px`;
         }
     };
 
     // Save text to IndexedDB
-    const handleSaveText = async (index) => {
+    const handleSaveText = async (index: number) => {
         const textKey = `${accent}-${examId}-text-${index}`;
         try {
             const db = await openDatabase();
@@ -93,17 +111,22 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
             };
             request.onerror = (error) => {
                 console.error("Error saving text: ", error);
-                isElectron() && window.electron.log("error", `Error saving text: ${error}`);
-                sonnerErrorToast(t("toast.textSaveFailed") + error.message);
+                if (isElectron()) {
+                    window.electron.log("error", `Error saving text: ${error}`);
+                }
+                const errMsg = (error instanceof Error) ? error.message : '';
+                sonnerErrorToast(t("toast.textSaveFailed") + errMsg);
             };
         } catch (error) {
             console.error("Error saving text: ", error);
-            isElectron() && window.electron.log("error", `Error saving text: ${error}`);
+            if (isElectron()) {
+                window.electron.log("error", `Error saving text: ${error}`);
+            }
         }
     };
 
     // Clear text from IndexedDB
-    const handleClearText = async (index) => {
+    const handleClearText = async (index: number) => {
         const textKey = `${accent}-${examId}-text-${index}`;
         try {
             const db = await openDatabase();
@@ -122,17 +145,23 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
             };
             request.onerror = (error) => {
                 console.error("Error clearing text: ", error);
-                isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
-                sonnerErrorToast(t("toast.textClearFailed") + error.message);
+                if (isElectron()) {
+                    window.electron.log("error", `Error clearing text: ${error}`);
+                }
+                const errMsg = (error instanceof Error) ? error.message : '';
+                sonnerErrorToast(t("toast.textClearFailed") + errMsg);
             };
         } catch (error) {
             console.error("Error clearing text: ", error);
-            isElectron() && window.electron.log("error", `Error clearing text: ${error}`);
-            sonnerErrorToast(t("toast.textClearFailed") + error.message);
+            if (isElectron()) {
+                window.electron.log("error", `Error clearing text: ${error}`);
+            }
+            const errMsg = (error instanceof Error) ? error.message : '';
+            sonnerErrorToast(t("toast.textClearFailed") + errMsg);
         }
     };
 
-    const handleRecording = (index) => {
+    const handleRecording = (index: number) => {
         if (!isRecording) {
             navigator.mediaDevices
                 .getUserMedia({ audio: true })
@@ -141,7 +170,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                         audioBitsPerSecond: 128000,
                     };
                     const mediaRecorder = new MediaRecorder(stream, recordOptions);
-                    let audioChunks = [];
+                    let audioChunks: Blob[] = [];
                     mediaRecorder.start();
                     setIsRecording(true);
                     setMediaRecorder(mediaRecorder);
@@ -154,8 +183,9 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                             const recordingKey = `${accent}-exam-${examId}-${index}`;
                             saveRecording(audioBlob, recordingKey, event.data.type);
                             sonnerSuccessToast(t("toast.recordingSuccess"));
-                            isElectron() &&
+                            if (isElectron()) {
                                 window.electron.log("log", `Recording saved: ${recordingKey}`);
+                            }
 
                             setRecordingExists((prev) => {
                                 const updatedExists = [...prev];
@@ -178,18 +208,23 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                         15 * 60 * 1000
                     ); // 15 minutes limit
                 })
-                .catch((error) => {
-                    sonnerErrorToast(t("toast.recordingFailed") + error.message);
-                    isElectron() && window.electron.log("error", `Recording failed: ${error}`);
+                .catch((error: unknown) => {
+                    const errMsg = (error instanceof Error) ? error.message : '';
+                    sonnerErrorToast(t("toast.recordingFailed") + errMsg);
+                    if (isElectron()) {
+                        window.electron.log("error", `Recording failed: ${error}`);
+                    }
                 });
         } else {
-            mediaRecorder.stop();
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+            }
             setIsRecording(false);
             setActiveTaskIndex(null);
         }
     };
 
-    const handlePlayRecording = (index) => {
+    const handlePlayRecording = (index: number) => {
         if (isRecordingPlaying) {
             if (currentAudioSource) {
                 currentAudioSource.stop();
@@ -215,9 +250,12 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                         setCurrentAudioElement(audio);
                     }
                 },
-                (error) => {
-                    sonnerErrorToast(t("toast.playbackError") + error.message);
-                    isElectron() && window.electron.log("error", `Error during playback: ${error}`);
+                (error: unknown) => {
+                    const errMsg = (error instanceof Error) ? error.message : '';
+                    sonnerErrorToast(t("toast.playbackError") + errMsg);
+                    if (isElectron()) {
+                        window.electron.log("error", `Error during playback: ${error}`);
+                    }
                     setIsRecordingPlaying(false);
                     setActiveTaskIndex(null);
                 },
@@ -231,7 +269,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
         }
     };
 
-    const handleImageClick = (imageName) => {
+    const handleImageClick = (imageName: string) => {
         const newImage = `${import.meta.env.BASE_URL}images/ispeaker/exam_images/fullsize/${imageName}.webp`;
 
         // Only set loading if the image is different
@@ -243,8 +281,8 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
         imageModalRef.current?.showModal();
     };
 
-    const examTipDoLocalized = t(tips.dos, { returnObjects: true });
-    const examTipDontLocalized = t(tips.donts, { returnObjects: true });
+    const examTipDoLocalized = Array.isArray(t(tips.dos, { returnObjects: true })) ? t(tips.dos, { returnObjects: true }) as string[] : [];
+    const examTipDontLocalized = Array.isArray(t(tips.donts, { returnObjects: true })) ? t(tips.donts, { returnObjects: true }) as string[] : [];
 
     return (
         <>
@@ -276,6 +314,7 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                                             import.meta.env.BASE_URL
                                                         }images/ispeaker/exam_images/thumb/${image}.webp`}
                                                         onClick={() => handleImageClick(image)}
+                                                        alt={t("tabConversationExam.imageAlt", { image })}
                                                     />
                                                 </div>
                                             </div>
@@ -283,12 +322,12 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                     </div>
                                 )}
                                 <div>
-                                    {examLocalizedPara.map((paragraph, index) => (
+                                    {Array.isArray(examLocalizedPara) && (examLocalizedPara as unknown[]).filter((p): p is string => typeof p === 'string').map((paragraph, index) => (
                                         <p key={index}>{paragraph}</p>
                                     ))}
-                                    {examLocalizedListItems.length > 0 && (
+                                    {Array.isArray(examLocalizedListItems) && (examLocalizedListItems as unknown[]).filter((item): item is string => typeof item === 'string').length > 0 && (
                                         <ul className="ms-2 list-inside list-disc">
-                                            {examLocalizedListItems.map((item, index) => (
+                                            {(examLocalizedListItems as unknown[]).filter((item): item is string => typeof item === 'string').map((item, index) => (
                                                 <li key={index}>{item}</li>
                                             ))}
                                         </ul>
@@ -301,9 +340,11 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                     </legend>
                                     <textarea
                                         key={taskIndex}
-                                        id={taskIndex}
+                                        id={String(taskIndex)}
                                         className="textarea w-full text-base"
-                                        ref={(el) => (textAreaRefs.current[taskIndex] = el)}
+                                        ref={(el) => {
+                                            if (el) textAreaRefs.current[taskIndex] = el;
+                                        }}
                                         value={textValues[taskIndex]}
                                         onChange={(e) =>
                                             setTextValues((prevValues) => {
@@ -313,6 +354,8 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
                                             })
                                         }
                                         onInput={autoExpand}
+                                        placeholder={t("tabConversationExam.textareaPlaceholder")}
+                                        title={t("tabConversationExam.textareaTitle")}
                                     ></textarea>
                                 </fieldset>
 
@@ -474,13 +517,6 @@ const PracticeTab = ({ accent, examId, taskData, tips }) => {
             </dialog>
         </>
     );
-};
-
-PracticeTab.propTypes = {
-    accent: PropTypes.string.isRequired,
-    examId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    taskData: PropTypes.array.isRequired,
-    tips: PropTypes.object.isRequired,
 };
 
 export default PracticeTab;
