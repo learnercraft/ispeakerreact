@@ -14,7 +14,7 @@ const installDependenciesIPC = async () => {
     }
 };
 
-const downloadModelStepIPC = async (modelName) => {
+const downloadModelStepIPC = async (modelName: string) => {
     if (window.electron?.ipcRenderer) {
         return await window.electron.ipcRenderer.invoke("pronunciation-download-model", modelName);
     } else {
