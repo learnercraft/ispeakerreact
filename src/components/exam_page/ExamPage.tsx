@@ -1,29 +1,55 @@
-import PropTypes from "prop-types";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import Container from "../../ui/Container";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import isElectron from "../../utils/isElectron";
-import AccentDropdown from "../general/AccentDropdown";
-import LoadingOverlay from "../general/LoadingOverlay";
-import TopNavBar from "../general/TopNavBar";
+import Container from "../../ui/Container.js";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import isElectron from "../../utils/isElectron.js";
+import AccentDropdown from "../general/AccentDropdown.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import TopNavBar from "../general/TopNavBar.js";
 
-const ExamDetailPage = lazy(() => import("./ExamDetailPage"));
+// Types for exam list data
+interface ExamTitle {
+    title: string;
+    id: string;
+    exam_popup: string;
+}
 
-const ExamPage = () => {
+interface ExamSection {
+    heading: string;
+    titles: ExamTitle[];
+}
+
+interface SelectedExam {
+    id: string;
+    title: string;
+    heading: string;
+}
+
+interface TooltipIconProps {
+    exam_popup: string;
+}
+
+interface ExamCardProps {
+    heading: string;
+    titles: ExamTitle[];
+}
+
+const ExamDetailPage = lazy(() => import("./ExamDetailPage.js"));
+
+const ExamPage: React.FC = () => {
     const { t } = useTranslation();
 
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState<ExamSection[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const [selectedExam, setSelectedExam] = useState(null);
+    const [selectedExam, setSelectedExam] = useState<SelectedExam | null>(null);
 
     // Ref and state for modal tooltip handling
-    const modalRef = useRef(null);
-    const [tooltipContent, setTooltipContent] = useState("");
+    const modalRef = useRef<HTMLDialogElement | null>(null);
+    const [tooltipContent, setTooltipContent] = useState<string>("");
 
-    const handleShowTooltip = (content) => {
+    const handleShowTooltip = (content: string) => {
         setTooltipContent(content);
         if (modalRef.current) {
             modalRef.current.showModal();
@@ -37,7 +63,7 @@ const ExamPage = () => {
         setTooltipContent("");
     };
 
-    const handleSelectExam = (id, title) => {
+    const handleSelectExam = (id: string, title: string) => {
         const selected = data.find((section) => section.titles.some((item) => item.id === id));
         if (selected) {
             setSelectedExam({
@@ -48,10 +74,11 @@ const ExamPage = () => {
         }
     };
 
-    const TooltipIcon = ({ exam_popup }) => {
-        const lines = t(exam_popup, { returnObjects: true });
+    const TooltipIcon: React.FC<TooltipIconProps> = ({ exam_popup }: TooltipIconProps) => {
+        const lines = t(exam_popup, { returnObjects: true }) as string | string[];
         const tooltipArray = Array.isArray(lines) ? lines : [lines];
         const tooltipText = tooltipArray.map((line, index) => <p key={index}>{line}</p>);
+        const tooltipString = tooltipArray.join("\n");
 
         return (
             <>
@@ -68,7 +95,7 @@ const ExamPage = () => {
                     type="button"
                     title={t("examPage.expandInfoBtn")}
                     className="btn btn-circle btn-sm items-center sm:hidden"
-                    onClick={() => handleShowTooltip(tooltipText)}
+                    onClick={() => handleShowTooltip(tooltipString)}
                 >
                     <IoInformationCircleOutline className="h-5 w-5" />
                 </button>
@@ -76,11 +103,7 @@ const ExamPage = () => {
         );
     };
 
-    TooltipIcon.propTypes = {
-        exam_popup: PropTypes.string.isRequired,
-    };
-
-    const ExamCard = ({ heading, titles }) => (
+    const ExamCard: React.FC<ExamCardProps> = ({ heading, titles }: ExamCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
                 <div className="card-title font-semibold">{t(heading)}</div>
@@ -100,17 +123,6 @@ const ExamPage = () => {
         </div>
     );
 
-    ExamCard.propTypes = {
-        heading: PropTypes.string.isRequired,
-        titles: PropTypes.arrayOf(
-            PropTypes.shape({
-                title: PropTypes.string.isRequired,
-                exam_popup: PropTypes.string.isRequired,
-                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            })
-        ).isRequired,
-    };
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -121,7 +133,7 @@ const ExamPage = () => {
                 );
                 const fetchedData = await response.json();
 
-                setData(fetchedData.examList);
+                setData(fetchedData.examList as ExamSection[]);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -134,7 +146,7 @@ const ExamPage = () => {
     }, []);
 
     useEffect(() => {
-        const savedSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const savedSettings = JSON.parse(localStorage.getItem("ispeaker") || "{}") || {};
         savedSettings.selectedAccent = selectedAccent;
         localStorage.setItem("ispeaker", JSON.stringify(savedSettings));
     }, [selectedAccent]);
@@ -182,7 +194,11 @@ const ExamPage = () => {
                         <dialog ref={modalRef} className="modal">
                             <div className="modal-box">
                                 <h3 className="text-lg font-bold">{t("examPage.examModalInfo")}</h3>
-                                <div className="py-4">{tooltipContent}</div>
+                                <div className="py-4">
+                                    {tooltipContent.split("\n").map((line, i) => (
+                                        <p key={i}>{line}</p>
+                                    ))}
+                                </div>
                                 <div className="modal-action">
                                     <button
                                         type="button"
