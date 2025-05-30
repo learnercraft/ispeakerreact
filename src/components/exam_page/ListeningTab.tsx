@@ -136,24 +136,19 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }: ListeningTa
                             <div className="card-title font-semibold">{t(subtopic.title)}</div>
                             <div className="divider divider-secondary m-0"></div>
 
-                            <div className="divide-y divide-gray-300 dark:divide-gray-600">
+                            <ul
+                                role="list"
+                                className="divide-y divide-gray-300 dark:divide-gray-600"
+                            >
                                 {subtopic.sentences.map((sentenceObj, sentenceIndex) => {
                                     const uniqueIndex = `${topicIndex}-${sentenceIndex}`;
                                     return (
-                                        <button
+                                        <li
                                             lang="en"
-                                            type="button"
                                             className={`flex cursor-pointer justify-between gap-x-6 py-3 ${playingIndex === uniqueIndex ? "bg-secondary text-secondary-content" : ""}`}
                                             key={uniqueIndex}
                                             onClick={() =>
                                                 handlePlayPause(uniqueIndex, sentenceObj.audioSrc)
-                                            }
-                                            // Disable all items if loading or playing another audio
-                                            disabled={
-                                                (loadingIndex !== null &&
-                                                    loadingIndex !== uniqueIndex) ||
-                                                (playingIndex !== null &&
-                                                    playingIndex !== uniqueIndex)
                                             }
                                         >
                                             <div className="flex min-w-0 gap-x-4">
@@ -175,10 +170,10 @@ const ListeningTab = ({ subtopicsBre, subtopicsAme, currentAccent }: ListeningTa
                                                     <IoVolumeHighOutline className="h-6 w-6" />
                                                 )}
                                             </div>
-                                        </button>
+                                        </li>
                                     );
                                 })}
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 ))}

@@ -99,8 +99,10 @@
             "You may use some of the language from this topic.",
             "Remember to save your text frequently!"
         ],
+        "practiceConversationPlaceholder": "Enter your conversation here…",
         "practiceConversationBox": "Enter your conversation:",
         "practiceExamTextbox": "Your notes:",
+        "practiceExamPlaceholder": "Enter your notes here…",
         "recordSectionText": "Use the script you have written above to record yourself. Then listen to how you sound.",
         "tipCardExam": "Tips",
         "doCardExam": "Dos",

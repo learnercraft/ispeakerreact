@@ -354,8 +354,8 @@ const PracticeTab = ({ accent, examId, taskData, tips }: PracticeTabProps) => {
                                             })
                                         }
                                         onInput={autoExpand}
-                                        placeholder={t("tabConversationExam.textareaPlaceholder")}
-                                        title={t("tabConversationExam.textareaTitle")}
+                                        placeholder={t("tabConversationExam.practiceExamPlaceholder")}
+                                        title={t("tabConversationExam.practiceExamTextbox")}
                                     ></textarea>
                                 </fieldset>
 
