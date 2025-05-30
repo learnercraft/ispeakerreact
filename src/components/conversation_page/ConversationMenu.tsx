@@ -1,29 +1,51 @@
-import PropTypes from "prop-types";
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState, FC } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import Container from "../../ui/Container";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import isElectron from "../../utils/isElectron";
-import AccentDropdown from "../general/AccentDropdown";
-import LoadingOverlay from "../general/LoadingOverlay";
-import TopNavBar from "../general/TopNavBar";
+import Container from "../../ui/Container.js";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import isElectron from "../../utils/isElectron.js";
+import AccentDropdown from "../general/AccentDropdown.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import TopNavBar from "../general/TopNavBar.js";
 
-const ConversationDetailPage = lazy(() => import("./ConversationDetailPage"));
+// Types for conversation data
+interface ConversationTitle {
+    title: string;
+    id: string;
+    info: string;
+}
 
-const ConversationListPage = () => {
+interface ConversationSection {
+    heading: string;
+    titles: ConversationTitle[];
+}
+
+interface SelectedConversation {
+    id: string;
+    title: string;
+    heading: string;
+}
+
+// AccentLocalStorage returns [string, (accent: string) => void]
+type AccentLocalStorageReturn = [string, (accent: string) => void];
+
+const ConversationDetailPage = lazy(() => import("./ConversationDetailPage.js"));
+
+const ConversationListPage: FC = () => {
     const { t } = useTranslation();
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const [selectedConversation, setSelectedConversation] = useState(null);
+    const [data, setData] = useState<ConversationSection[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [selectedAccent, setSelectedAccent] = AccentLocalStorage() as AccentLocalStorageReturn;
+    const [selectedConversation, setSelectedConversation] = useState<SelectedConversation | null>(
+        null
+    );
 
     // Modal state
-    const modalRef = useRef(null);
-    const [modalInfo, setModalInfo] = useState(null);
+    const modalRef = useRef<HTMLDialogElement | null>(null);
+    const [modalInfo, setModalInfo] = useState<string | null>(null);
 
     // Handle showing the modal
-    const handleShowModal = (info) => {
+    const handleShowModal = (info: string) => {
         setModalInfo(info);
         if (modalRef.current) {
             modalRef.current.showModal();
@@ -38,7 +60,7 @@ const ConversationListPage = () => {
         setModalInfo(null);
     };
 
-    const handleSelectConversation = (id, title) => {
+    const handleSelectConversation = (id: string, title: string) => {
         const selected = data.find((section) => section.titles.some((item) => item.id === id));
         if (selected) {
             setSelectedConversation({
@@ -49,7 +71,12 @@ const ConversationListPage = () => {
         }
     };
 
-    const TooltipIcon = ({ info, onClick }) => (
+    interface TooltipIconProps {
+        info: string;
+        onClick: () => void;
+    }
+
+    const TooltipIcon: FC<TooltipIconProps> = ({ info, onClick }) => (
         <>
             {/* Tooltip for larger screens */}
             <div
@@ -71,12 +98,13 @@ const ConversationListPage = () => {
         </>
     );
 
-    TooltipIcon.propTypes = {
-        info: PropTypes.string.isRequired,
-        onClick: PropTypes.func.isRequired,
-    };
+    interface ConversationCardProps {
+        heading: string;
+        titles: ConversationTitle[];
+        onShowModal: (info: string) => void;
+    }
 
-    const ConversationCard = ({ heading, titles, onShowModal }) => (
+    const ConversationCard: FC<ConversationCardProps> = ({ heading, titles, onShowModal }) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
                 <div className="card-title font-semibold">{t(heading)}</div>
@@ -95,18 +123,6 @@ const ConversationListPage = () => {
             </div>
         </div>
     );
-
-    ConversationCard.propTypes = {
-        heading: PropTypes.string.isRequired,
-        titles: PropTypes.arrayOf(
-            PropTypes.shape({
-                title: PropTypes.string.isRequired,
-                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-                info: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        onShowModal: PropTypes.func.isRequired,
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -132,7 +148,8 @@ const ConversationListPage = () => {
     }, []);
 
     useEffect(() => {
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const stored = localStorage.getItem("ispeaker");
+        const storedData = stored ? JSON.parse(stored) : {};
         localStorage.setItem("ispeaker", JSON.stringify({ ...storedData, selectedAccent }));
     }, [selectedAccent]);
 
