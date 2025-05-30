@@ -1,18 +1,28 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
-const ReviewTab = ({ reviews, examId, accent }) => {
+interface Review {
+    text: string;
+}
+
+interface ReviewTabProps {
+    reviews: Review[];
+    accent: string;
+    examId: string | number;
+}
+
+const ReviewTab = ({ reviews, examId, accent }: ReviewTabProps) => {
     const { t } = useTranslation();
 
-    const [checkedReviews, setCheckedReviews] = useState(() => {
+    const [checkedReviews, setCheckedReviews] = useState<Record<string, boolean>>(() => {
         // Retrieve saved reviews from ispeaker -> examReview in localStorage
-        const savedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
-        return savedData.examReview?.[accent] || {};
+        const savedData = localStorage.getItem("ispeaker");
+        const parsedData = savedData ? JSON.parse(savedData) : {};
+        return parsedData.examReview?.[accent] || {};
     });
 
-    const handleCheckboxChange = (index) => {
+    const handleCheckboxChange = (index: number) => {
         const key = `${examId}-${index}`;
         setCheckedReviews((prev) => ({
             ...prev,
@@ -23,13 +33,14 @@ const ReviewTab = ({ reviews, examId, accent }) => {
 
     useEffect(() => {
         // Retrieve the existing ispeaker data
-        const savedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const savedData = localStorage.getItem("ispeaker");
+        const parsedData = savedData ? JSON.parse(savedData) : {};
         // Update the examReview section
-        savedData.examReview = savedData.examReview || {};
-        savedData.examReview[accent] = { ...checkedReviews };
+        parsedData.examReview = parsedData.examReview || {};
+        parsedData.examReview[accent] = { ...checkedReviews };
 
         // Save the updated ispeaker data back to localStorage
-        localStorage.setItem("ispeaker", JSON.stringify(savedData));
+        localStorage.setItem("ispeaker", JSON.stringify(parsedData));
     }, [checkedReviews, examId, accent]);
 
     return (
@@ -50,12 +61,6 @@ const ReviewTab = ({ reviews, examId, accent }) => {
             ))}
         </div>
     );
-};
-
-ReviewTab.propTypes = {
-    reviews: PropTypes.array.isRequired,
-    examId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    accent: PropTypes.string.isRequired,
 };
 
 export default ReviewTab;
