@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Container from "../../ui/Container";
-import isElectron from "../../utils/isElectron";
-import TopNavBar from "../general/TopNavBar";
-import AppearanceSettings from "./Appearance";
-import AppInfo from "./AppInfo";
-import ExerciseTimer from "./ExerciseTimer";
-import LanguageSwitcher from "./LanguageSwitcher";
-import LogSettings from "./LogSettings";
-import PronunciationSettings from "./PronunciationSettings";
-import ResetSettings from "./ResetSettings";
-import SavedRecordingLocationMenu from "./SavedRecordingLocationMenu";
-import SaveFolderSettings from "./SaveFolderSettings";
-import VideoDownloadMenu from "./VideoDownloadMenu";
-import VideoDownloadSubPage from "./VideoDownloadSubPage";
+import Container from "../../ui/Container.js";
+import isElectron from "../../utils/isElectron.js";
+import TopNavBar from "../general/TopNavBar.js";
+import AppearanceSettings from "./Appearance.js";
+import AppInfo from "./AppInfo.js";
+import ExerciseTimer from "./ExerciseTimer.js";
+import LanguageSwitcher from "./LanguageSwitcher.js";
+import LogSettings from "./LogSettings.js";
+import PronunciationSettings from "./PronunciationSettings.js";
+import ResetSettings from "./ResetSettings.js";
+import SavedRecordingLocationMenu from "./SavedRecordingLocationMenu.js";
+import SaveFolderSettings from "./SaveFolderSettings.js";
+import VideoDownloadMenu from "./VideoDownloadMenu.js";
+import VideoDownloadSubPage from "./VideoDownloadSubPage.js";
 
 const SettingsPage = () => {
     const { t } = useTranslation();
