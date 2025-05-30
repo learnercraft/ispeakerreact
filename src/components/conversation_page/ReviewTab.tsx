@@ -1,34 +1,50 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
-const ReviewTab = ({ reviews, accent, conversationId }) => {
+interface Review {
+    text: string;
+}
+
+interface ReviewTabProps {
+    reviews: Review[];
+    accent: string;
+    conversationId: string | number;
+}
+
+type ReviewState = Record<number, boolean>;
+
+const ReviewTab = ({ reviews, accent, conversationId }: ReviewTabProps) => {
     const { t } = useTranslation();
 
-    const [reviewState, setReviewState] = useState({});
+    const [reviewState, setReviewState] = useState<ReviewState>({});
 
     const reviewKey = `${accent}-${conversationId}-review`;
 
     // Load saved review states from localStorage
     useEffect(() => {
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const storedRaw = localStorage.getItem("ispeaker");
+        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
         const savedReviews = storedData.conversationReview?.[accent] || {};
-        const initialReviewState = reviews.reduce((acc, review, index) => {
-            const key = `${reviewKey}${index + 1}`;
-            acc[index + 1] = savedReviews[key] || false;
-            return acc;
-        }, {});
+        const initialReviewState: ReviewState = reviews.reduce(
+            (acc: ReviewState, _review: Review, index: number) => {
+                const key = `${reviewKey}${index + 1}`;
+                acc[index + 1] = savedReviews[key] || false;
+                return acc;
+            },
+            {}
+        );
         setReviewState(initialReviewState);
     }, [accent, conversationId, reviews, reviewKey]);
 
     // Handle checkbox change
-    const handleCheckboxChange = (index) => {
-        const newReviewState = { ...reviewState, [index]: !reviewState[index] };
+    const handleCheckboxChange = (index: number) => {
+        const newReviewState: ReviewState = { ...reviewState, [index]: !reviewState[index] };
         setReviewState(newReviewState);
 
         // Load existing data from localStorage
-        const storedData = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const storedRaw = localStorage.getItem("ispeaker");
+        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
         const currentAccentData = storedData.conversationReview?.[accent] || {};
 
         // Update the specific review state while preserving the rest of the data
@@ -70,12 +86,6 @@ const ReviewTab = ({ reviews, accent, conversationId }) => {
             ))}
         </div>
     );
-};
-
-ReviewTab.propTypes = {
-    reviews: PropTypes.array.isRequired,
-    accent: PropTypes.string.isRequired,
-    conversationId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default ReviewTab;
