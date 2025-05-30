@@ -1,17 +1,33 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 
-const ListeningTab = ({ sentences }) => {
+// Types for the sentence and subtopic structure
+interface Sentence {
+    audioSrc: string;
+    sentence: string;
+}
+
+interface Subtopic {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface ListeningTabProps {
+    sentences: Subtopic[];
+}
+
+const ListeningTab = ({ sentences }: ListeningTabProps) => {
     const { t } = useTranslation();
 
-    const [currentAudio, setCurrentAudio] = useState(null);
-    const [playingIndex, setPlayingIndex] = useState(null);
-    const [loadingIndex, setLoadingIndex] = useState(null);
+    const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
+    const [playingIndex, setPlayingIndex] = useState<string | null>(null);
+    const [loadingIndex, setLoadingIndex] = useState<string | null>(null);
 
-    const handlePlayPause = (index, audioSrc) => {
+    const abortController = useRef<AbortController | null>(null);
+
+    const handlePlayPause = (index: string, audioSrc: string) => {
         if (loadingIndex === index) {
             // Cancel the loading process if clicked again
             if (abortController.current) {
@@ -89,8 +105,6 @@ const ListeningTab = ({ sentences }) => {
         }
     };
 
-    const abortController = useRef(null);
-
     useEffect(() => {
         return () => {
             if (abortController.current) {
@@ -124,13 +138,8 @@ const ListeningTab = ({ sentences }) => {
                                         <li
                                             key={uniqueIdx}
                                             className={`flex cursor-pointer justify-between gap-x-6 py-3 ${playingIndex === uniqueIdx ? "bg-secondary text-secondary-content" : ""}`}
-                                            role="button"
                                             onClick={() =>
                                                 handlePlayPause(uniqueIdx, sentenceObj.audioSrc)
-                                            }
-                                            aria-pressed={playingIndex === uniqueIdx}
-                                            aria-disabled={
-                                                loadingIndex !== null && loadingIndex !== uniqueIdx
                                             }
                                         >
                                             <div className="flex min-w-0 gap-x-4">
@@ -163,10 +172,6 @@ const ListeningTab = ({ sentences }) => {
             </div>
         </>
     );
-};
-
-ListeningTab.propTypes = {
-    sentences: PropTypes.array.isRequired,
 };
 
 export default ListeningTab;
