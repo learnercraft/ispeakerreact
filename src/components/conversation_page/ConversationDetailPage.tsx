@@ -1,27 +1,77 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
-import isElectron from "../../utils/isElectron";
-import { useScrollTo } from "../../utils/useScrollTo";
-import LoadingOverlay from "../general/LoadingOverlay";
-import ListeningTab from "./ListeningTab";
-import PracticeTab from "./PracticeTab";
-import ReviewTab from "./ReviewTab";
-import WatchAndStudyTab from "./WatchAndStudyTab";
+import isElectron from "../../utils/isElectron.js";
+import useScrollTo from "../../utils/useScrollTo.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import ListeningTab from "./ListeningTab.js";
+import PracticeTab from "./PracticeTab.js";
+import ReviewTab from "./ReviewTab.js";
+import WatchAndStudyTab from "./WatchAndStudyTab.js";
 
-const ConversationDetailPage = ({ id, accent, title, onBack }) => {
+// Types from tab components
+interface Sentence {
+    audioSrc: string;
+    sentence: string;
+}
+
+interface Subtopic {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface DialogLine {
+    speaker: string;
+    speech: string;
+}
+
+interface SkillCheckmark {
+    label: string;
+}
+
+interface Review {
+    text: string;
+}
+
+interface WatchAndStudy {
+    study: {
+        dialog: DialogLine[];
+        skill_checkmark: SkillCheckmark[];
+    };
+    videoLink: string;
+    offlineFile: string;
+    subtitle: string;
+}
+
+interface AccentData {
+    listen: {
+        subtopics: Subtopic[];
+    };
+    reviews: Review[];
+    watch_and_study: WatchAndStudy;
+}
+
+export interface ConversationDetailPageProps {
+    id: string | number;
+    accent: string;
+    title: string;
+    onBack: () => void;
+}
+
+const ConversationDetailPage = ({ id, accent, title, onBack }: ConversationDetailPageProps) => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
-    const [activeTab, setActiveTab] = useState("watchStudyTab");
-    const [loading, setLoading] = useState(true);
-    const [accentData, setAccentData] = useState(null);
+    const [activeTab, setActiveTab] = useState<
+        "watchStudyTab" | "listenTab" | "practiceTab" | "reviewTab"
+    >("watchStudyTab");
+    const [loading, setLoading] = useState<boolean>(true);
+    const [accentData, setAccentData] = useState<AccentData | null>(null);
 
-    const [videoUrl, setVideoUrl] = useState(null);
-    const [videoLoading, setVideoLoading] = useState(true);
-    const [port, setPort] = useState(null);
+    const [videoUrl, setVideoUrl] = useState<string>("");
+    const [videoLoading, setVideoLoading] = useState<boolean>(true);
+    const [port, setPort] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +87,8 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                 const conversationData = data[id]?.[0];
 
                 if (conversationData) {
-                    const accentData = conversationData[accent === "british" ? "BrE" : "AmE"];
+                    const accentData: AccentData =
+                        conversationData[accent === "british" ? "BrE" : "AmE"];
                     setAccentData(accentData); // Set the accent-specific data
 
                     setLoading(false);
@@ -59,9 +110,14 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
     // Fetch the dynamic port if running in Electron
     useEffect(() => {
         const fetchPort = async () => {
-            if (window.electron?.ipcRenderer) {
-                const dynamicPort = await window.electron.ipcRenderer.invoke("get-port");
-                setPort(dynamicPort);
+            const electron = (
+                window as unknown as {
+                    electron?: { ipcRenderer?: { invoke: (channel: string) => Promise<unknown> } };
+                }
+            ).electron;
+            if (electron?.ipcRenderer) {
+                const dynamicPort = await electron.ipcRenderer.invoke("get-port");
+                setPort(Number(dynamicPort));
             }
         };
         fetchPort();
@@ -191,7 +247,7 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                         className="card card-lg card-border mb-6 w-full shadow-md dark:border-slate-600"
                     >
                         <div className="card-body">
-                            {activeTab === "watchStudyTab" && (
+                            {activeTab === "watchStudyTab" && accentData && (
                                 <WatchAndStudyTab
                                     videoUrl={videoUrl}
                                     subtitleUrl={subtitleUrl}
@@ -199,31 +255,22 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
                                     skillCheckmark={
                                         accentData.watch_and_study.study.skill_checkmark
                                     }
-                                    scrollTo={scrollTo}
                                 />
                             )}
 
-                            {activeTab === "listenTab" && (
-                                <ListeningTab
-                                    sentences={accentData.listen.subtopics}
-                                    scrollTo={scrollTo}
-                                />
+                            {activeTab === "listenTab" && accentData && (
+                                <ListeningTab sentences={accentData.listen.subtopics} />
                             )}
 
-                            {activeTab === "practiceTab" && (
-                                <PracticeTab
-                                    accent={accent}
-                                    conversationId={id}
-                                    scrollTo={scrollTo}
-                                />
+                            {activeTab === "practiceTab" && accentData && (
+                                <PracticeTab accent={accent} conversationId={id} />
                             )}
 
-                            {activeTab === "reviewTab" && (
+                            {activeTab === "reviewTab" && accentData && (
                                 <ReviewTab
                                     reviews={accentData.reviews}
                                     accent={accent}
                                     conversationId={id}
-                                    scrollTo={scrollTo}
                                 />
                             )}
                         </div>
@@ -232,13 +279,6 @@ const ConversationDetailPage = ({ id, accent, title, onBack }) => {
             )}
         </>
     );
-};
-
-ConversationDetailPage.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    accent: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    onBack: PropTypes.func.isRequired,
 };
 
 export default ConversationDetailPage;
