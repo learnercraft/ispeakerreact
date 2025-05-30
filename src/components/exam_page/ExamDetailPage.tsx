@@ -1,30 +1,113 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
-import isElectron from "../../utils/isElectron";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import { useScrollTo } from "../../utils/useScrollTo";
-import LoadingOverlay from "../general/LoadingOverlay";
-import ListeningTab from "./ListeningTab";
-import PracticeTab from "./PracticeTab";
-import ReviewTab from "./ReviewTab";
-import WatchAndStudyTab from "./WatchAndStudyTab";
+import isElectron from "../../utils/isElectron.js";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import useScrollTo from "../../utils/useScrollTo.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import ListeningTab from "./ListeningTab.js";
+import PracticeTab from "./PracticeTab.js";
+import ReviewTab from "./ReviewTab.js";
+import WatchAndStudyTab from "./WatchAndStudyTab.js";
 
-const ExamDetailPage = ({ id, title, onBack, accent }) => {
+interface DialogLine {
+    speaker: string;
+    speech: string;
+}
+
+interface SkillCheckmark {
+    label: string;
+}
+
+interface TaskData {
+    para: string;
+    listItems: string[];
+    images: string[];
+}
+
+interface WatchAndStudy {
+    videoLink: string;
+    offlineFile: string;
+    subtitle: string;
+    taskData: TaskData;
+    study: {
+        dialog: DialogLine[];
+        skills: SkillCheckmark[];
+    };
+}
+
+interface Sentence {
+    audioSrc: string;
+    sentence: string;
+}
+
+interface SubtopicBre {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface SubtopicAme {
+    title: string;
+    sentences: Sentence[];
+}
+
+interface Listen {
+    BrE: {
+        subtopics: SubtopicBre[];
+    };
+    AmE: {
+        subtopics: SubtopicAme[];
+    };
+}
+
+interface Tips {
+    dos: string[];
+    donts: string[];
+}
+
+interface Practise {
+    task: TaskData[];
+    tips: Tips;
+}
+
+interface Review {
+    text: string;
+}
+
+interface ExamDetails {
+    description: string;
+    watch_and_study: WatchAndStudy;
+    listen: Listen;
+    practise: Practise;
+    reviews: Review[];
+}
+
+// The main exam data type
+type ExamData = Record<string, ExamDetails>;
+
+export interface ExamDetailPageProps {
+    id: string;
+    title: string;
+    onBack: () => void;
+    accent: "british" | "american";
+}
+
+const ExamDetailPage = ({ id, title, onBack, accent }: ExamDetailPageProps) => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
-    const [activeTab, setActiveTab] = useState("watchStudyTab");
-    const [examData, setExamData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState<
+        "watchStudyTab" | "listenTab" | "practiceTab" | "reviewTab"
+    >("watchStudyTab");
+    const [examData, setExamData] = useState<ExamData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
-    const [videoUrl, setVideoUrl] = useState(null);
-    const [videoLoading, setVideoLoading] = useState(true);
-    const [port, setPort] = useState(null);
+    const [videoUrl, setVideoUrl] = useState<string>("");
+    const [videoLoading, setVideoLoading] = useState<boolean>(true);
+    const [port, setPort] = useState<number | null>(null);
 
-    const examMainInfoModal = useRef(null);
+    const examMainInfoModal = useRef<HTMLDialogElement | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +118,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                 const response = await fetch(
                     `${import.meta.env.BASE_URL}json/examspeaking_data.json`
                 );
-                const data = await response.json();
+                const data: ExamData = await response.json();
 
                 setExamData(data);
                 setLoading(false);
@@ -52,9 +135,16 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
     // Fetch the dynamic port if running in Electron
     useEffect(() => {
         const fetchPort = async () => {
-            if (window.electron?.ipcRenderer) {
-                const dynamicPort = await window.electron.ipcRenderer.invoke("get-port");
-                setPort(dynamicPort);
+            const win = window as typeof window & {
+                electron?: {
+                    ipcRenderer?: {
+                        invoke: (channel: string) => Promise<unknown>;
+                    };
+                };
+            };
+            if (win.electron?.ipcRenderer) {
+                const dynamicPort = await win.electron.ipcRenderer.invoke("get-port");
+                setPort(Number(dynamicPort));
             }
         };
         fetchPort();
@@ -105,7 +195,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
 
     const examDetails = examData[id];
 
-    const examLocalizedDescArray = t(examDetails.description, { returnObjects: true });
+    const examLocalizedDescArray = t(examDetails.description, { returnObjects: true }) as string[];
 
     const videoSubtitle = examData[id].watch_and_study.subtitle;
     const subtitleUrl = `${import.meta.env.BASE_URL}media/exam/subtitles/${videoSubtitle}`;
@@ -117,6 +207,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                 <button
                     type="button"
                     className="btn btn-circle btn-ghost btn-sm ms-1 align-middle"
+                    title={t("examPage.taskInfo")}
                     onClick={() => examMainInfoModal.current?.showModal()}
                 >
                     <IoInformationCircleOutline className="h-6 w-6" />
@@ -140,9 +231,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                                 setActiveTab("watchStudyTab");
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${
-                                activeTab === "watchStudyTab" ? "tab-active font-semibold" : ""
-                            }`}
+                            className={`tab md:text-base ${activeTab === "watchStudyTab" ? "tab-active font-semibold" : ""}`}
                         >
                             <MdOutlineOndemandVideo className="me-1 h-6 w-6" />
                             {t("buttonConversationExam.watchBtn")}
@@ -153,9 +242,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                                 setActiveTab("listenTab");
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${
-                                activeTab === "listenTab" ? "tab-active font-semibold" : ""
-                            }`}
+                            className={`tab md:text-base ${activeTab === "listenTab" ? "tab-active font-semibold" : ""}`}
                         >
                             <MdHeadphones className="me-1 h-6 w-6" />
                             {t("buttonConversationExam.listenBtn")}
@@ -166,9 +253,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                                 setActiveTab("practiceTab");
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${
-                                activeTab === "practiceTab" ? "tab-active font-semibold" : ""
-                            }`}
+                            className={`tab md:text-base ${activeTab === "practiceTab" ? "tab-active font-semibold" : ""}`}
                         >
                             <MdKeyboardVoice className="me-1 h-6 w-6" />
                             {t("buttonConversationExam.practiceBtn")}
@@ -179,9 +264,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                                 setActiveTab("reviewTab");
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${
-                                activeTab === "reviewTab" ? "tab-active font-semibold" : ""
-                            }`}
+                            className={`tab md:text-base ${activeTab === "reviewTab" ? "tab-active font-semibold" : ""}`}
                         >
                             <MdChecklist className="me-1 h-6 w-6" />
                             {t("buttonConversationExam.reviewBtn")}
@@ -202,7 +285,6 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                             taskData={examDetails.watch_and_study.taskData}
                             dialog={examDetails.watch_and_study.study.dialog}
                             skills={examDetails.watch_and_study.study.skills}
-                            scrollTo={scrollTo}
                         />
                     )}
                     {activeTab === "listenTab" && (
@@ -210,7 +292,6 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                             subtopicsBre={examDetails.listen.BrE?.subtopics || []}
                             subtopicsAme={examDetails.listen.AmE?.subtopics || []}
                             currentAccent={accent}
-                            scrollTo={scrollTo}
                         />
                     )}
                     {activeTab === "practiceTab" && (
@@ -219,16 +300,10 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                             accent={accent}
                             taskData={examDetails.practise.task}
                             tips={examDetails.practise.tips}
-                            scrollTo={scrollTo}
                         />
                     )}
                     {activeTab === "reviewTab" && (
-                        <ReviewTab
-                            reviews={examDetails.reviews}
-                            examId={id}
-                            accent={accent}
-                            scrollTo={scrollTo}
-                        />
+                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent} />
                     )}
                 </div>
             </div>
@@ -237,16 +312,20 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
                 <div className="modal-box">
                     <h3 className="text-lg font-bold">{t("examPage.taskInfo")}</h3>
                     <div className="py-4">
-                        {examLocalizedDescArray.map((desc, index) => (
-                            <p
-                                key={index}
-                                className={
-                                    index === examLocalizedDescArray.length - 1 ? "mb-0" : "mb-2"
-                                }
-                            >
-                                {desc}
-                            </p>
-                        ))}
+                        {Array.isArray(examLocalizedDescArray)
+                            ? examLocalizedDescArray.map((desc, index) => (
+                                  <p
+                                      key={index}
+                                      className={
+                                          index === examLocalizedDescArray.length - 1
+                                              ? "mb-0"
+                                              : "mb-2"
+                                      }
+                                  >
+                                      {desc}
+                                  </p>
+                              ))
+                            : null}
                     </div>
                     <div className="modal-action">
                         <form method="dialog">
@@ -257,13 +336,6 @@ const ExamDetailPage = ({ id, title, onBack, accent }) => {
             </dialog>
         </>
     );
-};
-
-ExamDetailPage.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    title: PropTypes.string.isRequired,
-    onBack: PropTypes.func.isRequired,
-    accent: PropTypes.string.isRequired,
 };
 
 export default ExamDetailPage;
