@@ -153,7 +153,7 @@ const ExercisePage = () => {
                                         handleSelectExercise({ ...exercise, file }, heading)
                                     }
                                 >
-                                    {t(exercise.titleKey) || "" || exercise.title}
+                                    {t(exercise.titleKey || "") || exercise.title}
                                 </a>
                                 <TooltipIcon
                                     info={info}

@@ -17,8 +17,9 @@ const ThemeProvider = ({
     // Load theme from storage on mount
     useEffect(() => {
         if (isElectron()) {
-            window.Electron.ipcRenderer.invoke("get-theme", storageKey).then((storedTheme) => {
-                setTheme(storedTheme || defaultTheme);
+            window.electron.ipcRenderer.invoke("get-theme", storageKey).then((storedTheme) => {
+                const themeToSet = typeof storedTheme === "string" ? storedTheme : undefined;
+                setTheme(themeToSet || defaultTheme);
                 setLoaded(true);
             });
         } else {
@@ -74,7 +75,7 @@ const ThemeProvider = ({
         theme,
         setTheme: async (newTheme: string) => {
             if (isElectron()) {
-                await window.Electron.ipcRenderer.invoke("set-theme", newTheme);
+                await window.electron.ipcRenderer.invoke("set-theme", newTheme);
             } else {
                 localStorage.setItem(storageKey, newTheme);
             }
