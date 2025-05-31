@@ -1,20 +1,41 @@
 import he from "he";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import useCountdownTimer from "../../utils/useCountdownTimer";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
-const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [shuffledOptions, setShuffledOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+// Types for OddOneOut quiz
+export interface OddOneOutOption {
+    value: string;
+    index: string;
+    answer: "true" | "false";
+}
+
+export interface OddOneOutQuestion {
+    data: OddOneOutOption[];
+    question: { correctAns: string }[];
+    split?: string;
+    type?: string;
+}
+
+export interface OddOneOutProps {
+    quiz: OddOneOutQuestion[];
+    onAnswer: (isCorrect: number, type: string) => void;
+    onQuit: () => void;
+    timer: number;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: OddOneOutProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [shuffledQuiz, setShuffledQuiz] = useState<OddOneOutQuestion[]>([]);
+    const [shuffledOptions, setShuffledOptions] = useState<OddOneOutOption[]>([]);
+    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+    const [submitted, setSubmitted] = useState<boolean>(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
@@ -28,12 +49,12 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     }, [timer, startTimer]);
 
-    const filterAndShuffleQuiz = useCallback((quiz) => {
+    const filterAndShuffleQuiz = useCallback((quiz: OddOneOutQuestion[]): OddOneOutQuestion[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     }, []);
 
-    const loadQuiz = useCallback((quizData) => {
+    const loadQuiz = useCallback((quizData: OddOneOutQuestion) => {
         const shuffledOptions = ShuffleArray([...quizData.data]);
         setShuffledOptions(shuffledOptions);
         setSelectedOption(null);
@@ -49,7 +70,7 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     }, [quiz, currentQuestionIndex, loadQuiz, filterAndShuffleQuiz]);
 
-    const handleOptionClick = (index) => {
+    const handleOptionClick = (index: number) => {
         setSelectedOption(index);
     };
 
@@ -163,14 +184,6 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-OddOneOut.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    timer: PropTypes.number.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default OddOneOut;
