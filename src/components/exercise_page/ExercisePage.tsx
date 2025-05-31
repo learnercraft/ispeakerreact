@@ -1,27 +1,52 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import Container from "../../ui/Container";
-import AccentLocalStorage from "../../utils/AccentLocalStorage";
-import isElectron from "../../utils/isElectron";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import AccentDropdown from "../general/AccentDropdown";
-import LoadingOverlay from "../general/LoadingOverlay";
-import TopNavBar from "../general/TopNavBar";
-import ExerciseDetailPage from "./ExerciseDetailPage";
+import Container from "../../ui/Container.js";
+import AccentLocalStorage from "../../utils/AccentLocalStorage.js";
+import isElectron from "../../utils/isElectron.js";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import AccentDropdown from "../general/AccentDropdown.js";
+import LoadingOverlay from "../general/LoadingOverlay.js";
+import TopNavBar from "../general/TopNavBar.js";
+import ExerciseDetailPage from "./ExerciseDetailPage.js";
+
+// Types for exercise data
+interface Exercise {
+    id: string | number;
+    title: string;
+    titleKey?: string;
+    infoKey?: string;
+    american?: boolean;
+    british?: boolean;
+    file?: string;
+}
+
+interface ExerciseSection {
+    heading: string;
+    titles: Exercise[];
+    infoKey: string;
+    file?: string;
+}
+
+interface SelectedExercise {
+    id: string | number;
+    title: string;
+    accent: string;
+    file: string;
+    heading: string;
+}
 
 const ExercisePage = () => {
     const { t } = useTranslation();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<ExerciseSection[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
-    const [selectedExercise, setSelectedExercise] = useState(null);
+    const [selectedExercise, setSelectedExercise] = useState<SelectedExercise | null>(null);
 
-    const modalRef = useRef(null);
-    const [modalInfo, setModalInfo] = useState(null);
+    const modalRef = useRef<HTMLDialogElement | null>(null);
+    const [modalInfo, setModalInfo] = useState<string | null>(null);
 
-    const handleShowModal = (info) => {
+    const handleShowModal = (info: string) => {
         setModalInfo(info);
         if (modalRef.current) {
             modalRef.current.showModal();
@@ -40,19 +65,19 @@ const ExercisePage = () => {
         { name: "British English", value: "british" },
     ];
 
-    const getLocalizedTitle = (exercise) => {
+    const getLocalizedTitle = (exercise: Exercise) => {
         if (exercise.titleKey) {
-            return t(exercise.titleKey); // Use localization for keys
+            return t(exercise.titleKey);
         }
         return exercise.title;
     };
 
-    const handleSelectExercise = (exercise, heading) => {
+    const handleSelectExercise = (exercise: Exercise, heading: string) => {
         setSelectedExercise({
             id: exercise.id,
             title: getLocalizedTitle(exercise),
-            accent: selectedAccentOptions.find((item) => item.value === selectedAccent).name,
-            file: exercise.file,
+            accent: selectedAccentOptions.find((item) => item.value === selectedAccent)?.name || "",
+            file: exercise.file || "",
             heading: heading,
         });
     };
@@ -65,12 +90,16 @@ const ExercisePage = () => {
         }
     }, [t]);
 
-    const getInfoText = (exercise, defaultInfoKey) => {
-        // If exercise has a specific infoKey, use it. Otherwise, use the general infoKey.
+    const getInfoText = (exercise: Exercise, defaultInfoKey: string) => {
         return exercise.infoKey ? t(exercise.infoKey) : t(defaultInfoKey);
     };
 
-    const TooltipIcon = ({ info, onClick }) => {
+    interface TooltipIconProps {
+        info: string;
+        onClick: () => void;
+    }
+
+    const TooltipIcon = ({ info, onClick }: TooltipIconProps) => {
         return (
             <>
                 {/* Tooltip for larger screens */}
@@ -94,7 +123,15 @@ const ExercisePage = () => {
         );
     };
 
-    const ExerciseCard = ({ heading, titles, infoKey, file, onShowModal }) => (
+    interface ExerciseCardProps {
+        heading: string;
+        titles: Exercise[];
+        infoKey: string;
+        file?: string;
+        onShowModal: (info: string) => void;
+    }
+
+    const ExerciseCard = ({ heading, titles, infoKey, file, onShowModal }: ExerciseCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
                 <div className="card-title font-semibold">{t(heading)}</div>
@@ -106,7 +143,6 @@ const ExercisePage = () => {
                         return true;
                     })
                     .map((exercise, index) => {
-                        const modalId = `exerciseInfoModal-${heading}-${index}`;
                         const info = getInfoText(exercise, infoKey);
 
                         return (
@@ -117,11 +153,10 @@ const ExercisePage = () => {
                                         handleSelectExercise({ ...exercise, file }, heading)
                                     }
                                 >
-                                    {t(exercise.titleKey) || exercise.title}
+                                    {t(exercise.titleKey || "") || exercise.title}
                                 </a>
                                 <TooltipIcon
                                     info={info}
-                                    modalId={modalId}
                                     onClick={() => onShowModal(info)}
                                 />
                             </div>
@@ -130,29 +165,6 @@ const ExercisePage = () => {
             </div>
         </div>
     );
-
-    TooltipIcon.propTypes = {
-        info: PropTypes.string.isRequired,
-        onClick: PropTypes.func.isRequired,
-    };
-
-    ExerciseCard.propTypes = {
-        heading: PropTypes.string.isRequired,
-        titles: PropTypes.arrayOf(
-            PropTypes.shape({
-                american: PropTypes.bool,
-                british: PropTypes.bool,
-                titleKey: PropTypes.string,
-                title: PropTypes.string,
-                infoKey: PropTypes.string,
-                id: PropTypes.any,
-                file: PropTypes.any,
-            })
-        ).isRequired,
-        infoKey: PropTypes.string.isRequired,
-        file: PropTypes.any,
-        onShowModal: PropTypes.func.isRequired,
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -175,7 +187,7 @@ const ExercisePage = () => {
 
     useEffect(() => {
         // Save the selected accent to localStorage
-        const savedSettings = JSON.parse(localStorage.getItem("ispeaker")) || {};
+        const savedSettings = localStorage.getItem("ispeaker") ? JSON.parse(localStorage.getItem("ispeaker") as string) : {};
         savedSettings.selectedAccent = selectedAccent;
         localStorage.setItem("ispeaker", JSON.stringify(savedSettings));
     }, [selectedAccent]);
@@ -195,7 +207,6 @@ const ExercisePage = () => {
                         id={selectedExercise.id}
                         title={selectedExercise.title}
                         accent={selectedExercise.accent}
-                        instructions={selectedExercise.instructions}
                         file={selectedExercise.file}
                         onBack={handleGoBack}
                     />
