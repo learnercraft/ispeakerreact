@@ -1,21 +1,44 @@
 import he from "he";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LiaTimesCircle } from "react-icons/lia";
 import "../../styles/memory-card.css";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import useCountdownTimer from "../../utils/useCountdownTimer";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
-const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [flippedCards, setFlippedCards] = useState([]);
-    const [matchedCards, setMatchedCards] = useState([]);
+// Types for the quiz prop
+export interface MemoryMatchCard {
+    value: string;
+    text: string;
+}
+
+export interface MemoryMatchQuizItem {
+    data: MemoryMatchCard[];
+}
+
+export interface MemoryMatchProps {
+    quiz: MemoryMatchQuizItem[];
+    timer: number;
+    onQuit: () => void;
+    setTimeIsUp: (isUp: boolean) => void;
+    onMatchFinished: () => void;
+}
+
+interface ShuffledCard extends MemoryMatchCard {
+    id: number;
+}
+
+type CardFeedbackType = "correctPair" | "incorrectPair";
+
+const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }: MemoryMatchProps) => {
+    const [shuffledQuiz, setShuffledQuiz] = useState<ShuffledCard[]>([]);
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
+    const [matchedCards, setMatchedCards] = useState<number[]>([]);
     const [, setIsChecking] = useState(false);
-    const [, setFeedback] = useState(null);
-    const [cardFeedback, setCardFeedback] = useState({});
+    const [, setFeedback] = useState<null | string>(null);
+    const [cardFeedback, setCardFeedback] = useState<Record<number, CardFeedbackType>>({});
     const [hasStarted, setHasStarted] = useState(false);
 
     // Use the countdown timer
@@ -26,75 +49,60 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
     const { t } = useTranslation();
 
     // Function to randomly pick 8 pairs from the entire quiz data
-    const prepareQuiz = useCallback((quizData) => {
-        // Step 1: Group pairs by their `value` within each object and assign a unique `id`
-        let idCounter = 0; // To assign a unique identifier to each pair
-        const groupedPairs = quizData.reduce((acc, quizItem) => {
-            // Iterate over each item in the `data` array of each `quizItem`
-            for (let i = 0; i < quizItem.data.length; i += 2) {
-                const value = quizItem.data[i].value;
-                const pair = quizItem.data.filter((item) => item.value === value).slice(0, 2); // Only take the first two
-                if (pair.length === 2) {
-                    acc.push({ id: idCounter++, pair }); // Add each pair with a unique `id`
+    const prepareQuiz = useCallback((quizData: MemoryMatchQuizItem[]) => {
+        let idCounter = 0;
+        const groupedPairs: { id: number; pair: MemoryMatchCard[] }[] = quizData.reduce(
+            (acc: { id: number; pair: MemoryMatchCard[] }[], quizItem) => {
+                for (let i = 0; i < quizItem.data.length; i += 2) {
+                    const value = quizItem.data[i].value;
+                    const pair = quizItem.data.filter((item) => item.value === value).slice(0, 2);
+                    if (pair.length === 2) {
+                        acc.push({ id: idCounter++, pair });
+                    }
                 }
-            }
-            return acc;
-        }, []);
+                return acc;
+            },
+            []
+        );
 
-        // Step 2: Shuffle the combined grouped pairs to randomize them
         const shuffledPairs = ShuffleArray([...groupedPairs]);
+        const selectedTexts = new Set<string>();
+        const selectedPairs: { id: number; pair: MemoryMatchCard[] }[] = [];
 
-        // Step 3: Keep track of selected texts to avoid duplicates (but allow the same `value` across different pairs)
-        const selectedTexts = new Set();
-        const selectedPairs = [];
-
-        // Step 4: Loop through the shuffled pairs and select 8 pairs, while filtering out pairs with duplicate texts
         for (const { id, pair } of shuffledPairs) {
             const [first, second] = pair;
-
-            // Check if either text has already been used
             if (!selectedTexts.has(first.text) && !selectedTexts.has(second.text)) {
-                // Add both texts to the selectedTexts set
                 selectedTexts.add(first.text);
                 selectedTexts.add(second.text);
-
-                // Add the pair (with its id) to the selectedPairs array
                 selectedPairs.push({ id, pair });
-
-                // Stop once we have 8 pairs
                 if (selectedPairs.length === 8) break;
             }
         }
 
-        // Step 5: Duplicate and shuffle the selected pairs to form the memory match cards
-        const quizCards = ShuffleArray(
+        const quizCards: ShuffledCard[] = ShuffleArray(
             selectedPairs.flatMap(({ id, pair }) => [
-                { ...pair[0], id: id * 2 }, // Create a unique id for each card based on the pair's unique `id`
-                { ...pair[1], id: id * 2 + 1 }, // Duplicate the matching pair with a different id
+                { ...pair[0], id: id * 2 },
+                { ...pair[1], id: id * 2 + 1 },
             ])
         );
 
-        // Step 6: Set the state with the new set of shuffled cards
         setShuffledQuiz(quizCards);
         setFlippedCards([]);
         setMatchedCards([]);
         setFeedback(null);
     }, []);
 
-    // Prepare quiz data when the component loads
     useEffect(() => {
         if (quiz && quiz.length > 0) {
             prepareQuiz(quiz);
         }
     }, [quiz, prepareQuiz]);
 
-    // Handle card click logic
-    const handleCardClick = (card) => {
+    const handleCardClick = (card: ShuffledCard) => {
         if (!hasStarted) {
             setHasStarted(true);
-            startTimer(); // Start the timer immediately on the first card click
+            startTimer();
         }
-
         if (
             flippedCards.length < 2 &&
             !flippedCards.includes(card.id) &&
@@ -104,7 +112,6 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
         }
     };
 
-    // Logic to check matching cards
     useEffect(() => {
         if (flippedCards.length === 2) {
             setIsChecking(true);
@@ -112,10 +119,8 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                 const [firstCardId, secondCardId] = flippedCards;
                 const firstCard = shuffledQuiz.find((card) => card.id === firstCardId);
                 const secondCard = shuffledQuiz.find((card) => card.id === secondCardId);
-
-                // Compare using the pair's `id` instead of the `value`
+                if (!firstCard || !secondCard) return;
                 if (Math.floor(firstCard.id / 2) === Math.floor(secondCard.id / 2)) {
-                    // Cards belong to the same pair, so it's a match
                     setMatchedCards((prev) => [...prev, firstCardId, secondCardId]);
                     setCardFeedback((prev) => ({
                         ...prev,
@@ -123,30 +128,28 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                         [secondCardId]: "correctPair",
                     }));
                 } else {
-                    // Cards do not belong to the same pair
                     setCardFeedback((prev) => ({
                         ...prev,
                         [firstCardId]: "incorrectPair",
                         [secondCardId]: "incorrectPair",
                     }));
                 }
-
                 setTimeout(() => {
                     setFlippedCards([]);
                     setIsChecking(false);
                     setCardFeedback((prev) => {
-                        // Clear feedback only for incorrect pairs
-                        const updatedFeedback = { ...prev };
-                        delete updatedFeedback[firstCardId];
-                        delete updatedFeedback[secondCardId];
-                        return updatedFeedback;
+                        return Object.fromEntries(
+                            Object.entries(prev).filter(
+                                ([key]) =>
+                                    Number(key) !== firstCardId && Number(key) !== secondCardId
+                            )
+                        );
                     });
                 }, 1000);
             }, 900);
         }
     }, [flippedCards, shuffledQuiz]);
 
-    // Check if all matches are completed
     useEffect(() => {
         if (matchedCards.length === shuffledQuiz.length && shuffledQuiz.length > 0) {
             clearTimer();
@@ -156,7 +159,6 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
         }
     }, [matchedCards, shuffledQuiz, onMatchFinished, clearTimer]);
 
-    // Handle quit action
     const handleQuit = () => {
         clearTimer();
         onQuit();
@@ -233,14 +235,6 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
             </div>
         </>
     );
-};
-
-MemoryMatch.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    timer: PropTypes.number.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
-    onMatchFinished: PropTypes.func.isRequired,
 };
 
 export default MemoryMatch;
