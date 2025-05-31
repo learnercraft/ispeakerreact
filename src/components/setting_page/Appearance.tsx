@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../../utils/ThemeContext/useTheme";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import useTheme from "../../utils/ThemeContext/useTheme.js";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
 import { LuSunMoon } from "react-icons/lu";
 
-const themeOptions = {
+const themeOptions: Record<string, { labelKey: string; icon: React.ReactNode }> = {
     auto: {
         labelKey: "settingPage.appearanceSettings.themeAuto",
         icon: <LuSunMoon className="h-5 w-5" />,
@@ -23,7 +23,7 @@ const AppearanceSettings = () => {
     const { t } = useTranslation();
     const { theme, setTheme } = useTheme();
 
-    const handleThemeSelect = (selectedTheme) => {
+    const handleThemeSelect = (selectedTheme: string) => {
         setTheme(selectedTheme);
         sonnerSuccessToast(t("settingPage.changeSaved"));
     };
@@ -50,7 +50,6 @@ const AppearanceSettings = () => {
                                     type="button"
                                     onClick={() => handleThemeSelect(key)}
                                     className={`${theme === key ? "menu-active" : ""} flex items-center justify-start gap-2`}
-                                    aria-pressed={theme === key}
                                 >
                                     {icon} {t(labelKey)}
                                 </a>
