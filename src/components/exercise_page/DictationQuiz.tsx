@@ -1,36 +1,51 @@
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import useCountdownTimer from "../../utils/useCountdownTimer";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
-const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answer, setAnswer] = useState("");
-    const [showValidation, setShowValidation] = useState(false);
-    const [validationVariant, setValidationVariant] = useState("danger");
-    const [validationMessage, setValidationMessage] = useState("");
-    const [isTextboxDisabled, setIsTextboxDisabled] = useState(false);
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [isSubmitButtonEnabled, setIsSubmitButtonEnabled] = useState(false);
-    const [hasAnswered, setHasAnswered] = useState(false);
+type DictationWord = { textbox: string; level?: string } | { value: string };
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+interface DictationQuizItem {
+    words: DictationWord[];
+    audio: { src: string };
+    type?: string;
+}
+
+interface DictationQuizProps {
+    quiz: DictationQuizItem[];
+    timer: number;
+    onAnswer: (isCorrect: boolean, mode: string) => void;
+    onQuit: () => void;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: DictationQuizProps) => {
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+    const [answer, setAnswer] = useState<string>("");
+    const [showValidation, setShowValidation] = useState<boolean>(false);
+    const [validationVariant, setValidationVariant] = useState<"success" | "danger">("danger");
+    const [validationMessage, setValidationMessage] = useState<string>("");
+    const [isTextboxDisabled, setIsTextboxDisabled] = useState<boolean>(false);
+    const [shuffledQuiz, setShuffledQuiz] = useState<DictationQuizItem[]>([]);
+    const [isSubmitButtonEnabled, setIsSubmitButtonEnabled] = useState<boolean>(false);
+    const [hasAnswered, setHasAnswered] = useState<boolean>(false);
+
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
     );
 
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const { t } = useTranslation();
 
-    const filterAndShuffleQuiz = (quiz) => {
+    const filterAndShuffleQuiz = (quiz: DictationQuizItem[]): DictationQuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return _.shuffle(uniqueQuiz);
     };
@@ -57,11 +72,15 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    ) => {
         e.preventDefault();
         if (!shuffledQuiz[currentQuestionIndex]) return;
 
-        const textboxWord = shuffledQuiz[currentQuestionIndex].words.find((word) => word.textbox);
+        const textboxWord = shuffledQuiz[currentQuestionIndex].words.find(
+            (word): word is { textbox: string } => "textbox" in word
+        );
         if (!textboxWord) {
             console.error("No textbox found in the current question.");
             return;
@@ -164,10 +183,11 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
 
         // Check if the current word has both `value` and `textbox`
         const hasValueAndTextbox =
-            currentWords.some((w) => w.value) && currentWords.some((w) => w.textbox);
+            currentWords.some((w): w is { value: string } => "value" in w) &&
+            currentWords.some((w): w is { textbox: string } => "textbox" in w);
 
         return currentWords.map((word, index) => {
-            if (word.value) {
+            if ("value" in word) {
                 return (
                     <span lang="en" className="mx-2" key={index}>
                         {word.value}
@@ -175,7 +195,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                 );
             }
 
-            if (word.textbox) {
+            if ("textbox" in word) {
                 const isCorrect = answer.trim().toLowerCase() === word.textbox.toLowerCase();
 
                 return (
@@ -299,14 +319,6 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-DictationQuiz.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    timer: PropTypes.number.isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default DictationQuiz;
