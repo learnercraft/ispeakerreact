@@ -5,6 +5,8 @@ import {
     closestCenter,
     useSensor,
     useSensors,
+    type DragStartEvent,
+    type DragEndEvent,
 } from "@dnd-kit/core";
 import {
     SortableContext,
@@ -14,13 +16,37 @@ import {
 } from "@dnd-kit/sortable";
 import he from "he";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import useCountdownTimer from "../../utils/useCountdownTimer";
-import SortableWord from "./SortableWord";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
+import SortableWord from "./SortableWord.js";
+
+// Types inferred from exercise_sorting.json
+export interface RowOption {
+    value: string;
+    columnPos: number;
+    id: string;
+}
+
+export interface TableHeading {
+    text: string;
+}
+
+export interface QuizItem {
+    tableHeading: TableHeading[];
+    rowOptions: RowOption[];
+}
+
+export interface SortingExerciseProps {
+    quiz: QuizItem[];
+    onAnswer: (correctCount: number, type: string, total: number) => void;
+    onQuit: () => void;
+    useHorizontalStrategy?: boolean;
+    timer: number;
+    setTimeIsUp: (isUp: boolean) => void;
+}
 
 const SortingExercise = ({
     quiz,
@@ -29,15 +55,15 @@ const SortingExercise = ({
     useHorizontalStrategy = false,
     timer,
     setTimeIsUp,
-}) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [itemsLeft, setItemsLeft] = useState([]);
-    const [itemsRight, setItemsRight] = useState([]);
-    const [activeId, setActiveId] = useState(null);
-    const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [currentTableHeading, setCurrentTableHeading] = useState([]);
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [hasSubmitted, setHasSubmitted] = useState(false);
+}: SortingExerciseProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [itemsLeft, setItemsLeft] = useState<RowOption[]>([]);
+    const [itemsRight, setItemsRight] = useState<RowOption[]>([]);
+    const [activeId, setActiveId] = useState<string | null>(null);
+    const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+    const [currentTableHeading, setCurrentTableHeading] = useState<TableHeading[]>([]);
+    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
@@ -53,19 +79,19 @@ const SortingExercise = ({
 
     const sensors = useSensors(useSensor(PointerSensor));
 
-    const filterAndShuffleQuiz = useCallback((quiz) => {
+    const filterAndShuffleQuiz = useCallback((quiz: QuizItem[]): QuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     }, []);
 
-    const generateUniqueItems = (items) => {
+    const generateUniqueItems = (items: Omit<RowOption, "id">[]): RowOption[] => {
         return items.map((item, index) => ({
             ...item,
             id: `${item.value}-${index}-${Math.random().toString(36).substring(2, 11)}`,
         }));
     };
 
-    const loadQuiz = useCallback((quizData) => {
+    const loadQuiz = useCallback((quizData: QuizItem) => {
         const shuffledOptions = ShuffleArray([...quizData.rowOptions]);
         const uniqueItems = generateUniqueItems(shuffledOptions);
 
@@ -94,11 +120,11 @@ const SortingExercise = ({
         }
     }, [shuffledQuiz, currentQuestionIndex, loadQuiz]);
 
-    const handleDragStart = (event) => {
-        setActiveId(event.active.id);
+    const handleDragStart = (event: DragStartEvent) => {
+        setActiveId(event.active.id as string);
     };
 
-    const handleDragEnd = (event) => {
+    const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         if (!over) {
             setActiveId(null);
@@ -175,6 +201,16 @@ const SortingExercise = ({
         ? horizontalListSortingStrategy
         : verticalListSortingStrategy;
 
+    interface SortableColumnProps {
+        items: RowOption[];
+        heading?: TableHeading;
+        columnPos: number;
+        sortableStrategy: typeof horizontalListSortingStrategy | typeof verticalListSortingStrategy;
+        hasSubmitted: boolean;
+        buttonsDisabled: boolean;
+        t: (key: string) => string;
+    }
+
     const SortableColumn = ({
         items,
         heading,
@@ -183,7 +219,7 @@ const SortingExercise = ({
         hasSubmitted,
         buttonsDisabled,
         t,
-    }) => (
+    }: SortableColumnProps) => (
         <div className="w-full justify-center lg:w-4/5 xl:w-3/5">
             <div className="text-center font-semibold">
                 {heading && (
@@ -197,7 +233,7 @@ const SortingExercise = ({
             </div>
             <div className="divider divider-accent mt-0 mb-2"></div>
             <div className="flex flex-col items-center gap-4">
-                <SortableContext items={items} strategy={sortableStrategy}>
+                <SortableContext items={items.map((item) => item.id)} strategy={sortableStrategy}>
                     {items.length > 0 ? (
                         items.map((item) => (
                             <SortableWord
@@ -218,25 +254,6 @@ const SortingExercise = ({
             </div>
         </div>
     );
-
-    SortingExercise.propTypes = {
-        quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-        onAnswer: PropTypes.func.isRequired,
-        onQuit: PropTypes.func.isRequired,
-        useHorizontalStrategy: PropTypes.bool,
-        timer: PropTypes.number.isRequired,
-        setTimeIsUp: PropTypes.func.isRequired,
-    };
-
-    SortableColumn.propTypes = {
-        items: PropTypes.arrayOf(PropTypes.object).isRequired,
-        heading: PropTypes.object,
-        columnPos: PropTypes.number.isRequired,
-        sortableStrategy: PropTypes.func.isRequired,
-        hasSubmitted: PropTypes.bool.isRequired,
-        buttonsDisabled: PropTypes.bool.isRequired,
-        t: PropTypes.func.isRequired,
-    };
 
     return (
         <>
@@ -280,14 +297,20 @@ const SortingExercise = ({
                         ))}
 
                         <DragOverlay>
-                            {activeId ? (
-                                <SortableWord
-                                    item={itemsLeft
-                                        .concat(itemsRight)
-                                        .find((item) => item.id === activeId)}
-                                    isOverlay
-                                />
-                            ) : null}
+                            {activeId
+                                ? (() => {
+                                      const foundItem = itemsLeft
+                                          .concat(itemsRight)
+                                          .find((item) => item.id === activeId);
+                                      return foundItem ? (
+                                          <SortableWord
+                                              item={foundItem}
+                                              isOverlay
+                                              isCorrect={null}
+                                          />
+                                      ) : null;
+                                  })()
+                                : null}
                         </DragOverlay>
                     </DndContext>
                 </div>
