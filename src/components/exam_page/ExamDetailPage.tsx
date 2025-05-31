@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, FC } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoChevronBackOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { MdChecklist, MdHeadphones, MdKeyboardVoice, MdOutlineOndemandVideo } from "react-icons/md";
@@ -93,7 +93,7 @@ export interface ExamDetailPageProps {
     accent: "british" | "american";
 }
 
-const ExamDetailPage: FC<ExamDetailPageProps> = ({ id, title, onBack, accent }) => {
+const ExamDetailPage= ({ id, title, onBack, accent }: ExamDetailPageProps) => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 

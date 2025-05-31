@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 interface PaginationProps {
     currentPage: number;
     totalPages: number;
@@ -8,13 +6,13 @@ interface PaginationProps {
     scrollTo: (options?: { behavior: string }) => void;
 }
 
-const Pagination: FC<PaginationProps> = ({
+const Pagination = ({
     currentPage,
     totalPages,
     onPageChange,
     t,
     scrollTo,
-}) => {
+}: PaginationProps) => {
     const goToPage = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             onPageChange(page);

@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useRef, useState, FC } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container.js";
@@ -31,7 +31,7 @@ type AccentLocalStorageReturn = [string, (accent: string) => void];
 
 const ConversationDetailPage = lazy(() => import("./ConversationDetailPage.js"));
 
-const ConversationListPage: FC = () => {
+const ConversationListPage = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<ConversationSection[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -76,7 +76,7 @@ const ConversationListPage: FC = () => {
         onClick: () => void;
     }
 
-    const TooltipIcon: FC<TooltipIconProps> = ({ info, onClick }) => (
+    const TooltipIcon = ({ info, onClick }: TooltipIconProps) => (
         <>
             {/* Tooltip for larger screens */}
             <div
@@ -104,7 +104,7 @@ const ConversationListPage: FC = () => {
         onShowModal: (info: string) => void;
     }
 
-    const ConversationCard: FC<ConversationCardProps> = ({ heading, titles, onShowModal }) => (
+    const ConversationCard = ({ heading, titles, onShowModal }: ConversationCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
                 <div className="card-title font-semibold">{t(heading)}</div>

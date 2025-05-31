@@ -22,13 +22,13 @@ interface SortableWordProps {
     isOverlay?: boolean;
 }
 
-const SortableWord: React.FC<SortableWordProps> = ({
+const SortableWord = ({
     word,
     item,
     isCorrect,
     disabled = false,
     isOverlay = false,
-}) => {
+}: SortableWordProps) => {
     const [itemWidth, setItemWidth] = useState<number | null>(null);
     const ref = React.useRef<HTMLButtonElement | null>(null);
 
@@ -56,10 +56,10 @@ const SortableWord: React.FC<SortableWordProps> = ({
     const btnVariant = isOverlay
         ? ""
         : isCorrect === null
-          ? "btn-outline"
-          : isCorrect
-            ? "btn-success"
-            : "btn-error";
+            ? "btn-outline"
+            : isCorrect
+                ? "btn-success"
+                : "btn-error";
 
     const renderTrueFalseIcon = () => {
         if (isOverlay || isCorrect === null) return null;
@@ -80,9 +80,8 @@ const SortableWord: React.FC<SortableWordProps> = ({
             style={style}
             {...attributes}
             {...listeners}
-            className={`btn btn-lg no-animation break-all transition-none ${btnVariant} text-lg ${item ? "min-w-full" : ""} ${
-                isDragging && !disabled ? "opacity-50" : ""
-            } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
+            className={`btn btn-lg no-animation break-all transition-none ${btnVariant} text-lg ${item ? "min-w-full" : ""} ${isDragging && !disabled ? "opacity-50" : ""
+                } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
         >
             <span lang="en">{he.decode(word?.text || item?.value || "")}</span>
             {renderTrueFalseIcon()}
@@ -90,9 +89,8 @@ const SortableWord: React.FC<SortableWordProps> = ({
     ) : (
         <button
             type="button"
-            className={`btn btn-lg no-animation w-full justify-center text-lg break-all transition-none ${
-                item ? "" : "lg:w-4/5 xl:w-3/4"
-            } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
+            className={`btn btn-lg no-animation w-full justify-center text-lg break-all transition-none ${item ? "" : "lg:w-4/5 xl:w-3/4"
+                } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
         >
             <p className="text-center font-bold" lang="en">
                 {he.decode(word?.text || item?.value || "")} {renderTrueFalseIcon()}

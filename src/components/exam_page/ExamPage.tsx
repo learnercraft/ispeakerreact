@@ -37,7 +37,7 @@ interface ExamCardProps {
 
 const ExamDetailPage = lazy(() => import("./ExamDetailPage.js"));
 
-const ExamPage: React.FC = () => {
+const ExamPage = () => {
     const { t } = useTranslation();
 
     const [data, setData] = useState<ExamSection[]>([]);
@@ -74,7 +74,7 @@ const ExamPage: React.FC = () => {
         }
     };
 
-    const TooltipIcon: React.FC<TooltipIconProps> = ({ exam_popup }: TooltipIconProps) => {
+    const TooltipIcon = ({ exam_popup }: TooltipIconProps) => {
         const lines = t(exam_popup, { returnObjects: true }) as string | string[];
         const tooltipArray = Array.isArray(lines) ? lines : [lines];
         const tooltipText = tooltipArray.map((line, index) => <p key={index}>{line}</p>);
@@ -103,7 +103,7 @@ const ExamPage: React.FC = () => {
         );
     };
 
-    const ExamCard: React.FC<ExamCardProps> = ({ heading, titles }: ExamCardProps) => (
+    const ExamCard = ({ heading, titles }: ExamCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
             <div className="card-body grow">
                 <div className="card-title font-semibold">{t(heading)}</div>
