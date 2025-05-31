@@ -28,6 +28,6 @@
             "~/*": ["./*"]
         }
     },
-    "include": ["src/ui", "src/electron"],
+    "include": ["src/frontend", "src/electron"],
     "exclude": ["src/electron/tsconfig.electron.json"]
 }
