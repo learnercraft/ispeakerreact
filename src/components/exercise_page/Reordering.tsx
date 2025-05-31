@@ -6,32 +6,56 @@ import {
     closestCenter,
     useSensor,
     useSensors,
+    type DragStartEvent,
+    type DragEndEvent,
+    type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import he from "he";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import useCountdownTimer from "../../utils/useCountdownTimer";
-import SortableWord from "./SortableWord";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
+import SortableWord from "./SortableWord.js";
 
-const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [shuffledItems, setShuffledItems] = useState([]);
-    const [activeId, setActiveId] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [isLoading, setIsLoading] = useState(false); // Loading state for audio
-    const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [correctAnswer, setCorrectAnswer] = useState("");
-    const [currentSplitType, setCurrentSplitType] = useState("");
-    const [currentAudioSrc, setCurrentAudioSrc] = useState("");
-    const [shuffledQuizArray, setShuffledQuizArray] = useState([]);
+// Types for quiz data
+interface ReorderingQuizData {
+    data: { value: string }[];
+    answer: string[];
+    audio: { src: string };
+    split: "word" | "sentence" | string;
+}
+
+interface ReorderingProps {
+    quiz: ReorderingQuizData[];
+    onAnswer: (isCorrect: number, type: "single" | "multiple", total?: number) => void;
+    onQuit: () => void;
+    timer: number;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+interface ShuffledItem {
+    id: UniqueIdentifier;
+    value: string;
+    isCorrect?: boolean;
+}
+
+const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: ReorderingProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [shuffledItems, setShuffledItems] = useState<ShuffledItem[]>([]);
+    const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state for audio
+    const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [correctAnswer, setCorrectAnswer] = useState<string>("");
+    const [currentSplitType, setCurrentSplitType] = useState<string>("");
+    const [currentAudioSrc, setCurrentAudioSrc] = useState<string>("");
+    const [shuffledQuizArray, setShuffledQuizArray] = useState<ReorderingQuizData[]>([]);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
@@ -39,17 +63,16 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
     const { t } = useTranslation();
 
-    const filterAndShuffleQuiz = (quiz) => {
+    const filterAndShuffleQuiz = (quiz: ReorderingQuizData[]): ReorderingQuizData[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
-
         // Shuffle the unique items
         return ShuffleArray(uniqueQuiz);
     };
 
     // Use a ref to manage the audio element
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    const loadQuiz = useCallback((quizData) => {
+    const loadQuiz = useCallback((quizData: ReorderingQuizData) => {
         const splitType = quizData.split;
         setCurrentSplitType(splitType);
 
@@ -65,7 +88,7 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             .map((pair) => pair.answer)
             .join(splitType === "sentence" ? " " : "");
 
-        let itemsToShuffle;
+        let itemsToShuffle: string[];
         if (splitType === "sentence") {
             itemsToShuffle = shuffledWords[0].split(" "); // Split into words for sentences
         } else if (splitType === "word") {
@@ -127,16 +150,11 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         };
     }, []);
 
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(TouchSensor, {
-            preventScrolling: true,
-        })
-    );
+    const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
 
-    const generateUniqueItems = (items) => {
+    const generateUniqueItems = (items: string[]): ShuffledItem[] => {
         return items.map((item, index) => ({
-            id: `${item}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+            id: `${item}-${index}-${Math.random().toString(36).substr(2, 9)}` as UniqueIdentifier,
             value: item,
         }));
     };
@@ -160,7 +178,7 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             // Play the audio once it's ready
             audioRef.current.oncanplaythrough = () => {
                 setIsLoading(false); // Stop loading spinner
-                audioRef.current.play();
+                audioRef.current?.play();
                 setIsPlaying(true);
                 startTimer();
             };
@@ -180,15 +198,14 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     };
 
-    const handleDragStart = (event) => {
-        const { active } = event;
-        setActiveId(active.id);
+    const handleDragStart = (event: DragStartEvent) => {
+        setActiveId(event.active.id);
         startTimer();
     };
 
-    const handleDragEnd = ({ active, over }) => {
+    const handleDragEnd = (event: DragEndEvent) => {
         setActiveId(null);
-
+        const { active, over } = event;
         if (over && active.id !== over.id) {
             setShuffledItems((items) => {
                 const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -202,19 +219,19 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         const splitType = currentSplitType;
 
         // Join the shuffled items into a single string
-        let joinedItems = shuffledItems
+        const joinedItems = shuffledItems
             .map((item) => item.value)
             .join(splitType === "sentence" ? " " : "");
 
         // Normalize user answer
-        let normalizedUserAnswer = joinedItems
+        const normalizedUserAnswer = joinedItems
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
             .toLowerCase();
 
         // Normalize correct answer
-        let normalizedCorrectAnswer = correctAnswer
+        const normalizedCorrectAnswer = correctAnswer
             .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "") // Remove punctuation
             .replace(/\s{2,}/g, " ") // Replace multiple spaces with a single space
             .trim()
@@ -314,8 +331,8 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                         >
                             {shuffledItems.map((item) => (
                                 <SortableWord
-                                    key={item.id}
-                                    word={{ text: he.encode(item.value), id: item.id }}
+                                    key={String(item.id)}
+                                    word={{ text: he.encode(item.value), id: String(item.id) }}
                                     disabled={buttonsDisabled}
                                     isCorrect={item.isCorrect ?? null}
                                 />
@@ -324,15 +341,17 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                         <DragOverlay>
                             {activeId ? (
                                 <SortableWord
-                                    key={activeId}
+                                    key={String(activeId)}
                                     word={{
                                         text: he.encode(
-                                            shuffledItems.find((item) => item.id === activeId)
-                                                ?.value || ""
+                                            shuffledItems.find(
+                                                (item) => String(item.id) === String(activeId)
+                                            )?.value || ""
                                         ),
-                                        id: activeId,
+                                        id: String(activeId),
                                     }}
                                     isOverlay={true}
+                                    isCorrect={null}
                                 />
                             ) : null}
                         </DragOverlay>
@@ -383,14 +402,6 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-Reordering.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    timer: PropTypes.number.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default Reordering;
