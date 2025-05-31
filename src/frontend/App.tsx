@@ -3,21 +3,21 @@ import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import LoadingOverlay from "./components/general/LoadingOverlay.js";
 import NotFound from "./components/general/NotFound.js";
-import Homepage from "./components/Homepage.jsx";
-import ErrorBoundary from "./ErrorBoundary.jsx";
+import Homepage from "./components/Homepage.js";
+import ErrorBoundary from "./ErrorBoundary.js";
 import isElectron from "./utils/isElectron.js";
 import ThemeProvider from "./utils/ThemeContext/ThemeProvider.js";
 import useTheme from "./utils/ThemeContext/useTheme.js";
-import VersionUpdateDialog from "./components/general/VersionUpdateDialog.jsx";
+import VersionUpdateDialog from "./components/general/VersionUpdateDialog.js";
 import { useState, useEffect } from "react";
 
-const SoundList = lazy(() => import("./components/sound_page/SoundList.jsx"));
-const WordList = lazy(() => import("./components/word_page/WordList.jsx"));
-const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu.jsx"));
-const ExamPage = lazy(() => import("./components/exam_page/ExamPage.jsx"));
-const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage.jsx"));
-const SettingsPage = lazy(() => import("./components/setting_page/Settings.jsx"));
-const DownloadPage = lazy(() => import("./components/download_page/DownloadPage.jsx"));
+const SoundList = lazy(() => import("./components/sound_page/SoundList.js"));
+const WordList = lazy(() => import("./components/word_page/WordList.js"));
+const ConversationMenu = lazy(() => import("./components/conversation_page/ConversationMenu.js"));
+const ExamPage = lazy(() => import("./components/exam_page/ExamPage.js"));
+const ExercisePage = lazy(() => import("./components/exercise_page/ExercisePage.js"));
+const SettingsPage = lazy(() => import("./components/setting_page/Settings.js"));
+const DownloadPage = lazy(() => import("./components/download_page/DownloadPage.js"));
 
 const RouterComponent = isElectron() ? HashRouter : BrowserRouter;
 

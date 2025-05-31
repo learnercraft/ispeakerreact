@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import isElectron from "../isElectron.js";
-import ThemeProviderContext from "./ThemeProviderContext.jsx";
+import ThemeProviderContext from "./ThemeProviderContext.js";
 
 const ThemeProvider = ({
     children,
