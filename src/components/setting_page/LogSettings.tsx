@@ -1,11 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LuExternalLink } from "react-icons/lu";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
+
+interface LogSettings {
+    numOfLogs: number;
+    keepForDays: number;
+    logLevel: string;
+    logFormat: string;
+    maxLogSize: number;
+}
 
 const LogSettings = () => {
     const { t } = useTranslation();
-    const [, setFolderPath] = useState(null);
+    const [, setFolderPath] = useState<string | null>(null);
 
     const maxLogOptions = useMemo(
         () => [
@@ -73,7 +81,9 @@ const LogSettings = () => {
         let isMounted = true;
         async function fetchLogSettings() {
             try {
-                const settings = await window.electron.ipcRenderer.invoke("get-log-settings");
+                const settings = (await window.electron.ipcRenderer.invoke(
+                    "get-log-settings"
+                )) as LogSettings;
                 if (!isMounted) return;
                 // Find the corresponding options based on stored values
                 const initialMaxLog =
@@ -100,13 +110,17 @@ const LogSettings = () => {
 
     // Memoize the function so that it doesn't change on every render
     const handleApplySettings = useCallback(
-        (maxLogWrittenValue, deleteLogsOlderThanValue) => {
+        (maxLogWrittenValue: string, deleteLogsOlderThanValue: string) => {
             const selectedMaxLogOption = maxLogOptions.find(
                 (option) => option.value === maxLogWrittenValue
             );
             const selectedDeleteLogOption = deleteLogsOptions.find(
                 (option) => option.value === deleteLogsOlderThanValue
             );
+
+            if (!selectedMaxLogOption || !selectedDeleteLogOption) {
+                return;
+            }
 
             const electronSettings = {
                 numOfLogs: selectedMaxLogOption.numOfLogs,
@@ -121,7 +135,7 @@ const LogSettings = () => {
     );
 
     // Helper function to get the label based on the current value
-    const getLabel = (options, value) => {
+    const getLabel = (options: { value: string; label: string }[], value: string) => {
         const selectedOption = options.find((option) => option.value === value);
         return selectedOption ? selectedOption.label : value;
     };
@@ -129,7 +143,7 @@ const LogSettings = () => {
     const handleOpenLogFolder = async () => {
         // Send an IPC message to open the folder and get the folder path
         const logFolder = await window.electron.ipcRenderer.invoke("open-log-folder");
-        setFolderPath(logFolder); // Save the folder path in state
+        setFolderPath(logFolder as string); // Save the folder path in state
     };
 
     if (loading) {
