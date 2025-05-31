@@ -11,7 +11,7 @@ const getVideoFileDataIPC = (rootDir: string) => {
     ipcMain.handle("get-video-file-data", async () => {
         const jsonPath = isDev
             ? path.join(rootDir, "public", "json", "videoFilesInfo.json")
-            : path.join(rootDir, "dist-electron", "json", "videoFilesInfo.json");
+            : path.join(rootDir, "dist-react", "json", "videoFilesInfo.json");
         try {
             const jsonData = await fsPromises.readFile(jsonPath, "utf-8"); // Asynchronously read the JSON file
             return JSON.parse(jsonData); // Parse the JSON string and return it
