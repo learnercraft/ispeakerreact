@@ -1,7 +1,57 @@
+// Types for pronunciation checker install process
+
+export type PronunciationStepStatus = "pending" | "success" | "error";
+
+export interface PronunciationDependency {
+    name: string;
+    status: "pending" | "success" | "error" | "cancelled";
+    log?: string;
+}
+
+export interface PronunciationPythonStatus {
+    found: boolean;
+    version?: string | null;
+    stderr?: string;
+    log?: string;
+}
+
+export interface PronunciationModelStatus {
+    status: "pending" | "success" | "error" | "found" | "downloading" | string;
+    message?: string;
+    log?: string;
+}
+
+export interface PronunciationInstallStatus {
+    python?: PronunciationPythonStatus;
+    dependencies?: PronunciationDependency[];
+    model?: PronunciationModelStatus;
+    stderr?: string;
+    log?: string;
+    timestamp?: number;
+    // For legacy/IPC compatibility
+    found?: boolean;
+    version?: string | null;
+    deps?: PronunciationDependency[];
+    modelStatus?: string;
+    modelMessage?: string;
+    modelLog?: string;
+    pythonLog?: string;
+    dependencyLog?: string;
+}
+
 // Utility to calculate step statuses for pronunciation checker
-const getPronunciationStepStatuses = (pythonCheckResult, checking, error) => {
+export const getPronunciationStepStatuses = (
+    pythonCheckResult: PronunciationInstallStatus | null,
+    checking: boolean,
+    error: string | null
+): {
+    step1Status: PronunciationStepStatus;
+    step2Status: PronunciationStepStatus;
+    step3Status: PronunciationStepStatus;
+    deps: PronunciationDependency[] | undefined;
+} => {
     // Step 1: Checking Python installation
-    let step1Status = checking
+    const step1Status: PronunciationStepStatus = checking
         ? "pending"
         : error
           ? "error"
@@ -12,11 +62,14 @@ const getPronunciationStepStatuses = (pythonCheckResult, checking, error) => {
               : "pending";
 
     // Step 2: Installing dependencies
-    let step2Status = "pending";
-    let deps = pythonCheckResult && pythonCheckResult.deps;
+    let step2Status: PronunciationStepStatus = "pending";
+    const deps =
+        pythonCheckResult && Array.isArray(pythonCheckResult.deps)
+            ? pythonCheckResult.deps
+            : undefined;
     if (step1Status === "error") {
         step2Status = "error";
-    } else if (deps && Array.isArray(deps)) {
+    } else if (deps) {
         if (deps.some((dep) => dep.status === "error")) step2Status = "error";
         else if (deps.every((dep) => dep.status === "success")) step2Status = "success";
         else if (deps.some((dep) => dep.status === "pending")) step2Status = "pending";
@@ -25,7 +78,7 @@ const getPronunciationStepStatuses = (pythonCheckResult, checking, error) => {
     }
 
     // Step 3: Downloading phoneme model
-    let step3Status = "pending";
+    let step3Status: PronunciationStepStatus = "pending";
     if (step1Status === "error" || step2Status === "error") {
         step3Status = "error";
     } else if (pythonCheckResult && pythonCheckResult.modelStatus) {
@@ -47,23 +100,26 @@ const getPronunciationStepStatuses = (pythonCheckResult, checking, error) => {
 };
 
 // Utility to determine overall install state: 'not_installed', 'failed', or 'complete'
-const getPronunciationInstallState = (statusObj) => {
+export const getPronunciationInstallState = (
+    statusObj: PronunciationInstallStatus | null
+): "not_installed" | "failed" | "complete" => {
     if (!statusObj) return "not_installed";
     // Recursively check for any error/failed status
-    const hasErrorStatus = (obj) => {
+    const hasErrorStatus = (obj: unknown): boolean => {
         if (!obj || typeof obj !== "object") return false;
         if (Array.isArray(obj)) {
             return obj.some(hasErrorStatus);
         }
         for (const key in obj) {
+            const value = (obj as Record<string, unknown>)[key];
             if (
                 (key === "status" &&
-                    (obj[key] === "error" || obj[key] === "failed" || obj[key] === "cancelled")) ||
-                (key === "found" && obj[key] === false)
+                    (value === "error" || value === "failed" || value === "cancelled")) ||
+                (key === "found" && value === false)
             ) {
                 return true;
             }
-            if (typeof obj[key] === "object" && hasErrorStatus(obj[key])) {
+            if (typeof value === "object" && value !== null && hasErrorStatus(value)) {
                 return true;
             }
         }
@@ -82,5 +138,3 @@ const getPronunciationInstallState = (statusObj) => {
     }
     return "not_installed";
 };
-
-export { getPronunciationInstallState, getPronunciationStepStatuses };
