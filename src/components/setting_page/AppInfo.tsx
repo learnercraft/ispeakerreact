@@ -36,7 +36,7 @@ const AppInfo = () => {
         try {
             const now = Math.floor(Date.now() / 1000); // Current timestamp in seconds
             const savedResetTime = localStorage.getItem(RATE_LIMIT_KEY);
-            const resetTime = new Date(parseInt(savedResetTime, 10) * 1000).toLocaleString();
+            const resetTime = new Date(parseInt(savedResetTime || "0", 10) * 1000).toLocaleString();
 
             // If a reset time is stored and it's in the future, skip API request
             if (savedResetTime && now < parseInt(savedResetTime, 10)) {
@@ -87,7 +87,7 @@ const AppInfo = () => {
                     `Rate limit is low (${rateLimitRemaining} remaining). Skipping update check.`
                 );
                 const resetTimeFirst = new Date(
-                    parseInt(rateLimitReset + 5 * 3600, 10) * 1000
+                    parseInt((rateLimitReset + 5 * 3600).toString(), 10) * 1000
                 ).toLocaleString();
                 localStorage.setItem(RATE_LIMIT_KEY, (rateLimitReset + 5 * 3600).toString());
                 setAlertMessage(t("alert.rateLimited", { time: resetTimeFirst }));
@@ -147,6 +147,8 @@ const AppInfo = () => {
                     )}
                     <div>
                         <button
+                            type="button"
+                            title="Close"
                             className="btn btn-circle btn-ghost btn-sm"
                             onClick={() => setAlertVisible(false)}
                         >
