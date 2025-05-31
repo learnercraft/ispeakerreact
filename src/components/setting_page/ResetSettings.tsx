@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import isElectron from "../../utils/isElectron";
-import { sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import isElectron from "../../utils/isElectron.js";
+import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
 const ResetSettings = () => {
     const { t } = useTranslation();
@@ -9,10 +9,10 @@ const ResetSettings = () => {
     const [isResettingLocalStorage, setIsResettingLocalStorage] = useState(false);
     const [isResettingIndexedDb, setIsResettingIndexedDb] = useState(false);
 
-    const localStorageModal = useRef(null);
-    const indexedDbModal = useRef(null);
+    const localStorageModal = useRef<HTMLDialogElement | null>(null);
+    const indexedDbModal = useRef<HTMLDialogElement | null>(null);
 
-    const checkAndCloseDatabase = async (dbName) => {
+    const checkAndCloseDatabase = async (dbName: string) => {
         // Check if the database exists
         const databases = await window.indexedDB.databases();
         const exists = databases.some((db) => db.name === dbName);
@@ -25,7 +25,7 @@ const ResetSettings = () => {
         return new Promise((resolve) => {
             const dbRequest = window.indexedDB.open(dbName);
             dbRequest.onsuccess = (event) => {
-                const db = event.target.result;
+                const db = (event.target as IDBOpenDBRequest).result;
                 db.close();
                 resolve(true); // Database exists and is closed
             };
