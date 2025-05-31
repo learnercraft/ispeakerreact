@@ -1,24 +1,23 @@
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
 import { LuExternalLink } from "react-icons/lu";
-import isElectron from "../../utils/isElectron";
-import VideoDownloadTable from "./VideoDownloadTable";
+import isElectron from "../../utils/isElectron.js";
+import VideoDownloadTable, { VideoFileData, DownloadStatus } from "./VideoDownloadTable.js";
 
-const VideoDownloadSubPage = ({ onGoBack }) => {
+const VideoDownloadSubPage = ({ onGoBack }: { onGoBack: () => void }) => {
     const { t } = useTranslation();
 
-    const [, setFolderPath] = useState(null);
-    const [zipFileData, setZipFileData] = useState([]);
-    const [isDownloaded, setIsDownloaded] = useState([]);
+    const [, setFolderPath] = useState<string | null>(null);
+    const [zipFileData, setZipFileData] = useState<VideoFileData[]>([]);
+    const [isDownloaded, setIsDownloaded] = useState<DownloadStatus[]>([]);
     const [tableLoading, setTableLoading] = useState(true);
 
     const handleOpenFolder = async () => {
         // Send an IPC message to open the folder and get the folder path
         const videoFolder = await window.electron.ipcRenderer.invoke("get-video-save-folder");
-        setFolderPath(videoFolder); // Save the folder path in state
+        setFolderPath(videoFolder as string); // Save the folder path in state
     };
 
     // Fetch JSON data from Electron's main process via IPC when component mounts
@@ -26,10 +25,12 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
         const fetchData = async () => {
             try {
                 const data = await window.electron.ipcRenderer.invoke("get-video-file-data");
-                setZipFileData(data); // Set the JSON data into the state
+                setZipFileData(data as VideoFileData[]); // Set the JSON data into the state
             } catch (error) {
                 console.error("Error reading JSON file:", error); // Handle any error
-                isElectron() && window.electron.log("error", `Error reading JSON file: ${error}`);
+                if (isElectron()) {
+                    window.electron.log("error", `Error reading JSON file: ${error}`);
+                }
             }
         };
 
@@ -39,32 +40,41 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
     const checkDownloadedFiles = useCallback(async () => {
         try {
             const downloadedFiles = await window.electron.ipcRenderer.invoke("check-downloads");
-            console.log("Downloaded files in folder:", downloadedFiles);
-            isElectron() &&
-                window.electron.log("log", `Downloaded files in folder: ${downloadedFiles}`);
+            let downloadedList: string[] = [];
+            if (Array.isArray(downloadedFiles)) {
+                downloadedList = downloadedFiles as string[];
+            } else if (typeof downloadedFiles === "string") {
+                // If the string is "no zip files downloaded", treat as empty
+                downloadedList = [];
+            }
+            if (isElectron()) {
+                window.electron.log("log", `Downloaded files in folder: ${downloadedList}`);
+            }
 
             // Initialize fileStatus as an array to hold individual statuses
-            const newFileStatus = [];
+            const newFileStatus: DownloadStatus[] = [];
 
             for (const item of zipFileData) {
-                let extractedFolderExists;
+                let extractedFolderExists = false;
                 try {
-                    extractedFolderExists = await window.electron.ipcRenderer.invoke(
+                    const result = await window.electron.ipcRenderer.invoke(
                         "check-extracted-folder",
                         item.zipFile.replace(".7z", ""),
                         item.zipContents
                     );
+                    extractedFolderExists = Boolean(result);
                 } catch (error) {
                     console.error(`Error checking extracted folder for ${item.zipFile}:`, error);
-                    isElectron() &&
+                    if (isElectron()) {
                         window.electron.log(
                             "error",
                             `Error checking extracted folder for ${item.zipFile}: ${error}`
                         );
+                    }
                     extractedFolderExists = false; // Default to false if there's an error
                 }
 
-                const isDownloadedFile = downloadedFiles.includes(item.zipFile);
+                const isDownloadedFile = downloadedList.includes(item.zipFile);
                 newFileStatus.push({
                     zipFile: item.zipFile,
                     isDownloaded: isDownloadedFile,
@@ -77,11 +87,12 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             console.log(newFileStatus);
         } catch (error) {
             console.error("Error checking downloaded or extracted files:", error);
-            isElectron() &&
+            if (isElectron()) {
                 window.electron.log(
                     "error",
                     `Error checking downloaded or extracted files: ${error}`
                 );
+            }
         }
     }, [zipFileData]);
 
@@ -92,11 +103,11 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
         }
     }, [zipFileData, checkDownloadedFiles]);
 
+    // i18next returns $SpecialObject for returnObjects: true, so cast to string[]
     const localizedInstructionStep = t("settingPage.videoDownloadSettings.steps", {
         returnObjects: true,
-    });
-
-    const stepCount = localizedInstructionStep.length;
+    }) as string[];
+    const stepCount = Array.isArray(localizedInstructionStep) ? localizedInstructionStep.length : 0;
     const stepKeys = Array.from(
         { length: stepCount },
         (_, i) => `settingPage.videoDownloadSettings.steps.${i}`
@@ -174,10 +185,6 @@ const VideoDownloadSubPage = ({ onGoBack }) => {
             )}
         </div>
     );
-};
-
-VideoDownloadSubPage.propTypes = {
-    onGoBack: PropTypes.func.isRequired,
 };
 
 export default VideoDownloadSubPage;
