@@ -3,8 +3,7 @@ import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next";
 import { BsChevronLeft } from "react-icons/bs";
 import { PiArrowsCounterClockwise } from "react-icons/pi";
-import LoadingOverlay from "../general/LoadingOverlay";
-import PropTypes from "prop-types";
+import LoadingOverlay from "../general/LoadingOverlay.js";
 
 // Emoji SVGs import
 import seedlingEmoji from "../../emojiSvg/emoji_u1f331.svg";
@@ -16,24 +15,49 @@ import rocketEmoji from "../../emojiSvg/emoji_u1f680.svg";
 import railwayPathEmoji from "../../emojiSvg/emoji_u1f6e4.svg";
 
 // Lazy load the quiz components
-const DictationQuiz = lazy(() => import("./DictationQuiz"));
-const MatchUp = lazy(() => import("./MatchUp"));
-const Reordering = lazy(() => import("./Reordering"));
-const SoundAndSpelling = lazy(() => import("./SoundAndSpelling"));
-const SortingExercise = lazy(() => import("./SortingExercise"));
-const OddOneOut = lazy(() => import("./OddOneOut"));
-const Snap = lazy(() => import("./Snap"));
-const MemoryMatch = lazy(() => import("./MemoryMatch"));
+const DictationQuiz = lazy(() => import("./DictationQuiz.js"));
+const MatchUp = lazy(() => import("./MatchUp.js"));
+const Reordering = lazy(() => import("./Reordering.js"));
+const SoundAndSpelling = lazy(() => import("./SoundAndSpelling.js"));
+const SortingExercise = lazy(() => import("./SortingExercise.js"));
+const OddOneOut = lazy(() => import("./OddOneOut.js"));
+const Snap = lazy(() => import("./Snap.js"));
+const MemoryMatch = lazy(() => import("./MemoryMatch.js"));
 
-const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
-    const [instructions, setInstructions] = useState([]);
-    const [quiz, setQuiz] = useState([]);
-    const [split] = useState("");
+import type { DictationQuizItem } from "./DictationQuiz.js";
+import type { MatchUpQuizItem } from "./MatchUp.js";
+import type { ReorderingQuizData } from "./Reordering.js";
+import type { SoundAndSpellingQuizItem } from "./SoundAndSpelling.js";
+import type { SortingQuizItem } from "./SortingExercise.js";
+import type { OddOneOutQuestion } from "./OddOneOut.js";
+import type { SnapQuizItem } from "./Snap.js";
+import type { MemoryMatchQuizItem } from "./MemoryMatch.js";
+
+// Define the props type for ExerciseDetailPage
+interface ExerciseDetailPageProps {
+    heading: string;
+    id: string | number;
+    title: string;
+    accent: string;
+    file: string;
+    onBack: () => void;
+}
+
+const ExerciseDetailPage = ({
+    heading,
+    id,
+    title,
+    accent,
+    file,
+    onBack,
+}: ExerciseDetailPageProps) => {
+    const [instructions, setInstructions] = useState<string[]>([]);
+    const [quiz, setQuiz] = useState<Record<string, unknown>[]>([]);
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [totalAnswered, setTotalAnswered] = useState(0);
     const [currentExerciseType, setCurrentExerciseType] = useState("");
-    const [timer, setTimer] = useState(null);
+    const [timer, setTimer] = useState<number>(0);
     const [timeIsUp, setTimeIsUp] = useState(false);
     const [onMatchFinished, setOnMatchFinished] = useState(false); // Track if all cards in Memory Match are matched
 
@@ -41,47 +65,63 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
 
     const { t } = useTranslation();
 
-    const instructionModal = useRef(null);
+    const instructionModal = useRef<HTMLDialogElement | null>(null);
 
-    const getInstructionKey = (exerciseKey, exerciseId) => {
+    // Use interface instead of type for ExerciseDetailsType
+    interface ExerciseDetailsType {
+        id: string | number;
+        split?: string;
+        type?: string;
+        british_american?: ExerciseDetailsType[];
+        american?: ExerciseDetailsType[];
+        british?: ExerciseDetailsType[];
+        quiz?: Record<string, unknown>[];
+        instructions?: string[];
+        exercise?: string;
+    }
+    type ExerciseDataType = Record<string, ExerciseDetailsType[]>;
+
+    const getInstructionKey = (exerciseKey: string, exerciseId: string | number) => {
         if (exerciseKey === "sound_n_spelling")
             return `exercise_page.exerciseInstruction.sound_n_spelling.sound`;
         return `exercise_page.exerciseInstruction.${exerciseKey}.${exerciseId}`;
     };
 
     const fetchInstructions = useCallback(
-        (exerciseKey, exerciseId, ipaSound) => {
+        (exerciseKey: string, exerciseId: string | number, ipaSound?: string) => {
             const instructionKey = getInstructionKey(exerciseKey, exerciseId);
             const instructions = t(instructionKey, {
                 ipaSound: ipaSound || "",
                 returnObjects: true,
             });
-            return Array.isArray(instructions) ? instructions : []; // Ensure it's always an array
+            return Array.isArray(instructions) ? instructions : [];
         },
         [t]
     );
 
     // Helper function to handle the exercise data logic (setting quiz, instructions, etc.)
     const handleExerciseData = useCallback(
-        (exerciseDetails, data, exerciseKey) => {
-            const savedSettings = JSON.parse(localStorage.getItem("ispeaker"));
+        (exerciseDetails: ExerciseDetailsType, data: ExerciseDataType, exerciseKey: string) => {
+            const savedSettings = localStorage.getItem("ispeaker")
+                ? JSON.parse(localStorage.getItem("ispeaker") as string)
+                : undefined;
             const fixedTimers = {
                 memory_match: 4,
                 snap: 2,
-            };
+            } as const;
             const timerValue =
-                fixedTimers[exerciseKey] ??
+                fixedTimers[exerciseKey as keyof typeof fixedTimers] ??
                 ((savedSettings?.timerSettings?.enabled === true &&
                     savedSettings?.timerSettings?.[exerciseKey]) ||
                     0);
 
             setTimer(timerValue);
 
-            let selectedAccentData;
-            let combinedQuizzes = [];
+            let selectedAccentData: ExerciseDetailsType | undefined;
+            const combinedQuizzes: Record<string, unknown>[] = [];
 
             const ipaSound =
-                (exerciseKey === "sound_n_spelling" && exerciseDetails.exercise.trim()) || "";
+                (exerciseKey === "sound_n_spelling" && exerciseDetails.exercise?.trim()) || "";
             const loadInstructions = fetchInstructions(exerciseKey, id, ipaSound);
 
             if (id === "random") {
@@ -96,10 +136,10 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                                     : exercise.british?.[0];
                         }
 
-                        if (selectedAccentData) {
+                        if (selectedAccentData && selectedAccentData.quiz) {
                             combinedQuizzes.push(
                                 ...selectedAccentData.quiz.map((quiz) => ({
-                                    ...quiz,
+                                    ...(quiz as Record<string, unknown>),
                                     split: exercise.split,
                                     type: exercise.type,
                                 }))
@@ -108,9 +148,12 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                     }
                 });
 
+                // Remove duplicates and shuffle
                 const uniqueShuffledCombinedQuizzes = _.shuffle(
-                    Array.from(new Set(combinedQuizzes.map(JSON.stringify))).map(JSON.parse)
-                );
+                    Array.from(new Set(combinedQuizzes.map((q) => JSON.stringify(q)))).map((q) =>
+                        JSON.parse(q)
+                    )
+                ) as Record<string, unknown>[];
                 setQuiz(uniqueShuffledCombinedQuizzes);
 
                 if (exerciseDetails.british_american) {
@@ -133,14 +176,17 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                             : exerciseDetails.british?.[0];
                 }
 
-                if (selectedAccentData) {
+                if (selectedAccentData && selectedAccentData.quiz) {
                     setInstructions(loadInstructions || selectedAccentData.instructions);
                     setQuiz(
-                        selectedAccentData.quiz.map((quiz) => ({
-                            ...quiz,
-                            split: exerciseDetails.split,
-                            type: exerciseDetails.type,
-                        }))
+                        selectedAccentData.quiz.map((quiz) => {
+                            const base = { ...(quiz as Record<string, unknown>) };
+                            if (typeof exerciseDetails.split === "string")
+                                base.split = exerciseDetails.split;
+                            if (typeof exerciseDetails.type === "string")
+                                base.type = exerciseDetails.type;
+                            return base;
+                        })
                     );
                 }
             }
@@ -158,11 +204,9 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                 throw new Error("Failed to fetch exercise data");
             }
 
-            const data = await response.json();
+            const data: ExerciseDataType = await response.json();
             const exerciseKey = file.replace("exercise_", "").replace(".json", "");
             const exerciseDetails = data[exerciseKey]?.find((exercise) => exercise.id === id);
-
-            // Save fetched data to IndexedDB (excluding Electron)
 
             setCurrentExerciseType(exerciseKey);
 
@@ -181,17 +225,22 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         fetchExerciseData();
     }, [fetchExerciseData]);
 
-    const handleAnswer = (correctCountOrBoolean, quizType = "single", quizAnswerNum = 1) => {
+    const handleAnswer = (
+        correctCountOrBoolean: boolean | number,
+        quizType = "single",
+        quizAnswerNum = 1
+    ) => {
         if (quizType === "single") {
-            // For single answer quizzes like DictationQuiz
             setTotalAnswered((prev) => prev + 1);
             if (correctCountOrBoolean) {
                 setScore((prev) => prev + 1);
             }
         } else if (quizType === "multiple") {
-            // For multiple answer quizzes like MatchUp
             setTotalAnswered((prev) => prev + quizAnswerNum);
-            setScore((prev) => prev + correctCountOrBoolean);
+            setScore(
+                (prev) =>
+                    prev + (typeof correctCountOrBoolean === "number" ? correctCountOrBoolean : 0)
+            );
         }
     };
 
@@ -209,7 +258,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
     };
 
     const handleMatchFinished = () => {
-        setOnMatchFinished(true); // Set match finished to true when all cards are revealed
+        setOnMatchFinished(true);
     };
 
     const getEncouragementMessage = () => {
@@ -217,13 +266,13 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             return (
                 <div>
                     {t("exercise_page.encouragementMsg.level0")}
-                    <img src={rocketEmoji} className="ms-2 inline h-5 w-5" />
+                    <img src={rocketEmoji} className="ms-2 inline h-5 w-5" alt="Rocket Emoji" />
                 </div>
             );
 
         const percentage = (score / totalAnswered) * 100;
 
-        let level;
+        let level: 1 | 2 | 3 | 4 | 5 | 6;
         switch (true) {
             case percentage === 100:
                 level = 6;
@@ -244,7 +293,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                 level = 1;
         }
 
-        const emojis = {
+        const emojis: Record<1 | 2 | 3 | 4 | 5 | 6, string> = {
             6: partyPopperEmoji,
             5: thumbUpEmoji,
             4: smilingFaceWithSmilingEyesEmoji,
@@ -256,7 +305,11 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         return (
             <div>
                 {t(`exercise_page.encouragementMsg.level${level}`)}
-                <img src={emojis[level]} className="ms-2 inline h-5 w-5" />
+                <img
+                    src={emojis[level]}
+                    className="ms-2 inline h-5 w-5"
+                    alt={`Level ${level} Emoji`}
+                />
             </div>
         );
     };
@@ -265,40 +318,190 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
         quizCompleted && totalAnswered > 0 ? getEncouragementMessage() : null;
 
     const renderQuizComponent = () => {
-        // Remove "exercise_" prefix and ".json" suffix
         const exerciseType = file.replace("exercise_", "").replace(".json", "");
 
-        const componentsMap = {
-            dictation: DictationQuiz,
-            matchup: MatchUp,
-            reordering: Reordering,
-            sound_n_spelling: SoundAndSpelling,
-            sorting: SortingExercise,
-            odd_one_out: OddOneOut,
-            snap: Snap,
-            memory_match: MemoryMatch,
+        // Helper to cast quiz to the correct type
+        const getQuizForType = () => {
+            switch (exerciseType) {
+                case "dictation":
+                    return quiz as unknown as DictationQuizItem[];
+                case "matchup":
+                    return quiz as unknown as MatchUpQuizItem[];
+                case "reordering":
+                    return quiz as unknown as ReorderingQuizData[];
+                case "sound_n_spelling":
+                    return quiz as unknown as SoundAndSpellingQuizItem[];
+                case "sorting":
+                    return quiz as unknown as SortingQuizItem[];
+                case "odd_one_out":
+                    return quiz as unknown as OddOneOutQuestion[];
+                case "snap":
+                    return quiz as unknown as SnapQuizItem[];
+                case "memory_match":
+                    return quiz as unknown as MemoryMatchQuizItem[];
+                default:
+                    return quiz;
+            }
         };
 
-        const QuizComponent = componentsMap[exerciseType];
+        // Helper to provide the correct handleAnswer signature
+        const getHandleAnswer = () => {
+            switch (exerciseType) {
+                case "dictation":
+                    return (isCorrect: boolean, mode: string) =>
+                        handleAnswer(isCorrect, mode as "single" | "multiple");
+                case "matchup":
+                case "sorting":
+                    return (correctCount: number, type: string, total: number) =>
+                        handleAnswer(correctCount, type, total);
+                case "reordering":
+                    return (isCorrect: number, type: "single" | "multiple", total?: number) =>
+                        handleAnswer(isCorrect, type, total);
+                case "sound_n_spelling":
+                    return (score: number, type: string) => handleAnswer(score, type);
+                case "odd_one_out":
+                    return (isCorrect: number, type: string) => handleAnswer(isCorrect, type);
+                case "snap":
+                    return (isCorrect: number, type: "single" | "multiple", total?: number) =>
+                        handleAnswer(isCorrect, type, total);
+                default:
+                    return handleAnswer;
+            }
+        };
 
-        return (
-            <Suspense fallback={<LoadingOverlay />}>
-                {QuizComponent ? (
-                    <QuizComponent
-                        quiz={quiz}
-                        instructions={instructions}
-                        onAnswer={handleAnswer}
-                        onQuit={handleQuizQuit}
-                        {...(exerciseType === "reordering" ? { split } : {})} // Pass `split` prop for reordering
-                        timer={timer}
-                        setTimeIsUp={setTimeIsUp}
-                        onMatchFinished={handleMatchFinished}
-                    />
-                ) : (
-                    <div className="card-body">This quiz type is not yet implemented.</div>
-                )}
-            </Suspense>
-        );
+        // Render with correct props for each component
+        switch (exerciseType) {
+            case "dictation":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <DictationQuiz
+                            quiz={getQuizForType() as DictationQuizItem[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (isCorrect: boolean, mode: string) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "matchup":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <MatchUp
+                            quiz={getQuizForType() as MatchUpQuizItem[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (
+                                    correctCount: number,
+                                    type: string,
+                                    total: number
+                                ) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "reordering":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <Reordering
+                            quiz={getQuizForType() as ReorderingQuizData[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (
+                                    isCorrect: number,
+                                    type: "single" | "multiple",
+                                    total?: number
+                                ) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "sound_n_spelling":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <SoundAndSpelling
+                            quiz={getQuizForType() as SoundAndSpellingQuizItem[]}
+                            timer={timer}
+                            onAnswer={getHandleAnswer() as (score: number, type: string) => void}
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "sorting":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <SortingExercise
+                            quiz={getQuizForType() as SortingQuizItem[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (
+                                    correctCount: number,
+                                    type: string,
+                                    total: number
+                                ) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "odd_one_out":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <OddOneOut
+                            quiz={getQuizForType() as OddOneOutQuestion[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (isCorrect: number, type: string) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "snap":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <Snap
+                            quiz={getQuizForType() as SnapQuizItem[]}
+                            timer={timer}
+                            onAnswer={
+                                getHandleAnswer() as (
+                                    isCorrect: number,
+                                    type: "single" | "multiple",
+                                    total?: number
+                                ) => void
+                            }
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                        />
+                    </Suspense>
+                );
+            case "memory_match":
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <MemoryMatch
+                            quiz={getQuizForType() as MemoryMatchQuizItem[]}
+                            timer={timer}
+                            onQuit={handleQuizQuit}
+                            setTimeIsUp={setTimeIsUp}
+                            onMatchFinished={handleMatchFinished}
+                        />
+                    </Suspense>
+                );
+            default:
+                return (
+                    <Suspense fallback={<LoadingOverlay />}>
+                        <div className="card-body">This quiz type is not yet implemented.</div>
+                    </Suspense>
+                );
+        }
     };
 
     return (
@@ -369,7 +572,7 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
                             </button>
 
                             <div className="collapse-arrow bg-base-200 collapse hidden md:grid dark:bg-slate-700">
-                                <input type="checkbox" defaultChecked />
+                                <input type="checkbox" defaultChecked title="Expand instructions" />
                                 <button
                                     type="button"
                                     className="collapse-title text-start font-semibold"
@@ -497,15 +700,6 @@ const ExerciseDetailPage = ({ heading, id, title, accent, file, onBack }) => {
             )}
         </>
     );
-};
-
-ExerciseDetailPage.propTypes = {
-    heading: PropTypes.string.isRequired,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    title: PropTypes.string.isRequired,
-    accent: PropTypes.string.isRequired,
-    file: PropTypes.string.isRequired,
-    onBack: PropTypes.func.isRequired,
 };
 
 export default ExerciseDetailPage;

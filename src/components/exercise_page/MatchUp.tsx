@@ -38,14 +38,14 @@ interface WordItem {
     id: string; // Always present
 }
 
-interface QuizItem {
+export interface MatchUpQuizItem {
     audio: AudioItem[];
     words: WordItem[];
     type?: string;
 }
 
 interface MatchUpProps {
-    quiz: QuizItem[];
+    quiz: MatchUpQuizItem[];
     timer: number;
     onAnswer: (correctCount: number, type: string, total: number) => void;
     onQuit: () => void;
@@ -54,7 +54,7 @@ interface MatchUpProps {
 
 const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: MatchUpProps) => {
     const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
-    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [shuffledQuiz, setShuffledQuiz] = useState<MatchUpQuizItem[]>([]);
     const [shuffledWords, setShuffledWords] = useState<WordItem[]>([]);
     const [audioItems, setAudioItems] = useState<AudioItem[]>([]);
     const [isPlaying, setIsPlaying] = useState<number | null>(null);
@@ -72,12 +72,12 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: MatchUpProps) =
 
     const { t } = useTranslation();
 
-    const filterAndShuffleQuiz = useCallback((quiz: QuizItem[]): QuizItem[] => {
+    const filterAndShuffleQuiz = useCallback((quiz: MatchUpQuizItem[]): MatchUpQuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     }, []);
 
-    const loadQuiz = useCallback((quizData: QuizItem) => {
+    const loadQuiz = useCallback((quizData: MatchUpQuizItem) => {
         setExerciseType(quizData.type ?? "");
         // Store the original pairs for checking answers
         const pairs = quizData.audio.map((audio, index) => ({

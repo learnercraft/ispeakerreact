@@ -26,14 +26,14 @@ interface QuizAudio {
     src: string;
 }
 
-interface QuizItem {
+export interface SoundAndSpellingQuizItem {
     data: QuizOption[];
     question: QuizQuestion[];
     audio: QuizAudio;
 }
 
 interface SoundAndSpellingProps {
-    quiz: QuizItem[];
+    quiz: SoundAndSpellingQuizItem[];
     onAnswer: (score: number, type: string) => void;
     onQuit: () => void;
     timer: number;
@@ -48,7 +48,7 @@ const SoundAndSpelling = ({
     setTimeIsUp,
 }: SoundAndSpellingProps) => {
     const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
-    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [shuffledQuiz, setShuffledQuiz] = useState<SoundAndSpellingQuizItem[]>([]);
     const [shuffledOptions, setShuffledOptions] = useState<QuizOption[]>([]);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
@@ -69,12 +69,12 @@ const SoundAndSpelling = ({
     // Use a ref to manage the audio element
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    const filterAndShuffleQuiz = (quiz: QuizItem[]): QuizItem[] => {
+    const filterAndShuffleQuiz = (quiz: SoundAndSpellingQuizItem[]): SoundAndSpellingQuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     };
 
-    const loadQuiz = useCallback((quizData: QuizItem) => {
+    const loadQuiz = useCallback((quizData: SoundAndSpellingQuizItem) => {
         // Shuffle the answer options
         const shuffledOptions = ShuffleArray([...quizData.data]);
         setShuffledOptions(shuffledOptions);

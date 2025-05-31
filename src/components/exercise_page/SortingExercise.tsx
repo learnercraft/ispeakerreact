@@ -34,13 +34,13 @@ export interface TableHeading {
     text: string;
 }
 
-export interface QuizItem {
+export interface SortingQuizItem {
     tableHeading: TableHeading[];
     rowOptions: RowOption[];
 }
 
 export interface SortingExerciseProps {
-    quiz: QuizItem[];
+    quiz: SortingQuizItem[];
     onAnswer: (correctCount: number, type: string, total: number) => void;
     onQuit: () => void;
     useHorizontalStrategy?: boolean;
@@ -62,7 +62,7 @@ const SortingExercise = ({
     const [activeId, setActiveId] = useState<string | null>(null);
     const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
     const [currentTableHeading, setCurrentTableHeading] = useState<TableHeading[]>([]);
-    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [shuffledQuiz, setShuffledQuiz] = useState<SortingQuizItem[]>([]);
     const [hasSubmitted, setHasSubmitted] = useState<boolean>(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
@@ -79,7 +79,7 @@ const SortingExercise = ({
 
     const sensors = useSensors(useSensor(PointerSensor));
 
-    const filterAndShuffleQuiz = useCallback((quiz: QuizItem[]): QuizItem[] => {
+    const filterAndShuffleQuiz = useCallback((quiz: SortingQuizItem[]): SortingQuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     }, []);
@@ -91,7 +91,7 @@ const SortingExercise = ({
         }));
     };
 
-    const loadQuiz = useCallback((quizData: QuizItem) => {
+    const loadQuiz = useCallback((quizData: SortingQuizItem) => {
         const shuffledOptions = ShuffleArray([...quizData.rowOptions]);
         const uniqueItems = generateUniqueItems(shuffledOptions);
 

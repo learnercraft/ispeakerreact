@@ -23,7 +23,7 @@ import useCountdownTimer from "../../utils/useCountdownTimer.js";
 import SortableWord from "./SortableWord.js";
 
 // Types for quiz data
-interface ReorderingQuizData {
+export interface ReorderingQuizData {
     data: { value: string }[];
     answer: string[];
     audio: { src: string };

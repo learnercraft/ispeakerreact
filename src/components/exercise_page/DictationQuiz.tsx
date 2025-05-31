@@ -9,7 +9,7 @@ import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
 type DictationWord = { textbox: string; level?: string } | { value: string };
 
-interface DictationQuizItem {
+export interface DictationQuizItem {
     words: DictationWord[];
     audio: { src: string };
     type?: string;
