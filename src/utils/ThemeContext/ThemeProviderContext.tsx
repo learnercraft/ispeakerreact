@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-interface ThemeProviderContextType {
+export interface ThemeProviderContextType {
     theme: string;
     setTheme: (newTheme: string) => Promise<void>;
 }
