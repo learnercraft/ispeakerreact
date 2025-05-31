@@ -76,27 +76,10 @@ const ExerciseTimer = () => {
         });
     };
 
-    const checkIfModified = useCallback(
-        (settings: TimerSettingsInput) => {
-            const storedSettings: TimerSettings =
-                savedSettings.timerSettings || defaultTimerSettings;
-            // Only compare numeric fields
-            const keys: (keyof TimerSettings)[] = [
-                "dictation",
-                "matchup",
-                "reordering",
-                "sound_n_spelling",
-                "sorting",
-                "odd_one_out",
-                "enabled",
-            ];
-            for (const key of keys) {
-                if (settings[key] !== storedSettings[key]) return true;
-            }
-            return false;
-        },
-        [savedSettings]
-    );
+    const checkIfModified = (settings: TimerSettingsInput) => {
+        const modifiedSettings = savedSettings?.timerSettings || defaultTimerSettings;
+        return JSON.stringify(settings) !== JSON.stringify(modifiedSettings);
+    };
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -134,7 +117,7 @@ const ExerciseTimer = () => {
     useEffect(() => {
         setIsValid(validateInputs(tempSettings));
         setIsModified(checkIfModified(tempSettings)); // Check if values differ from localStorage or defaults
-    }, [checkIfModified, tempSettings]);
+    }, [tempSettings]);
 
     const exerciseNames: Record<keyof Omit<TimerSettings, "enabled">, string> = {
         dictation: t("exercise_page.dictationHeading"),
