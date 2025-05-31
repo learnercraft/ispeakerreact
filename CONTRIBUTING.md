@@ -12,10 +12,7 @@ Thank you for your interest in contributing! Please take a moment to review this
 
 ## 🔀 Submitting pull requests
 
-### 📌 Project note
-
-- This project **does not use TypeScript** or any kind of static type checking yet.
-  - In the meantime, **use** `PropTypes` to validate component props for basic type safety.
+We now update our project to use TypeScript as of [pull request #65](https://github.com/learnercraft/ispeakerreact/pull/65). This allows our project to have better type safety and developer experience.
 
 ### ✅ What you should do
 
