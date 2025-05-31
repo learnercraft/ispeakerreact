@@ -21,18 +21,23 @@ const createSplashWindow = (
         frame: false, // Remove window controls
         transparent: true, // Make the window background transparent
         alwaysOnTop: true,
-        icon: path.join(rootDir, "dist", "appicon.png"),
+        icon: path.join(rootDir, "dist-react", "appicon.png"),
         webPreferences: {
-            preload: path.join(rootDir, "preload.cjs"),
+            preload: path.join(app.getAppPath(), "dist-electron", "preload.mjs"),
             nodeIntegration: false,
             contextIsolation: true,
             devTools: isDev ? true : false,
+            sandbox: false, // sandbox: true will make preload.mts stop working.
         },
     });
 
     // For splash screen
     ipcMain.handle("get-conf", (event: IpcMainInvokeEvent, key: string) => {
         return conf.get(key);
+    });
+
+    ipcMain.handle("get-node-env", () => {
+        return process.env.NODE_ENV;
     });
 
     // Load the splash screen HTML
@@ -52,18 +57,19 @@ const createWindow = (rootDir: string) => {
         height: 720,
         show: false,
         webPreferences: {
-            preload: path.join(rootDir, "preload.cjs"),
+            preload: path.join(app.getAppPath(), "dist-electron", "preload.mjs"),
             nodeIntegration: false,
             contextIsolation: true,
             devTools: isDev ? true : false,
+            sandbox: false, // sandbox: true will make preload.mts stop working.
         },
-        icon: path.join(rootDir, "dist", "appicon.png"),
+        icon: path.join(rootDir, "dist-react", "appicon.png"),
     });
 
     if (isDev) {
         mainWindow.loadURL("http://localhost:5173"); // Point to Vite dev server
     } else {
-        mainWindow.loadFile(path.join(rootDir, "./dist/index.html")); // Load the built HTML file
+        mainWindow.loadFile(path.join(rootDir, "dist-react", "index.html")); // Load the built HTML file
     }
 
     // Show the main window only when it's ready
