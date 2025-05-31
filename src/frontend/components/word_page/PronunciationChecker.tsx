@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import convertToWav from "../../utils/ffmpegWavConverter.js";
 import isElectron from "../../utils/isElectron.js";
@@ -15,6 +15,7 @@ import {
     phonemeLevenshtein,
 } from "./ipaUtils.js";
 import parseIPA from "./syllableParser.js";
+import type { PronunciationCheckerProps } from "./types";
 
 // Add CSS animation for radial progress
 // https://github.com/saadeghi/daisyui/discussions/3206
@@ -36,15 +37,6 @@ const radialProgressStyle = `
     }
 }
 `;
-
-interface PronunciationCheckerProps {
-    icon?: ReactNode;
-    disabled?: boolean;
-    wordKey: string;
-    displayPronunciation?: string;
-    modelName?: string;
-    onLoadingChange?: (loading: boolean) => void;
-}
 
 const PronunciationChecker = ({
     icon,

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
     BsEmojiFrown,
     BsEmojiFrownFill,
@@ -7,19 +8,7 @@ import {
     BsEmojiSmileFill,
 } from "react-icons/bs";
 import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
-import { useState, useEffect } from "react";
-
-type AccentType = "american" | "british";
-type ReviewType = "good" | "neutral" | "bad" | null;
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
-
-interface ReviewRecordingProps {
-    wordName: string;
-    accent: AccentType;
-    isRecordingExists: boolean;
-    t: TranslationFunction;
-    onReviewUpdate?: () => void;
-}
+import type { ReviewRecordingProps, ReviewType } from "./types";
 
 const ReviewRecording = ({
     wordName,

@@ -1,10 +1,4 @@
-interface PaginationProps {
-    currentPage: number;
-    totalPages: number;
-    onPageChange: (page: number) => void;
-    t: (key: string) => string;
-    scrollTo: (options?: { behavior: string }) => void;
-}
+import type { PaginationProps } from "./types";
 
 const Pagination = ({
     currentPage,

@@ -1,4 +1,6 @@
-const parseIPA = (ipa: string) => {
+import type { Syllable } from "./types";
+
+const parseIPA = (ipa: string): Syllable[] => {
     const syllables = [];
     let current = "";
     let primary = false;

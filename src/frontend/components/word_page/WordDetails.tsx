@@ -8,30 +8,17 @@ import openExternal from "../../utils/openExternal.js";
 import RecordingWaveform from "./RecordingWaveform.js";
 import ReviewRecording from "./ReviewRecording.js";
 import parseIPA from "./syllableParser.js";
+import type { Syllable, WordDetailsProps } from "./types";
 import useWaveformTheme from "./useWaveformTheme.js";
-import type { Word } from "./WordList.js";
-import type { RefObject } from "react";
 
-interface Syllable {
-    text: string;
-    primary: boolean;
-    secondary: boolean;
-}
-
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
-
-type AccentType = "american" | "british";
-
-interface WordDetailsProps {
-    word: Word;
-    handleBack: () => void;
-    t: TranslationFunction;
-    accent: AccentType;
-    onReviewUpdate?: () => void;
-    scrollRef?: RefObject<HTMLDivElement>;
-}
-
-const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }: WordDetailsProps) => {
+const WordDetails = ({
+    word,
+    handleBack,
+    t,
+    accent,
+    onReviewUpdate,
+    scrollRef,
+}: WordDetailsProps) => {
     const [activeSyllable, setActiveSyllable] = useState<number>(-1);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [isAudioLoading, setIsAudioLoading] = useState<boolean>(true);
@@ -48,7 +35,11 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }:
     const cursorLight = "hsl(262.1 83.3% 57.8%)";
     const cursorDark = "hsl(258.3 89.5% 66.3%)";
 
-    const { waveformColor, progressColor, cursorColor }: {
+    const {
+        waveformColor,
+        progressColor,
+        cursorColor,
+    }: {
         waveformColor: string;
         progressColor: string;
         cursorColor: string;
@@ -176,8 +167,9 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }:
                         {syllables.map((syllable, index) => (
                             <div
                                 key={index}
-                                className={`my-2 ${syllable.primary || syllable.secondary ? "indicator" : ""
-                                    }`}
+                                className={`my-2 ${
+                                    syllable.primary || syllable.secondary ? "indicator" : ""
+                                }`}
                             >
                                 {syllable.primary && (
                                     <span className="badge indicator-item badge-warning indicator-center font-semibold">
@@ -191,14 +183,15 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }:
                                 )}
                                 <button
                                     type="button"
-                                    className={`btn btn-xl font-normal ${index === activeSyllable
+                                    className={`btn btn-xl font-normal ${
+                                        index === activeSyllable
                                             ? "btn-accent"
                                             : syllable.primary
-                                                ? "btn-primary"
-                                                : syllable.secondary
-                                                    ? "btn-secondary"
-                                                    : ""
-                                        }`}
+                                              ? "btn-primary"
+                                              : syllable.secondary
+                                                ? "btn-secondary"
+                                                : ""
+                                    }`}
                                 >
                                     <span lang="en">{syllable.text}</span>
                                 </button>
@@ -260,7 +253,9 @@ const WordDetails = ({ word, handleBack, t, accent, onReviewUpdate, scrollRef }:
                                 onPlay={() => setIsPlaying(true)}
                                 onPause={() => setIsPlaying(false)}
                                 onError={() => setAudioError(true)}
-                                onAudioprocess={(_ws: unknown, currentTime: number) => onAudioprocess(currentTime)}
+                                onAudioprocess={(_ws: unknown, currentTime: number) =>
+                                    onAudioprocess(currentTime)
+                                }
                             />
                         </div>
                     </div>

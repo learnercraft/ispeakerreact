@@ -1,4 +1,4 @@
-import { useEffect, useState, RefObject } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import Container from "../../ui/Container.js";
@@ -8,24 +8,8 @@ import useScrollTo from "../../utils/useScrollTo.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import TopNavBar from "../general/TopNavBar.js";
 import Pagination from "./Pagination.js";
+import type { AccentType, ReviewData, ReviewType, Word } from "./types";
 import WordDetails from "./WordDetails.js";
-import { AccentType } from "../sound_page/SoundPracticeCard.js";
-
-// Define the Word interface based on WordDetails propTypes
-export interface Word {
-    fileName: string;
-    fileNameUS?: string;
-    level: string[];
-    name: string;
-    nameUS?: string;
-    pos: string[];
-    pronunciation: string;
-    pronunciationUS?: string;
-    wordId: number;
-}
-
-type ReviewType = "good" | "neutral" | "bad" | null;
-type ReviewData = Record<string, Record<string, ReviewType>>;
 
 const PronunciationPractice = () => {
     const { t } = useTranslation();

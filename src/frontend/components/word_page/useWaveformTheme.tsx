@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
-
-interface WaveformThemeColors {
-    waveformColor: string;
-    progressColor: string;
-    cursorColor: string;
-}
+import type { WaveformThemeColors } from "./types";
 
 const useWaveformTheme = (
     waveformLight: string,
