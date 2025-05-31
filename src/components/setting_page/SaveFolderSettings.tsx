@@ -1,33 +1,85 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoWarningOutline } from "react-icons/io5";
-import isElectron from "../../utils/isElectron";
-import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast";
+import isElectron from "../../utils/isElectron.js";
+import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
+
+// Types for IPC events
+type MoveFolderProgressPhase = "copy" | "delete" | "delete-dir" | "delete-done";
+
+interface MoveFolderProgress {
+    moved: number;
+    total: number;
+    phase: MoveFolderProgressPhase;
+    name: string | null;
+}
+
+interface VenvDeleteStatusDeleting {
+    status: "deleting";
+    path: string;
+}
+interface VenvDeleteStatusDeleted {
+    status: "deleted";
+    path: string;
+}
+interface VenvDeleteStatusError {
+    status: "error";
+    path: string;
+    error: string;
+}
+type VenvDeleteStatus = VenvDeleteStatusDeleting | VenvDeleteStatusDeleted | VenvDeleteStatusError;
+
+interface SetCustomSaveFolderSuccess {
+    success: true;
+    newPath: string;
+}
+interface SetCustomSaveFolderError {
+    success: false;
+    error: string;
+    reason?: string;
+}
+type SetCustomSaveFolderResult = SetCustomSaveFolderSuccess | SetCustomSaveFolderError;
+
+interface ShowOpenDialogResult {
+    canceled: boolean;
+    filePaths: string[];
+    bookmarks?: string[];
+}
+
+// For translation return type
+const isStringArray = (val: unknown): val is string[] => {
+    return Array.isArray(val) && val.every((v) => typeof v === "string");
+};
 
 const SaveFolderSettings = () => {
     const { t } = useTranslation();
     const [currentFolder, setCurrentFolder] = useState("");
-    const [customFolder, setCustomFolder] = useState(null);
+    const [customFolder, setCustomFolder] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [moveDialogOpen, setMoveDialogOpen] = useState(false);
-    const [moveProgress, setMoveProgress] = useState(null);
-    const [venvDeleteStatus, setVenvDeleteStatus] = useState(null);
-    const moveDialogRef = useRef(null);
-    const confirmRef = useRef(null);
-    const [confirmAction, setConfirmAction] = useState(null);
+    const [moveProgress, setMoveProgress] = useState<MoveFolderProgress | null>(null);
+    const [venvDeleteStatus, setVenvDeleteStatus] = useState<VenvDeleteStatus | null>(null);
+    const moveDialogRef = useRef<HTMLDialogElement | null>(null);
+    const confirmRef = useRef<HTMLDialogElement | null>(null);
+    const [confirmAction, setConfirmAction] = useState<"choose" | "reset" | null>(null);
     const [processStarting, setProcessStarting] = useState(false);
 
     useEffect(() => {
         if (!isElectron()) return;
         // Get the resolved save folder
-        window.electron.ipcRenderer.invoke("get-save-folder").then(setCurrentFolder);
+        window.electron.ipcRenderer.invoke("get-save-folder").then((folder) => {
+            setCurrentFolder(folder as string);
+        });
         // Get the custom folder (if any)
-        window.electron.ipcRenderer.invoke("get-custom-save-folder").then(setCustomFolder);
+        window.electron.ipcRenderer.invoke("get-custom-save-folder").then((folder) => {
+            setCustomFolder(folder as string);
+        });
     }, []);
 
     useEffect(() => {
         if (!isElectron()) return;
-        const handler = (_event, data) => {
+        const handler = (...args: unknown[]) => {
+            const data = args[0] as MoveFolderProgress;
             setProcessStarting(false);
             setMoveProgress(data);
             setMoveDialogOpen(true);
@@ -44,7 +96,8 @@ const SaveFolderSettings = () => {
 
     useEffect(() => {
         if (!isElectron()) return;
-        const handler = (_event, data) => {
+        const handler = (...args: unknown[]) => {
+            const data = args[0] as VenvDeleteStatus;
             setProcessStarting(false);
             setVenvDeleteStatus(data);
         };
@@ -60,18 +113,18 @@ const SaveFolderSettings = () => {
         setProcessStarting(true);
         try {
             // Open folder dialog via Electron
-            const folderPaths = await window.electron.ipcRenderer.invoke("show-open-dialog", {
+            const dialogResult = (await window.electron.ipcRenderer.invoke("show-open-dialog", {
                 properties: ["openDirectory"],
                 title: t("settingPage.saveFolderSettings.saveFolderChooseBtn"),
-            });
-            if (folderPaths && folderPaths.length > 0) {
+            })) as ShowOpenDialogResult;
+            if (!dialogResult.canceled && dialogResult.filePaths.length > 0) {
                 setMoveDialogOpen(true);
                 setMoveProgress({ moved: 0, total: 1, phase: "copy", name: "" });
-                const selected = folderPaths[0];
-                const result = await window.electron.ipcRenderer.invoke(
+                const selected = dialogResult.filePaths[0];
+                const result = (await window.electron.ipcRenderer.invoke(
                     "set-custom-save-folder",
                     selected
-                );
+                )) as SetCustomSaveFolderResult;
                 setMoveDialogOpen(false);
                 setMoveProgress(null);
                 if (result.success) {
@@ -99,11 +152,14 @@ const SaveFolderSettings = () => {
         try {
             setMoveDialogOpen(true);
             setMoveProgress({ moved: 0, total: 1, phase: "copy", name: "" });
-            const result = await window.electron.ipcRenderer.invoke("set-custom-save-folder", null);
+            const result = (await window.electron.ipcRenderer.invoke(
+                "set-custom-save-folder",
+                null
+            )) as SetCustomSaveFolderResult;
             setMoveDialogOpen(false);
             setMoveProgress(null);
             setCustomFolder(null);
-            setCurrentFolder(result.newPath || "");
+            setCurrentFolder(result.success ? result.newPath : "");
         } finally {
             setLoading(false);
         }
@@ -111,12 +167,12 @@ const SaveFolderSettings = () => {
 
     const openChooseDialog = () => {
         setConfirmAction("choose");
-        confirmRef.current.showModal();
+        confirmRef.current?.showModal();
     };
 
     const openResetDialog = () => {
         setConfirmAction("reset");
-        confirmRef.current.showModal();
+        confirmRef.current?.showModal();
     };
 
     const handleConfirm = () => {
@@ -125,16 +181,22 @@ const SaveFolderSettings = () => {
         } else if (confirmAction === "reset") {
             handleResetDefault();
         }
-        confirmRef.current.close();
+        confirmRef.current?.close();
         setConfirmAction(null);
     };
 
     const handleCancel = () => {
-        confirmRef.current.close();
+        confirmRef.current?.close();
         setConfirmAction(null);
     };
 
     if (!isElectron()) return null;
+
+    // For translation array
+    const confirmDescription = t("settingPage.saveFolderSettings.saveFolderConfirmDescription", {
+        returnObjects: true,
+    });
+    const confirmDescriptionArr = isStringArray(confirmDescription) ? confirmDescription : [];
 
     return (
         <>
@@ -187,9 +249,7 @@ const SaveFolderSettings = () => {
                         {t("settingPage.saveFolderSettings.saveFolderConfirmTitle")}
                     </h3>
                     <div className="py-4">
-                        {t("settingPage.saveFolderSettings.saveFolderConfirmDescription", {
-                            returnObjects: true,
-                        }).map((desc, index) => (
+                        {confirmDescriptionArr.map((desc, index) => (
                             <p className="mb-2" key={index}>
                                 {desc}
                             </p>
