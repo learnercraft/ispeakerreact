@@ -1,68 +1,96 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
-import { Trans } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LuExternalLink } from "react-icons/lu";
 
-const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
-    const [, setShowVerifyModal] = useState(false);
-    const [showProgressModal, setShowProgressModal] = useState(false);
-    const [selectedZip, setSelectedZip] = useState(null);
-    const [verifyFiles, setVerifyFiles] = useState([]);
-    const [progress, setProgress] = useState(0);
-    const [modalMessage, setModalMessage] = useState("");
-    const [isSuccess, setIsSuccess] = useState(null);
-    const [progressText, setProgressText] = useState("");
-    const [isPercentage, setIsPercentage] = useState(false);
-    const [progressError, setProgressError] = useState(false);
-    const [verificationErrors, setVerificationErrors] = useState([]);
+interface ExtractedFile {
+    name: string;
+    hash: string;
+}
 
-    const verifyModal = useRef(null);
-    const progressModal = useRef(null);
+interface ZipContent {
+    extractedFiles: ExtractedFile[];
+}
+
+export interface VideoFileData {
+    zipFile: string;
+    name: string;
+    fileSize: number;
+    link: string;
+    zipHash: string;
+    zipContents: ZipContent[];
+}
+
+export interface DownloadStatus {
+    zipFile: string;
+    isDownloaded: boolean;
+    hasExtractedFolder: boolean;
+}
+
+interface VerificationError {
+    type: string;
+    name: string;
+    message: string;
+}
+
+interface VideoDownloadTableProps {
+    t: (key: string) => string;
+    data: VideoFileData[];
+    isDownloaded: DownloadStatus[];
+    onStatusChange?: () => void | Promise<void>;
+}
+
+const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }: VideoDownloadTableProps) => {
+    const [, setShowVerifyModal] = useState<boolean>(false);
+    const [showProgressModal, setShowProgressModal] = useState<boolean>(false);
+    const [selectedZip, setSelectedZip] = useState<VideoFileData | null>(null);
+    const [verifyFiles, setVerifyFiles] = useState<ExtractedFile[]>([]);
+    const [progress, setProgress] = useState<number>(0);
+    const [modalMessage, setModalMessage] = useState<string>("");
+    const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+    const [progressText, setProgressText] = useState<string>("");
+    const [isPercentage, setIsPercentage] = useState<boolean>(false);
+    const [progressError, setProgressError] = useState<boolean>(false);
+    const [verificationErrors, setVerificationErrors] = useState<VerificationError[]>([]);
+
+    const verifyModal = useRef<HTMLDialogElement>(null);
+    const progressModal = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const handleProgressUpdate = (event, percentage) => {
+        const handleProgressUpdate = (...args: unknown[]) => {
+            const percentage = args[1] as number;
             setProgress(percentage);
-            setIsPercentage(true); // Use percentage-based progress
+            setIsPercentage(true);
         };
 
-        const handleProgressText = (event, text) => {
-            setProgressText(t(text)); // Update progress text
-            setIsPercentage(false); // Not percentage-based, show full progress bar
+        const handleProgressText = (...args: unknown[]) => {
+            const text = args[1] as string;
+            setProgressText(t(text));
+            setIsPercentage(false);
         };
 
-        const handleVerificationSuccess = (event, data) => {
-            setModalMessage(
-                <>
-                    {t(data.messageKey)}{" "}
-                    <code lang="en" className="font-mono break-all italic">
-                        {data.param}
-                    </code>
-                </>
-            );
+        const handleVerificationSuccess = (...args: unknown[]) => {
+            const data = args[1] as { messageKey: string; param: string };
+            setModalMessage(`${t(data.messageKey)} ${data.param}`);
             setIsSuccess(true);
-            setShowProgressModal(false); // Hide modal after success
+            setShowProgressModal(false);
             setVerificationErrors([]);
-            if (onStatusChange) onStatusChange(); // Trigger parent to refresh status
+            if (onStatusChange) onStatusChange();
         };
 
-        const handleVerificationError = (event, data) => {
+        const handleVerificationError = (...args: unknown[]) => {
+            const data = args[1] as { messageKey: string; param: string; errorMessage?: string };
             setModalMessage(
-                <Trans i18nKey={data.messageKey} values={{ param: data.param }}>
-                    <code className="font-mono break-all italic" lang="en">
-                        {data.param}
-                    </code>
-                    <span>{data.errorMessage ? `Error message: ${data.errorMessage}` : ""}</span>
-                </Trans>
+                `${t(data.messageKey)} ${data.param} ${data.errorMessage ? `Error message: ${data.errorMessage}` : ""}`
             );
             setIsSuccess(false);
-            setShowProgressModal(false); // Hide modal on error
+            setShowProgressModal(false);
             setVerificationErrors([]);
-            if (onStatusChange) onStatusChange(); // Trigger parent to refresh status
+            if (onStatusChange) onStatusChange();
         };
 
-        const handleVerificationErrors = (event, errors) => {
+        const handleVerificationErrors = (...args: unknown[]) => {
+            const errors = args[1] as VerificationError[];
             setVerificationErrors(errors);
             setIsSuccess(false);
             setShowProgressModal(false);
@@ -82,9 +110,9 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
             window.electron.ipcRenderer.removeAllListeners("verification-error");
             window.electron.ipcRenderer.removeAllListeners("verification-errors");
         };
-    }, [t, data.messageKey, data.param, onStatusChange]);
+    }, [t, onStatusChange]);
 
-    const handleVerify = async (zip) => {
+    const handleVerify = async (zip: VideoFileData) => {
         if (onStatusChange) {
             // Await refresh if onStatusChange returns a promise
             await onStatusChange();
@@ -94,9 +122,9 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
         // Allow verify if extracted folder exists, even if not downloaded
         const fileToVerify =
             fileStatus && zip.name && (fileStatus.isDownloaded || fileStatus.hasExtractedFolder)
-                ? [{ name: zip.name }]
+                ? [{ name: zip.name, hash: "" }]
                 : fileStatus && fileStatus.hasExtractedFolder && zip.name
-                  ? [{ name: zip.name }]
+                  ? [{ name: zip.name, hash: "" }]
                   : [];
         setSelectedZip(zip);
         setVerifyFiles(fileToVerify);
@@ -114,9 +142,9 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
             fileStatus &&
             selectedZip?.name &&
             (fileStatus.isDownloaded || fileStatus.hasExtractedFolder)
-                ? [{ name: selectedZip.name }]
+                ? [{ name: selectedZip.name, hash: "" }]
                 : fileStatus && fileStatus.hasExtractedFolder && selectedZip?.name
-                  ? [{ name: selectedZip.name }]
+                  ? [{ name: selectedZip.name, hash: "" }]
                   : [];
         if (fileToVerify.length === 0) {
             setShowVerifyModal(false);
@@ -341,13 +369,6 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }) => {
             </dialog>
         </>
     );
-};
-
-VideoDownloadTable.propTypes = {
-    t: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired,
-    isDownloaded: PropTypes.array.isRequired,
-    onStatusChange: PropTypes.func,
 };
 
 export default VideoDownloadTable;
