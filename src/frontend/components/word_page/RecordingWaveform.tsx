@@ -17,20 +17,8 @@ import {
 import isElectron from "../../utils/isElectron.js";
 import { sonnerErrorToast, sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 import PronunciationChecker from "./PronunciationChecker.js";
+import type { RecordingWaveformProps, WaveformThemeConfig } from "./types";
 import useWaveformTheme from "./useWaveformTheme.js";
-
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
-
-interface RecordingWaveformProps {
-    wordKey: string;
-    maxDuration: number;
-    disableControls?: boolean;
-    onActivityChange?: (isActive: boolean) => void;
-    onRecordingSaved?: () => void;
-    isAudioLoading?: boolean;
-    displayPronunciation?: string;
-    t: TranslationFunction;
-}
 
 const getSupportedMimeType = () => {
     const mimeTypes = ["audio/webm", "audio/ogg", "audio/wav", "audio/mpeg", "audio/mp4"];
@@ -54,6 +42,7 @@ const RecordingWaveform = ({
     isAudioLoading = false,
     displayPronunciation,
     t,
+    themeConfig,
 }: RecordingWaveformProps) => {
     const waveformRef = useRef<HTMLDivElement | null>(null);
     const [recording, setRecording] = useState<boolean>(false);
@@ -69,16 +58,25 @@ const RecordingWaveform = ({
     const waveformDark = "hsl(213.1 93.9% 67.8%)"; // Dark mode waveform color
     const progressLight = "hsl(83.7 80.5% 44.3%)"; // Light mode progress color
     const progressDark = "hsl(82 84.5% 67.1%)"; // Dark mode progress color
-    const cursorLight = "hsl(83.7 80.5% 44.3%)"; // Dark mode progress color
-    const cursorDark = "hsl(82 84.5% 67.1%)"; // Dark mode progress color
+    const cursorLight = "hsl(83.7 80.5% 44.3%)"; // Light mode cursor color
+    const cursorDark = "hsl(82 84.5% 67.1%)"; // Dark mode cursor color
 
-    const { waveformColor, progressColor, cursorColor } = useWaveformTheme(
+    const defaultThemeConfig: WaveformThemeConfig = {
         waveformLight,
         waveformDark,
         progressLight,
         progressDark,
         cursorLight,
-        cursorDark
+        cursorDark,
+    };
+
+    const { waveformColor, progressColor, cursorColor } = useWaveformTheme(
+        themeConfig?.waveformLight ?? defaultThemeConfig.waveformLight,
+        themeConfig?.waveformDark ?? defaultThemeConfig.waveformDark,
+        themeConfig?.progressLight ?? defaultThemeConfig.progressLight,
+        themeConfig?.progressDark ?? defaultThemeConfig.progressDark,
+        themeConfig?.cursorLight ?? defaultThemeConfig.cursorLight,
+        themeConfig?.cursorDark ?? defaultThemeConfig.cursorDark
     );
 
     const notifyActivityChange = useCallback(
