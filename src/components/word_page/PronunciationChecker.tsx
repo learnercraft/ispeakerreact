@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import convertToWav from "../../utils/ffmpegWavConverter.js";
 import isElectron from "../../utils/isElectron.js";
 import openExternal from "../../utils/openExternal.js";
-import { getPronunciationInstallState } from "../setting_page/pronunciationStepUtils.js";
+import {
+    getPronunciationInstallState,
+    PronunciationInstallStatus,
+} from "../setting_page/pronunciationStepUtils.js";
 import {
     arePhonemesClose,
     formatToOfficialSpacing,
@@ -106,7 +109,9 @@ const PronunciationChecker = ({
             );
         }
         // 1. No install status at all
-        const installState = getPronunciationInstallState(installStatus);
+        const installState = getPronunciationInstallState(
+            installStatus as PronunciationInstallStatus
+        );
         if (installState === "not_installed") {
             setShowFailedInstall(false);
             if (notInstalledDialogRef.current) notInstalledDialogRef.current.showModal();
@@ -568,6 +573,7 @@ const PronunciationChecker = ({
                     </p>
                     <div className="modal-action">
                         <button
+                            type="button"
                             className="btn btn-primary"
                             onClick={() => notInstalledDialogRef.current?.close()}
                         >
@@ -601,6 +607,7 @@ const PronunciationChecker = ({
                     </p>
                     <div className="modal-action">
                         <button
+                            type="button"
                             className="btn btn-primary"
                             onClick={() => webDialogRef.current?.close()}
                         >
@@ -627,6 +634,7 @@ const PronunciationChecker = ({
                     </div>
                     <div className="modal-action">
                         <button
+                            type="button"
                             className="btn btn-primary"
                             onClick={() => setShowErrorDialog(false)}
                         >
