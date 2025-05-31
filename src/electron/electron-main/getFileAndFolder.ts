@@ -2,11 +2,16 @@ import { ipcMain, shell } from "electron";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 import { getSaveFolder, readUserSettings } from "./filePath.js";
+
+const isDev = process.env.NODE_ENV === "development";
 
 const getVideoFileDataIPC = (rootDir: string) => {
     ipcMain.handle("get-video-file-data", async () => {
-        const jsonPath = path.join(rootDir, "dist", "json", "videoFilesInfo.json");
+        const jsonPath = isDev
+            ? path.join(rootDir, "public", "json", "videoFilesInfo.json")
+            : path.join(rootDir, "dist-electron", "json", "videoFilesInfo.json");
         try {
             const jsonData = await fsPromises.readFile(jsonPath, "utf-8"); // Asynchronously read the JSON file
             return JSON.parse(jsonData); // Parse the JSON string and return it
