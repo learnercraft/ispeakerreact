@@ -1,16 +1,39 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import he from "he";
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 
-const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
-    const [itemWidth, setItemWidth] = useState(null);
-    const ref = React.useRef(null);
+interface Word {
+    id: string;
+    text?: string;
+}
+
+interface Item {
+    id: string;
+    value?: string;
+}
+
+interface SortableWordProps {
+    word?: Word;
+    item?: Item;
+    isCorrect: boolean | null;
+    disabled?: boolean;
+    isOverlay?: boolean;
+}
+
+const SortableWord: React.FC<SortableWordProps> = ({
+    word,
+    item,
+    isCorrect,
+    disabled = false,
+    isOverlay = false,
+}) => {
+    const [itemWidth, setItemWidth] = useState<number | null>(null);
+    const ref = React.useRef<HTMLButtonElement | null>(null);
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-        id: word?.id || item?.id, // Handle both word and item cases
+        id: (word?.id ?? item?.id) as string | number, // Ensure id is always string or number
     });
 
     useEffect(() => {
@@ -19,15 +42,14 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
         }
     }, []);
 
-    const style = {
+    const style: React.CSSProperties = {
         transform: CSS.Transform.toString(transform),
         transition,
         touchAction: "none",
         cursor: disabled ? "not-allowed" : isOverlay ? "grabbing" : "grab",
         userSelect: "none",
-        WebkitUserDrag: "none",
         WebkitTouchCallout: "none",
-        width: isDragging ? itemWidth + 1 : "inherit",
+        width: isDragging ? (itemWidth !== null ? itemWidth + 1 : undefined) : undefined,
         opacity: isDragging ? 0.5 : 1,
     };
 
@@ -62,7 +84,7 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
                 isDragging && !disabled ? "opacity-50" : ""
             } ${disabled ? "pointer-events-none" : ""} ${isOverlay ? "z-2 shadow-lg" : ""}`}
         >
-            <span lang="en">{he.decode(word?.text || item?.value)}</span>
+            <span lang="en">{he.decode(word?.text || item?.value || "")}</span>
             {renderTrueFalseIcon()}
         </button>
     ) : (
@@ -73,18 +95,10 @@ const SortableWord = ({ word, item, isCorrect, disabled, isOverlay }) => {
             } pointer-events-none ${isCorrect ? "btn-success" : "btn-error"}`}
         >
             <p className="text-center font-bold" lang="en">
-                {he.decode(word?.text || item?.value)} {renderTrueFalseIcon()}
+                {he.decode(word?.text || item?.value || "")} {renderTrueFalseIcon()}
             </p>
         </button>
     );
-};
-
-SortableWord.propTypes = {
-    word: PropTypes.object,
-    item: PropTypes.object,
-    isCorrect: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([null])]),
-    disabled: PropTypes.bool,
-    isOverlay: PropTypes.bool,
 };
 
 export default SortableWord;
