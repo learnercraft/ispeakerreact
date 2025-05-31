@@ -1,11 +1,28 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { IoCheckmark, IoCloseOutline } from "react-icons/io5";
-import { getPronunciationStepStatuses } from "./pronunciationStepUtils";
+import {
+    getPronunciationStepStatuses,
+    PronunciationInstallStatus,
+    PronunciationStepStatus,
+} from "./pronunciationStepUtils.js";
 
-const PronunciationCheckerInfo = ({ t, checking, error, pythonCheckResult, modelSize }) => {
+interface PronunciationCheckerInfoProps {
+    t: (key: string, options?: Record<string, unknown>) => string;
+    checking: boolean;
+    error: string | null;
+    pythonCheckResult: PronunciationInstallStatus | null;
+    modelSize: string;
+}
+
+const PronunciationCheckerInfo = ({
+    t,
+    checking,
+    error,
+    pythonCheckResult,
+    modelSize,
+}: PronunciationCheckerInfoProps) => {
     // Helper to get status icon
-    const getStatusIcon = (status) => {
+    const getStatusIcon = (status: PronunciationStepStatus) => {
         if (status === "pending")
             return <span className="loading loading-spinner loading-sm"></span>;
         if (status === "success")
@@ -43,7 +60,7 @@ const PronunciationCheckerInfo = ({ t, checking, error, pythonCheckResult, model
     ];
 
     // Ref for the log container
-    const logRef = useRef(null);
+    const logRef = useRef<HTMLDivElement | null>(null);
     // Get the log output
     const logOutput = [
         pythonCheckResult?.pythonLog
@@ -93,7 +110,10 @@ const PronunciationCheckerInfo = ({ t, checking, error, pythonCheckResult, model
                 ))}
             </ol>
             <div className="bg-base-100 border-base-300 collapse-arrow collapse border dark:border-slate-600">
-                <input type="checkbox" />
+                <input
+                    type="checkbox"
+                    title={t("settingPage.pronunciationSettings.showDetailsCollapse")}
+                />
                 <div className="collapse-title font-semibold">
                     {t("settingPage.pronunciationSettings.showDetailsCollapse")}
                 </div>
@@ -149,14 +169,6 @@ const PronunciationCheckerInfo = ({ t, checking, error, pythonCheckResult, model
             </div>
         </div>
     );
-};
-
-PronunciationCheckerInfo.propTypes = {
-    t: PropTypes.func.isRequired,
-    checking: PropTypes.bool.isRequired,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-    pythonCheckResult: PropTypes.oneOfType([PropTypes.object, PropTypes.oneOf([null])]),
-    modelSize: PropTypes.string.isRequired,
 };
 
 export default PronunciationCheckerInfo;
