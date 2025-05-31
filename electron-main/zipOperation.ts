@@ -1,6 +1,6 @@
 import { ipcMain, IpcMainEvent } from "electron";
 import applog from "electron-log";
-import JS7z from "js7z-tools";
+import JS7z from "./js7z/js7z.js";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
@@ -104,7 +104,6 @@ const verifyAndExtractIPC = () => {
             console.log(`Starting verification for ${zipFile}`);
             applog.log(`Starting verification for ${zipFile}`);
             try {
-                // @ts-expect-error - JS7z is not typed
                 const js7z = await JS7z({
                     print: (text: string) => {
                         console.log(`7-Zip output: ${text}`);
