@@ -1,21 +1,57 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import he from "he";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import useCountdownTimer from "../../utils/useCountdownTimer";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
-const filterAndShuffleQuiz = (quiz) => {
+// Types inferred from exercise_snap.json
+export interface SnapQuizDataItem {
+    value: string;
+    index: string;
+}
+
+export interface SnapQuizFeedback {
+    value?: string;
+    index?: string;
+    answer?: string;
+    correctAns?: string;
+}
+
+export interface SnapQuizItem {
+    data: SnapQuizDataItem[];
+    feedbacks: SnapQuizFeedback[];
+}
+
+export interface SnapProps {
+    quiz: SnapQuizItem[];
+    onAnswer: (isCorrect: number, type: "single" | "multiple", total?: number) => void;
+    onQuit: () => void;
+    timer: number;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+type ResultType = "success" | "danger" | null;
+
+interface DroppableAreaProps {
+    feedback: SnapQuizFeedback;
+    isDropped: boolean;
+    result: ResultType;
+    droppedOn: string | null;
+}
+
+interface DraggableItemProps {
+    isDropped: boolean;
+}
+
+const filterAndShuffleQuiz = (quiz: SnapQuizItem[]): SnapQuizItem[] => {
     // Remove duplicate questions
     const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
-
     // Shuffle the quiz questions
     const shuffledQuiz = ShuffleArray(uniqueQuiz);
-
     // Shuffle the options (data) within each quiz question
     return shuffledQuiz.map((quizItem) => {
         return {
@@ -25,13 +61,13 @@ const filterAndShuffleQuiz = (quiz) => {
     });
 };
 
-const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [currentQuiz, setCurrentQuiz] = useState({});
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [isDropped, setIsDropped] = useState(false);
-    const [result, setResult] = useState(null);
-    const [droppedOn, setDroppedOn] = useState(null); // Track where the item is dropped
+const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: SnapProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [currentQuiz, setCurrentQuiz] = useState<SnapQuizItem | null>(null);
+    const [shuffledQuiz, setShuffledQuiz] = useState<SnapQuizItem[]>([]);
+    const [isDropped, setIsDropped] = useState<boolean>(false);
+    const [result, setResult] = useState<ResultType>(null);
+    const [droppedOn, setDroppedOn] = useState<string | null>(null); // Track where the item is dropped
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
@@ -45,7 +81,7 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     }, [timer, startTimer]);
 
-    const loadQuiz = useCallback((quizData) => {
+    const loadQuiz = useCallback((quizData: SnapQuizItem) => {
         const shuffledOptions = ShuffleArray([...quizData.data]); // Shuffle the options for this specific question
         setCurrentQuiz({ ...quizData, data: shuffledOptions }); // Set the current quiz with shuffled options
         setIsDropped(false);
@@ -62,21 +98,21 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     }, [quiz, loadQuiz]);
 
-    const handleDragEnd = (event) => {
+    const handleDragEnd = (event: import("@dnd-kit/core").DragEndEvent) => {
         const { over } = event;
-        if (!over) return;
+        if (!over || !currentQuiz) return;
 
-        const feedbackValue = over.id.toLowerCase(); // The ID is either "yes" or "no", convert to lowercase
-        const correctAnswer = currentQuiz?.feedbacks
-            ?.find((f) => f.correctAns)
-            ?.correctAns.toLowerCase(); // Normalize correctAns to lowercase
+        const feedbackValue = String(over.id).toLowerCase(); // The ID is either "yes" or "no", convert to lowercase
+        const correctAnswer = currentQuiz.feedbacks
+            .find((f) => f.correctAns)
+            ?.correctAns?.toLowerCase(); // Normalize correctAns to lowercase
 
         // Check if the drop zone ("Yes" or "No") matches the correct answer
         const isCorrect = feedbackValue === correctAnswer;
 
         setResult(isCorrect ? "success" : "danger"); // Show success for correct, danger for incorrect
         setIsDropped(true);
-        setDroppedOn(over.id); // Set the ID of the area where the item was dropped
+        setDroppedOn(String(over.id)); // Set the ID of the area where the item was dropped
         onAnswer(isCorrect ? 1 : 0, "single");
     };
 
@@ -97,8 +133,8 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     };
 
     // Draggable item component
-    const DraggableItem = ({ isDropped }) => {
-        const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    const DraggableItem = ({ isDropped }: DraggableItemProps) => {
+        const { attributes, listeners, setNodeRef, transform, isDragging } =
             useDraggable({
                 id: "draggable-item",
             });
@@ -107,13 +143,10 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
             : undefined;
 
-        const style = {
+        const style: React.CSSProperties = {
             transform: adjustedTransform,
-            transition,
             touchAction: "none",
             cursor: isDropped ? "not-allowed" : isDragging ? "grabbing" : "grab",
-            WebkitUserDrag: "none",
-            WebkitTouchCallout: "none",
             opacity: 1, // Always keep the item visible
             userSelect: "none",
         };
@@ -134,7 +167,7 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     };
 
     // Droppable area component
-    const DroppableArea = ({ feedback, isDropped, result, droppedOn }) => {
+    const DroppableArea = ({ feedback, isDropped, result, droppedOn }: DroppableAreaProps) => {
         const { isOver, setNodeRef } = useDroppable({
             id: feedback?.value || "droppable-area",
         });
@@ -185,17 +218,6 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         );
     };
 
-    DraggableItem.propTypes = {
-        isDropped: PropTypes.bool.isRequired,
-    };
-
-    DroppableArea.propTypes = {
-        feedback: PropTypes.object.isRequired,
-        isDropped: PropTypes.bool.isRequired,
-        result: PropTypes.string,
-        droppedOn: PropTypes.string,
-    };
-
     return (
         <>
             <div className="card-body">
@@ -231,10 +253,10 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                         {/* Yes drop zone */}
                         <div className="w-full">
                             <DroppableArea
-                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "Yes")}
+                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "Yes") as SnapQuizFeedback}
                                 isDropped={isDropped}
                                 result={result}
-                                droppedOn={droppedOn} // Track where the item is dropped
+                                droppedOn={droppedOn}
                             />
                         </div>
 
@@ -246,10 +268,10 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                         {/* No drop zone */}
                         <div className="w-full">
                             <DroppableArea
-                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "No")}
+                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "No") as SnapQuizFeedback}
                                 isDropped={isDropped}
                                 result={result}
-                                droppedOn={droppedOn} // Track where the item is dropped
+                                droppedOn={droppedOn}
                             />
                         </div>
                     </DndContext>
@@ -276,14 +298,6 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-Snap.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    timer: PropTypes.number.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default Snap;
