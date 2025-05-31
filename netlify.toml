@@ -1,5 +1,5 @@
 [build]
-  publish = "dist"
+  publish = "dist-react"
   command = "npm run build"
 
 [context.deploy-preview]
