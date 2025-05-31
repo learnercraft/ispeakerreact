@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+        "sourceMap": false,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        /* Linting */
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictPropertyInitialization": false,
+        "composite": true,
+        "declaration": true,
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "@/electron/*": ["./src/electron/*"],
+            "~/*": ["./*"]
+        }
+    },
+    "include": ["src/ui", "src/electron"],
+    "exclude": ["src/electron/tsconfig.electron.json"]
+}

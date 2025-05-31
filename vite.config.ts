@@ -1,19 +1,29 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import process from "node:process";
-import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import packageJson from "./package.json";
+import { fileURLToPath, URL } from "node:url";
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig(({ mode }) => {
     const isElectron = mode === "electron";
     const isDev = mode === "development";
-    const base = process.env.VITE_BASE || isElectron ? "./" : isDev ? "/" : "/ispeakerreact/";
+    let base = "/";
+    if (process.env.VITE_BASE) {
+        base = process.env.VITE_BASE;
+    } else if (isElectron) {
+        base = "./";
+    } else if (isDev) {
+        base = "/";
+    } else {
+        base = "/ispeakerreact/";
+    }
 
     return {
         base: base,
+
         build: {
             rollupOptions: {
                 output: {
@@ -33,10 +43,12 @@ export default defineConfig(({ mode }) => {
                 },
             },
             manifest: true,
+            outDir: "dist-react",
+            //sourcemap: true,
         },
+
         plugins: [
             react(),
-            visualizer(),
             tailwindcss(),
             !isElectron &&
                 VitePWA({
@@ -147,16 +159,23 @@ export default defineConfig(({ mode }) => {
                     },
                 }),
         ],
+
         define: {
             __APP_VERSION__: JSON.stringify(packageJson.version), // Inject version
         },
+
         optimizeDeps: {
             exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
         },
+
         server: {
-            fs: {
-                // Allow serving files from one level up to the project root
-                allow: [".."],
+            port: 5173,
+            strictPort: true,
+        },
+
+        resolve: {
+            alias: {
+                "~": fileURLToPath(new URL("./", import.meta.url)),
             },
         },
     };

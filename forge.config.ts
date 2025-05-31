@@ -17,7 +17,7 @@ const config: ForgeConfig = {
             ProductName: "iSpeakerReact",
         },
         prune: true,
-        icon: path.join(__dirname, "dist", "appicon"),
+        icon: path.join(__dirname, "dist-react", "appicon"),
         ignore: [
             "^/\\.github$", // Ignore the .github directory
             "^/venv$", // Ignore the venv directory
@@ -45,7 +45,7 @@ const config: ForgeConfig = {
             name: "@electron-forge/maker-deb",
             config: {
                 options: {
-                    icon: path.join(__dirname, "dist", "appicon.png"),
+                    icon: path.join(__dirname, "dist-react", "appicon.png"),
                 },
             },
         },
@@ -54,15 +54,15 @@ const config: ForgeConfig = {
             platforms: ["linux"],
             config: {
                 options: {
-                    icon: path.join(__dirname, "dist", "appicon.png"),
+                    icon: path.join(__dirname, "dist-react", "appicon.png"),
                 },
             },
         },
         /*{
             name: "@electron-forge/maker-squirrel",
             config: (arch) => ({
-                setupIcon: path.join(__dirname, "dist", "appicon.ico"),
-                iconUrl: path.join(__dirname, "dist", "appicon.ico"),
+                setupIcon: path.join(__dirname, "dist-react", "appicon.ico"),
+                iconUrl: path.join(__dirname, "dist-react", "appicon.ico"),
                 setupExe: `iSpeakerReact-win32-${arch}-Setup.exe`,
             }),
         },*/

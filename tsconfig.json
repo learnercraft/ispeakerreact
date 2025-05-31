@@ -1,22 +1,8 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "NodeNext",
-        "lib": ["DOM", "ESNext"],
-        "jsx": "react-jsx",
-        "moduleResolution": "NodeNext",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "outDir": "production/dist",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"]
-        }
-    },
-    "include": ["main.ts", "src", "electron-main", "preload.ts"],
-    "exclude": ["node_modules", "dist", "out", "data/ffmpeg"]
+    "files": [],
+    "references": [
+        { "path": "./tsconfig.app.json" },
+        { "path": "./tsconfig.node.json" },
+        { "path": "./src/electron/tsconfig.electron.json" }
+    ]
 }
