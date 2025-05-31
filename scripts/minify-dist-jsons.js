@@ -25,8 +25,8 @@ const minifyJsonFiles = (dir) => {
 };
 
 // Minify dist/json
-minifyJsonFiles(path.join(__dirname, "../dist/json"));
+minifyJsonFiles(path.join(__dirname, "../dist-react/json"));
 // Minify dist/locales
-minifyJsonFiles(path.join(__dirname, "../dist/locales"));
+minifyJsonFiles(path.join(__dirname, "../dist-react/locales"));
 // Minify data/
 //minifyJsonFiles(path.join(__dirname, "../data"));
