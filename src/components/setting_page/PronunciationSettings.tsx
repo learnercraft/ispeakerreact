@@ -6,31 +6,39 @@ import {
     IoInformationCircleOutline,
     IoWarningOutline,
 } from "react-icons/io5";
-import PronunciationCheckerDialogContent from "./PronunciationCheckerDialogContent";
-import PronunciationCheckerInfo from "./PronunciationCheckerInfo";
+import PronunciationCheckerDialogContent from "./PronunciationCheckerDialogContent.js";
+import PronunciationCheckerInfo from "./PronunciationCheckerInfo.js";
 import {
     checkPythonInstalled,
     downloadModelStepIPC,
     installDependenciesIPC,
-} from "./PronunciationUtils";
+} from "./PronunciationUtils.js";
 import {
     getPronunciationStepStatuses,
     getPronunciationInstallState,
-} from "./pronunciationStepUtils";
-import modelOptions from "./modelOptions";
+    PronunciationInstallStatus,
+    PronunciationDependency,
+} from "./pronunciationStepUtils.js";
+import modelOptions from "./modelOptions.js";
 
 const PronunciationSettings = () => {
     const { t } = useTranslation();
-    const confirmDialogRef = useRef(null);
-    const checkerDialogRef = useRef(null);
-    const [pythonCheckResult, setPythonCheckResult] = useState(null);
-    const [checking, setChecking] = useState(false);
-    const [error, setError] = useState(null);
-    const [isCancelling, setIsCancelling] = useState(false);
-    const [installState, setInstallState] = useState("not_installed");
+    const confirmDialogRef = useRef<HTMLDialogElement | null>(null);
+    const checkerDialogRef = useRef<HTMLDialogElement | null>(null);
+    const [pythonCheckResult, setPythonCheckResult] = useState<PronunciationInstallStatus | null>(
+        null
+    );
+    const [checking, setChecking] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [isCancelling, setIsCancelling] = useState<boolean>(false);
+    const [installState, setInstallState] = useState<"not_installed" | "failed" | "complete">(
+        "not_installed"
+    );
     // Model selection state
-    const [modelValue, setModelValue] = useState("vitouphy/wav2vec2-xls-r-300m-timit-phoneme");
-    const onModelChange = (value) => setModelValue(value);
+    const [modelValue, setModelValue] = useState<string>(
+        "vitouphy/wav2vec2-xls-r-300m-timit-phoneme"
+    );
+    const onModelChange = (value: string) => setModelValue(value);
 
     const openConfirmDialog = () => {
         confirmDialogRef.current?.showModal();
@@ -57,17 +65,17 @@ const PronunciationSettings = () => {
         );
         if (allStepsDone) {
             // Transform pythonCheckResult to expected structure for getPronunciationInstallState
-            const installStatusObj = {
-                python: { found: pythonCheckResult?.found },
+            const installStatusObj: PronunciationInstallStatus = {
+                python: { found: pythonCheckResult?.found ?? false },
                 dependencies: pythonCheckResult?.deps,
-                model: { status: pythonCheckResult?.modelStatus },
+                model: { status: pythonCheckResult?.modelStatus ?? "" },
             };
             setInstallState(getPronunciationInstallState(installStatusObj));
         }
     };
 
     // Helper to save install status to electron-conf
-    const saveInstallStatus = async (result) => {
+    const saveInstallStatus = async (result: PronunciationInstallStatus) => {
         if (window.electron?.ipcRenderer) {
             await window.electron.ipcRenderer.invoke("set-pronunciation-install-status", result);
         }
@@ -80,21 +88,30 @@ const PronunciationSettings = () => {
                 const cachedStatus = await window.electron.ipcRenderer.invoke(
                     "get-pronunciation-install-status"
                 );
-                const state = getPronunciationInstallState(cachedStatus);
+                const statusTyped = cachedStatus as PronunciationInstallStatus | null;
+                const state = getPronunciationInstallState(statusTyped);
                 setInstallState(state);
                 console.log("cachedStatus", cachedStatus);
                 if (state === "complete") {
-                    setPythonCheckResult(cachedStatus);
+                    setPythonCheckResult(statusTyped);
                     setError(null);
                 } else if (state === "failed") {
-                    setPythonCheckResult(cachedStatus);
+                    setPythonCheckResult(statusTyped);
                     setError(
-                        cachedStatus?.log ||
-                            cachedStatus?.modelMessage ||
-                            cachedStatus?.dependencyLog ||
-                            "Installation failed."
+                        pickFirstString(
+                            typeof statusTyped?.log === "string" ? statusTyped.log : "",
+                            typeof statusTyped?.modelMessage === "string"
+                                ? statusTyped.modelMessage
+                                : "",
+                            typeof statusTyped?.dependencyLog === "string"
+                                ? statusTyped.dependencyLog
+                                : ""
+                        )
                     );
-                    window.electron.log("error", `Pronunciation install failed. ${cachedStatus}`);
+                    window.electron.log(
+                        "error",
+                        `Pronunciation install failed. ${JSON.stringify(statusTyped)}`
+                    );
                 } else {
                     setPythonCheckResult(null);
                     setError(null);
@@ -106,9 +123,11 @@ const PronunciationSettings = () => {
 
     // Listen for dependency installation progress
     useEffect(() => {
-        const handleDepProgress = (_event, depStatus) => {
+        const handleDepProgress = (...args: unknown[]) => {
+            const depStatus = args[1] as PronunciationDependency;
             setPythonCheckResult((prev) => {
-                let deps = Array.isArray(prev?.deps) ? [...prev.deps] : [];
+                if (!prev) return prev;
+                const deps = Array.isArray(prev.deps) ? [...prev.deps] : [];
                 const idx = deps.findIndex((d) => d.name === depStatus.name);
                 if (idx !== -1) deps[idx] = depStatus;
                 else deps.push(depStatus);
@@ -147,8 +166,10 @@ const PronunciationSettings = () => {
 
     // Listen for model download progress (live console output)
     useEffect(() => {
-        const handleModelProgress = (_event, msg) => {
+        const handleModelProgress = (...args: unknown[]) => {
+            const msg = args[1] as { status: string; message?: string };
             setPythonCheckResult((prev) => {
+                if (!prev) return prev;
                 const updated = {
                     ...prev,
                     log: undefined, // Remove old log field if present
@@ -178,7 +199,8 @@ const PronunciationSettings = () => {
         setError(null);
         setPythonCheckResult(null);
         try {
-            const result = await checkPythonInstalled();
+            const resultRaw = await checkPythonInstalled();
+            const result = resultRaw as PronunciationInstallStatus;
             setPythonCheckResult((prev) => ({
                 ...prev,
                 pythonLog: result.log || "",
@@ -188,8 +210,9 @@ const PronunciationSettings = () => {
                 installDependencies();
             }
         } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : String(err);
             console.error("[Pronunciation] Python check error:", err);
-            setError(err.message || String(err));
+            setError(errorMsg);
         } finally {
             setChecking(false);
         }
@@ -200,21 +223,24 @@ const PronunciationSettings = () => {
         if (window.electron?.ipcRenderer) {
             setChecking(true);
             try {
-                const result = await installDependenciesIPC();
+                const resultRaw = await installDependenciesIPC();
+                const result = resultRaw as PronunciationInstallStatus;
                 setPythonCheckResult((prev) => {
-                    const updated = { ...prev, ...result };
+                    if (!prev) return {} as PronunciationInstallStatus;
+                    const updated: PronunciationInstallStatus = { ...prev, ...result };
                     return updated;
                 });
-                if (result.deps && result.deps.every((dep) => dep.status === "success")) {
+                if (
+                    result.deps &&
+                    result.deps.every((dep: PronunciationDependency) => dep.status === "success")
+                ) {
                     downloadModelStep();
                 }
             } catch (err) {
+                const errorMsg = err instanceof Error ? err.message : String(err);
                 console.error("[Pronunciation] Dependency install error:", err);
-                setError(err.message || String(err));
-                window.electron.log(
-                    "error",
-                    `Dependency install error: ${err.message || String(err)}`
-                );
+                setError(errorMsg);
+                window.electron.log("error", `Dependency install error: ${errorMsg}`);
             } finally {
                 setChecking(false);
             }
@@ -225,6 +251,7 @@ const PronunciationSettings = () => {
         if (window.electron?.ipcRenderer) {
             setChecking(true);
             setPythonCheckResult((prev) => {
+                if (!prev) return {} as PronunciationInstallStatus;
                 const updated = {
                     ...prev,
                     modelStatus: "downloading",
@@ -234,22 +261,26 @@ const PronunciationSettings = () => {
             });
             try {
                 // Pass modelValue to IPC
-                const result = await downloadModelStepIPC(modelValue);
+                const resultRaw = await downloadModelStepIPC(modelValue);
+                const result = resultRaw as PronunciationInstallStatus;
                 setPythonCheckResult((prev) => {
-                    const updated = { ...prev, ...result };
+                    if (!prev) return {} as PronunciationInstallStatus;
+                    const updated: PronunciationInstallStatus = { ...prev, ...result };
                     return updated;
                 });
             } catch (err) {
+                const errorMsg = err instanceof Error ? err.message : String(err);
                 console.error("[Pronunciation] Model download error:", err);
                 setPythonCheckResult((prev) => {
-                    const updated = {
+                    if (!prev) return {} as PronunciationInstallStatus;
+                    const updated: PronunciationInstallStatus = {
                         ...prev,
                         modelStatus: "error",
-                        log: (prev?.log ? prev.log + "\n" : "") + (err.message || String(err)),
+                        log: (prev?.log ? prev.log + "\n" : "") + errorMsg,
                     };
                     return updated;
                 });
-                window.electron.log("error", `Model download error: ${err.message || String(err)}`);
+                window.electron.log("error", `Model download error: ${errorMsg}`);
             } finally {
                 setChecking(false);
             }
@@ -299,6 +330,14 @@ const PronunciationSettings = () => {
     const selectedModel = modelOptions.find((opt) => opt.value === modelValue);
     const selectedModelSize = selectedModel ? selectedModel.size : "";
 
+    // Helper to pick the first defined string value
+    function pickFirstString(...args: (string | undefined)[]): string {
+        for (const arg of args) {
+            if (typeof arg === "string" && arg.length > 0) return arg;
+        }
+        return "Installation failed.";
+    }
+
     return (
         <>
             <div className="mt-4">
@@ -332,7 +371,6 @@ const PronunciationSettings = () => {
                     installState={installState}
                     modelValue={modelValue}
                     onModelChange={onModelChange}
-                    error={error}
                 />
             </dialog>
 
