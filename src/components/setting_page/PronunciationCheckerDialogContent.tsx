@@ -1,8 +1,17 @@
-import PropTypes from "prop-types";
 import { Trans } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import openExternal from "../../utils/openExternal";
-import modelOptions from "./modelOptions";
+import openExternal from "../../utils/openExternal.js";
+import modelOptions from "./modelOptions.js";
+
+interface PronunciationCheckerDialogContentProps {
+    t: (key: string, options?: Record<string, unknown>) => string;
+    checking: boolean;
+    closeConfirmDialog: () => void;
+    handleProceed: () => void;
+    installState: "not_installed" | "failed" | "complete";
+    modelValue: string;
+    onModelChange: (value: string) => void;
+}
 
 const PronunciationCheckerDialogContent = ({
     t,
@@ -12,7 +21,8 @@ const PronunciationCheckerDialogContent = ({
     installState,
     modelValue,
     onModelChange,
-}) => {
+}: PronunciationCheckerDialogContentProps) => {
+    const selectedModel = modelOptions.find((opt) => opt.value === modelValue);
     return (
         <div className="modal-box">
             <h3 className="text-lg font-bold">
@@ -24,13 +34,15 @@ const PronunciationCheckerDialogContent = ({
                     <label className="mb-2 block font-semibold">
                         {t("settingPage.pronunciationSettings.modelSelectLabel")}
                         <div className="dropdown dropdown-bottom dropdown-center">
-                            <div
+                            <button
+                                type="button"
+                                title={t("settingPage.pronunciationSettings.modelExplanationTitle")}
                                 tabIndex={0}
                                 role="button"
                                 className="btn btn-circle btn-ghost btn-sm align-middle"
                             >
                                 <IoInformationCircleOutline className="h-5 w-5" />
-                            </div>
+                            </button>
                             <div
                                 tabIndex={0}
                                 className="dropdown-content card bg-base-100 z-3 w-96 text-base font-normal shadow-md"
@@ -51,6 +63,7 @@ const PronunciationCheckerDialogContent = ({
                         </div>
                     </label>
                     <select
+                        title={t("settingPage.pronunciationSettings.modelSelectLabel")}
                         className="select select-bordered w-full"
                         value={modelValue}
                         onChange={(e) => onModelChange(e.target.value)}
@@ -64,8 +77,7 @@ const PronunciationCheckerDialogContent = ({
                     </select>
                     {/* Show description for selected model */}
                     <div className="mt-2 min-h-[1.5em] text-sm text-gray-600 dark:text-slate-400">
-                        {modelOptions.find((opt) => opt.value === modelValue) &&
-                            t(modelOptions.find((opt) => opt.value === modelValue).description)}
+                        {selectedModel && t(selectedModel.description)}
                     </div>
                 </div>
                 {installState === "failed" && (
@@ -79,7 +91,7 @@ const PronunciationCheckerDialogContent = ({
                                 <Trans
                                     i18nKey="settingPage.pronunciationSettings.pronunciationModalBodyPython2"
                                     components={[
-                                        <button
+                                        <a
                                             key="python-link"
                                             type="button"
                                             className="link font-semibold underline"
@@ -109,7 +121,7 @@ const PronunciationCheckerDialogContent = ({
                                 <Trans
                                     i18nKey="settingPage.pronunciationSettings.pronunciationModalBodyPython"
                                     components={[
-                                        <button
+                                        <a
                                             key="python-link"
                                             type="button"
                                             className="link font-semibold underline"
@@ -124,7 +136,7 @@ const PronunciationCheckerDialogContent = ({
                                 <Trans
                                     i18nKey="settingPage.pronunciationSettings.pronunciationModalBodyPython2"
                                     components={[
-                                        <button
+                                        <a
                                             key="python-link"
                                             type="button"
                                             className="link font-semibold underline"
@@ -160,16 +172,6 @@ const PronunciationCheckerDialogContent = ({
             </div>
         </div>
     );
-};
-
-PronunciationCheckerDialogContent.propTypes = {
-    t: PropTypes.func.isRequired,
-    checking: PropTypes.bool.isRequired,
-    closeConfirmDialog: PropTypes.func.isRequired,
-    handleProceed: PropTypes.func.isRequired,
-    installState: PropTypes.string.isRequired,
-    modelValue: PropTypes.string.isRequired,
-    onModelChange: PropTypes.func.isRequired,
 };
 
 export default PronunciationCheckerDialogContent;
