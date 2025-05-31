@@ -17,20 +17,13 @@
     </head>
     <body>
         <div>
-            <img
-                class="img-fluid"
-                src="../dist/images/icons/windows11/Wide310x150Logo.scale-400.png"
-                id="splash"
-                alt="Splash Image"
-            />
+            <img class="img-fluid" id="splash" alt="Splash Image" />
         </div>
         <script>
             const htmlEl = document.documentElement;
             const bodyElement = document.body;
             const splashImage = document.getElementById("splash");
 
-            const splashImageDark = "../dist/images/icons/logo-splash-dark.png";
-            const splashImageLight = "../dist/images/icons/windows11/Wide310x150Logo.scale-400.png";
             const bodyElementDark = "#222";
             const bodyElementLight = "#f2f2f2";
 
@@ -46,12 +39,28 @@
             };
 
             document.addEventListener("DOMContentLoaded", async () => {
+                const nodeEnv = await window.electron.ipcRenderer.invoke("get-node-env");
+                const srcBase = nodeEnv === "development" ? "../public" : "../dist-react";
+                const splashImageDark = `${srcBase}/images/icons/logo-splash-dark.png`;
+                const splashImageLight = `${srcBase}/images/icons/windows11/Wide310x150Logo.scale-400.png`;
+
                 let storedTheme;
                 storedTheme = await window.electron.ipcRenderer.invoke(
                     "get-theme",
                     "ispeakerreact-ui-theme"
                 );
                 if (storedTheme === "dark") storedTheme = "dim";
+
+                const darkElement = () => {
+                    htmlEl.setAttribute("data-theme", "dim");
+                    splashImage.src = splashImageDark;
+                    bodyElement.style.backgroundColor = bodyElementDark;
+                };
+                const lightElement = () => {
+                    htmlEl.setAttribute("data-theme", "light");
+                    splashImage.src = splashImageLight;
+                    bodyElement.style.backgroundColor = bodyElementLight;
+                };
 
                 const applyTheme = (theme) => {
                     switch (theme) {
