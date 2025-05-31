@@ -1,25 +1,64 @@
 import he from "he";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import useCountdownTimer from "../../utils/useCountdownTimer";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
 
-const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [shuffledOptions, setShuffledOptions] = useState([]);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [currentQuestionText, setCurrentQuestionText] = useState("");
-    const [currentAudioSrc, setCurrentAudioSrc] = useState("");
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+// Define types based on JSON structure
+
+interface QuizOption {
+    value: string;
+    index: string;
+    answer: "true" | "false";
+}
+
+interface QuizQuestion {
+    text: string;
+    correctAns: string;
+}
+
+interface QuizAudio {
+    src: string;
+}
+
+interface QuizItem {
+    data: QuizOption[];
+    question: QuizQuestion[];
+    audio: QuizAudio;
+}
+
+interface SoundAndSpellingProps {
+    quiz: QuizItem[];
+    onAnswer: (score: number, type: string) => void;
+    onQuit: () => void;
+    timer: number;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+const SoundAndSpelling = ({
+    quiz,
+    onAnswer,
+    onQuit,
+    timer,
+    setTimeIsUp,
+}: SoundAndSpellingProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [shuffledOptions, setShuffledOptions] = useState<QuizOption[]>([]);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+    const [currentQuestionText, setCurrentQuestionText] = useState<string>("");
+    const [currentAudioSrc, setCurrentAudioSrc] = useState<string>("");
+    const [selectedOption, setSelectedOption] = useState<{
+        index: number;
+        isCorrect: boolean;
+    } | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
@@ -28,14 +67,14 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const { t } = useTranslation();
 
     // Use a ref to manage the audio element
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    const filterAndShuffleQuiz = (quiz) => {
+    const filterAndShuffleQuiz = (quiz: QuizItem[]): QuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     };
 
-    const loadQuiz = useCallback((quizData) => {
+    const loadQuiz = useCallback((quizData: QuizItem) => {
         // Shuffle the answer options
         const shuffledOptions = ShuffleArray([...quizData.data]);
         setShuffledOptions(shuffledOptions);
@@ -94,7 +133,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             setIsPlaying(false);
         } else {
             setIsLoading(true);
-            const newAudio = new Audio(currentAudioSrc);
+            const newAudio = new window.Audio(currentAudioSrc);
             audioRef.current = newAudio;
             newAudio.load();
 
@@ -121,7 +160,7 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         }
     };
 
-    const handleOptionClick = (isCorrect, index) => {
+    const handleOptionClick = (isCorrect: boolean, index: number) => {
         startTimer();
         setButtonsDisabled(true);
         setSelectedOption({ index, isCorrect });
@@ -257,14 +296,6 @@ const SoundAndSpelling = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-SoundAndSpelling.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    timer: PropTypes.number.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default SoundAndSpelling;
