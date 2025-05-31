@@ -310,7 +310,7 @@ const SoundPracticeCard = ({
                     <div className="flex items-center space-x-2">
                         <button
                             type="button"
-                            title={t("sound_page.watchVideo")}
+                            title={t("buttonConversationExam.watchBtn")}
                             className="btn btn-primary btn-circle"
                             onClick={handleShow}
                             disabled={isAnyCardActive || isRecording || isPlaying}
@@ -319,7 +319,7 @@ const SoundPracticeCard = ({
                         </button>
                         <button
                             type="button"
-                            title={t("sound_page.record")}
+                            title={t("buttonConversationExam.recordBtn")}
                             className={`btn btn-circle ${isRecording ? "btn-error" : "btn-primary"}`}
                             onClick={isRecording ? stopRecording : startRecording}
                             disabled={(!isRecording && isAnyCardActive) || isPlaying}
@@ -332,7 +332,7 @@ const SoundPracticeCard = ({
                         </button>
                         <button
                             type="button"
-                            title={t("sound_page.playRecording")}
+                            title={t("buttonConversationExam.playBtn")}
                             className="btn btn-primary btn-circle"
                             onClick={handlePlayRecording}
                             disabled={
