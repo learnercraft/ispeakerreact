@@ -7,6 +7,9 @@ import {
     TouchSensor,
     useSensor,
     useSensors,
+    type DragStartEvent,
+    type DragEndEvent,
+    type UniqueIdentifier,
 } from "@dnd-kit/core";
 import {
     arrayMove,
@@ -15,43 +18,67 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import _ from "lodash";
-import PropTypes from "prop-types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
-import { ShuffleArray } from "../../utils/ShuffleArray";
-import { sonnerErrorToast } from "../../utils/sonnerCustomToast";
-import useCountdownTimer from "../../utils/useCountdownTimer";
-import SortableWord from "./SortableWord";
+import ShuffleArray from "../../utils/ShuffleArray.js";
+import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
+import useCountdownTimer from "../../utils/useCountdownTimer.js";
+import SortableWord from "./SortableWord.js";
 
-const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
-    const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
-    const [shuffledQuiz, setShuffledQuiz] = useState([]);
-    const [shuffledWords, setShuffledWords] = useState([]);
-    const [audioItems, setAudioItems] = useState([]);
-    const [isPlaying, setIsPlaying] = useState(null);
-    const [isLoading, setIsLoading] = useState([]);
-    const [isCorrectArray, setIsCorrectArray] = useState([]);
-    const [buttonsDisabled, setButtonsDisabled] = useState(false);
-    const [originalPairs, setOriginalPairs] = useState([]);
-    const [activeId, setActiveId] = useState(null);
+// Types inferred from exercise_matchup.json and SortableWord
+interface AudioItem {
+    src: string;
+}
+
+interface WordItem {
+    text: string;
+    drag: boolean;
+    id: string; // Always present
+}
+
+interface QuizItem {
+    audio: AudioItem[];
+    words: WordItem[];
+    type?: string;
+}
+
+interface MatchUpProps {
+    quiz: QuizItem[];
+    timer: number;
+    onAnswer: (correctCount: number, type: string, total: number) => void;
+    onQuit: () => void;
+    setTimeIsUp: (isUp: boolean) => void;
+}
+
+const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: MatchUpProps) => {
+    const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);
+    const [shuffledQuiz, setShuffledQuiz] = useState<QuizItem[]>([]);
+    const [shuffledWords, setShuffledWords] = useState<WordItem[]>([]);
+    const [audioItems, setAudioItems] = useState<AudioItem[]>([]);
+    const [isPlaying, setIsPlaying] = useState<number | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean[]>([]);
+    const [isCorrectArray, setIsCorrectArray] = useState<(boolean | null)[]>([]);
+    const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+    const [originalPairs, setOriginalPairs] = useState<{ audio: string; word: string }[]>([]);
+    const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () =>
         setTimeIsUp(true)
     );
-    const [exerciseType, setExerciseType] = useState("");
+    const [exerciseType, setExerciseType] = useState<string>("");
 
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const { t } = useTranslation();
 
-    const filterAndShuffleQuiz = useCallback((quiz) => {
+    const filterAndShuffleQuiz = useCallback((quiz: QuizItem[]): QuizItem[] => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
         return ShuffleArray(uniqueQuiz);
     }, []);
 
-    const loadQuiz = useCallback((quizData) => {
-        setExerciseType(quizData.type);
+    const loadQuiz = useCallback((quizData: QuizItem) => {
+        setExerciseType(quizData.type ?? "");
         // Store the original pairs for checking answers
         const pairs = quizData.audio.map((audio, index) => ({
             audio: audio.src.split("_")[0].toLowerCase(),
@@ -60,14 +87,14 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
         setOriginalPairs(pairs);
 
         // Generate unique IDs for each word
-        const wordsWithIds = quizData.words.map((word, index) => ({
+        const wordsWithIds: WordItem[] = quizData.words.map((word, index) => ({
             ...word,
             id: `${word.text}-${index}-${Math.random().toString(36).substring(2, 11)}`,
         }));
 
         // Shuffle words and audio independently
         const shuffledWordsArray = ShuffleArray(wordsWithIds);
-        const shuffledAudioArray = ShuffleArray(quizData.audio);
+        const shuffledAudioArray = ShuffleArray([...quizData.audio]);
 
         setShuffledWords(shuffledWordsArray);
         setAudioItems(shuffledAudioArray);
@@ -105,18 +132,15 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
 
     const sensors = useSensors(
         useSensor(PointerSensor),
-        useSensor(TouchSensor, {
-            // Prevent scrolling while dragging on touch devices
-            preventScrolling: true,
-        }),
+        useSensor(TouchSensor),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
 
-    const handleAudioPlay = (src, index) => {
+    const handleAudioPlay = (src: string, index: number) => {
         // Pause the current audio if it's playing
-        if (isPlaying !== null) {
+        if (isPlaying !== null && audioRef.current) {
             audioRef.current.pause();
             setIsPlaying(null);
         }
@@ -130,7 +154,9 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                 exerciseType === "comprehension" || exerciseType === "sentence"
                     ? `${import.meta.env.BASE_URL}media/exercise/mp3/sentence/${src}.mp3`
                     : `${import.meta.env.BASE_URL}media/word/mp3/${src}.mp3`;
-            audioRef.current.src = audioSrc; // Set the new audio source
+            if (audioRef.current) {
+                audioRef.current.src = audioSrc; // Set the new audio source
+            }
 
             // Set loading state for this specific button
             setIsLoading((prev) => {
@@ -139,29 +165,31 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                 return newLoadingState;
             });
 
-            audioRef.current.play().then(() => {
-                setIsPlaying(index);
-                startTimer();
-                // Disable loading state for this specific button
-                setIsLoading((prev) => {
-                    const newLoadingState = [...prev];
-                    newLoadingState[index] = false;
-                    return newLoadingState;
+            if (audioRef.current) {
+                audioRef.current.play().then(() => {
+                    setIsPlaying(index);
+                    startTimer();
+                    // Disable loading state for this specific button
+                    setIsLoading((prev) => {
+                        const newLoadingState = [...prev];
+                        newLoadingState[index] = false;
+                        return newLoadingState;
+                    });
                 });
-            });
 
-            audioRef.current.onended = () => setIsPlaying(null);
-            audioRef.current.onerror = () => {
-                setIsPlaying(null);
-                // Disable loading state in case of error
-                setIsLoading((prev) => {
-                    const newLoadingState = [...prev];
-                    newLoadingState[index] = false;
-                    return newLoadingState;
-                });
-                console.error("Error loading the audio file:", audioSrc);
-                sonnerErrorToast(t("toast.audioPlayFailed"));
-            };
+                audioRef.current.onended = () => setIsPlaying(null);
+                audioRef.current.onerror = () => {
+                    setIsPlaying(null);
+                    // Disable loading state in case of error
+                    setIsLoading((prev) => {
+                        const newLoadingState = [...prev];
+                        newLoadingState[index] = false;
+                        return newLoadingState;
+                    });
+                    console.error("Error loading the audio file:", audioSrc);
+                    sonnerErrorToast(t("toast.audioPlayFailed"));
+                };
+            }
         }
     };
 
@@ -171,20 +199,20 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             audioRef.current.currentTime = 0; // Reset the audio to the start
             audioRef.current.removeAttribute("src"); // Remove the audio source attribute
             audioRef.current.load(); // Reload the audio element to reset the state
-            setIsPlaying(false); // Reset the playing state
-            setIsLoading(false);
+            setIsPlaying(null); // Reset the playing state
+            setIsLoading([]);
         }
     };
 
-    const handleDragStart = (event) => {
-        const { active } = event;
-        setActiveId(active.id);
+    const handleDragStart = (event: DragStartEvent) => {
+        setActiveId(event.active.id);
         startTimer();
     };
 
-    const handleDragEnd = ({ active, over }) => {
+    const handleDragEnd = (event: DragEndEvent) => {
         setActiveId(null);
-
+        const { active, over } = event;
+        if (!over) return;
         if (active.id !== over.id) {
             setShuffledWords((items) => {
                 const oldIndex = items.findIndex((item) => item.id === active.id);
@@ -296,7 +324,7 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         <DndContext
                             sensors={sensors}
                             collisionDetection={closestCenter}
-                            autoScroll={{ layoutShiftCompensation: false, enable: false }}
+                            autoScroll={{ layoutShiftCompensation: false }}
                             onDragStart={handleDragStart}
                             onDragEnd={handleDragEnd}
                         >
@@ -309,7 +337,6 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                                         <SortableWord
                                             key={word.id}
                                             word={word}
-                                            index={index}
                                             isCorrect={isCorrectArray[index]}
                                             disabled={buttonsDisabled}
                                         />
@@ -319,12 +346,14 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                                     {activeId ? (
                                         <SortableWord
                                             word={{
-                                                id: activeId,
-                                                text: shuffledWords.find(
-                                                    (item) => item.id === activeId
-                                                )?.text,
+                                                id: String(activeId),
+                                                text:
+                                                    shuffledWords.find(
+                                                        (item) => item.id === activeId
+                                                    )?.text || "",
                                             }}
-                                            isOverlay={true} // Pass a prop to indicate it's in the overlay
+                                            isOverlay={true}
+                                            isCorrect={null}
                                         />
                                     ) : null}
                                 </DragOverlay>
@@ -363,14 +392,6 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
             </div>
         </>
     );
-};
-
-MatchUp.propTypes = {
-    quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
-    timer: PropTypes.number.isRequired,
-    onAnswer: PropTypes.func.isRequired,
-    onQuit: PropTypes.func.isRequired,
-    setTimeIsUp: PropTypes.func.isRequired,
 };
 
 export default MatchUp;
