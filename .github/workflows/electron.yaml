@@ -49,11 +49,15 @@ jobs:
             - name: Build Vite App
               run: npm run vitebuildcli
 
-            - name: Upload Vite Build Artifact
+            - name: Zip dist-react and dist-electron
+              run: |
+                  zip -r vite-builds.zip dist-react dist-electron
+
+            - name: Upload Vite Build Artifacts Zip
               uses: actions/upload-artifact@main
               with:
-                  name: vite-dist
-                  path: ./dist-react
+                  name: vite-builds-zip
+                  path: vite-builds.zip
 
     build:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -80,11 +84,16 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@main
 
-            - name: Download Vite Build Artifact
+            - name: Download Vite Build Artifacts Zip
               uses: actions/download-artifact@main
               with:
-                  name: vite-dist
-                  path: ./dist-react
+                  name: vite-builds-zip
+                  path: .
+
+            - name: Unzip dist-react and dist-electron
+              run: |
+                  unzip -o vite-builds.zip
+                  # dist-react and dist-electron are now in the workspace root
 
             - name: Get version from package.json
               id: get_version
