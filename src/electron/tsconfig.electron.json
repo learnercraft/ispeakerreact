@@ -9,7 +9,7 @@
         "outDir": "../../dist-electron",
         "resolveJsonModule": true,
         "skipLibCheck": true, // ignore errors from dependencies that are not fully ready for typescript
-        "sourceMap": true,
+        "sourceMap": false,
         "strict": true, // require strict types (null-save)
         "strictPropertyInitialization": false,
         "target": "ESNext", // tell TypeScript to generate ESM Syntax when build

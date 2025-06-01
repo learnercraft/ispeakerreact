@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
             },
             manifest: true,
             outDir: "dist-react",
-            //sourcemap: true,
+            sourcemap: false,
         },
 
         plugins: [
