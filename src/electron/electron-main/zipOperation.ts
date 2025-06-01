@@ -22,7 +22,7 @@ const fileVerification = async (
     event: IpcMainEvent,
     zipContents: { extractedFiles: { name: string; hash: string }[] }[],
     extractedFolder: string
-) => {
+): Promise<boolean> => {
     // Verify existing extracted files
     const totalFiles = zipContents[0].extractedFiles.length;
     let filesProcessed = 0;
@@ -69,7 +69,7 @@ const fileVerification = async (
             param: extractedFolder,
         });
         applog.log(`All extracted files are verified for "${extractedFolder}"`);
-        return;
+        return true;
     } else {
         // Send all errors as an array
         event.sender.send("verification-errors", fileErrors);
@@ -77,7 +77,7 @@ const fileVerification = async (
             `Verification found errors in extracted files for "${extractedFolder}"`,
             fileErrors
         );
-        return;
+        return false;
     }
 };
 
@@ -128,10 +128,47 @@ const verifyAndExtractIPC = () => {
                         applog.error(`7-Zip aborted: ${reason}`);
                         event.sender.send("verification-error", `7-Zip aborted: ${reason}`);
                     },
-                    onExit: (exitCode: number) => {
+                    onExit: async (exitCode: number) => {
                         if (exitCode === 0) {
                             console.log(`7-Zip exited successfully with code ${exitCode}`);
                             applog.log(`7-Zip exited successfully with code ${exitCode}`);
+
+                            // Step 3: Verifying extracted files
+                            event.sender.send(
+                                "progress-text",
+                                "settingPage.videoDownloadSettings.verifyinProgressMsg"
+                            );
+                            const verificationSuccess = await fileVerification(
+                                event,
+                                zipContents,
+                                extractedFolder
+                            );
+
+                            // Only clean up the ZIP file after successful extraction and verification
+                            if (verificationSuccess) {
+                                try {
+                                    await fsPromises.unlink(zipFilePath);
+                                    console.log(`Deleted ZIP file: ${zipFilePath}`);
+                                    applog.log(`Extraction successful for ${zipFile}`);
+                                } catch (err) {
+                                    const errorMsg =
+                                        err instanceof Error ? err.message : String(err);
+                                    console.error(`Failed to delete ZIP file: ${errorMsg}`);
+                                    applog.error(`Failed to delete ZIP file: ${errorMsg}`);
+                                }
+
+                                event.sender.send("verification-success", {
+                                    messageKey:
+                                        "settingPage.videoDownloadSettings.electronVerifyMessage.zipSuccessMsg",
+                                    param: zipFile,
+                                });
+                                applog.log(`Successfully verified and extracted ${zipFile}`);
+                            } else {
+                                // Do not delete the ZIP file if verification failed
+                                applog.log(
+                                    `Verification failed for ${zipFile}, ZIP file not deleted.`
+                                );
+                            }
                         } else {
                             console.error(`7-Zip exited with error code: ${exitCode}`);
                             applog.error(`7-Zip exited with error code: ${exitCode}`);
@@ -169,11 +206,12 @@ const verifyAndExtractIPC = () => {
                 }
                 event.sender.send("progress-text", "ZIP file verified");
 
-                // Step 2: Extracting ZIP file
+                // Step 2: Extracting ZIP file (using onExit handler)
                 event.sender.send(
                     "progress-text",
                     "settingPage.videoDownloadSettings.electronVerifyMessage.zipExtractingMsg"
                 );
+
                 const extractionResult = await js7z.callMain([
                     "x",
                     emZipFilePath,
@@ -192,31 +230,6 @@ const verifyAndExtractIPC = () => {
 
                 console.log(`Extraction successful for ${zipFile}`);
                 applog.log(`Extraction successful for ${zipFile}`);
-
-                // Step 3: Verifying extracted files
-                event.sender.send(
-                    "progress-text",
-                    "settingPage.videoDownloadSettings.verifyinProgressMsg"
-                );
-                await fileVerification(event, zipContents, extractedFolder);
-
-                // Clean up the ZIP file after successful extraction and verification
-                try {
-                    await fsPromises.unlink(zipFilePath);
-                    console.log(`Deleted ZIP file: ${zipFilePath}`);
-                    applog.log(`Extraction successful for ${zipFile}`);
-                } catch (err) {
-                    const errorMsg = err instanceof Error ? err.message : String(err);
-                    console.error(`Failed to delete ZIP file: ${errorMsg}`);
-                    applog.error(`Failed to delete ZIP file: ${errorMsg}`);
-                }
-
-                event.sender.send("verification-success", {
-                    messageKey:
-                        "settingPage.videoDownloadSettings.electronVerifyMessage.zipSuccessMsg",
-                    param: zipFile,
-                });
-                applog.log(`Successfully verified and extracted ${zipFile}`);
             } catch (err) {
                 const errorMsg = err instanceof Error ? err.message : String(err);
                 console.error(`Error processing ${zipFile}: ${errorMsg}`);
