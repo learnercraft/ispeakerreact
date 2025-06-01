@@ -31,7 +31,8 @@ const config: ForgeConfig = {
             "^/public$",
             "^/src$",
             "^/netlify.toml$",
-            "^/\\.ts*$", // Ignore typescript
+            "^/*\\.ts*$", // Ignore typescript,
+            "^/stats.html$"
         ],
     },
     rebuildConfig: {},
