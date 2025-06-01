@@ -169,14 +169,14 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }: VideoDown
     const handleCloseVerifyModal = () => {
         setShowVerifyModal(false);
         setVerificationErrors([]);
-        setModalMessage("");
         verifyModal.current?.close();
+        setModalMessage("");
     };
 
     const handleCloseProgressModal = () => {
-        setModalMessage("");
         setVerificationErrors([]);
         progressModal.current?.close();
+        setModalMessage("");
     };
 
     return (
@@ -304,10 +304,11 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }: VideoDown
                         )}
                     </div>
                     <div className="modal-action">
-                        <button className="btn" onClick={handleCloseVerifyModal}>
+                        <button type="button" className="btn" onClick={handleCloseVerifyModal}>
                             {t("settingPage.exerciseSettings.cancelBtn")}
                         </button>
                         <button
+                            type="button"
                             className="btn btn-primary"
                             onClick={async () => await handleNextModal()}
                             disabled={verifyFiles.length === 0}
@@ -331,13 +332,17 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }: VideoDown
                         {showProgressModal === true && !progressError ? (
                             <>
                                 <p>{progressText}</p>
-                                <progress
-                                    className="progress progress-primary w-full"
-                                    value={isPercentage ? progress : 0}
-                                    max="100"
-                                >
-                                    {isPercentage ? `${progress}%` : null}
-                                </progress>
+                                {isPercentage ? (
+                                    <progress
+                                        className="progress progress-primary w-full"
+                                        value={progress}
+                                        max="100"
+                                    >
+                                        {progress}%
+                                    </progress>
+                                ) : (
+                                    <progress className="progress progress-primary w-full"></progress>
+                                )}
                             </>
                         ) : verificationErrors.length > 0 ? (
                             <>
@@ -353,11 +358,12 @@ const VideoDownloadTable = ({ t, data, isDownloaded, onStatusChange }: VideoDown
                                 </ul>
                             </>
                         ) : (
-                            <p>{modalMessage}</p>
+                            <p className="wrap-break-word">{modalMessage}</p>
                         )}
                     </div>
                     <div className="modal-action">
                         <button
+                            type="button"
                             className="btn"
                             onClick={handleCloseProgressModal}
                             disabled={showProgressModal === true && !progressError}
