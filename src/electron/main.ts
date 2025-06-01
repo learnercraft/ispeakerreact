@@ -1,4 +1,5 @@
 /* global setImmediate */ // for eslint because setImmediate is node global
+import cors from "cors";
 import type { IpcMainEvent } from "electron";
 import { app, BrowserWindow, dialog, ipcMain, shell } from "electron";
 import type { LogFunctions, LogLevel } from "electron-log";
@@ -58,6 +59,9 @@ const conf = new Conf();
 conf.registerRendererListener();
 
 let mainWindow;
+
+// Allow requests from localhost:5173 (Vite's default development server)
+expressApp.use(cors({ origin: "http://localhost:5173" }));
 
 // Set up rate limiter: maximum of 2000 requests per 15 minutes
 /*const limiter = RateLimit({
