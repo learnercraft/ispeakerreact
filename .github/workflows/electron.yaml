@@ -53,7 +53,7 @@ jobs:
               uses: actions/upload-artifact@main
               with:
                   name: vite-dist
-                  path: ./dist
+                  path: ./dist-react
 
     build:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -84,7 +84,7 @@ jobs:
               uses: actions/download-artifact@main
               with:
                   name: vite-dist
-                  path: ./dist
+                  path: ./dist-react
 
             - name: Get version from package.json
               id: get_version

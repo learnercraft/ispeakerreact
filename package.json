@@ -11,7 +11,7 @@
         "start": "npm run clean && tsc -b && npm run post-electron && concurrently \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && tsc --project src/electron/tsconfig.electron.json && cross-env NODE_ENV=development electron .\"",
         "dev": "vite",
         "watch": "nodemon --exec \"npm run build\"",
-        "build": "npm run clean && tsc -b && npm run post-electron && vite build && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json",
+        "build": "npm run clean && vite build && node scripts/minify-dist-jsons.js",
         "lint": "eslint .",
         "preview": "vite preview",
         "appx": "npm run clean && tsc -b && npm run post-electron && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-x64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",

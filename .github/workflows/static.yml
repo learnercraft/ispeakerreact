@@ -52,14 +52,14 @@ jobs:
             - name: Install dependencies
               run: npm ci
             - name: Build
-              run: npm run build && cp ./dist/index.html ./dist/404.html
+              run: npm run build && cp ./dist-react/index.html ./dist-react/404.html
             - name: Setup Pages
               uses: actions/configure-pages@main
             - name: Upload artifact
               uses: actions/upload-pages-artifact@main
               with:
                   # Upload dist folder
-                  path: "./dist"
+                  path: "./dist-react"
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@main
