@@ -1,7 +1,5 @@
-// This script is to delete automatically the dist folders
-
 import * as fs from "fs";
-import path, { dirname } from "node:path";
+import path from "node:path";
 
 const __dirname = path.resolve();
 
