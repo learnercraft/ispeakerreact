@@ -1,6 +1,6 @@
 import { ipcMain, IpcMainEvent } from "electron";
 import applog from "electron-log";
-import JS7z from "./js7z/js7z.js";
+import JS7z from "js7z-tools";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
@@ -104,6 +104,8 @@ const verifyAndExtractIPC = () => {
             console.log(`Starting verification for ${zipFile}`);
             applog.log(`Starting verification for ${zipFile}`);
             try {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore: Potential issues with js7z-tools package (TS2349)
                 const js7z = await JS7z({
                     print: (text: string) => {
                         console.log(`7-Zip output: ${text}`);
