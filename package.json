@@ -8,17 +8,18 @@
     "main": "dist-electron/main.js",
     "license": "Apache-2.0",
     "scripts": {
-        "start": "npm run clean && tsc -b && concurrently \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && tsc --project src/electron/tsconfig.electron.json && cross-env NODE_ENV=development electron .\"",
+        "start": "npm run clean && tsc -b && npm run minify-electronjs && concurrently \"cross-env NODE_ENV=development vite\" \"wait-on http://localhost:5173 && tsc --project src/electron/tsconfig.electron.json && cross-env NODE_ENV=development electron .\"",
         "dev": "vite",
         "watch": "nodemon --exec \"npm run build\"",
         "build": "npm run clean && vite build && node scripts/minify-dist-jsons.js",
         "lint": "eslint .",
         "preview": "vite preview",
-        "vitebuildcli": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json",
-        "appx": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-x64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
-        "appxarm": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-arm64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml",
-        "make": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make",
-        "clean": "node scripts/clean-dist.js"
+        "vitebuildcli": "npm run clean && tsc -b && vite build --mode electron && npm run minify-electronjs && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json",
+        "appx": "npm run clean && tsc -b && vite build --mode electron && npm run minify-electronjs && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-x64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
+        "appxarm": "npm run clean && tsc -b && vite build --mode electron && npm run minify-electronjs && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-arm64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml",
+        "make": "npm run clean && tsc -b && vite build --mode electron && npm run minify-electronjs && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make",
+        "clean": "node scripts/clean-dist.js",
+        "minify-electronjs": "node scripts/minify-dist-electron.js"
     },
     "dependencies": {
         "@ffmpeg/ffmpeg": "^0.12.15",
@@ -95,6 +96,7 @@
         "rollup-plugin-visualizer": "^6.0.0",
         "sonner": "^2.0.3",
         "tailwindcss": "^4.1.7",
+        "terser": "^5.40.0",
         "ts-node": "^10.9.2",
         "typescript": "~5.8.3",
         "typescript-eslint": "^8.33.0",
