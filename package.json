@@ -17,7 +17,6 @@
         "vitebuildcli": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json",
         "appx": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-x64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-x64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifest.xml",
         "appxarm": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make --arch=arm64 && cd ./out && electron-windows-store --input-directory ./iSpeakerReact-win32-arm64 --output-directory ./ispeakerreact-appx --package-version ${npm_package_version}.0 --package-name ispeakerreact-arm64-${npm_package_version}  --assets ../public/images/icons/windows11 -m ./appxmanifestARM.xml",
-        "makecli": "electron-forge make",
         "make": "npm run clean && tsc -b && vite build --mode electron && node scripts/minify-dist-jsons.js && tsc --project src/electron/tsconfig.electron.json && electron-forge make",
         "clean": "node scripts/clean-dist.js"
     },
