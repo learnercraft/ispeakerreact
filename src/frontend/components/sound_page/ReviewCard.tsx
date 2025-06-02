@@ -1,4 +1,6 @@
+import he from "he";
 import { useEffect, useState } from "react";
+import { Trans } from "react-i18next";
 import {
     BsEmojiFrown,
     BsEmojiFrownFill,
@@ -7,26 +9,16 @@ import {
     BsEmojiSmile,
     BsEmojiSmileFill,
 } from "react-icons/bs";
-import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
-import { Trans } from "react-i18next";
-import he from "he";
 import { checkRecordingExists } from "../../utils/databaseOperations.js";
-
-// Define types for props
-interface Sound {
-    phoneme: string;
-    id: number;
-    type: "consonants" | "vowels" | "diphthongs";
-}
+import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
+import type { ReviewType, SoundMenuItem } from "./types.js";
 
 interface ReviewCardProps {
-    sound: Sound;
+    sound: SoundMenuItem;
     accent: "british" | "american";
     t: (key: string, options?: Record<string, unknown>) => string;
     onReviewUpdate?: () => void;
 }
-
-type ReviewType = "good" | "neutral" | "bad" | null;
 
 const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
     const [review, setReview] = useState<ReviewType>(null);
@@ -48,7 +40,12 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
                 typeof storedData.soundReview === "object" &&
                 (storedData.soundReview as Record<string, unknown>)[accent] &&
                 typeof (storedData.soundReview as Record<string, unknown>)[accent] === "object" &&
-                ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[`${sound.type}${sound.id}`]) ||
+                (
+                    (storedData.soundReview as Record<string, unknown>)[accent] as Record<
+                        string,
+                        unknown
+                    >
+                )[`${sound.type}${sound.id}`]) ||
             null;
         setReview((soundReview as ReviewType) ?? null);
     }, [accent, sound]);
@@ -81,10 +78,15 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
         if (!storedData.soundReview || typeof storedData.soundReview !== "object") {
             storedData.soundReview = {};
         }
-        if (!(storedData.soundReview as Record<string, unknown>)[accent] || typeof (storedData.soundReview as Record<string, unknown>)[accent] !== "object") {
+        if (
+            !(storedData.soundReview as Record<string, unknown>)[accent] ||
+            typeof (storedData.soundReview as Record<string, unknown>)[accent] !== "object"
+        ) {
             (storedData.soundReview as Record<string, unknown>)[accent] = {};
         }
-        ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[`${sound.type}${sound.id}`] = type;
+        ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[
+            `${sound.type}${sound.id}`
+        ] = type;
 
         localStorage.setItem("ispeaker", JSON.stringify(storedData));
         setReview(type);

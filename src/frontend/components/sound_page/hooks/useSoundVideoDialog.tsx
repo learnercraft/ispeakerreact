@@ -4,9 +4,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import useAutoDetectTheme from "../../../utils/ThemeContext/useAutoDetectTheme.js";
 import { SoundVideoDialogContext } from "./useSoundVideoDialogContext.js";
-
-// Types from SoundPracticeCard.tsx
-export type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
+import type { TranslationFunction } from "../types.js";
 
 export interface SoundVideoDialogState {
     isOpen: boolean;
@@ -21,7 +19,7 @@ export interface SoundVideoDialogState {
 }
 
 export interface SoundVideoDialogContextType {
-    showDialog: (state: Omit<SoundVideoDialogState, 'isOpen' | 'iframeLoading'>) => void;
+    showDialog: (state: Omit<SoundVideoDialogState, "isOpen" | "iframeLoading">) => void;
     closeDialog: () => void;
     handleIframeLoad: () => void;
     dialogState: SoundVideoDialogState;
@@ -56,7 +54,7 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
     const mediaPlayerRef = useRef<MediaPlayerInstance | null>(null);
     const { autoDetectedTheme } = useAutoDetectTheme();
 
-    const showDialog = (state: Omit<SoundVideoDialogState, 'isOpen' | 'iframeLoading'>) => {
+    const showDialog = (state: Omit<SoundVideoDialogState, "isOpen" | "iframeLoading">) => {
         setDialogState({ ...state, isOpen: true, iframeLoading: true });
         dialogRef.current?.showModal();
     };
@@ -92,7 +90,7 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
             <dialog className="modal" ref={dialogRef}>
                 <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="pb-4 text-lg">
-                        <span className="font-bold">{t("sound_page.clipModalTitle")}</span>: {" "}
+                        <span className="font-bold">{t("sound_page.clipModalTitle")}</span>:{" "}
                         <span
                             lang="en"
                             className="italic"
@@ -111,7 +109,13 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={autoDetectedTheme as "default" | "light" | "dark" | "system"}
+                                            colorScheme={
+                                                autoDetectedTheme as
+                                                    | "default"
+                                                    | "light"
+                                                    | "dark"
+                                                    | "system"
+                                            }
                                         />
                                     </MediaPlayer>
                                 ) : dialogState.isOpen && dialogState.videoUrl ? (
@@ -124,10 +128,11 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
                                             title={`${dialogState.phoneme} - ${dialogState.title}`}
                                             allowFullScreen
                                             onLoad={handleIframeLoad}
-                                            className={`h-full w-full transition-opacity duration-300 ${dialogState.iframeLoading
+                                            className={`h-full w-full transition-opacity duration-300 ${
+                                                dialogState.iframeLoading
                                                     ? "opacity-0"
                                                     : "opacity-100"
-                                                }`}
+                                            }`}
                                         />
                                     </>
                                 ) : null}

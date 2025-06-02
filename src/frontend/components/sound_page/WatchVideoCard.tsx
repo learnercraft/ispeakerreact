@@ -6,22 +6,7 @@ import { useEffect, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import isElectron from "../../utils/isElectron.js";
 import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
-import type { AccentType } from "./SoundMain.js";
-
-// Type for the translation function (from SoundPracticeCard)
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string | string[];
-
-// Type for videoData (from AccentData)
-interface VideoData {
-    mainOfflineVideo: string;
-    mainOnlineVideo: string;
-}
-
-// Type for phoneme prop
-interface Phoneme {
-    type: "consonant" | "vowel" | "diphthong";
-    key: string;
-}
+import type { AccentType, Phoneme, TranslationFunction, VideoData } from "./types.js";
 
 interface WatchVideoCardProps {
     videoData: VideoData;
@@ -108,7 +93,13 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) 
                                         <MediaProvider />
                                         <DefaultVideoLayout
                                             icons={defaultLayoutIcons}
-                                            colorScheme={autoDetectedTheme as "default" | "light" | "dark" | "system"}
+                                            colorScheme={
+                                                autoDetectedTheme as
+                                                    | "default"
+                                                    | "light"
+                                                    | "dark"
+                                                    | "system"
+                                            }
                                         />
                                     </MediaPlayer>
                                 ) : (
@@ -121,8 +112,9 @@ const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) 
                                             title="Phoneme Video"
                                             allowFullScreen
                                             onLoad={handleIframeLoad}
-                                            className={`h-full w-full transition-opacity duration-300 ${iframeLoading ? "opacity-0" : "opacity-100"
-                                                }`}
+                                            className={`h-full w-full transition-opacity duration-300 ${
+                                                iframeLoading ? "opacity-0" : "opacity-100"
+                                            }`}
                                         ></iframe>
                                     </>
                                 )}

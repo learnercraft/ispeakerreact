@@ -1,37 +1,24 @@
 import he from "he";
 import { useEffect, useRef, useState } from "react";
 import { MdMic, MdPlayArrow, MdStop } from "react-icons/md";
-import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations.js";
+import {
+    checkRecordingExists,
+    playRecording,
+    saveRecording,
+} from "../../utils/databaseOperations.js";
 import isElectron from "../../utils/isElectron.js";
 import {
     sonnerErrorToast,
     sonnerSuccessToast,
     sonnerWarningToast,
 } from "../../utils/sonnerCustomToast.js";
-
-// Types
-export type TongueTwisterLine = string;
-
-export interface TongueTwisterItem {
-    text?: string;
-    title?: string;
-    lines?: TongueTwisterLine[];
-}
-
-export type SoundType = "consonants" | "vowels" | "diphthongs";
-
-export interface Sound {
-    type: SoundType;
-    id: number;
-}
-
-export type Accent = "british" | "american";
+import type { AccentType, Sound, TongueTwisterItem, TranslationFunction } from "./types.js";
 
 export interface TongueTwisterProps {
     tongueTwisters: TongueTwisterItem[];
-    t: (key: string) => string;
+    t: TranslationFunction;
     sound: Sound;
-    accent: Accent;
+    accent: AccentType;
 }
 
 const MAX_RECORDING_DURATION_MS = 2 * 60 * 1000; // 2 minutes
@@ -44,7 +31,9 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
     const recordingStartTimeRef = useRef<number | null>(null);
-    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(null);
+    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(
+        null
+    );
     const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null);
 
     // Check if recordings exist for each tongue twister
@@ -83,7 +72,9 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
 
             // Cleanup any active media streams
             if (mediaRecorderRef.current?.stream) {
-                mediaRecorderRef.current.stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+                mediaRecorderRef.current.stream
+                    .getTracks()
+                    .forEach((track: MediaStreamTrack) => track.stop());
             }
         };
     }, [currentAudioSource, currentAudioElement]);
@@ -119,7 +110,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
                     return updated;
                 });
                 stream.getTracks().forEach((track: MediaStreamTrack) => track.stop());
-                sonnerSuccessToast(t("toast.recordingSuccess"));
+                sonnerSuccessToast(t("toast.recordingSuccess") as string);
             };
 
             mediaRecorder.start();
@@ -129,7 +120,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
             setTimeout(() => {
                 if (mediaRecorder.state !== "inactive") {
                     mediaRecorder.stop();
-                    sonnerWarningToast(t("toast.recordingExceeded"));
+                    sonnerWarningToast(t("toast.recordingExceeded") as string);
                     setIsRecording(false);
                     setCurrentPlayingIndex(null);
                 }
@@ -139,7 +130,9 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
             if (isElectron()) {
                 window.electron.log("error", `Error accessing the microphone: ${error}`);
             }
-            sonnerErrorToast(`${t("toast.recordingFailed")} ${(error instanceof Error ? error.message : String(error))}`);
+            sonnerErrorToast(
+                `${t("toast.recordingFailed")} ${error instanceof Error ? error.message : String(error)}`
+            );
             setIsRecording(false);
             setCurrentPlayingIndex(null);
         }
@@ -149,7 +142,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
         if (mediaRecorderRef.current && isRecording) {
             const recordingDuration = Date.now() - (recordingStartTimeRef.current ?? 0);
             if (recordingDuration > MAX_RECORDING_DURATION_MS) {
-                sonnerWarningToast(t("toast.recordingExceeded"));
+                sonnerWarningToast(t("toast.recordingExceeded") as string);
             }
             mediaRecorderRef.current.stop();
             setIsRecording(false);
@@ -188,7 +181,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
             },
             (error: unknown) => {
                 console.error("Error playing recording:", error);
-                sonnerErrorToast(t("toast.playbackFailed"));
+                sonnerErrorToast(t("toast.playbackFailed") as string);
                 setIsPlaying(false);
                 setCurrentPlayingIndex(null);
             },

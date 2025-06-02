@@ -8,11 +8,7 @@ import useScrollTo from "../../utils/useScrollTo.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
-// Import types from SoundMain
-import type { AccentType, SoundMenuItem, SoundType } from "./SoundMain.js";
-
-// Type definitions
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
+import type { AccentType, SoundMenuItem, SoundType, TranslationFunction } from "./types.js";
 
 interface TabNavigationProps {
     activeTab: string;
@@ -58,8 +54,9 @@ const TabNavigation = ({ activeTab, onTabChange, scrollTo, t }: TabNavigationPro
                                 onTabChange(tab);
                                 scrollTo();
                             }}
-                            className={`tab md:text-base ${activeTab === tab ? "tab-active font-semibold" : ""
-                                }`}
+                            className={`tab md:text-base ${
+                                activeTab === tab ? "tab-active font-semibold" : ""
+                            }`}
                         >
                             {t(`sound_page.${tab}`)}
                         </a>
@@ -123,11 +120,9 @@ const SoundCard = ({
                 </div>
                 <div className="card-actions px-6">
                     <button
+                        type="button"
                         className="btn btn-primary w-full"
                         onClick={() => handlePracticeClick(sound, selectedAccent, index)}
-                        aria-label={t("sound_page.practiceBtn", {
-                            sound: he.decode(sound.phoneme),
-                        })}
                     >
                         {t("sound_page.practiceBtn")}
                     </button>
@@ -147,7 +142,10 @@ const SoundList = () => {
         index: number;
     } | null>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedAccent, setSelectedAccent] = AccentLocalStorage() as [AccentType, (accent: AccentType) => void];
+    const [selectedAccent, setSelectedAccent] = AccentLocalStorage() as [
+        AccentType,
+        (accent: AccentType) => void,
+    ];
     const [activeTab, setActiveTab] = useState<SoundType>("consonants");
 
     const [phonemesData, setPhonemesData] = useState<PhonemesData>({
@@ -210,7 +208,10 @@ const SoundList = () => {
     const filteredSounds = useMemo(() => {
         const currentTabData = phonemesData[activeTab] || [];
         return currentTabData.filter((sound) => {
-            return Object.prototype.hasOwnProperty.call(sound, selectedAccent) && Boolean((sound as unknown as Record<string, unknown>)[selectedAccent]);
+            return (
+                Object.prototype.hasOwnProperty.call(sound, selectedAccent) &&
+                Boolean((sound as unknown as Record<string, unknown>)[selectedAccent])
+            );
         });
     }, [activeTab, selectedAccent, phonemesData]);
 
@@ -229,7 +230,9 @@ const SoundList = () => {
                     </Suspense>
                 ) : (
                     <>
-                        <AccentDropdown onAccentChange={setSelectedAccent as unknown as (value: string) => void} />
+                        <AccentDropdown
+                            onAccentChange={setSelectedAccent as unknown as (value: string) => void}
+                        />
                         <div>
                             {loading ? (
                                 <LoadingOverlay />
@@ -237,7 +240,9 @@ const SoundList = () => {
                                 <>
                                     <TabNavigation
                                         activeTab={activeTab}
-                                        onTabChange={(tab: string) => setActiveTab(tab as SoundType)}
+                                        onTabChange={(tab: string) =>
+                                            setActiveTab(tab as SoundType)
+                                        }
                                         scrollTo={scrollTo}
                                         t={t}
                                     />

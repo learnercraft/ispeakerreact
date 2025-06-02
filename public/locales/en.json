@@ -130,7 +130,7 @@
         "tongueTwisterInstructions": "Practice these tongue twisters to improve your pronunciation, fluency, and control of tricky sounds. Try to say them as fast as possible, but correctly.",
         "soundInstructions": {
             "howToPronounce": "How to pronounce this sound",
-            "consonant": {
+            "consonants": {
                 "pPen": [
                     "This is the voiceless bilabial plosive. It is a type of plosive consonant.",
                     "To pronounce this phoneme, bring both lips together to completely block the airflow. Then, release the lips suddenly to produce a small burst of air. The vocal cords do not vibrate while making this sound."
@@ -236,7 +236,7 @@
                     "To pronounce this phoneme, quickly tap the tip of your tongue against the alveolar ridge (the ridge just behind your upper front teeth). It is similar to a very fast /d/ sound and often occurs between two vowels."
                 ]
             },
-            "vowel": {
+            "vowels": {
                 "eeSee": [
                     "This is the close front unrounded vowel. It is a type of long vowel sound.",
                     "To pronounce this phoneme, stretch the lips slightly (like a smile), raise the tongue close to the roof of the mouth (but not touching), and keep it at the front. The sound is held slightly longer than short vowels."
@@ -302,7 +302,7 @@
                     "To pronounce this phoneme, start with the tongue in the position for /ɑ/ (as in “father”), then lower the soft palate to allow air to pass through the nose. The lips stay relaxed and unrounded while the sound is nasalized."
                 ]
             },
-            "diphthong": {
+            "diphthongs": {
                 "aySay": [
                     "This is the closing diphthong that starts with /e/ and moves to /ɪ/. It is a type of diphthong.",
                     "To pronounce this phoneme, start with the tongue in the position for /e/, then quickly move it toward the position for /ɪ/. The lips start slightly spread and end in a more relaxed position."

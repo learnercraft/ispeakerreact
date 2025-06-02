@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { MdMic, MdOutlineOndemandVideo, MdPlayArrow, MdStop } from "react-icons/md";
-import { checkRecordingExists, playRecording, saveRecording } from "../../utils/databaseOperations.js";
+import {
+    checkRecordingExists,
+    playRecording,
+    saveRecording,
+} from "../../utils/databaseOperations.js";
 import isElectron from "../../utils/isElectron.js";
 import {
     sonnerErrorToast,
@@ -8,14 +12,9 @@ import {
     sonnerWarningToast,
 } from "../../utils/sonnerCustomToast.js";
 import { useSoundVideoDialog } from "./hooks/useSoundVideoDialogContext.js";
+import type { AccentType, SoundType, TranslationFunction } from "./types.js";
 
 const MAX_RECORDING_DURATION_MS = 2 * 60 * 1000; // 2 minutes
-
-export type AccentType = "british" | "american";
-export type SoundType = "constant" | "vowel" | "dipthong";
-
-// Define a more specific type for the translation function
-type TranslationFunction = (key: string, options?: Record<string, unknown>) => string;
 
 interface SoundPracticeCardProps {
     textContent: string;
@@ -71,10 +70,13 @@ const SoundPracticeCard = ({
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
     const recordingStartTimeRef = useRef<number | null>(null);
-    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(null);
+    const [currentAudioSource, setCurrentAudioSource] = useState<AudioBufferSourceNode | null>(
+        null
+    );
     const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null);
 
-    const { showDialog, isAnyCardActive, setCardActive } = useSoundVideoDialog() as SoundVideoDialogContextType;
+    const { showDialog, isAnyCardActive, setCardActive } =
+        useSoundVideoDialog() as SoundVideoDialogContextType;
 
     const recordingKey = `${type}-${accent}-${phonemeId}-${index}`;
     const cardId = `${type}-${accent}-${phonemeId}-${index}`;
@@ -118,7 +120,7 @@ const SoundPracticeCard = ({
                 await saveRecording(audioBlob, recordingKey, supportedMimeType);
                 setHasRecording(true);
                 stream.getTracks().forEach((track) => track.stop());
-                sonnerSuccessToast(t("toast.recordingSuccess"));
+                sonnerSuccessToast(t("toast.recordingSuccess") as string);
             };
 
             // Start recording
@@ -129,7 +131,7 @@ const SoundPracticeCard = ({
             setTimeout(() => {
                 if (mediaRecorder.state !== "inactive") {
                     mediaRecorder.stop();
-                    sonnerWarningToast(t("toast.recordingExceeded"));
+                    sonnerWarningToast(t("toast.recordingExceeded") as string);
                     setIsRecording(false);
                 }
             }, MAX_RECORDING_DURATION_MS);
@@ -150,7 +152,7 @@ const SoundPracticeCard = ({
         if (mediaRecorderRef.current && isRecording) {
             const recordingDuration = Date.now() - (recordingStartTimeRef.current ?? 0);
             if (recordingDuration > MAX_RECORDING_DURATION_MS) {
-                sonnerWarningToast(t("toast.recordingExceeded"));
+                sonnerWarningToast(t("toast.recordingExceeded") as string);
             }
             mediaRecorderRef.current.stop();
             setIsRecording(false);
@@ -189,7 +191,7 @@ const SoundPracticeCard = ({
             (error) => {
                 const err = error instanceof Error ? error : new Error(String(error));
                 console.error("Error playing recording:", err);
-                sonnerErrorToast(t("toast.playbackFailed"));
+                sonnerErrorToast(t("toast.playbackFailed") as string);
                 setIsPlaying(false);
                 setCardActive(cardId, false);
             },
@@ -310,7 +312,7 @@ const SoundPracticeCard = ({
                     <div className="flex items-center space-x-2">
                         <button
                             type="button"
-                            title={t("buttonConversationExam.watchBtn")}
+                            title={t("buttonConversationExam.watchBtn") as string}
                             className="btn btn-primary btn-circle"
                             onClick={handleShow}
                             disabled={isAnyCardActive || isRecording || isPlaying}
@@ -319,7 +321,7 @@ const SoundPracticeCard = ({
                         </button>
                         <button
                             type="button"
-                            title={t("buttonConversationExam.recordBtn")}
+                            title={t("buttonConversationExam.recordBtn") as string}
                             className={`btn btn-circle ${isRecording ? "btn-error" : "btn-primary"}`}
                             onClick={isRecording ? stopRecording : startRecording}
                             disabled={(!isRecording && isAnyCardActive) || isPlaying}
@@ -332,7 +334,7 @@ const SoundPracticeCard = ({
                         </button>
                         <button
                             type="button"
-                            title={t("buttonConversationExam.playBtn")}
+                            title={t("buttonConversationExam.playBtn") as string}
                             className="btn btn-primary btn-circle"
                             onClick={handlePlayRecording}
                             disabled={
