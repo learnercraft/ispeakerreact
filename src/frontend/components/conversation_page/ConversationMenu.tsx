@@ -7,7 +7,12 @@ import isElectron from "../../utils/isElectron.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
-import type { ConversationSection, ConversationTitle, SelectedConversation } from "./types.js";
+import type {
+    ConversationCardProps,
+    ConversationSection,
+    SelectedConversation,
+    TooltipIconProps,
+} from "./types.js";
 
 // AccentLocalStorage returns [string, (accent: string) => void]
 type AccentLocalStorageReturn = [string, (accent: string) => void];
@@ -54,11 +59,6 @@ const ConversationListPage = () => {
         }
     };
 
-    interface TooltipIconProps {
-        info: string;
-        onClick: () => void;
-    }
-
     const TooltipIcon = ({ info, onClick }: TooltipIconProps) => (
         <>
             {/* Tooltip for larger screens */}
@@ -80,12 +80,6 @@ const ConversationListPage = () => {
             </button>
         </>
     );
-
-    interface ConversationCardProps {
-        heading: string;
-        titles: ConversationTitle[];
-        onShowModal: (info: string) => void;
-    }
 
     const ConversationCard = ({ heading, titles, onShowModal }: ConversationCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">

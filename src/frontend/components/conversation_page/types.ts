@@ -1,3 +1,8 @@
+interface IdentifiedTitle {
+    id: string;
+    title: string;
+}
+
 export interface Sentence {
     audioSrc: string;
     sentence: string;
@@ -54,10 +59,8 @@ export interface PracticeTabProps {
     conversationId: string | number;
 }
 
-export interface ReviewTabProps {
+export interface ReviewTabProps extends PracticeTabProps {
     reviews: Review[];
-    accent: string;
-    conversationId: string | number;
 }
 
 export interface ListeningTabProps {
@@ -72,9 +75,7 @@ export interface WatchAndStudyTabProps {
 }
 
 // Menu/List types
-export interface ConversationTitle {
-    title: string;
-    id: string;
+export interface ConversationTitle extends IdentifiedTitle {
     info: string;
 }
 
@@ -83,8 +84,18 @@ export interface ConversationSection {
     titles: ConversationTitle[];
 }
 
-export interface SelectedConversation {
-    id: string;
-    title: string;
+export interface SelectedConversation extends IdentifiedTitle {
     heading: string;
+}
+
+// ConversationMenu
+export interface TooltipIconProps {
+    info: string;
+    onClick: () => void;
+}
+
+export interface ConversationCardProps {
+    heading: string;
+    titles: ConversationTitle[];
+    onShowModal: (info: string) => void;
 }
