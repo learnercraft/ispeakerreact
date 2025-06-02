@@ -7,24 +7,7 @@ import isElectron from "../../utils/isElectron.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
-
-// Types for conversation data
-interface ConversationTitle {
-    title: string;
-    id: string;
-    info: string;
-}
-
-interface ConversationSection {
-    heading: string;
-    titles: ConversationTitle[];
-}
-
-interface SelectedConversation {
-    id: string;
-    title: string;
-    heading: string;
-}
+import type { ConversationSection, ConversationTitle, SelectedConversation } from "./types.js";
 
 // AccentLocalStorage returns [string, (accent: string) => void]
 type AccentLocalStorageReturn = [string, (accent: string) => void];

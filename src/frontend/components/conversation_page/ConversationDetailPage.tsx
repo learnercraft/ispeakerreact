@@ -9,55 +9,7 @@ import ListeningTab from "./ListeningTab.js";
 import PracticeTab from "./PracticeTab.js";
 import ReviewTab from "./ReviewTab.js";
 import WatchAndStudyTab from "./WatchAndStudyTab.js";
-
-// Types from tab components
-interface Sentence {
-    audioSrc: string;
-    sentence: string;
-}
-
-interface Subtopic {
-    title: string;
-    sentences: Sentence[];
-}
-
-interface DialogLine {
-    speaker: string;
-    speech: string;
-}
-
-interface SkillCheckmark {
-    label: string;
-}
-
-interface Review {
-    text: string;
-}
-
-interface WatchAndStudy {
-    study: {
-        dialog: DialogLine[];
-        skill_checkmark: SkillCheckmark[];
-    };
-    videoLink: string;
-    offlineFile: string;
-    subtitle: string;
-}
-
-interface AccentData {
-    listen: {
-        subtopics: Subtopic[];
-    };
-    reviews: Review[];
-    watch_and_study: WatchAndStudy;
-}
-
-export interface ConversationDetailPageProps {
-    id: string | number;
-    accent: string;
-    title: string;
-    onBack: () => void;
-}
+import type { AccentData, ConversationDetailPageProps } from "./types.js";
 
 const ConversationDetailPage = ({ id, accent, title, onBack }: ConversationDetailPageProps) => {
     const { t } = useTranslation();

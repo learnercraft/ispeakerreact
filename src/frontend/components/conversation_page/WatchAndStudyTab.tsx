@@ -7,15 +7,7 @@ import { useTranslation } from "react-i18next";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import isElectron from "../../utils/isElectron.js";
 import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
-
-interface DialogLine {
-    speaker: string;
-    speech: string;
-}
-
-interface SkillCheckmark {
-    label: string;
-}
+import type { DialogLine, SkillCheckmark } from "./types.js";
 
 interface WatchAndStudyTabProps {
     videoUrl: string;

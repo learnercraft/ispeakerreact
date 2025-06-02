@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { BsFloppy, BsPlayCircle, BsRecordCircle, BsStopCircle, BsTrash } from "react-icons/bs";
 import {
     checkRecordingExists,
     openDatabase,
@@ -13,12 +13,7 @@ import {
     sonnerSuccessToast,
     sonnerWarningToast,
 } from "../../utils/sonnerCustomToast.js";
-
-// Define props interface
-interface PracticeTabProps {
-    accent: string;
-    conversationId: string | number;
-}
+import type { PracticeTabProps } from "./types.js";
 
 const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
     const { t } = useTranslation();
@@ -34,8 +29,8 @@ const PracticeTab = ({ accent, conversationId }: PracticeTabProps) => {
     const [currentAudioElement, setCurrentAudioElement] = useState<HTMLAudioElement | null>(null); // For Audio element (fallback)
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-    const textKey = `${accent}-${conversationId}-text`;
-    const recordingKey = `${accent}-conversation-${conversationId}`;
+    const textKey = `conversation-${conversationId}-${accent}-text`;
+    const recordingKey = `conversation-${conversationId}-${accent}-recording`;
 
     // Load saved text from IndexedDB
     useEffect(() => {

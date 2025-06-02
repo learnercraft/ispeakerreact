@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
-
-interface Review {
-    text: string;
-}
-
-interface ReviewTabProps {
-    reviews: Review[];
-    accent: string;
-    conversationId: string | number;
-}
+import type { Review, ReviewTabProps } from "./types.js";
 
 type ReviewState = Record<number, boolean>;
 
@@ -19,7 +10,7 @@ const ReviewTab = ({ reviews, accent, conversationId }: ReviewTabProps) => {
 
     const [reviewState, setReviewState] = useState<ReviewState>({});
 
-    const reviewKey = `${accent}-${conversationId}-review`;
+    const reviewKey = `conversation-${conversationId}-${accent}-review`;
 
     // Load saved review states from localStorage
     useEffect(() => {

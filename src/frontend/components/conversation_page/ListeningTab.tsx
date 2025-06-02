@@ -2,21 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoVolumeHigh, IoVolumeHighOutline } from "react-icons/io5";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
-
-// Types for the sentence and subtopic structure
-interface Sentence {
-    audioSrc: string;
-    sentence: string;
-}
-
-interface Subtopic {
-    title: string;
-    sentences: Sentence[];
-}
-
-interface ListeningTabProps {
-    sentences: Subtopic[];
-}
+import type { ListeningTabProps } from "./types.js";
 
 const ListeningTab = ({ sentences }: ListeningTabProps) => {
     const { t } = useTranslation();
