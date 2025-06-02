@@ -55,7 +55,7 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
 
     const handleReviewClick = (type: Exclude<ReviewType, null>) => {
         if (!hasRecording) {
-            sonnerWarningToast(t("toast.noRecording"));
+            sonnerWarningToast(t("toast.noRecording") as string);
             return;
         }
 
@@ -84,7 +84,7 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
         localStorage.setItem("ispeaker", JSON.stringify(storedData));
         setReview(type);
 
-        sonnerSuccessToast(t("toast.reviewUpdated"));
+        sonnerSuccessToast(t("toast.reviewUpdated") as string);
 
         if (onReviewUpdate) {
             onReviewUpdate();
