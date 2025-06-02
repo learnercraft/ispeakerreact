@@ -12,40 +12,9 @@ import {
     sonnerWarningToast,
 } from "../../utils/sonnerCustomToast.js";
 import { useSoundVideoDialog } from "./hooks/useSoundVideoDialogContext.js";
-import type { AccentType, SoundType, TranslationFunction } from "./types.js";
+import type { SoundPracticeCardProps, SoundVideoDialogContextType } from "./types.js";
 
 const MAX_RECORDING_DURATION_MS = 2 * 60 * 1000; // 2 minutes
-
-interface SoundPracticeCardProps {
-    textContent: string;
-    videoUrl: string;
-    offlineVideo: string;
-    accent: AccentType;
-    t: TranslationFunction;
-    phoneme: string;
-    phonemeId: number;
-    index: number;
-    type: SoundType;
-    shouldShowPhoneme?: boolean;
-}
-
-// Define the dialog state type based on usage in handleShow
-interface SoundVideoDialogState {
-    videoUrl: string | null;
-    title: string;
-    phoneme: string;
-    isLocalVideo: boolean;
-    onIframeLoad: () => void;
-    iframeLoading: boolean;
-    showOnlineVideoAlert: boolean;
-    t: TranslationFunction;
-}
-
-interface SoundVideoDialogContextType {
-    showDialog: (state: SoundVideoDialogState) => void;
-    isAnyCardActive: boolean;
-    setCardActive: (cardId: string, isActive: boolean) => void;
-}
 
 const SoundPracticeCard = ({
     textContent,

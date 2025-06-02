@@ -11,14 +11,7 @@ import {
 } from "react-icons/bs";
 import { checkRecordingExists } from "../../utils/databaseOperations.js";
 import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
-import type { ReviewType, SoundMenuItem } from "./types.js";
-
-interface ReviewCardProps {
-    sound: SoundMenuItem;
-    accent: "british" | "american";
-    t: (key: string, options?: Record<string, unknown>) => string;
-    onReviewUpdate?: () => void;
-}
+import type { ReviewCardProps, ReviewType } from "./types.js";
 
 const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
     const [review, setReview] = useState<ReviewType>(null);

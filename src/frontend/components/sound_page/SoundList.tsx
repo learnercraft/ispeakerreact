@@ -8,26 +8,13 @@ import useScrollTo from "../../utils/useScrollTo.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
-import type { AccentType, SoundMenuItem, SoundType, TranslationFunction } from "./types.js";
-
-interface TabNavigationProps {
-    activeTab: string;
-    onTabChange: (tab: string) => void;
-    scrollTo: () => void;
-    t: TranslationFunction;
-}
-
-interface SoundCardProps {
-    sound: SoundMenuItem;
-    index: number;
-    selectedAccent: AccentType;
-    handlePracticeClick: (sound: SoundMenuItem, accent: AccentType, index: number) => void;
-    getBadgeColor: (sound: SoundMenuItem, index: number) => string | null;
-    getReviewText: (review: string | undefined) => string;
-    getReviewKey: (sound: SoundMenuItem, index: number) => string;
-    reviews: Record<string, string>;
-    t: TranslationFunction;
-}
+import type {
+    AccentType,
+    SoundCardProps,
+    SoundMenuItem,
+    SoundType,
+    TabNavigationProps,
+} from "./types.js";
 
 type PhonemesData = Record<SoundType, SoundMenuItem[]>;
 

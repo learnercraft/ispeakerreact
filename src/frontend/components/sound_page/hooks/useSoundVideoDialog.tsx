@@ -3,31 +3,8 @@ import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/l
 import { useRef, useState, type ReactNode } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import useAutoDetectTheme from "../../../utils/ThemeContext/useAutoDetectTheme.js";
+import type { SoundVideoDialogState, TranslationFunction } from "../types.js";
 import { SoundVideoDialogContext } from "./useSoundVideoDialogContext.js";
-import type { TranslationFunction } from "../types.js";
-
-export interface SoundVideoDialogState {
-    isOpen: boolean;
-    videoUrl: string | null;
-    title: string;
-    phoneme: string;
-    isLocalVideo: boolean;
-    onIframeLoad: (() => void) | null;
-    iframeLoading: boolean;
-    showOnlineVideoAlert: boolean;
-    t: TranslationFunction | null;
-}
-
-export interface SoundVideoDialogContextType {
-    showDialog: (state: Omit<SoundVideoDialogState, "isOpen" | "iframeLoading">) => void;
-    closeDialog: () => void;
-    handleIframeLoad: () => void;
-    dialogState: SoundVideoDialogState;
-    activeCard: string | null;
-    isAnyCardActive: boolean;
-    setCardActive: (cardId: string, isActive: boolean) => void;
-    t: TranslationFunction;
-}
 
 interface SoundVideoDialogProviderProps {
     children: ReactNode;
@@ -44,7 +21,7 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
         onIframeLoad: null,
         iframeLoading: true,
         showOnlineVideoAlert: false,
-        t: null,
+        t: t,
     });
 
     const [activeCard, setActiveCard] = useState<string | null>(null);

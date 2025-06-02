@@ -12,14 +12,7 @@ import {
     sonnerSuccessToast,
     sonnerWarningToast,
 } from "../../utils/sonnerCustomToast.js";
-import type { AccentType, Sound, TongueTwisterItem, TranslationFunction } from "./types.js";
-
-export interface TongueTwisterProps {
-    tongueTwisters: TongueTwisterItem[];
-    t: TranslationFunction;
-    sound: Sound;
-    accent: AccentType;
-}
+import type { TongueTwisterProps } from "./types.js";
 
 const MAX_RECORDING_DURATION_MS = 2 * 60 * 1000; // 2 minutes
 
@@ -41,7 +34,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
         const checkRecordings = async () => {
             const existsArray = await Promise.all(
                 tongueTwisters.map((_, index) => {
-                    const recordingKey = `${sound.type === "consonants" ? "constant" : sound.type === "vowels" ? "vowel" : "dipthong"}-${accent}-${sound.id}-tt-${index}`;
+                    const recordingKey = `${sound.type}-${accent}-${sound.id}-tt-${index}`;
                     return checkRecordingExists(recordingKey);
                 })
             );
@@ -102,7 +95,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
 
             mediaRecorder.onstop = async () => {
                 const audioBlob = new Blob(audioChunksRef.current, { type: supportedMimeType });
-                const recordingKey = `${sound.type === "consonants" ? "constant" : sound.type === "vowels" ? "vowel" : "dipthong"}-${accent}-${sound.id}-tt-${index}`;
+                const recordingKey = `${sound.type}-${accent}-${sound.id}-tt-${index}`;
                 await saveRecording(audioBlob, recordingKey, supportedMimeType);
                 setHasRecording((prev) => {
                     const updated = [...prev];
@@ -168,7 +161,7 @@ const TongueTwister = ({ tongueTwisters, t, sound, accent }: TongueTwisterProps)
 
         setIsPlaying(true);
         setCurrentPlayingIndex(index);
-        const recordingKey = `${sound.type === "consonants" ? "constant" : sound.type === "vowels" ? "vowel" : "dipthong"}-${accent}-${sound.id}-tt-${index}`;
+        const recordingKey = `${sound.type}-${accent}-${sound.id}-tt-${index}`;
 
         await playRecording(
             recordingKey,

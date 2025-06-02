@@ -6,14 +6,7 @@ import { useEffect, useState } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import isElectron from "../../utils/isElectron.js";
 import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
-import type { AccentType, Phoneme, TranslationFunction, VideoData } from "./types.js";
-
-interface WatchVideoCardProps {
-    videoData: VideoData;
-    accent: AccentType;
-    t: TranslationFunction;
-    phoneme: Phoneme;
-}
+import type { WatchVideoCardProps } from "./types.js";
 
 const WatchVideoCard = ({ videoData, accent, t, phoneme }: WatchVideoCardProps) => {
     const [iframeLoading, setIframeLoading] = useState<boolean>(true);

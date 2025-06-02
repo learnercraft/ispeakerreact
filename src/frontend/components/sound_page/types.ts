@@ -74,3 +74,94 @@ export interface Sound {
     type: SoundType;
     id: number;
 }
+
+// Props
+
+export interface ReviewCardProps {
+    sound: SoundMenuItem;
+    accent: AccentType;
+    t: TranslationFunction;
+    onReviewUpdate?: () => void;
+}
+
+export interface WatchVideoCardProps {
+    videoData: VideoData;
+    accent: AccentType;
+    t: TranslationFunction;
+    phoneme: Phoneme;
+}
+
+export interface TongueTwisterProps {
+    tongueTwisters: TongueTwisterItem[];
+    t: TranslationFunction;
+    sound: Sound;
+    accent: AccentType;
+}
+
+export interface PracticeSoundProps {
+    sound: SoundMenuItem;
+    accent: AccentType;
+    onBack: () => void;
+}
+
+// SoundList
+export interface TabNavigationProps {
+    activeTab: string;
+    onTabChange: (tab: string) => void;
+    scrollTo: () => void;
+    t: TranslationFunction;
+}
+
+// SoundList
+export interface SoundCardProps {
+    sound: SoundMenuItem;
+    index: number;
+    selectedAccent: AccentType;
+    handlePracticeClick: (sound: SoundMenuItem, accent: AccentType, index: number) => void;
+    getBadgeColor: (sound: SoundMenuItem, index: number) => string | null;
+    getReviewText: (review: string | undefined) => string;
+    getReviewKey: (sound: SoundMenuItem, index: number) => string;
+    reviews: Record<string, string>;
+    t: TranslationFunction;
+}
+
+export interface ReviewCardProps {
+    sound: SoundMenuItem;
+    accent: AccentType;
+    t: TranslationFunction;
+    onReviewUpdate?: () => void;
+}
+
+// SoundPracticeCard
+export interface SoundPracticeCardProps {
+    textContent: string;
+    videoUrl: string;
+    offlineVideo: string;
+    accent: AccentType;
+    t: TranslationFunction;
+    phoneme: string;
+    phonemeId: number;
+    index: number;
+    type: SoundType;
+    shouldShowPhoneme?: boolean;
+}
+
+// SoundPracticeCard
+export interface SoundVideoDialogState {
+    isOpen?: boolean;
+    videoUrl: string | null;
+    title: string;
+    phoneme: string;
+    isLocalVideo: boolean;
+    onIframeLoad: (() => void) | null;
+    iframeLoading: boolean;
+    showOnlineVideoAlert: boolean;
+    t: TranslationFunction;
+}
+
+// SoundPracticeCard
+export interface SoundVideoDialogContextType {
+    showDialog: (state: SoundVideoDialogState) => void;
+    isAnyCardActive: boolean;
+    setCardActive: (cardId: string, isActive: boolean) => void;
+}

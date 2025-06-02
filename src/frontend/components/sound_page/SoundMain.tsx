@@ -11,19 +11,12 @@ import SoundPracticeCard from "./SoundPracticeCard.js";
 import TongueTwister from "./TongueTwister.js";
 import type {
     PhonemeData,
-    AccentType,
+    PracticeSoundProps,
     SoundData,
-    SoundMenuItem,
     SoundsData,
-    SoundType,
+    SoundType
 } from "./types.js";
 import WatchVideoCard from "./WatchVideoCard.js";
-
-interface PracticeSoundProps {
-    sound: SoundMenuItem;
-    accent: AccentType;
-    onBack: () => void;
-}
 
 const SoundMain = ({ sound, accent, onBack }: PracticeSoundProps) => {
     const { t } = useTranslation();
