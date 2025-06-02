@@ -7,29 +7,7 @@ import { useTranslation } from "react-i18next";
 import { IoCloseOutline, IoInformationCircleOutline } from "react-icons/io5";
 import isElectron from "../../utils/isElectron.js";
 import useAutoDetectTheme from "../../utils/ThemeContext/useAutoDetectTheme.js";
-
-interface DialogLine {
-    speaker: string;
-    speech: string;
-}
-
-interface SkillCheckmark {
-    label: string;
-}
-
-interface TaskData {
-    para: string;
-    listItems: string[];
-    images: string[];
-}
-
-interface WatchAndStudyTabProps {
-    videoUrl: string;
-    subtitleUrl: string;
-    taskData: TaskData;
-    dialog: DialogLine[];
-    skills: SkillCheckmark[];
-}
+import { WatchAndStudyTabProps } from "./types.js";
 
 const WatchAndStudyTab = ({
     videoUrl,

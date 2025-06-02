@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
-
-interface Review {
-    text: string;
-}
-
-interface ReviewTabProps {
-    reviews: Review[];
-    accent: string;
-    examId: string | number;
-}
+import { ReviewTabProps } from "./types.js";
 
 const ReviewTab = ({ reviews, examId, accent }: ReviewTabProps) => {
     const { t } = useTranslation();

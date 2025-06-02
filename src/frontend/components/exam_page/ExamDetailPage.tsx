@@ -10,90 +10,9 @@ import ListeningTab from "./ListeningTab.js";
 import PracticeTab from "./PracticeTab.js";
 import ReviewTab from "./ReviewTab.js";
 import WatchAndStudyTab from "./WatchAndStudyTab.js";
+import { ExamData, ExamDetailPageProps } from "./types.js";
 
-interface DialogLine {
-    speaker: string;
-    speech: string;
-}
-
-interface SkillCheckmark {
-    label: string;
-}
-
-interface TaskData {
-    para: string;
-    listItems: string[];
-    images: string[];
-}
-
-interface WatchAndStudy {
-    videoLink: string;
-    offlineFile: string;
-    subtitle: string;
-    taskData: TaskData;
-    study: {
-        dialog: DialogLine[];
-        skills: SkillCheckmark[];
-    };
-}
-
-interface Sentence {
-    audioSrc: string;
-    sentence: string;
-}
-
-interface SubtopicBre {
-    title: string;
-    sentences: Sentence[];
-}
-
-interface SubtopicAme {
-    title: string;
-    sentences: Sentence[];
-}
-
-interface Listen {
-    BrE: {
-        subtopics: SubtopicBre[];
-    };
-    AmE: {
-        subtopics: SubtopicAme[];
-    };
-}
-
-interface Tips {
-    dos: string[];
-    donts: string[];
-}
-
-interface Practise {
-    task: TaskData[];
-    tips: Tips;
-}
-
-interface Review {
-    text: string;
-}
-
-interface ExamDetails {
-    description: string;
-    watch_and_study: WatchAndStudy;
-    listen: Listen;
-    practise: Practise;
-    reviews: Review[];
-}
-
-// The main exam data type
-type ExamData = Record<string, ExamDetails>;
-
-export interface ExamDetailPageProps {
-    id: string;
-    title: string;
-    onBack: () => void;
-    accent: "british" | "american";
-}
-
-const ExamDetailPage= ({ id, title, onBack, accent }: ExamDetailPageProps) => {
+const ExamDetailPage = ({ id, title, onBack, accent }: ExamDetailPageProps) => {
     const { t } = useTranslation();
     const { ref: scrollRef, scrollTo } = useScrollTo();
 
@@ -192,8 +111,8 @@ const ExamDetailPage= ({ id, title, onBack, accent }: ExamDetailPageProps) => {
     if (!examData || !examData[id]) {
         sonnerErrorToast(t("toast.loadingError"));
         return (
-            <div className="flex flex-col items-center justify-center h-full">
-                <p className="text-lg text-error font-semibold">{t("toast.loadingError")}</p>
+            <div className="flex h-full flex-col items-center justify-center">
+                <p className="text-error text-lg font-semibold">{t("toast.loadingError")}</p>
             </div>
         );
     }
@@ -220,7 +139,7 @@ const ExamDetailPage= ({ id, title, onBack, accent }: ExamDetailPageProps) => {
             </h3>
             <p>
                 {t("accent.accentSettings")}:{" "}
-                {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
+                {t(accent.accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
             </p>
             <button type="button" className="btn btn-secondary my-4" onClick={onBack}>
                 <IoChevronBackOutline className="h-5 w-5" />{" "}
@@ -296,19 +215,19 @@ const ExamDetailPage= ({ id, title, onBack, accent }: ExamDetailPageProps) => {
                         <ListeningTab
                             subtopicsBre={examDetails.listen.BrE?.subtopics || []}
                             subtopicsAme={examDetails.listen.AmE?.subtopics || []}
-                            currentAccent={accent}
+                            currentAccent={accent.accent}
                         />
                     )}
                     {activeTab === "practiceTab" && (
                         <PracticeTab
                             examId={id}
-                            accent={accent}
+                            accent={accent.accent}
                             taskData={examDetails.practise.task}
                             tips={examDetails.practise.tips}
                         />
                     )}
                     {activeTab === "reviewTab" && (
-                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent} />
+                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent.accent} />
                     )}
                 </div>
             </div>

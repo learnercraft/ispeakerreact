@@ -7,33 +7,7 @@ import isElectron from "../../utils/isElectron.js";
 import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
-
-// Types for exam list data
-interface ExamTitle {
-    title: string;
-    id: string;
-    exam_popup: string;
-}
-
-interface ExamSection {
-    heading: string;
-    titles: ExamTitle[];
-}
-
-interface SelectedExam {
-    id: string;
-    title: string;
-    heading: string;
-}
-
-interface TooltipIconProps {
-    exam_popup: string;
-}
-
-interface ExamCardProps {
-    heading: string;
-    titles: ExamTitle[];
-}
+import { ExamCardProps, ExamSection, SelectedExam, TooltipIconProps } from "./types.js";
 
 const ExamDetailPage = lazy(() => import("./ExamDetailPage.js"));
 
