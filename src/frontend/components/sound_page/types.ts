@@ -1,20 +1,23 @@
+// Sound type
+export type SoundType = "consonants" | "vowels" | "diphthongs";
+
+// Accent type
+export type AccentType = "british" | "american";
+
+export interface Phoneme {
+    type: SoundType;
+    key: string;
+}
+
 export type TranslationFunction = (
     key: string,
     options?: Record<string, unknown>
 ) => string | string[];
 
-// Accent type
-export type AccentType = "british" | "american";
-
-// Sound type
-export type SoundType = "consonants" | "vowels" | "diphthongs";
-
 // Menu item for a sound
-export interface SoundMenuItem {
+export interface SoundMenuItem extends Phoneme {
     phoneme: string;
     id: number;
-    type: SoundType;
-    key: string;
     word: string;
 }
 
@@ -62,11 +65,6 @@ export type ReviewType = "good" | "neutral" | "bad" | null;
 export interface VideoData {
     mainOfflineVideo: string;
     mainOnlineVideo: string;
-}
-
-export interface Phoneme {
-    type: SoundType;
-    key: string;
 }
 
 // Used in TongueTwister
@@ -164,4 +162,9 @@ export interface SoundVideoDialogContextType {
     showDialog: (state: SoundVideoDialogState) => void;
     isAnyCardActive: boolean;
     setCardActive: (cardId: string, isActive: boolean) => void;
+    closeDialog: () => void;
+    handleIframeLoad: () => void;
+    dialogState: SoundVideoDialogState;
+    activeCard: string | null;
+    t: TranslationFunction;
 }

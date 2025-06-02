@@ -11,6 +11,12 @@ interface SoundVideoDialogProviderProps {
     t: TranslationFunction;
 }
 
+const stripHtml = (html: string): string => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+};
+
 export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProviderProps) => {
     const [dialogState, setDialogState] = useState<SoundVideoDialogState>({
         isOpen: false,
@@ -31,7 +37,7 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
     const mediaPlayerRef = useRef<MediaPlayerInstance | null>(null);
     const { autoDetectedTheme } = useAutoDetectTheme();
 
-    const showDialog = (state: Omit<SoundVideoDialogState, "isOpen" | "iframeLoading">) => {
+    const showDialog = (state: SoundVideoDialogState) => {
         setDialogState({ ...state, isOpen: true, iframeLoading: true });
         dialogRef.current?.showModal();
     };
@@ -102,7 +108,7 @@ export const SoundVideoDialogProvider = ({ children, t }: SoundVideoDialogProvid
                                         )}
                                         <iframe
                                             src={dialogState.videoUrl}
-                                            title={`${dialogState.phoneme} - ${dialogState.title}`}
+                                            title={`${dialogState.phoneme} - ${stripHtml(dialogState.title)} practice video`}
                                             allowFullScreen
                                             onLoad={handleIframeLoad}
                                             className={`h-full w-full transition-opacity duration-300 ${
