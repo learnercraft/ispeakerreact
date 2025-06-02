@@ -9,32 +9,13 @@ import AccentDropdown from "../general/AccentDropdown.js";
 import LoadingOverlay from "../general/LoadingOverlay.js";
 import TopNavBar from "../general/TopNavBar.js";
 import ExerciseDetailPage from "./ExerciseDetailPage.js";
-
-// Types for exercise data
-interface Exercise {
-    id: string | number;
-    title: string;
-    titleKey?: string;
-    infoKey?: string;
-    american?: boolean;
-    british?: boolean;
-    file?: string;
-}
-
-interface ExerciseSection {
-    heading: string;
-    titles: Exercise[];
-    infoKey: string;
-    file?: string;
-}
-
-interface SelectedExercise {
-    id: string | number;
-    title: string;
-    accent: string;
-    file: string;
-    heading: string;
-}
+import type {
+    Exercise,
+    ExerciseCardProps,
+    ExerciseSection,
+    SelectedExercise,
+    TooltipIconProps,
+} from "./types.js";
 
 const ExercisePage = () => {
     const { t } = useTranslation();
@@ -94,11 +75,6 @@ const ExercisePage = () => {
         return exercise.infoKey ? t(exercise.infoKey) : t(defaultInfoKey);
     };
 
-    interface TooltipIconProps {
-        info: string;
-        onClick: () => void;
-    }
-
     const TooltipIcon = ({ info, onClick }: TooltipIconProps) => {
         return (
             <>
@@ -122,14 +98,6 @@ const ExercisePage = () => {
             </>
         );
     };
-
-    interface ExerciseCardProps {
-        heading: string;
-        titles: Exercise[];
-        infoKey: string;
-        file?: string;
-        onShowModal: (info: string) => void;
-    }
 
     const ExerciseCard = ({ heading, titles, infoKey, file, onShowModal }: ExerciseCardProps) => (
         <div className="card card-lg card-border flex h-auto w-full flex-col justify-between shadow-md md:w-1/3 lg:w-1/4 dark:border-slate-600">
@@ -155,10 +123,7 @@ const ExercisePage = () => {
                                 >
                                     {t(exercise.titleKey || "") || exercise.title}
                                 </a>
-                                <TooltipIcon
-                                    info={info}
-                                    onClick={() => onShowModal(info)}
-                                />
+                                <TooltipIcon info={info} onClick={() => onShowModal(info)} />
                             </div>
                         );
                     })}
@@ -187,7 +152,9 @@ const ExercisePage = () => {
 
     useEffect(() => {
         // Save the selected accent to localStorage
-        const savedSettings = localStorage.getItem("ispeaker") ? JSON.parse(localStorage.getItem("ispeaker") as string) : {};
+        const savedSettings = localStorage.getItem("ispeaker")
+            ? JSON.parse(localStorage.getItem("ispeaker") as string)
+            : {};
         savedSettings.selectedAccent = selectedAccent;
         localStorage.setItem("ispeaker", JSON.stringify(savedSettings));
     }, [selectedAccent]);

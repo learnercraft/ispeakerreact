@@ -8,37 +8,7 @@ import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import ShuffleArray from "../../utils/ShuffleArray.js";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
-
-// Define types based on JSON structure
-
-interface QuizOption {
-    value: string;
-    index: string;
-    answer: "true" | "false";
-}
-
-interface QuizQuestion {
-    text: string;
-    correctAns: string;
-}
-
-interface QuizAudio {
-    src: string;
-}
-
-export interface SoundAndSpellingQuizItem {
-    data: QuizOption[];
-    question: QuizQuestion[];
-    audio: QuizAudio;
-}
-
-interface SoundAndSpellingProps {
-    quiz: SoundAndSpellingQuizItem[];
-    onAnswer: (score: number, type: string) => void;
-    onQuit: () => void;
-    timer: number;
-    setTimeIsUp: (isUp: boolean) => void;
-}
+import type { QuizOption, SoundAndSpellingProps, SoundAndSpellingQuizItem } from "./types.js";
 
 const SoundAndSpelling = ({
     quiz,

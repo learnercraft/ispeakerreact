@@ -6,28 +6,7 @@ import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import ShuffleArray from "../../utils/ShuffleArray.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
-
-// Types for OddOneOut quiz
-export interface OddOneOutOption {
-    value: string;
-    index: string;
-    answer: "true" | "false";
-}
-
-export interface OddOneOutQuestion {
-    data: OddOneOutOption[];
-    question: { correctAns: string }[];
-    split?: string;
-    type?: string;
-}
-
-export interface OddOneOutProps {
-    quiz: OddOneOutQuestion[];
-    onAnswer: (isCorrect: number, type: string) => void;
-    onQuit: () => void;
-    timer: number;
-    setTimeIsUp: (isUp: boolean) => void;
-}
+import type { OddOneOutOption, OddOneOutProps, OddOneOutQuestion } from "./types.js";
 
 const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: OddOneOutProps) => {
     const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);

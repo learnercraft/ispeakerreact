@@ -22,31 +22,7 @@ import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "reac
 import ShuffleArray from "../../utils/ShuffleArray.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
 import SortableWord from "./SortableWord.js";
-
-// Types inferred from exercise_sorting.json
-export interface RowOption {
-    value: string;
-    columnPos: number;
-    id: string;
-}
-
-export interface TableHeading {
-    text: string;
-}
-
-export interface SortingQuizItem {
-    tableHeading: TableHeading[];
-    rowOptions: RowOption[];
-}
-
-export interface SortingExerciseProps {
-    quiz: SortingQuizItem[];
-    onAnswer: (correctCount: number, type: string, total: number) => void;
-    onQuit: () => void;
-    useHorizontalStrategy?: boolean;
-    timer: number;
-    setTimeIsUp: (isUp: boolean) => void;
-}
+import type { RowOption, TableHeading, SortingQuizItem, SortingExerciseProps } from "./types.js";
 
 const SortingExercise = ({
     quiz,

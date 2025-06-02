@@ -24,24 +24,20 @@ const OddOneOut = lazy(() => import("./OddOneOut.js"));
 const Snap = lazy(() => import("./Snap.js"));
 const MemoryMatch = lazy(() => import("./MemoryMatch.js"));
 
-import type { DictationQuizItem } from "./DictationQuiz.js";
-import type { MatchUpQuizItem } from "./MatchUp.js";
-import type { ReorderingQuizData } from "./Reordering.js";
-import type { SoundAndSpellingQuizItem } from "./SoundAndSpelling.js";
-import type { SortingQuizItem } from "./SortingExercise.js";
-import type { OddOneOutQuestion } from "./OddOneOut.js";
-import type { SnapQuizItem } from "./Snap.js";
-import type { MemoryMatchQuizItem } from "./MemoryMatch.js";
-
-// Define the props type for ExerciseDetailPage
-interface ExerciseDetailPageProps {
-    heading: string;
-    id: string | number;
-    title: string;
-    accent: string;
-    file: string;
-    onBack: () => void;
-}
+import type {
+    DictationQuizItem,
+    ExerciseDataType,
+    ExerciseDetailPageProps,
+    ExerciseDetailsType,
+    MatchUpQuizItem,
+    MemoryMatchQuizItem,
+    OddOneOutQuestion,
+    ReorderingQuizData,
+    SnapQuizItem,
+    SortingQuizItem,
+    SoundAndSpellingQuizItem,
+    QuizItemWithExtras,
+} from "./types.js";
 
 const ExerciseDetailPage = ({
     heading,
@@ -52,7 +48,7 @@ const ExerciseDetailPage = ({
     onBack,
 }: ExerciseDetailPageProps) => {
     const [instructions, setInstructions] = useState<string[]>([]);
-    const [quiz, setQuiz] = useState<Record<string, unknown>[]>([]);
+    const [quiz, setQuiz] = useState<QuizItemWithExtras[]>([]);
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [score, setScore] = useState(0);
     const [totalAnswered, setTotalAnswered] = useState(0);
@@ -66,20 +62,6 @@ const ExerciseDetailPage = ({
     const { t } = useTranslation();
 
     const instructionModal = useRef<HTMLDialogElement | null>(null);
-
-    // Use interface instead of type for ExerciseDetailsType
-    interface ExerciseDetailsType {
-        id: string | number;
-        split?: string;
-        type?: string;
-        british_american?: ExerciseDetailsType[];
-        american?: ExerciseDetailsType[];
-        british?: ExerciseDetailsType[];
-        quiz?: Record<string, unknown>[];
-        instructions?: string[];
-        exercise?: string;
-    }
-    type ExerciseDataType = Record<string, ExerciseDetailsType[]>;
 
     const getInstructionKey = (exerciseKey: string, exerciseId: string | number) => {
         if (exerciseKey === "sound_n_spelling")
@@ -139,7 +121,7 @@ const ExerciseDetailPage = ({
                         if (selectedAccentData && selectedAccentData.quiz) {
                             combinedQuizzes.push(
                                 ...selectedAccentData.quiz.map((quiz) => ({
-                                    ...(quiz as Record<string, unknown>),
+                                    ...(quiz as QuizItemWithExtras),
                                     split: exercise.split,
                                     type: exercise.type,
                                 }))
@@ -153,7 +135,7 @@ const ExerciseDetailPage = ({
                     Array.from(new Set(combinedQuizzes.map((q) => JSON.stringify(q)))).map((q) =>
                         JSON.parse(q)
                     )
-                ) as Record<string, unknown>[];
+                ) as QuizItemWithExtras[];
                 setQuiz(uniqueShuffledCombinedQuizzes);
 
                 if (exerciseDetails.british_american) {
@@ -180,7 +162,7 @@ const ExerciseDetailPage = ({
                     setInstructions(loadInstructions || selectedAccentData.instructions);
                     setQuiz(
                         selectedAccentData.quiz.map((quiz) => {
-                            const base = { ...(quiz as Record<string, unknown>) };
+                            const base = { ...(quiz as QuizItemWithExtras) };
                             if (typeof exerciseDetails.split === "string")
                                 base.split = exerciseDetails.split;
                             if (typeof exerciseDetails.type === "string")
@@ -324,21 +306,21 @@ const ExerciseDetailPage = ({
         const getQuizForType = () => {
             switch (exerciseType) {
                 case "dictation":
-                    return quiz as unknown as DictationQuizItem[];
+                    return quiz as DictationQuizItem[];
                 case "matchup":
-                    return quiz as unknown as MatchUpQuizItem[];
+                    return quiz as MatchUpQuizItem[];
                 case "reordering":
-                    return quiz as unknown as ReorderingQuizData[];
+                    return quiz as ReorderingQuizData[];
                 case "sound_n_spelling":
-                    return quiz as unknown as SoundAndSpellingQuizItem[];
+                    return quiz as SoundAndSpellingQuizItem[];
                 case "sorting":
-                    return quiz as unknown as SortingQuizItem[];
+                    return quiz as SortingQuizItem[];
                 case "odd_one_out":
-                    return quiz as unknown as OddOneOutQuestion[];
+                    return quiz as OddOneOutQuestion[];
                 case "snap":
-                    return quiz as unknown as SnapQuizItem[];
+                    return quiz as SnapQuizItem[];
                 case "memory_match":
-                    return quiz as unknown as MemoryMatchQuizItem[];
+                    return quiz as MemoryMatchQuizItem[];
                 default:
                     return quiz;
             }

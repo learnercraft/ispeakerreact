@@ -6,8 +6,8 @@ import {
     closestCenter,
     useSensor,
     useSensors,
-    type DragStartEvent,
     type DragEndEvent,
+    type DragStartEvent,
     type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
@@ -21,28 +21,7 @@ import ShuffleArray from "../../utils/ShuffleArray.js";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
 import SortableWord from "./SortableWord.js";
-
-// Types for quiz data
-export interface ReorderingQuizData {
-    data: { value: string }[];
-    answer: string[];
-    audio: { src: string };
-    split: "word" | "sentence" | string;
-}
-
-interface ReorderingProps {
-    quiz: ReorderingQuizData[];
-    onAnswer: (isCorrect: number, type: "single" | "multiple", total?: number) => void;
-    onQuit: () => void;
-    timer: number;
-    setTimeIsUp: (isUp: boolean) => void;
-}
-
-interface ShuffledItem {
-    id: UniqueIdentifier;
-    value: string;
-    isCorrect?: boolean;
-}
+import type { ReorderingProps, ReorderingQuizData, ShuffledItem } from "./types.js";
 
 const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: ReorderingProps) => {
     const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);

@@ -6,22 +6,7 @@ import { IoInformationCircleOutline, IoVolumeHigh, IoVolumeHighOutline } from "r
 import { LiaCheckCircle, LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
-
-type DictationWord = { textbox: string; level?: string } | { value: string };
-
-export interface DictationQuizItem {
-    words: DictationWord[];
-    audio: { src: string };
-    type?: string;
-}
-
-interface DictationQuizProps {
-    quiz: DictationQuizItem[];
-    timer: number;
-    onAnswer: (isCorrect: boolean, mode: string) => void;
-    onQuit: () => void;
-    setTimeIsUp: (isUp: boolean) => void;
-}
+import type { DictationQuizItem, DictationQuizProps } from "./types.js";
 
 const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: DictationQuizProps) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);

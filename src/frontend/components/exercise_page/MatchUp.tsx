@@ -7,8 +7,8 @@ import {
     TouchSensor,
     useSensor,
     useSensors,
-    type DragStartEvent,
     type DragEndEvent,
+    type DragStartEvent,
     type UniqueIdentifier,
 } from "@dnd-kit/core";
 import {
@@ -26,31 +26,7 @@ import ShuffleArray from "../../utils/ShuffleArray.js";
 import { sonnerErrorToast } from "../../utils/sonnerCustomToast.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
 import SortableWord from "./SortableWord.js";
-
-// Types inferred from exercise_matchup.json and SortableWord
-interface AudioItem {
-    src: string;
-}
-
-interface WordItem {
-    text: string;
-    drag: boolean;
-    id: string; // Always present
-}
-
-export interface MatchUpQuizItem {
-    audio: AudioItem[];
-    words: WordItem[];
-    type?: string;
-}
-
-interface MatchUpProps {
-    quiz: MatchUpQuizItem[];
-    timer: number;
-    onAnswer: (correctCount: number, type: string, total: number) => void;
-    onQuit: () => void;
-    setTimeIsUp: (isUp: boolean) => void;
-}
+import type { AudioItem, MatchUpProps, MatchUpQuizItem, WordItem } from "./types.js";
 
 const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }: MatchUpProps) => {
     const [currentQuestionIndex, setcurrentQuestionIndex] = useState<number>(0);

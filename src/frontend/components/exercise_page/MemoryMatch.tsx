@@ -7,28 +7,12 @@ import { LiaTimesCircle } from "react-icons/lia";
 import "../../styles/memory-card.css";
 import ShuffleArray from "../../utils/ShuffleArray.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
-
-// Types for the quiz prop
-export interface MemoryMatchCard {
-    value: string;
-    text: string;
-}
-
-export interface MemoryMatchQuizItem {
-    data: MemoryMatchCard[];
-}
-
-export interface MemoryMatchProps {
-    quiz: MemoryMatchQuizItem[];
-    timer: number;
-    onQuit: () => void;
-    setTimeIsUp: (isUp: boolean) => void;
-    onMatchFinished: () => void;
-}
-
-interface ShuffledCard extends MemoryMatchCard {
-    id: number;
-}
+import type {
+    MemoryMatchCard,
+    MemoryMatchProps,
+    MemoryMatchQuizItem,
+    ShuffledCard,
+} from "./types.js";
 
 type CardFeedbackType = "correctPair" | "incorrectPair";
 

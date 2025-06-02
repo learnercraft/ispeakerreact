@@ -7,45 +7,14 @@ import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { LiaChevronCircleRightSolid, LiaTimesCircle } from "react-icons/lia";
 import ShuffleArray from "../../utils/ShuffleArray.js";
 import useCountdownTimer from "../../utils/useCountdownTimer.js";
-
-// Types inferred from exercise_snap.json
-export interface SnapQuizDataItem {
-    value: string;
-    index: string;
-}
-
-export interface SnapQuizFeedback {
-    value?: string;
-    index?: string;
-    answer?: string;
-    correctAns?: string;
-}
-
-export interface SnapQuizItem {
-    data: SnapQuizDataItem[];
-    feedbacks: SnapQuizFeedback[];
-}
-
-export interface SnapProps {
-    quiz: SnapQuizItem[];
-    onAnswer: (isCorrect: number, type: "single" | "multiple", total?: number) => void;
-    onQuit: () => void;
-    timer: number;
-    setTimeIsUp: (isUp: boolean) => void;
-}
-
-type ResultType = "success" | "danger" | null;
-
-interface DroppableAreaProps {
-    feedback: SnapQuizFeedback;
-    isDropped: boolean;
-    result: ResultType;
-    droppedOn: string | null;
-}
-
-interface DraggableItemProps {
-    isDropped: boolean;
-}
+import type {
+    DraggableItemProps,
+    DroppableAreaProps,
+    ResultType,
+    SnapProps,
+    SnapQuizFeedback,
+    SnapQuizItem,
+} from "./types.js";
 
 const filterAndShuffleQuiz = (quiz: SnapQuizItem[]): SnapQuizItem[] => {
     // Remove duplicate questions
@@ -134,10 +103,9 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: SnapProps) => {
 
     // Draggable item component
     const DraggableItem = ({ isDropped }: DraggableItemProps) => {
-        const { attributes, listeners, setNodeRef, transform, isDragging } =
-            useDraggable({
-                id: "draggable-item",
-            });
+        const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+            id: "draggable-item",
+        });
 
         const adjustedTransform = transform
             ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
@@ -253,7 +221,11 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: SnapProps) => {
                         {/* Yes drop zone */}
                         <div className="w-full">
                             <DroppableArea
-                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "Yes") as SnapQuizFeedback}
+                                feedback={
+                                    currentQuiz?.feedbacks?.find(
+                                        (f) => f.value === "Yes"
+                                    ) as SnapQuizFeedback
+                                }
                                 isDropped={isDropped}
                                 result={result}
                                 droppedOn={droppedOn}
@@ -268,7 +240,11 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }: SnapProps) => {
                         {/* No drop zone */}
                         <div className="w-full">
                             <DroppableArea
-                                feedback={currentQuiz?.feedbacks?.find((f) => f.value === "No") as SnapQuizFeedback}
+                                feedback={
+                                    currentQuiz?.feedbacks?.find(
+                                        (f) => f.value === "No"
+                                    ) as SnapQuizFeedback
+                                }
                                 isDropped={isDropped}
                                 result={result}
                                 droppedOn={droppedOn}
