@@ -1,6 +1,4 @@
-export interface AccentData {
-    accent: "british" | "american";
-}
+export type AccentType = "british" | "american";
 
 export type ExamData = Record<string, ExamDetails>;
 
@@ -76,7 +74,7 @@ export interface ExamDetailPageProps {
     id: string;
     title: string;
     onBack: () => void;
-    accent: AccentData;
+    accent: AccentType;
 }
 
 //ExamPage
@@ -110,12 +108,12 @@ export interface ExamCardProps {
 export interface ListeningTabProps {
     subtopicsBre: Subtopic[];
     subtopicsAme: Subtopic[];
-    currentAccent: string;
+    currentAccent: AccentType;
 }
 
 // PracticeTab
 export interface PracticeTabProps {
-    accent: string;
+    accent: AccentType;
     examId: string | number;
     taskData: TaskData[];
     tips: Tips;
@@ -124,7 +122,7 @@ export interface PracticeTabProps {
 // ReviewTab
 export interface ReviewTabProps {
     reviews: Review[];
-    accent: string;
+    accent: AccentType;
     examId: string | number;
 }
 
