@@ -1,27 +1,45 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import * as z from "zod/v4";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
-export interface TimerSettings {
-    enabled: boolean;
-    dictation: number;
-    matchup: number;
-    reordering: number;
-    sound_n_spelling: number;
-    sorting: number;
-    odd_one_out: number;
-}
+// Create a base number schema for timer values
+const TimerValueSchema = z.number().min(0).max(10);
+const TimerValueInputSchema = z.union([TimerValueSchema, z.literal("")]);
 
-// For temp input, allow numbers or empty string (for input fields)
-interface TimerSettingsInput {
-    enabled: boolean;
-    dictation: number | "";
-    matchup: number | "";
-    reordering: number | "";
-    sound_n_spelling: number | "";
-    sorting: number | "";
-    odd_one_out: number | "";
-}
+// Create a base schema for timer settings
+const TimerSettingsSchema = z.object({
+    enabled: z.boolean(),
+    dictation: TimerValueSchema,
+    matchup: TimerValueSchema,
+    reordering: TimerValueSchema,
+    sound_n_spelling: TimerValueSchema,
+    sorting: TimerValueSchema,
+    odd_one_out: TimerValueSchema,
+});
+
+// Create an input schema for timer settings
+const TimerSettingsInputSchema = z.object({
+    enabled: z.boolean(),
+    dictation: TimerValueInputSchema,
+    matchup: TimerValueInputSchema,
+    reordering: TimerValueInputSchema,
+    sound_n_spelling: TimerValueInputSchema,
+    sorting: TimerValueInputSchema,
+    odd_one_out: TimerValueInputSchema,
+});
+
+// Create a schema for localStorage data
+const SavedSettingsSchema = z
+    .object({
+        timerSettings: TimerSettingsSchema.optional(),
+    })
+    .catchall(z.unknown()); // Allow other properties
+
+// Infer TypeScript types from the schemas
+export type TimerSettings = z.infer<typeof TimerSettingsSchema>;
+type TimerSettingsInput = z.infer<typeof TimerSettingsInputSchema>;
+type SavedSettings = z.infer<typeof SavedSettingsSchema>;
 
 const defaultTimerSettings: TimerSettings = {
     enabled: false,
@@ -36,26 +54,63 @@ const defaultTimerSettings: TimerSettings = {
 const ExerciseTimer = () => {
     const { t } = useTranslation();
 
-    const savedSettings = JSON.parse(localStorage.getItem("ispeaker") || "{}");
+    // Safe localStorage operations with Zod validation
+    const getSavedSettings = (): SavedSettings => {
+        try {
+            const raw = localStorage.getItem("ispeaker");
+            if (!raw) return {};
+
+            const parsed = JSON.parse(raw);
+            const result = SavedSettingsSchema.safeParse(parsed);
+
+            if (result.success) {
+                return result.data;
+            } else {
+                return {};
+            }
+        } catch (error) {
+            console.warn("❌ Failed to parse saved settings:", error);
+            return {};
+        }
+    };
+
+    const setSavedSettings = (settings: SavedSettings): void => {
+        try {
+            console.log("💾 Saving settings to localStorage:", settings);
+            localStorage.setItem("ispeaker", JSON.stringify(settings));
+        } catch (error) {
+            console.error("❌ Failed to save settings:", error);
+        }
+    };
 
     const [timerSettings, setTimerSettings] = useState<TimerSettings>(() => {
-        if (savedSettings && savedSettings.timerSettings) {
-            return savedSettings.timerSettings;
-        }
-        return defaultTimerSettings;
+        const savedSettings = getSavedSettings();
+        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+        return initialSettings;
     });
 
-    // tempSettings allows "" for input fields
-    const [tempSettings, setTempSettings] = useState<TimerSettingsInput>(timerSettings);
-    const [inputEnabled, setInputEnabled] = useState(timerSettings.enabled);
+    // tempSettings allows "" for input fields - Initialize properly
+    const [tempSettings, setTempSettings] = useState<TimerSettingsInput>(() => {
+        // Convert initial TimerSettings to TimerSettingsInput format
+        const savedSettings = getSavedSettings();
+        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+        return initialSettings; // This should work since TimerSettings is compatible with TimerSettingsInput
+    });
+
+    const [inputEnabled, setInputEnabled] = useState(() => {
+        const savedSettings = getSavedSettings();
+        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+        return initialSettings.enabled;
+    });
     const [isValid, setIsValid] = useState(true);
     const [isModified, setIsModified] = useState(false);
 
     // Automatically save settings to localStorage whenever timerSettings change
     useEffect(() => {
+        const savedSettings = getSavedSettings();
         savedSettings.timerSettings = timerSettings;
-        localStorage.setItem("ispeaker", JSON.stringify(savedSettings));
-    }, [savedSettings, timerSettings]);
+        setSavedSettings(savedSettings);
+    }, [timerSettings]);
 
     const handleTimerToggle = (enabled: boolean) => {
         setTimerSettings((prev) => ({
@@ -63,22 +118,65 @@ const ExerciseTimer = () => {
             enabled,
         }));
         setInputEnabled(enabled);
+
+        // Also update tempSettings to keep them in sync
+        setTempSettings((prev) => ({
+            ...prev,
+            enabled,
+        }));
+
         sonnerSuccessToast(t("settingPage.changeSaved"));
     };
 
-    // Validation function to check if the inputs are valid (0-10 numbers only)
-    const validateInputs = (settings: TimerSettingsInput) => {
-        return Object.entries(settings).every(([key, value]) => {
-            if (key === "enabled") return true;
-            return (
-                value !== "" && !isNaN(Number(value)) && Number(value) >= 0 && Number(value) <= 10
-            );
-        });
+    // Validation using Zod
+    const validateInputs = (settings: TimerSettingsInput): boolean => {
+        // First check if any numeric fields are empty strings
+        const numericFields = [
+            "dictation",
+            "matchup",
+            "reordering",
+            "sound_n_spelling",
+            "sorting",
+            "odd_one_out",
+        ] as const;
+        const hasEmptyFields = numericFields.some((field) => settings[field] === "");
+
+        if (hasEmptyFields) {
+            return false; // Empty fields should make validation fail
+        }
+
+        // Then use Zod validation for type and range checking
+        const result = TimerSettingsInputSchema.safeParse(settings);
+        return result.success;
     };
 
-    const checkIfModified = (settings: TimerSettingsInput) => {
-        const modifiedSettings = savedSettings?.timerSettings || defaultTimerSettings;
-        return JSON.stringify(settings) !== JSON.stringify(modifiedSettings);
+    const normalizeSettings = (settings: TimerSettingsInput): TimerSettings => {
+        const normalized = {
+            enabled: settings.enabled,
+            dictation: settings.dictation === "" ? 0 : settings.dictation,
+            matchup: settings.matchup === "" ? 0 : settings.matchup,
+            reordering: settings.reordering === "" ? 0 : settings.reordering,
+            sound_n_spelling: settings.sound_n_spelling === "" ? 0 : settings.sound_n_spelling,
+            sorting: settings.sorting === "" ? 0 : settings.sorting,
+            odd_one_out: settings.odd_one_out === "" ? 0 : settings.odd_one_out,
+        };
+
+        // Validate the normalized settings
+        const result = TimerSettingsSchema.safeParse(normalized);
+        if (!result.success) {
+            console.warn("❌ Failed to normalize settings:", result.error);
+            return defaultTimerSettings;
+        }
+
+        return result.data;
+    };
+
+    const checkIfModified = (settings: TimerSettingsInput): boolean => {
+        const savedSettings = getSavedSettings();
+        const currentSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+        const normalizedSettings = normalizeSettings(settings);
+
+        return JSON.stringify(normalizedSettings) !== JSON.stringify(currentSettings);
     };
 
     const handleInputChange = (
@@ -86,25 +184,26 @@ const ExerciseTimer = () => {
         settingKey: keyof Omit<TimerSettings, "enabled">
     ) => {
         const { value } = e.target;
+
+        // Only allow digits and limit length
         if (/^\d*$/.test(value) && value.length <= 2) {
+            const numValue = value === "" ? "" : parseInt(value, 10);
+
             setTempSettings((prev) => ({
                 ...prev,
-                [settingKey]: value === "" ? "" : parseInt(value, 10),
+                [settingKey]: numValue,
             }));
         }
     };
 
     const handleApply = () => {
         if (validateInputs(tempSettings)) {
-            setTimerSettings((prev) => ({
-                ...prev,
-                ...Object.fromEntries(
-                    Object.entries(tempSettings).map(([k, v]) => [k, v === "" ? 0 : v])
-                ),
-                enabled: prev.enabled, // Ensure the `enabled` flag is preserved
-            }));
+            const normalizedSettings = normalizeSettings(tempSettings);
+            setTimerSettings(normalizedSettings);
             setIsModified(false);
             sonnerSuccessToast(t("settingPage.changeSaved"));
+        } else {
+            console.error("❌ Invalid settings cannot be applied");
         }
     };
 
@@ -116,7 +215,7 @@ const ExerciseTimer = () => {
     // Update validity and modified state when temporary settings change
     useEffect(() => {
         setIsValid(validateInputs(tempSettings));
-        setIsModified(checkIfModified(tempSettings)); // Check if values differ from localStorage or defaults
+        setIsModified(checkIfModified(tempSettings));
     }, [tempSettings]);
 
     const exerciseNames: Record<keyof Omit<TimerSettings, "enabled">, string> = {
@@ -151,41 +250,35 @@ const ExerciseTimer = () => {
             </div>
 
             <div className="my-4 flex flex-row flex-wrap justify-center gap-4 px-8">
-                {Object.keys(exerciseNames).map((exercise) => {
-                    const value = tempSettings[exercise as keyof typeof exerciseNames];
+                {(Object.keys(exerciseNames) as (keyof typeof exerciseNames)[]).map((exercise) => {
+                    const value = tempSettings[exercise];
                     const isInvalid =
                         value === "" || (typeof value === "number" && (value < 0 || value > 10));
+
                     return (
                         <div key={exercise} className="basis-full md:basis-1/3 lg:basis-1/4">
                             <fieldset className="fieldset w-full max-w-xs">
                                 <legend className="fieldset-legend text-sm font-normal">
-                                    <span>
-                                        {exerciseNames[exercise as keyof typeof exerciseNames]}
-                                    </span>
+                                    <span>{exerciseNames[exercise]}</span>
                                 </legend>
 
                                 <input
-                                    title={exerciseNames[exercise as keyof typeof exerciseNames]}
+                                    title={exerciseNames[exercise]}
                                     type="text"
                                     value={value}
                                     maxLength={2}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            e,
-                                            exercise as keyof Omit<TimerSettings, "enabled">
-                                        )
-                                    }
+                                    onChange={(e) => handleInputChange(e, exercise)}
                                     className={`input input-bordered w-full max-w-xs ${
                                         isInvalid ? "input-error" : ""
                                     }`}
                                     disabled={!inputEnabled}
                                 />
 
-                                {isInvalid ? (
+                                {isInvalid && (
                                     <p className="fieldset-label text-error text-sm">
                                         {t("settingPage.exerciseSettings.textboxError")}
                                     </p>
-                                ) : null}
+                                )}
                             </fieldset>
                         </div>
                     );
