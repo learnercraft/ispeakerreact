@@ -1,3 +1,5 @@
+type AccentType = "british" | "american";
+
 interface IdentifiedTitle {
     id: string;
     title: string;
@@ -49,13 +51,13 @@ export interface AccentData {
 // Props for each tab/page
 export interface ConversationDetailPageProps {
     id: string | number;
-    accent: string;
+    accent: AccentType;
     title: string;
     onBack: () => void;
 }
 
 export interface PracticeTabProps {
-    accent: string;
+    accent: AccentType;
     conversationId: string | number;
 }
 
