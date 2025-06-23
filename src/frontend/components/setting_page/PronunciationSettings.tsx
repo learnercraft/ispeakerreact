@@ -330,7 +330,12 @@ const PronunciationSettings = () => {
     const selectedModel = modelOptions.find((opt) => opt.value === modelValue);
     const selectedModelSize = selectedModel ? selectedModel.size : "";
 
-    // Helper to pick the first defined string value
+    /**
+     * Returns the first non-empty string from the provided arguments, or a default failure message if none are found.
+     *
+     * @param args - A list of string or undefined values to check
+     * @returns The first non-empty string, or "Installation failed." if none are provided
+     */
     function pickFirstString(...args: (string | undefined)[]): string {
         for (const arg of args) {
             if (typeof arg === "string" && arg.length > 0) return arg;

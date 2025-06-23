@@ -79,6 +79,11 @@ const LogSettings = () => {
 
     useEffect(() => {
         let isMounted = true;
+        /**
+         * Fetches current log settings from the Electron main process and updates component state with the corresponding option values.
+         *
+         * Falls back to default values if fetching fails.
+         */
         async function fetchLogSettings() {
             try {
                 const settings = (await window.electron.ipcRenderer.invoke(
