@@ -139,7 +139,7 @@ const ExamDetailPage = ({ id, title, onBack, accent }: ExamDetailPageProps) => {
             </h3>
             <p>
                 {t("accent.accentSettings")}:{" "}
-                {t(accent.accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
+                {t(accent === "british" ? "accent.accentBritish" : "accent.accentAmerican")}
             </p>
             <button type="button" className="btn btn-secondary my-4" onClick={onBack}>
                 <IoChevronBackOutline className="h-5 w-5" />{" "}
@@ -215,19 +215,19 @@ const ExamDetailPage = ({ id, title, onBack, accent }: ExamDetailPageProps) => {
                         <ListeningTab
                             subtopicsBre={examDetails.listen.BrE?.subtopics || []}
                             subtopicsAme={examDetails.listen.AmE?.subtopics || []}
-                            currentAccent={accent.accent}
+                            currentAccent={accent}
                         />
                     )}
                     {activeTab === "practiceTab" && (
                         <PracticeTab
                             examId={id}
-                            accent={accent.accent}
+                            accent={accent}
                             taskData={examDetails.practise.task}
                             tips={examDetails.practise.tips}
                         />
                     )}
                     {activeTab === "reviewTab" && (
-                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent.accent} />
+                        <ReviewTab reviews={examDetails.reviews} examId={id} accent={accent} />
                     )}
                 </div>
             </div>
