@@ -113,17 +113,41 @@ const ExerciseTimer = () => {
     }, [timerSettings]);
 
     const handleTimerToggle = (enabled: boolean) => {
-        setTimerSettings((prev) => ({
-            ...prev,
-            enabled,
-        }));
-        setInputEnabled(enabled);
+        if (enabled) {
+            // When enabling, just update the enabled state
+            setTimerSettings((prev) => ({
+                ...prev,
+                enabled,
+            }));
+            setInputEnabled(enabled);
 
-        // Also update tempSettings to keep them in sync
-        setTempSettings((prev) => ({
-            ...prev,
-            enabled,
-        }));
+            // Keep tempSettings as they are (preserve any unsaved changes)
+            setTempSettings((prev) => ({
+                ...prev,
+                enabled,
+            }));
+        } else {
+            // When disabling, revert tempSettings to saved values
+            const savedSettings = getSavedSettings();
+            const currentSavedSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+
+            setTimerSettings((prev) => ({
+                ...prev,
+                enabled,
+            }));
+            setInputEnabled(enabled);
+
+            // Revert tempSettings to the saved values (lose unsaved changes)
+            setTempSettings({
+                enabled,
+                dictation: currentSavedSettings.dictation,
+                matchup: currentSavedSettings.matchup,
+                reordering: currentSavedSettings.reordering,
+                sound_n_spelling: currentSavedSettings.sound_n_spelling,
+                sorting: currentSavedSettings.sorting,
+                odd_one_out: currentSavedSettings.odd_one_out,
+            });
+        }
 
         sonnerSuccessToast(t("settingPage.changeSaved"));
     };
