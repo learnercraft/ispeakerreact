@@ -8,7 +8,6 @@
         "skipLibCheck": true,
         "sourceMap": false,
 
-        /* Bundler mode */
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
         "isolatedModules": true,
@@ -16,7 +15,6 @@
         "noEmit": true,
         "jsx": "react-jsx",
 
-        /* Linting */
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "strictPropertyInitialization": false,
@@ -28,6 +26,5 @@
             "~/*": ["./*"]
         }
     },
-    "include": ["src/frontend", "src/electron"],
-    "exclude": ["src/electron/tsconfig.electron.json"]
+    "include": ["src/frontend"]
 }
