@@ -218,7 +218,7 @@ const RecordingWaveform = ({
         t,
     ]);
 
-    const handleRecordClick = () => {
+    const handleRecordClick = async () => {
         if (recordPlugin) {
             if (recording) {
                 recordPlugin.stopRecording(); // Stop recording
@@ -232,22 +232,30 @@ const RecordingWaveform = ({
                 setRecordedUrl(null); // Clear previously recorded URL
                 setRecordingTime(0); // Reset the recording time
 
-                recordPlugin.startRecording(); // Start recording
-                setRecording(true);
+                try {
+                    await recordPlugin.startRecording(); // Start recording
+                    setRecording(true);
 
-                recordingInterval.current = setInterval(() => {
-                    setRecordingTime((prevTime) => {
-                        if (prevTime >= maxDuration) {
-                            console.log("Max recording duration reached. Stopping...");
-                            recordPlugin.stopRecording();
-                            setRecording(false);
-                            if (recordingInterval.current) clearInterval(recordingInterval.current);
-                            setRecordingTime(0);
-                            return prevTime;
-                        }
-                        return prevTime + 1;
-                    });
-                }, 1000);
+                    recordingInterval.current = setInterval(() => {
+                        setRecordingTime((prevTime) => {
+                            if (prevTime >= maxDuration) {
+                                console.log("Max recording duration reached. Stopping...");
+                                recordPlugin.stopRecording();
+                                setRecording(false);
+                                if (recordingInterval.current)
+                                    clearInterval(recordingInterval.current);
+                                setRecordingTime(0);
+                                return prevTime;
+                            }
+                            return prevTime + 1;
+                        });
+                    }, 1000);
+                } catch (error: unknown) {
+                    const err = error instanceof Error ? error : new Error(String(error));
+                    sonnerErrorToast(`${String(t("toast.recordingFailed"))} ${err.message}`);
+                    setRecording(false);
+                    if (recordingInterval.current) clearInterval(recordingInterval.current);
+                }
             }
         }
     };
