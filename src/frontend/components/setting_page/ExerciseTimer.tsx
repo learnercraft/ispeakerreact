@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as z from "zod/v4";
+import {
+    getTimerSettings,
+    setTimerSettings,
+    TimerSettingsSchema,
+    TimerValueSchema,
+    type TimerSettings,
+} from "../../utils/localStorageUtilsZod.js";
 import { sonnerSuccessToast } from "../../utils/sonnerCustomToast.js";
 
-// Create a base number schema for timer values
-const TimerValueSchema = z.number().min(0).max(10);
 const TimerValueInputSchema = z.union([TimerValueSchema, z.literal("")]);
-
-// Create a base schema for timer settings
-const TimerSettingsSchema = z.object({
-    enabled: z.boolean(),
-    dictation: TimerValueSchema,
-    matchup: TimerValueSchema,
-    reordering: TimerValueSchema,
-    sound_n_spelling: TimerValueSchema,
-    sorting: TimerValueSchema,
-    odd_one_out: TimerValueSchema,
-});
 
 // Create an input schema for timer settings
 const TimerSettingsInputSchema = z.object({
@@ -29,124 +23,45 @@ const TimerSettingsInputSchema = z.object({
     odd_one_out: TimerValueInputSchema,
 });
 
-// Create a schema for localStorage data
-const SavedSettingsSchema = z
-    .object({
-        timerSettings: TimerSettingsSchema.optional(),
-    })
-    .catchall(z.unknown()); // Allow other properties
-
-// Infer TypeScript types from the schemas
-export type TimerSettings = z.infer<typeof TimerSettingsSchema>;
 type TimerSettingsInput = z.infer<typeof TimerSettingsInputSchema>;
-type SavedSettings = z.infer<typeof SavedSettingsSchema>;
-
-const defaultTimerSettings: TimerSettings = {
-    enabled: false,
-    dictation: 5,
-    matchup: 5,
-    reordering: 5,
-    sound_n_spelling: 5,
-    sorting: 5,
-    odd_one_out: 5,
-};
 
 const ExerciseTimer = () => {
     const { t } = useTranslation();
 
-    // Safe localStorage operations with Zod validation
-    const getSavedSettings = (): SavedSettings => {
-        try {
-            const raw = localStorage.getItem("ispeaker");
-            if (!raw) return {};
-
-            const parsed = JSON.parse(raw);
-            const result = SavedSettingsSchema.safeParse(parsed);
-
-            if (result.success) {
-                return result.data;
-            } else {
-                return {};
-            }
-        } catch (error) {
-            console.warn("❌ Failed to parse saved settings:", error);
-            return {};
-        }
-    };
-
-    const setSavedSettings = (settings: SavedSettings): void => {
-        try {
-            console.log("💾 Saving settings to localStorage:", settings);
-            localStorage.setItem("ispeaker", JSON.stringify(settings));
-        } catch (error) {
-            console.error("❌ Failed to save settings:", error);
-        }
-    };
-
-    const [timerSettings, setTimerSettings] = useState<TimerSettings>(() => {
-        const savedSettings = getSavedSettings();
-        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
-        return initialSettings;
+    const [timerSettings, setTimerSettingsState] = useState<TimerSettings>(() => {
+        return getTimerSettings();
     });
 
-    // tempSettings allows "" for input fields - Initialize properly
     const [tempSettings, setTempSettings] = useState<TimerSettingsInput>(() => {
-        // Convert initial TimerSettings to TimerSettingsInput format
-        const savedSettings = getSavedSettings();
-        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
-        return initialSettings; // This should work since TimerSettings is compatible with TimerSettingsInput
+        return getTimerSettings();
     });
 
     const [inputEnabled, setInputEnabled] = useState(() => {
-        const savedSettings = getSavedSettings();
-        const initialSettings = savedSettings.timerSettings ?? defaultTimerSettings;
-        return initialSettings.enabled;
+        return getTimerSettings().enabled;
     });
+
     const [isValid, setIsValid] = useState(true);
     const [isModified, setIsModified] = useState(false);
 
-    // Automatically save settings to localStorage whenever timerSettings change
-    useEffect(() => {
-        const savedSettings = getSavedSettings();
-        savedSettings.timerSettings = timerSettings;
-        setSavedSettings(savedSettings);
-    }, [timerSettings]);
+    // Save settings using centralized utility
+    const saveTimerSettings = (settings: TimerSettings) => {
+        setTimerSettings(settings);
+        setTimerSettingsState(settings);
+    };
 
     const handleTimerToggle = (enabled: boolean) => {
-        if (enabled) {
-            // When enabling, just update the enabled state
-            setTimerSettings((prev) => ({
-                ...prev,
-                enabled,
-            }));
-            setInputEnabled(enabled);
+        const newSettings = { ...timerSettings, enabled };
 
-            // Keep tempSettings as they are (preserve any unsaved changes)
-            setTempSettings((prev) => ({
-                ...prev,
-                enabled,
-            }));
+        if (enabled) {
+            saveTimerSettings(newSettings);
+            setInputEnabled(enabled);
+            setTempSettings((prev) => ({ ...prev, enabled }));
         } else {
             // When disabling, revert tempSettings to saved values
-            const savedSettings = getSavedSettings();
-            const currentSavedSettings = savedSettings.timerSettings ?? defaultTimerSettings;
-
-            setTimerSettings((prev) => ({
-                ...prev,
-                enabled,
-            }));
+            const currentSettings = getTimerSettings();
+            saveTimerSettings(newSettings);
             setInputEnabled(enabled);
-
-            // Revert tempSettings to the saved values (lose unsaved changes)
-            setTempSettings({
-                enabled,
-                dictation: currentSavedSettings.dictation,
-                matchup: currentSavedSettings.matchup,
-                reordering: currentSavedSettings.reordering,
-                sound_n_spelling: currentSavedSettings.sound_n_spelling,
-                sorting: currentSavedSettings.sorting,
-                odd_one_out: currentSavedSettings.odd_one_out,
-            });
+            setTempSettings({ ...currentSettings, enabled });
         }
 
         sonnerSuccessToast(t("settingPage.changeSaved"));
@@ -189,17 +104,15 @@ const ExerciseTimer = () => {
         const result = TimerSettingsSchema.safeParse(normalized);
         if (!result.success) {
             console.warn("❌ Failed to normalize settings:", result.error);
-            return defaultTimerSettings;
+            return getTimerSettings();
         }
 
         return result.data;
     };
 
     const checkIfModified = (settings: TimerSettingsInput): boolean => {
-        const savedSettings = getSavedSettings();
-        const currentSettings = savedSettings.timerSettings ?? defaultTimerSettings;
+        const currentSettings = getTimerSettings();
         const normalizedSettings = normalizeSettings(settings);
-
         return JSON.stringify(normalizedSettings) !== JSON.stringify(currentSettings);
     };
 
@@ -223,11 +136,9 @@ const ExerciseTimer = () => {
     const handleApply = () => {
         if (validateInputs(tempSettings)) {
             const normalizedSettings = normalizeSettings(tempSettings);
-            setTimerSettings(normalizedSettings);
+            saveTimerSettings(normalizedSettings);
             setIsModified(false);
             sonnerSuccessToast(t("settingPage.changeSaved"));
-        } else {
-            console.error("❌ Invalid settings cannot be applied");
         }
     };
 

@@ -11,7 +11,13 @@ import {
 } from "react-icons/bs";
 import { checkRecordingExists } from "../../utils/databaseOperations.js";
 import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
-import type { ReviewCardProps, ReviewType } from "./types.js";
+import {
+    getSoundReview,
+    setSoundReview,
+    type AccentType,
+    type ReviewType,
+} from "../../utils/localStorageUtilsZod.js";
+import type { ReviewCardProps } from "./types.js";
 
 const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
     const [review, setReview] = useState<ReviewType>(null);
@@ -19,28 +25,9 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
 
     // Load review from localStorage on mount
     useEffect(() => {
-        const storedString = localStorage.getItem("ispeaker");
-        let storedData: Record<string, unknown> = {};
-        if (storedString) {
-            try {
-                storedData = JSON.parse(storedString);
-            } catch {
-                storedData = {};
-            }
-        }
-        const soundReview =
-            (storedData.soundReview &&
-                typeof storedData.soundReview === "object" &&
-                (storedData.soundReview as Record<string, unknown>)[accent] &&
-                typeof (storedData.soundReview as Record<string, unknown>)[accent] === "object" &&
-                (
-                    (storedData.soundReview as Record<string, unknown>)[accent] as Record<
-                        string,
-                        unknown
-                    >
-                )[`${sound.type}${sound.id}`]) ||
-            null;
-        setReview((soundReview as ReviewType) ?? null);
+        const soundKey = `${sound.type}${sound.id}`;
+        const storedReview = getSoundReview(accent as AccentType, soundKey);
+        setReview(storedReview);
     }, [accent, sound]);
 
     // Check if recording exists
@@ -59,35 +46,19 @@ const ReviewCard = ({ sound, accent, t, onReviewUpdate }: ReviewCardProps) => {
             return;
         }
 
-        const storedString = localStorage.getItem("ispeaker");
-        let storedData: Record<string, unknown> = {};
-        if (storedString) {
-            try {
-                storedData = JSON.parse(storedString);
-            } catch {
-                storedData = {};
+        try {
+            const soundKey = `${sound.type}${sound.id}`;
+            setSoundReview(accent as AccentType, soundKey, type);
+            setReview(type);
+
+            sonnerSuccessToast(t("toast.reviewUpdated") as string);
+
+            if (onReviewUpdate) {
+                onReviewUpdate();
             }
-        }
-        if (!storedData.soundReview || typeof storedData.soundReview !== "object") {
-            storedData.soundReview = {};
-        }
-        if (
-            !(storedData.soundReview as Record<string, unknown>)[accent] ||
-            typeof (storedData.soundReview as Record<string, unknown>)[accent] !== "object"
-        ) {
-            (storedData.soundReview as Record<string, unknown>)[accent] = {};
-        }
-        ((storedData.soundReview as Record<string, unknown>)[accent] as Record<string, unknown>)[
-            `${sound.type}${sound.id}`
-        ] = type;
-
-        localStorage.setItem("ispeaker", JSON.stringify(storedData));
-        setReview(type);
-
-        sonnerSuccessToast(t("toast.reviewUpdated") as string);
-
-        if (onReviewUpdate) {
-            onReviewUpdate();
+        } catch (error) {
+            console.error("❌ Failed to save review:", error);
+            sonnerWarningToast("Failed to save review");
         }
     };
 

@@ -7,8 +7,14 @@ import {
     BsEmojiSmile,
     BsEmojiSmileFill,
 } from "react-icons/bs";
+import {
+    getWordReview,
+    setWordReview,
+    type AccentType,
+    type ReviewType,
+} from "../../utils/localStorageUtilsZod.js";
 import { sonnerSuccessToast, sonnerWarningToast } from "../../utils/sonnerCustomToast.js";
-import type { ReviewRecordingProps, ReviewType } from "./types";
+import type { ReviewRecordingProps } from "./types.js";
 
 const ReviewRecording = ({
     wordName,
@@ -21,10 +27,8 @@ const ReviewRecording = ({
 
     // Load review from localStorage on mount
     useEffect(() => {
-        const storedRaw = localStorage.getItem("ispeaker");
-        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
-        const wordReview = storedData.wordReview?.[accent]?.[wordName] ?? null;
-        setReview(wordReview as ReviewType);
+        const storedReview = getWordReview(accent as AccentType, wordName);
+        setReview(storedReview);
     }, [accent, wordName]);
 
     const handleReviewClick = (type: Exclude<ReviewType, null>) => {
@@ -33,13 +37,7 @@ const ReviewRecording = ({
             return;
         }
 
-        const storedRaw = localStorage.getItem("ispeaker");
-        const storedData = storedRaw ? JSON.parse(storedRaw) : {};
-        storedData.wordReview = storedData.wordReview || {};
-        storedData.wordReview[accent] = storedData.wordReview[accent] || {};
-        storedData.wordReview[accent][wordName] = type;
-
-        localStorage.setItem("ispeaker", JSON.stringify(storedData));
+        setWordReview(accent as AccentType, wordName, type);
         setReview(type);
 
         sonnerSuccessToast(String(t("toast.reviewUpdated")));
