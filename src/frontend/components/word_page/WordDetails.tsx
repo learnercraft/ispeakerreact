@@ -140,6 +140,14 @@ const WordDetails = ({
         }
     };
 
+    const handleRecordingSaved = () => {
+        setIsRecordingExists(true);
+    };
+
+    //const handleWaveformActivityChange = (isActive: boolean) => {
+    //    setIsRecordingWaveformActive(isActive);
+    //};
+
     return (
         <>
             <button type="button" className="btn btn-secondary my-8" onClick={handleBack}>
@@ -264,9 +272,9 @@ const WordDetails = ({
                         wordKey={`wordPronunciation-${word.name}-${accent}`}
                         maxDuration={8}
                         disableControls={isPlaying}
-                        onActivityChange={undefined}
+                        //onActivityChange={handleWaveformActivityChange}
                         t={t}
-                        onRecordingSaved={undefined}
+                        onRecordingSaved={handleRecordingSaved}
                         isAudioLoading={isAudioLoading}
                         displayPronunciation={displayPronunciation}
                     />
