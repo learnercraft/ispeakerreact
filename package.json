@@ -62,7 +62,7 @@
         "cross-env": "^7.0.3",
         "daisyui": "^5.0.37",
         "dexie": "^4.0.11",
-        "electron": "^36.3.1",
+        "electron": "^36.9.5",
         "eslint": "^9.27.0",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^6.0.0-rc.1",
@@ -87,7 +87,7 @@
         "sonner": "^2.0.3",
         "tailwindcss": "^4.1.7",
         "vidstack": "^1.12.12",
-        "vite": "^6.3.5",
+        "vite": "^6.4.1",
         "vite-plugin-pwa": "^1.0.0",
         "wait-on": "^8.0.3",
         "wavesurfer.js": "^7.9.5"
