@@ -3,7 +3,18 @@
         "consonants": [
             {
                 "phoneme": "/ p /",
-                "word": "<span class='font-bold'>p</span>en",
+                "word": "pen",
+                "wordSegments": [
+                    {
+                        "text": "p",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "en"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 1,
@@ -11,7 +22,18 @@
             },
             {
                 "phoneme": "/ b /",
-                "word": "<span class='font-bold'>b</span>ad",
+                "word": "bad",
+                "wordSegments": [
+                    {
+                        "text": "b",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ad"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 2,
@@ -19,7 +41,18 @@
             },
             {
                 "phoneme": "/ t /",
-                "word": "<span class='font-bold'>t</span>ea",
+                "word": "tea",
+                "wordSegments": [
+                    {
+                        "text": "t",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ea"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 3,
@@ -27,7 +60,18 @@
             },
             {
                 "phoneme": "/ d /",
-                "word": "<span class='font-bold'>d</span>id",
+                "word": "did",
+                "wordSegments": [
+                    {
+                        "text": "d",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "id"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 4,
@@ -35,7 +79,18 @@
             },
             {
                 "phoneme": "/ k /",
-                "word": "<span class='font-bold'>c</span>at",
+                "word": "cat",
+                "wordSegments": [
+                    {
+                        "text": "c",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "at"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 5,
@@ -43,7 +98,18 @@
             },
             {
                 "phoneme": "/ ɡ /",
-                "word": "<span class='font-bold'>g</span>et",
+                "word": "get",
+                "wordSegments": [
+                    {
+                        "text": "g",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "et"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 6,
@@ -51,7 +117,18 @@
             },
             {
                 "phoneme": "/ m /",
-                "word": "<span class='font-bold'>m</span>an",
+                "word": "man",
+                "wordSegments": [
+                    {
+                        "text": "m",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "an"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 7,
@@ -59,7 +136,18 @@
             },
             {
                 "phoneme": "/ n /",
-                "word": "<span class='font-bold'>n</span>ow",
+                "word": "now",
+                "wordSegments": [
+                    {
+                        "text": "n",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ow"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 8,
@@ -67,7 +155,18 @@
             },
             {
                 "phoneme": "/ ŋ /",
-                "word": "si<span class='font-bold'>ng</span>",
+                "word": "sing",
+                "wordSegments": [
+                    {
+                        "text": "si"
+                    },
+                    {
+                        "text": "ng",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 9,
@@ -75,7 +174,18 @@
             },
             {
                 "phoneme": "/ f /",
-                "word": "<span class='font-bold'>f</span>all",
+                "word": "fall",
+                "wordSegments": [
+                    {
+                        "text": "f",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "all"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 10,
@@ -83,7 +193,18 @@
             },
             {
                 "phoneme": "/ v /",
-                "word": "<span class='font-bold'>v</span>an",
+                "word": "van",
+                "wordSegments": [
+                    {
+                        "text": "v",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "an"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 11,
@@ -91,7 +212,18 @@
             },
             {
                 "phoneme": "/ θ /",
-                "word": "<span class='font-bold'>th</span>in",
+                "word": "thin",
+                "wordSegments": [
+                    {
+                        "text": "th",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "in"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 12,
@@ -99,7 +231,18 @@
             },
             {
                 "phoneme": "/ ð /",
-                "word": "<span class='font-bold'>th</span>is",
+                "word": "this",
+                "wordSegments": [
+                    {
+                        "text": "th",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "is"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 13,
@@ -107,7 +250,18 @@
             },
             {
                 "phoneme": "/ s /",
-                "word": "<span class='font-bold'>s</span>ee",
+                "word": "see",
+                "wordSegments": [
+                    {
+                        "text": "s",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ee"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 14,
@@ -115,7 +269,18 @@
             },
             {
                 "phoneme": "/ z /",
-                "word": "<span class='font-bold'>z</span>oo",
+                "word": "zoo",
+                "wordSegments": [
+                    {
+                        "text": "z",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "oo"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 15,
@@ -123,7 +288,18 @@
             },
             {
                 "phoneme": "/ ʃ /",
-                "word": "<span class='font-bold'>sh</span>oe",
+                "word": "shoe",
+                "wordSegments": [
+                    {
+                        "text": "sh",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "oe"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 16,
@@ -131,7 +307,21 @@
             },
             {
                 "phoneme": "/ ʒ /",
-                "word": "vi<span class='font-bold'>s</span>ion",
+                "word": "vision",
+                "wordSegments": [
+                    {
+                        "text": "vi"
+                    },
+                    {
+                        "text": "s",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ion"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 17,
@@ -139,7 +329,18 @@
             },
             {
                 "phoneme": "/ tʃ /",
-                "word": "<span class='font-bold'>ch</span>ain",
+                "word": "chain",
+                "wordSegments": [
+                    {
+                        "text": "ch",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ain"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 18,
@@ -147,7 +348,18 @@
             },
             {
                 "phoneme": "/ dʒ /",
-                "word": "<span class='font-bold'>j</span>am",
+                "word": "jam",
+                "wordSegments": [
+                    {
+                        "text": "j",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "am"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 19,
@@ -155,7 +367,18 @@
             },
             {
                 "phoneme": "/ l /",
-                "word": "<span class='font-bold'>l</span>eg",
+                "word": "leg",
+                "wordSegments": [
+                    {
+                        "text": "l",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "eg"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 20,
@@ -163,7 +386,18 @@
             },
             {
                 "phoneme": "/ r /",
-                "word": "<span class='font-bold'>r</span>ed",
+                "word": "red",
+                "wordSegments": [
+                    {
+                        "text": "r",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ed"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 21,
@@ -171,7 +405,18 @@
             },
             {
                 "phoneme": "/ h /",
-                "word": "<span class='font-bold'>h</span>at",
+                "word": "hat",
+                "wordSegments": [
+                    {
+                        "text": "h",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "at"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 22,
@@ -179,7 +424,18 @@
             },
             {
                 "phoneme": "/ w /",
-                "word": "<span class='font-bold'>w</span>et",
+                "word": "wet",
+                "wordSegments": [
+                    {
+                        "text": "w",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "et"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 25,
@@ -187,7 +443,18 @@
             },
             {
                 "phoneme": "/ j /",
-                "word": "<span class='font-bold'>y</span>es",
+                "word": "yes",
+                "wordSegments": [
+                    {
+                        "text": "y",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "es"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 24,
@@ -195,7 +462,18 @@
             },
             {
                 "phoneme": "/ x /",
-                "word": "lo<span class='font-bold'>ch</span>",
+                "word": "loch",
+                "wordSegments": [
+                    {
+                        "text": "lo"
+                    },
+                    {
+                        "text": "ch",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 23,
@@ -203,7 +481,21 @@
             },
             {
                 "phoneme": "/ t̬ /",
-                "word": "ci<span class='font-bold'>t</span>y",
+                "word": "city",
+                "wordSegments": [
+                    {
+                        "text": "ci"
+                    },
+                    {
+                        "text": "t",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "y"
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 26,
@@ -213,7 +505,18 @@
         "vowels": [
             {
                 "phoneme": "/ iː /",
-                "word": "s<span class='font-bold'>ee</span>",
+                "word": "see",
+                "wordSegments": [
+                    {
+                        "text": "s"
+                    },
+                    {
+                        "text": "ee",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 1,
@@ -221,7 +524,18 @@
             },
             {
                 "phoneme": "/ i /",
-                "word": "happ<span class='font-bold'>y</span>",
+                "word": "happy",
+                "wordSegments": [
+                    {
+                        "text": "happ"
+                    },
+                    {
+                        "text": "y",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 2,
@@ -229,7 +543,21 @@
             },
             {
                 "phoneme": "/ ɪ /",
-                "word": "s<span class='font-bold'>i</span>t",
+                "word": "sit",
+                "wordSegments": [
+                    {
+                        "text": "s"
+                    },
+                    {
+                        "text": "i",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "t"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 3,
@@ -237,7 +565,21 @@
             },
             {
                 "phoneme": "/ e /",
-                "word": "b<span class='font-bold'>e</span>d",
+                "word": "bed",
+                "wordSegments": [
+                    {
+                        "text": "b"
+                    },
+                    {
+                        "text": "e",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "d"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 4,
@@ -245,7 +587,21 @@
             },
             {
                 "phoneme": "/ æ /",
-                "word": "c<span class='font-bold'>a</span>t",
+                "word": "cat",
+                "wordSegments": [
+                    {
+                        "text": "c"
+                    },
+                    {
+                        "text": "a",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "t"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 5,
@@ -253,7 +609,18 @@
             },
             {
                 "phoneme": "/ ə /",
-                "word": "<span class='font-bold'>a</span>bout",
+                "word": "about",
+                "wordSegments": [
+                    {
+                        "text": "a",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "bout"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 6,
@@ -261,7 +628,18 @@
             },
             {
                 "phoneme": "/ ɜː /",
-                "word": "f<span class='font-bold'>ur</span>",
+                "word": "fur",
+                "wordSegments": [
+                    {
+                        "text": "f"
+                    },
+                    {
+                        "text": "ur",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 7,
@@ -269,7 +647,18 @@
             },
             {
                 "phoneme": "/ ɜːr /",
-                "word": "f<span class='font-bold'>ur</span>",
+                "word": "fur",
+                "wordSegments": [
+                    {
+                        "text": "f"
+                    },
+                    {
+                        "text": "ur",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 8,
@@ -277,7 +666,21 @@
             },
             {
                 "phoneme": "/ ʌ /",
-                "word": "c<span class='font-bold'>u</span>p",
+                "word": "cup",
+                "wordSegments": [
+                    {
+                        "text": "c"
+                    },
+                    {
+                        "text": "u",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "p"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 9,
@@ -285,7 +688,18 @@
             },
             {
                 "phoneme": "/ uː /",
-                "word": "t<span class='font-bold'>oo</span>",
+                "word": "too",
+                "wordSegments": [
+                    {
+                        "text": "t"
+                    },
+                    {
+                        "text": "oo",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 10,
@@ -293,7 +707,21 @@
             },
             {
                 "phoneme": "/ u /",
-                "word": "act<span class='font-bold'>u</span>al",
+                "word": "actual",
+                "wordSegments": [
+                    {
+                        "text": "act"
+                    },
+                    {
+                        "text": "u",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "al"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 11,
@@ -301,7 +729,21 @@
             },
             {
                 "phoneme": "/ ʊ /",
-                "word": "p<span class='font-bold'>u</span>t",
+                "word": "put",
+                "wordSegments": [
+                    {
+                        "text": "p"
+                    },
+                    {
+                        "text": "u",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "t"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 12,
@@ -309,7 +751,18 @@
             },
             {
                 "phoneme": "/ ɔː /",
-                "word": "s<span class='font-bold'>aw</span>",
+                "word": "saw",
+                "wordSegments": [
+                    {
+                        "text": "s"
+                    },
+                    {
+                        "text": "aw",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 13,
@@ -317,7 +770,21 @@
             },
             {
                 "phoneme": "/ ɒ /",
-                "word": "g<span class='font-bold'>o</span>t",
+                "word": "got",
+                "wordSegments": [
+                    {
+                        "text": "g"
+                    },
+                    {
+                        "text": "o",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "t"
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 14,
@@ -325,7 +792,21 @@
             },
             {
                 "phoneme": "/ ɑː /",
-                "word": "f<span class='font-bold'>a</span>ther",
+                "word": "father",
+                "wordSegments": [
+                    {
+                        "text": "f"
+                    },
+                    {
+                        "text": "a",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": "ther"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 15,
@@ -333,7 +814,18 @@
             },
             {
                 "phoneme": "/ ɑ̃ /",
-                "word": "<span class='font-bold'>en</span> suite",
+                "word": "en suite",
+                "wordSegments": [
+                    {
+                        "text": "en",
+                        "styles": [
+                            "bold"
+                        ]
+                    },
+                    {
+                        "text": " suite"
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 16,
@@ -343,7 +835,18 @@
         "diphthongs": [
             {
                 "phoneme": "/ eɪ /",
-                "word": "s<span class='font-bold'>ay</span>",
+                "word": "say",
+                "wordSegments": [
+                    {
+                        "text": "s"
+                    },
+                    {
+                        "text": "ay",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 1,
@@ -351,7 +854,18 @@
             },
             {
                 "phoneme": "/ əʊ /",
-                "word": "g<span class='font-bold'>o</span>",
+                "word": "go",
+                "wordSegments": [
+                    {
+                        "text": "g"
+                    },
+                    {
+                        "text": "o",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 2,
@@ -359,7 +873,18 @@
             },
             {
                 "phoneme": "/ oʊ /",
-                "word": "g<span class='font-bold'>o</span>",
+                "word": "go",
+                "wordSegments": [
+                    {
+                        "text": "g"
+                    },
+                    {
+                        "text": "o",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 3,
@@ -367,7 +892,18 @@
             },
             {
                 "phoneme": "/ aɪ /",
-                "word": "m<span class='font-bold'>y</span>",
+                "word": "my",
+                "wordSegments": [
+                    {
+                        "text": "m"
+                    },
+                    {
+                        "text": "y",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 4,
@@ -375,7 +911,18 @@
             },
             {
                 "phoneme": "/ aʊ /",
-                "word": "n<span class='font-bold'>ow</span>",
+                "word": "now",
+                "wordSegments": [
+                    {
+                        "text": "n"
+                    },
+                    {
+                        "text": "ow",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 5,
@@ -383,7 +930,18 @@
             },
             {
                 "phoneme": "/ ɔɪ /",
-                "word": "b<span class='font-bold'>oy</span>",
+                "word": "boy",
+                "wordSegments": [
+                    {
+                        "text": "b"
+                    },
+                    {
+                        "text": "oy",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": true,
                 "id": 6,
@@ -391,7 +949,18 @@
             },
             {
                 "phoneme": "/ ɪə /",
-                "word": "n<span class='font-bold'>ear</span>",
+                "word": "near",
+                "wordSegments": [
+                    {
+                        "text": "n"
+                    },
+                    {
+                        "text": "ear",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 7,
@@ -399,7 +968,18 @@
             },
             {
                 "phoneme": "/ ɪr /",
-                "word": "n<span class='font-bold'>ear</span>",
+                "word": "near",
+                "wordSegments": [
+                    {
+                        "text": "n"
+                    },
+                    {
+                        "text": "ear",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 8,
@@ -407,7 +987,18 @@
             },
             {
                 "phoneme": "/ eə /",
-                "word": "h<span class='font-bold'>air</span>",
+                "word": "hair",
+                "wordSegments": [
+                    {
+                        "text": "h"
+                    },
+                    {
+                        "text": "air",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 9,
@@ -415,7 +1006,18 @@
             },
             {
                 "phoneme": "/ er /",
-                "word": "h<span class='font-bold'>air</span>",
+                "word": "hair",
+                "wordSegments": [
+                    {
+                        "text": "h"
+                    },
+                    {
+                        "text": "air",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 10,
@@ -423,7 +1025,18 @@
             },
             {
                 "phoneme": "/ ʊə /",
-                "word": "p<span class='font-bold'>ure</span>",
+                "word": "pure",
+                "wordSegments": [
+                    {
+                        "text": "p"
+                    },
+                    {
+                        "text": "ure",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": true,
                 "american": false,
                 "id": 11,
@@ -431,7 +1044,18 @@
             },
             {
                 "phoneme": "/ ʊr /",
-                "word": "p<span class='font-bold'>ure</span>",
+                "word": "pure",
+                "wordSegments": [
+                    {
+                        "text": "p"
+                    },
+                    {
+                        "text": "ure",
+                        "styles": [
+                            "bold"
+                        ]
+                    }
+                ],
                 "british": false,
                 "american": true,
                 "id": 12,
