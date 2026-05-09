@@ -11,703 +11,403 @@
                     "instructionsKey": "exercise_page.exerciseInstruction.snap.reading-phonetics",
                     "items": [
                         {
-                            "values": [
-                                "ambulance",
-                                "ˈæmbjələns"
-                            ],
+                            "values": ["ambulance", "ˈæmbjələns"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "appliance",
-                                "əˈplaɪəns"
-                            ],
+                            "values": ["appliance", "əˈplaɪəns"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "architect",
-                                "ˈɑːkɪtekt"
-                            ],
+                            "values": ["architect", "ˈɑːkɪtekt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "asterisk",
-                                "ˈæstərɪsk"
-                            ],
+                            "values": ["asterisk", "ˈæstərɪsk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "axe",
-                                "æks"
-                            ],
+                            "values": ["axe", "æks"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "beautiful",
-                                "ˈbjuːtɪfl"
-                            ],
+                            "values": ["beautiful", "ˈbjuːtɪfl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "busy",
-                                "ˈbɪzi"
-                            ],
+                            "values": ["busy", "ˈbɪzi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chaos",
-                                "ˈkeɪɒs"
-                            ],
+                            "values": ["chaos", "ˈkeɪɒs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "college",
-                                "ˈkɒlɪdʒ"
-                            ],
+                            "values": ["college", "ˈkɒlɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "crispy",
-                                "ˈkrɪspi"
-                            ],
+                            "values": ["crispy", "ˈkrɪspi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "crocodile",
-                                "ˈkrɒkədaɪl"
-                            ],
+                            "values": ["crocodile", "ˈkrɒkədaɪl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "debt",
-                                "det"
-                            ],
+                            "values": ["debt", "det"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "decision",
-                                "dɪˈsɪʒn"
-                            ],
+                            "values": ["decision", "dɪˈsɪʒn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "deteriorate",
-                                "dɪˈtɪəriəreɪt"
-                            ],
+                            "values": ["deteriorate", "dɪˈtɪəriəreɪt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "escape",
-                                "ɪˈskeɪp"
-                            ],
+                            "values": ["escape", "ɪˈskeɪp"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "especially",
-                                "ɪˈspeʃəli"
-                            ],
+                            "values": ["especially", "ɪˈspeʃəli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "eye",
-                                "aɪ"
-                            ],
+                            "values": ["eye", "aɪ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "figure",
-                                "ˈfɪɡə(r)"
-                            ],
+                            "values": ["figure", "ˈfɪɡə(r)"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "flood",
-                                "flʌd"
-                            ],
+                            "values": ["flood", "flʌd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "fortunate",
-                                "ˈfɔːtʃənət"
-                            ],
+                            "values": ["fortunate", "ˈfɔːtʃənət"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "friend",
-                                "frend"
-                            ],
+                            "values": ["friend", "frend"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "frustrated",
-                                "frʌˈstreɪtɪd"
-                            ],
+                            "values": ["frustrated", "frʌˈstreɪtɪd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "gauge",
-                                "ɡeɪdʒ"
-                            ],
+                            "values": ["gauge", "ɡeɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "genuine",
-                                "ˈdʒenjuɪn"
-                            ],
+                            "values": ["genuine", "ˈdʒenjuɪn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "interpret",
-                                "ɪnˈtɜːprɪt"
-                            ],
+                            "values": ["interpret", "ɪnˈtɜːprɪt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "language",
-                                "ˈlæŋɡwɪdʒ"
-                            ],
+                            "values": ["language", "ˈlæŋɡwɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "leopard",
-                                "ˈlepəd"
-                            ],
+                            "values": ["leopard", "ˈlepəd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "liable",
-                                "ˈlaɪəbl"
-                            ],
+                            "values": ["liable", "ˈlaɪəbl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "mauve",
-                                "məʊv"
-                            ],
+                            "values": ["mauve", "məʊv"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "mishap",
-                                "ˈmɪshæp"
-                            ],
+                            "values": ["mishap", "ˈmɪshæp"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "parliament",
-                                "ˈpɑːləmənt"
-                            ],
+                            "values": ["parliament", "ˈpɑːləmənt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "praise",
-                                "preɪz"
-                            ],
+                            "values": ["praise", "preɪz"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "prescription",
-                                "prɪˈskrɪpʃn"
-                            ],
+                            "values": ["prescription", "prɪˈskrɪpʃn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "probably",
-                                "ˈprɒbəbli"
-                            ],
+                            "values": ["probably", "ˈprɒbəbli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "psychology",
-                                "saɪˈkɒlədʒi"
-                            ],
+                            "values": ["psychology", "saɪˈkɒlədʒi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "quay",
-                                "kiː"
-                            ],
+                            "values": ["quay", "kiː"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "query",
-                                "ˈkwɪəri"
-                            ],
+                            "values": ["query", "ˈkwɪəri"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "relevant",
-                                "ˈreləvənt"
-                            ],
+                            "values": ["relevant", "ˈreləvənt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "salmon",
-                                "ˈsæmən"
-                            ],
+                            "values": ["salmon", "ˈsæmən"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sieve",
-                                "sɪv"
-                            ],
+                            "values": ["sieve", "sɪv"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "specific",
-                                "spəˈsɪfɪk"
-                            ],
+                            "values": ["specific", "spəˈsɪfɪk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "steak",
-                                "steɪk"
-                            ],
+                            "values": ["steak", "steɪk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "strawberry",
-                                "ˈstrɔːbəri"
-                            ],
+                            "values": ["strawberry", "ˈstrɔːbəri"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "suite",
-                                "swiːt"
-                            ],
+                            "values": ["suite", "swiːt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "supposedly",
-                                "səˈpəʊzɪdli"
-                            ],
+                            "values": ["supposedly", "səˈpəʊzɪdli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "thesaurus",
-                                "θɪˈsɔːrəs"
-                            ],
+                            "values": ["thesaurus", "θɪˈsɔːrəs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "third",
-                                "θɜːd"
-                            ],
+                            "values": ["third", "θɜːd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "variety",
-                                "vəˈraɪəti"
-                            ],
+                            "values": ["variety", "vəˈraɪəti"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "vocational",
-                                "vəʊˈkeɪʃənl"
-                            ],
+                            "values": ["vocational", "vəʊˈkeɪʃənl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "whistle",
-                                "ˈwɪsl"
-                            ],
+                            "values": ["whistle", "ˈwɪsl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "accent",
-                                "əˈsent"
-                            ],
+                            "values": ["accent", "əˈsent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "advice",
-                                "ədˈvaɪz"
-                            ],
+                            "values": ["advice", "ədˈvaɪz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "alternate",
-                                "ɔːlˈtɜːnətɪv"
-                            ],
+                            "values": ["alternate", "ɔːlˈtɜːnətɪv"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "angle",
-                                "ˈeɪndʒl"
-                            ],
+                            "values": ["angle", "ˈeɪndʒl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "breath",
-                                "briːð"
-                            ],
+                            "values": ["breath", "briːð"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "careful",
-                                "ˈkeəfəli"
-                            ],
+                            "values": ["careful", "ˈkeəfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "choose",
-                                "tʃəʊz"
-                            ],
+                            "values": ["choose", "tʃəʊz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "clothes",
-                                "klɒθs"
-                            ],
+                            "values": ["clothes", "klɒθs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "conscious",
-                                "ˈkɒnʃəns"
-                            ],
+                            "values": ["conscious", "ˈkɒnʃəns"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "continual",
-                                "kənˈtɪnjuəs"
-                            ],
+                            "values": ["continual", "kənˈtɪnjuəs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "costume",
-                                "ˈkʌstəm"
-                            ],
+                            "values": ["costume", "ˈkʌstəm"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "decent",
-                                "dɪˈsent"
-                            ],
+                            "values": ["decent", "dɪˈsent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "dessert",
-                                "ˈdezət"
-                            ],
+                            "values": ["dessert", "ˈdezət"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "devise",
-                                "dɪˈvaɪs"
-                            ],
+                            "values": ["devise", "dɪˈvaɪs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "diary",
-                                "ˈdeəri"
-                            ],
+                            "values": ["diary", "ˈdeəri"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "drew",
-                                "drɔː"
-                            ],
+                            "values": ["drew", "drɔː"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "emigrate",
-                                "maɪˈɡreɪt"
-                            ],
+                            "values": ["emigrate", "maɪˈɡreɪt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "envelope",
-                                "ɪnˈveləp"
-                            ],
+                            "values": ["envelope", "ɪnˈveləp"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "exclamation",
-                                "ˌekspləˈneɪʃn"
-                            ],
+                            "values": ["exclamation", "ˌekspləˈneɪʃn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "extent",
-                                "ɪkˈstɪŋkt"
-                            ],
+                            "values": ["extent", "ɪkˈstɪŋkt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "flaunt",
-                                "flaʊt"
-                            ],
+                            "values": ["flaunt", "flaʊt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "floor",
-                                "ˈflaʊə(r)"
-                            ],
+                            "values": ["floor", "ˈflaʊə(r)"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "forgave",
-                                "fəˈɡɪv"
-                            ],
+                            "values": ["forgave", "fəˈɡɪv"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "found",
-                                "faʊndɪd"
-                            ],
+                            "values": ["found", "faʊndɪd"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "further",
-                                "ˈfɑːðə(r)"
-                            ],
+                            "values": ["further", "ˈfɑːðə(r)"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "homophone",
-                                "ˈhɒməɡrɑːf"
-                            ],
+                            "values": ["homophone", "ˈhɒməɡrɑːf"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hope",
-                                "hɒp"
-                            ],
+                            "values": ["hope", "hɒp"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hopeless",
-                                "ˈhəʊpfl"
-                            ],
+                            "values": ["hopeless", "ˈhəʊpfl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hour",
-                                "ˈaʊəli"
-                            ],
+                            "values": ["hour", "ˈaʊəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "immoral",
-                                "ˌeɪˈmɒrəl"
-                            ],
+                            "values": ["immoral", "ˌeɪˈmɒrəl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "incredible",
-                                "ɪnˈkredjələs"
-                            ],
+                            "values": ["incredible", "ɪnˈkredjələs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "intense",
-                                "ɪnˈtent"
-                            ],
+                            "values": ["intense", "ɪnˈtent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "jealous",
-                                "ˈzeləs"
-                            ],
+                            "values": ["jealous", "ˈzeləs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "later",
-                                "ˈlætə(r)"
-                            ],
+                            "values": ["later", "ˈlætə(r)"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lay",
-                                "laɪ"
-                            ],
+                            "values": ["lay", "laɪ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lightning",
-                                "ˈlaɪtɪŋ"
-                            ],
+                            "values": ["lightning", "ˈlaɪtɪŋ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "martial",
-                                "ˈmærɪtl"
-                            ],
+                            "values": ["martial", "ˈmærɪtl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "medal",
-                                "ˈmetl"
-                            ],
+                            "values": ["medal", "ˈmetl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "moral",
-                                "məˈrɑːl"
-                            ],
+                            "values": ["moral", "məˈrɑːl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "personal",
-                                "ˌpɜːsəˈnel"
-                            ],
+                            "values": ["personal", "ˌpɜːsəˈnel"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "plaque",
-                                "pleɪɡ"
-                            ],
+                            "values": ["plaque", "pleɪɡ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "process",
-                                "ˈprəʊsiːdz"
-                            ],
+                            "values": ["process", "ˈprəʊsiːdz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "purposely",
-                                "ˈpɜːpəsfəli"
-                            ],
+                            "values": ["purposely", "ˈpɜːpəsfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "raise",
-                                "raɪz"
-                            ],
+                            "values": ["raise", "raɪz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "recent",
-                                "rɪˈzent"
-                            ],
+                            "values": ["recent", "rɪˈzent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "regrettably",
-                                "rɪˈɡretfəli"
-                            ],
+                            "values": ["regrettably", "rɪˈɡretfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "shine",
-                                "ʃiːn"
-                            ],
+                            "values": ["shine", "ʃiːn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "trouble",
-                                "ˈtrɪpl"
-                            ],
+                            "values": ["trouble", "ˈtrɪpl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "vegetarian",
-                                "ˌvedʒəˈteɪʃn"
-                            ],
+                            "values": ["vegetarian", "ˌvedʒəˈteɪʃn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "version",
-                                "ˈvɪʒn"
-                            ],
+                            "values": ["version", "ˈvɪʒn"],
                             "correctAnswer": false
                         }
                     ]
@@ -716,703 +416,403 @@
                     "instructionsKey": "exercise_page.exerciseInstruction.snap.reading-phonetics",
                     "items": [
                         {
-                            "values": [
-                                "ambulance",
-                                "ˈæmbjələns"
-                            ],
+                            "values": ["ambulance", "ˈæmbjələns"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "appliance",
-                                "əˈplaɪəns"
-                            ],
+                            "values": ["appliance", "əˈplaɪəns"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "architect",
-                                "ˈɑːrkɪtekt"
-                            ],
+                            "values": ["architect", "ˈɑːrkɪtekt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "asterisk",
-                                "ˈæstərɪsk"
-                            ],
+                            "values": ["asterisk", "ˈæstərɪsk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "axe",
-                                "æks"
-                            ],
+                            "values": ["axe", "æks"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "beautiful",
-                                "ˈbjuːtɪfl"
-                            ],
+                            "values": ["beautiful", "ˈbjuːtɪfl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "busy",
-                                "ˈbɪzi"
-                            ],
+                            "values": ["busy", "ˈbɪzi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chaos",
-                                "ˈkeɪɑːs"
-                            ],
+                            "values": ["chaos", "ˈkeɪɑːs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "college",
-                                "ˈkɑːlɪdʒ"
-                            ],
+                            "values": ["college", "ˈkɑːlɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "crispy",
-                                "ˈkrɪspi"
-                            ],
+                            "values": ["crispy", "ˈkrɪspi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "crocodile",
-                                "ˈkrɑːkədaɪl"
-                            ],
+                            "values": ["crocodile", "ˈkrɑːkədaɪl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "debt",
-                                "det"
-                            ],
+                            "values": ["debt", "det"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "decision",
-                                "dɪˈsɪʒn"
-                            ],
+                            "values": ["decision", "dɪˈsɪʒn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "deteriorate",
-                                "dɪˈtɪriəreɪt"
-                            ],
+                            "values": ["deteriorate", "dɪˈtɪriəreɪt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "escape",
-                                "ɪˈskeɪp"
-                            ],
+                            "values": ["escape", "ɪˈskeɪp"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "especially",
-                                "ɪˈspeʃəli"
-                            ],
+                            "values": ["especially", "ɪˈspeʃəli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "eye",
-                                "aɪ"
-                            ],
+                            "values": ["eye", "aɪ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "figure",
-                                "ˈfɪɡjər"
-                            ],
+                            "values": ["figure", "ˈfɪɡjər"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "flood",
-                                "flʌd"
-                            ],
+                            "values": ["flood", "flʌd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "fortunate",
-                                "ˈfɔːrtʃənət"
-                            ],
+                            "values": ["fortunate", "ˈfɔːrtʃənət"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "friend",
-                                "frend"
-                            ],
+                            "values": ["friend", "frend"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "frustrated",
-                                "frʌˈstreɪtɪd"
-                            ],
+                            "values": ["frustrated", "frʌˈstreɪtɪd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "gauge",
-                                "ɡeɪdʒ"
-                            ],
+                            "values": ["gauge", "ɡeɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "genuine",
-                                "ˈdʒenjuɪn"
-                            ],
+                            "values": ["genuine", "ˈdʒenjuɪn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "interpret",
-                                "ɪnˈtɜːrprɪt"
-                            ],
+                            "values": ["interpret", "ɪnˈtɜːrprɪt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "language",
-                                "ˈlæŋɡwɪdʒ"
-                            ],
+                            "values": ["language", "ˈlæŋɡwɪdʒ"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "leopard",
-                                "ˈlepərd"
-                            ],
+                            "values": ["leopard", "ˈlepərd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "liable",
-                                "ˈlaɪəbl"
-                            ],
+                            "values": ["liable", "ˈlaɪəbl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "mauve",
-                                "moʊv"
-                            ],
+                            "values": ["mauve", "moʊv"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "mishap",
-                                "ˈmɪshæp"
-                            ],
+                            "values": ["mishap", "ˈmɪshæp"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "parliament",
-                                "ˈpɑːrləmənt"
-                            ],
+                            "values": ["parliament", "ˈpɑːrləmənt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "praise",
-                                "preɪz"
-                            ],
+                            "values": ["praise", "preɪz"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "prescription",
-                                "prɪˈskrɪpʃn"
-                            ],
+                            "values": ["prescription", "prɪˈskrɪpʃn"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "probably",
-                                "ˈprɑːbəbli"
-                            ],
+                            "values": ["probably", "ˈprɑːbəbli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "psychology",
-                                "saɪˈkɑːlədʒi"
-                            ],
+                            "values": ["psychology", "saɪˈkɑːlədʒi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "quay",
-                                "kiː"
-                            ],
+                            "values": ["quay", "kiː"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "query",
-                                "ˈkwɪri"
-                            ],
+                            "values": ["query", "ˈkwɪri"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "relevant",
-                                "ˈreləvənt"
-                            ],
+                            "values": ["relevant", "ˈreləvənt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "salmon",
-                                "ˈsæmən"
-                            ],
+                            "values": ["salmon", "ˈsæmən"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sieve",
-                                "sɪv"
-                            ],
+                            "values": ["sieve", "sɪv"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "specific",
-                                "spəˈsɪfɪk"
-                            ],
+                            "values": ["specific", "spəˈsɪfɪk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "steak",
-                                "steɪk"
-                            ],
+                            "values": ["steak", "steɪk"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "strawberry",
-                                "ˈstrɔːberi"
-                            ],
+                            "values": ["strawberry", "ˈstrɔːberi"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "suite",
-                                "swiːt"
-                            ],
+                            "values": ["suite", "swiːt"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "supposedly",
-                                "səˈpoʊzɪdli"
-                            ],
+                            "values": ["supposedly", "səˈpoʊzɪdli"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "thesaurus",
-                                "θɪˈsɔːrəs"
-                            ],
+                            "values": ["thesaurus", "θɪˈsɔːrəs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "third",
-                                "θɜːrd"
-                            ],
+                            "values": ["third", "θɜːrd"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "variety",
-                                "vəˈraɪəti"
-                            ],
+                            "values": ["variety", "vəˈraɪəti"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "vocational",
-                                "voʊˈkeɪʃənl"
-                            ],
+                            "values": ["vocational", "voʊˈkeɪʃənl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "whistle",
-                                "ˈwɪsl"
-                            ],
+                            "values": ["whistle", "ˈwɪsl"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "accent",
-                                "əˈsent"
-                            ],
+                            "values": ["accent", "əˈsent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "advice",
-                                "ədˈvaɪz"
-                            ],
+                            "values": ["advice", "ədˈvaɪz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "alternate",
-                                "ɔːlˈtɜːrnətɪv"
-                            ],
+                            "values": ["alternate", "ɔːlˈtɜːrnətɪv"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "angle",
-                                "ˈeɪndʒl"
-                            ],
+                            "values": ["angle", "ˈeɪndʒl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "breath",
-                                "briːð"
-                            ],
+                            "values": ["breath", "briːð"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "careful",
-                                "ˈkerfəli"
-                            ],
+                            "values": ["careful", "ˈkerfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "choose",
-                                "tʃoʊz"
-                            ],
+                            "values": ["choose", "tʃoʊz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "clothes",
-                                "klɔːðz"
-                            ],
+                            "values": ["clothes", "klɔːðz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "conscious",
-                                "ˈkɑːnʃəns"
-                            ],
+                            "values": ["conscious", "ˈkɑːnʃəns"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "continual",
-                                "kənˈtɪnjuəs"
-                            ],
+                            "values": ["continual", "kənˈtɪnjuəs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "costume",
-                                "ˈkʌstəm"
-                            ],
+                            "values": ["costume", "ˈkʌstəm"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "decent",
-                                "dɪˈsent"
-                            ],
+                            "values": ["decent", "dɪˈsent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "dessert",
-                                "ˈdezərt"
-                            ],
+                            "values": ["dessert", "ˈdezərt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "devise",
-                                "dɪˈvaɪs"
-                            ],
+                            "values": ["devise", "dɪˈvaɪs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "diary",
-                                "ˈderi"
-                            ],
+                            "values": ["diary", "ˈderi"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "drew",
-                                "drɔː"
-                            ],
+                            "values": ["drew", "drɔː"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "emigrate",
-                                "ˈmaɪɡreɪt"
-                            ],
+                            "values": ["emigrate", "ˈmaɪɡreɪt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "envelope",
-                                "ɪnˈveləp"
-                            ],
+                            "values": ["envelope", "ɪnˈveləp"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "exclamation",
-                                "ˌekspləˈneɪʃn"
-                            ],
+                            "values": ["exclamation", "ˌekspləˈneɪʃn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "extent",
-                                "ɪkˈstɪŋkt"
-                            ],
+                            "values": ["extent", "ɪkˈstɪŋkt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "flaunt",
-                                "flaʊt"
-                            ],
+                            "values": ["flaunt", "flaʊt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "floor",
-                                "ˈflaʊər"
-                            ],
+                            "values": ["floor", "ˈflaʊər"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "forgave",
-                                "fərˈɡɪv"
-                            ],
+                            "values": ["forgave", "fərˈɡɪv"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "found",
-                                "faʊndɪd"
-                            ],
+                            "values": ["found", "faʊndɪd"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "further",
-                                "ˈfɑːrðər"
-                            ],
+                            "values": ["further", "ˈfɑːrðər"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "homophone",
-                                "ˈhɑːməɡræf"
-                            ],
+                            "values": ["homophone", "ˈhɑːməɡræf"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hope",
-                                "hɑːp"
-                            ],
+                            "values": ["hope", "hɑːp"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hopeless",
-                                "ˈhoʊpfl"
-                            ],
+                            "values": ["hopeless", "ˈhoʊpfl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "hour",
-                                "ˈaʊərli"
-                            ],
+                            "values": ["hour", "ˈaʊərli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "immoral",
-                                "ˌeɪˈmɔːrəl"
-                            ],
+                            "values": ["immoral", "ˌeɪˈmɔːrəl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "incredible",
-                                "ɪnˈkredʒələs"
-                            ],
+                            "values": ["incredible", "ɪnˈkredʒələs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "intense",
-                                "ɪnˈtent"
-                            ],
+                            "values": ["intense", "ɪnˈtent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "jealous",
-                                "ˈzeləs"
-                            ],
+                            "values": ["jealous", "ˈzeləs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "later",
-                                "ˈlætər"
-                            ],
+                            "values": ["later", "ˈlætər"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lay",
-                                "laɪ"
-                            ],
+                            "values": ["lay", "laɪ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lightning",
-                                "ˈlaɪtɪŋ"
-                            ],
+                            "values": ["lightning", "ˈlaɪtɪŋ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "martial",
-                                "ˈmærɪtl"
-                            ],
+                            "values": ["martial", "ˈmærɪtl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "medal",
-                                "ˈmetl"
-                            ],
+                            "values": ["medal", "ˈmetl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "moral",
-                                "məˈræl"
-                            ],
+                            "values": ["moral", "məˈræl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "personal",
-                                "ˌpɜːrsəˈnel"
-                            ],
+                            "values": ["personal", "ˌpɜːrsəˈnel"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "plaque",
-                                "pleɪɡ"
-                            ],
+                            "values": ["plaque", "pleɪɡ"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "process",
-                                "ˈproʊsiːdz"
-                            ],
+                            "values": ["process", "ˈproʊsiːdz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "purposely",
-                                "ˈpɜːrpəsfəli"
-                            ],
+                            "values": ["purposely", "ˈpɜːrpəsfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "raise",
-                                "raɪz"
-                            ],
+                            "values": ["raise", "raɪz"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "recent",
-                                "rɪˈzent"
-                            ],
+                            "values": ["recent", "rɪˈzent"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "regrettably",
-                                "rɪˈɡretfəli"
-                            ],
+                            "values": ["regrettably", "rɪˈɡretfəli"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "shine",
-                                "ʃiːn"
-                            ],
+                            "values": ["shine", "ʃiːn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "trouble",
-                                "ˈtrɪpl"
-                            ],
+                            "values": ["trouble", "ˈtrɪpl"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "vegetarian",
-                                "ˌvedʒəˈteɪʃn"
-                            ],
+                            "values": ["vegetarian", "ˌvedʒəˈteɪʃn"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "version",
-                                "ˈvɪʒn"
-                            ],
+                            "values": ["version", "ˈvɪʒn"],
                             "correctAnswer": false
                         }
                     ]
@@ -1430,703 +830,403 @@
                     "instructionsKey": "exercise_page.exerciseInstruction.snap.homophones",
                     "items": [
                         {
-                            "values": [
-                                "air",
-                                "heir"
-                            ],
+                            "values": ["air", "heir"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "aloud",
-                                "allowed"
-                            ],
+                            "values": ["aloud", "allowed"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "based",
-                                "baste"
-                            ],
+                            "values": ["based", "baste"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "brewed",
-                                "brood"
-                            ],
+                            "values": ["brewed", "brood"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "bridle",
-                                "bridal"
-                            ],
+                            "values": ["bridle", "bridal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "cereal",
-                                "serial"
-                            ],
+                            "values": ["cereal", "serial"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chute",
-                                "shoot"
-                            ],
+                            "values": ["chute", "shoot"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "colonel",
-                                "kernel"
-                            ],
+                            "values": ["colonel", "kernel"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "descent",
-                                "dissent"
-                            ],
+                            "values": ["descent", "dissent"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "great",
-                                "grate"
-                            ],
+                            "values": ["great", "grate"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "groan",
-                                "grown"
-                            ],
+                            "values": ["groan", "grown"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "knot",
-                                "not"
-                            ],
+                            "values": ["knot", "not"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "billed",
-                                "build"
-                            ],
+                            "values": ["billed", "build"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "knight",
-                                "night"
-                            ],
+                            "values": ["knight", "night"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "maze",
-                                "maize"
-                            ],
+                            "values": ["maze", "maize"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "coward",
-                                "cowered"
-                            ],
+                            "values": ["coward", "cowered"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "weight",
-                                "wait"
-                            ],
+                            "values": ["weight", "wait"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "new",
-                                "knew"
-                            ],
+                            "values": ["new", "knew"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "no",
-                                "know"
-                            ],
+                            "values": ["no", "know"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "oh",
-                                "owe"
-                            ],
+                            "values": ["oh", "owe"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "peer",
-                                "pier"
-                            ],
+                            "values": ["peer", "pier"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "pried",
-                                "pride"
-                            ],
+                            "values": ["pried", "pride"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "quay",
-                                "key"
-                            ],
+                            "values": ["quay", "key"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "queue",
-                                "cue"
-                            ],
+                            "values": ["queue", "cue"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chews",
-                                "choose"
-                            ],
+                            "values": ["chews", "choose"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "right",
-                                "write"
-                            ],
+                            "values": ["right", "write"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ring",
-                                "wring"
-                            ],
+                            "values": ["ring", "wring"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "by",
-                                "buy"
-                            ],
+                            "values": ["by", "buy"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ruff",
-                                "rough"
-                            ],
+                            "values": ["ruff", "rough"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "rye",
-                                "wry"
-                            ],
+                            "values": ["rye", "wry"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sale",
-                                "sail"
-                            ],
+                            "values": ["sale", "sail"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sell",
-                                "cell"
-                            ],
+                            "values": ["sell", "cell"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "shoe",
-                                "shoo"
-                            ],
+                            "values": ["shoe", "shoo"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "some",
-                                "sum"
-                            ],
+                            "values": ["some", "sum"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "steel",
-                                "steal"
-                            ],
+                            "values": ["steel", "steal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "storey",
-                                "story"
-                            ],
+                            "values": ["storey", "story"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "style",
-                                "stile"
-                            ],
+                            "values": ["style", "stile"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "symbol",
-                                "cymbal"
-                            ],
+                            "values": ["symbol", "cymbal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "their",
-                                "there"
-                            ],
+                            "values": ["their", "there"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "through",
-                                "threw"
-                            ],
+                            "values": ["through", "threw"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "way",
-                                "whey"
-                            ],
+                            "values": ["way", "whey"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ways",
-                                "weighs"
-                            ],
+                            "values": ["ways", "weighs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wears",
-                                "wares"
-                            ],
+                            "values": ["wears", "wares"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "weir",
-                                "we're"
-                            ],
+                            "values": ["weir", "we're"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "who's",
-                                "whose"
-                            ],
+                            "values": ["who's", "whose"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "profit",
-                                "prophet"
-                            ],
+                            "values": ["profit", "prophet"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wore",
-                                "war"
-                            ],
+                            "values": ["wore", "war"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "would",
-                                "wood"
-                            ],
+                            "values": ["would", "wood"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wrote",
-                                "rote"
-                            ],
+                            "values": ["wrote", "rote"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wrung",
-                                "rung"
-                            ],
+                            "values": ["wrung", "rung"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "then",
-                                "than"
-                            ],
+                            "values": ["then", "than"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "below",
-                                "bellow"
-                            ],
+                            "values": ["below", "bellow"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lose",
-                                "loose"
-                            ],
+                            "values": ["lose", "loose"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "coat",
-                                "caught"
-                            ],
+                            "values": ["coat", "caught"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "quite",
-                                "quiet"
-                            ],
+                            "values": ["quite", "quiet"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "from",
-                                "form"
-                            ],
+                            "values": ["from", "form"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "airy",
-                                "eerie"
-                            ],
+                            "values": ["airy", "eerie"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "discuss",
-                                "discus"
-                            ],
+                            "values": ["discuss", "discus"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "curtain",
-                                "certain"
-                            ],
+                            "values": ["curtain", "certain"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "put",
-                                "putt"
-                            ],
+                            "values": ["put", "putt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "cloths",
-                                "clothes"
-                            ],
+                            "values": ["cloths", "clothes"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "belief",
-                                "believe"
-                            ],
+                            "values": ["belief", "believe"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "relief",
-                                "relieve"
-                            ],
+                            "values": ["relief", "relieve"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "bath",
-                                "bathe"
-                            ],
+                            "values": ["bath", "bathe"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "breathe",
-                                "breath"
-                            ],
+                            "values": ["breathe", "breath"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "fleece",
-                                "fleas"
-                            ],
+                            "values": ["fleece", "fleas"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "conscience",
-                                "conscious"
-                            ],
+                            "values": ["conscience", "conscious"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "dinner",
-                                "diner"
-                            ],
+                            "values": ["dinner", "diner"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "leaf",
-                                "leave"
-                            ],
+                            "values": ["leaf", "leave"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "half",
-                                "have"
-                            ],
+                            "values": ["half", "have"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "we'll",
-                                "well"
-                            ],
+                            "values": ["we'll", "well"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "rhythm",
-                                "rhyme"
-                            ],
+                            "values": ["rhythm", "rhyme"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "though",
-                                "thought"
-                            ],
+                            "values": ["though", "thought"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "thorough",
-                                "through"
-                            ],
+                            "values": ["thorough", "through"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "frown",
-                                "thrown"
-                            ],
+                            "values": ["frown", "thrown"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "tongues",
-                                "tongs"
-                            ],
+                            "values": ["tongues", "tongs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "oar",
-                                "our"
-                            ],
+                            "values": ["oar", "our"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "more",
-                                "mower"
-                            ],
+                            "values": ["more", "mower"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "bought",
-                                "brought"
-                            ],
+                            "values": ["bought", "brought"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "wander",
-                                "wonder"
-                            ],
+                            "values": ["wander", "wonder"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "who",
-                                "how"
-                            ],
+                            "values": ["who", "how"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "symmetry",
-                                "cemetery"
-                            ],
+                            "values": ["symmetry", "cemetery"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "colander",
-                                "calendar"
-                            ],
+                            "values": ["colander", "calendar"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "away",
-                                "aware"
-                            ],
+                            "values": ["away", "aware"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "head",
-                                "heed"
-                            ],
+                            "values": ["head", "heed"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "every",
-                                "very"
-                            ],
+                            "values": ["every", "very"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "fat",
-                                "fate"
-                            ],
+                            "values": ["fat", "fate"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "simile",
-                                "smile"
-                            ],
+                            "values": ["simile", "smile"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "factor",
-                                "factory"
-                            ],
+                            "values": ["factor", "factory"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "guess",
-                                "guest"
-                            ],
+                            "values": ["guess", "guest"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "this",
-                                "these"
-                            ],
+                            "values": ["this", "these"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "inhibit",
-                                "inhabit"
-                            ],
+                            "values": ["inhibit", "inhabit"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "latter",
-                                "letter"
-                            ],
+                            "values": ["latter", "letter"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "finish",
-                                "finished"
-                            ],
+                            "values": ["finish", "finished"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "laugh",
-                                "laughter"
-                            ],
+                            "values": ["laugh", "laughter"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "marry",
-                                "merry"
-                            ],
+                            "values": ["marry", "merry"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "offend",
-                                "offence"
-                            ],
+                            "values": ["offend", "offence"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "office",
-                                "officer"
-                            ],
+                            "values": ["office", "officer"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "short",
-                                "shirt"
-                            ],
+                            "values": ["short", "shirt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "final",
-                                "finally"
-                            ],
+                            "values": ["final", "finally"],
                             "correctAnswer": false
                         }
                     ]
@@ -2135,703 +1235,403 @@
                     "instructionsKey": "exercise_page.exerciseInstruction.snap.homophones",
                     "items": [
                         {
-                            "values": [
-                                "air",
-                                "heir"
-                            ],
+                            "values": ["air", "heir"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "aloud",
-                                "allowed"
-                            ],
+                            "values": ["aloud", "allowed"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "based",
-                                "baste"
-                            ],
+                            "values": ["based", "baste"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "brewed",
-                                "brood"
-                            ],
+                            "values": ["brewed", "brood"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "bridle",
-                                "bridal"
-                            ],
+                            "values": ["bridle", "bridal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "cereal",
-                                "serial"
-                            ],
+                            "values": ["cereal", "serial"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chute",
-                                "shoot"
-                            ],
+                            "values": ["chute", "shoot"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "colonel",
-                                "kernel"
-                            ],
+                            "values": ["colonel", "kernel"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "descent",
-                                "dissent"
-                            ],
+                            "values": ["descent", "dissent"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "great",
-                                "grate"
-                            ],
+                            "values": ["great", "grate"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "groan",
-                                "grown"
-                            ],
+                            "values": ["groan", "grown"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "knot",
-                                "not"
-                            ],
+                            "values": ["knot", "not"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "billed",
-                                "build"
-                            ],
+                            "values": ["billed", "build"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "knight",
-                                "night"
-                            ],
+                            "values": ["knight", "night"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "maze",
-                                "maize"
-                            ],
+                            "values": ["maze", "maize"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "coward",
-                                "cowered"
-                            ],
+                            "values": ["coward", "cowered"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "weight",
-                                "wait"
-                            ],
+                            "values": ["weight", "wait"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "new",
-                                "knew"
-                            ],
+                            "values": ["new", "knew"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "no",
-                                "know"
-                            ],
+                            "values": ["no", "know"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "oh",
-                                "owe"
-                            ],
+                            "values": ["oh", "owe"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "peer",
-                                "pier"
-                            ],
+                            "values": ["peer", "pier"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "pried",
-                                "pride"
-                            ],
+                            "values": ["pried", "pride"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "quay",
-                                "key"
-                            ],
+                            "values": ["quay", "key"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "queue",
-                                "cue"
-                            ],
+                            "values": ["queue", "cue"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "chews",
-                                "choose"
-                            ],
+                            "values": ["chews", "choose"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "right",
-                                "write"
-                            ],
+                            "values": ["right", "write"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ring",
-                                "wring"
-                            ],
+                            "values": ["ring", "wring"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "by",
-                                "buy"
-                            ],
+                            "values": ["by", "buy"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ruff",
-                                "rough"
-                            ],
+                            "values": ["ruff", "rough"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "rye",
-                                "wry"
-                            ],
+                            "values": ["rye", "wry"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sale",
-                                "sail"
-                            ],
+                            "values": ["sale", "sail"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "sell",
-                                "cell"
-                            ],
+                            "values": ["sell", "cell"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "shoe",
-                                "shoo"
-                            ],
+                            "values": ["shoe", "shoo"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "some",
-                                "sum"
-                            ],
+                            "values": ["some", "sum"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "steel",
-                                "steal"
-                            ],
+                            "values": ["steel", "steal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "storey",
-                                "story"
-                            ],
+                            "values": ["storey", "story"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "style",
-                                "stile"
-                            ],
+                            "values": ["style", "stile"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "symbol",
-                                "cymbal"
-                            ],
+                            "values": ["symbol", "cymbal"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "their",
-                                "there"
-                            ],
+                            "values": ["their", "there"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "through",
-                                "threw"
-                            ],
+                            "values": ["through", "threw"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "way",
-                                "whey"
-                            ],
+                            "values": ["way", "whey"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "ways",
-                                "weighs"
-                            ],
+                            "values": ["ways", "weighs"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wears",
-                                "wares"
-                            ],
+                            "values": ["wears", "wares"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "weir",
-                                "we're"
-                            ],
+                            "values": ["weir", "we're"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "who's",
-                                "whose"
-                            ],
+                            "values": ["who's", "whose"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "profit",
-                                "prophet"
-                            ],
+                            "values": ["profit", "prophet"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wore",
-                                "war"
-                            ],
+                            "values": ["wore", "war"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "would",
-                                "wood"
-                            ],
+                            "values": ["would", "wood"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wrote",
-                                "rote"
-                            ],
+                            "values": ["wrote", "rote"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "wrung",
-                                "rung"
-                            ],
+                            "values": ["wrung", "rung"],
                             "correctAnswer": true
                         },
                         {
-                            "values": [
-                                "then",
-                                "than"
-                            ],
+                            "values": ["then", "than"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "below",
-                                "bellow"
-                            ],
+                            "values": ["below", "bellow"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "lose",
-                                "loose"
-                            ],
+                            "values": ["lose", "loose"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "coat",
-                                "caught"
-                            ],
+                            "values": ["coat", "caught"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "quite",
-                                "quiet"
-                            ],
+                            "values": ["quite", "quiet"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "from",
-                                "form"
-                            ],
+                            "values": ["from", "form"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "airy",
-                                "eerie"
-                            ],
+                            "values": ["airy", "eerie"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "discuss",
-                                "discus"
-                            ],
+                            "values": ["discuss", "discus"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "curtain",
-                                "certain"
-                            ],
+                            "values": ["curtain", "certain"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "put",
-                                "putt"
-                            ],
+                            "values": ["put", "putt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "cloths",
-                                "clothes"
-                            ],
+                            "values": ["cloths", "clothes"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "belief",
-                                "believe"
-                            ],
+                            "values": ["belief", "believe"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "relief",
-                                "relieve"
-                            ],
+                            "values": ["relief", "relieve"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "bath",
-                                "bathe"
-                            ],
+                            "values": ["bath", "bathe"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "breathe",
-                                "breath"
-                            ],
+                            "values": ["breathe", "breath"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "fleece",
-                                "fleas"
-                            ],
+                            "values": ["fleece", "fleas"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "conscience",
-                                "conscious"
-                            ],
+                            "values": ["conscience", "conscious"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "dinner",
-                                "diner"
-                            ],
+                            "values": ["dinner", "diner"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "leaf",
-                                "leave"
-                            ],
+                            "values": ["leaf", "leave"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "half",
-                                "have"
-                            ],
+                            "values": ["half", "have"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "we'll",
-                                "well"
-                            ],
+                            "values": ["we'll", "well"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "rhythm",
-                                "rhyme"
-                            ],
+                            "values": ["rhythm", "rhyme"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "though",
-                                "thought"
-                            ],
+                            "values": ["though", "thought"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "thorough",
-                                "through"
-                            ],
+                            "values": ["thorough", "through"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "frown",
-                                "thrown"
-                            ],
+                            "values": ["frown", "thrown"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "tongues",
-                                "tongs"
-                            ],
+                            "values": ["tongues", "tongs"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "oar",
-                                "our"
-                            ],
+                            "values": ["oar", "our"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "more",
-                                "mower"
-                            ],
+                            "values": ["more", "mower"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "bought",
-                                "brought"
-                            ],
+                            "values": ["bought", "brought"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "wander",
-                                "wonder"
-                            ],
+                            "values": ["wander", "wonder"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "who",
-                                "how"
-                            ],
+                            "values": ["who", "how"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "symmetry",
-                                "cemetery"
-                            ],
+                            "values": ["symmetry", "cemetery"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "colander",
-                                "calendar"
-                            ],
+                            "values": ["colander", "calendar"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "away",
-                                "aware"
-                            ],
+                            "values": ["away", "aware"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "head",
-                                "heed"
-                            ],
+                            "values": ["head", "heed"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "every",
-                                "very"
-                            ],
+                            "values": ["every", "very"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "fat",
-                                "fate"
-                            ],
+                            "values": ["fat", "fate"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "simile",
-                                "smile"
-                            ],
+                            "values": ["simile", "smile"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "factor",
-                                "factory"
-                            ],
+                            "values": ["factor", "factory"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "guess",
-                                "guest"
-                            ],
+                            "values": ["guess", "guest"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "this",
-                                "these"
-                            ],
+                            "values": ["this", "these"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "inhibit",
-                                "inhabit"
-                            ],
+                            "values": ["inhibit", "inhabit"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "latter",
-                                "letter"
-                            ],
+                            "values": ["latter", "letter"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "finish",
-                                "finished"
-                            ],
+                            "values": ["finish", "finished"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "laugh",
-                                "laughter"
-                            ],
+                            "values": ["laugh", "laughter"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "marry",
-                                "merry"
-                            ],
+                            "values": ["marry", "merry"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "offend",
-                                "offence"
-                            ],
+                            "values": ["offend", "offence"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "office",
-                                "officer"
-                            ],
+                            "values": ["office", "officer"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "short",
-                                "shirt"
-                            ],
+                            "values": ["short", "shirt"],
                             "correctAnswer": false
                         },
                         {
-                            "values": [
-                                "final",
-                                "finally"
-                            ],
+                            "values": ["final", "finally"],
                             "correctAnswer": false
                         }
                     ]

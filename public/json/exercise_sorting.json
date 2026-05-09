@@ -15,25 +15,13 @@
                                     "heading": {
                                         "text": "/ ɪ /"
                                     },
-                                    "options": [
-                                        "dip",
-                                        "ship",
-                                        "hit",
-                                        "live",
-                                        "bin"
-                                    ]
+                                    "options": ["dip", "ship", "hit", "live", "bin"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ iː /"
                                     },
-                                    "options": [
-                                        "deep",
-                                        "sheep",
-                                        "heat",
-                                        "leave",
-                                        "bean"
-                                    ]
+                                    "options": ["deep", "sheep", "heat", "leave", "bean"]
                                 }
                             ]
                         },
@@ -43,25 +31,13 @@
                                     "heading": {
                                         "text": "/ əʊ /"
                                     },
-                                    "options": [
-                                        "boat",
-                                        "low",
-                                        "snow",
-                                        "flow",
-                                        "foam"
-                                    ]
+                                    "options": ["boat", "low", "snow", "flow", "foam"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "bought",
-                                        "law",
-                                        "snore",
-                                        "floor",
-                                        "form"
-                                    ]
+                                    "options": ["bought", "law", "snore", "floor", "form"]
                                 }
                             ]
                         },
@@ -71,25 +47,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "heart",
-                                        "mark",
-                                        "shark",
-                                        "star",
-                                        "arm"
-                                    ]
+                                    "options": ["heart", "mark", "shark", "star", "arm"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "hate",
-                                        "make",
-                                        "shake",
-                                        "stay",
-                                        "aim"
-                                    ]
+                                    "options": ["hate", "make", "shake", "stay", "aim"]
                                 }
                             ]
                         },
@@ -99,25 +63,13 @@
                                     "heading": {
                                         "text": "/ əʊ /"
                                     },
-                                    "options": [
-                                        "motor",
-                                        "so",
-                                        "oat",
-                                        "hole",
-                                        "cone"
-                                    ]
+                                    "options": ["motor", "so", "oat", "hole", "cone"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "mortar",
-                                        "saw",
-                                        "ought",
-                                        "hall",
-                                        "corn"
-                                    ]
+                                    "options": ["mortar", "saw", "ought", "hall", "corn"]
                                 }
                             ]
                         },
@@ -127,25 +79,13 @@
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "lake",
-                                        "wait",
-                                        "shade",
-                                        "cape",
-                                        "great"
-                                    ]
+                                    "options": ["lake", "wait", "shade", "cape", "great"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ iː /"
                                     },
-                                    "options": [
-                                        "leak",
-                                        "wheat",
-                                        "sheet",
-                                        "keep",
-                                        "greet"
-                                    ]
+                                    "options": ["leak", "wheat", "sheet", "keep", "greet"]
                                 }
                             ]
                         },
@@ -155,25 +95,13 @@
                                     "heading": {
                                         "text": "/ e /"
                                     },
-                                    "options": [
-                                        "head",
-                                        "gem",
-                                        "well",
-                                        "crept",
-                                        "belt"
-                                    ]
+                                    "options": ["head", "gem", "well", "crept", "belt"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɪ /"
                                     },
-                                    "options": [
-                                        "hid",
-                                        "gym",
-                                        "will",
-                                        "crypt",
-                                        "built"
-                                    ]
+                                    "options": ["hid", "gym", "will", "crypt", "built"]
                                 }
                             ]
                         },
@@ -183,25 +111,13 @@
                                     "heading": {
                                         "text": "/ ɒ /"
                                     },
-                                    "options": [
-                                        "rob",
-                                        "clock",
-                                        "sock",
-                                        "knot",
-                                        "rot"
-                                    ]
+                                    "options": ["rob", "clock", "sock", "knot", "rot"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ əʊ /"
                                     },
-                                    "options": [
-                                        "robe",
-                                        "cloak",
-                                        "soak",
-                                        "note",
-                                        "wrote"
-                                    ]
+                                    "options": ["robe", "cloak", "soak", "note", "wrote"]
                                 }
                             ]
                         },
@@ -211,25 +127,13 @@
                                     "heading": {
                                         "text": "/ ʃ /"
                                     },
-                                    "options": [
-                                        "shake",
-                                        "mesh",
-                                        "lash",
-                                        "sure",
-                                        "chic"
-                                    ]
+                                    "options": ["shake", "mesh", "lash", "sure", "chic"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ s /"
                                     },
-                                    "options": [
-                                        "sake",
-                                        "mess",
-                                        "lass",
-                                        "sore",
-                                        "seek"
-                                    ]
+                                    "options": ["sake", "mess", "lass", "sore", "seek"]
                                 }
                             ]
                         },
@@ -239,25 +143,13 @@
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "hall",
-                                        "export",
-                                        "caught",
-                                        "walk",
-                                        "lawn"
-                                    ]
+                                    "options": ["hall", "export", "caught", "walk", "lawn"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɜː /"
                                     },
-                                    "options": [
-                                        "hurl",
-                                        "expert",
-                                        "curt",
-                                        "work",
-                                        "learn"
-                                    ]
+                                    "options": ["hurl", "expert", "curt", "work", "learn"]
                                 }
                             ]
                         },
@@ -267,25 +159,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "carve",
-                                        "star",
-                                        "barn",
-                                        "farm",
-                                        "hard"
-                                    ]
+                                    "options": ["carve", "star", "barn", "farm", "hard"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɜː /"
                                     },
-                                    "options": [
-                                        "curve",
-                                        "stir",
-                                        "burn",
-                                        "firm",
-                                        "heard"
-                                    ]
+                                    "options": ["curve", "stir", "burn", "firm", "heard"]
                                 }
                             ]
                         },
@@ -295,25 +175,13 @@
                                     "heading": {
                                         "text": "/ e /"
                                     },
-                                    "options": [
-                                        "pen",
-                                        "test",
-                                        "trend",
-                                        "debt",
-                                        "breast"
-                                    ]
+                                    "options": ["pen", "test", "trend", "debt", "breast"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "pain",
-                                        "taste",
-                                        "trained",
-                                        "date",
-                                        "braced"
-                                    ]
+                                    "options": ["pain", "taste", "trained", "date", "braced"]
                                 }
                             ]
                         },
@@ -323,25 +191,13 @@
                                     "heading": {
                                         "text": "/ əʊ /"
                                     },
-                                    "options": [
-                                        "chose",
-                                        "glow",
-                                        "boat",
-                                        "hope",
-                                        "throw"
-                                    ]
+                                    "options": ["chose", "glow", "boat", "hope", "throw"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ uː /"
                                     },
-                                    "options": [
-                                        "choose",
-                                        "glue",
-                                        "boot",
-                                        "hoop",
-                                        "threw"
-                                    ]
+                                    "options": ["choose", "glue", "boot", "hoop", "threw"]
                                 }
                             ]
                         },
@@ -351,25 +207,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "cart",
-                                        "tart",
-                                        "bar",
-                                        "art",
-                                        "are"
-                                    ]
+                                    "options": ["cart", "tart", "bar", "art", "are"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "court",
-                                        "taught",
-                                        "bore",
-                                        "ought",
-                                        "or"
-                                    ]
+                                    "options": ["court", "taught", "bore", "ought", "or"]
                                 }
                             ]
                         },
@@ -379,25 +223,13 @@
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "paint",
-                                        "race",
-                                        "praise",
-                                        "players",
-                                        "bay"
-                                    ]
+                                    "options": ["paint", "race", "praise", "players", "bay"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ aɪ /"
                                     },
-                                    "options": [
-                                        "pint",
-                                        "rice",
-                                        "prize",
-                                        "pliers",
-                                        "buy"
-                                    ]
+                                    "options": ["pint", "rice", "prize", "pliers", "buy"]
                                 }
                             ]
                         },
@@ -407,25 +239,13 @@
                                     "heading": {
                                         "text": "/ aɪ /"
                                     },
-                                    "options": [
-                                        "aisle",
-                                        "mice",
-                                        "why",
-                                        "brine",
-                                        "rind"
-                                    ]
+                                    "options": ["aisle", "mice", "why", "brine", "rind"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ aʊ /"
                                     },
-                                    "options": [
-                                        "owl",
-                                        "mouse",
-                                        "wow",
-                                        "brown",
-                                        "round"
-                                    ]
+                                    "options": ["owl", "mouse", "wow", "brown", "round"]
                                 }
                             ]
                         }
@@ -440,25 +260,13 @@
                                     "heading": {
                                         "text": "/ ɪ /"
                                     },
-                                    "options": [
-                                        "dip",
-                                        "ship",
-                                        "hit",
-                                        "live",
-                                        "bin"
-                                    ]
+                                    "options": ["dip", "ship", "hit", "live", "bin"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ iː /"
                                     },
-                                    "options": [
-                                        "deep",
-                                        "sheep",
-                                        "heat",
-                                        "leave",
-                                        "bean"
-                                    ]
+                                    "options": ["deep", "sheep", "heat", "leave", "bean"]
                                 }
                             ]
                         },
@@ -468,25 +276,13 @@
                                     "heading": {
                                         "text": "/ oʊ /"
                                     },
-                                    "options": [
-                                        "boat",
-                                        "low",
-                                        "snow",
-                                        "flow",
-                                        "foam"
-                                    ]
+                                    "options": ["boat", "low", "snow", "flow", "foam"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "bought",
-                                        "law",
-                                        "snore",
-                                        "floor",
-                                        "form"
-                                    ]
+                                    "options": ["bought", "law", "snore", "floor", "form"]
                                 }
                             ]
                         },
@@ -496,25 +292,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "heart",
-                                        "mark",
-                                        "shark",
-                                        "star",
-                                        "arm"
-                                    ]
+                                    "options": ["heart", "mark", "shark", "star", "arm"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "hate",
-                                        "make",
-                                        "shake",
-                                        "stay",
-                                        "aim"
-                                    ]
+                                    "options": ["hate", "make", "shake", "stay", "aim"]
                                 }
                             ]
                         },
@@ -524,25 +308,13 @@
                                     "heading": {
                                         "text": "/ oʊ /"
                                     },
-                                    "options": [
-                                        "motor",
-                                        "so",
-                                        "oat",
-                                        "hole",
-                                        "cone"
-                                    ]
+                                    "options": ["motor", "so", "oat", "hole", "cone"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "mortar",
-                                        "saw",
-                                        "ought",
-                                        "hall",
-                                        "corn"
-                                    ]
+                                    "options": ["mortar", "saw", "ought", "hall", "corn"]
                                 }
                             ]
                         },
@@ -552,25 +324,13 @@
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "lake",
-                                        "wait",
-                                        "shade",
-                                        "cape",
-                                        "great"
-                                    ]
+                                    "options": ["lake", "wait", "shade", "cape", "great"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ iː /"
                                     },
-                                    "options": [
-                                        "leak",
-                                        "wheat",
-                                        "sheet",
-                                        "keep",
-                                        "greet"
-                                    ]
+                                    "options": ["leak", "wheat", "sheet", "keep", "greet"]
                                 }
                             ]
                         },
@@ -580,25 +340,13 @@
                                     "heading": {
                                         "text": "/ e /"
                                     },
-                                    "options": [
-                                        "head",
-                                        "gem",
-                                        "well",
-                                        "crept",
-                                        "belt"
-                                    ]
+                                    "options": ["head", "gem", "well", "crept", "belt"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɪ /"
                                     },
-                                    "options": [
-                                        "hid",
-                                        "gym",
-                                        "will",
-                                        "crypt",
-                                        "built"
-                                    ]
+                                    "options": ["hid", "gym", "will", "crypt", "built"]
                                 }
                             ]
                         },
@@ -608,25 +356,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "rob",
-                                        "clock",
-                                        "sock",
-                                        "knot",
-                                        "rot"
-                                    ]
+                                    "options": ["rob", "clock", "sock", "knot", "rot"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ oʊ /"
                                     },
-                                    "options": [
-                                        "robe",
-                                        "cloak",
-                                        "soak",
-                                        "note",
-                                        "wrote"
-                                    ]
+                                    "options": ["robe", "cloak", "soak", "note", "wrote"]
                                 }
                             ]
                         },
@@ -636,25 +372,13 @@
                                     "heading": {
                                         "text": "/ ʃ /"
                                     },
-                                    "options": [
-                                        "shake",
-                                        "mesh",
-                                        "lash",
-                                        "sure",
-                                        "chic"
-                                    ]
+                                    "options": ["shake", "mesh", "lash", "sure", "chic"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ s /"
                                     },
-                                    "options": [
-                                        "sake",
-                                        "mess",
-                                        "lass",
-                                        "sore",
-                                        "seek"
-                                    ]
+                                    "options": ["sake", "mess", "lass", "sore", "seek"]
                                 }
                             ]
                         },
@@ -664,25 +388,13 @@
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "hall",
-                                        "export",
-                                        "caught",
-                                        "walk",
-                                        "lawn"
-                                    ]
+                                    "options": ["hall", "export", "caught", "walk", "lawn"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɜː /"
                                     },
-                                    "options": [
-                                        "hurl",
-                                        "expert",
-                                        "curt",
-                                        "work",
-                                        "learn"
-                                    ]
+                                    "options": ["hurl", "expert", "curt", "work", "learn"]
                                 }
                             ]
                         },
@@ -692,25 +404,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "carve",
-                                        "star",
-                                        "barn",
-                                        "farm",
-                                        "hard"
-                                    ]
+                                    "options": ["carve", "star", "barn", "farm", "hard"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɜː /"
                                     },
-                                    "options": [
-                                        "curve",
-                                        "stir",
-                                        "burn",
-                                        "firm",
-                                        "heard"
-                                    ]
+                                    "options": ["curve", "stir", "burn", "firm", "heard"]
                                 }
                             ]
                         },
@@ -720,25 +420,13 @@
                                     "heading": {
                                         "text": "/ e /"
                                     },
-                                    "options": [
-                                        "pen",
-                                        "test",
-                                        "trend",
-                                        "debt",
-                                        "breast"
-                                    ]
+                                    "options": ["pen", "test", "trend", "debt", "breast"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "pain",
-                                        "taste",
-                                        "trained",
-                                        "date",
-                                        "braced"
-                                    ]
+                                    "options": ["pain", "taste", "trained", "date", "braced"]
                                 }
                             ]
                         },
@@ -748,25 +436,13 @@
                                     "heading": {
                                         "text": "/ oʊ /"
                                     },
-                                    "options": [
-                                        "chose",
-                                        "glow",
-                                        "boat",
-                                        "hope",
-                                        "throw"
-                                    ]
+                                    "options": ["chose", "glow", "boat", "hope", "throw"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ uː /"
                                     },
-                                    "options": [
-                                        "choose",
-                                        "glue",
-                                        "boot",
-                                        "hoop",
-                                        "threw"
-                                    ]
+                                    "options": ["choose", "glue", "boot", "hoop", "threw"]
                                 }
                             ]
                         },
@@ -776,25 +452,13 @@
                                     "heading": {
                                         "text": "/ ɑː /"
                                     },
-                                    "options": [
-                                        "cart",
-                                        "tart",
-                                        "bar",
-                                        "art",
-                                        "are"
-                                    ]
+                                    "options": ["cart", "tart", "bar", "art", "are"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ ɔː /"
                                     },
-                                    "options": [
-                                        "court",
-                                        "taught",
-                                        "bore",
-                                        "ought",
-                                        "or"
-                                    ]
+                                    "options": ["court", "taught", "bore", "ought", "or"]
                                 }
                             ]
                         },
@@ -804,25 +468,13 @@
                                     "heading": {
                                         "text": "/ eɪ /"
                                     },
-                                    "options": [
-                                        "paint",
-                                        "race",
-                                        "praise",
-                                        "players",
-                                        "bay"
-                                    ]
+                                    "options": ["paint", "race", "praise", "players", "bay"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ aɪ /"
                                     },
-                                    "options": [
-                                        "pint",
-                                        "rice",
-                                        "prize",
-                                        "pliers",
-                                        "buy"
-                                    ]
+                                    "options": ["pint", "rice", "prize", "pliers", "buy"]
                                 }
                             ]
                         },
@@ -832,25 +484,13 @@
                                     "heading": {
                                         "text": "/ aɪ /"
                                     },
-                                    "options": [
-                                        "aisle",
-                                        "mice",
-                                        "why",
-                                        "brine",
-                                        "rind"
-                                    ]
+                                    "options": ["aisle", "mice", "why", "brine", "rind"]
                                 },
                                 {
                                     "heading": {
                                         "text": "/ aʊ /"
                                     },
-                                    "options": [
-                                        "owl",
-                                        "mouse",
-                                        "wow",
-                                        "brown",
-                                        "round"
-                                    ]
+                                    "options": ["owl", "mouse", "wow", "brown", "round"]
                                 }
                             ]
                         }
@@ -878,10 +518,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -902,10 +539,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -930,23 +564,14 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
                                             }
                                         ]
                                     },
-                                    "options": [
-                                        "helpless",
-                                        "pleasant",
-                                        "tower",
-                                        "carpet",
-                                        "oven"
-                                    ]
+                                    "options": ["helpless", "pleasant", "tower", "carpet", "oven"]
                                 },
                                 {
                                     "heading": {
@@ -957,20 +582,11 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
-                                    "options": [
-                                        "appeal",
-                                        "remain",
-                                        "distort",
-                                        "pretend",
-                                        "infect"
-                                    ]
+                                    "options": ["appeal", "remain", "distort", "pretend", "infect"]
                                 }
                             ]
                         },
@@ -982,10 +598,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1009,10 +622,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1040,10 +650,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1067,10 +674,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1098,10 +702,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1125,10 +726,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1153,10 +751,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1174,10 +769,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1205,10 +797,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1232,10 +821,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1260,10 +846,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1287,10 +870,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1318,10 +898,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1342,10 +919,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1373,10 +947,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -1400,10 +971,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1428,10 +996,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -1455,10 +1020,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1483,10 +1045,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -1510,10 +1069,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1538,10 +1094,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1565,10 +1118,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1596,10 +1146,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1623,10 +1170,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -1651,10 +1195,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oooo"
@@ -1678,10 +1219,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1714,10 +1252,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1738,10 +1273,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -1766,23 +1298,14 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
                                             }
                                         ]
                                     },
-                                    "options": [
-                                        "helpless",
-                                        "pleasant",
-                                        "tower",
-                                        "carpet",
-                                        "oven"
-                                    ]
+                                    "options": ["helpless", "pleasant", "tower", "carpet", "oven"]
                                 },
                                 {
                                     "heading": {
@@ -1793,20 +1316,11 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
-                                    "options": [
-                                        "appeal",
-                                        "remain",
-                                        "distort",
-                                        "pretend",
-                                        "infect"
-                                    ]
+                                    "options": ["appeal", "remain", "distort", "pretend", "infect"]
                                 }
                             ]
                         },
@@ -1818,10 +1332,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1845,10 +1356,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1876,10 +1384,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1903,10 +1408,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -1934,10 +1436,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -1961,10 +1460,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -1989,10 +1485,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -2010,10 +1503,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2041,10 +1531,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2068,10 +1555,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -2096,10 +1580,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -2123,10 +1604,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2154,10 +1632,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -2178,10 +1653,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -2209,10 +1681,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -2236,10 +1705,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2264,10 +1730,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -2291,10 +1754,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -2319,10 +1779,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -2346,10 +1803,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             }
                                         ]
                                     },
@@ -2374,10 +1828,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2401,10 +1852,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -2432,10 +1880,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "o"
@@ -2459,10 +1904,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "ooo"
@@ -2487,10 +1929,7 @@
                                         "textSegments": [
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oooo"
@@ -2514,10 +1953,7 @@
                                             },
                                             {
                                                 "text": "O",
-                                                "styles": [
-                                                    "bold",
-                                                    "large"
-                                                ]
+                                                "styles": ["bold", "large"]
                                             },
                                             {
                                                 "text": "oo"
@@ -2721,25 +2157,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "houses",
-                                        "melted",
-                                        "watches",
-                                        "tidied",
-                                        "friendly"
-                                    ]
+                                    "options": ["houses", "melted", "watches", "tidied", "friendly"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "tights",
-                                        "helped",
-                                        "raised",
-                                        "hopped",
-                                        "ties"
-                                    ]
+                                    "options": ["tights", "helped", "raised", "hopped", "ties"]
                                 }
                             ]
                         },
@@ -2749,25 +2173,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "many",
-                                        "shower",
-                                        "table",
-                                        "tablet",
-                                        "stable"
-                                    ]
+                                    "options": ["many", "shower", "table", "tablet", "stable"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "world",
-                                        "jumped",
-                                        "showed",
-                                        "board",
-                                        "passed"
-                                    ]
+                                    "options": ["world", "jumped", "showed", "board", "passed"]
                                 }
                             ]
                         },
@@ -2777,13 +2189,7 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "honey",
-                                        "angles",
-                                        "famous",
-                                        "demand",
-                                        "actor"
-                                    ]
+                                    "options": ["honey", "angles", "famous", "demand", "actor"]
                                 },
                                 {
                                     "heading": {
@@ -2817,13 +2223,7 @@
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "banked",
-                                        "prints",
-                                        "books",
-                                        "pens",
-                                        "dressed"
-                                    ]
+                                    "options": ["banked", "prints", "books", "pens", "dressed"]
                                 }
                             ]
                         },
@@ -2901,13 +2301,7 @@
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "stretched",
-                                        "month",
-                                        "knocked",
-                                        "solved",
-                                        "moved"
-                                    ]
+                                    "options": ["stretched", "month", "knocked", "solved", "moved"]
                                 }
                             ]
                         },
@@ -2917,25 +2311,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "rhythm",
-                                        "hammer",
-                                        "chicken",
-                                        "target",
-                                        "valley"
-                                    ]
+                                    "options": ["rhythm", "hammer", "chicken", "target", "valley"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "wrote",
-                                        "writes",
-                                        "writ",
-                                        "rhymes",
-                                        "rhymed"
-                                    ]
+                                    "options": ["wrote", "writes", "writ", "rhymes", "rhymed"]
                                 }
                             ]
                         },
@@ -3146,25 +2528,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "houses",
-                                        "melted",
-                                        "watches",
-                                        "tidied",
-                                        "friendly"
-                                    ]
+                                    "options": ["houses", "melted", "watches", "tidied", "friendly"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "tights",
-                                        "helped",
-                                        "raised",
-                                        "hopped",
-                                        "ties"
-                                    ]
+                                    "options": ["tights", "helped", "raised", "hopped", "ties"]
                                 }
                             ]
                         },
@@ -3174,25 +2544,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "many",
-                                        "shower",
-                                        "table",
-                                        "tablet",
-                                        "stable"
-                                    ]
+                                    "options": ["many", "shower", "table", "tablet", "stable"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "world",
-                                        "jumped",
-                                        "showed",
-                                        "board",
-                                        "passed"
-                                    ]
+                                    "options": ["world", "jumped", "showed", "board", "passed"]
                                 }
                             ]
                         },
@@ -3202,13 +2560,7 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "honey",
-                                        "angles",
-                                        "famous",
-                                        "demand",
-                                        "actor"
-                                    ]
+                                    "options": ["honey", "angles", "famous", "demand", "actor"]
                                 },
                                 {
                                     "heading": {
@@ -3242,13 +2594,7 @@
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "banked",
-                                        "prints",
-                                        "books",
-                                        "pens",
-                                        "dressed"
-                                    ]
+                                    "options": ["banked", "prints", "books", "pens", "dressed"]
                                 }
                             ]
                         },
@@ -3326,13 +2672,7 @@
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "stretched",
-                                        "month",
-                                        "knocked",
-                                        "solved",
-                                        "moved"
-                                    ]
+                                    "options": ["stretched", "month", "knocked", "solved", "moved"]
                                 }
                             ]
                         },
@@ -3342,25 +2682,13 @@
                                     "heading": {
                                         "text": "2"
                                     },
-                                    "options": [
-                                        "rhythm",
-                                        "hammer",
-                                        "chicken",
-                                        "target",
-                                        "valley"
-                                    ]
+                                    "options": ["rhythm", "hammer", "chicken", "target", "valley"]
                                 },
                                 {
                                     "heading": {
                                         "text": "1"
                                     },
-                                    "options": [
-                                        "wrote",
-                                        "writes",
-                                        "writ",
-                                        "rhymes",
-                                        "rhymed"
-                                    ]
+                                    "options": ["wrote", "writes", "writ", "rhymes", "rhymed"]
                                 }
                             ]
                         },

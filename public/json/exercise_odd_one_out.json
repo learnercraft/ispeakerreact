@@ -8,453 +8,203 @@
             "instructionsKey": "exercise_page.exerciseInstruction.odd_one_out.word-stress",
             "items": [
                 {
-                    "options": [
-                        "capable",
-                        "clinical",
-                        "minimal",
-                        "possession"
-                    ],
+                    "options": ["capable", "clinical", "minimal", "possession"],
                     "correctAnswer": "possession"
                 },
                 {
-                    "options": [
-                        "helper",
-                        "little",
-                        "mighty",
-                        "accept"
-                    ],
+                    "options": ["helper", "little", "mighty", "accept"],
                     "correctAnswer": "accept"
                 },
                 {
-                    "options": [
-                        "poker",
-                        "jokers",
-                        "hopeless",
-                        "pretends"
-                    ],
+                    "options": ["poker", "jokers", "hopeless", "pretends"],
                     "correctAnswer": "pretends"
                 },
                 {
-                    "options": [
-                        "animal",
-                        "carnival",
-                        "beautiful",
-                        "pretentious"
-                    ],
+                    "options": ["animal", "carnival", "beautiful", "pretentious"],
                     "correctAnswer": "pretentious"
                 },
                 {
-                    "options": [
-                        "horizon",
-                        "genetic",
-                        "fantastic",
-                        "gentlemen"
-                    ],
+                    "options": ["horizon", "genetic", "fantastic", "gentlemen"],
                     "correctAnswer": "gentlemen"
                 },
                 {
-                    "options": [
-                        "opaque",
-                        "suspend",
-                        "effect",
-                        "village"
-                    ],
+                    "options": ["opaque", "suspend", "effect", "village"],
                     "correctAnswer": "village"
                 },
                 {
-                    "options": [
-                        "papers",
-                        "model",
-                        "dresser",
-                        "because"
-                    ],
+                    "options": ["papers", "model", "dresser", "because"],
                     "correctAnswer": "because"
                 },
                 {
-                    "options": [
-                        "pretty",
-                        "coffee",
-                        "ponies",
-                        "retired"
-                    ],
+                    "options": ["pretty", "coffee", "ponies", "retired"],
                     "correctAnswer": "retired"
                 },
                 {
-                    "options": [
-                        "neglect",
-                        "tonight",
-                        "supply",
-                        "after"
-                    ],
+                    "options": ["neglect", "tonight", "supply", "after"],
                     "correctAnswer": "after"
                 },
                 {
-                    "options": [
-                        "cupboard",
-                        "people",
-                        "lampshade",
-                        "guitar"
-                    ],
+                    "options": ["cupboard", "people", "lampshade", "guitar"],
                     "correctAnswer": "guitar"
                 },
                 {
-                    "options": [
-                        "healthy",
-                        "answered",
-                        "promised",
-                        "receipt"
-                    ],
+                    "options": ["healthy", "answered", "promised", "receipt"],
                     "correctAnswer": "receipt"
                 },
                 {
-                    "options": [
-                        "postal",
-                        "window",
-                        "doctor",
-                        "prepared"
-                    ],
+                    "options": ["postal", "window", "doctor", "prepared"],
                     "correctAnswer": "prepared"
                 },
                 {
-                    "options": [
-                        "armchair",
-                        "welfare",
-                        "comfort",
-                        "reward"
-                    ],
+                    "options": ["armchair", "welfare", "comfort", "reward"],
                     "correctAnswer": "reward"
                 },
                 {
-                    "options": [
-                        "painter",
-                        "sentence",
-                        "laughter",
-                        "aware"
-                    ],
+                    "options": ["painter", "sentence", "laughter", "aware"],
                     "correctAnswer": "aware"
                 },
                 {
-                    "options": [
-                        "hurriedly",
-                        "recipe",
-                        "rapidly",
-                        "another"
-                    ],
+                    "options": ["hurriedly", "recipe", "rapidly", "another"],
                     "correctAnswer": "another"
                 },
                 {
-                    "options": [
-                        "laptop",
-                        "doorway",
-                        "doorstop",
-                        "success"
-                    ],
+                    "options": ["laptop", "doorway", "doorstop", "success"],
                     "correctAnswer": "success"
                 },
                 {
-                    "options": [
-                        "playgrounds",
-                        "problem",
-                        "level",
-                        "behave"
-                    ],
+                    "options": ["playgrounds", "problem", "level", "behave"],
                     "correctAnswer": "behave"
                 },
                 {
-                    "options": [
-                        "alone",
-                        "beside",
-                        "beyond",
-                        "rafters"
-                    ],
+                    "options": ["alone", "beside", "beyond", "rafters"],
                     "correctAnswer": "rafters"
                 },
                 {
-                    "options": [
-                        "expert",
-                        "morning",
-                        "mainly",
-                        "remains"
-                    ],
+                    "options": ["expert", "morning", "mainly", "remains"],
                     "correctAnswer": "remains"
                 },
                 {
-                    "options": [
-                        "popular",
-                        "horribly",
-                        "company",
-                        "remainder"
-                    ],
+                    "options": ["popular", "horribly", "company", "remainder"],
                     "correctAnswer": "remainder"
                 },
                 {
-                    "options": [
-                        "improvise",
-                        "radiate",
-                        "radishes",
-                        "refugee"
-                    ],
+                    "options": ["improvise", "radiate", "radishes", "refugee"],
                     "correctAnswer": "refugee"
                 },
                 {
-                    "options": [
-                        "central",
-                        "stealing",
-                        "stolen",
-                        "affront"
-                    ],
+                    "options": ["central", "stealing", "stolen", "affront"],
                     "correctAnswer": "affront"
                 },
                 {
-                    "options": [
-                        "tearful",
-                        "teardrop",
-                        "steering",
-                        "assigned"
-                    ],
+                    "options": ["tearful", "teardrop", "steering", "assigned"],
                     "correctAnswer": "assigned"
                 },
                 {
-                    "options": [
-                        "detective",
-                        "forgetting",
-                        "digesting",
-                        "animate"
-                    ],
+                    "options": ["detective", "forgetting", "digesting", "animate"],
                     "correctAnswer": "animate"
                 },
                 {
-                    "options": [
-                        "shipment",
-                        "playful",
-                        "cohort",
-                        "respond"
-                    ],
+                    "options": ["shipment", "playful", "cohort", "respond"],
                     "correctAnswer": "respond"
                 },
                 {
-                    "options": [
-                        "deliver",
-                        "recorder",
-                        "consider",
-                        "concentrate"
-                    ],
+                    "options": ["deliver", "recorder", "consider", "concentrate"],
                     "correctAnswer": "concentrate"
                 },
                 {
-                    "options": [
-                        "gentle",
-                        "summer",
-                        "winter",
-                        "unique"
-                    ],
+                    "options": ["gentle", "summer", "winter", "unique"],
                     "correctAnswer": "unique"
                 },
                 {
-                    "options": [
-                        "opened",
-                        "other",
-                        "pepper",
-                        "remind"
-                    ],
+                    "options": ["opened", "other", "pepper", "remind"],
                     "correctAnswer": "remind"
                 },
                 {
-                    "options": [
-                        "reminiscent",
-                        "comprehensive",
-                        "underrated",
-                        "decorating"
-                    ],
+                    "options": ["reminiscent", "comprehensive", "underrated", "decorating"],
                     "correctAnswer": "decorating"
                 },
                 {
-                    "options": [
-                        "stonemason",
-                        "privatize",
-                        "hamburger",
-                        "reprisals"
-                    ],
+                    "options": ["stonemason", "privatize", "hamburger", "reprisals"],
                     "correctAnswer": "reprisals"
                 },
                 {
-                    "options": [
-                        "ordinal",
-                        "privately",
-                        "lullaby",
-                        "creation"
-                    ],
+                    "options": ["ordinal", "privately", "lullaby", "creation"],
                     "correctAnswer": "creation"
                 },
                 {
-                    "options": [
-                        "naughtily",
-                        "hastily",
-                        "hastening",
-                        "surprising"
-                    ],
+                    "options": ["naughtily", "hastily", "hastening", "surprising"],
                     "correctAnswer": "surprising"
                 },
                 {
-                    "options": [
-                        "arrangement",
-                        "delaying",
-                        "regretful",
-                        "wanderer"
-                    ],
+                    "options": ["arrangement", "delaying", "regretful", "wanderer"],
                     "correctAnswer": "wanderer"
                 },
                 {
-                    "options": [
-                        "amazed",
-                        "designed",
-                        "restrain",
-                        "reflex"
-                    ],
+                    "options": ["amazed", "designed", "restrain", "reflex"],
                     "correctAnswer": "reflex"
                 },
                 {
-                    "options": [
-                        "briefcase",
-                        "matter",
-                        "exit",
-                        "require"
-                    ],
+                    "options": ["briefcase", "matter", "exit", "require"],
                     "correctAnswer": "require"
                 },
                 {
-                    "options": [
-                        "system",
-                        "primrose",
-                        "turquoise",
-                        "disease"
-                    ],
+                    "options": ["system", "primrose", "turquoise", "disease"],
                     "correctAnswer": "disease"
                 },
                 {
-                    "options": [
-                        "lemons",
-                        "apple",
-                        "shadow",
-                        "return"
-                    ],
+                    "options": ["lemons", "apple", "shadow", "return"],
                     "correctAnswer": "return"
                 },
                 {
-                    "options": [
-                        "wonderful",
-                        "anorak",
-                        "powerful",
-                        "amazement"
-                    ],
+                    "options": ["wonderful", "anorak", "powerful", "amazement"],
                     "correctAnswer": "amazement"
                 },
                 {
-                    "options": [
-                        "scrumptious",
-                        "reading",
-                        "luncheon",
-                        "begins"
-                    ],
+                    "options": ["scrumptious", "reading", "luncheon", "begins"],
                     "correctAnswer": "begins"
                 },
                 {
-                    "options": [
-                        "enviable",
-                        "irritable",
-                        "babysitter",
-                        "penultimate"
-                    ],
+                    "options": ["enviable", "irritable", "babysitter", "penultimate"],
                     "correctAnswer": "penultimate"
                 },
                 {
-                    "options": [
-                        "suppose",
-                        "surprised",
-                        "result",
-                        "handshake"
-                    ],
+                    "options": ["suppose", "surprised", "result", "handshake"],
                     "correctAnswer": "handshake"
                 },
                 {
-                    "options": [
-                        "angered",
-                        "anxious",
-                        "spacious",
-                        "disgust"
-                    ],
+                    "options": ["angered", "anxious", "spacious", "disgust"],
                     "correctAnswer": "disgust"
                 },
                 {
-                    "options": [
-                        "social",
-                        "fingers",
-                        "facials",
-                        "erased"
-                    ],
+                    "options": ["social", "fingers", "facials", "erased"],
                     "correctAnswer": "erased"
                 },
                 {
-                    "options": [
-                        "special",
-                        "trumpet",
-                        "handle",
-                        "inflate"
-                    ],
+                    "options": ["special", "trumpet", "handle", "inflate"],
                     "correctAnswer": "inflate"
                 },
                 {
-                    "options": [
-                        "menacing",
-                        "fleetingly",
-                        "openly",
-                        "allowance"
-                    ],
+                    "options": ["menacing", "fleetingly", "openly", "allowance"],
                     "correctAnswer": "allowance"
                 },
                 {
-                    "options": [
-                        "raisins",
-                        "clever",
-                        "raining",
-                        "decide"
-                    ],
+                    "options": ["raisins", "clever", "raining", "decide"],
                     "correctAnswer": "decide"
                 },
                 {
-                    "options": [
-                        "perfectly",
-                        "honestly",
-                        "fearfully",
-                        "politely"
-                    ],
+                    "options": ["perfectly", "honestly", "fearfully", "politely"],
                     "correctAnswer": "politely"
                 },
                 {
-                    "options": [
-                        "nutritious",
-                        "horrendous",
-                        "dismissive",
-                        "relative"
-                    ],
+                    "options": ["nutritious", "horrendous", "dismissive", "relative"],
                     "correctAnswer": "relative"
                 },
                 {
-                    "options": [
-                        "preoccupied",
-                        "economize",
-                        "abilities",
-                        "difficulties"
-                    ],
+                    "options": ["preoccupied", "economize", "abilities", "difficulties"],
                     "correctAnswer": "difficulties"
                 },
                 {
-                    "options": [
-                        "reservoir",
-                        "overcoat",
-                        "operate",
-                        "disabled"
-                    ],
+                    "options": ["reservoir", "overcoat", "operate", "disabled"],
                     "correctAnswer": "disabled"
                 }
             ]
@@ -467,453 +217,203 @@
             "instructionsKey": "exercise_page.exerciseInstruction.odd_one_out.rhyming",
             "items": [
                 {
-                    "options": [
-                        "advice",
-                        "precise",
-                        "device",
-                        "revise"
-                    ],
+                    "options": ["advice", "precise", "device", "revise"],
                     "correctAnswer": "revise"
                 },
                 {
-                    "options": [
-                        "suit",
-                        "hoot",
-                        "root",
-                        "foot"
-                    ],
+                    "options": ["suit", "hoot", "root", "foot"],
                     "correctAnswer": "foot"
                 },
                 {
-                    "options": [
-                        "mouse",
-                        "house",
-                        "spouse",
-                        "rouse"
-                    ],
+                    "options": ["mouse", "house", "spouse", "rouse"],
                     "correctAnswer": "rouse"
                 },
                 {
-                    "options": [
-                        "crate",
-                        "late",
-                        "wait",
-                        "raid"
-                    ],
+                    "options": ["crate", "late", "wait", "raid"],
                     "correctAnswer": "raid"
                 },
                 {
-                    "options": [
-                        "sigh",
-                        "fly",
-                        "deny",
-                        "tray"
-                    ],
+                    "options": ["sigh", "fly", "deny", "tray"],
                     "correctAnswer": "tray"
                 },
                 {
-                    "options": [
-                        "collect",
-                        "detect",
-                        "inspect",
-                        "attract"
-                    ],
+                    "options": ["collect", "detect", "inspect", "attract"],
                     "correctAnswer": "attract"
                 },
                 {
-                    "options": [
-                        "pride",
-                        "tried",
-                        "untied",
-                        "carried"
-                    ],
+                    "options": ["pride", "tried", "untied", "carried"],
                     "correctAnswer": "carried"
                 },
                 {
-                    "options": [
-                        "awake",
-                        "break",
-                        "flake",
-                        "speak"
-                    ],
+                    "options": ["awake", "break", "flake", "speak"],
                     "correctAnswer": "speak"
                 },
                 {
-                    "options": [
-                        "bough",
-                        "cow",
-                        "brow",
-                        "cough"
-                    ],
+                    "options": ["bough", "cow", "brow", "cough"],
                     "correctAnswer": "cough"
                 },
                 {
-                    "options": [
-                        "disease",
-                        "trees",
-                        "bees",
-                        "peace"
-                    ],
+                    "options": ["disease", "trees", "bees", "peace"],
                     "correctAnswer": "peace"
                 },
                 {
-                    "options": [
-                        "hymn",
-                        "dim",
-                        "rim",
-                        "time"
-                    ],
+                    "options": ["hymn", "dim", "rim", "time"],
                     "correctAnswer": "time"
                 },
                 {
-                    "options": [
-                        "leave",
-                        "grieve",
-                        "weave",
-                        "grave"
-                    ],
+                    "options": ["leave", "grieve", "weave", "grave"],
                     "correctAnswer": "grave"
                 },
                 {
-                    "options": [
-                        "ways",
-                        "raise",
-                        "maze",
-                        "face"
-                    ],
+                    "options": ["ways", "raise", "maze", "face"],
                     "correctAnswer": "face"
                 },
                 {
-                    "options": [
-                        "crow",
-                        "grow",
-                        "toe",
-                        "shoe"
-                    ],
+                    "options": ["crow", "grow", "toe", "shoe"],
                     "correctAnswer": "shoe"
                 },
                 {
-                    "options": [
-                        "shore",
-                        "war",
-                        "pour",
-                        "hour"
-                    ],
+                    "options": ["shore", "war", "pour", "hour"],
                     "correctAnswer": "hour"
                 },
                 {
-                    "options": [
-                        "beard",
-                        "cleared",
-                        "feared",
-                        "heard"
-                    ],
+                    "options": ["beard", "cleared", "feared", "heard"],
                     "correctAnswer": "heard"
                 },
                 {
-                    "options": [
-                        "crew",
-                        "through",
-                        "true",
-                        "trough"
-                    ],
+                    "options": ["crew", "through", "true", "trough"],
                     "correctAnswer": "trough"
                 },
                 {
-                    "options": [
-                        "laugh",
-                        "staff",
-                        "half",
-                        "safe"
-                    ],
+                    "options": ["laugh", "staff", "half", "safe"],
                     "correctAnswer": "safe"
                 },
                 {
-                    "options": [
-                        "spire",
-                        "admire",
-                        "fire",
-                        "lair"
-                    ],
+                    "options": ["spire", "admire", "fire", "lair"],
                     "correctAnswer": "lair"
                 },
                 {
-                    "options": [
-                        "should",
-                        "wood",
-                        "could",
-                        "flood"
-                    ],
+                    "options": ["should", "wood", "could", "flood"],
                     "correctAnswer": "flood"
                 },
                 {
-                    "options": [
-                        "freed",
-                        "plead",
-                        "bead",
-                        "head"
-                    ],
+                    "options": ["freed", "plead", "bead", "head"],
                     "correctAnswer": "head"
                 },
                 {
-                    "options": [
-                        "father",
-                        "leather",
-                        "feather",
-                        "whether"
-                    ],
+                    "options": ["father", "leather", "feather", "whether"],
                     "correctAnswer": "father"
                 },
                 {
-                    "options": [
-                        "crumble",
-                        "stumble",
-                        "fumble",
-                        "ramble"
-                    ],
+                    "options": ["crumble", "stumble", "fumble", "ramble"],
                     "correctAnswer": "ramble"
                 },
                 {
-                    "options": [
-                        "stain",
-                        "plane",
-                        "cane",
-                        "mean"
-                    ],
+                    "options": ["stain", "plane", "cane", "mean"],
                     "correctAnswer": "mean"
                 },
                 {
-                    "options": [
-                        "feel",
-                        "steal",
-                        "meal",
-                        "fell"
-                    ],
+                    "options": ["feel", "steal", "meal", "fell"],
                     "correctAnswer": "fell"
                 },
                 {
-                    "options": [
-                        "neat",
-                        "sweet",
-                        "treat",
-                        "sweat"
-                    ],
+                    "options": ["neat", "sweet", "treat", "sweat"],
                     "correctAnswer": "sweat"
                 },
                 {
-                    "options": [
-                        "after",
-                        "rafter",
-                        "laughter",
-                        "daughter"
-                    ],
+                    "options": ["after", "rafter", "laughter", "daughter"],
                     "correctAnswer": "daughter"
                 },
                 {
-                    "options": [
-                        "snail",
-                        "pale",
-                        "whale",
-                        "stall"
-                    ],
+                    "options": ["snail", "pale", "whale", "stall"],
                     "correctAnswer": "stall"
                 },
                 {
-                    "options": [
-                        "fellow",
-                        "yellow",
-                        "bellow",
-                        "allow"
-                    ],
+                    "options": ["fellow", "yellow", "bellow", "allow"],
                     "correctAnswer": "allow"
                 },
                 {
-                    "options": [
-                        "hairy",
-                        "dairy",
-                        "wary",
-                        "fiery"
-                    ],
+                    "options": ["hairy", "dairy", "wary", "fiery"],
                     "correctAnswer": "fiery"
                 },
                 {
-                    "options": [
-                        "hood",
-                        "good",
-                        "stood",
-                        "food"
-                    ],
+                    "options": ["hood", "good", "stood", "food"],
                     "correctAnswer": "food"
                 },
                 {
-                    "options": [
-                        "like",
-                        "spike",
-                        "strike",
-                        "pick"
-                    ],
+                    "options": ["like", "spike", "strike", "pick"],
                     "correctAnswer": "pick"
                 },
                 {
-                    "options": [
-                        "poke",
-                        "oak",
-                        "stroke",
-                        "block"
-                    ],
+                    "options": ["poke", "oak", "stroke", "block"],
                     "correctAnswer": "block"
                 },
                 {
-                    "options": [
-                        "life",
-                        "wife",
-                        "strife",
-                        "strive"
-                    ],
+                    "options": ["life", "wife", "strife", "strive"],
                     "correctAnswer": "strive"
                 },
                 {
-                    "options": [
-                        "vote",
-                        "float",
-                        "coat",
-                        "shout"
-                    ],
+                    "options": ["vote", "float", "coat", "shout"],
                     "correctAnswer": "shout"
                 },
                 {
-                    "options": [
-                        "most",
-                        "post",
-                        "toast",
-                        "lost"
-                    ],
+                    "options": ["most", "post", "toast", "lost"],
                     "correctAnswer": "lost"
                 },
                 {
-                    "options": [
-                        "paper",
-                        "caper",
-                        "vapour",
-                        "wrapper"
-                    ],
+                    "options": ["paper", "caper", "vapour", "wrapper"],
                     "correctAnswer": "wrapper"
                 },
                 {
-                    "options": [
-                        "danger",
-                        "stranger",
-                        "ranger",
-                        "anger"
-                    ],
+                    "options": ["danger", "stranger", "ranger", "anger"],
                     "correctAnswer": "anger"
                 },
                 {
-                    "options": [
-                        "phone",
-                        "tone",
-                        "loan",
-                        "gone"
-                    ],
+                    "options": ["phone", "tone", "loan", "gone"],
                     "correctAnswer": "gone"
                 },
                 {
-                    "options": [
-                        "runny",
-                        "honey",
-                        "bunny",
-                        "bony"
-                    ],
+                    "options": ["runny", "honey", "bunny", "bony"],
                     "correctAnswer": "bony"
                 },
                 {
-                    "options": [
-                        "hut",
-                        "shut",
-                        "nut",
-                        "put"
-                    ],
+                    "options": ["hut", "shut", "nut", "put"],
                     "correctAnswer": "put"
                 },
                 {
-                    "options": [
-                        "week",
-                        "meek",
-                        "seek",
-                        "break"
-                    ],
+                    "options": ["week", "meek", "seek", "break"],
                     "correctAnswer": "break"
                 },
                 {
-                    "options": [
-                        "pear",
-                        "hair",
-                        "stare",
-                        "hear"
-                    ],
+                    "options": ["pear", "hair", "stare", "hear"],
                     "correctAnswer": "hear"
                 },
                 {
-                    "options": [
-                        "bad",
-                        "lad",
-                        "sad",
-                        "wad"
-                    ],
+                    "options": ["bad", "lad", "sad", "wad"],
                     "correctAnswer": "wad"
                 },
                 {
-                    "options": [
-                        "ant",
-                        "pant",
-                        "rant",
-                        "want"
-                    ],
+                    "options": ["ant", "pant", "rant", "want"],
                     "correctAnswer": "want"
                 },
                 {
-                    "options": [
-                        "throne",
-                        "moan",
-                        "cone",
-                        "done"
-                    ],
+                    "options": ["throne", "moan", "cone", "done"],
                     "correctAnswer": "done"
                 },
                 {
-                    "options": [
-                        "lot",
-                        "dot",
-                        "squat",
-                        "hat"
-                    ],
+                    "options": ["lot", "dot", "squat", "hat"],
                     "correctAnswer": "hat"
                 },
                 {
-                    "options": [
-                        "zoo",
-                        "do",
-                        "brew",
-                        "sew"
-                    ],
+                    "options": ["zoo", "do", "brew", "sew"],
                     "correctAnswer": "sew"
                 },
                 {
-                    "options": [
-                        "frown",
-                        "down",
-                        "clown",
-                        "grown"
-                    ],
+                    "options": ["frown", "down", "clown", "grown"],
                     "correctAnswer": "grown"
                 },
                 {
-                    "options": [
-                        "bone",
-                        "own",
-                        "thrown",
-                        "town"
-                    ],
+                    "options": ["bone", "own", "thrown", "town"],
                     "correctAnswer": "town"
                 }
             ]
@@ -926,273 +426,123 @@
             "instructionsKey": "exercise_page.exerciseInstruction.odd_one_out.syllables",
             "items": [
                 {
-                    "options": [
-                        "created",
-                        "edited",
-                        "forgotten",
-                        "reached"
-                    ],
+                    "options": ["created", "edited", "forgotten", "reached"],
                     "correctAnswer": "reached"
                 },
                 {
-                    "options": [
-                        "ridiculous",
-                        "amicable",
-                        "complimenting",
-                        "repellent"
-                    ],
+                    "options": ["ridiculous", "amicable", "complimenting", "repellent"],
                     "correctAnswer": "repellent"
                 },
                 {
-                    "options": [
-                        "flowing",
-                        "thinking",
-                        "wishing",
-                        "following"
-                    ],
+                    "options": ["flowing", "thinking", "wishing", "following"],
                     "correctAnswer": "following"
                 },
                 {
-                    "options": [
-                        "guitar",
-                        "keyboard",
-                        "cello",
-                        "flute"
-                    ],
+                    "options": ["guitar", "keyboard", "cello", "flute"],
                     "correctAnswer": "flute"
                 },
                 {
-                    "options": [
-                        "furniture",
-                        "telephone",
-                        "videos",
-                        "curtains"
-                    ],
+                    "options": ["furniture", "telephone", "videos", "curtains"],
                     "correctAnswer": "curtains"
                 },
                 {
-                    "options": [
-                        "scuttle",
-                        "murmur",
-                        "happen",
-                        "molecule"
-                    ],
+                    "options": ["scuttle", "murmur", "happen", "molecule"],
                     "correctAnswer": "molecule"
                 },
                 {
-                    "options": [
-                        "musical",
-                        "animals",
-                        "plentiful",
-                        "faithful"
-                    ],
+                    "options": ["musical", "animals", "plentiful", "faithful"],
                     "correctAnswer": "faithful"
                 },
                 {
-                    "options": [
-                        "lawfully",
-                        "legally",
-                        "rightfully",
-                        "wrongly"
-                    ],
+                    "options": ["lawfully", "legally", "rightfully", "wrongly"],
                     "correctAnswer": "wrongly"
                 },
                 {
-                    "options": [
-                        "hedges",
-                        "river",
-                        "manage",
-                        "hedged"
-                    ],
+                    "options": ["hedges", "river", "manage", "hedged"],
                     "correctAnswer": "hedged"
                 },
                 {
-                    "options": [
-                        "dreadful",
-                        "daytime",
-                        "dated",
-                        "played"
-                    ],
+                    "options": ["dreadful", "daytime", "dated", "played"],
                     "correctAnswer": "played"
                 },
                 {
-                    "options": [
-                        "tigers",
-                        "giraffes",
-                        "hippos",
-                        "buffalo"
-                    ],
+                    "options": ["tigers", "giraffes", "hippos", "buffalo"],
                     "correctAnswer": "buffalo"
                 },
                 {
-                    "options": [
-                        "sounded",
-                        "louder",
-                        "smallest",
-                        "sounds"
-                    ],
+                    "options": ["sounded", "louder", "smallest", "sounds"],
                     "correctAnswer": "sounds"
                 },
                 {
-                    "options": [
-                        "awareness",
-                        "aggressive",
-                        "appealing",
-                        "fairness"
-                    ],
+                    "options": ["awareness", "aggressive", "appealing", "fairness"],
                     "correctAnswer": "fairness"
                 },
                 {
-                    "options": [
-                        "leisurely",
-                        "loveliness",
-                        "liable",
-                        "reliable"
-                    ],
+                    "options": ["leisurely", "loveliness", "liable", "reliable"],
                     "correctAnswer": "reliable"
                 },
                 {
-                    "options": [
-                        "pharmacy",
-                        "bakery",
-                        "jealousy",
-                        "galley"
-                    ],
+                    "options": ["pharmacy", "bakery", "jealousy", "galley"],
                     "correctAnswer": "galley"
                 },
                 {
-                    "options": [
-                        "harvest",
-                        "cables",
-                        "chases",
-                        "checked"
-                    ],
+                    "options": ["harvest", "cables", "chases", "checked"],
                     "correctAnswer": "checked"
                 },
                 {
-                    "options": [
-                        "watches",
-                        "watching",
-                        "watcher",
-                        "watched"
-                    ],
+                    "options": ["watches", "watching", "watcher", "watched"],
                     "correctAnswer": "watched"
                 },
                 {
-                    "options": [
-                        "remodel",
-                        "remaining",
-                        "reinstate",
-                        "relationship"
-                    ],
+                    "options": ["remodel", "remaining", "reinstate", "relationship"],
                     "correctAnswer": "relationship"
                 },
                 {
-                    "options": [
-                        "referral",
-                        "reference",
-                        "referee",
-                        "refers"
-                    ],
+                    "options": ["referral", "reference", "referee", "refers"],
                     "correctAnswer": "refers"
                 },
                 {
-                    "options": [
-                        "bravery",
-                        "bicycle",
-                        "easily",
-                        "bravely"
-                    ],
+                    "options": ["bravery", "bicycle", "easily", "bravely"],
                     "correctAnswer": "bravely"
                 },
                 {
-                    "options": [
-                        "corner",
-                        "cornered",
-                        "likely",
-                        "elongate"
-                    ],
+                    "options": ["corner", "cornered", "likely", "elongate"],
                     "correctAnswer": "elongate"
                 },
                 {
-                    "options": [
-                        "acorns",
-                        "chosen",
-                        "peaceful",
-                        "coined"
-                    ],
+                    "options": ["acorns", "chosen", "peaceful", "coined"],
                     "correctAnswer": "coined"
                 },
                 {
-                    "options": [
-                        "pours",
-                        "blooms",
-                        "floods",
-                        "forces"
-                    ],
+                    "options": ["pours", "blooms", "floods", "forces"],
                     "correctAnswer": "forces"
                 },
                 {
-                    "options": [
-                        "entered",
-                        "thankful",
-                        "landfill",
-                        "monitor"
-                    ],
+                    "options": ["entered", "thankful", "landfill", "monitor"],
                     "correctAnswer": "monitor"
                 },
                 {
-                    "options": [
-                        "ladies",
-                        "beaches",
-                        "mountains",
-                        "breach"
-                    ],
+                    "options": ["ladies", "beaches", "mountains", "breach"],
                     "correctAnswer": "breach"
                 },
                 {
-                    "options": [
-                        "antipathy",
-                        "calamity",
-                        "calamitous",
-                        "clarity"
-                    ],
+                    "options": ["antipathy", "calamity", "calamitous", "clarity"],
                     "correctAnswer": "clarity"
                 },
                 {
-                    "options": [
-                        "specially",
-                        "specifics",
-                        "spectator",
-                        "spaced"
-                    ],
+                    "options": ["specially", "specifics", "spectator", "spaced"],
                     "correctAnswer": "spaced"
                 },
                 {
-                    "options": [
-                        "shelves",
-                        "raids",
-                        "wished",
-                        "shepherds"
-                    ],
+                    "options": ["shelves", "raids", "wished", "shepherds"],
                     "correctAnswer": "shepherds"
                 },
                 {
-                    "options": [
-                        "eighteen",
-                        "fourteen",
-                        "nineteen",
-                        "seventeen"
-                    ],
+                    "options": ["eighteen", "fourteen", "nineteen", "seventeen"],
                     "correctAnswer": "seventeen"
                 },
                 {
-                    "options": [
-                        "helpfulness",
-                        "friendliness",
-                        "emptiness",
-                        "kindness"
-                    ],
+                    "options": ["helpfulness", "friendliness", "emptiness", "kindness"],
                     "correctAnswer": "kindness"
                 },
                 {
@@ -1205,174 +555,79 @@
                     "correctAnswer": "orchestration"
                 },
                 {
-                    "options": [
-                        "absolutely",
-                        "variation",
-                        "futuristic",
-                        "misery"
-                    ],
+                    "options": ["absolutely", "variation", "futuristic", "misery"],
                     "correctAnswer": "misery"
                 },
                 {
-                    "options": [
-                        "aided",
-                        "lowered",
-                        "likened",
-                        "stayed"
-                    ],
+                    "options": ["aided", "lowered", "likened", "stayed"],
                     "correctAnswer": "stayed"
                 },
                 {
-                    "options": [
-                        "perimeter",
-                        "ambulances",
-                        "circulation",
-                        "newspapers"
-                    ],
+                    "options": ["perimeter", "ambulances", "circulation", "newspapers"],
                     "correctAnswer": "newspapers"
                 },
                 {
-                    "options": [
-                        "summertime",
-                        "summery",
-                        "seasonal",
-                        "springtime"
-                    ],
+                    "options": ["summertime", "summery", "seasonal", "springtime"],
                     "correctAnswer": "springtime"
                 },
                 {
-                    "options": [
-                        "teenager",
-                        "juvenile",
-                        "youthfully",
-                        "adolescent"
-                    ],
+                    "options": ["teenager", "juvenile", "youthfully", "adolescent"],
                     "correctAnswer": "adolescent"
                 },
                 {
-                    "options": [
-                        "collection",
-                        "reflection",
-                        "volcano",
-                        "civilization"
-                    ],
+                    "options": ["collection", "reflection", "volcano", "civilization"],
                     "correctAnswer": "civilization"
                 },
                 {
-                    "options": [
-                        "shopping",
-                        "series",
-                        "healthy",
-                        "famously"
-                    ],
+                    "options": ["shopping", "series", "healthy", "famously"],
                     "correctAnswer": "famously"
                 },
                 {
-                    "options": [
-                        "petals",
-                        "purple",
-                        "safety",
-                        "vehicles"
-                    ],
+                    "options": ["petals", "purple", "safety", "vehicles"],
                     "correctAnswer": "vehicles"
                 },
                 {
-                    "options": [
-                        "officer",
-                        "minister",
-                        "accountant",
-                        "preacher"
-                    ],
+                    "options": ["officer", "minister", "accountant", "preacher"],
                     "correctAnswer": "preacher"
                 },
                 {
-                    "options": [
-                        "bulldog",
-                        "dancer",
-                        "dinners",
-                        "waterways"
-                    ],
+                    "options": ["bulldog", "dancer", "dinners", "waterways"],
                     "correctAnswer": "waterways"
                 },
                 {
-                    "options": [
-                        "adventurous",
-                        "conservation",
-                        "undivided",
-                        "paragraph"
-                    ],
+                    "options": ["adventurous", "conservation", "undivided", "paragraph"],
                     "correctAnswer": "paragraph"
                 },
                 {
-                    "options": [
-                        "agricultural",
-                        "operational",
-                        "constitutional",
-                        "phenomenal"
-                    ],
+                    "options": ["agricultural", "operational", "constitutional", "phenomenal"],
                     "correctAnswer": "phenomenal"
                 },
                 {
-                    "options": [
-                        "strategy",
-                        "deputy",
-                        "heartbroken",
-                        "relatively"
-                    ],
+                    "options": ["strategy", "deputy", "heartbroken", "relatively"],
                     "correctAnswer": "relatively"
                 },
                 {
-                    "options": [
-                        "craziness",
-                        "motherly",
-                        "balancing",
-                        "earthworm"
-                    ],
+                    "options": ["craziness", "motherly", "balancing", "earthworm"],
                     "correctAnswer": "earthworm"
                 },
                 {
-                    "options": [
-                        "privately",
-                        "wondering",
-                        "triangle",
-                        "adequately"
-                    ],
+                    "options": ["privately", "wondering", "triangle", "adequately"],
                     "correctAnswer": "adequately"
                 },
                 {
-                    "options": [
-                        "panicking",
-                        "chemicals",
-                        "politics",
-                        "business"
-                    ],
+                    "options": ["panicking", "chemicals", "politics", "business"],
                     "correctAnswer": "business"
                 },
                 {
-                    "options": [
-                        "sensible",
-                        "president",
-                        "substitute",
-                        "unhelpfully"
-                    ],
+                    "options": ["sensible", "president", "substitute", "unhelpfully"],
                     "correctAnswer": "unhelpfully"
                 },
                 {
-                    "options": [
-                        "sausage",
-                        "chicken",
-                        "pieces",
-                        "casserole"
-                    ],
+                    "options": ["sausage", "chicken", "pieces", "casserole"],
                     "correctAnswer": "casserole"
                 },
                 {
-                    "options": [
-                        "overseas",
-                        "activate",
-                        "contestants",
-                        "feline"
-                    ],
+                    "options": ["overseas", "activate", "contestants", "feline"],
                     "correctAnswer": "feline"
                 }
             ]
