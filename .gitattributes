@@ -1,4 +1,2 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-public/media/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
-public/media/**/*.mp3 !text !filter !merge !diff
