@@ -82,7 +82,7 @@
         "react-i18next": "^15.5.2",
         "react-icons": "^5.5.0",
         "react-loading-skeleton": "^3.5.0",
-        "react-router-dom": "^7.14.2",
+        "react-router-dom": "^7.18.0",
         "rollup-plugin-visualizer": "^6.0.0",
         "sonner": "^2.0.3",
         "tailwindcss": "^4.1.7",
